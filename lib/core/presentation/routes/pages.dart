@@ -155,7 +155,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.responsiveLayout,
-      page: () => ResponsiveLayout(),
+      page: () => const ResponsiveLayout(),
       // bindings: <Bindings>[
       // MainBindings(),
       // SplashBindings(),

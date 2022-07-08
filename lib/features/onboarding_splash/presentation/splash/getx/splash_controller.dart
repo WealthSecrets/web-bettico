@@ -43,11 +43,11 @@ class SplashController extends GetxController {
     final Either<Failure, bool> failureOrOnboarded =
         await getOnBoard(NoParams());
     failureOrOnboarded.fold((Failure failure) {
-      print('Inside :validateOnBoard: method failed');
+      debugPrint('Inside :validateOnBoard: method failed');
       navigationController.navigateTo(AppRoutes.onboard);
       Get.offAll<void>(webNavigator());
     }, (bool isOnboarded) {
-      print('Inside :validateOnBoard: method passed');
+      debugPrint('Inside :validateOnBoard: method passed');
       isUserAuthenticated(context);
     });
   }
@@ -57,11 +57,11 @@ class SplashController extends GetxController {
         await isAuthenticated(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      print('Inside :isUserAuthenticated: method failed');
+      debugPrint('Inside :isUserAuthenticated: method failed');
       navigationController.navigateTo(AppRoutes.login);
       Get.offAll<void>(webNavigator());
     }, (bool respone) {
-      print('Inside :isUserAuthenticated: method passed');
+      debugPrint('Inside :isUserAuthenticated: method passed');
       if (respone) {
         validateUserSession(context);
       } else {
@@ -76,7 +76,7 @@ class SplashController extends GetxController {
         await validateSession(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      print('Inside :validateUserSession: method failed');
+      debugPrint('Inside :validateUserSession: method failed');
       navigationController.navigateTo(AppRoutes.login);
       Get.offAll<void>(webNavigator());
     }, (User user) {

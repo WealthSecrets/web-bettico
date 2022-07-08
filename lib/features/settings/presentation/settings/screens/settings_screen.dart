@@ -3,6 +3,7 @@ import 'package:betticos/features/settings/presentation/settings/getx/settings_c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '/core/core.dart';
 
 class SettingsScreen extends KFDrawerContent {
@@ -74,6 +75,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     leading: const Icon(Icons.book_online_outlined),
                     title: Text('enable_tut'.tr),
                   ),
+                  SettingsTile.navigation(
+                    title: const Text('Certik'),
+                    onPressed: (BuildContext context) {
+                      _launchURL(
+                          'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view');
+                    },
+                  ),
+                  SettingsTile.navigation(
+                    title: const Text('Audit'),
+                    onPressed: (BuildContext context) {
+                      _launchURL(
+                          'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view');
+                    },
+                  ),
+                  SettingsTile.navigation(
+                    title: const Text('Whitepaper'),
+                    onPressed: (BuildContext context) {
+                      _launchURL(
+                          'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW');
+                    },
+                  ),
+                  SettingsTile.navigation(
+                    title: const Text('Store'),
+                    onPressed: (BuildContext context) {
+                      _launchURL('https://wealthsecrets.store/');
+                    },
+                  ),
+                  SettingsTile.navigation(
+                    title: const Text('Advertise'),
+                    onPressed: (BuildContext context) {
+                      _launchURL(
+                          'https://www.wealthsecrets.io/advertiseRequest');
+                    },
+                  ),
                 ],
               ),
             ],
@@ -81,5 +116,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    if (!await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

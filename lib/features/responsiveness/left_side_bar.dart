@@ -10,7 +10,8 @@ import 'package:ionicons/ionicons.dart';
 // import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
-import '../../core/presentation/routes/side_menu_routes.dart';
+import '../../core/presentation/routes/side_menu_routes.dart'
+    as side_menu_routes;
 import '../../core/presentation/utils/app_endpoints.dart';
 import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import 'constants/web_controller.dart';
@@ -58,9 +59,9 @@ class LeftSideBar extends StatelessWidget {
         Divider(color: context.colors.lightGrey.withOpacity(.1)),
         Column(
           mainAxisSize: MainAxisSize.min,
-          children: sideMenuItemRoutes
+          children: side_menu_routes.sideMenuItemRoutes
               .map(
-                (MenuItem item) => SideMenuItem(
+                (side_menu_routes.MenuItem item) => SideMenuItem(
                   name: item.name,
                   route: item.route,
                   onTap: () {
