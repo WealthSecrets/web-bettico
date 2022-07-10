@@ -1,3 +1,5 @@
+import 'dart:js' as js;
+
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:flutter/gestures.dart';
@@ -6,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
@@ -387,7 +388,8 @@ class LoginScreen extends GetWidget<LoginController> {
                             width: 100,
                             child: TextButton(
                               onPressed: () {
-                                _launchURL(footerLink['link'] as String);
+                                js.context.callMethod('open',
+                                    <String>[footerLink['link'] as String]);
                               },
                               child: Text(
                                 footerLink['text'] as String,
@@ -409,14 +411,5 @@ class LoginScreen extends GetWidget<LoginController> {
         ),
       );
     });
-  }
-
-  void _launchURL(String url) async {
-    print('the url: $url');
-    if (!await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
