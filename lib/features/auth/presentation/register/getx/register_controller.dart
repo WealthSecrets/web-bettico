@@ -204,16 +204,21 @@ class RegisterController extends GetxController {
 
   void registerWithGoogleAuth(BuildContext context) async {
     type('google');
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    if (googleSignInAccount != null) {
-      final String googleEmail = googleSignInAccount.email;
-      email(googleEmail);
-      final String? displayName = googleSignInAccount.displayName;
-      if (displayName != null) {
-        username(displayName);
+
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final String googleEmail = googleSignInAccount.email;
+        email(googleEmail);
+        final String? displayName = googleSignInAccount.displayName;
+        if (displayName != null) {
+          username(displayName);
+        }
+        register(context);
       }
-      register(context);
+    } catch (error) {
+      print('the error: $error');
     }
   }
 

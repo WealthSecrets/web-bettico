@@ -104,25 +104,27 @@ class _MembersScreenState extends State<MembersScreen> {
             ),
           ),
         ),
-        const AppSpacing(h: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 '${user.firstName} ${user.lastName}',
-                style: context.sub1.copyWith(
+                style: const TextStyle(
+                  fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
                 '@${user.username}',
-                style: context.caption.copyWith(
+                style: TextStyle(
+                  fontSize: 12,
                   color: context.colors.grey,
                 ),
               ),
-              const AppSpacing(v: 5),
+              const SizedBox(height: 5),
             ],
           ),
         ),
@@ -139,7 +141,8 @@ class _MembersScreenState extends State<MembersScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Text(
               'follow'.tr,
-              style: context.body1.copyWith(
+              style: const TextStyle(
+                fontSize: 14,
                 color: Colors.black,
               ),
             ),

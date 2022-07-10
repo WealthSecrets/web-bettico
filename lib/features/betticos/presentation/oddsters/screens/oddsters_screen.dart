@@ -237,7 +237,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
                     fontSize: 12,
                   ),
                 ),
-                const AppSpacing(v: 5),
+                const SizedBox(height: 5),
               ],
             ),
           ),

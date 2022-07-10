@@ -290,14 +290,16 @@ class BaseScreenState extends State<BaseScreen> {
                       children: <Widget>[
                         Text(
                           '${controller.user.value.firstName} ${controller.user.value.lastName}',
-                          style: context.caption.copyWith(
+                          style: const TextStyle(
+                            fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '@${controller.user.value.username}',
-                          style: context.overline.copyWith(
+                          style: const TextStyle(
+                            fontSize: 10,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
