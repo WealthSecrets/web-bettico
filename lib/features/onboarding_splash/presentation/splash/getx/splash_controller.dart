@@ -61,7 +61,6 @@ class SplashController extends GetxController {
       navigationController.navigateTo(AppRoutes.login);
       Get.offAll<void>(webNavigator());
     }, (bool respone) {
-      debugPrint('Inside :isUserAuthenticated: method passed');
       if (respone) {
         validateUserSession(context);
       } else {

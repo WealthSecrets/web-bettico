@@ -11,4 +11,5 @@ class AuthEndpoints {
   static const String updatePhoto = 'users/updatePhoto';
   static const String validate = 'users/validate';
   static const String signout = 'users/logout';
+  static const String verifyUser = 'users/oAuthVerify';
 }

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:socket_io_client/socket_io_client.dart' as io;
+// import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '/core/core.dart';
 // import '/core/presentation/services/notification_service.dart';
@@ -104,12 +104,12 @@ class TimelineController extends GetxController {
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final ProfileController pController = Get.find<ProfileController>();
 
-  io.Socket? socket;
+  // io.Socket? socket;
 
   @override
   void onInit() {
     // notificationService.initialize();
-    connectAndListen();
+    // connectAndListen();
     pagingController.value.addPageRequestListener((int pageKey) {
       getPaginatedPosts(pageKey);
     });
@@ -117,27 +117,27 @@ class TimelineController extends GetxController {
     super.onInit();
   }
 
-  void connectAndListen() {
-    socket = io.io(
-      environment.isProduction
-          ? 'http://api.wealthsecrets.io:8000'
-          : 'http://192.168.0.117:8000',
-      io.OptionBuilder().setTransports(<String>['websocket']).build(),
-    );
-    socket?.onConnect((dynamic _) async {
-      socket?.on('post-added-${bController.user.value.id}', postAddedListener);
-      socket?.on('post-liked-${bController.user.value.id}', postLikedListener);
-      socket?.on('post-commented-${bController.user.value.id}',
-          postCommentedOnListener);
-      socket?.on('follow-${bController.user.value.id}-user', followListener);
-      socket?.on(
-          'follow-${bController.user.value.id}-follower', followerListener);
-      socket?.on(
-          'subscribe-${bController.user.value.id}', subscriptionListener);
-      socket?.on(
-          'user-blocked-${bController.user.value.id}', userBlockedListener);
-    });
-  }
+  // void connectAndListen() {
+  //   socket = io.io(
+  //     environment.isProduction
+  //         ? 'http://api.wealthsecrets.io:8000'
+  //         : 'http://192.168.0.117:8000',
+  //     io.OptionBuilder().setTransports(<String>['websocket']).build(),
+  //   );
+  //   socket?.onConnect((dynamic _) async {
+  //     socket?.on('post-added-${bController.user.value.id}', postAddedListener);
+  //     socket?.on('post-liked-${bController.user.value.id}', postLikedListener);
+  //     socket?.on('post-commented-${bController.user.value.id}',
+  //         postCommentedOnListener);
+  //     socket?.on('follow-${bController.user.value.id}-user', followListener);
+  //     socket?.on(
+  //         'follow-${bController.user.value.id}-follower', followerListener);
+  //     socket?.on(
+  //         'subscribe-${bController.user.value.id}', subscriptionListener);
+  //     socket?.on(
+  //         'user-blocked-${bController.user.value.id}', userBlockedListener);
+  //   });
+  // }
 
   void postAddedListener(dynamic data) async {
     final Post newPost = Post.fromJson(data as Map<String, dynamic>);

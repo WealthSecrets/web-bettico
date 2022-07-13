@@ -11,4 +11,5 @@ class AssetImages {
   static String chelsea = 'assets/images/chelsea.png';
   static String leicester = 'assets/images/leicester.png';
   static String manchester = 'assets/images/manchester.png';
+  static String verified = 'assets/images/verified.jpeg';
 }

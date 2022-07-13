@@ -1,5 +1,6 @@
 import 'package:betticos/features/auth/domain/requests/resend_email/resend_email_request.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
+import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 
 import '/core/utils/http_client.dart';
 import '/features/auth/data/models/responses/auth_response/auth_response.dart';
@@ -17,6 +18,7 @@ import '/features/betticos/domain/requests/update_request/update_request.dart';
 
 abstract class AuthRemoteDataSource {
   Future<AuthResponse> login(LoginRequest request);
+  Future<AuthResponse> verifyUser(VerifyUserRequest request);
   Future<User> forgotPassword(ForgotRequest request);
   Future<User> updateProfile(UpdateRequest request);
   Future<AuthResponse> resetPassword(

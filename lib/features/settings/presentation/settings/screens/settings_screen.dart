@@ -1,4 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,17 +36,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
-            onPressed: widget.onMenuPressed,
-          ),
+          automaticallyImplyLeading:
+              !ResponsiveWidget.isSmallScreen(context) ? true : false,
+          leading: ResponsiveWidget.isSmallScreen(context)
+              ? IconButton(
+                  icon: const Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                  ),
+                  onPressed: widget.onMenuPressed,
+                )
+              : null,
           title: Text(
             'settings'.tr,
-            style: context.body1.copyWith(
+            style: const TextStyle(
+              fontSize: 16,
               color: Colors.black,
             ),
           ),

@@ -96,17 +96,21 @@ class LoginController extends GetxController {
           webNavigator(),
           arguments: UserArgument(user: user),
         );
-      } else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
-        if (user.phone != null) {
-          resendOTPSms(context, user.phone!);
-        } else {
-          navigationController.navigateTo(AppRoutes.personalInformation);
-          Get.to<void>(
-            webNavigator(),
-            arguments: UserArgument(user: user),
-          );
-        }
-      } else if (user.identification == null) {
+      }
+
+      // else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
+      //   if (user.phone != null) {
+      //     resendOTPSms(context, user.phone!);
+      //   } else {
+      //     navigationController.navigateTo(AppRoutes.personalInformation);
+      //     Get.to<void>(
+      //       webNavigator(),
+      //       arguments: UserArgument(user: user),
+      //     );
+      //   }
+      // }
+
+      else if (user.identification == null) {
         navigationController.navigateTo(AppRoutes.documentScreen);
         Get.to<void>(webNavigator());
       } else if (user.photo == null) {

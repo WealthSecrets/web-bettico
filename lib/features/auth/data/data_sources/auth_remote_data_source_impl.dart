@@ -1,5 +1,6 @@
 import 'package:betticos/features/auth/domain/requests/resend_email/resend_email_request.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
+import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 
 import '/core/core.dart';
 import '/features/auth/data/models/responses/auth_response/auth_response.dart';
@@ -71,6 +72,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
 
     return User.fromJson(json['user'] as Map<String, dynamic>);
+  }
+
+  @override
+  Future<AuthResponse> verifyUser(VerifyUserRequest request) async {
+    final Map<String, dynamic> json = await _client.post(
+      AuthEndpoints.verifyUser,
+      body: request.toJson(),
+    );
+    final AuthResponse authResponse = AuthResponse.fromJson(json);
+    return authResponse;
   }
 
   @override

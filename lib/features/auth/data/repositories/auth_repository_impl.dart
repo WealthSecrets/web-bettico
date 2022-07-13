@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
+import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
@@ -34,6 +35,18 @@ class AuthRepositoryImpl extends Repository implements AuthRepository {
   Future<Either<Failure, User>> login(LoginRequest request) async {
     final Either<Failure, AuthResponse> response =
         await makeRequest(authRemoteDataSource.login(request));
+    return response.fold((Failure failure) => left(failure),
+        (AuthResponse response) async {
+      await authLocalDataSource.persistAuthResponse(response);
+      await authLocalDataSource.persistUserData(response.user);
+      return right(response.user);
+    });
+  }
+
+  @override
+  Future<Either<Failure, User>> verifyUser(VerifyUserRequest request) async {
+    final Either<Failure, AuthResponse> response =
+        await makeRequest(authRemoteDataSource.verifyUser(request));
     return response.fold((Failure failure) => left(failure),
         (AuthResponse response) async {
       await authLocalDataSource.persistAuthResponse(response);

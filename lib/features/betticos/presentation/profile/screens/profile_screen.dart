@@ -234,10 +234,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           const AppSpacing(h: 5),
-                          Icon(
-                            Ionicons.football_outline,
-                            color: context.colors.primary,
-                            size: 14,
+                          Image.asset(
+                            AssetImages.verified,
+                            height: 14,
+                            width: 14,
                           ),
                         ],
                       ),

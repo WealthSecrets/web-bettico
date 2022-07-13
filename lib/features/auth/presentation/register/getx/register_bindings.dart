@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
+import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
 import 'package:get/get.dart';
 
 import '/features/auth/domain/usecases/register_user.dart';
@@ -70,6 +71,9 @@ class RegisterBindings {
           authRepository: Get.find(),
         ),
         updateUserRole: UpdateUserRole(
+          authRepository: Get.find(),
+        ),
+        verifyUser: VerifyUser(
           authRepository: Get.find(),
         ),
       ),

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
+import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
+import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,7 @@ class RegisterController extends GetxController {
     required this.registerUser,
     required this.verifySms,
     required this.verifyEmail,
+    required this.verifyUser,
     required this.updateProfile,
     required this.sendSms,
     required this.uploadIdentifcation,
@@ -54,6 +57,7 @@ class RegisterController extends GetxController {
   final UploadIdentifcation uploadIdentifcation;
   final UpdateUserProfilePhoto updateUserProfilePhoto;
   final UpdateUserRole updateUserRole;
+  final VerifyUser verifyUser;
 
   // reactive variables
   RxBool isSignUpAsOddster = false.obs;
@@ -65,6 +69,7 @@ class RegisterController extends GetxController {
   RxString referralCode = ''.obs;
   RxString username = ''.obs;
   RxString phone = ''.obs;
+  RxString photo = ''.obs;
   RxString role = ''.obs;
   RxString type = 'email'.obs;
   RxString password = ''.obs;
@@ -85,6 +90,7 @@ class RegisterController extends GetxController {
   RxBool isAddingDocument = false.obs;
   RxBool isAddingProfileImage = false.obs;
   RxBool isUpdatingUserRole = false.obs;
+  RxBool isCheckingUserExistence = false.obs;
 
   // enums reactive variables
   Rx<AccountType> accountType = AccountType.personal.obs;
@@ -202,7 +208,8 @@ class RegisterController extends GetxController {
     });
   }
 
-  void registerWithGoogleAuth(BuildContext context) async {
+  void registerWithGoogleAuth(BuildContext context,
+      {bool isRequestFromLogin = false}) async {
     type('google');
 
     try {
@@ -210,15 +217,37 @@ class RegisterController extends GetxController {
           await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String googleEmail = googleSignInAccount.email;
-        email(googleEmail);
         final String? displayName = googleSignInAccount.displayName;
+        final String? photoUrl = googleSignInAccount.photoUrl;
+        final GoogleSignInAuthentication kd =
+            await googleSignInAccount.authentication;
+        email(googleEmail);
         if (displayName != null) {
           username(displayName);
         }
-        register(context);
+        if (photoUrl != null) {
+          photo(photoUrl);
+        }
+        if (kd.idToken != null) {
+          final Either<Failure, User> failureOrSuccess = await verifyUser(
+            VerifyUserRequest(email: googleEmail, token: kd.idToken!),
+          );
+          failureOrSuccess.fold((Failure failure) {
+            AppSnacks.show(
+              context,
+              message: failure.message,
+            );
+          }, (User user) {
+            lController.controller.user(user);
+            lController.reRouteOddster(context, user);
+          });
+        }
       }
     } catch (error) {
-      print('the error: $error');
+      await AppSnacks.show(
+        context,
+        message: 'Failed to authenticate with Google',
+      );
     }
   }
 

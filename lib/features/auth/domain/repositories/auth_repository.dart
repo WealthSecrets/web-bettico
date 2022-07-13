@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
@@ -17,6 +18,7 @@ import '/features/betticos/domain/requests/update_request/update_request.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure, User>> login(LoginRequest request);
+  Future<Either<Failure, User>> verifyUser(VerifyUserRequest request);
   Future<Either<Failure, User>> forgotPassword(ForgotRequest request);
   Future<Either<Failure, User>> validateSession();
   Future<Either<Failure, User>> resetPassword(ResetRequest request);
