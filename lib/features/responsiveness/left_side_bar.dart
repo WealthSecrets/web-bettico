@@ -1,5 +1,7 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
 // import 'package:betticos/features/responsiveness/side_menu.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
 // import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
@@ -9,53 +11,29 @@ import 'package:ionicons/ionicons.dart';
 // import 'package:get/get.dart';
 // import 'package:ionicons/ionicons.dart';
 
-import '../../core/presentation/helpers/responsiveness.dart';
+// import '../../core/presentation/helpers/responsiveness.dart';
 import '../../core/presentation/routes/side_menu_routes.dart'
     as side_menu_routes;
 import '../../core/presentation/utils/app_endpoints.dart';
 import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import 'constants/web_controller.dart';
-import 'custom_text.dart';
+// import 'custom_text.dart';
 
 class LeftSideBar extends StatelessWidget {
-  LeftSideBar({Key? key}) : super(key: key);
+  LeftSideBar({
+    Key? key,
+    required this.ctx,
+  }) : super(key: key);
+  final BuildContext ctx;
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width;
     return ListView(
       padding: AppPaddings.lA,
       children: <Widget>[
-        if (!ResponsiveWidget.isSmallScreen(context))
-          _buildUserInfoContainer(context),
+        _buildUserInfoContainer(ctx),
         const SizedBox(height: 8),
-        if (ResponsiveWidget.isSmallScreen(context))
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SizedBox(height: 40),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: _width / 48),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Image.asset('assets/images/logo.png'),
-                  ),
-                  Flexible(
-                    child: CustomText(
-                      text: 'Bettico',
-                      size: 20,
-                      weight: FontWeight.bold,
-                      color: context.colors.primary,
-                    ),
-                  ),
-                  SizedBox(width: _width / 48),
-                ],
-              ),
-              const SizedBox(height: 30),
-            ],
-          ),
         Divider(color: context.colors.lightGrey.withOpacity(.1)),
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -65,16 +43,13 @@ class LeftSideBar extends StatelessWidget {
                   name: item.name,
                   route: item.route,
                   onTap: () {
-                    if (item.route == AppRoutes.login) {
+                    if (item.route == LoginScreen.route) {
                       showLogoutDialog(context);
                       // menuController.changeActiveItemTo(AppRoutes.timeline);
                     }
                     if (!menuController.isActive(item.route)) {
                       menuController.changeActiveItemTo(item.route);
-                      if (ResponsiveWidget.isSmallScreen(context)) {
-                        Get.back<void>();
-                      }
-                      navigationController.navigateTo(item.route);
+                      Get.toNamed<void>(item.route);
                     }
                   },
                 ),
@@ -85,7 +60,7 @@ class LeftSideBar extends StatelessWidget {
     );
   }
 
-  Widget _buildUserInfoContainer(BuildContext context) {
+  Widget _buildUserInfoContainer(BuildContext ctx) {
     return Container(
       width: double.infinity,
       padding: AppPaddings.lH.add(AppPaddings.mV),
@@ -99,7 +74,7 @@ class LeftSideBar extends StatelessWidget {
         //   )
         // ],
         border: Border.all(
-          color: context.colors.faintGrey,
+          color: ctx.colors.faintGrey,
           width: 1,
           style: BorderStyle.solid,
         ),
@@ -109,7 +84,7 @@ class LeftSideBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
-            onTap: () => navigationController.navigateTo(AppRoutes.login),
+            onTap: () => Get.toNamed<void>(ProfileScreen.route),
             child: Container(
               height: 40,
               width: 40,
@@ -147,7 +122,7 @@ class LeftSideBar extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: context.colors.text,
+                    color: ctx.colors.text,
                   ),
                 ),
               ],
@@ -157,7 +132,7 @@ class LeftSideBar extends StatelessWidget {
           GestureDetector(
             onTap: () {
               showAppModal<void>(
-                context: context,
+                context: ctx,
                 builder: (BuildContext context) {
                   return Center(
                     child: SizedBox(
@@ -176,7 +151,7 @@ class LeftSideBar extends StatelessWidget {
               height: 30,
               padding: AppPaddings.lH.add(AppPaddings.mV),
               decoration: BoxDecoration(
-                color: context.colors.primary,
+                color: ctx.colors.primary,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: const Center(

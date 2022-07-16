@@ -1,5 +1,5 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'package:ionicons/ionicons.dart';
@@ -38,7 +38,8 @@ class TimeCard extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: context.colors.text,
-                fontSize: ResponsiveWidget.isSmallScreen(context) ? 10 : 12,
+                // fontSize: ResponsiveWidget.isSmallScreen(context) ? 10 : 12,
+                fontSize: 12,
               ),
             ),
           ],

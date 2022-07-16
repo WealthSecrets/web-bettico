@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ import '../../../data/models/user/user.dart';
 
 class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
   const RegistrationAccountTypeScreen({Key? key}) : super(key: key);
+  static const String route = '/register/account-type';
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +107,9 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.primary,
                         onPressed: () {
-                          Get.toNamed<void>(AppRoutes.registration);
+                          Get.toNamed<void>(
+                            RegistrationScreen.route,
+                          );
                         },
                         child: Text(
                           'next'.tr.toUpperCase(),

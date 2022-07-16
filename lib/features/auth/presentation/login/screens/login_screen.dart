@@ -1,13 +1,14 @@
 import 'dart:js' as js;
 
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
@@ -15,9 +16,11 @@ import '/features/auth/presentation/login/getx/login_controller.dart';
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
 
+  static const String route = '/login';
+
   final RegisterController rController = Get.find<RegisterController>();
 
-  List<Map<String, dynamic>> footerLinks = [
+  final List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
       'text': 'Certik',
       'link':
@@ -52,9 +55,10 @@ class LoginScreen extends GetWidget<LoginController> {
             children: <Widget>[
               Center(
                 child: SizedBox(
-                  width: ResponsiveWidget.isSmallScreen(context)
-                      ? double.infinity
-                      : 400,
+                  // width: ResponsiveWidget.isSmallScreen(context)
+                  //     ? double.infinity
+                  //     : 400,
+                  width: 400,
                   child: Column(
                     children: <Widget>[
                       SingleChildScrollView(
@@ -65,10 +69,11 @@ class LoginScreen extends GetWidget<LoginController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              if (ResponsiveWidget.isSmallScreen(context))
-                                const SizedBox(height: 20),
-                              if (!ResponsiveWidget.isSmallScreen(context))
-                                const SizedBox(height: 100),
+                              // if (ResponsiveWidget.isSmallScreen(context))
+                              //   const SizedBox(height: 20),
+                              // if (!ResponsiveWidget.isSmallScreen(context))
+                              // const SizedBox(height: 100),
+                              const SizedBox(height: 100),
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: TextButton(
@@ -92,15 +97,15 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                 ),
                               ),
-                              if (ResponsiveWidget.isSmallScreen(context))
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: SvgPicture.asset(
-                                    AssetSVGs.logo.path,
-                                    height: 80,
-                                    color: context.colors.secondary,
-                                  ),
-                                ),
+                              // if (ResponsiveWidget.isSmallScreen(context))
+                              //   Align(
+                              //     alignment: Alignment.topRight,
+                              //     child: SvgPicture.asset(
+                              //       AssetSVGs.logo.path,
+                              //       height: 80,
+                              //       color: context.colors.secondary,
+                              //     ),
+                              //   ),
                               const SizedBox(height: 10),
                               Align(
                                 alignment: Alignment.center,
@@ -245,7 +250,9 @@ class LoginScreen extends GetWidget<LoginController> {
                                     text: 'forgot_pass'.tr,
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Get.toNamed<void>(AppRoutes.forgot);
+                                        Get.toNamed<void>(
+                                          ForgotPasswordScreen.route,
+                                        );
                                       },
                                     style: TextStyle(
                                       color: context.colors.error,
@@ -330,8 +337,9 @@ class LoginScreen extends GetWidget<LoginController> {
                               ),
                               const SizedBox(height: 16),
                               TextButton(
-                                onPressed: () =>
-                                    Get.toNamed<void>(AppRoutes.registration),
+                                onPressed: () {
+                                  Get.offAll<void>(RegistrationScreen.route);
+                                },
                                 child: Center(
                                   child: RichText(
                                     textAlign: TextAlign.center,
@@ -349,8 +357,8 @@ class LoginScreen extends GetWidget<LoginController> {
                                           text: 'register_now'.tr,
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              Get.toNamed<void>(
-                                                  AppRoutes.accountType);
+                                              Get.offAll<void>(
+                                                  RegistrationScreen.route);
                                             },
                                           style: TextStyle(
                                             color: context.colors.primary,

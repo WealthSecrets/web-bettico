@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +12,7 @@ import '/features/betticos/presentation/referral/getx/referral_controller.dart';
 
 class ReferralScreen extends KFDrawerContent {
   ReferralScreen({Key? key}) : super(key: key);
+  static const String route = '/refer';
   @override
   State<ReferralScreen> createState() => _ReferralScreenState();
 }
@@ -40,15 +41,16 @@ class _ReferralScreenState extends State<ReferralScreen> {
             fontSize: 16,
           ),
         ),
-        leading: ResponsiveWidget.isSmallScreen(context)
-            ? IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ),
-                onPressed: widget.onMenuPressed,
-              )
-            : null,
+        automaticallyImplyLeading: true,
+        // leading: ResponsiveWidget.isSmallScreen(context)
+        //     ? IconButton(
+        //         icon: const Icon(
+        //           Icons.menu,
+        //           color: Colors.black,
+        //         ),
+        //         onPressed: widget.onMenuPressed,
+        //       )
+        //     : null,
       ),
       body: Obx(
         () => AppLoadingBox(

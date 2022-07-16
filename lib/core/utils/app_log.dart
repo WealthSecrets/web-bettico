@@ -4,7 +4,7 @@ import 'dart:io' as io;
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import 'environment.dart';
+// import 'environment.dart';
 
 class AppLog {
   AppLog._();
@@ -20,7 +20,7 @@ class AppLog {
 }
 
 void _debugLog(Object? object) {
-  if (isTesting || !kDebugMode) {
+  if (!kDebugMode) {
     return;
   }
 

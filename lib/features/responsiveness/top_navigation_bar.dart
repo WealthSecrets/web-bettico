@@ -1,39 +1,50 @@
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/presentation/helpers/responsiveness.dart';
+// import '../../core/presentation/helpers/responsiveness.dart';
 import 'custom_text.dart';
 
 AppBar topNavigationBar(
     BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
   return AppBar(
     elevation: 0,
-    leading: !ResponsiveWidget.isSmallScreen(context)
-        ? Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(left: 14),
-                child: Image.asset(
-                  'assets/images/timeline_bg.jpeg',
-                  width: 28,
-                ),
-              ),
-            ],
-          )
-        : IconButton(
-            onPressed: () {
-              scaffoldKey.currentState?.openDrawer();
-            },
-            icon: const Icon(
-              Icons.menu,
-            ),
+    // leading: !ResponsiveWidget.isSmallScreen(context)
+    //     ? Row(
+    //         children: <Widget>[
+    //           Container(
+    //             padding: const EdgeInsets.only(left: 14),
+    //             child: Image.asset(
+    //               'assets/images/timeline_bg.jpeg',
+    //               width: 28,
+    //             ),
+    //           ),
+    //         ],
+    //       )
+    //     : IconButton(
+    //         onPressed: () {
+    //           scaffoldKey.currentState?.openDrawer();
+    //         },
+    //         icon: const Icon(
+    //           Icons.menu,
+    //         ),
+    //       ),
+    leading: Row(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.only(left: 14),
+          child: Image.asset(
+            'assets/images/timeline_bg.jpeg',
+            width: 28,
           ),
+        ),
+      ],
+    ),
     backgroundColor: Colors.transparent,
     title: Row(
       children: <Widget>[
         Visibility(
           child: CustomText(
-            text: 'Bettico',
+            text: 'Betticos',
             color: context.colors.text,
             size: 20,
             weight: FontWeight.bold,

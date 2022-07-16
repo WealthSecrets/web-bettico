@@ -1,18 +1,22 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+// import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+import 'package:betticos/features/auth/presentation/auth_base_screen.dart';
+// import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/responsive_layout.dart';
+// import 'package:betticos/features/responsiveness/layout_template.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/errors/failure.dart';
-import '/core/presentation/routes/app_routes.dart';
+// import '/core/presentation/routes/app_routes.dart';
 import '/core/usecase/usecase.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/auth/domain/usecases/is_authenticated.dart';
 import '/features/auth/domain/usecases/validate_session.dart';
 import '/features/onboarding_splash/domain/usecases/get_onboard.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
+// import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class SplashController extends GetxController {
   SplashController({
@@ -44,8 +48,8 @@ class SplashController extends GetxController {
         await getOnBoard(NoParams());
     failureOrOnboarded.fold((Failure failure) {
       debugPrint('Inside :validateOnBoard: method failed');
-      navigationController.navigateTo(AppRoutes.onboard);
-      Get.offAll<void>(webNavigator());
+      navigationController.navigateTo(OnboardingScreen.route);
+      // Get.offAll<void>(webNavigator());
     }, (bool isOnboarded) {
       debugPrint('Inside :validateOnBoard: method passed');
       isUserAuthenticated(context);
@@ -53,19 +57,20 @@ class SplashController extends GetxController {
   }
 
   void isUserAuthenticated(BuildContext context) async {
+    print('the authentication method is called: ');
     final Either<Failure, bool> failureOrUser =
         await isAuthenticated(NoParams());
 
     failureOrUser.fold((Failure failure) {
       debugPrint('Inside :isUserAuthenticated: method failed');
-      navigationController.navigateTo(AppRoutes.login);
-      Get.offAll<void>(webNavigator());
+      navigationController.navigateTo(AuthBaseScreen.route);
+      // Get.offAll<void>(webNavigator());
     }, (bool respone) {
       if (respone) {
         validateUserSession(context);
       } else {
-        navigationController.navigateTo(AppRoutes.login);
-        Get.offAll<void>(webNavigator());
+        navigationController.navigateTo(AuthBaseScreen.route);
+        // Get.offAll<void>(webNavigator());
       }
     });
   }
@@ -76,19 +81,19 @@ class SplashController extends GetxController {
 
     failureOrUser.fold((Failure failure) {
       debugPrint('Inside :validateUserSession: method failed');
-      navigationController.navigateTo(AppRoutes.login);
-      Get.offAll<void>(webNavigator());
+      navigationController.navigateTo(AuthBaseScreen.route);
+      // Get.offAll<void>(webNavigator());
     }, (User user) {
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        navigationController.navigateTo(AppRoutes.base);
-        Get.offAll<void>(webNavigator());
-      } else {
-        // navigationController.navigateTo(AppRoutes.responsiveLayout);
+      // if (ResponsiveWidget.isSmallScreen(context)) {
+      //   navigationController.navigateTo(AppRoutes.base);
+      //   // Get.offAll<void>(webNavigator());
+      // } else {
+      // navigationController.navigateTo(AppRoutes.responsiveLayout);
 
-        Get.offAll<void>(const ResponsiveLayout());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
-      }
+      // Get.offAll<void>(const ResponsiveLayout());
+      navigationController.navigateTo(TimelineScreen.route);
+      menuController.changeActiveItemTo(TimelineScreen.route);
+      // }
     });
   }
 }

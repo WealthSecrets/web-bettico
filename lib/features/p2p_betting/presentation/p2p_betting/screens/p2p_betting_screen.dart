@@ -24,6 +24,7 @@ enum ConnectionState {
 
 class P2PBettingScreen extends StatefulWidget {
   const P2PBettingScreen({Key? key}) : super(key: key);
+  static const String route = '/p2p-betting';
 
   @override
   State<StatefulWidget> createState() => _P2PBettingScreenState();

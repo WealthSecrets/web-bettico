@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/arguments/add_post_comment_argument.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
@@ -18,6 +18,7 @@ import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 
 class TimelinePostScreen extends StatefulWidget {
   const TimelinePostScreen({Key? key}) : super(key: key);
+  static const String route = '/home/post';
   @override
   _TimelinePostScreenState createState() => _TimelinePostScreenState();
 }
@@ -49,9 +50,9 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
       final File imageTemporary = File(image.path);
       // setState(() => files.add(imageTemporary));
       timelineController.onFileChanged(imageTemporary);
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        Navigator.pop(context);
-      }
+      // if (ResponsiveWidget.isSmallScreen(context)) {
+      //   Navigator.pop(context);
+      // }
     } on PlatformException catch (e) {
       // ignore: avoid_print
       print('Failed : $e');
@@ -140,15 +141,15 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                       children: <Widget>[
                         IconButton(
                           onPressed: () {
-                            if (ResponsiveWidget.isSmallScreen(context)) {
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: ((BuildContext context) =>
-                                    bottomSheet()),
-                              );
-                            } else {
-                              takePhoto(ImageSource.camera, context);
-                            }
+                            // if (ResponsiveWidget.isSmallScreen(context)) {
+                            //   showModalBottomSheet<void>(
+                            //     context: context,
+                            //     builder: ((BuildContext context) =>
+                            //         bottomSheet()),
+                            //   );
+                            // } else {
+                            takePhoto(ImageSource.camera, context);
+                            // }
                           },
                           icon: Icon(
                             Ionicons.image_outline,
@@ -246,9 +247,10 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                           children: <Widget>[
                             Container(
                               height: 40,
-                              width: ResponsiveWidget.isSmallScreen(context)
-                                  ? MediaQuery.of(context).size.width - 32
-                                  : 600 - 32,
+                              // width: ResponsiveWidget.isSmallScreen(context)
+                              //     ? MediaQuery.of(context).size.width - 32
+                              //     : 600 - 32,
+                              width: 568,
                               padding: AppPaddings.lL,
                               decoration: BoxDecoration(
                                 color: context.colors.lightGrey,
@@ -358,8 +360,10 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         children: <Widget>[
           const Spacer(),
           SizedBox(
-            width: ResponsiveWidget.isSmallScreen(context) ? null : 400,
-            height: ResponsiveWidget.isSmallScreen(context) ? null : 300,
+            // width: ResponsiveWidget.isSmallScreen(context) ? null : 400,
+            width: 400,
+            // height: ResponsiveWidget.isSmallScreen(context) ? null : 300,
+            height: 300,
             child: AppTextDailogModal(
               controller: textController,
               modalContext: context,

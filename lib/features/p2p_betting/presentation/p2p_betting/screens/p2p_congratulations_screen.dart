@@ -12,6 +12,8 @@ class P2PBettingCongratScreen extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  static const String route = '/p2p-bet/success';
+
   @override
   _P2PBettingCongratScreenState createState() =>
       _P2PBettingCongratScreenState();

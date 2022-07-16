@@ -12,6 +12,8 @@ class PostDetailsScreen extends StatefulWidget {
   PostDetailsScreen({Key? key, required this.post, this.thePrevPost})
       : super(key: key);
 
+  static const String route = '/post/details';
+
   Post post;
   Post? thePrevPost;
 

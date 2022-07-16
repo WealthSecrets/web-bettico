@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/widgets/oddsters_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ import '../../profile/widgets/circle_indicator.dart';
 
 class OddstersScreen extends KFDrawerContent {
   OddstersScreen({Key? key}) : super(key: key);
+  static const String route = '/oddsters';
   @override
   State<OddstersScreen> createState() => _OddstersScreenState();
 }
@@ -101,8 +102,9 @@ class _OddstersScreenState extends State<OddstersScreen> {
       floating: false,
       pinned: true,
       elevation: 0,
-      automaticallyImplyLeading:
-          ResponsiveWidget.isSmallScreen(context) ? false : true,
+      // automaticallyImplyLeading:
+      //     ResponsiveWidget.isSmallScreen(context) ? false : true,
+      automaticallyImplyLeading: true,
       title: Text(
         'oddsters'.tr,
         style: const TextStyle(
@@ -110,15 +112,15 @@ class _OddstersScreenState extends State<OddstersScreen> {
           fontSize: 16,
         ),
       ),
-      leading: ResponsiveWidget.isSmallScreen(context)
-          ? IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              onPressed: widget.onMenuPressed,
-            )
-          : null,
+      // leading: ResponsiveWidget.isSmallScreen(context)
+      //     ? IconButton(
+      //         icon: const Icon(
+      //           Icons.menu,
+      //           color: Colors.black,
+      //         ),
+      //         onPressed: widget.onMenuPressed,
+      //       )
+      //     : null,
       actions: <Widget>[
         IconButton(
           onPressed: () {

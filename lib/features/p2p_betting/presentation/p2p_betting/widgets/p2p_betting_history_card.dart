@@ -1,4 +1,4 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
@@ -34,9 +34,10 @@ class P2PBettingHistoryCard extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Padding(
-          padding: ResponsiveWidget.isSmallScreen(context)
-              ? AppPaddings.lH
-              : AppPaddings.lV.add(AppPaddings.bodyH),
+          // padding: ResponsiveWidget.isSmallScreen(context)
+          //     ? AppPaddings.lH
+          //     : AppPaddings.lV.add(AppPaddings.bodyH),
+          padding: AppPaddings.lV.add(AppPaddings.bodyH),
           child: Column(
             children: <Widget>[
               Row(
@@ -56,20 +57,22 @@ class P2PBettingHistoryCard extends StatelessWidget {
                     child: Text(
                       bet.status.stringValue.toUpperCase(),
                       style: TextStyle(
-                        fontSize:
-                            ResponsiveWidget.isSmallScreen(context) ? 8 : 10,
+                        // fontSize:
+                        //     ResponsiveWidget.isSmallScreen(context) ? 8 : 10,
                         // fontWeight: FontWeight.w700,
-                        fontWeight: ResponsiveWidget.isSmallScreen(context)
-                            ? FontWeight.w700
-                            : FontWeight.normal,
+                        // fontWeight: ResponsiveWidget.isSmallScreen(context)
+                        //     ? FontWeight.w700
+                        //     : FontWeight.normal,
+                        fontWeight: FontWeight.normal,
                         color: bet.status.color(context),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+              const SizedBox(
+                // height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                height: 12,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,20 +125,23 @@ class P2PBettingHistoryCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height:
-                              ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                        const SizedBox(
+                          // height:
+                          //     ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                          height: 12,
                         ),
                         Text(
                           bet.awayTeam.name,
                           style: TextStyle(
                             color: context.colors.black,
-                            fontSize: ResponsiveWidget.isSmallScreen(context)
-                                ? 12
-                                : 14,
-                            fontWeight: ResponsiveWidget.isSmallScreen(context)
-                                ? FontWeight.bold
-                                : FontWeight.normal,
+                            // fontSize: ResponsiveWidget.isSmallScreen(context)
+                            //     ? 12
+                            //     : 14,
+                            fontSize: 14,
+                            // fontWeight: ResponsiveWidget.isSmallScreen(context)
+                            //     ? FontWeight.bold
+                            //     : FontWeight.normal,
+                            fontWeight: FontWeight.normal,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -155,14 +161,16 @@ class P2PBettingHistoryCard extends StatelessWidget {
                             fontSize: 24,
                           ),
                         ),
-                        SizedBox(
-                          height:
-                              ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                        const SizedBox(
+                          // height:
+                          //     ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                          height: 12,
                         ),
                         Container(
-                          padding: ResponsiveWidget.isSmallScreen(context)
-                              ? AppPaddings.sV.add(AppPaddings.mH)
-                              : AppPaddings.sV.add(AppPaddings.lH),
+                          // padding: ResponsiveWidget.isSmallScreen(context)
+                          //     ? AppPaddings.sV.add(AppPaddings.mH)
+                          //     : AppPaddings.sV.add(AppPaddings.lH),
+                          padding: AppPaddings.sV.add(AppPaddings.lH),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             color: bet.status.color(context),
@@ -172,17 +180,19 @@ class P2PBettingHistoryCard extends StatelessWidget {
                               bet.status.stringAmount(bet.amount),
                               style: TextStyle(
                                 color: Colors.white,
-                                fontWeight:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
+                                // fontWeight:
+                                //     ResponsiveWidget.isSmallScreen(context)
+                                //         ? FontWeight.bold
+                                //         : FontWeight.normal,
+                                fontWeight: FontWeight.normal,
                                 decoration: bet.status == BetStatus.cancelled
                                     ? TextDecoration.lineThrough
                                     : null,
-                                fontSize:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? 12
-                                        : 14,
+                                // fontSize:
+                                //     ResponsiveWidget.isSmallScreen(context)
+                                //         ? 12
+                                //         : 14,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -239,20 +249,23 @@ class P2PBettingHistoryCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height:
-                              ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                        const SizedBox(
+                          // height:
+                          //     ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                          height: 12,
                         ),
                         Text(
                           bet.homeTeam.name,
                           style: TextStyle(
                             color: context.colors.black,
-                            fontWeight: ResponsiveWidget.isSmallScreen(context)
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            fontSize: ResponsiveWidget.isSmallScreen(context)
-                                ? 12
-                                : 14,
+                            // fontWeight: ResponsiveWidget.isSmallScreen(context)
+                            //     ? FontWeight.bold
+                            //     : FontWeight.normal,
+                            fontWeight: FontWeight.normal,
+                            // fontSize: ResponsiveWidget.isSmallScreen(context)
+                            //     ? 12
+                            //     : 14,
+                            fontSize: 14,
                           ),
                         ),
                       ],

@@ -13,7 +13,7 @@ import '../widgets/p2p_betting_history_card.dart';
 
 class P2PBettingHistoryScreen extends StatefulWidget {
   const P2PBettingHistoryScreen({Key? key}) : super(key: key);
-  static const String route = 'P2PBettingHistoryScreen';
+  static const String route = '/p2p-bet/history';
 
   @override
   _P2PBettingHistoryScreenState createState() =>

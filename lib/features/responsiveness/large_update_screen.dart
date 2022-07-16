@@ -13,6 +13,8 @@ import '../betticos/data/models/post/post_model.dart';
 class LargeUdpateScreen extends StatelessWidget {
   const LargeUdpateScreen({Key? key}) : super(key: key);
 
+  static const String route = '/update';
+
   @override
   Widget build(BuildContext context) {
     final List<Post> topPosts = timelineController.getTopUsers();

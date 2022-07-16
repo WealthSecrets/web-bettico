@@ -1,8 +1,9 @@
-// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
-import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
+import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_document_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_upload_photo_screen.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/responsive_layout.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,16 +11,16 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
 import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/enums/otp_receiver_type.dart';
 import '/features/auth/domain/requests/login_request/login_request.dart';
 import '/features/auth/domain/requests/resend_email/resend_email_request.dart';
 import '/features/auth/domain/requests/sms/send_sms_request.dart';
 import '/features/auth/domain/usecases/login_user.dart';
 import '/features/auth/domain/usecases/resend_email.dart';
 import '/features/auth/domain/usecases/send_sms.dart';
-import '/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
+import '../../../domain/enums/otp_receiver_type.dart';
+import '../../register/arguments/otp_verification_argument.dart';
+import '../../register/arguments/user_argument.dart';
 
 class LoginController extends GetxController {
   LoginController({
@@ -66,8 +67,6 @@ class LoginController extends GetxController {
         password: password.value,
       ),
     );
-
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
@@ -91,72 +90,39 @@ class LoginController extends GetxController {
       if (user.emailVerifiedAt == null && !(isSkipEmail ?? false)) {
         resendOTPEmail(context, user.email);
       } else if (user.profileAt == null) {
-        navigationController.navigateTo(AppRoutes.personalInformation);
         Get.to<void>(
-          webNavigator(),
+          RegistrationPersonalInformationScreen.route,
           arguments: UserArgument(user: user),
         );
-      }
-
-      // else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
-      //   if (user.phone != null) {
-      //     resendOTPSms(context, user.phone!);
-      //   } else {
-      //     navigationController.navigateTo(AppRoutes.personalInformation);
-      //     Get.to<void>(
-      //       webNavigator(),
-      //       arguments: UserArgument(user: user),
-      //     );
-      //   }
-      // }
-
-      else if (user.identification == null) {
-        navigationController.navigateTo(AppRoutes.documentScreen);
-        Get.to<void>(webNavigator());
+      } else if (user.identification == null) {
+        Get.toNamed<void>(RegistrationDocumentScreen.route);
       } else if (user.photo == null) {
-        navigationController.navigateTo(AppRoutes.profilePhoto);
-        Get.to<void>(webNavigator());
+        Get.toNamed<void>(RegistrationUploadPhotoScreen.route);
       } else {
-        if (ResponsiveWidget.isSmallScreen(context)) {
-          navigationController.navigateTo(AppRoutes.base);
-          Get.offAll<void>(webNavigator());
-        } else {
-          // navigationController.navigateTo(AppRoutes.responsiveLayout);
-          Get.offAll<void>(const ResponsiveLayout());
-          navigationController.navigateTo(AppRoutes.timeline);
-          menuController.changeActiveItemTo(AppRoutes.timeline);
-        }
+        Get.offAllNamed<void>(TimelineScreen.route);
+        menuController.changeActiveItemTo(TimelineScreen.route);
+        // }
       }
     } else {
       if (user.emailVerifiedAt == null && !(isSkipEmail ?? false)) {
         resendOTPEmail(context, user.email);
       } else if (user.profileAt == null) {
-        navigationController.navigateTo(AppRoutes.personalInformation);
         Get.to<void>(
-          webNavigator(),
+          RegistrationPersonalInformationScreen.route,
           arguments: UserArgument(user: user),
         );
       } else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
         if (user.phone != null) {
           resendOTPSms(context, user.phone!);
         } else {
-          navigationController.navigateTo(AppRoutes.personalInformation);
-          Get.to<void>(
-            webNavigator(),
+          Get.toNamed<void>(
+            RegistrationDocumentScreen.route,
             arguments: UserArgument(user: user),
           );
         }
       } else {
-        if (ResponsiveWidget.isSmallScreen(context)) {
-          navigationController.navigateTo(AppRoutes.base);
-          Get.offAll<void>(webNavigator());
-        } else {
-          // navigationController.navigateTo(AppRoutes.responsiveLayout);
-
-          Get.offAll<void>(const ResponsiveLayout());
-          navigationController.navigateTo(AppRoutes.timeline);
-          menuController.changeActiveItemTo(AppRoutes.timeline);
-        }
+        Get.offAllNamed<void>(TimelineScreen.route);
+        menuController.changeActiveItemTo(TimelineScreen.route);
       }
     }
   }
@@ -173,9 +139,8 @@ class LoginController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User user) {
       isResendingEmail(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.off<void>(
-        webNavigator(),
+      Get.offNamed<void>(
+        OTPVerificationScreen.route,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.email,
           user: user,
@@ -192,18 +157,11 @@ class LoginController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.offAll<void>(AppRoutes.otpVerify);
+
+      Get.offAllNamed<void>(OTPVerificationScreen.route);
     }, (TwilioResponse value) {
       isSendingSms(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.to<void>(
-        webNavigator(),
-        arguments: OTPVerificationArgument(
-          otpReceiverType: OTPReceiverType.phoneNumber,
-          user: controller.user.value,
-        ),
-      );
+      Get.offAllNamed<void>(OTPVerificationScreen.route);
     });
   }
 

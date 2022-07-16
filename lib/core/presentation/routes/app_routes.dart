@@ -1,36 +1,24 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../../features/auth/presentation/auth_base_screen.dart';
+import '../../../features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
+import '../utils/route_animation.dart';
+
 class AppRoutes {
-  static const String base = '/base';
-  static const String home = '/';
-  static const String timeline = '/timeline';
-  static const String mainWidget = '/mainWidget';
-  static const String login = '/login';
-  static const String logout = '/logout';
-  static const String profile = '/profile';
-  static const String registration = '/registration';
-  static const String personalInformation = '/personalInformation';
-  static const String updateProfile = '/updateProfile';
-  static const String forgot = '/forgot';
-  static const String reset = '/reset';
-  static const String otpVerify = '/otpVerify';
-  static const String documentScreen = '/documentScreen';
-  static const String profilePhoto = '/profilePhoto';
-  static const String timelinePost = '/timelinePost';
-  static const String postDetails = '/postDetails';
-  static const String members = '/members';
-  static const String oddboxes = '/oddboxes';
-  static const String onboard = '/onboard';
-  static const String splash = '/splash';
-  static const String referral = '/referral';
-  static const String report = '/report';
-  static const String settings = '/settings';
-  static const String accountType = '/accountType';
-  static const String livescore = '/livescore';
-  static const String p2pBetting = '/p2pBetting';
-  static const String p2pBettingHistory = '/p2pBettingHistory';
-  static const String p2pSuccess = '/p2pSuccess';
-  static const String p2pBetDetails = '/p2pBetDetails';
-  static const String responsiveLayout = '/responsiveLayout';
-  static const String testPage = '/testPage';
-  static const String updates = '/updates';
-  static const String oddsters = '/oddsters';
+  static Route<dynamic> router(RouteSettings settings) {
+    return FadeInRoute<void>(builder: (BuildContext context) {
+      return _widgetBuilder(settings, context);
+    });
+  }
+
+  static Widget _widgetBuilder(RouteSettings settings, BuildContext context) {
+    switch (settings.name) {
+      case AuthBaseScreen.route:
+        return const AuthBaseScreen();
+      // case HomeScaffoldBaseScreen.route:
+      //   return const HomeScaffoldBaseScreen();
+    }
+    return const SplashScreen();
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +11,7 @@ import '/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
 
 class ForgotPasswordScreen extends GetWidget<ForgotController> {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
+  static const String route = '/forgot-password';
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                                 text: 'sign_in'.tr,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.toNamed<void>(AppRoutes.login);
+                                    Get.toNamed<void>(LoginScreen.route);
                                   },
                                 style: context.caption.copyWith(
                                   color: context.colors.primary,

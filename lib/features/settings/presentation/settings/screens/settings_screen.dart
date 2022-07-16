@@ -1,5 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +9,7 @@ import '/core/core.dart';
 
 class SettingsScreen extends KFDrawerContent {
   SettingsScreen({Key? key}) : super(key: key);
+  static const String route = '/settings';
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -36,17 +37,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          automaticallyImplyLeading:
-              !ResponsiveWidget.isSmallScreen(context) ? true : false,
-          leading: ResponsiveWidget.isSmallScreen(context)
-              ? IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Colors.black,
-                  ),
-                  onPressed: widget.onMenuPressed,
-                )
-              : null,
+          // automaticallyImplyLeading:
+          //     !ResponsiveWidget.isSmallScreen(context) ? true : false,
+          automaticallyImplyLeading: true,
+          // leading: ResponsiveWidget.isSmallScreen(context)
+          //     ? IconButton(
+          //         icon: const Icon(
+          //           Icons.menu,
+          //           color: Colors.black,
+          //         ),
+          //         onPressed: widget.onMenuPressed,
+          //       )
+          //     : null,
           title: Text(
             'settings'.tr,
             style: const TextStyle(

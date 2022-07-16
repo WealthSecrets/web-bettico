@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class ForgotController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        Get.toNamed<void>(AppRoutes.reset);
+        Get.toNamed<void>(ResetPasswordScreen.route);
       },
     );
   }

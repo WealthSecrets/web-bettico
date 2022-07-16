@@ -11,6 +11,7 @@ import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegistrationScreen extends GetWidget<RegisterController> {
   const RegistrationScreen({Key? key}) : super(key: key);
+  static const String route = '/register';
 
   @override
   Widget build(BuildContext context) {

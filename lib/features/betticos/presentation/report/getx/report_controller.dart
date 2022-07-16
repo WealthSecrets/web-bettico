@@ -4,6 +4,7 @@ import 'package:betticos/features/betticos/domain/requests/report/report_request
 import 'package:betticos/features/betticos/domain/usecases/report/add_report.dart';
 import 'package:betticos/features/betticos/domain/usecases/report/get_report_options.dart';
 import 'package:betticos/features/betticos/presentation/report/arguments/report_argument.dart';
+import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,7 @@ class ReportController extends GetxController {
       {String? postId, String? userId}) async {
     Get.back<void>();
     final dynamic value = await Get.toNamed<dynamic>(
-      AppRoutes.report,
+      ReportScreen.route,
       arguments: ReportArgument(
         type: type,
         postId: postId,

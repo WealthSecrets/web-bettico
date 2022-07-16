@@ -1,4 +1,4 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +10,7 @@ import '/features/betticos/presentation/profile/arguments/profile_argument.dart'
 
 class UpdateProfileScreen extends GetWidget<ProfileController> {
   const UpdateProfileScreen({Key? key}) : super(key: key);
+  static const String route = '/profie/edit';
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +23,19 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: ResponsiveWidget.isSmallScreen(context)
-            ? IconButton(
-                icon: const Icon(
-                  Ionicons.chevron_back,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Get.back<void>();
-                },
-              )
-            : null,
+        automaticallyImplyLeading: true,
+        // leading: ResponsiveWidget.isSmallScreen(context)
+        //     ? IconButton(
+        //         icon: const Icon(
+        //           Ionicons.chevron_back,
+        //           color: Colors.black,
+        //         ),
+        //         onPressed: () {
+        //           Get.back<void>();
+        //         },
+        //       )
+        //     : null,
+
         title: Text(
           'update_profile'.tr,
           style: const TextStyle(

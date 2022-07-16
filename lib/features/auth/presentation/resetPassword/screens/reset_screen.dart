@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,8 +9,9 @@ import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/resetPassword/getx/reset_controller.dart';
 
-class ResetScreen extends GetWidget<ResetController> {
-  const ResetScreen({Key? key}) : super(key: key);
+class ResetPasswordScreen extends GetWidget<ResetController> {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
+  static const String route = '/forgot-password/reset-password';
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +120,9 @@ class ResetScreen extends GetWidget<ResetController> {
                                 text: 'Tap here',
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.toNamed<void>(AppRoutes.forgot);
+                                    Get.toNamed<void>(
+                                      ForgotPasswordScreen.route,
+                                    );
                                   },
                                 style: TextStyle(
                                   color: context.colors.primary,

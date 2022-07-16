@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,8 @@ class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({
     Key? key,
   }) : super(key: key);
+
+  static const String route = '/register/otp-verify';
 
   @override
   _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
@@ -208,7 +211,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                       OTPReceiverType.email,
                                 );
                               } else {
-                                Get.toNamed<void>(AppRoutes.accountType);
+                                Get.toNamed<void>(
+                                  RegistrationAccountTypeScreen.route,
+                                );
                               }
                             },
                             child: Text(

@@ -6,6 +6,8 @@ import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegistrationUploadPhotoScreen extends GetWidget<RegisterController> {
   const RegistrationUploadPhotoScreen({Key? key}) : super(key: key);
+  static const String route = '/register/upload-photo';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,6 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_search_delegate.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_svg/svg.dart';
@@ -39,22 +40,22 @@ class LiveScoreAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  if (ResponsiveWidget.isSmallScreen(context))
-                    IconButton(
-                      icon: const Icon(
-                        Icons.menu,
-                        color: Colors.black,
-                      ),
-                      onPressed: onPressed,
+                  // if (ResponsiveWidget.isSmallScreen(context))
+                  //   IconButton(
+                  //     icon: const Icon(
+                  //       Icons.menu,
+                  //       color: Colors.black,
+                  //     ),
+                  //     onPressed: onPressed,
+                  //   ),
+                  // if (!ResponsiveWidget.isSmallScreen(context))
+                  IconButton(
+                    icon: const Icon(
+                      Ionicons.chevron_back,
+                      color: Colors.black,
                     ),
-                  if (!ResponsiveWidget.isSmallScreen(context))
-                    IconButton(
-                      icon: const Icon(
-                        Ionicons.chevron_back,
-                        color: Colors.black,
-                      ),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -89,7 +90,7 @@ class LiveScoreAppBar extends StatelessWidget {
                       width: 24,
                     ),
                     onPressed: () {
-                      Get.toNamed<void>(AppRoutes.p2pBettingHistory);
+                      Get.toNamed<void>(P2PBettingHistoryScreen.route);
                     },
                   ),
                   IconButton(

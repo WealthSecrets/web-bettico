@@ -11,6 +11,7 @@ import '/features/auth/presentation/register/getx/register_controller.dart';
 class RegistrationPersonalInformationScreen
     extends GetWidget<RegisterController> {
   const RegistrationPersonalInformationScreen({Key? key}) : super(key: key);
+  static const String route = '/register/personal-information';
 
   @override
   Widget build(BuildContext context) {

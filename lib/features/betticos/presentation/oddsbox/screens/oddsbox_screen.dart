@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_ructors
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +12,8 @@ import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
 class OddsboxScreen extends KFDrawerContent {
   OddsboxScreen({Key? key}) : super(key: key);
+
+  static const String route = '/oddboxes';
 
   @override
   State<OddsboxScreen> createState() => _OddsboxScreenState();
@@ -36,18 +38,20 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            elevation: ResponsiveWidget.isSmallScreen(context) ? 0.5 : null,
-            automaticallyImplyLeading:
-                ResponsiveWidget.isSmallScreen(context) ? false : true,
-            leading: ResponsiveWidget.isSmallScreen(context)
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                    ),
-                    onPressed: widget.onMenuPressed,
-                  )
-                : null,
+            // elevation: ResponsiveWidget.isSmallScreen(context) ? 0.5 : null,
+            elevation: 0,
+            // automaticallyImplyLeading:
+            //     ResponsiveWidget.isSmallScreen(context) ? false : true,
+            automaticallyImplyLeading: true,
+            // leading: ResponsiveWidget.isSmallScreen(context)
+            //     ? IconButton(
+            //         icon: const Icon(
+            //           Icons.menu,
+            //           color: Colors.black,
+            //         ),
+            //         onPressed: widget.onMenuPressed,
+            //       )
+            //     : null,
             title: Text(
               'odd_boxes'.tr,
               style: const TextStyle(

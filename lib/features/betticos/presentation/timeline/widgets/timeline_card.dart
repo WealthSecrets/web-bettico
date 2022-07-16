@@ -1,4 +1,4 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
@@ -48,33 +48,41 @@ class TimelineCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        margin: ResponsiveWidget.isLargeScreen(context) ||
-                ResponsiveWidget.isMediumScreen(context)
-            ? AppPaddings.lB.add(AppPaddings.lH)
-            : AppPaddings.lB,
+        // margin: ResponsiveWidget.isLargeScreen(context) ||
+        //         ResponsiveWidget.isMediumScreen(context)
+        //     ? AppPaddings.lB.add(AppPaddings.lH)
+        //     : AppPaddings.lB,
+        margin: AppPaddings.lB.add(AppPaddings.lH),
         padding: AppPaddings.lH.add(AppPaddings.lT),
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: ResponsiveWidget.isSmallScreen(context)
-              ? const <BoxShadow>[
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.black12,
-                    offset: Offset(0, 1),
-                  )
-                ]
-              : null,
-          borderRadius: ResponsiveWidget.isLargeScreen(context) ||
-                  ResponsiveWidget.isMediumScreen(context)
-              ? AppBorderRadius.smallAll
-              : null,
-          border: !ResponsiveWidget.isSmallScreen(context)
-              ? Border.all(
-                  color: context.colors.faintGrey,
-                  width: 1,
-                  style: BorderStyle.solid,
-                )
-              : null,
+          // boxShadow: ResponsiveWidget.isSmallScreen(context)
+          //     ? const <BoxShadow>[
+          //         BoxShadow(
+          //           blurRadius: 5,
+          //           color: Colors.black12,
+          //           offset: Offset(0, 1),
+          //         )
+          //       ]
+          //     : null,
+          boxShadow: null,
+          // borderRadius: ResponsiveWidget.isLargeScreen(context) ||
+          //         ResponsiveWidget.isMediumScreen(context)
+          //     ? AppBorderRadius.smallAll
+          //     : null,
+          borderRadius: AppBorderRadius.smallAll,
+          // border: !ResponsiveWidget.isSmallScreen(context)
+          //     ? Border.all(
+          //         color: context.colors.faintGrey,
+          //         width: 1,
+          //         style: BorderStyle.solid,
+          //       )
+          //     : null,
+          border: Border.all(
+            color: context.colors.faintGrey,
+            width: 1,
+            style: BorderStyle.solid,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,6 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -92,8 +91,7 @@ class BaseScreenController extends GetxController {
     failureOrVoid.fold<void>(
       (Failure failure) => AppSnacks.show(context, message: failure.message),
       (void _) {
-        navigationController.navigateTo(AppRoutes.login);
-        Get.offAll<void>(webNavigator());
+        Get.offAllNamed<void>(LoginScreen.route);
       },
     );
   }

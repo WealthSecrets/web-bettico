@@ -13,6 +13,8 @@ const List<String> documentTypes = <String>[
 
 class RegistrationDocumentScreen extends GetWidget<RegisterController> {
   const RegistrationDocumentScreen({Key? key}) : super(key: key);
+  static const String route = '/register/document';
+
   @override
   Widget build(BuildContext context) {
     return Obx(

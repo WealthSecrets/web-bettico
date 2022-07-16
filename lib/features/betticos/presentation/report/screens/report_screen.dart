@@ -11,6 +11,8 @@ import '/core/core.dart';
 class ReportScreen extends StatefulWidget {
   const ReportScreen({Key? key}) : super(key: key);
 
+  static const String route = '/report';
+
   @override
   State<ReportScreen> createState() => _ReportScreenState();
 }

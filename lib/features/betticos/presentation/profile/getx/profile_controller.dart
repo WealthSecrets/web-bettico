@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
 import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_params.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/dislike_post.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/like_post.dart';
+import 'package:betticos/features/betticos/presentation/base/screens/base_screen.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -140,7 +143,7 @@ class ProfileController extends GetxController {
     }, (User value) {
       isLoading(false);
       user(value);
-      Get.offNamed<void>(AppRoutes.base);
+      Get.offNamed<void>(BaseScreen.route);
     });
   }
 
@@ -411,9 +414,9 @@ class ProfileController extends GetxController {
 
   void navigateToHomeOrOTP() {
     if (isSignUpAsOddster.value) {
-      Get.toNamed<void>(AppRoutes.otpVerify);
+      Get.toNamed<void>(OTPVerificationScreen.route);
     } else {
-      Get.toNamed<void>(AppRoutes.mainWidget);
+      Get.toNamed<void>(TimelineScreen.route);
     }
   }
 

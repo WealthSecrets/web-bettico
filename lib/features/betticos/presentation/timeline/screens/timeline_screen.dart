@@ -1,5 +1,5 @@
 // ignore_for_file: always_specify_types
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_bettting_details.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/betting_modal.dart';
@@ -32,6 +32,8 @@ import '../../profile/widgets/circle_indicator.dart';
 // ignore: must_be_immutable
 class TimelineScreen extends KFDrawerContent {
   TimelineScreen({Key? key}) : super(key: key);
+  static const String route = '/home';
+
   @override
   State<TimelineScreen> createState() => _TimelineScreenState();
 }
@@ -91,19 +93,19 @@ class _TimelineScreenState extends State<TimelineScreen> {
       child: AppLoadingBox(
         loading: false,
         child: Scaffold(
-          floatingActionButton: ResponsiveWidget.isSmallScreen(context)
-              ? controller.tabIndex.value == 0
-                  ? FloatingActionButton(
-                      onPressed: () => controller.navigateToAddPost(context),
-                      backgroundColor: context.colors.primary.shade400,
-                      key: createPost,
-                      child: const Icon(
-                        Ionicons.create_outline,
-                        color: Colors.white,
-                      ),
-                    )
-                  : null
-              : null,
+          // floatingActionButton: ResponsiveWidget.isSmallScreen(context)
+          //     ? controller.tabIndex.value == 0
+          //         ? FloatingActionButton(
+          //             onPressed: () => controller.navigateToAddPost(context),
+          //             backgroundColor: context.colors.primary.shade400,
+          //             key: createPost,
+          //             child: const Icon(
+          //               Ionicons.create_outline,
+          //               color: Colors.white,
+          //             ),
+          //           )
+          //         : null
+          //     : null,
           body: DefaultTabController(
             length: 4,
             child: NotificationListener<OverscrollIndicatorNotification>(
@@ -171,7 +173,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       floating: false,
       pinned: true,
       elevation: 0,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
       title: const Text(
         'Bettico',
         style: TextStyle(
@@ -179,16 +181,18 @@ class _TimelineScreenState extends State<TimelineScreen> {
           fontSize: 16,
         ),
       ),
-      centerTitle: ResponsiveWidget.isSmallScreen(context) ? true : false,
-      leading: ResponsiveWidget.isSmallScreen(context)
-          ? IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              onPressed: widget.onMenuPressed,
-            )
-          : null,
+      // centerTitle: ResponsiveWidget.isSmallScreen(context) ? true : false,
+      centerTitle: false,
+
+      // leading: ResponsiveWidget.isSmallScreen(context)
+      //     ? IconButton(
+      //         icon: const Icon(
+      //           Icons.menu,
+      //           color: Colors.black,
+      //         ),
+      //         onPressed: widget.onMenuPressed,
+      //       )
+      //     : null,
       actions: <Widget>[
         IconButton(
           onPressed: () {},

@@ -1,10 +1,11 @@
 // import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 // import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/arguments/livescore_arguments.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ import '../widgets/score_row.dart';
 // ignore: must_be_immutable
 class LiveScoreScreen extends KFDrawerContent {
   LiveScoreScreen({Key? key}) : super(key: key);
+  static const String route = '/live-score';
   @override
   State<LiveScoreScreen> createState() => _LiveScoreScreenState();
 }
@@ -98,15 +100,16 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                             if (index == 0) {
                               return Padding(
                                 padding: AppPaddings.mV,
-                                child: Text(
+                                child: const Text(
                                   'Fixtures',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                    // fontSize:
+                                    //     ResponsiveWidget.isSmallScreen(context)
+                                    //         ? 12
+                                    //         : 14,
+                                    fontSize: 14,
                                   ),
                                 ),
                               );
@@ -118,7 +121,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                   final Fixture fixture =
                                       lController.fixtures[index - 1];
                                   Get.toNamed<void>(
-                                    AppRoutes.p2pBetting,
+                                    P2PBettingScreen.route,
                                     arguments: LiveScoreArguments(
                                       fixture: fixture,
                                     ),
@@ -159,15 +162,16 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                             if (index == 0) {
                               return Padding(
                                 padding: AppPaddings.mV,
-                                child: Text(
+                                child: const Text(
                                   'Live Matches',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                    // fontSize:
+                                    //     ResponsiveWidget.isSmallScreen(context)
+                                    //         ? 12
+                                    //         : 14,
+                                    fontSize: 14,
                                   ),
                                 ),
                               );
@@ -192,7 +196,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                     );
                                   } else {
                                     Get.toNamed<void>(
-                                      AppRoutes.p2pBetting,
+                                      P2PBettingScreen.route,
                                       arguments: LiveScoreArguments(
                                         match: match,
                                       ),

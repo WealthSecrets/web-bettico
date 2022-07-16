@@ -13,6 +13,7 @@ import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_com
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_team_match.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/arguments/p2p_congrats_argument.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -205,7 +206,7 @@ class P2PBetController extends GetxController {
         bets.value = allBets;
         rebuildBets(allBets);
         Get.offNamed<void>(
-          AppRoutes.p2pSuccess,
+          P2PBettingCongratScreen.route,
           arguments: P2PCongratsArgument(
             isFixture: isFixture,
           ),
