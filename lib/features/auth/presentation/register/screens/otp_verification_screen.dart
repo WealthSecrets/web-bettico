@@ -1,24 +1,28 @@
-// import 'dart:async';
-
 import 'dart:async';
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '/core/core.dart';
-// import 'package:flutter/gestures.dart';
 import '/features/auth/domain/enums/otp_receiver_type.dart';
-import '/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
+import '../../../../../core/presentation/helpers/responsiveness.dart';
+import '../../../data/models/user/user.dart';
 import '../widgets/app_pincode_textfield.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({
     Key? key,
+    required this.otpReceiverType,
+    this.user,
   }) : super(key: key);
+
+  final OTPReceiverType otpReceiverType;
+  final User? user;
 
   @override
   _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
@@ -59,9 +63,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final OTPVerificationArgument? args =
-        ModalRoute.of(context)?.settings.arguments as OTPVerificationArgument?;
-
     return Obx(
       () => AppLoadingBox(
         loading: controller.isVerifyingOTP.value,
@@ -70,162 +71,171 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             elevation: 0.5,
             backgroundColor: Colors.white,
             title: Text(
-              '${args?.otpReceiverType == OTPReceiverType.email ? 'email'.tr : 'phone'.tr} ${'verification'.tr}',
-              style: context.body1.copyWith(
+              '${widget.otpReceiverType == OTPReceiverType.email ? 'email'.tr : 'phone'.tr} ${'verification'.tr}',
+              style: const TextStyle(
                 color: Colors.black,
-                // fontFamily: AppFonts.julius,
+                fontSize: 16,
               ),
             ),
           ),
           backgroundColor: context.colors.background,
           body: SafeArea(
-            child: SizedBox.expand(
-              child: SingleChildScrollView(
-                padding: AppPaddings.bodyA,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AppAnimatedColumn(
-                      direction: Axis.horizontal,
-                      duration: const Duration(milliseconds: 1000),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 273.w,
+            child: Center(
+              child: SizedBox(
+                width: ResponsiveWidget.isSmallScreen(context)
+                    ? double.infinity
+                    : 500,
+                child: SingleChildScrollView(
+                  padding: AppPaddings.bodyA,
+                  child: AppAnimatedColumn(
+                    direction: Axis.horizontal,
+                    duration: const Duration(milliseconds: 1000),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 273.w,
+                        child: Text(
+                          '${'otp_msg_1'.tr} ${widget.otpReceiverType == OTPReceiverType.email ? 'email'.tr.toLowerCase() : 'phone_number'.tr.toLowerCase()} ${'otp_msg_2'.tr}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            height: 1.22,
+                            fontSize: 16,
+                            color: context.colors.hintLight,
+                          ),
+                        ),
+                      ),
+                      const AppSpacing(v: 66),
+                      AppPinCodeTextField(
+                        length: 6,
+                        onChanged: controller.onOTPCodeInputChanged,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        textInputType: TextInputType.number,
+                      ),
+                      const AppSpacing(v: 50),
+                      AppButton(
+                        // enabled: cubit.state.otpCode.length == 6,
+                        borderRadius: AppBorderRadius.largeAll,
+                        enabled: true,
+                        onPressed: () {
+                          // final OTPReceiverType? type = widget.otpReceiverType;
+                          // if (type != null) {
+                          if (widget.otpReceiverType == OTPReceiverType.email) {
+                            controller.verifyUserEmailAddress(
+                              context,
+                              u: widget.user,
+                            );
+                          } else {
+                            controller.verifyUserPhoneNumber(
+                              context,
+                              u: widget.user,
+                            );
+                          }
+                          // }
+                        },
+                        child: Text(
+                          'next'.tr.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const AppSpacing(v: 22),
+                      if (widget.otpReceiverType == OTPReceiverType.phoneNumber)
+                        Align(
+                          alignment: Alignment.center,
                           child: Text(
-                            '${'otp_msg_1'.tr} ${args?.otpReceiverType == OTPReceiverType.email ? 'email'.tr.toLowerCase() : 'phone_number'.tr.toLowerCase()} ${'otp_msg_2'.tr}',
-                            style: context.body1.copyWith(
-                              fontWeight: FontWeight.w500,
-                              height: 1.22,
-                            ),
+                            'didnt_receive'.tr,
+                            style:
+                                Theme.of(context).textTheme.headline6?.copyWith(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        const AppSpacing(v: 66),
-                        AppPinCodeTextField(
-                          length: 6,
-                          onChanged: controller.onOTPCodeInputChanged,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          textInputType: TextInputType.number,
-                        ),
-                        const AppSpacing(v: 50),
-                        AppButton(
-                          // enabled: cubit.state.otpCode.length == 6,
-                          borderRadius: AppBorderRadius.largeAll,
-                          enabled: true,
-                          onPressed: () {
-                            final OTPReceiverType? type = args?.otpReceiverType;
-                            if (type != null) {
-                              if (type == OTPReceiverType.email) {
-                                controller.verifyUserEmailAddress(
-                                  context,
-                                  u: args?.user,
-                                );
-                              } else {
-                                controller.verifyUserPhoneNumber(
-                                  context,
-                                  u: args?.user,
-                                );
-                              }
-                            }
-                          },
-                          child: Text('next'.tr.toUpperCase()),
-                        ),
-                        const AppSpacing(v: 22),
-                        if (args?.otpReceiverType ==
-                            OTPReceiverType.phoneNumber)
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'didnt_receive'.tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  ?.copyWith(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        _buildTimer(),
-                        Visibility(
-                          visible: _showResendButton,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                shadowColor: context.colors.primary,
-                                primary: context.colors.primary,
-                              ),
-                              onPressed: () {
-                                final OTPReceiverType? type =
-                                    args?.otpReceiverType;
-                                setState(() {
-                                  _timer.cancel();
-                                  _counter = 59;
-                                  _showResendButton = false;
-                                });
-                                _startTimer();
-                                if (type == OTPReceiverType.email) {
-                                  lController.resendOTPEmail(
-                                    context,
-                                    args != null && args.user != null
-                                        ? args.user!.email
-                                        : controller.email.value,
-                                  );
-                                } else {
-                                  lController.resendOTPSms(
-                                    context,
-                                    args != null && args.user != null
-                                        ? args.user!.phone!
-                                        : controller.phone.value,
-                                  );
-                                }
-                              },
-                              child: Text(
-                                'send_again'.tr,
-                                style: TextStyle(
-                                  color: context.colors.primary,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Center(
+                      _buildTimer(),
+                      Visibility(
+                        visible: _showResendButton,
+                        child: Align(
+                          alignment: Alignment.center,
                           child: TextButton(
+                            style: TextButton.styleFrom(
+                              shadowColor: context.colors.primary,
+                              primary: context.colors.primary,
+                            ),
                             onPressed: () {
-                              if (args != null && args.user != null) {
-                                lController.reRouteOddster(
+                              setState(() {
+                                _timer.cancel();
+                                _counter = 59;
+                                _showResendButton = false;
+                              });
+                              _startTimer();
+                              if (widget.otpReceiverType ==
+                                  OTPReceiverType.email) {
+                                lController.resendOTPEmail(
                                   context,
-                                  args.user!,
-                                  isSkipEmail: args.otpReceiverType ==
-                                      OTPReceiverType.email,
-                                  isSkipPhone: args.otpReceiverType !=
-                                      OTPReceiverType.email,
+                                  widget.user != null
+                                      ? widget.user!.email
+                                      : controller.email.value,
                                 );
                               } else {
-                                Get.toNamed<void>(AppRoutes.accountType);
+                                lController.resendOTPSms(
+                                  context,
+                                  widget.user != null
+                                      ? widget.user!.phone!
+                                      : controller.phone.value,
+                                );
                               }
                             },
                             child: Text(
-                              'skip'.tr,
-                              textAlign: TextAlign.center,
-                              style: context.caption.copyWith(
-                                fontWeight: FontWeight.bold,
+                              'send_again'.tr,
+                              style: TextStyle(
                                 color: context.colors.primary,
-                                fontSize: 18,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ),
-                        const AppSpacing(v: 50),
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            if (widget.user != null) {
+                              lController.reRouteOddster(
+                                context,
+                                widget.user!,
+                                isSkipEmail: widget.otpReceiverType ==
+                                    OTPReceiverType.email,
+                                isSkipPhone: widget.otpReceiverType !=
+                                    OTPReceiverType.email,
+                              );
+                            } else {
+                              navigationController
+                                  .navigateTo(AppRoutes.accountType);
+                            }
+                          },
+                          child: Text(
+                            'skip'.tr,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: context.colors.primary,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const AppSpacing(v: 50),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -243,6 +253,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           'resend_code'.tr,
           style: TextStyle(
             color: context.colors.grey,
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
           ),
         ),
         Text(
@@ -250,6 +262,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           style: TextStyle(
             color: context.colors.primary,
             fontWeight: FontWeight.w600,
+            fontSize: 12,
           ),
         )
       ],

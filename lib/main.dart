@@ -37,12 +37,16 @@ void main() async {
   Get.put(MenuController());
   SplashBindings.dependencies();
   OnBoardBindings.dependencies();
-  RegisterBindings.dependencies();
   BaseBindings.dependencies();
-  ProfileBindings.dependencies();
   LoginBindings.dependencies();
+  RegisterBindings.dependencies();
+
+  ProfileBindings.dependencies();
+
   ForgotBindings.dependencies();
   ResetBindings.dependencies();
+  LiveScoreBindings.dependencies();
+  P2PBetBindings.dependencies();
   TimelineBindings.dependencies();
   SettingsBindings.dependencies();
 
@@ -51,8 +55,6 @@ void main() async {
   ReferralBindings.dependencies();
   CardBindings.dependencies();
   ReportBindings.dependencies();
-  P2PBetBindings.dependencies();
-  LiveScoreBindings.dependencies();
 
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,

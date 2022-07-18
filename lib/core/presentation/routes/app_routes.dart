@@ -29,7 +29,6 @@ class AppRoutes {
   static const String p2pBettingHistory = '/p2pBettingHistory';
   static const String p2pSuccess = '/p2pSuccess';
   static const String p2pBetDetails = '/p2pBetDetails';
-  static const String responsiveLayout = '/responsiveLayout';
   static const String testPage = '/testPage';
   static const String updates = '/updates';
   static const String oddsters = '/oddsters';

@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +34,6 @@ import '/features/auth/presentation/login/getx/login_controller.dart';
 import '/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import '/features/betticos/domain/requests/update_request/update_request.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
-import '../arguments/user_argument.dart';
 
 class RegisterController extends GetxController {
   RegisterController({
@@ -58,6 +57,9 @@ class RegisterController extends GetxController {
   final UpdateUserProfilePhoto updateUserProfilePhoto;
   final UpdateUserRole updateUserRole;
   final VerifyUser verifyUser;
+
+  // instance of register controller
+  static RegisterController instance = Get.find();
 
   // reactive variables
   RxBool isSignUpAsOddster = false.obs;
@@ -120,14 +122,12 @@ class RegisterController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
-      // AppSnacks.show(context, message: failure.message);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.offAll<void>(webNavigator());
+      AppSnacks.show(context, message: failure.message);
+      // navigationController.navigateTo(AppRoutes.otpVerify);
     }, (TwilioResponse value) {
       isSendingSms(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.off<void>(
-        webNavigator(),
+      navigationController.navigateTo(
+        AppRoutes.otpVerify,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.phoneNumber,
           user: u,
@@ -176,7 +176,6 @@ class RegisterController extends GetxController {
         lController.reRouteOddster(context, value);
       } else {
         navigationController.navigateTo(AppRoutes.accountType);
-        Get.offAll<void>(webNavigator());
       }
     });
   }
@@ -201,10 +200,10 @@ class RegisterController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isAddingDocument(false);
       AppSnacks.show(context, message: failure.message);
-    }, (User value) {
+    }, (User u) {
       isAddingDocument(false);
-      navigationController.navigateTo(AppRoutes.profilePhoto);
-      Get.off<void>(webNavigator());
+      // navigationController.navigateTo(AppRoutes.profilePhoto);
+      lController.reRouteOddster(context, u);
     });
   }
 
@@ -270,23 +269,12 @@ class RegisterController extends GetxController {
       isAddingProfileImage(false);
       if (ResponsiveWidget.isSmallScreen(context)) {
         navigationController.navigateTo(AppRoutes.base);
-        Get.offAll<void>(webNavigator());
       } else {
-        navigationController.navigateTo(AppRoutes.responsiveLayout);
-        Get.offAll<void>(webNavigator());
+        Get.offAll<void>(const HomeBaseScreen());
         navigationController.navigateTo(AppRoutes.timeline);
         menuController.changeActiveItemTo(AppRoutes.timeline);
       }
     });
-  }
-
-  void navigateToHomeOrOTP() {
-    if (isSignUpAsOddster.value) {
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.to<void>(webNavigator());
-    } else {
-      Get.toNamed<void>(AppRoutes.mainWidget);
-    }
   }
 
   void register(BuildContext context) async {
@@ -310,9 +298,8 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        navigationController.navigateTo(AppRoutes.otpVerify);
-        Get.off<void>(
-          webNavigator(),
+        navigationController.navigateTo(
+          AppRoutes.otpVerify,
           arguments: const OTPVerificationArgument(
             otpReceiverType: OTPReceiverType.email,
           ),
@@ -337,11 +324,7 @@ class RegisterController extends GetxController {
       },
       (User us) {
         isUpdatingUserRole(false);
-        navigationController.navigateTo(AppRoutes.personalInformation);
-        Get.to<void>(
-          webNavigator(),
-          arguments: UserArgument(user: us),
-        );
+        lController.reRouteOddster(context, us);
       },
     );
   }
@@ -365,9 +348,9 @@ class RegisterController extends GetxController {
         isAddingPersonalInformation(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (User user) {
+      (User us) {
         isAddingPersonalInformation(false);
-        sendSmstoPhoneNumber(context, u: user);
+        sendSmstoPhoneNumber(context, u: us);
       },
     );
   }

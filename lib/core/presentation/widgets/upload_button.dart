@@ -84,9 +84,10 @@ class _UploadButtonState extends State<UploadButton> {
                       Text(
                         widget.buttonText ?? 'Take Document Image',
                         textAlign: TextAlign.center,
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           color: widget.textColor ?? context.colors.text,
                           fontWeight: FontWeight.w500,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -117,7 +118,10 @@ class _UploadButtonState extends State<UploadButton> {
               height: 20,
               child: Text(
                 'Remove',
-                style: context.caption,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: context.colors.text,
+                ),
               ),
             ),
           )

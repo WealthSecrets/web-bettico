@@ -1,8 +1,4 @@
-import 'dart:io';
-
 enum Environment { development, production }
-
-bool isTesting = Platform.environment.containsKey('FLUTTER_TEST');
 
 const String _env =
     String.fromEnvironment('env.mode', defaultValue: 'development');

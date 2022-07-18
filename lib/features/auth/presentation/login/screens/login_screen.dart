@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+// import '../../../../../core/presentation/helpers/web_navigator.dart';
+import '../../../../responsiveness/constants/web_controller.dart';
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
@@ -54,7 +56,7 @@ class LoginScreen extends GetWidget<LoginController> {
                 child: SizedBox(
                   width: ResponsiveWidget.isSmallScreen(context)
                       ? double.infinity
-                      : 400,
+                      : 500,
                   child: Column(
                     children: <Widget>[
                       SingleChildScrollView(
@@ -330,8 +332,11 @@ class LoginScreen extends GetWidget<LoginController> {
                               ),
                               const SizedBox(height: 16),
                               TextButton(
-                                onPressed: () =>
-                                    Get.toNamed<void>(AppRoutes.registration),
+                                onPressed: () {
+                                  navigationController
+                                      .navigateTo(AppRoutes.registration);
+                                  // Get.offAll<void>(webNavigator());
+                                },
                                 child: Center(
                                   child: RichText(
                                     textAlign: TextAlign.center,
@@ -349,8 +354,9 @@ class LoginScreen extends GetWidget<LoginController> {
                                           text: 'register_now'.tr,
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              Get.toNamed<void>(
-                                                  AppRoutes.accountType);
+                                              navigationController.navigateTo(
+                                                AppRoutes.registration,
+                                              );
                                             },
                                           style: TextStyle(
                                             color: context.colors.primary,
