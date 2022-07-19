@@ -34,7 +34,7 @@ class LoginScreen extends GetWidget<LoginController> {
     <String, dynamic>{
       'text': 'Whitepaper',
       'link':
-          'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW'
+          'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
     },
     <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
     <String, dynamic>{

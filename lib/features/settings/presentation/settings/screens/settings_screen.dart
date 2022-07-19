@@ -1,4 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
+import 'dart:js' as js;
+
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:flutter/material.dart';
@@ -83,35 +85,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SettingsTile.navigation(
                     title: const Text('Certik'),
                     onPressed: (BuildContext context) {
-                      _launchURL(
-                          'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view');
+                      js.context.callMethod('open', <String>[
+                        'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
+                      ]);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Audit'),
                     onPressed: (BuildContext context) {
-                      _launchURL(
-                          'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view');
+                      js.context.callMethod('open', <String>[
+                        'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
+                      ]);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Whitepaper'),
                     onPressed: (BuildContext context) {
-                      _launchURL(
-                          'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW');
+                      js.context.callMethod('open', <String>[
+                        'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
+                      ]);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Store'),
                     onPressed: (BuildContext context) {
-                      _launchURL('https://wealthsecrets.store/');
+                      js.context.callMethod(
+                          'open', <String>['https://wealthsecrets.store/']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Advertise'),
                     onPressed: (BuildContext context) {
-                      _launchURL(
-                          'https://www.wealthsecrets.io/advertiseRequest');
+                      js.context.callMethod('open', <String>[
+                        'https://www.wealthsecrets.io/advertiseRequest'
+                      ]);
                     },
                   ),
                 ],
