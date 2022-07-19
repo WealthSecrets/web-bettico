@@ -8,18 +8,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-// import '../../../../../core/presentation/helpers/web_navigator.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
+
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
+// import '../../../../../core/presentation/helpers/web_navigator.dart';
+import '../../../../responsiveness/constants/web_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
 
   final RegisterController rController = Get.find<RegisterController>();
 
-  List<Map<String, dynamic>> footerLinks = [
+  List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
       'text': 'Certik',
       'link':
@@ -247,7 +248,8 @@ class LoginScreen extends GetWidget<LoginController> {
                                     text: 'forgot_pass'.tr,
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Get.toNamed<void>(AppRoutes.forgot);
+                                        navigationController
+                                            .navigateTo(AppRoutes.forgot);
                                       },
                                     style: TextStyle(
                                       color: context.colors.error,

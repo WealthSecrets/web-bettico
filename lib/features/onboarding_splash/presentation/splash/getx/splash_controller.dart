@@ -29,30 +29,23 @@ class SplashController extends GetxController {
 
   RxBool isLoggedIn = false.obs;
 
-  // @override
-  // void onInit() {
-  //   Future<void>.delayed(const Duration(seconds: 1), () {
-  //     validateOnBoard();
-  //   });
+  // Onboarding code commented for the web
 
-  //   super.onInit();
+  // void validateOnBoard(BuildContext context) async {
+  //   await Get.updateLocale(const Locale('en', 'US'));
+  //   final Either<Failure, bool> failureOrOnboarded =
+  //       await getOnBoard(NoParams());
+  //   failureOrOnboarded.fold((Failure failure) {
+  //     debugPrint('Inside :validateOnBoard: method failed');
+  //     navigationController.navigateTo(AppRoutes.onboard);
+  //   }, (bool isOnboarded) {
+  //     debugPrint('Inside :validateOnBoard: method passed');
+  //     isUserAuthenticated(context);
+  //   });
   // }
 
-  void validateOnBoard(BuildContext context) async {
-    await Get.updateLocale(const Locale('en', 'US'));
-    final Either<Failure, bool> failureOrOnboarded =
-        await getOnBoard(NoParams());
-    failureOrOnboarded.fold((Failure failure) {
-      debugPrint('Inside :validateOnBoard: method failed');
-      navigationController.navigateTo(AppRoutes.onboard);
-      Get.offAll<void>(webNavigator());
-    }, (bool isOnboarded) {
-      debugPrint('Inside :validateOnBoard: method passed');
-      isUserAuthenticated(context);
-    });
-  }
-
   void isUserAuthenticated(BuildContext context) async {
+    debugPrint('isUserAuthenticated called');
     final Either<Failure, bool> failureOrUser =
         await isAuthenticated(NoParams());
 
@@ -61,6 +54,7 @@ class SplashController extends GetxController {
       navigationController.navigateTo(AppRoutes.login);
       Get.offAll<void>(webNavigator());
     }, (bool respone) {
+      debugPrint('Inside :isUserAuthenticated: method success: $respone');
       if (respone) {
         validateUserSession(context);
       } else {
@@ -81,7 +75,6 @@ class SplashController extends GetxController {
     }, (User user) {
       if (ResponsiveWidget.isSmallScreen(context)) {
         navigationController.navigateTo(AppRoutes.base);
-        Get.offAll<void>(webNavigator());
       } else {
         Get.offAll<void>(const HomeBaseScreen());
         navigationController.navigateTo(AppRoutes.timeline);

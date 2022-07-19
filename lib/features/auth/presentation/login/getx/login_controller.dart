@@ -4,6 +4,7 @@ import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:validators/validators.dart' as validator;
 
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
@@ -211,6 +212,11 @@ class LoginController extends GetxController {
     if (email!.isEmpty) {
       errorMessage = 'Please enter email address';
     }
+
+    if (!validator.isEmail(email.trim())) {
+      errorMessage = 'Invalid email';
+    }
+
     return errorMessage;
   }
 

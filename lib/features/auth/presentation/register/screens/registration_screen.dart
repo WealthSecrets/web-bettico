@@ -1,4 +1,3 @@
-// import 'package:betticos/features/auth/presentation/register/getx/register_bindings.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +6,9 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '/core/core.dart';
+import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '../../../../responsiveness/constants/web_controller.dart';
-// import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -35,7 +33,7 @@ class RegistrationScreen extends StatelessWidget {
               child: SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context)
                     ? double.infinity
-                    : 500,
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.lH,
                   child: AppAnimatedColumn(

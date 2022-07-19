@@ -26,7 +26,7 @@ class RegistrationUploadPhotoScreen extends GetWidget<RegisterController> {
               child: SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context)
                     ? double.infinity
-                    : 500,
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.homeH,
                   child: AppAnimatedColumn(

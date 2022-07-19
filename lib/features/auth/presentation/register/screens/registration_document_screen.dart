@@ -1,7 +1,9 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../responsiveness/constants/web_controller.dart';
 import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
 
@@ -38,7 +40,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                 child: SizedBox(
                   width: ResponsiveWidget.isSmallScreen(context)
                       ? double.infinity
-                      : 500,
+                      : 450,
                   child: SingleChildScrollView(
                     padding: AppPaddings.lH.add(AppPaddings.lV),
                     child: AppAnimatedColumn(
@@ -119,6 +121,27 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: TextButton(
+                            onPressed: () {
+                              Get.offAll<void>(const HomeBaseScreen());
+                              navigationController
+                                  .navigateTo(AppRoutes.timeline);
+                              menuController
+                                  .changeActiveItemTo(AppRoutes.timeline);
+                            },
+                            child: Text(
+                              'skip'.tr,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: context.colors.primary,
                                 fontSize: 14,
                               ),
                             ),

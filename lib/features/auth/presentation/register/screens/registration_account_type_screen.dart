@@ -33,7 +33,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
               child: SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context)
                     ? double.infinity
-                    : 500,
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(

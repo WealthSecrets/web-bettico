@@ -84,7 +84,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
               child: SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context)
                     ? double.infinity
-                    : 500,
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyA,
                   child: AppAnimatedColumn(

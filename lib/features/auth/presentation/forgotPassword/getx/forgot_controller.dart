@@ -1,7 +1,8 @@
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:validators/validators.dart' as validator;
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/auth/domain/requests/forgot_request/forgot_request.dart';
@@ -34,7 +35,7 @@ class ForgotController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        Get.toNamed<void>(AppRoutes.reset);
+        navigationController.navigateTo(AppRoutes.reset);
       },
     );
   }
@@ -48,6 +49,11 @@ class ForgotController extends GetxController {
     if (email!.isEmpty) {
       errorMessage = 'Please enter email address';
     }
+
+    if (!validator.isEmail(email.trim())) {
+      errorMessage = 'Invalid email';
+    }
+
     return errorMessage;
   }
 
