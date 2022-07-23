@@ -20,7 +20,9 @@ class P2PBettingHistoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: AppPaddings.sV.add(AppPaddings.sT),
+      margin: const EdgeInsets.symmetric(vertical: 4).add(
+        const EdgeInsets.only(top: 4),
+      ),
       decoration: BoxDecoration(
         border: Border.all(
           color: context.colors.cardColor,
@@ -30,13 +32,15 @@ class P2PBettingHistoryCard extends StatelessWidget {
       ),
       child: TextButton(
         style: TextButton.styleFrom(
-          padding: AppPaddings.lV,
+          padding: const EdgeInsets.symmetric(vertical: 16),
         ),
         onPressed: onPressed,
         child: Padding(
           padding: ResponsiveWidget.isSmallScreen(context)
-              ? AppPaddings.lH
-              : AppPaddings.lV.add(AppPaddings.bodyH),
+              ? const EdgeInsets.symmetric(horizontal: 16)
+              : const EdgeInsets.symmetric(vertical: 16).add(
+                  const EdgeInsets.symmetric(horizontal: 38),
+                ),
           child: Column(
             children: <Widget>[
               Row(
@@ -44,7 +48,8 @@ class P2PBettingHistoryCard extends StatelessWidget {
                 children: <Widget>[
                   TimeCard(dateTime: bet.createdAt),
                   Container(
-                    padding: AppPaddings.mH.add(AppPaddings.sV),
+                    padding: const EdgeInsets.symmetric(horizontal: 8)
+                        .add(const EdgeInsets.symmetric(vertical: 4)),
                     decoration: BoxDecoration(
                       borderRadius: AppBorderRadius.largeAll,
                       color: bet.status.color(context).withOpacity(.3),
@@ -161,8 +166,10 @@ class P2PBettingHistoryCard extends StatelessWidget {
                         ),
                         Container(
                           padding: ResponsiveWidget.isSmallScreen(context)
-                              ? AppPaddings.sV.add(AppPaddings.mH)
-                              : AppPaddings.sV.add(AppPaddings.lH),
+                              ? const EdgeInsets.symmetric(vertical: 4).add(
+                                  const EdgeInsets.symmetric(horizontal: 8))
+                              : const EdgeInsets.symmetric(vertical: 4).add(
+                                  const EdgeInsets.symmetric(horizontal: 16)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             color: bet.status.color(context),

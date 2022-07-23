@@ -33,214 +33,216 @@ class BaseScreenState extends State<BaseScreen> {
   void initState() {
     super.initState();
 
-    _drawerController = KFDrawerController(
-      initialPage: TimelineScreen(),
-      items: <KFDrawerItem>[
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'timeline'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Icons.home,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: TimelineScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'profile'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Icons.account_circle,
-            color: Colors.white,
-            size: 20,
-          ),
-          onPressed: () {
-            _drawerController?.close!();
-            Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) =>
-                    ProfileScreen(showBackButton: true),
-              ),
-            );
-          },
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'odd_box'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Ionicons.gift_outline,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: OddsboxScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'members'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Icons.supervised_user_circle,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: MembersScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'oddsters'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Icons.trending_up,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: OddstersScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'payments'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Ionicons.cash_outline,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: PaymentsScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'bet_comp'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Ionicons.football_outline,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: BetCompetitionScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'p2p_bet'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: Image.asset(
-            'assets/images/betting.png',
-            color: Colors.white,
-            height: 20,
-            width: 20,
-          ),
-          page: LiveScoreScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'refer_friend'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Ionicons.share_social_sharp,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: ReferralScreen(),
-        ),
-        KFDrawerItem.initWithPage(
-          text: Text(
-            'settings'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
-            ),
-          ),
-          icon: const Icon(
-            Icons.settings,
-            color: Colors.white,
-            size: 20,
-          ),
-          page: SettingsScreen(),
-        ),
-        if (controller.user.value.role == 'user')
-          KFDrawerItem(
+    WidgetUtils.onWidgetDidBuild(() {
+      _drawerController = KFDrawerController(
+        initialPage: TimelineScreen(),
+        items: <KFDrawerItem>[
+          KFDrawerItem.initWithPage(
             text: Text(
-              'become_oddster'.tr.toUpperCase(),
-              style: context.caption.copyWith(
+              'timeline'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
                 color: Colors.white,
                 fontFamily: AppFonts.base,
               ),
             ),
             icon: const Icon(
-              Ionicons.person_outline,
+              Icons.home,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: TimelineScreen(),
+          ),
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'profile'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Icons.account_circle,
               color: Colors.white,
               size: 20,
             ),
             onPressed: () {
-              Get.toNamed<void>(AppRoutes.login);
+              _drawerController?.close!();
+              Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) =>
+                      ProfileScreen(showBackButton: true),
+                ),
+              );
             },
           ),
-        KFDrawerItem(
-          text: Text(
-            'logout'.tr.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontFamily: AppFonts.base,
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'odd_box'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
             ),
+            icon: const Icon(
+              Ionicons.gift_outline,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: OddsboxScreen(),
           ),
-          icon: const Icon(
-            Ionicons.log_out_outline,
-            color: Colors.white,
-            size: 20,
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'members'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Icons.supervised_user_circle,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: MembersScreen(),
           ),
-          onPressed: () => showLogoutDialog(context),
-        ),
-      ],
-    );
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'oddsters'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Icons.trending_up,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: OddstersScreen(),
+          ),
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'payments'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Ionicons.cash_outline,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: PaymentsScreen(),
+          ),
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'bet_comp'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Ionicons.football_outline,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: BetCompetitionScreen(),
+          ),
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'p2p_bet'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: Image.asset(
+              'assets/images/betting.png',
+              color: Colors.white,
+              height: 20,
+              width: 20,
+            ),
+            page: LiveScoreScreen(),
+          ),
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'refer_friend'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Ionicons.share_social_sharp,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: ReferralScreen(),
+          ),
+          KFDrawerItem.initWithPage(
+            text: Text(
+              'settings'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+              size: 20,
+            ),
+            page: SettingsScreen(),
+          ),
+          if (controller.user.value.role == 'user')
+            KFDrawerItem(
+              text: Text(
+                'become_oddster'.tr.toUpperCase(),
+                style: context.caption.copyWith(
+                  color: Colors.white,
+                  fontFamily: AppFonts.base,
+                ),
+              ),
+              icon: const Icon(
+                Ionicons.person_outline,
+                color: Colors.white,
+                size: 20,
+              ),
+              onPressed: () {
+                Get.toNamed<void>(AppRoutes.login);
+              },
+            ),
+          KFDrawerItem(
+            text: Text(
+              'logout'.tr.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontFamily: AppFonts.base,
+              ),
+            ),
+            icon: const Icon(
+              Ionicons.log_out_outline,
+              color: Colors.white,
+              size: 20,
+            ),
+            onPressed: () => showLogoutDialog(context),
+          ),
+        ],
+      );
+    });
   }
 
   @override

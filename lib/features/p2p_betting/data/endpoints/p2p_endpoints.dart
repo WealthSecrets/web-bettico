@@ -19,4 +19,7 @@ class P2pEndpoints {
   static const String awaitingBets = 'bets/awaiting';
   static const String ongoingBets = 'bets/ongoing';
   static const String myBets = 'bets/mybets';
+  static const String networks = 'networks';
+  static String conversion(String symbol, double amount) =>
+      'networks/convert/$symbol/$amount';
 }

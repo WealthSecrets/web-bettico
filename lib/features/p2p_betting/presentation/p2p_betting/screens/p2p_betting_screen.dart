@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:walletconnect_dart/walletconnect_dart.dart';
+import 'package:walletconnect_secure_storage/walletconnect_secure_storage.dart';
 // import 'package:walletconnect_dart/walletconnect_dart.dart';
 
+import '../../livescore/getx/live_score_controllers.dart';
 import '/core/core.dart';
 import '/features/p2p_betting/presentation/livescore/arguments/livescore_arguments.dart';
 import '/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
@@ -31,6 +34,7 @@ class P2PBettingScreen extends StatefulWidget {
 
 class _P2PBettingScreenState extends State<P2PBettingScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
+  final LiveScoreController lController = Get.find<LiveScoreController>();
   final LiveScoreArguments? args = Get.arguments as LiveScoreArguments?;
 
   // TestConnector connector = EthereumTestConnector();
@@ -241,7 +245,14 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   AppTextInput(
                     labelText: 'AMOUNT (USD)',
                     textInputType: TextInputType.number,
-                    onChanged: controller.onAmountInputChanged,
+                    onChanged: (String value) {
+                      controller.onAmountInputChanged(value);
+                      final double? amount = double.tryParse(value);
+                      if (amount != null) {
+                        lController.convertAmount(context,
+                            lController.selectedCurrency.value, amount);
+                      }
+                    },
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                       FilteringTextInputFormatter.deny(' '),
@@ -289,12 +300,53 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   ),
                   const AppSpacing(v: 70),
                   AppButton(
-                    onPressed: () {
-                      // _transactionStateToAction(context, state: _state);
-                      // controller.addNewBet(
-                      //   context,
-                      //   isFixture: args!.fixture != null,
-                      // );
+                    onPressed: () async {
+                      final WalletConnectSecureStorage sessionStorage =
+                          WalletConnectSecureStorage();
+                      final WalletConnectSession? session =
+                          await sessionStorage.getSession();
+
+                      if (lController.connector != null && session != null) {
+                        Future<void>.delayed(
+                          Duration.zero,
+                          () => lController.connector!.openWalletApp(),
+                        );
+
+                        final String? actualHash =
+                            await lController.connector?.sendBettingAmount(
+                          toAddress:
+                              '0x71628f69Efa6549A26c30bc1BD1709809f384876',
+                          amount: lController.convertedAmount.value,
+                          fromAddress: session.accounts[0],
+                          network: lController.selectedNetwork.value!,
+                        );
+
+                        final String? chargeHash =
+                            await lController.connector?.deductCharges(
+                          toAddress:
+                              '0xD0A4Ff684E59aec77b2b6BeC77B2a91adD36faBb',
+                          amount: lController.convertedAmount.value,
+                          fromAddress: session.accounts[0],
+                          network: lController.selectedNetwork.value!,
+                        );
+
+                        if (!mounted) {
+                          return;
+                        }
+
+                        if (actualHash != null && chargeHash != null) {
+                          controller.addNewBet(
+                            context,
+                            isFixture: args!.fixture != null,
+                          );
+                        } else {
+                          await AppSnacks.show(
+                            context,
+                            message:
+                                'Failed to sign transaction with wallet address',
+                          );
+                        }
+                      }
                     },
                     enabled: controller.isValid,
                     borderRadius: AppBorderRadius.largeAll,

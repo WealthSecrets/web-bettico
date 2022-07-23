@@ -75,6 +75,7 @@ class SplashController extends GetxController {
     }, (User user) {
       if (ResponsiveWidget.isSmallScreen(context)) {
         navigationController.navigateTo(AppRoutes.base);
+        Get.offAll<void>(webNavigator());
       } else {
         Get.offAll<void>(const HomeBaseScreen());
         navigationController.navigateTo(AppRoutes.timeline);

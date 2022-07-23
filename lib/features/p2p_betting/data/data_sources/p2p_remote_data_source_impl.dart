@@ -2,6 +2,8 @@ import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 
+import '../models/crypto/network.dart';
+import '../models/crypto/volume.dart';
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
@@ -155,6 +157,25 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
         (dynamic json) => Bet.fromJson(json as Map<String, dynamic>),
       ),
     );
+  }
+
+  @override
+  Future<List<Network>> fetchCryptoNetworks() async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.networks);
+    final List<dynamic> items = json['data'] as List<dynamic>;
+    return List<Network>.from(
+      items.map<Network>(
+        (dynamic json) => Network.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+  }
+
+  @override
+  Future<Volume> convertAmount(String symbol, double amount) async {
+    final Map<String, dynamic> json = await _client.get(
+      P2pEndpoints.conversion(symbol.toLowerCase(), amount),
+    );
+    return Volume.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
