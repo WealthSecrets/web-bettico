@@ -47,8 +47,8 @@ import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegisterBindings {
   static void dependencies() {
-    Get.lazyPut<RegisterController>(
-      () => RegisterController(
+    Get.put(
+      RegisterController(
         registerUser: RegisterUser(
           authRepository: Get.find(),
         ),

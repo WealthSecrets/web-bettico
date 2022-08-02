@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
+import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '../../../data/models/user/user.dart';
 
 class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
@@ -25,23 +27,29 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
         ),
         backgroundColor: context.colors.background,
         body: SafeArea(
-          child: SizedBox.expand(
-            child: SingleChildScrollView(
-              padding: AppPaddings.bodyH,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  AppAnimatedColumn(
+          child: AppLoadingBox(
+            loading: controller.isUpdatingUserRole.value,
+            child: Center(
+              child: SizedBox(
+                width: ResponsiveWidget.isSmallScreen(context)
+                    ? double.infinity
+                    : 450,
+                child: SingleChildScrollView(
+                  padding: AppPaddings.bodyH,
+                  child: AppAnimatedColumn(
                     direction: Axis.horizontal,
                     duration: const Duration(milliseconds: 1000),
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
                         'account_type'.tr,
                         textAlign: TextAlign.center,
-                        style: context.body1.copyWith(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
+                          fontSize: 16,
                         ),
                       ),
                       const AppSpacing(v: 47),
@@ -81,9 +89,10 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                                       AccountType.personal
                                   ? 'personal_account'.tr
                                   : 'oddster_account'.tr,
-                              style: context.caption.copyWith(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.primary,
+                                fontSize: 12,
                               ),
                             ),
                             const AppSpacing(v: 10),
@@ -92,9 +101,10 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                                       AccountType.personal
                                   ? 'personal_account_info'.tr
                                   : 'oddster_account_info'.tr,
-                              style: context.overline.copyWith(
+                              style: TextStyle(
                                 color: context.colors.black,
                                 fontWeight: FontWeight.w600,
+                                fontSize: 10,
                               ),
                             ),
                           ],
@@ -104,21 +114,20 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                       AppButton(
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.primary,
-                        onPressed: () {
-                          Get.toNamed<void>(AppRoutes.registration);
-                        },
+                        onPressed: () => registerController.updateRole(context),
                         child: Text(
                           'next'.tr.toUpperCase(),
-                          style: context.caption.copyWith(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
+                            fontSize: 12,
                           ),
                         ),
                       ),
                       const AppSpacing(v: 50),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -184,10 +193,11 @@ class _BuildAccountTypeCard extends StatelessWidget {
                         type == AccountType.personal
                             ? 'personal_account'.tr
                             : 'oddster_account'.tr,
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           color: selected ? Colors.white : context.colors.text,
                           fontWeight: FontWeight.w700,
                           height: 1.2,
+                          fontSize: 12,
                         ),
                       ),
                     ],

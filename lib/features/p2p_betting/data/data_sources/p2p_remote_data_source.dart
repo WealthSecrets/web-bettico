@@ -4,6 +4,9 @@ import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_ma
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 
+import '../models/crypto/network.dart';
+import '../models/crypto/volume.dart';
+
 abstract class P2pRemoteDataSource {
   Future<List<SoccerMatch>> getLiveMatches(
     String apiKey,
@@ -14,6 +17,10 @@ abstract class P2pRemoteDataSource {
     String apiKey,
     String secretKey,
   );
+
+  Future<List<Network>> fetchCryptoNetworks();
+
+  Future<Volume> convertAmount(String symbol, double amount);
 
   Future<Bet> addBet({required BetRequest request});
 

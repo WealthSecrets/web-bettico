@@ -8,16 +8,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
+// import '../../../../../core/presentation/helpers/web_navigator.dart';
+import '../../../../responsiveness/constants/web_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
 
   final RegisterController rController = Get.find<RegisterController>();
 
-  List<Map<String, dynamic>> footerLinks = [
+  List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
       'text': 'Certik',
       'link':
@@ -31,7 +34,7 @@ class LoginScreen extends GetWidget<LoginController> {
     <String, dynamic>{
       'text': 'Whitepaper',
       'link':
-          'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW'
+          'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
     },
     <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
     <String, dynamic>{
@@ -54,7 +57,7 @@ class LoginScreen extends GetWidget<LoginController> {
                 child: SizedBox(
                   width: ResponsiveWidget.isSmallScreen(context)
                       ? double.infinity
-                      : 400,
+                      : 500,
                   child: Column(
                     children: <Widget>[
                       SingleChildScrollView(
@@ -245,7 +248,8 @@ class LoginScreen extends GetWidget<LoginController> {
                                     text: 'forgot_pass'.tr,
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Get.toNamed<void>(AppRoutes.forgot);
+                                        navigationController
+                                            .navigateTo(AppRoutes.forgot);
                                       },
                                     style: TextStyle(
                                       color: context.colors.error,
@@ -330,8 +334,11 @@ class LoginScreen extends GetWidget<LoginController> {
                               ),
                               const SizedBox(height: 16),
                               TextButton(
-                                onPressed: () =>
-                                    Get.toNamed<void>(AppRoutes.registration),
+                                onPressed: () {
+                                  navigationController
+                                      .navigateTo(AppRoutes.registration);
+                                  // Get.offAll<void>(webNavigator());
+                                },
                                 child: Center(
                                   child: RichText(
                                     textAlign: TextAlign.center,
@@ -349,8 +356,9 @@ class LoginScreen extends GetWidget<LoginController> {
                                           text: 'register_now'.tr,
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              Get.toNamed<void>(
-                                                  AppRoutes.accountType);
+                                              navigationController.navigateTo(
+                                                AppRoutes.registration,
+                                              );
                                             },
                                           style: TextStyle(
                                             color: context.colors.primary,

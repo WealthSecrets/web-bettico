@@ -1,12 +1,14 @@
 import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
+import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_argument.dart';
+import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:betticos/features/betticos/presentation/base/screens/base_screen.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:betticos/features/responsiveness/large_timeline_screen.dart';
 import 'package:betticos/features/responsiveness/large_update_screen.dart';
-import 'package:betticos/features/responsiveness/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../../../features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
@@ -34,66 +36,103 @@ import 'app_routes.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.profile:
-      return _getPageRoute(ProfileScreen());
+      return _getPageRoute(ProfileScreen(), settings);
     case AppRoutes.login:
-      return _getPageRoute(LoginScreen());
+      return _getPageRoute(LoginScreen(), settings);
     case AppRoutes.registration:
-      return _getPageRoute(const RegistrationScreen());
+      return _getPageRoute(const RegistrationScreen(), settings);
     case AppRoutes.personalInformation:
-      return _getPageRoute(const RegistrationPersonalInformationScreen());
+      final UserArgument? args = settings.arguments as UserArgument?;
+      return _getPageRoute(
+          RegistrationPersonalInformationScreen(
+            user: args?.user,
+          ),
+          settings);
     case AppRoutes.accountType:
-      return _getPageRoute(const RegistrationAccountTypeScreen());
+      return _getPageRoute(const RegistrationAccountTypeScreen(), settings);
     case AppRoutes.forgot:
-      return _getPageRoute(const ForgotPasswordScreen());
+      return _getPageRoute(const ForgotPasswordScreen(), settings);
     case AppRoutes.reset:
-      return _getPageRoute(const ResetScreen());
+      return _getPageRoute(const ResetScreen(), settings);
     case AppRoutes.profilePhoto:
-      return _getPageRoute(const RegistrationUploadPhotoScreen());
+      return _getPageRoute(const RegistrationUploadPhotoScreen(), settings);
     case AppRoutes.updateProfile:
-      return _getPageRoute(const UpdateProfileScreen());
+      return _getPageRoute(const UpdateProfileScreen(), settings);
     case AppRoutes.otpVerify:
-      return _getPageRoute(const OTPVerificationScreen());
+      final OTPVerificationArgument? args =
+          settings.arguments as OTPVerificationArgument?;
+      return _getPageRoute(
+          OTPVerificationScreen(
+            otpReceiverType: args!.otpReceiverType,
+            user: args.user,
+          ),
+          settings);
     case AppRoutes.documentScreen:
-      return _getPageRoute(const RegistrationDocumentScreen());
+      return _getPageRoute(const RegistrationDocumentScreen(), settings);
     case AppRoutes.timelinePost:
-      return _getPageRoute(const TimelinePostScreen());
+      return _getPageRoute(const TimelinePostScreen(), settings);
     case AppRoutes.members:
-      return _getPageRoute(MembersScreen());
+      return _getPageRoute(MembersScreen(), settings);
     case AppRoutes.oddsters:
-      return _getPageRoute(OddstersScreen());
+      return _getPageRoute(OddstersScreen(), settings);
     case AppRoutes.oddboxes:
-      return _getPageRoute(OddsboxScreen());
+      return _getPageRoute(OddsboxScreen(), settings);
     case AppRoutes.onboard:
-      return _getPageRoute(const OnboardingScreen());
+      return _getPageRoute(const OnboardingScreen(), settings);
+    case AppRoutes.home:
+      return _getPageRoute(const HomeBaseScreen(), settings);
     case AppRoutes.splash:
-      return _getPageRoute(const SplashScreen());
+      return _getPageRoute(const SplashScreen(), settings);
     case AppRoutes.report:
-      return _getPageRoute(const ReportScreen());
+      return _getPageRoute(const ReportScreen(), settings);
     case AppRoutes.settings:
-      return _getPageRoute(SettingsScreen());
+      return _getPageRoute(SettingsScreen(), settings);
     case AppRoutes.livescore:
-      return _getPageRoute(LiveScoreScreen());
+      return _getPageRoute(LiveScoreScreen(), settings);
     case AppRoutes.p2pBettingHistory:
-      return _getPageRoute(const P2PBettingHistoryScreen());
+      return _getPageRoute(const P2PBettingHistoryScreen(), settings);
     case AppRoutes.p2pBetting:
-      return _getPageRoute(const P2PBettingScreen());
+      return _getPageRoute(const P2PBettingScreen(), settings);
     case AppRoutes.p2pSuccess:
-      return _getPageRoute(const P2PBettingCongratScreen());
+      return _getPageRoute(const P2PBettingCongratScreen(), settings);
     case AppRoutes.timeline:
-      return _getPageRoute(TimelineScreen());
+      return _getPageRoute(TimelineScreen(), settings);
     case AppRoutes.updates:
-      return _getPageRoute(const LargeUdpateScreen());
+      return _getPageRoute(const LargeUdpateScreen(), settings);
     case AppRoutes.referral:
-      return _getPageRoute(ReferralScreen());
+      return _getPageRoute(ReferralScreen(), settings);
     case AppRoutes.base:
-      return _getPageRoute(const BaseScreen());
-    case AppRoutes.responsiveLayout:
-      return _getPageRoute(const ResponsiveLayout());
+      return _getPageRoute(const BaseScreen(), settings);
     default:
-      return _getPageRoute(const LargeTimelineScreen());
+      return _getPageRoute(const LargeTimelineScreen(), settings);
   }
 }
 
-PageRoute<Widget> _getPageRoute(Widget child) {
-  return MaterialPageRoute<Widget>(builder: (BuildContext context) => child);
+PageRoute<Widget> _getPageRoute(Widget child, RouteSettings settings) {
+  return _FadeRoute(child: child, routeName: settings.name);
+}
+
+class _FadeRoute extends PageRouteBuilder<Widget> {
+  _FadeRoute({required this.child, this.routeName})
+      : super(
+          settings: RouteSettings(name: routeName),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              child,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
+  final Widget child;
+  final String? routeName;
 }

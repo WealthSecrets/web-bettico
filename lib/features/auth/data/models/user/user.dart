@@ -27,6 +27,7 @@ class User with _$User {
     DateTime? profileAt,
     String? code,
     String? referralCode,
+    bool? oAuth,
     required int followers,
     required int following,
     DateTime? createdAt,

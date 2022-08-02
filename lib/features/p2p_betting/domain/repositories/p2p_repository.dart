@@ -5,6 +5,8 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/bettor_request
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../data/models/crypto/network.dart';
+import '../../data/models/crypto/volume.dart';
 import '/core/errors/failure.dart';
 
 abstract class P2pRepository {
@@ -17,6 +19,10 @@ abstract class P2pRepository {
     String apiKey,
     String secretKey,
   );
+
+  Future<Either<Failure, List<Network>>> fetchCryptoNetworks();
+
+  Future<Either<Failure, Volume>> convertAmount(String symbol, double amount);
 
   Future<Either<Failure, SoccerMatch?>> getCompetitionMatch(
     String apiKey,

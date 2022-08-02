@@ -1,11 +1,10 @@
-// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/responsive_layout.dart';
+import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:validators/validators.dart' as validator;
 
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
@@ -91,9 +90,8 @@ class LoginController extends GetxController {
       if (user.emailVerifiedAt == null && !(isSkipEmail ?? false)) {
         resendOTPEmail(context, user.email);
       } else if (user.profileAt == null) {
-        navigationController.navigateTo(AppRoutes.personalInformation);
-        Get.to<void>(
-          webNavigator(),
+        navigationController.navigateTo(
+          AppRoutes.personalInformation,
           arguments: UserArgument(user: user),
         );
       }
@@ -112,17 +110,14 @@ class LoginController extends GetxController {
 
       else if (user.identification == null) {
         navigationController.navigateTo(AppRoutes.documentScreen);
-        Get.to<void>(webNavigator());
       } else if (user.photo == null) {
         navigationController.navigateTo(AppRoutes.profilePhoto);
-        Get.to<void>(webNavigator());
       } else {
         if (ResponsiveWidget.isSmallScreen(context)) {
           navigationController.navigateTo(AppRoutes.base);
-          Get.offAll<void>(webNavigator());
         } else {
           // navigationController.navigateTo(AppRoutes.responsiveLayout);
-          Get.offAll<void>(const ResponsiveLayout());
+          Get.offAll<void>(const HomeBaseScreen());
           navigationController.navigateTo(AppRoutes.timeline);
           menuController.changeActiveItemTo(AppRoutes.timeline);
         }
@@ -131,29 +126,24 @@ class LoginController extends GetxController {
       if (user.emailVerifiedAt == null && !(isSkipEmail ?? false)) {
         resendOTPEmail(context, user.email);
       } else if (user.profileAt == null) {
-        navigationController.navigateTo(AppRoutes.personalInformation);
-        Get.to<void>(
-          webNavigator(),
+        navigationController.navigateTo(
+          AppRoutes.personalInformation,
           arguments: UserArgument(user: user),
         );
       } else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
         if (user.phone != null) {
           resendOTPSms(context, user.phone!);
         } else {
-          navigationController.navigateTo(AppRoutes.personalInformation);
-          Get.to<void>(
-            webNavigator(),
+          navigationController.navigateTo(
+            AppRoutes.personalInformation,
             arguments: UserArgument(user: user),
           );
         }
       } else {
         if (ResponsiveWidget.isSmallScreen(context)) {
           navigationController.navigateTo(AppRoutes.base);
-          Get.offAll<void>(webNavigator());
         } else {
-          // navigationController.navigateTo(AppRoutes.responsiveLayout);
-
-          Get.offAll<void>(const ResponsiveLayout());
+          Get.offAll<void>(const HomeBaseScreen());
           navigationController.navigateTo(AppRoutes.timeline);
           menuController.changeActiveItemTo(AppRoutes.timeline);
         }
@@ -173,9 +163,8 @@ class LoginController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User user) {
       isResendingEmail(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.off<void>(
-        webNavigator(),
+      navigationController.navigateTo(
+        AppRoutes.otpVerify,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.email,
           user: user,
@@ -196,9 +185,8 @@ class LoginController extends GetxController {
       Get.offAll<void>(AppRoutes.otpVerify);
     }, (TwilioResponse value) {
       isSendingSms(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.to<void>(
-        webNavigator(),
+      navigationController.navigateTo(
+        AppRoutes.otpVerify,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.phoneNumber,
           user: controller.user.value,
@@ -224,6 +212,11 @@ class LoginController extends GetxController {
     if (email!.isEmpty) {
       errorMessage = 'Please enter email address';
     }
+
+    if (!validator.isEmail(email.trim())) {
+      errorMessage = 'Invalid email';
+    }
+
     return errorMessage;
   }
 

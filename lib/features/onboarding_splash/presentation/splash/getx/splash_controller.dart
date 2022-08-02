@@ -1,6 +1,6 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/responsive_layout.dart';
+import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,30 +29,23 @@ class SplashController extends GetxController {
 
   RxBool isLoggedIn = false.obs;
 
-  // @override
-  // void onInit() {
-  //   Future<void>.delayed(const Duration(seconds: 1), () {
-  //     validateOnBoard();
-  //   });
+  // Onboarding code commented for the web
 
-  //   super.onInit();
+  // void validateOnBoard(BuildContext context) async {
+  //   await Get.updateLocale(const Locale('en', 'US'));
+  //   final Either<Failure, bool> failureOrOnboarded =
+  //       await getOnBoard(NoParams());
+  //   failureOrOnboarded.fold((Failure failure) {
+  //     debugPrint('Inside :validateOnBoard: method failed');
+  //     navigationController.navigateTo(AppRoutes.onboard);
+  //   }, (bool isOnboarded) {
+  //     debugPrint('Inside :validateOnBoard: method passed');
+  //     isUserAuthenticated(context);
+  //   });
   // }
 
-  void validateOnBoard(BuildContext context) async {
-    await Get.updateLocale(const Locale('en', 'US'));
-    final Either<Failure, bool> failureOrOnboarded =
-        await getOnBoard(NoParams());
-    failureOrOnboarded.fold((Failure failure) {
-      debugPrint('Inside :validateOnBoard: method failed');
-      navigationController.navigateTo(AppRoutes.onboard);
-      Get.offAll<void>(webNavigator());
-    }, (bool isOnboarded) {
-      debugPrint('Inside :validateOnBoard: method passed');
-      isUserAuthenticated(context);
-    });
-  }
-
   void isUserAuthenticated(BuildContext context) async {
+    debugPrint('isUserAuthenticated called');
     final Either<Failure, bool> failureOrUser =
         await isAuthenticated(NoParams());
 
@@ -61,6 +54,7 @@ class SplashController extends GetxController {
       navigationController.navigateTo(AppRoutes.login);
       Get.offAll<void>(webNavigator());
     }, (bool respone) {
+      debugPrint('Inside :isUserAuthenticated: method success: $respone');
       if (respone) {
         validateUserSession(context);
       } else {
@@ -83,9 +77,7 @@ class SplashController extends GetxController {
         navigationController.navigateTo(AppRoutes.base);
         Get.offAll<void>(webNavigator());
       } else {
-        // navigationController.navigateTo(AppRoutes.responsiveLayout);
-
-        Get.offAll<void>(const ResponsiveLayout());
+        Get.offAll<void>(const HomeBaseScreen());
         navigationController.navigateTo(AppRoutes.timeline);
         menuController.changeActiveItemTo(AppRoutes.timeline);
       }

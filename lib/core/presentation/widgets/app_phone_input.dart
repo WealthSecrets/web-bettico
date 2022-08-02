@@ -133,9 +133,10 @@ class _AppPhoneInputState extends State<AppPhoneInput>
                 widget.labelText!,
                 textAlign: TextAlign.left,
                 style: widget.lableStyle ??
-                    context.overline.copyWith(
+                    TextStyle(
                       color: context.colors.text,
                       fontWeight: FontWeight.w700,
+                      fontSize: 10,
                     ),
               ),
             ),
@@ -178,9 +179,10 @@ class _AppPhoneInputState extends State<AppPhoneInput>
                           selectorConfig: const SelectorConfig(
                             selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                           ),
-                          textStyle: context.body2.copyWith(
+                          textStyle: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: widget.textColor ?? context.colors.textDark,
+                            fontSize: 14,
                           ),
                           inputDecoration: InputDecoration(
                             contentPadding:
@@ -190,19 +192,21 @@ class _AppPhoneInputState extends State<AppPhoneInput>
                             suffixIcon: widget.suffixIcon,
                             prefixIcon: widget.prefixIcon,
                             prefixStyle: const TextStyle(fontSize: 18),
-                            hintStyle: context.body2.copyWith(
+                            hintStyle: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: widget.hintColor ?? context.colors.hint,
                               height: 1.4,
+                              fontSize: 14,
                             ),
                             hintText: widget.hintText,
                           ),
                           ignoreBlank: false,
                           autoValidateMode: AutovalidateMode.disabled,
-                          selectorTextStyle: context.body2.copyWith(
+                          selectorTextStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: widget.hintColor ?? context.colors.hint,
                             height: 1.4,
+                            fontSize: 14,
                           ),
                           initialValue: number,
                           textFieldController: controller,
@@ -218,10 +222,11 @@ class _AppPhoneInputState extends State<AppPhoneInput>
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             suffixIcon: widget.suffixIcon,
                             prefixIcon: widget.prefixIcon,
-                            hintStyle: context.body2.copyWith(
+                            hintStyle: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: widget.hintColor ?? context.colors.hint,
                               height: 1.4,
+                              fontSize: 14,
                             ),
                             hintText: widget.searchHintText,
                           ),
@@ -304,8 +309,9 @@ class _AppPhoneInputState extends State<AppPhoneInput>
                                 child: Text(
                                   widget.validator(controller!.value.text)!,
                                   style: widget.errorStyle ??
-                                      context.captionError.copyWith(
+                                      TextStyle(
                                         color: context.colors.error,
+                                        fontSize: 12,
                                       ),
                                 ),
                               );
@@ -313,7 +319,10 @@ class _AppPhoneInputState extends State<AppPhoneInput>
                             return widget.infoText != null
                                 ? Text(
                                     widget.infoText!,
-                                    style: context.caption,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
                                   )
                                 : const SizedBox();
                           },

@@ -1,8 +1,9 @@
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
@@ -19,119 +20,137 @@ class ResetScreen extends GetWidget<ResetController> {
         child: Scaffold(
           backgroundColor: Colors.white,
           body: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: AppPaddings.lH,
-                child: AppAnimatedColumn(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: SvgPicture.asset(
-                        AssetSVGs.logo.path,
-                        height: 130,
-                        color: context.colors.secondary,
-                      ),
-                    ),
-                    const AppSpacing(v: 10),
-                    Align(
-                      alignment: Alignment.center,
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Reset password ',
-                          style: context.h6.copyWith(
-                            color: context.colors.black,
-                            fontWeight: FontWeight.w400,
+            child: SizedBox(
+              width: ResponsiveWidget.isSmallScreen(context)
+                  ? double.infinity
+                  : 450,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: AppPaddings.lH,
+                  child: AppAnimatedColumn(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      if (ResponsiveWidget.isSmallScreen(context))
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: SvgPicture.asset(
+                            AssetSVGs.logo.path,
+                            height: 130,
+                            color: context.colors.secondary,
                           ),
                         ),
-                      ),
-                    ),
-                    const AppSpacing(v: 50),
-                    AppTextInput(
-                      obscureText: true,
-                      labelText: 'PASSWORD',
-                      showObscureTextToggle: true,
-                      backgroundColor: context.colors.primary.shade100,
-                      prefixIcon: Icon(
-                        Ionicons.lock_closed_outline,
-                        color: context.colors.hintLight,
-                      ),
-                      lableStyle: context.overline.copyWith(
-                        color: context.colors.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      errorStyle: context.captionError.copyWith(
-                        color: context.colors.error,
-                      ),
-                      validator: controller.validatePassword,
-                      onChanged: controller.onPasswordInputChanged,
-                    ),
-                    AppTextInput(
-                      obscureText: true,
-                      labelText: 'CONFRIM PASSWORD',
-                      showObscureTextToggle: true,
-                      backgroundColor: context.colors.primary.shade100,
-                      prefixIcon: Icon(
-                        Ionicons.lock_closed_outline,
-                        color: context.colors.hintLight,
-                      ),
-                      lableStyle: context.overline.copyWith(
-                        color: context.colors.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      errorStyle: context.captionError.copyWith(
-                        color: context.colors.error,
-                      ),
-                      validator: controller.validateConfirmPassword,
-                      onChanged: controller.onConfirmPasswordInputChanged,
-                    ),
-                    const AppSpacing(v: 10),
-                    AppButton(
-                      enabled: controller.formIsValid,
-                      padding: EdgeInsets.zero,
-                      borderRadius: AppBorderRadius.largeAll,
-                      backgroundColor: context.colors.primary,
-                      onPressed: () => controller.reset(context),
-                      // onPressed: () => Get.toNamed<void>(AppRoutes.reset),
-                      child: const Text(
-                        'RESET PASSWORD',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    const AppSpacing(v: 10),
-                    TextButton(
-                      onPressed: () {},
-                      child: Center(
+                      if (ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.center,
                         child: RichText(
-                          textAlign: TextAlign.center,
                           text: TextSpan(
-                            style: context.body2,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Want to change email? ',
-                                style: TextStyle(
-                                  color: context.colors.text,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'Tap here',
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Get.toNamed<void>(AppRoutes.forgot);
-                                  },
-                                style: TextStyle(
-                                  color: context.colors.primary,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ],
+                            text: 'Reset password ',
+                            style: TextStyle(
+                              color: context.colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const AppSpacing(v: 60),
-                  ],
+                      const SizedBox(height: 50),
+                      AppTextInput(
+                        obscureText: true,
+                        labelText: 'NEW PASSWORD',
+                        showObscureTextToggle: true,
+                        backgroundColor: context.colors.primary.shade100,
+                        lableStyle: TextStyle(
+                          color: context.colors.primary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 10,
+                        ),
+                        errorStyle: TextStyle(
+                          color: context.colors.error,
+                          fontSize: 12,
+                        ),
+                        validator: controller.validatePassword,
+                        onChanged: controller.onPasswordInputChanged,
+                      ),
+                      AppTextInput(
+                        obscureText: true,
+                        labelText: 'CONFRIM PASSWORD',
+                        showObscureTextToggle: true,
+                        backgroundColor: context.colors.primary.shade100,
+                        lableStyle: TextStyle(
+                          color: context.colors.primary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 10,
+                        ),
+                        errorStyle: TextStyle(
+                          color: context.colors.error,
+                          fontSize: 12,
+                        ),
+                        validator: controller.validateConfirmPassword,
+                        onChanged: controller.onConfirmPasswordInputChanged,
+                      ),
+                      if (ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 10),
+                      if (!ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 50),
+                      AppButton(
+                        enabled: controller.formIsValid,
+                        padding: EdgeInsets.zero,
+                        borderRadius: AppBorderRadius.largeAll,
+                        backgroundColor: context.colors.primary,
+                        onPressed: () => controller.reset(context),
+                        // onPressed: () => Get.toNamed<void>(AppRoutes.reset),
+                        child: Text(
+                          'reset password'.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () {
+                          navigationController.navigateTo(AppRoutes.forgot);
+                        },
+                        child: Center(
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: 'Want to change email? ',
+                                  style: TextStyle(
+                                    color: context.colors.text,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'Tap here',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      navigationController
+                                          .navigateTo(AppRoutes.forgot);
+                                    },
+                                  style: TextStyle(
+                                    color: context.colors.primary,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 60),
+                    ],
+                  ),
                 ),
               ),
             ),

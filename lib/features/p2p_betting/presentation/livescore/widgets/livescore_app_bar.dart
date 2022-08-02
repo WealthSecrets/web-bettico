@@ -1,26 +1,32 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_search_delegate.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/presentation/presentation.dart';
 import '/core/presentation/widgets/sliver_app_bar_deleagate.dart';
-// import 'app_selectable_tile.dart';
 
 class LiveScoreAppBar extends StatelessWidget {
   const LiveScoreAppBar({
     Key? key,
     this.title,
     this.subtitle,
+    this.onMenuPressed,
     this.onPressed,
+    required this.walletAddress,
+    required this.onChanged,
+    this.actions,
   }) : super(key: key);
 
   final String? title;
   final String? subtitle;
+  final String walletAddress;
+  final Function()? onMenuPressed;
   final Function()? onPressed;
+  final Function(String text) onChanged;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +34,8 @@ class LiveScoreAppBar extends StatelessWidget {
       pinned: true,
       floating: true,
       delegate: SliverAppBarDelegate2(
-        maxHeight: 70 + MediaQuery.of(context).padding.top,
-        minHeight: 70 + MediaQuery.of(context).padding.top,
+        maxHeight: kToolbarHeight.h + 50.h + MediaQuery.of(context).padding.top,
+        minHeight: kToolbarHeight.h + 50.h + MediaQuery.of(context).padding.top,
         child: BlurredBox(
           backgroundColor: context.colors.background.withOpacity(.9),
           child: Column(
@@ -45,7 +51,7 @@ class LiveScoreAppBar extends StatelessWidget {
                         Icons.menu,
                         color: Colors.black,
                       ),
-                      onPressed: onPressed,
+                      onPressed: onMenuPressed,
                     ),
                   if (!ResponsiveWidget.isSmallScreen(context))
                     IconButton(
@@ -89,7 +95,8 @@ class LiveScoreAppBar extends StatelessWidget {
                       width: 24,
                     ),
                     onPressed: () {
-                      Get.toNamed<void>(AppRoutes.p2pBettingHistory);
+                      navigationController
+                          .navigateTo(AppRoutes.p2pBettingHistory);
                     },
                   ),
                   IconButton(
@@ -103,42 +110,69 @@ class LiveScoreAppBar extends StatelessWidget {
                       color: context.colors.black,
                     ),
                   ),
+                  if (actions != null) ...actions!
                 ],
               ),
-              // const AppSpacing(v: 16),
-              // SizedBox(
-              //   height: 50,
-              //   child: ListView.builder(
-              //     scrollDirection: Axis.horizontal,
-              //     itemBuilder: (
-              //       BuildContext context,
-              //       int index,
-              //     ) {
-              //       if (index == 0) {
-              //         return const AppSpacing(h: 16);
-              //       }
-              //       return Padding(
-              //         padding: const EdgeInsets.only(right: 16.0),
-              //         child: AppSelectableTile(
-              //           padding: AppPaddings.mA,
-              //           onPressed: () {},
-              //           width: 180.w,
-              //           icon: SizedBox(
-              //             width: 30,
-              //             height: 30,
-              //             child: SvgPicture.asset(
-              //               'assets/svgs/premier-league.svg',
-              //             ),
-              //           ),
-              //           selected: index == 1,
-              //           title: 'Premier League',
-              //           textOverflow: TextOverflow.ellipsis,
-              //         ),
-              //       );
-              //     },
-              //     itemCount: 4,
-              //   ),
-              // ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: AppPaddings.homeH,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(
+                      Ionicons.wallet_sharp,
+                      size: 20,
+                      color: walletAddress.isEmpty
+                          ? context.colors.grey
+                          : context.colors.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      walletAddress.isEmpty
+                          ? 'Wallet not connected.'
+                          : walletAddress.replaceRange(
+                              11,
+                              walletAddress.length,
+                              '*************',
+                            ),
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: context.colors.textDark,
+                      ),
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: onPressed,
+                      child: Container(
+                        padding: AppPaddings.mH.add(AppPaddings.sV),
+                        decoration: BoxDecoration(
+                          borderRadius: AppBorderRadius.largeAll,
+                          color: walletAddress.isEmpty
+                              ? context.colors.grey.withOpacity(.3)
+                              : context.colors.success.withOpacity(.3),
+                          border: Border.all(
+                            color: walletAddress.isEmpty
+                                ? context.colors.grey
+                                : context.colors.success,
+                            width: 1,
+                          ),
+                        ),
+                        child: Text(
+                          walletAddress.isEmpty ? 'CONNECT' : 'CONNECTED',
+                          style: context.overline.copyWith(
+                            fontSize: 8,
+                            fontWeight: FontWeight.w700,
+                            color: walletAddress.isEmpty
+                                ? context.colors.text
+                                : context.colors.success,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const AppSpacing(v: 20),
             ],
           ),

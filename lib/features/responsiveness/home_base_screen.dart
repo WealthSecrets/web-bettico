@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../core/presentation/helpers/responsiveness.dart';
 import 'large_screen.dart';
 
-class ResponsiveLayout extends StatelessWidget {
-  const ResponsiveLayout({Key? key}) : super(key: key);
+class HomeBaseScreen extends StatelessWidget {
+  const HomeBaseScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

@@ -31,18 +31,20 @@ class P2PBettingAppBar extends StatelessWidget {
             Text(
               title ?? 'Bet Space',
               textScaleFactor: 1.0,
-              style: context.body1.copyWith(
+              style: TextStyle(
                 color: context.colors.textDark,
                 fontWeight: FontWeight.w600,
+                fontSize: 16,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               subtitle ?? 'Your ongoing and completed P2P bets',
               textScaleFactor: 1.0,
-              style: context.caption.copyWith(
+              style: TextStyle(
                 color: context.colors.textDark,
                 fontWeight: FontWeight.w600,
+                fontSize: 12,
               ),
             ),
             // const SizedBox(height: 20),

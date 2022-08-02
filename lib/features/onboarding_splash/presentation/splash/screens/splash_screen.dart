@@ -21,11 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     sController.getLanguagePreference();
     Future<void>.delayed(const Duration(seconds: 1), () {
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        controller.validateOnBoard(context);
-      } else {
-        controller.isUserAuthenticated(context);
-      }
+      controller.isUserAuthenticated(context);
     });
     super.initState();
   }
@@ -34,13 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 50,
-          child: Image.asset(
-            AssetImages.logo,
-          ),
-        ),
+        child: ResponsiveWidget.isSmallScreen(context)
+            ? CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 50,
+                child: Image.asset(
+                  AssetImages.logo,
+                ),
+              )
+            : const LoadingLogo(),
       ),
     );
   }
