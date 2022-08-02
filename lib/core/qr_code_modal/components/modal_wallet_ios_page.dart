@@ -24,7 +24,7 @@ class ModalWalletIOSPage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Wallet>> walletData) {
         if (walletData.hasData) {
           return Column(
-            children: [
+            children: <Widget>[
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Text(

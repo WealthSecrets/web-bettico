@@ -30,10 +30,12 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>web_bettico</title>
+  <title>Bettico</title>
   <link rel="manifest" href="manifest.json">
+  <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
 </head>
 <body>
+  <div id="coinmarketcap-widget-marquee" coins="14229,1,1027,825" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -45,10 +47,23 @@
         return;
       }
       scriptLoaded = true;
+      // var coinElement = document.createElement('div');
+      // coinElement.setAttribute('id', 'coinmarketcap-widget-marquee');
+      // coinElement.setAttribute('coins', '14229,1,1027,825');
+      // coinElement.setAttribute('currency', 'USD');
+      // coinElement.setAttribute('theme', 'light');
+      // coinElement.setAttribute('transparent', 'false');
+      // coinElement.setAttribute('show-symbol-logo', 'true');
+
+      // const cmc = document.getElementById('cmc');
+
+
       var scriptTag = document.createElement('script');
       scriptTag.src = 'main.dart.js';
       scriptTag.type = 'application/javascript';
-      document.body.append(scriptTag);
+      // cmc.appendChild(coinElement);
+      // document.body.appendChild(cmc);
+      document.body.appendChild(scriptTag);
     }
 
     if ('serviceWorker' in navigator) {

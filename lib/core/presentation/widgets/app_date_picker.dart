@@ -174,10 +174,115 @@ class _AppDatePickerState extends State<AppDatePicker> {
                   hintText: '',
                   onChanged: (_) {},
                   prefixIcon: widget.showIcon
-                      ? Icon(
-                          Ionicons.calendar_outline,
-                          color: context.colors.hintLight,
-                          size: 18,
+                      ? GestureDetector(
+                          onTap: () async {
+                            if (ResponsiveWidget.isSmallScreen(context)) {
+                              await showMaterialModalBottomSheet<void>(
+                                bounce: true,
+                                animationCurve: Curves.fastLinearToSlowEaseIn,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: AppBorderRadius.largeTop),
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    height: .3.sh,
+                                    child: CupertinoTheme(
+                                      data: CupertinoThemeData(
+                                        textTheme: CupertinoTextThemeData(
+                                          dateTimePickerTextStyle:
+                                              context.body1.copyWith(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: context.colors.textDark,
+                                          ),
+                                        ),
+                                      ),
+                                      child: CupertinoDatePicker(
+                                        mode: CupertinoDatePickerMode.date,
+                                        initialDateTime: _selectedDate.value,
+                                        onDateTimeChanged: (DateTime dateTime) {
+                                          _selectedDate.value = DateTime.utc(
+                                            dateTime.year,
+                                            dateTime.month,
+                                            dateTime.day,
+                                          );
+                                          controller.value = TextEditingValue(
+                                              text: AppDateUtils.format(
+                                                  dateTime));
+                                          if (widget.onDateTimeChanged !=
+                                                  null &&
+                                              _selectedDate.value != null) {
+                                            widget.onDateTimeChanged!(
+                                                _selectedDate.value!);
+                                          }
+                                          widget
+                                              .validator!(_selectedDate.value);
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                                context: context,
+                              );
+                            } else {
+                              await showAppModal<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 400,
+                                      height: 300,
+                                      child: ClipRRect(
+                                        borderRadius: AppBorderRadius.mediumAll,
+                                        child: CupertinoTheme(
+                                          data: CupertinoThemeData(
+                                            textTheme: CupertinoTextThemeData(
+                                              dateTimePickerTextStyle:
+                                                  context.body1.copyWith(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400,
+                                                color: context.colors.textDark,
+                                              ),
+                                            ),
+                                          ),
+                                          child: CupertinoDatePicker(
+                                            mode: CupertinoDatePickerMode.date,
+                                            initialDateTime:
+                                                _selectedDate.value,
+                                            onDateTimeChanged:
+                                                (DateTime dateTime) {
+                                              _selectedDate.value =
+                                                  DateTime.utc(
+                                                dateTime.year,
+                                                dateTime.month,
+                                                dateTime.day,
+                                              );
+                                              controller.value =
+                                                  TextEditingValue(
+                                                      text: AppDateUtils.format(
+                                                          dateTime));
+                                              if (widget.onDateTimeChanged !=
+                                                      null &&
+                                                  _selectedDate.value != null) {
+                                                widget.onDateTimeChanged!(
+                                                    _selectedDate.value!);
+                                              }
+                                              widget.validator!(
+                                                  _selectedDate.value);
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          child: Icon(
+                            Ionicons.calendar_outline,
+                            color: context.colors.hintLight,
+                            size: 18,
+                          ),
                         )
                       : null,
                 ),
