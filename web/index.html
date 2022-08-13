@@ -34,8 +34,29 @@
   <link rel="manifest" href="manifest.json">
   <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
 </head>
+<style>
+  *::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0) !important;
+	background-color: #f5f5f500 !important;
+}
+
+*::-webkit-scrollbar
+{
+	width: 1px !important;
+	background-color: #f5f5f500 !important;
+}
+
+*::-webkit-scrollbar-thumb
+{
+	background-color: #00000000 !important;
+	border: 1px solid #55555500 !important;
+}
+</style>
 <body>
-  <div id="coinmarketcap-widget-marquee" coins="14229,1,1027,825" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
+  <div class="cmc-widget" style="z-index: 9999999 !important; position: absolute !important;">
+    <div id="coinmarketcap-widget-marquee" coins="14229,1,1027,825" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
+  </div>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -64,6 +85,7 @@
       // cmc.appendChild(coinElement);
       // document.body.appendChild(cmc);
       document.body.appendChild(scriptTag);
+      // document.body.appendChild(coinElement)
     }
 
     if ('serviceWorker' in navigator) {
