@@ -1,11 +1,11 @@
 {
-    "name": "web_bettico",
-    "short_name": "web_bettico",
+    "name": "bettico",
+    "short_name": "bettico",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Social betting app. All rights reserved to WealthSecrets (www.wealthsecrets.io).",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

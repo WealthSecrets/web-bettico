@@ -101,9 +101,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SettingsTile.navigation(
                     title: const Text('Whitepaper'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
-                      ]);
+                      _launchURL(
+                          'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW');
                     },
                   ),
                   SettingsTile.navigation(
