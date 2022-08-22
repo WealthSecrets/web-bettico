@@ -29,6 +29,7 @@ dependencies:
   flutter_screenutil: ^5.0.0+2 #web
   flutter_spinkit: ^5.1.0 #web
   flutter_svg: ^0.23.0+1 #web
+  flutter_web3: ^2.1.9
   freezed_annotation: ^1.1.0 #web
   get: ^4.6.1 #web
   google_sign_in: ^5.3.0 #web
@@ -56,9 +57,6 @@ dependencies:
   url_launcher: ^6.0.20 #web
   uuid: ^3.0.5 #web
   validators: ^3.0.0 #web
-  walletconnect_dart: ^0.0.10 #web
-  walletconnect_secure_storage: ^1.0.0 #web
-  web3dart: ^2.3.5 #web
 
 dev_dependencies:
   build_runner: ^2.1.7

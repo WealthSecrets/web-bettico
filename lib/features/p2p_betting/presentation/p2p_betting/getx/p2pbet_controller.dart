@@ -12,9 +12,8 @@ import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dar
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_competition_match.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_team_match.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/arguments/p2p_congrats_argument.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -204,10 +203,11 @@ class P2PBetController extends GetxController {
         allBets.insert(0, value);
         bets.value = allBets;
         rebuildBets(allBets);
-        Get.offNamed<void>(
-          AppRoutes.p2pSuccess,
-          arguments: P2PCongratsArgument(
-            isFixture: isFixture,
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => P2PBettingCongratScreen(
+              isFixture: isFixture,
+            ),
           ),
         );
       },

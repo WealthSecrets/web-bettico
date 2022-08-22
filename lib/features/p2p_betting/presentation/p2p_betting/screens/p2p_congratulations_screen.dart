@@ -1,6 +1,5 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/arguments/p2p_congrats_argument.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
@@ -10,7 +9,10 @@ import 'package:get/get.dart';
 class P2PBettingCongratScreen extends StatefulWidget {
   const P2PBettingCongratScreen({
     Key? key,
+    this.isFixture,
   }) : super(key: key);
+
+  final bool? isFixture;
 
   @override
   _P2PBettingCongratScreenState createState() =>
@@ -20,7 +22,7 @@ class P2PBettingCongratScreen extends StatefulWidget {
 class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
   final P2PBetController p2pBetController = Get.find<P2PBetController>();
 
-  final P2PCongratsArgument? args = Get.arguments as P2PCongratsArgument?;
+  // final P2PCongratsArgument? args = Get.arguments as P2PCongratsArgument?;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -37,18 +39,20 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
             // const AppSpacing(v: 40),
             Text(
               'Congratulation! 🎉',
-              style: context.h6.copyWith(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: context.colors.success,
+                fontSize: 20,
               ),
               textAlign: TextAlign.center,
             ),
             const AppSpacing(v: 8),
             Text(
               'You have placed the bet successfully.\nGood luck to you.',
-              style: context.caption.copyWith(
+              style: TextStyle(
                 color: context.colors.text,
                 fontWeight: FontWeight.w600,
+                fontSize: 12,
               ),
               textAlign: TextAlign.center,
             ),
@@ -63,22 +67,14 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       Container(
                         height: 60,
                         width: 60,
-                        // padding: AppPaddings.sA,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: null,
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        // child: SizedBox(
-                        //   height: 40,
-                        //   width: 40,
-                        //   child: SvgPicture.asset(
-                        //     'assets/svgs/leicester-city-fc.svg',
-                        //   ),
-                        // ),
                         child: CircleAvatar(
                           radius: 30.0,
-                          backgroundColor: args?.isFixture ?? false
+                          backgroundColor: widget.isFixture ?? false
                               ? p2pBetController.bet.value.creator.team ==
                                       p2pBetController.fixture.value.awayName
                                   ? context.colors.primary
@@ -91,12 +87,13 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                             child: Text(
                               StringUtils.getInitials(
-                                args?.isFixture ?? false
+                                widget.isFixture ?? false
                                     ? p2pBetController.fixture.value.awayName
                                     : p2pBetController.match.value.awayName,
                               ),
-                              style: context.body2.copyWith(
+                              style: const TextStyle(
                                 color: Colors.white,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -104,20 +101,22 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       ),
                       const AppSpacing(v: 8),
                       Text(
-                        args?.isFixture ?? false
+                        widget.isFixture ?? false
                             ? p2pBetController.fixture.value.awayName
                             : p2pBetController.match.value.awayName,
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           color: context.colors.black,
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
-                  Text(
+                  const Text(
                     'Vrs',
-                    style: context.h6.copyWith(
+                    style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
                   Column(
@@ -128,17 +127,12 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         // padding: AppPaddings.sA,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          // border: Border.all(
-                          //   color: context.colors.primary,
-                          //   width: 2,
-                          //   style: BorderStyle.solid,
-                          // ),
                           border: null,
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: CircleAvatar(
                           radius: 30.0,
-                          backgroundColor: args?.isFixture ?? false
+                          backgroundColor: widget.isFixture ?? false
                               ? p2pBetController.bet.value.creator.team ==
                                       p2pBetController.fixture.value.homeName
                                   ? context.colors.primary
@@ -151,12 +145,13 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                             child: Text(
                               StringUtils.getInitials(
-                                args?.isFixture ?? false
+                                widget.isFixture ?? false
                                     ? p2pBetController.fixture.value.homeName
                                     : p2pBetController.match.value.homeName,
                               ),
-                              style: context.body2.copyWith(
+                              style: const TextStyle(
                                 color: Colors.white,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -164,11 +159,12 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       ),
                       const AppSpacing(v: 8),
                       Text(
-                        args?.isFixture ?? false
+                        widget.isFixture ?? false
                             ? p2pBetController.fixture.value.homeName
                             : p2pBetController.match.value.homeName,
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           color: context.colors.black,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -184,18 +180,20 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Choice: ',
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 12,
                         ),
                       ),
                       Text(
                         p2pBetController.bet.value.creator.choice.stringValue
                             .toUpperCase(),
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: context.colors.success,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -204,17 +202,19 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Potential Reward: ',
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 12,
                         ),
                       ),
                       Text(
                         '\$${p2pBetController.bet.value.amount}',
-                        style: context.caption.copyWith(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: context.colors.success,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -231,9 +231,10 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                 onPressed: () => Get.back<void>(),
                 child: Text(
                   'Back Home'.toUpperCase(),
-                  style: context.body2.copyWith(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    fontSize: 14,
                   ),
                 ),
               ),

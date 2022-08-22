@@ -3,9 +3,9 @@ import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../responsiveness/constants/web_controller.dart';
 import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
+import '../../../../responsiveness/constants/web_controller.dart';
 
 const List<String> documentTypes = <String>[
   'Passport',
