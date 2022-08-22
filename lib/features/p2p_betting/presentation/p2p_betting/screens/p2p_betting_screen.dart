@@ -1,21 +1,15 @@
+import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-// import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:walletconnect_dart/walletconnect_dart.dart';
-import 'package:walletconnect_secure_storage/walletconnect_secure_storage.dart';
-// import 'package:walletconnect_dart/walletconnect_dart.dart';
 
-import '../../livescore/getx/live_score_controllers.dart';
 import '/core/core.dart';
-import '/features/p2p_betting/presentation/livescore/arguments/livescore_arguments.dart';
 import '/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
-// import '../widgets/algorand_connector.dart';
-// import '../widgets/ethereum_connector.dart';
-// import '../widgets/test_connector.dart';
+import '../../../data/models/fixture/fixture.dart';
+import '../../livescore/getx/live_score_controllers.dart';
 
 enum ConnectionState {
   disconnected,
@@ -26,7 +20,11 @@ enum ConnectionState {
 }
 
 class P2PBettingScreen extends StatefulWidget {
-  const P2PBettingScreen({Key? key}) : super(key: key);
+  const P2PBettingScreen({Key? key, this.fixture, this.match})
+      : super(key: key);
+
+  final Fixture? fixture;
+  final SoccerMatch? match;
 
   @override
   State<StatefulWidget> createState() => _P2PBettingScreenState();
@@ -35,104 +33,22 @@ class P2PBettingScreen extends StatefulWidget {
 class _P2PBettingScreenState extends State<P2PBettingScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
-  final LiveScoreArguments? args = Get.arguments as LiveScoreArguments?;
-
-  // TestConnector connector = EthereumTestConnector();
-
-  // static const List<String> _networks = <String>[
-  //   'Ethereum (Ropsten)',
-  //   'Algorand (Testnet)'
-  // ];
-
-  // ConnectionState _state = ConnectionState.disconnected;
-  // String? _networkName = _networks.first;
+  // final LiveScoreArguments? args = Get.arguments as LiveScoreArguments?;
 
   @override
   void initState() {
     super.initState();
-    if (args != null) {
-      if (args!.match != null) {
-        controller.setCompetitionId(args!.match!.competitionId);
-        controller.setMatch(args!.match!);
-      } else if (args!.fixture != null) {
-        controller.setCompetitionId(args!.fixture!.competitionId);
-        controller.setFixture(args!.fixture!);
-      }
+
+    if (widget.match != null) {
+      controller.setCompetitionId(widget.match!.competitionId);
+      controller.setMatch(widget.match!);
+    } else if (widget.fixture != null) {
+      controller.setCompetitionId(widget.fixture!.competitionId);
+      controller.setFixture(widget.fixture!);
     }
 
-    // connector.registerListeners(
-    //     // connected
-    //     (SessionStatus session) => print('Connected: $session'),
-    //     // session updated
-    //     (WCSessionUpdateResponse response) =>
-    //         print('Session updated: $response'),
-    //     // disconnected
-    //     () {
-    //   setState(() => _state = ConnectionState.disconnected);
-    //   print('Disconnected');
-    // });
     super.initState();
   }
-
-  // WalletConnect _buildApp() {
-  //   final WalletConnect connector = WalletConnect(
-  //     bridge: 'https://bridge.walletconnect.org',
-  //     clientMeta: const PeerMeta(
-  //       name: 'WalletConnect',
-  //       description: 'WalletConnect Developer App',
-  //       url: 'https://walletconnect.org',
-  //       icons: <String>[
-  //         'https://gblobscdn.gitbook.com/spaces%2F-LJJeCjcLrr53DcT1Ml7%2Favatar.png?alt=media'
-  //       ],
-  //     ),
-  //   );
-
-  //   connector.on('connect', (event) => print('Connected: $event'));
-
-  //   connector.on('session_update', (payload) {
-  //     print('Payload: $payload');
-  //   });
-
-  //   connector.on('disconnect', (event) {
-  //     print('Disconnected');
-  //   });
-
-  //   connector.registerListeners(onSessionUpdate: (payload) {
-  //     print(payload);
-  //   });
-
-  //   return connector;
-  // }
-
-  // void _connectWallet({required String uri}) {
-  //   final WalletConnect connector = WalletConnect(
-  //     uri: uri,
-  //     clientMeta: const PeerMeta(
-  //       name: 'Algorand Wallet',
-  //       description: 'Unofficial Algorand wallet',
-  //       url: 'https://www.algorand.com',
-  //       icons: [
-  //         'https://cdn-images-1.medium.com/max/1200/1*VDrnmUI_W3GeeRClkfRPfg.png'
-  //       ],
-  //     ),
-  //   );
-
-  //   // Subscribe to session requests
-  //   connector.on('session_request', (payload) async {
-  //     await connector.approveSession(chainId: 4160, accounts: ['test']);
-
-  //     await connector
-  //         .updateSession(SessionStatus(chainId: 4000, accounts: ['test2']));
-  //   });
-
-  //   connector.on('disconnect', (message) async {
-  //     print('Wallet disconnected $message');
-  //   });
-
-  //   connector.on('session_update', (session) async {
-  //     print('Session updated: $session');
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -150,18 +66,20 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
               Text(
                 'P2P Betting',
                 textScaleFactor: 1.0,
-                style: context.body1.copyWith(
+                style: TextStyle(
                   color: context.colors.textDark,
                   fontWeight: FontWeight.w600,
+                  fontSize: 16,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 'Here you can create your P2P Bet',
                 textScaleFactor: 1.0,
-                style: context.caption.copyWith(
+                style: TextStyle(
                   color: context.colors.textDark,
                   fontWeight: FontWeight.w500,
+                  fontSize: 12,
                 ),
               ),
             ],
@@ -178,67 +96,68 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                 children: <Widget>[
                   Text(
                     'Select one of the team to bet',
-                    style: context.caption.copyWith(
+                    style: TextStyle(
                       color: context.colors.textDark,
                       fontWeight: FontWeight.w700,
+                      fontSize: 12,
                     ),
                   ),
                   const AppSpacing(v: 8),
-                  if (args != null)
-                    SizedBox(
-                      height: 141.h,
-                      width: 1.sw,
-                      child: args!.match != null
-                          ? P2PBettingCard(
-                              homeTeam: Team(
-                                name: args!.match!.homeName,
-                                teamId: args!.match!.homeId,
-                              ),
-                              awayTeam: Team(
-                                name: args!.match!.awayName,
-                                teamId: args!.match!.awayId,
-                              ),
-                              score: args!.match!.score ?? '? - ?',
-                              time: args!.match!.time,
-                              onAwayPressed: () => controller.selectTeam(
-                                args!.match!.awayName,
-                                args!.match!.awayId,
-                              ),
-                              onHomePressed: () => controller.selectTeam(
-                                args!.match!.homeName,
-                                args!.match!.homeId,
-                              ),
-                            )
-                          : args!.fixture != null
-                              ? P2PBettingCard(
-                                  homeTeam: Team(
-                                    name: args!.fixture!.homeName,
-                                    teamId: args!.fixture!.homeId,
-                                  ),
-                                  awayTeam: Team(
-                                    name: args!.fixture!.awayName,
-                                    teamId: args!.fixture!.awayId,
-                                  ),
-                                  score: '? - ?',
-                                  time: args!.fixture!.time,
-                                  date: args!.fixture!.date,
-                                  onAwayPressed: () => controller.selectTeam(
-                                    args!.fixture!.awayName,
-                                    args!.fixture!.awayId,
-                                  ),
-                                  onHomePressed: () => controller.selectTeam(
-                                    args!.fixture!.homeName,
-                                    args!.fixture!.homeId,
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                    ),
+                  SizedBox(
+                    height: 141.h,
+                    width: 1.sw,
+                    child: widget.match != null
+                        ? P2PBettingCard(
+                            homeTeam: Team(
+                              name: widget.match!.homeName,
+                              teamId: widget.match!.homeId,
+                            ),
+                            awayTeam: Team(
+                              name: widget.match!.awayName,
+                              teamId: widget.match!.awayId,
+                            ),
+                            score: widget.match!.score ?? '? - ?',
+                            time: widget.match!.time,
+                            onAwayPressed: () => controller.selectTeam(
+                              widget.match!.awayName,
+                              widget.match!.awayId,
+                            ),
+                            onHomePressed: () => controller.selectTeam(
+                              widget.match!.homeName,
+                              widget.match!.homeId,
+                            ),
+                          )
+                        : widget.fixture != null
+                            ? P2PBettingCard(
+                                homeTeam: Team(
+                                  name: widget.fixture!.homeName,
+                                  teamId: widget.fixture!.homeId,
+                                ),
+                                awayTeam: Team(
+                                  name: widget.fixture!.awayName,
+                                  teamId: widget.fixture!.awayId,
+                                ),
+                                score: '? - ?',
+                                time: widget.fixture!.time,
+                                date: widget.fixture!.date,
+                                onAwayPressed: () => controller.selectTeam(
+                                  widget.fixture!.awayName,
+                                  widget.fixture!.awayId,
+                                ),
+                                onHomePressed: () => controller.selectTeam(
+                                  widget.fixture!.homeName,
+                                  widget.fixture!.homeId,
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                  ),
                   const AppSpacing(v: 30),
                   Text(
                     'How much do you want to bet ?',
-                    style: context.caption.copyWith(
+                    style: TextStyle(
                       color: context.colors.textDark,
                       fontWeight: FontWeight.w700,
+                      fontSize: 12,
                     ),
                   ),
                   const AppSpacing(v: 8),
@@ -260,12 +179,31 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                     backgroundColor: context.colors.primary.shade50,
                     validator: controller.validateAmount,
                   ),
+                  const AppSpacing(v: 4),
+                  Obx(
+                    () => lController.isLoading.value
+                        ? const SizedBox(
+                            height: 15,
+                            width: 15,
+                            child: CircularProgressIndicator(strokeWidth: 1),
+                          )
+                        : Text(
+                            'USD coverted to  ${lController.selectedCurrency.toUpperCase()}: ${lController.convertedAmount}',
+                            style: TextStyle(
+                              color: context.colors.text,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 12,
+                            ),
+                          ),
+                  ),
                   const AppSpacing(v: 30),
                   Text(
                     'Choose your bet',
-                    style: context.caption.copyWith(
+                    style: TextStyle(
                       color: context.colors.textDark,
                       fontWeight: FontWeight.w700,
+                      fontSize: 12,
                     ),
                   ),
                   const AppSpacing(v: 8),
@@ -301,67 +239,32 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   const AppSpacing(v: 70),
                   AppButton(
                     onPressed: () async {
-                      final WalletConnectSecureStorage sessionStorage =
-                          WalletConnectSecureStorage();
-                      final WalletConnectSession? session =
-                          await sessionStorage.getSession();
+                      final String? actualHash =
+                          await lController.send(context);
 
-                      if (lController.connector != null && session != null) {
-                        Future<void>.delayed(
-                          Duration.zero,
-                          () => lController.connector!.openWalletApp(),
+                      if (actualHash != null) {
+                        controller.addNewBet(
+                          context,
+                          isFixture: widget.fixture != null,
                         );
-
-                        final String? actualHash =
-                            await lController.connector?.sendBettingAmount(
-                          toAddress:
-                              '0x71628f69Efa6549A26c30bc1BD1709809f384876',
-                          amount: lController.convertedAmount.value,
-                          fromAddress: session.accounts[0],
-                          network: lController.selectedNetwork.value!,
-                        );
-
-                        final String? chargeHash =
-                            await lController.connector?.deductCharges(
-                          toAddress:
-                              '0xD0A4Ff684E59aec77b2b6BeC77B2a91adD36faBb',
-                          amount: lController.convertedAmount.value,
-                          fromAddress: session.accounts[0],
-                          network: lController.selectedNetwork.value!,
-                        );
-
-                        if (!mounted) {
-                          return;
-                        }
-
-                        if (actualHash != null && chargeHash != null) {
-                          controller.addNewBet(
-                            context,
-                            isFixture: args!.fixture != null,
-                          );
-                        } else {
-                          await AppSnacks.show(
-                            context,
-                            message:
-                                'Failed to sign transaction with wallet address',
-                          );
-                        }
                       }
                     },
-                    enabled: controller.isValid,
+                    enabled: controller.isValid && !lController.isLoading.value,
                     borderRadius: AppBorderRadius.largeAll,
                     child: Text(
                       'Create Bet'.toUpperCase(),
-                      style: context.body2.copyWith(
+                      style: const TextStyle(
                         color: Colors.white,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                   const AppSpacing(v: 40),
                   Text(
                     'Betting is risky, addictive and can be psychological.\nBet depending on how much you can afford.\nNo limits on how many bets you can create.\nBet is finalized when opponent accepts bet request.',
-                    style: context.caption.copyWith(
+                    style: TextStyle(
                       color: context.colors.textDark,
+                      fontSize: 12,
                     ),
                   ),
                   const AppSpacing(v: 100),

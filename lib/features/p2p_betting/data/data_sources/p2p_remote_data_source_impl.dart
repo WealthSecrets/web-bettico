@@ -2,13 +2,13 @@ import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 
-import '../models/crypto/network.dart';
-import '../models/crypto/volume.dart';
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
 import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import '../models/bet/bet.dart';
+import '../models/crypto/network.dart';
+import '../models/crypto/volume.dart';
 
 class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   const P2pRemoteDataSourceImpl({required AppHTTPClient client})

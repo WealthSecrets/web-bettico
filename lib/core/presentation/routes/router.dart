@@ -28,7 +28,7 @@ import '../../../features/onboarding_splash/presentation/onbaording/screens/onbo
 import '../../../features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
 import '../../../features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
 import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
-import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
+// import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import '../../../features/settings/presentation/settings/screens/settings_screen.dart';
 import 'app_routes.dart';
@@ -91,8 +91,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(LiveScoreScreen(), settings);
     case AppRoutes.p2pBettingHistory:
       return _getPageRoute(const P2PBettingHistoryScreen(), settings);
-    case AppRoutes.p2pBetting:
-      return _getPageRoute(const P2PBettingScreen(), settings);
+    // case AppRoutes.p2pBetting:
+    //   return _getPageRoute(const P2PBettingScreen(), settings);
     case AppRoutes.p2pSuccess:
       return _getPageRoute(const P2PBettingCongratScreen(), settings);
     case AppRoutes.timeline:
