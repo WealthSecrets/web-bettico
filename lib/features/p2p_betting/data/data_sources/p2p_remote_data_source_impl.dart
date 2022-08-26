@@ -1,11 +1,16 @@
-import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
+import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 
+import '../models/sportmonks/fixture/fixture.dart';
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
+import '/features/p2p_betting/data/models/fixture/fixture.dart';
 import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
+import '/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
+import '/features/p2p_betting/domain/requests/bet/bet_request.dart';
+import '/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
+import '../../../betticos/data/models/listpage/listpage.dart';
 import '../models/bet/bet.dart';
 import '../models/crypto/network.dart';
 import '../models/crypto/volume.dart';
@@ -67,6 +72,15 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<Team> getTeam(int teamId) async {
+    final Map<String, dynamic> json = await _client.get(
+      P2pEndpoints.getTeam(teamId),
+    );
+
+    return Team.fromJson(json);
   }
 
   @override
@@ -185,6 +199,57 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
     return List<Bet>.from(
       items.map<Bet>(
         (dynamic json) => Bet.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+  }
+
+  @override
+  Future<ListPage<LiveScore>> fetchPaginatedLiveScores(
+      int page, int limit, int leagueId) async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.liveScore(
+      page: page,
+      size: limit,
+      leagueId: leagueId,
+    ));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    final List<LiveScore> posts = List<LiveScore>.from(
+      items.map<LiveScore>(
+        (dynamic json) => LiveScore.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return ListPage<LiveScore>(
+      grandTotalCount: json['results'] as int,
+      itemList: posts,
+    );
+  }
+
+  @override
+  Future<ListPage<SFixture>> fetchPaginatedFixtures(
+      int page, int limit, int leagueId) async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.sfixtures(
+      page: page,
+      size: limit,
+      leagueId: leagueId,
+    ));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    final List<SFixture> posts = List<SFixture>.from(
+      items.map<SFixture>(
+        (dynamic json) => SFixture.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return ListPage<SFixture>(
+      grandTotalCount: json['results'] as int,
+      itemList: posts,
+    );
+  }
+
+  @override
+  Future<List<SLeague>> fetchLeagues() async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.leagues);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<SLeague>.from(
+      items.map<SLeague>(
+        (dynamic json) => SLeague.fromJson(json as Map<String, dynamic>),
       ),
     );
   }

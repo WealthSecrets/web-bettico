@@ -8,7 +8,12 @@ abstract class UseCase<Type, Params> {
 class NoParams {}
 
 class PageParmas {
-  const PageParmas({required this.page, required this.size});
+  const PageParmas({
+    required this.page,
+    required this.size,
+    required this.leagueId,
+  });
   final int page;
   final int size;
+  final int leagueId;
 }

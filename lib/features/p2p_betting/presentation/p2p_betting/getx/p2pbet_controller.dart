@@ -176,11 +176,11 @@ class P2PBetController extends GetxController {
           user: bController.user.value.id,
         ),
         awayTeam: TeamRequest(
-          name: isFixture ? fixture.value.awayName : match.value.awayName,
+          // name: isFixture ? fixture.value.awayName : match.value.awayName,
           teamId: isFixture ? fixture.value.awayId : match.value.awayId,
         ),
         homeTeam: TeamRequest(
-          name: isFixture ? fixture.value.homeName : match.value.homeName,
+          // name: isFixture ? fixture.value.homeName : match.value.homeName,
           teamId: isFixture ? fixture.value.homeId : match.value.homeId,
         ),
         status: status.value,

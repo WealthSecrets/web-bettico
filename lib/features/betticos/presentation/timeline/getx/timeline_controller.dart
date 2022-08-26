@@ -299,6 +299,7 @@ class TimelineController extends GetxController {
       PageParmas(
         page: pageK.value,
         size: 100,
+        leagueId: 1,
       ),
     );
 

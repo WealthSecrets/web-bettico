@@ -132,16 +132,13 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                               margin: AppPaddings.sV.add(AppPaddings.sT),
                               child: InkWell(
                                 onTap: () async {
-                                  print('Not connected the walle.');
                                   if (!lController.isConnected) {
-                                    print('the wallet is already connected');
                                     if (Ethereum.isSupported) {
                                       lController.initiateWalletConnect();
                                     } else {
                                       lController.connectWC();
                                     }
                                   } else {
-                                    print('the else statement is called');
                                     final Fixture fixture =
                                         lController.fixtures[index - 1];
 

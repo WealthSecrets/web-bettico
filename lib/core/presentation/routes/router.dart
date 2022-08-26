@@ -6,6 +6,7 @@ import 'package:betticos/features/betticos/presentation/members/screens/members_
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:betticos/features/responsiveness/large_timeline_screen.dart';
 import 'package:betticos/features/responsiveness/large_update_screen.dart';
@@ -26,7 +27,6 @@ import '../../../features/betticos/presentation/report/screens/report_screen.dar
 import '../../../features/betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import '../../../features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
 import '../../../features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
-import '../../../features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
 import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 // import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
@@ -88,7 +88,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.settings:
       return _getPageRoute(SettingsScreen(), settings);
     case AppRoutes.livescore:
-      return _getPageRoute(LiveScoreScreen(), settings);
+      return _getPageRoute(NewLiveScore(), settings);
     case AppRoutes.p2pBettingHistory:
       return _getPageRoute(const P2PBettingHistoryScreen(), settings);
     // case AppRoutes.p2pBetting:

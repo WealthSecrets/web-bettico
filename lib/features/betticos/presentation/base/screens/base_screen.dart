@@ -1,6 +1,5 @@
 // ignore_for_file: always_specify_types, use_full_hex_values_for_flutter_colors
-
-import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -172,7 +171,7 @@ class BaseScreenState extends State<BaseScreen> {
               height: 20,
               width: 20,
             ),
-            page: LiveScoreScreen(),
+            page: NewLiveScore(),
           ),
           KFDrawerItem.initWithPage(
             text: Text(

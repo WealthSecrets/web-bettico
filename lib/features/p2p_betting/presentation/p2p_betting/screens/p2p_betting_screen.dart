@@ -109,12 +109,13 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                     child: widget.match != null
                         ? P2PBettingCard(
                             homeTeam: Team(
-                              name: widget.match!.homeName,
-                              teamId: widget.match!.homeId,
-                            ),
+                                name: widget.match!.homeName,
+                                id: widget.match!.homeId,
+                                logo: ''),
                             awayTeam: Team(
                               name: widget.match!.awayName,
-                              teamId: widget.match!.awayId,
+                              id: widget.match!.awayId,
+                              logo: '',
                             ),
                             score: widget.match!.score ?? '? - ?',
                             time: widget.match!.time,
@@ -130,13 +131,13 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         : widget.fixture != null
                             ? P2PBettingCard(
                                 homeTeam: Team(
-                                  name: widget.fixture!.homeName,
-                                  teamId: widget.fixture!.homeId,
-                                ),
+                                    name: widget.fixture!.homeName,
+                                    id: widget.fixture!.homeId,
+                                    logo: ''),
                                 awayTeam: Team(
-                                  name: widget.fixture!.awayName,
-                                  teamId: widget.fixture!.awayId,
-                                ),
+                                    name: widget.fixture!.awayName,
+                                    id: widget.fixture!.awayId,
+                                    logo: ''),
                                 score: '? - ?',
                                 time: widget.fixture!.time,
                                 date: widget.fixture!.date,

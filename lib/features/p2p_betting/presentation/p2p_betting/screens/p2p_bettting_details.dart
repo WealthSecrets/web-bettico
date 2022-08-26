@@ -78,33 +78,35 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   P2PBettingCard(
                     awayTeam: Team(
                       name: widget.bet.awayTeam.name,
-                      teamId: widget.bet.awayTeam.teamId,
+                      id: widget.bet.awayTeam.id,
+                      logo: '',
                     ),
                     homeTeam: Team(
                       name: widget.bet.homeTeam.name,
-                      teamId: widget.bet.homeTeam.teamId,
+                      id: widget.bet.homeTeam.id,
+                      logo: '',
                     ),
                     score: widget.bet.score ?? '? - ?',
                     time: widget.bet.time,
                     date: widget.bet.date,
                     onAwayPressed:
-                        widget.bet.creator.teamId != widget.bet.awayTeam.teamId
+                        widget.bet.creator.teamId != widget.bet.awayTeam.id
                             ? () => controller.selectTeam(
                                   widget.bet.awayTeam.name,
-                                  widget.bet.awayTeam.teamId,
+                                  widget.bet.awayTeam.id,
                                 )
                             : null,
                     onHomePressed:
-                        widget.bet.creator.teamId != widget.bet.homeTeam.teamId
+                        widget.bet.creator.teamId != widget.bet.homeTeam.id
                             ? () => controller.selectTeam(
                                   widget.bet.homeTeam.name,
-                                  widget.bet.homeTeam.teamId,
+                                  widget.bet.homeTeam.id,
                                 )
                             : null,
                     awayDisabled:
-                        widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
+                        widget.bet.creator.teamId == widget.bet.awayTeam.id,
                     homeDisabled:
-                        widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
+                        widget.bet.creator.teamId == widget.bet.homeTeam.id,
                   ),
                   const AppSpacing(v: 30),
                   Text(

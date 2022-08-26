@@ -1,6 +1,5 @@
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
-
+import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import '/features/betticos/presentation/bet_competition/screens/bet_competition_screen.dart';
 import '/features/betticos/presentation/members/screens/members_screen.dart';
 import '/features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
@@ -28,7 +27,8 @@ class ClassBuilder {
     register<BetCompetitionScreen>(() => BetCompetitionScreen());
     register<SettingsScreen>(() => SettingsScreen());
     register<ReferralScreen>(() => ReferralScreen());
-    register<LiveScoreScreen>(() => LiveScoreScreen());
+    // register<LiveScoreScreen>(() => LiveScoreScreen());
+    register<NewLiveScore>(() => NewLiveScore());
   }
 
   static dynamic fromString(String type) {
