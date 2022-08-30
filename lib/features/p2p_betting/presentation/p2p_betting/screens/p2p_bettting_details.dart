@@ -22,17 +22,6 @@ class P2PBettingDetailsScreen extends StatefulWidget {
 
 class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
-  // final LiveScoreArguments? args = Get.arguments as LiveScoreArguments?;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (args != null) {
-  //     controller.setCompetitionId(args!.match.competitionId);
-  //     controller.setMatch(args!.match);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -79,12 +68,16 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                     awayTeam: Team(
                       name: widget.bet.awayTeam.name,
                       teamId: widget.bet.awayTeam.teamId,
+                      logo: '',
                     ),
                     homeTeam: Team(
                       name: widget.bet.homeTeam.name,
                       teamId: widget.bet.homeTeam.teamId,
+                      logo: '',
                     ),
-                    score: widget.bet.score ?? '? - ?',
+                    // score: widget.bet.score ?? '? - ?',
+                    localTeamScore: 0,
+                    visitorTeamScore: 0,
                     time: widget.bet.time,
                     date: widget.bet.date,
                     onAwayPressed:

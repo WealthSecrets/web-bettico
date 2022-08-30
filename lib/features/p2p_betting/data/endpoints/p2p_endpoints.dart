@@ -20,6 +20,21 @@ class P2pEndpoints {
   static const String ongoingBets = 'bets/ongoing';
   static const String myBets = 'bets/mybets';
   static const String networks = 'networks';
+  static String liveScore({
+    required int page,
+    required int size,
+    required int leagueId,
+  }) =>
+      'sportmonks/livescores?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
+  static String sfixtures({
+    required int page,
+    required int size,
+    required int leagueId,
+  }) =>
+      'sportmonks/fixtures?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
+  static const String leagues = 'sportmonks/leagues';
+  static String getTeam(int teamId) => 'sportmonks/team/$teamId';
+  static String getLeague(int leagueId) => 'sportmonks/league/$leagueId';
   static String conversion(String symbol, double amount) =>
       'networks/convert/$symbol/$amount';
 }

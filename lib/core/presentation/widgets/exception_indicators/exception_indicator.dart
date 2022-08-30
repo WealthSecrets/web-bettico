@@ -8,11 +8,17 @@ class ExceptionIndicator extends StatelessWidget {
     required this.assetName,
     this.message,
     this.onTryAgain,
+    this.size,
+    this.gap,
+    this.spacing,
     Key? key,
   }) : super(key: key);
   final String title;
   final String? message;
   final String assetName;
+  final double? size;
+  final double? gap;
+  final double? spacing;
   final VoidCallback? onTryAgain;
 
   @override
@@ -26,10 +32,10 @@ class ExceptionIndicator extends StatelessWidget {
             children: <Widget>[
               Image.asset(
                 assetName,
-                height: 100,
-                width: 100,
+                height: size ?? 100,
+                width: size ?? 100,
               ),
-              const AppSpacing(v: 32),
+              SizedBox(height: gap ?? 32),
               Text(
                 title,
                 textAlign: TextAlign.center,
@@ -38,10 +44,7 @@ class ExceptionIndicator extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              if (message != null)
-                const SizedBox(
-                  height: 16,
-                ),
+              if (message != null) SizedBox(height: spacing ?? 16),
               if (message != null)
                 Text(
                   message!,

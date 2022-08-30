@@ -9,6 +9,7 @@ class Team with _$Team {
   const factory Team({
     required String name,
     required int teamId,
+    @JsonKey(name: 'logo_path') String? logo,
   }) = _Team;
 
   const Team._();
@@ -18,10 +19,12 @@ class Team with _$Team {
   factory Team.mock() => const Team(
         name: 'Barcelona F.C',
         teamId: 0,
+        logo: '',
       );
 
   factory Team.empty() => const Team(
         name: '',
         teamId: 0,
+        logo: '',
       );
 }

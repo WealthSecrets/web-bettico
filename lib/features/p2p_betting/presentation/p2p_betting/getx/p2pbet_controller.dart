@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/fixture_request.dart';
@@ -58,6 +59,7 @@ class P2PBetController extends GetxController {
   RxList<Bet> completedBets = <Bet>[].obs;
   Rx<SoccerMatch> match = SoccerMatch.empty().obs;
   Rx<Fixture> fixture = Fixture.empty().obs;
+  Rx<LiveScore> liveScore = LiveScore.empty().obs;
   // RxList<SoccerMatch> competitionMatches = <SoccerMatch>[].obs;
 
   // loading states
@@ -71,6 +73,7 @@ class P2PBetController extends GetxController {
   // Variables
   RxDouble amount = 0.0.obs;
   RxInt competitionId = (-1).obs;
+  RxInt liveScoreId = (-1).obs;
   Rx<Bettor> creator = Bettor.empty().obs;
   Rx<Bettor> opponent = Bettor.empty().obs;
   RxString status = 'awaiting'.obs;
@@ -123,6 +126,12 @@ class P2PBetController extends GetxController {
     fixture(value);
   }
 
+  void setLiveScoreId(int value) {}
+
+  void setLiveScore(LiveScore value) {
+    liveScore.value = value;
+  }
+
   void onAmountInputChanged(String value) {
     final double? am = double.tryParse(value);
     if (am != null) {
@@ -154,7 +163,6 @@ class P2PBetController extends GetxController {
   }
 
   bool get isValid =>
-      competitionId.value != -1 &&
       teamId.value != -1 &&
       teamSelected.isNotEmpty &&
       choice.isNotEmpty &&
@@ -163,12 +171,12 @@ class P2PBetController extends GetxController {
   bool get isDetailsValid =>
       choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty;
 
-  void addNewBet(BuildContext context, {required bool isFixture}) async {
+  void addNewBet(BuildContext context) async {
     isAddingBet(true);
     final Either<Failure, Bet> failureOrBet = await addBet(
       BetRequest(
         amount: amount.value,
-        competitionId: competitionId.value,
+        competitionId: liveScore.value.id,
         creator: BettorRequest(
           choice: choice.value,
           team: teamSelected.value,
@@ -176,18 +184,18 @@ class P2PBetController extends GetxController {
           user: bController.user.value.id,
         ),
         awayTeam: TeamRequest(
-          name: isFixture ? fixture.value.awayName : match.value.awayName,
-          teamId: isFixture ? fixture.value.awayId : match.value.awayId,
+          name: liveScore.value.visitorTeam.data.name,
+          teamId: liveScore.value.visitorTeam.data.id,
         ),
         homeTeam: TeamRequest(
-          name: isFixture ? fixture.value.homeName : match.value.homeName,
-          teamId: isFixture ? fixture.value.homeId : match.value.homeId,
+          name: liveScore.value.visitorTeam.data.name,
+          teamId: liveScore.value.localTeam.data.id,
         ),
         status: status.value,
-        time: isFixture ? fixture.value.time : match.value.time,
-        date: isFixture ? fixture.value.date : null,
-        score: isFixture ? '? - ?' : match.value.score,
-        isFixture: isFixture,
+        time: liveScore.value.time.startingAt.time,
+        date: liveScore.value.time.startingAt.date,
+        score: liveScore.value.scores!.ftScore ?? '? : ?',
+        isFixture: false,
       ),
     );
 
@@ -205,9 +213,7 @@ class P2PBetController extends GetxController {
         rebuildBets(allBets);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => P2PBettingCongratScreen(
-              isFixture: isFixture,
-            ),
+            builder: (BuildContext context) => const P2PBettingCongratScreen(),
           ),
         );
       },

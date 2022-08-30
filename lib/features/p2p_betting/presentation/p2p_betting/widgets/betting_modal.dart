@@ -216,7 +216,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               MatchAvatar(
-                name: widget.bet.awayTeam.name,
+                logo: widget.bet.awayTeam.name,
                 selected: true,
                 disabled: false,
                 onPressed: null,
@@ -297,7 +297,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               MatchAvatar(
-                name: widget.bet.homeTeam.name,
+                logo: widget.bet.homeTeam.name,
                 selected: true,
                 disabled: false,
                 onPressed: null,

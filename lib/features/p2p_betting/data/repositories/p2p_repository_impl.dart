@@ -1,5 +1,9 @@
+import 'package:betticos/features/betticos/data/models/listpage/listpage.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
+import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
@@ -135,19 +139,20 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       );
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchBets() => makeRequest(
-        p2pRemoteDataSource.fetchBets(),
-      );
+  Future<Either<Failure, List<Bet>>> fetchBets() =>
+      makeRequest(p2pRemoteDataSource.fetchBets());
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchAwaitingBets() => makeRequest(
-        p2pRemoteDataSource.fetchAwaitingBets(),
-      );
+  Future<Either<Failure, List<SLeague>>> fetchLeagues() =>
+      makeRequest(p2pRemoteDataSource.fetchLeagues());
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchMyBets() => makeRequest(
-        p2pRemoteDataSource.fetchMyBets(),
-      );
+  Future<Either<Failure, List<Bet>>> fetchAwaitingBets() =>
+      makeRequest(p2pRemoteDataSource.fetchAwaitingBets());
+
+  @override
+  Future<Either<Failure, List<Bet>>> fetchMyBets() =>
+      makeRequest(p2pRemoteDataSource.fetchMyBets());
 
   @override
   Future<Either<Failure, List<Network>>> fetchCryptoNetworks() =>
@@ -156,4 +161,30 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, Volume>> convertAmount(String symbol, double amount) =>
       makeRequest(p2pRemoteDataSource.convertAmount(symbol, amount));
+
+  @override
+  Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedLiveScores(
+    int page,
+    int limit,
+    int leagueId,
+  ) =>
+      makeRequest(
+          p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
+
+  @override
+  Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedFixtures(
+    int page,
+    int limit,
+    int leagueId,
+  ) =>
+      makeRequest(
+          p2pRemoteDataSource.fetchPaginatedFixtures(page, limit, leagueId));
+
+  @override
+  Future<Either<Failure, Team>> getTeam(int teamId) =>
+      makeRequest(p2pRemoteDataSource.getTeam(teamId));
+
+  @override
+  Future<Either<Failure, SLeague>> getLeague(int leagueId) =>
+      makeRequest(p2pRemoteDataSource.getLeague(leagueId));
 }

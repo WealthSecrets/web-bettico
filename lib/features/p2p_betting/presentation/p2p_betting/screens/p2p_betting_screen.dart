@@ -1,4 +1,4 @@
-import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 import '/core/core.dart';
 import '/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
-import '../../../data/models/fixture/fixture.dart';
 import '../../livescore/getx/live_score_controllers.dart';
 
 enum ConnectionState {
@@ -20,11 +19,14 @@ enum ConnectionState {
 }
 
 class P2PBettingScreen extends StatefulWidget {
-  const P2PBettingScreen({Key? key, this.fixture, this.match})
-      : super(key: key);
+  const P2PBettingScreen({
+    Key? key,
+    required this.liveScore,
+  }) : super(key: key);
 
-  final Fixture? fixture;
-  final SoccerMatch? match;
+  // final Fixture? fixture;
+  // final SoccerMatch? match;
+  final LiveScore liveScore;
 
   @override
   State<StatefulWidget> createState() => _P2PBettingScreenState();
@@ -39,13 +41,16 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
   void initState() {
     super.initState();
 
-    if (widget.match != null) {
-      controller.setCompetitionId(widget.match!.competitionId);
-      controller.setMatch(widget.match!);
-    } else if (widget.fixture != null) {
-      controller.setCompetitionId(widget.fixture!.competitionId);
-      controller.setFixture(widget.fixture!);
-    }
+    // if (widget.match != null) {
+    //   controller.setCompetitionId(widget.match!.competitionId);
+    //   controller.setMatch(widget.match!);
+    // } else if (widget.fixture != null) {
+    //   controller.setCompetitionId(widget.fixture!.competitionId);
+    //   controller.setFixture(widget.fixture!);
+    // }
+
+    controller.setLiveScore(widget.liveScore);
+    controller.setLiveScoreId(widget.liveScore.id);
 
     super.initState();
   }
@@ -106,50 +111,30 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   SizedBox(
                     height: 141.h,
                     width: 1.sw,
-                    child: widget.match != null
-                        ? P2PBettingCard(
-                            homeTeam: Team(
-                              name: widget.match!.homeName,
-                              teamId: widget.match!.homeId,
-                            ),
-                            awayTeam: Team(
-                              name: widget.match!.awayName,
-                              teamId: widget.match!.awayId,
-                            ),
-                            score: widget.match!.score ?? '? - ?',
-                            time: widget.match!.time,
-                            onAwayPressed: () => controller.selectTeam(
-                              widget.match!.awayName,
-                              widget.match!.awayId,
-                            ),
-                            onHomePressed: () => controller.selectTeam(
-                              widget.match!.homeName,
-                              widget.match!.homeId,
-                            ),
-                          )
-                        : widget.fixture != null
-                            ? P2PBettingCard(
-                                homeTeam: Team(
-                                  name: widget.fixture!.homeName,
-                                  teamId: widget.fixture!.homeId,
-                                ),
-                                awayTeam: Team(
-                                  name: widget.fixture!.awayName,
-                                  teamId: widget.fixture!.awayId,
-                                ),
-                                score: '? - ?',
-                                time: widget.fixture!.time,
-                                date: widget.fixture!.date,
-                                onAwayPressed: () => controller.selectTeam(
-                                  widget.fixture!.awayName,
-                                  widget.fixture!.awayId,
-                                ),
-                                onHomePressed: () => controller.selectTeam(
-                                  widget.fixture!.homeName,
-                                  widget.fixture!.homeId,
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                    child: P2PBettingCard(
+                      homeTeam: Team(
+                        name: widget.liveScore.localTeam.data.name,
+                        teamId: widget.liveScore.localTeam.data.id,
+                        logo: widget.liveScore.localTeam.data.logo,
+                      ),
+                      awayTeam: Team(
+                        name: widget.liveScore.visitorTeam.data.name,
+                        teamId: widget.liveScore.visitorTeam.data.id,
+                        logo: widget.liveScore.visitorTeam.data.logo,
+                      ),
+                      localTeamScore: widget.liveScore.scores!.localTeamScore,
+                      visitorTeamScore:
+                          widget.liveScore.scores!.visitorTeamScore,
+                      time: widget.liveScore.time.minute.toString(),
+                      onAwayPressed: () => controller.selectTeam(
+                        widget.liveScore.visitorTeam.data.name,
+                        widget.liveScore.visitorTeam.data.id,
+                      ),
+                      onHomePressed: () => controller.selectTeam(
+                        widget.liveScore.localTeam.data.name,
+                        widget.liveScore.localTeam.data.id,
+                      ),
+                    ),
                   ),
                   const AppSpacing(v: 30),
                   Text(
@@ -243,10 +228,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           await lController.send(context);
 
                       if (actualHash != null) {
-                        controller.addNewBet(
-                          context,
-                          isFixture: widget.fixture != null,
-                        );
+                        controller.addNewBet(context);
                       }
                     },
                     enabled: controller.isValid && !lController.isLoading.value,

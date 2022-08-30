@@ -1,8 +1,8 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
+// import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
+// import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_web3/flutter_web3.dart';
@@ -132,27 +132,24 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                               margin: AppPaddings.sV.add(AppPaddings.sT),
                               child: InkWell(
                                 onTap: () async {
-                                  print('Not connected the walle.');
                                   if (!lController.isConnected) {
-                                    print('the wallet is already connected');
                                     if (Ethereum.isSupported) {
                                       lController.initiateWalletConnect();
                                     } else {
                                       lController.connectWC();
                                     }
                                   } else {
-                                    print('the else statement is called');
-                                    final Fixture fixture =
-                                        lController.fixtures[index - 1];
+                                    // final Fixture fixture =
+                                    //     lController.fixtures[index - 1];
 
-                                    await Navigator.of(context).push<void>(
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            P2PBettingScreen(
-                                          fixture: fixture,
-                                        ),
-                                      ),
-                                    );
+                                    // await Navigator.of(context).push<void>(
+                                    //   MaterialPageRoute<void>(
+                                    //     builder: (BuildContext context) =>
+                                    //         P2PBettingScreen(
+                                    //       fixture: fixture,
+                                    //     ),
+                                    //   ),
+                                    // );
                                   }
                                 },
                                 child: Container(
@@ -229,14 +226,14 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                         ),
                                       );
                                     } else {
-                                      await Navigator.of(context).push<void>(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              P2PBettingScreen(
-                                            match: match,
-                                          ),
-                                        ),
-                                      );
+                                      // await Navigator.of(context).push<void>(
+                                      //   MaterialPageRoute<void>(
+                                      //     builder: (BuildContext context) =>
+                                      //         P2PBettingScreen(
+                                      //       match: match,
+                                      //     ),
+                                      //   ),
+                                      // );
                                     }
                                   }
                                 },

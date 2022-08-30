@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class MatchAvatar extends StatelessWidget {
   const MatchAvatar({
     Key? key,
-    required this.name,
+    this.logo,
     required this.selected,
     this.disabled,
     this.onPressed,
     this.backgroundColor,
   }) : super(key: key);
-  final String name;
+  final String? logo;
   final bool selected;
   final bool? disabled;
   final Color? backgroundColor;
@@ -25,7 +25,6 @@ class MatchAvatar extends StatelessWidget {
         width: 60,
         padding: AppPaddings.sA,
         decoration: BoxDecoration(
-          color: Colors.white,
           border: Border.all(
             color: selected
                 ? backgroundColor?.withOpacity(disabled! ? 0.6 : 1) ??
@@ -40,21 +39,14 @@ class MatchAvatar extends StatelessWidget {
           //   fit: BoxFit.cover,
           // ),
         ),
-        child: CircleAvatar(
-          radius: 27.0,
-          backgroundColor: selected
-              ? backgroundColor?.withOpacity(disabled! ? 0.6 : 1) ??
-                  context.colors.primary.withOpacity(disabled! ? 0.6 : 1)
-              : context.colors.text,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30.0),
-            child: Text(
-              StringUtils.getInitials(name),
-              style: context.body2.copyWith(
-                color: Colors.white,
-              ),
-            ),
-          ),
+        child: Center(
+          child: logo != null
+              ? Image.network(
+                  logo!,
+                  height: 45,
+                  width: 45,
+                )
+              : const SizedBox.shrink(),
         ),
       ),
     );
