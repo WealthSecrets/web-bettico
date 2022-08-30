@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import '../../../domain/usecases/live_score/get_live_matches.dart';
+import '../../../domain/usecases/sportmonks/get_league.dart';
 
 class LiveScoreBindings {
   static void dependencies() {
@@ -32,6 +33,9 @@ class LiveScoreBindings {
           p2pRepository: Get.find(),
         ),
         getTeam: GetTeam(
+          p2pRepository: Get.find(),
+        ),
+        getLeague: GetLeague(
           p2pRepository: Get.find(),
         ),
       ),

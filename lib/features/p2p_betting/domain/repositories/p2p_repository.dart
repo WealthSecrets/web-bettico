@@ -8,7 +8,6 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/bettor_request
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../data/models/sportmonks/fixture/fixture.dart';
 import '/core/errors/failure.dart';
 import '../../../betticos/data/models/listpage/listpage.dart';
 import '../../data/models/crypto/network.dart';
@@ -31,7 +30,7 @@ abstract class P2pRepository {
     int leagueId,
   );
 
-  Future<Either<Failure, ListPage<SFixture>>> fetchPaginatedFixtures(
+  Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedFixtures(
     int page,
     int limit,
     int leagueId,
@@ -57,6 +56,8 @@ abstract class P2pRepository {
   );
 
   Future<Either<Failure, Team>> getTeam(int teamId);
+
+  Future<Either<Failure, SLeague>> getLeague(int leagueId);
 
   Future<Either<Failure, SoccerMatch?>> getTeamMatch(
     String apiKey,

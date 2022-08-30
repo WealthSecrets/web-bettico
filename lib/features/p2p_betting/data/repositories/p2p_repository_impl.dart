@@ -9,7 +9,6 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_req
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:dartz/dartz.dart';
 
-import '../models/sportmonks/fixture/fixture.dart';
 import '/core/core.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
@@ -173,7 +172,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
           p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
 
   @override
-  Future<Either<Failure, ListPage<SFixture>>> fetchPaginatedFixtures(
+  Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedFixtures(
     int page,
     int limit,
     int leagueId,
@@ -184,4 +183,8 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, Team>> getTeam(int teamId) =>
       makeRequest(p2pRemoteDataSource.getTeam(teamId));
+
+  @override
+  Future<Either<Failure, SLeague>> getLeague(int leagueId) =>
+      makeRequest(p2pRemoteDataSource.getLeague(leagueId));
 }

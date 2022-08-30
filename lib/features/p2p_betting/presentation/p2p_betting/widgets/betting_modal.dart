@@ -216,16 +216,16 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               MatchAvatar(
-                name: widget.bet.awayTeam.name,
+                logo: widget.bet.awayTeam.name,
                 selected: true,
                 disabled: false,
                 onPressed: null,
-                backgroundColor:
-                    widget.bet.creator.teamId == widget.bet.awayTeam.id
-                        ? widget.bet.creator.choice.color(context)
-                        : widget.bet.opponent?.teamId == widget.bet.awayTeam.id
-                            ? widget.bet.opponent?.choice.color(context)
-                            : context.colors.text,
+                backgroundColor: widget.bet.creator.teamId ==
+                        widget.bet.awayTeam.teamId
+                    ? widget.bet.creator.choice.color(context)
+                    : widget.bet.opponent?.teamId == widget.bet.awayTeam.teamId
+                        ? widget.bet.opponent?.choice.color(context)
+                        : context.colors.text,
               ),
               const AppSpacing(v: 8),
               Text(
@@ -297,16 +297,16 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               MatchAvatar(
-                name: widget.bet.homeTeam.name,
+                logo: widget.bet.homeTeam.name,
                 selected: true,
                 disabled: false,
                 onPressed: null,
-                backgroundColor:
-                    widget.bet.creator.teamId == widget.bet.homeTeam.id
-                        ? widget.bet.creator.choice.color(context)
-                        : widget.bet.opponent?.teamId == widget.bet.homeTeam.id
-                            ? widget.bet.opponent?.choice.color(context)
-                            : context.colors.text,
+                backgroundColor: widget.bet.creator.teamId ==
+                        widget.bet.homeTeam.teamId
+                    ? widget.bet.creator.choice.color(context)
+                    : widget.bet.opponent?.teamId == widget.bet.homeTeam.teamId
+                        ? widget.bet.opponent?.choice.color(context)
+                        : context.colors.text,
               ),
               const AppSpacing(v: 8),
               Text(

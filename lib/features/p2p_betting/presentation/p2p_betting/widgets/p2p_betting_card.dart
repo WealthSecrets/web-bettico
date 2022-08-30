@@ -17,7 +17,9 @@ class P2PBettingCard extends StatefulWidget {
     // this.fixture,
     required this.awayTeam,
     required this.homeTeam,
-    required this.score,
+    // required this.score,
+    required this.localTeamScore,
+    required this.visitorTeamScore,
     this.time,
     this.date,
     this.awayDisabled = false,
@@ -30,7 +32,9 @@ class P2PBettingCard extends StatefulWidget {
   // final Fixture? fixture;
   final Team awayTeam;
   final Team homeTeam;
-  final String score;
+  // final String score;
+  final int localTeamScore;
+  final int visitorTeamScore;
   final String? time;
   final String? date;
   final bool? awayDisabled;
@@ -45,11 +49,11 @@ class P2PBettingCard extends StatefulWidget {
 class _P2PBettingCardState extends State<P2PBettingCard> {
   final P2PBetController p2pBetController = Get.find<P2PBetController>();
 
-  List<String> score = <String>[];
+  // List<String> score = <String>[];
 
   @override
   Widget build(BuildContext context) {
-    score = widget.score.split(' ');
+    // score = widget.score.split(' ');
 
     return Container(
       padding: AppPaddings.lV.add(AppPaddings.sH),
@@ -72,7 +76,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
               children: <Widget>[
                 if (widget.awayDisabled ?? false)
                   MatchAvatar(
-                    name: widget.awayTeam.name,
+                    logo: widget.awayTeam.logo,
                     selected: widget.awayDisabled ??
                         p2pBetController.teamSelected.value ==
                             widget.awayTeam.name,
@@ -82,7 +86,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 else
                   Obx(
                     () => MatchAvatar(
-                      name: widget.awayTeam.name,
+                      logo: widget.awayTeam.logo,
                       selected: p2pBetController.teamSelected.value ==
                           widget.awayTeam.name,
                       disabled: widget.awayDisabled,
@@ -109,7 +113,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    score.first,
+                    widget.localTeamScore.toString(),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -126,7 +130,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                   ),
                   const AppSpacing(h: 5),
                   Text(
-                    score.last,
+                    widget.visitorTeamScore.toString(),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -174,7 +178,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
               children: <Widget>[
                 if (widget.homeDisabled ?? false)
                   MatchAvatar(
-                    name: widget.homeTeam.name,
+                    logo: widget.homeTeam.name,
                     selected: widget.homeDisabled ??
                         p2pBetController.teamSelected.value ==
                             widget.homeTeam.name,
@@ -184,7 +188,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 else
                   Obx(
                     () => MatchAvatar(
-                      name: widget.homeTeam.name,
+                      logo: widget.homeTeam.logo,
                       selected: p2pBetController.teamSelected.value ==
                           widget.homeTeam.name,
                       disabled: widget.homeDisabled,

@@ -1,7 +1,5 @@
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-
-import '../models/sportmonks/fixture/fixture.dart';
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
@@ -81,6 +79,15 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
     );
 
     return Team.fromJson(json);
+  }
+
+  @override
+  Future<SLeague> getLeague(int leagueId) async {
+    final Map<String, dynamic> json = await _client.get(
+      P2pEndpoints.getLeague(leagueId),
+    );
+
+    return SLeague.fromJson(json);
   }
 
   @override
@@ -224,7 +231,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<ListPage<SFixture>> fetchPaginatedFixtures(
+  Future<ListPage<LiveScore>> fetchPaginatedFixtures(
       int page, int limit, int leagueId) async {
     final Map<String, dynamic> json = await _client.get(P2pEndpoints.sfixtures(
       page: page,
@@ -232,12 +239,12 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
       leagueId: leagueId,
     ));
     final List<dynamic> items = json['items'] as List<dynamic>;
-    final List<SFixture> posts = List<SFixture>.from(
-      items.map<SFixture>(
-        (dynamic json) => SFixture.fromJson(json as Map<String, dynamic>),
+    final List<LiveScore> posts = List<LiveScore>.from(
+      items.map<LiveScore>(
+        (dynamic json) => LiveScore.fromJson(json as Map<String, dynamic>),
       ),
     );
-    return ListPage<SFixture>(
+    return ListPage<LiveScore>(
       grandTotalCount: json['results'] as int,
       itemList: posts,
     );

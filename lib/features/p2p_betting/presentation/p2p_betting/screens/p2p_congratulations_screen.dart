@@ -9,11 +9,7 @@ import 'package:get/get.dart';
 class P2PBettingCongratScreen extends StatefulWidget {
   const P2PBettingCongratScreen({
     Key? key,
-    this.isFixture,
   }) : super(key: key);
-
-  final bool? isFixture;
-
   @override
   _P2PBettingCongratScreenState createState() =>
       _P2PBettingCongratScreenState();
@@ -67,43 +63,31 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       Container(
                         height: 60,
                         width: 60,
+                        padding: AppPaddings.sA,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: null,
-                          borderRadius: BorderRadius.circular(40),
+                          border: p2pBetController.bet.value.creator.team !=
+                                  p2pBetController
+                                      .liveScore.value.localTeam.data.name
+                              ? null
+                              : Border.all(
+                                  color: context.colors.primary,
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                ),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        child: CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: widget.isFixture ?? false
-                              ? p2pBetController.bet.value.creator.team ==
-                                      p2pBetController.fixture.value.awayName
-                                  ? context.colors.primary
-                                  : context.colors.text
-                              : p2pBetController.bet.value.creator.team ==
-                                      p2pBetController.match.value.awayName
-                                  ? context.colors.primary
-                                  : context.colors.text,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: Text(
-                              StringUtils.getInitials(
-                                widget.isFixture ?? false
-                                    ? p2pBetController.fixture.value.awayName
-                                    : p2pBetController.match.value.awayName,
-                              ),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                            ),
+                        child: Center(
+                          child: Image.network(
+                            p2pBetController
+                                .liveScore.value.localTeam.data.logo,
+                            height: 45,
+                            width: 45,
                           ),
                         ),
                       ),
                       const AppSpacing(v: 8),
                       Text(
-                        widget.isFixture ?? false
-                            ? p2pBetController.fixture.value.awayName
-                            : p2pBetController.match.value.awayName,
+                        p2pBetController.liveScore.value.localTeam.data.name,
                         style: TextStyle(
                           color: context.colors.black,
                           fontSize: 12,
@@ -124,44 +108,31 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       Container(
                         height: 60,
                         width: 60,
-                        // padding: AppPaddings.sA,
+                        padding: AppPaddings.sA,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: null,
-                          borderRadius: BorderRadius.circular(40),
+                          border: p2pBetController.bet.value.creator.team !=
+                                  p2pBetController
+                                      .liveScore.value.visitorTeam.data.name
+                              ? null
+                              : Border.all(
+                                  color: context.colors.primary,
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                ),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        child: CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: widget.isFixture ?? false
-                              ? p2pBetController.bet.value.creator.team ==
-                                      p2pBetController.fixture.value.homeName
-                                  ? context.colors.primary
-                                  : context.colors.text
-                              : p2pBetController.bet.value.creator.team ==
-                                      p2pBetController.match.value.homeName
-                                  ? context.colors.primary
-                                  : context.colors.text,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: Text(
-                              StringUtils.getInitials(
-                                widget.isFixture ?? false
-                                    ? p2pBetController.fixture.value.homeName
-                                    : p2pBetController.match.value.homeName,
-                              ),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                            ),
+                        child: Center(
+                          child: Image.network(
+                            p2pBetController
+                                .liveScore.value.visitorTeam.data.logo,
+                            height: 45,
+                            width: 45,
                           ),
                         ),
                       ),
                       const AppSpacing(v: 8),
                       Text(
-                        widget.isFixture ?? false
-                            ? p2pBetController.fixture.value.homeName
-                            : p2pBetController.match.value.homeName,
+                        p2pBetController.liveScore.value.visitorTeam.data.name,
                         style: TextStyle(
                           color: context.colors.black,
                           fontSize: 12,
@@ -210,7 +181,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         ),
                       ),
                       Text(
-                        '\$${p2pBetController.bet.value.amount}',
+                        '\$${p2pBetController.bet.value.amount * 2}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: context.colors.success,

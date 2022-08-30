@@ -1,4 +1,5 @@
 // ignore_for_file: invalid_annotation_target
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/steam/steam.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../time/time.dart';
@@ -23,6 +24,8 @@ class LiveScore with _$LiveScore {
     @JsonKey(name: 'winner_team_id') int? winnerTeamId,
     @JsonKey(name: 'commentaries') required bool commentaries,
     @JsonKey(name: 'neutral_venue') bool? neutralVenue,
+    @JsonKey(name: 'localTeam') required Steam localTeam,
+    @JsonKey(name: 'visitorTeam') required Steam visitorTeam,
     @JsonKey(name: 'winning_odds_calculated')
         required bool winningOddsCalculated,
     @JsonKey(name: 'formations') Formation? formations,
@@ -42,6 +45,8 @@ class LiveScore with _$LiveScore {
         visitorTeamId: 0,
         commentaries: false,
         winningOddsCalculated: false,
+        localTeam: Steam.empty(),
+        visitorTeam: Steam.empty(),
         time: Time.empty(),
       );
 
@@ -52,6 +57,8 @@ class LiveScore with _$LiveScore {
         visitorTeamId: 0,
         commentaries: false,
         winningOddsCalculated: false,
+        localTeam: Steam.empty(),
+        visitorTeam: Steam.empty(),
         time: Time.empty(),
       );
 }

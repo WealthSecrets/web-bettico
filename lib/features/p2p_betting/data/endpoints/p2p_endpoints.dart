@@ -25,15 +25,16 @@ class P2pEndpoints {
     required int size,
     required int leagueId,
   }) =>
-      'sportmonks/livescores?page=$page&size=$size&leagues=$leagueId';
+      'sportmonks/livescores?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
   static String sfixtures({
     required int page,
     required int size,
     required int leagueId,
   }) =>
-      'sportmonks/livescores?page=$page&size=$size&leagues=$leagueId';
+      'sportmonks/fixtures?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
   static const String leagues = 'sportmonks/leagues';
   static String getTeam(int teamId) => 'sportmonks/team/$teamId';
+  static String getLeague(int leagueId) => 'sportmonks/league/$leagueId';
   static String conversion(String symbol, double amount) =>
       'networks/convert/$symbol/$amount';
 }

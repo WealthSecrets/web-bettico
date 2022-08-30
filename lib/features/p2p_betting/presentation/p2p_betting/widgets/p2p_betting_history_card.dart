@@ -107,12 +107,12 @@ class P2PBettingHistoryCard extends StatelessWidget {
                           // ),
                           child: CircleAvatar(
                             radius: 30.0,
-                            backgroundColor:
-                                bet.creator.teamId == bet.awayTeam.id
-                                    ? bet.creator.choice.color(context)
-                                    : bet.opponent?.teamId == bet.awayTeam.id
-                                        ? bet.opponent?.choice.color(context)
-                                        : context.colors.text,
+                            backgroundColor: bet.creator.teamId ==
+                                    bet.awayTeam.teamId
+                                ? bet.creator.choice.color(context)
+                                : bet.opponent?.teamId == bet.awayTeam.teamId
+                                    ? bet.opponent?.choice.color(context)
+                                    : context.colors.text,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(30.0),
                               child: Text(
@@ -226,12 +226,12 @@ class P2PBettingHistoryCard extends StatelessWidget {
                           // ),
                           child: CircleAvatar(
                             radius: 30.0,
-                            backgroundColor:
-                                bet.creator.teamId == bet.homeTeam.id
-                                    ? bet.creator.choice.color(context)
-                                    : bet.opponent?.teamId == bet.homeTeam.id
-                                        ? bet.opponent?.choice.color(context)
-                                        : context.colors.text,
+                            backgroundColor: bet.creator.teamId ==
+                                    bet.homeTeam.teamId
+                                ? bet.creator.choice.color(context)
+                                : bet.opponent?.teamId == bet.homeTeam.teamId
+                                    ? bet.opponent?.choice.color(context)
+                                    : context.colors.text,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(30.0),
                               child: Text(

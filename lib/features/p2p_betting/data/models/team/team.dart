@@ -8,8 +8,8 @@ part 'team.g.dart';
 class Team with _$Team {
   const factory Team({
     required String name,
-    required int id,
-    @JsonKey(name: 'logo_path') required String logo,
+    required int teamId,
+    @JsonKey(name: 'logo_path') String? logo,
   }) = _Team;
 
   const Team._();
@@ -18,13 +18,13 @@ class Team with _$Team {
 
   factory Team.mock() => const Team(
         name: 'Barcelona F.C',
-        id: 0,
+        teamId: 0,
         logo: '',
       );
 
   factory Team.empty() => const Team(
         name: '',
-        id: 0,
+        teamId: 0,
         logo: '',
       );
 }

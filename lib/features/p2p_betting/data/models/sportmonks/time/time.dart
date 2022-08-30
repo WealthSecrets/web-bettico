@@ -10,7 +10,7 @@ class Time with _$Time {
     @JsonKey(name: 'status') String? status,
     @JsonKey(name: 'starting_at') required StartTime startingAt,
     @JsonKey(name: 'minute') int? minute,
-    @JsonKey(name: 'second') int? second,
+    @JsonKey(name: 'second') String? second,
   }) = _Time;
 
   factory Time.fromJson(Map<String, dynamic> json) => _$TimeFromJson(json);

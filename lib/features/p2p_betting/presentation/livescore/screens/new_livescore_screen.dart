@@ -1,14 +1,16 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fixture_card.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_card.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/vertical_league_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../../../betticos/presentation/base/getx/base_screen_controller.dart';
+import '../../p2p_betting/screens/p2p_betting_screen.dart';
 import '../getx/live_score_controllers.dart';
 
 class NewLiveScore extends KFDrawerContent {
@@ -24,8 +26,8 @@ class _NewLiveScoreState extends State<NewLiveScore> {
 
   @override
   void initState() {
-    super.initState();
     lController.getAllLeagues();
+    super.initState();
   }
 
   @override
@@ -129,7 +131,81 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                       builderDelegate: PagedChildBuilderDelegate<LiveScore>(
                         itemBuilder: (BuildContext context, LiveScore liveScore,
                             int index) {
-                          return LiveScoreCard(liveScore: liveScore);
+                          return FutureBuilder<LiveScore>(
+                            builder: (BuildContext context,
+                                AsyncSnapshot<LiveScore> snapshot) {
+                              if (snapshot.hasData && snapshot.data != null) {
+                                return LiveScoreCard(
+                                  liveScore: snapshot.data!,
+                                  onTap: () async {
+                                    if (!lController.isConnected) {
+                                      if (Ethereum.isSupported) {
+                                        lController.initiateWalletConnect();
+                                      } else {
+                                        lController.connectWC();
+                                      }
+                                    } else {
+                                      if (liveScore.time.status == 'FT') {
+                                        await AppSnacks.show(
+                                          context,
+                                          message:
+                                              'Can\'t bet on this match. It is already completed.',
+                                          backgroundColor: context.colors.error,
+                                          leadingIcon: const Icon(
+                                            Ionicons.checkmark_circle_outline,
+                                            color: Colors.white,
+                                          ),
+                                        );
+                                      } else {
+                                        await Navigator.of(context).push<void>(
+                                          MaterialPageRoute<void>(
+                                            builder: (BuildContext context) =>
+                                                P2PBettingScreen(
+                                              liveScore: liveScore,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                );
+                              }
+                              return LiveScoreCard(
+                                liveScore: liveScore,
+                                onTap: () async {
+                                  if (!lController.isConnected) {
+                                    if (Ethereum.isSupported) {
+                                      lController.initiateWalletConnect();
+                                    } else {
+                                      lController.connectWC();
+                                    }
+                                  } else {
+                                    if (liveScore.time.status == 'FT') {
+                                      await AppSnacks.show(
+                                        context,
+                                        message:
+                                            'Can\'t bet on this match. It is already completed.',
+                                        backgroundColor: context.colors.error,
+                                        leadingIcon: const Icon(
+                                          Ionicons.checkmark_circle_outline,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    } else {
+                                      await Navigator.of(context).push<void>(
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              P2PBettingScreen(
+                                            liveScore: liveScore,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              );
+                            },
+                          );
                         },
                         firstPageErrorIndicatorBuilder:
                             (BuildContext context) => ErrorIndicator(
@@ -139,9 +215,10 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                               lController.pagingController.value.refresh(),
                         ),
                         noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                            const EmptyListIndicator(
+                            EmptyListIndicator(
                           title: 'Nothing Found',
-                          message: 'No livescores were found for this league.',
+                          message:
+                              'No livescores were found for this ${lController.selectedLeague.value.name}.',
                           size: 50,
                           gap: 16,
                           spacing: 8,
@@ -172,49 +249,103 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    height: 125,
-                    child: PagedListView<int, SFixture>.separated(
-                      pagingController:
-                          lController.fixturePagingController.value,
-                      padding:
-                          const EdgeInsets.only(top: 20, bottom: 20, left: 20),
-                      scrollDirection: Axis.vertical,
-                      builderDelegate: PagedChildBuilderDelegate<SFixture>(
-                        itemBuilder: (BuildContext context, SFixture sFixture,
-                            int index) {
-                          return FixtureCard(sFixture: sFixture);
-                        },
-                        firstPageErrorIndicatorBuilder:
-                            (BuildContext context) => ErrorIndicator(
-                          error: lController.fixturePagingController.value.error
-                              as Failure,
-                          onTryAgain: () => lController
-                              .fixturePagingController.value
-                              .refresh(),
-                        ),
-                        noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                            const EmptyListIndicator(
-                          title: 'Nothing Found',
-                          message: 'No fixtures were found for this league.',
-                          size: 50,
-                          gap: 16,
-                          spacing: 8,
-                        ),
-                        newPageProgressIndicatorBuilder:
-                            (BuildContext context) => const Center(
-                          child: LoadingLogo(),
-                        ),
-                        firstPageProgressIndicatorBuilder:
-                            (BuildContext context) => const Center(
-                          child: LoadingLogo(),
-                        ),
-                        // padding: AppPaddings.homeA,
-                      ),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox.shrink(),
-                    ),
+                  const SizedBox(height: 16),
+                  // SizedBox(
+                  //   height: 125,
+                  //   child: PagedListView<int, SFixture>.separated(
+                  //     pagingController:
+                  //         lController.fixturePagingController.value,
+                  //     padding:
+                  //         const EdgeInsets.only(top: 20, bottom: 20, left: 20),
+                  //     scrollDirection: Axis.vertical,
+                  //     builderDelegate: PagedChildBuilderDelegate<SFixture>(
+                  //       itemBuilder: (BuildContext context, SFixture sFixture,
+                  //           int index) {
+                  //         return FixtureCard(sFixture: sFixture);
+                  //       },
+                  //       firstPageErrorIndicatorBuilder:
+                  //           (BuildContext context) => ErrorIndicator(
+                  //         error: lController.fixturePagingController.value.error
+                  //             as Failure,
+                  //         onTryAgain: () => lController
+                  //             .fixturePagingController.value
+                  //             .refresh(),
+                  //       ),
+                  //       noItemsFoundIndicatorBuilder: (BuildContext context) =>
+                  //           const EmptyListIndicator(
+                  //         title: 'Nothing Found',
+                  //         message: 'No fixtures were found for this league.',
+                  //         size: 50,
+                  //         gap: 16,
+                  //         spacing: 8,
+                  //       ),
+                  //       newPageProgressIndicatorBuilder:
+                  //           (BuildContext context) => const Center(
+                  //         child: LoadingLogo(),
+                  //       ),
+                  //       firstPageProgressIndicatorBuilder:
+                  //           (BuildContext context) => const Center(
+                  //         child: LoadingLogo(),
+                  //       ),
+                  //       // padding: AppPaddings.homeA,
+                  //     ),
+                  //     separatorBuilder: (BuildContext context, int index) =>
+                  //         const SizedBox.shrink(),
+                  //   ),
+                  // ),
+                  Obx(
+                    () => lController.isFetchingFixtures.value
+                        ? const Center(
+                            child: LoadingLogo(),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 20, left: 20, right: 20),
+                            child: Column(
+                              children: lController.sFixtures
+                                  .map(
+                                    (LiveScore f) => FixtureCard(
+                                      sFixture: f,
+                                      onTap: () async {
+                                        if (!lController.isConnected) {
+                                          if (Ethereum.isSupported) {
+                                            lController.initiateWalletConnect();
+                                          } else {
+                                            lController.connectWC();
+                                          }
+                                        } else {
+                                          if (f.time.status == 'FT') {
+                                            await AppSnacks.show(
+                                              context,
+                                              message:
+                                                  'Can\'t bet on this match. It is already completed.',
+                                              backgroundColor:
+                                                  context.colors.error,
+                                              leadingIcon: const Icon(
+                                                Ionicons
+                                                    .checkmark_circle_outline,
+                                                color: Colors.white,
+                                              ),
+                                            );
+                                          } else {
+                                            await Navigator.of(context)
+                                                .push<void>(
+                                              MaterialPageRoute<void>(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        P2PBettingScreen(
+                                                  liveScore: f,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      },
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
                   ),
                 ],
               ),

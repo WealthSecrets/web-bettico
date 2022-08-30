@@ -10,7 +10,6 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_req
 import '../../../betticos/data/models/listpage/listpage.dart';
 import '../models/crypto/network.dart';
 import '../models/crypto/volume.dart';
-import '../models/sportmonks/fixture/fixture.dart';
 
 abstract class P2pRemoteDataSource {
   Future<List<SoccerMatch>> getLiveMatches(
@@ -63,6 +62,8 @@ abstract class P2pRemoteDataSource {
 
   Future<Team> getTeam(int teamId);
 
+  Future<SLeague> getLeague(int leagueId);
+
   Future<List<SLeague>> fetchLeagues();
 
   Future<ListPage<LiveScore>> fetchPaginatedLiveScores(
@@ -71,7 +72,7 @@ abstract class P2pRemoteDataSource {
     int leagueId,
   );
 
-  Future<ListPage<SFixture>> fetchPaginatedFixtures(
+  Future<ListPage<LiveScore>> fetchPaginatedFixtures(
     int page,
     int limit,
     int leagueId,

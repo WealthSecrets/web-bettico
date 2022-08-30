@@ -4,11 +4,13 @@ import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/s_league_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/s_team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixtures.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_leagues.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_livescore.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_league.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,6 @@ import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import '/features/p2p_betting/domain/usecases/live_score/get_live_matches.dart';
 import '../../../../betticos/data/models/listpage/listpage.dart';
 import '../../../data/models/crypto/volume.dart';
-import '../../../data/models/sportmonks/fixture/fixture.dart';
 import '../../../domain/requests/crypto/convert_amount_request.dart';
 import '../../../domain/requests/live_score/live_scores_request.dart';
 import '../../../domain/usecases/crypto/convert_amount_to_currency.dart';
@@ -37,6 +38,7 @@ class LiveScoreController extends GetxController {
     required this.fetchPaginatedFixtures,
     required this.fetchLeagues,
     required this.getTeam,
+    required this.getLeague,
   });
 
   final GetLiveMatches getLiveMatches;
@@ -46,16 +48,17 @@ class LiveScoreController extends GetxController {
 
   final GetFixtures getFixtures;
   final GetTeam getTeam;
+  final GetLeague getLeague;
 
   final ConvertAmountToCurrency convertAmountToCurrency;
 
   RxList<SoccerMatch> matches = <SoccerMatch>[].obs;
   RxList<LiveScore> liveScores = <LiveScore>[].obs;
-  RxList<SFixture> sFixtures = <SFixture>[].obs;
+  RxList<LiveScore> sFixtures = <LiveScore>[].obs;
   RxList<SLeague> sLeagues = <SLeague>[].obs;
   Rx<SLeague> selectedLeague = SLeague.empty().obs;
   Rx<ListPage<LiveScore>> liveScoresL = ListPage<LiveScore>.empty().obs;
-  Rx<ListPage<SFixture>> sFixturesL = ListPage<SFixture>.empty().obs;
+  Rx<ListPage<LiveScore>> sFixturesL = ListPage<LiveScore>.empty().obs;
   RxList<Fixture> fixtures = <Fixture>[].obs;
   RxList<Fixture> searchedFixtures = <Fixture>[].obs;
   RxList<SoccerMatch> sMatches = <SoccerMatch>[].obs;
@@ -83,12 +86,13 @@ class LiveScoreController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSearching = false.obs;
   RxBool isFetchingLeagues = false.obs;
+  RxBool isFetchingFixtures = false.obs;
 
   Rx<PagingController<int, LiveScore>> pagingController =
       PagingController<int, LiveScore>(firstPageKey: 1).obs;
 
-  Rx<PagingController<int, SFixture>> fixturePagingController =
-      PagingController<int, SFixture>(firstPageKey: 1).obs;
+  Rx<PagingController<int, LiveScore>> fixturePagingController =
+      PagingController<int, LiveScore>(firstPageKey: 1).obs;
 
   @override
   void onInit() {
@@ -114,12 +118,17 @@ class LiveScoreController extends GetxController {
   }
 
   void connectWC() async {
-    await wc.connect();
-    if (wc.connected) {
-      walletAddress.value = wc.accounts.first;
-      currentChain.value = 56;
-      web3wc = Web3Provider.fromWalletConnect(wc);
-      wcConnected.value = true;
+    try {
+      await wc.connect();
+
+      if (wc.connected) {
+        walletAddress.value = wc.accounts.first;
+        currentChain.value = 56;
+        web3wc = Web3Provider.fromWalletConnect(wc);
+        wcConnected.value = true;
+      }
+    } catch (error) {
+      debugPrint('An error has occurred: $error');
     }
     update();
   }
@@ -270,8 +279,8 @@ class LiveScoreController extends GetxController {
 
   void getAllSFixtures(int pageKey, int leagueId) async {
     pageK(pageKey);
-    isLoading(true);
-    final Either<Failure, ListPage<SFixture>> failureOrFixtures =
+    isFetchingFixtures(true);
+    final Either<Failure, ListPage<LiveScore>> failureOrFixtures =
         await fetchPaginatedFixtures(
       PageParmas(
         page: pageK.value,
@@ -282,31 +291,32 @@ class LiveScoreController extends GetxController {
 
     failureOrFixtures.fold(
       (Failure failure) {
-        isLoading(false);
+        isFetchingFixtures(false);
         fixturePagingController.value.error = failure;
       },
-      (ListPage<SFixture> newPage) {
-        isLoading(false);
+      (ListPage<LiveScore> newPage) {
         final int previouslyFetchedItemsCount =
             fixturePagingController.value.itemList?.length ?? 0;
 
         final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-        final List<SFixture> newItems = newPage.itemList;
+        final List<LiveScore> newItems = newPage.itemList;
 
         if (isLastPage) {
           fixturePagingController.value.appendLastPage(newItems);
-          if (!isCompleted.value) {
-            sFixtures.addAll(newItems);
-          }
+          // if (!isCompleted.value) {
+          // sFixtures.addAll(newItems);
+          // }
           isCompleted(true);
         } else {
           final int nextPageKey = pageKey + 1;
           fixturePagingController.value.appendPage(newItems, nextPageKey);
-          if (!isCompleted.value) {
-            sFixtures.addAll(newItems);
-          }
+          // if (!isCompleted.value) {
+          // sFixtures.addAll(newItems);
+          // }
         }
+        sFixtures.value = newItems;
         sFixturesL(newPage);
+        isFetchingFixtures(false);
       },
     );
   }
@@ -337,7 +347,7 @@ class LiveScoreController extends GetxController {
   Future<Team?> getMatchTeam(int teamId) async {
     isFetchingLeagues(true);
     final Either<Failure, Team> failureOrTeam = await getTeam(
-      TeamRequest(teamId: teamId),
+      STeamRequest(teamId: teamId),
     );
     return failureOrTeam.fold<Team?>(
       (Failure failure) {
@@ -345,6 +355,23 @@ class LiveScoreController extends GetxController {
         return null;
       },
       (Team value) {
+        isFetchingLeagues(false);
+        return value;
+      },
+    );
+  }
+
+  Future<SLeague?> getLeagueById(int leagueId) async {
+    isFetchingLeagues(true);
+    final Either<Failure, SLeague> failureOrLeague = await getLeague(
+      SLeagueRequest(leagueId: leagueId),
+    );
+    return failureOrLeague.fold<SLeague?>(
+      (Failure failure) {
+        isFetchingLeagues(false);
+        return null;
+      },
+      (SLeague value) {
         isFetchingLeagues(false);
         return value;
       },
