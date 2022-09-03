@@ -115,7 +115,11 @@ class LiveScoreCard extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          '${liveScore.time.status}',
+                          liveScore.time.status?.toLowerCase() == 'ns'
+                              ? 'NS'
+                              : liveScore.time.status?.toLowerCase() == 'live'
+                                  ? '${liveScore.time.minute}:${liveScore.time.second}'
+                                  : '${liveScore.time.status}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
