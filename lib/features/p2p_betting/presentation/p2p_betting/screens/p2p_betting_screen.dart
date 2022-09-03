@@ -92,7 +92,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isAddingBet.value,
+            loading: controller.isAddingBet.value ||
+                lController.showLoadingLogo.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
