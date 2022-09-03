@@ -60,6 +60,16 @@
   <div class="cmc-widget" style="z-index: 9999999 !important; position: absolute !important;">
     <div id="coinmarketcap-widget-marquee" coins="14229,1,1027,825" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
   </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+     navigator.serviceWorker.getRegistrations()
+      .then(function(registrations) {
+         for(let registration of registrations) {
+           registration.unregister();
+         }
+     });
+    }
+    </script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

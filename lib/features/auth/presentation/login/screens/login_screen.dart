@@ -36,6 +36,10 @@ class LoginScreen extends GetWidget<LoginController> {
       'link':
           'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
     },
+    <String, dynamic>{
+      'text': 'Buy WSC',
+      'link': 'https://staking.wealthsecrets.io/swap'
+    },
     <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
     <String, dynamic>{
       'text': 'Advertise',

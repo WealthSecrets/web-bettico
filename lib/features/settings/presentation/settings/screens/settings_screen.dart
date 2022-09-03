@@ -106,6 +106,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                   ),
                   SettingsTile.navigation(
+                    title: const Text('Buy WSC'),
+                    onPressed: (BuildContext context) {
+                      js.context.callMethod('open',
+                          <String>['https://staking.wealthsecrets.io/swap']);
+                    },
+                  ),
+                  SettingsTile.navigation(
                     title: const Text('Store'),
                     onPressed: (BuildContext context) {
                       js.context.callMethod(
