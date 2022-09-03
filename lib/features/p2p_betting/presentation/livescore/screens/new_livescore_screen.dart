@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fixture_card.dart';
@@ -24,10 +26,24 @@ class _NewLiveScoreState extends State<NewLiveScore> {
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
+  Map<String, StreamController<LiveScore>> liveScoreStreamControllers =
+      <String, StreamController<LiveScore>>{};
+
+  late final Timer _timer;
+
   @override
   void initState() {
     lController.getAllLeagues();
+    _timer = Timer.periodic(const Duration(seconds: 10), (_) {
+      lController.getAllLiveScores(1, lController.selectedLeague.value.id);
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -131,79 +147,38 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                       builderDelegate: PagedChildBuilderDelegate<LiveScore>(
                         itemBuilder: (BuildContext context, LiveScore liveScore,
                             int index) {
-                          return FutureBuilder<LiveScore>(
-                            builder: (BuildContext context,
-                                AsyncSnapshot<LiveScore> snapshot) {
-                              if (snapshot.hasData && snapshot.data != null) {
-                                return LiveScoreCard(
-                                  liveScore: snapshot.data!,
-                                  onTap: () async {
-                                    if (!lController.isConnected) {
-                                      if (Ethereum.isSupported) {
-                                        lController.initiateWalletConnect();
-                                      } else {
-                                        lController.connectWC();
-                                      }
-                                    } else {
-                                      if (liveScore.time.status == 'FT') {
-                                        await AppSnacks.show(
-                                          context,
-                                          message:
-                                              'Can\'t bet on this match. It is already completed.',
-                                          backgroundColor: context.colors.error,
-                                          leadingIcon: const Icon(
-                                            Ionicons.checkmark_circle_outline,
-                                            color: Colors.white,
-                                          ),
-                                        );
-                                      } else {
-                                        await Navigator.of(context).push<void>(
-                                          MaterialPageRoute<void>(
-                                            builder: (BuildContext context) =>
-                                                P2PBettingScreen(
-                                              liveScore: liveScore,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  },
-                                );
+                          return LiveScoreCard(
+                            liveScore: liveScore,
+                            onTap: () async {
+                              if (!lController.isConnected) {
+                                if (Ethereum.isSupported) {
+                                  lController.initiateWalletConnect();
+                                } else {
+                                  await lController.connectWC();
+                                }
+                              } else {
+                                if (liveScore.time.status == 'FT') {
+                                  await AppSnacks.show(
+                                    context,
+                                    message:
+                                        'Can\'t bet on this match. It is already completed.',
+                                    backgroundColor: context.colors.error,
+                                    leadingIcon: const Icon(
+                                      Ionicons.checkmark_circle_outline,
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                } else {
+                                  await Navigator.of(context).push<void>(
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          P2PBettingScreen(
+                                        liveScore: liveScore,
+                                      ),
+                                    ),
+                                  );
+                                }
                               }
-                              return LiveScoreCard(
-                                liveScore: liveScore,
-                                onTap: () async {
-                                  if (!lController.isConnected) {
-                                    if (Ethereum.isSupported) {
-                                      lController.initiateWalletConnect();
-                                    } else {
-                                      lController.connectWC();
-                                    }
-                                  } else {
-                                    if (liveScore.time.status == 'FT') {
-                                      await AppSnacks.show(
-                                        context,
-                                        message:
-                                            'Can\'t bet on this match. It is already completed.',
-                                        backgroundColor: context.colors.error,
-                                        leadingIcon: const Icon(
-                                          Ionicons.checkmark_circle_outline,
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    } else {
-                                      await Navigator.of(context).push<void>(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              P2PBettingScreen(
-                                            liveScore: liveScore,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  }
-                                },
-                              );
                             },
                           );
                         },
