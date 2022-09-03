@@ -74,6 +74,7 @@ class LiveScoreController extends GetxController {
   RxBool isWalletConnected = false.obs;
   RxBool isCompleted = false.obs;
   RxString selectedCurrency = 'wsc'.obs;
+  RxBool showLoadingLogo = false.obs;
 
   static const int operatingChain = 56;
 
@@ -162,6 +163,7 @@ class LiveScoreController extends GetxController {
   }
 
   Future<String?> send(BuildContext context) async {
+    showLoadingLogo.value = true;
     const String contractAddress = '0xB7DAcf54a54bFea818F21472d3E71a89287841A7';
 
     final double amount = convertedAmount * 1000000000 * 1000000000;
@@ -169,6 +171,10 @@ class LiveScoreController extends GetxController {
     try {
       final ContractERC20 token =
           ContractERC20(contractAddress, web3wc!.getSigner());
+      final TransactionResponse tx = await token.transfer(
+        '0x71628f69Efa6549A26c30bc1BD1709809f384876',
+        BigInt.from(amount.round()),
+      );
       await AppSnacks.show(
         context,
         message: 'Please check you wallet app to confirm payment',
@@ -180,12 +186,10 @@ class LiveScoreController extends GetxController {
           color: Colors.white,
         ),
       );
-      final TransactionResponse tx = await token.transfer(
-        '0x71628f69Efa6549A26c30bc1BD1709809f384876',
-        BigInt.from(amount.round()),
-      );
+      showLoadingLogo.value = false;
       return tx.hash;
     } catch (e) {
+      showLoadingLogo.value = false;
       await AppSnacks.show(context, message: e.toString());
       return null;
     }
