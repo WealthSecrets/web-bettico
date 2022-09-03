@@ -228,7 +228,10 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           await lController.send(context);
 
                       if (actualHash != null) {
-                        controller.addNewBet(context);
+                        controller.addNewBet(
+                          context,
+                          lController.walletAddress.value,
+                        );
                       }
                     },
                     enabled: controller.isValid && !lController.isLoading.value,

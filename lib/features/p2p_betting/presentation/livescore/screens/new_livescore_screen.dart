@@ -311,7 +311,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                           if (Ethereum.isSupported) {
                                             lController.initiateWalletConnect();
                                           } else {
-                                            lController.connectWC();
+                                            await lController.connectWC();
                                           }
                                         } else {
                                           if (f.time.status == 'FT') {

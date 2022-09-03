@@ -171,7 +171,7 @@ class P2PBetController extends GetxController {
   bool get isDetailsValid =>
       choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty;
 
-  void addNewBet(BuildContext context) async {
+  void addNewBet(BuildContext context, String wallet) async {
     isAddingBet(true);
     final Either<Failure, Bet> failureOrBet = await addBet(
       BetRequest(
@@ -182,14 +182,17 @@ class P2PBetController extends GetxController {
           team: teamSelected.value,
           teamId: teamId.value,
           user: bController.user.value.id,
+          wallet: wallet,
         ),
         awayTeam: TeamRequest(
           name: liveScore.value.visitorTeam.data.name,
           teamId: liveScore.value.visitorTeam.data.id,
+          logo_path: liveScore.value.visitorTeam.data.logo,
         ),
         homeTeam: TeamRequest(
-          name: liveScore.value.visitorTeam.data.name,
+          name: liveScore.value.localTeam.data.name,
           teamId: liveScore.value.localTeam.data.id,
+          logo_path: liveScore.value.localTeam.data.logo,
         ),
         status: status.value,
         time: liveScore.value.time.startingAt.time,
@@ -220,7 +223,11 @@ class P2PBetController extends GetxController {
     );
   }
 
-  void addOpponentToBet(BuildContext context, String betId) async {
+  void addOpponentToBet(
+    BuildContext context,
+    String betId,
+    String wallet,
+  ) async {
     isUpdatingBet(true);
 
     final Either<Failure, Bet> failureOrBet = await updateBet(
@@ -231,6 +238,7 @@ class P2PBetController extends GetxController {
           team: teamSelected.value,
           teamId: teamId.value,
           user: bController.user.value.id,
+          wallet: wallet,
         ),
         status: 'ongoing',
       ),
