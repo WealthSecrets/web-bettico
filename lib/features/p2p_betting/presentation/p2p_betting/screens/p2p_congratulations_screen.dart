@@ -199,7 +199,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
               child: AppButton(
                 enabled: true,
                 borderRadius: AppBorderRadius.largeAll,
-                onPressed: () => Get.back<void>(),
+                onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   'Back Home'.toUpperCase(),
                   style: const TextStyle(

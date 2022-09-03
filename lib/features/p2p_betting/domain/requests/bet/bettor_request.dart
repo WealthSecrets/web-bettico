@@ -12,6 +12,7 @@ class BettorRequest with _$BettorRequest {
     required String team,
     required int teamId,
     required String choice,
+    required String wallet,
   }) = _BettorRequest;
   factory BettorRequest.fromJson(Map<String, dynamic> json) =>
       _$BettorRequestFromJson(json);

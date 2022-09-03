@@ -46,7 +46,8 @@ class P2PBettingHistoryCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  TimeCard(dateTime: bet.createdAt),
+                  if (bet.date != null)
+                    TimeCard(dateTime: DateTime.parse(bet.date!)),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8)
                         .add(const EdgeInsets.symmetric(vertical: 4)),
@@ -80,53 +81,38 @@ class P2PBettingHistoryCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   SizedBox(
-                    width: 120,
+                    width: 140,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          height: 60,
-                          width: 60,
-                          // padding: AppPaddings.sA,
-                          decoration: BoxDecoration(
-                            // color: Colors.white,
-                            // border: Border.all(
-                            //   color: context.colors.primary,
-                            //   width: 2,
-                            //   style: BorderStyle.solid,
-                            // ),
-                            border: null,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          // child: SizedBox(
-                          //   height: 40,
-                          //   width: 40,
-                          //   child: SvgPicture.asset(
-                          //     'assets/svgs/leicester-city-fc.svg',
-                          //   ),
-                          // ),
-                          child: CircleAvatar(
-                            radius: 30.0,
-                            backgroundColor: bet.creator.teamId ==
-                                    bet.awayTeam.teamId
-                                ? bet.creator.choice.color(context)
-                                : bet.opponent?.teamId == bet.awayTeam.teamId
-                                    ? bet.opponent?.choice.color(context)
-                                    : context.colors.text,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30.0),
-                              child: Text(
-                                StringUtils.getInitials(
-                                  bet.awayTeam.name,
-                                ),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
+                        if (bet.awayTeam.logo != null)
+                          Container(
+                            height: 60,
+                            width: 60,
+                            padding: AppPaddings.lA,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: bet.creator.teamId == bet.awayTeam.teamId
+                                    ? bet.creator.choice.color(context)
+                                    : bet.opponent != null
+                                        ? bet.opponent!.teamId ==
+                                                bet.awayTeam.teamId
+                                            ? bet.opponent!.choice
+                                                .color(context)
+                                            : context.colors.text
+                                        : context.colors.text,
+                                width: 2,
+                                style: BorderStyle.solid,
                               ),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  bet.awayTeam.logo!,
+                                ),
+                                fit: BoxFit.contain,
+                              ),
+                              borderRadius: BorderRadius.circular(40),
                             ),
                           ),
-                        ),
                         SizedBox(
                           height:
                               ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
@@ -199,53 +185,38 @@ class P2PBettingHistoryCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   SizedBox(
-                    width: 120,
+                    width: 140,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          height: 60,
-                          width: 60,
-                          // padding: AppPaddings.sA,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            // border: Border.all(
-                            //   color: context.colors.primary,
-                            //   width: 2,
-                            //   style: BorderStyle.solid,
-                            // ),
-                            border: null,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          // child: SizedBox(
-                          //   height: 60,
-                          //   width: 60,
-                          //   child: SvgPicture.asset(
-                          //     'assets/svgs/chelsea-fc-2.svg',
-                          //   ),
-                          // ),
-                          child: CircleAvatar(
-                            radius: 30.0,
-                            backgroundColor: bet.creator.teamId ==
-                                    bet.homeTeam.teamId
-                                ? bet.creator.choice.color(context)
-                                : bet.opponent?.teamId == bet.homeTeam.teamId
-                                    ? bet.opponent?.choice.color(context)
-                                    : context.colors.text,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30.0),
-                              child: Text(
-                                StringUtils.getInitials(
-                                  bet.homeTeam.name,
-                                ),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
+                        if (bet.homeTeam.logo != null)
+                          Container(
+                            height: 60,
+                            width: 60,
+                            padding: AppPaddings.lA,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: bet.creator.teamId == bet.homeTeam.teamId
+                                    ? bet.creator.choice.color(context)
+                                    : bet.opponent != null
+                                        ? bet.opponent!.teamId ==
+                                                bet.homeTeam.teamId
+                                            ? bet.opponent!.choice
+                                                .color(context)
+                                            : context.colors.text
+                                        : context.colors.text,
+                                width: 2,
+                                style: BorderStyle.solid,
                               ),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  bet.homeTeam.logo!,
+                                ),
+                                fit: BoxFit.contain,
+                              ),
+                              borderRadius: BorderRadius.circular(40),
                             ),
                           ),
-                        ),
                         SizedBox(
                           height:
                               ResponsiveWidget.isSmallScreen(context) ? 8 : 12,

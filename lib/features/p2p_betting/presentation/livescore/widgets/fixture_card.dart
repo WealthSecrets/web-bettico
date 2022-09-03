@@ -45,8 +45,8 @@ class FixtureCard extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: _buildRightFixtureCard(
-                  imagePath: sFixture.localTeam.data.logo,
-                  name: sFixture.localTeam.data.name,
+                  imagePath: sFixture.visitorTeam.data.logo,
+                  name: sFixture.visitorTeam.data.name,
                 ),
               ),
               const SizedBox(width: 10),
@@ -121,9 +121,9 @@ class FixtureCard extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: _buildLeftFixtureCard(
-                  imagePath: sFixture.visitorTeam.data.logo,
+                  imagePath: sFixture.localTeam.data.logo,
                   name: StringUtils.capitalizeFirst(
-                    sFixture.visitorTeam.data.name,
+                    sFixture.localTeam.data.name,
                   ),
                 ),
               ),

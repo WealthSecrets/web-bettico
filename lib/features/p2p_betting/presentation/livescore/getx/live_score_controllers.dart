@@ -105,19 +105,22 @@ class LiveScoreController extends GetxController {
     super.onInit();
   }
 
-  void connectProvider() async {
+  void connectProvider([Function()? func]) async {
     if (Ethereum.isSupported) {
       final List<String> accs = await ethereum!.requestAccount();
       if (accs.isNotEmpty) {
         walletAddress.value = accs.first;
         currentChain.value = await ethereum!.getChainId();
+        if (func != null) {
+          func();
+        }
       }
 
       update();
     }
   }
 
-  void connectWC() async {
+  Future<void> connectWC() async {
     try {
       await wc.connect();
 
@@ -133,9 +136,9 @@ class LiveScoreController extends GetxController {
     update();
   }
 
-  void initiateWalletConnect() {
+  void initiateWalletConnect([Function()? func]) {
     if (Ethereum.isSupported) {
-      connectProvider();
+      connectProvider(func);
 
       ethereum!.onAccountsChanged((List<String> accs) {
         disconnect();
