@@ -37,10 +37,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   void initState() {
     super.initState();
 
-    // Future<void>.delayed(
-    //   const Duration(seconds: 60),
-    //   () => startBroadcast(widget.bet.competitionId),
-    // );
+    startBroadcast(widget.bet.competitionId);
   }
 
   @override
@@ -53,6 +50,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   void startBroadcast(int fixtureId) async {
     _timer = Timer.periodic(const Duration(seconds: 60), (Timer timer) async {
       final LiveScore? sFixture = await lController.getMatchSFixture(fixtureId);
+
       _liveScoreStreamController.add(sFixture);
     });
   }
@@ -60,7 +58,9 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<LiveScore?>(
+      stream: _liveScoreStreamController.stream,
       builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
+        final LiveScore? liveScore = snapshot.data;
         if (snapshot.hasData && snapshot.data != null) {
           final LiveScore liveScoreData = snapshot.data!;
           if (liveScoreData.time.status?.toLowerCase() == 'ft') {
@@ -152,8 +152,39 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      if (widget.bet.date != null)
+                      if (widget.bet.date != null &&
+                          (liveScore != null &&
+                              liveScore.time.status?.toLowerCase() == 'ns'))
                         TimeCard(dateTime: DateTime.parse(widget.bet.date!)),
+                      if (liveScore != null &&
+                          liveScore.time.status?.toLowerCase() == 'live')
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 2,
+                            horizontal: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: context.colors.primary.withOpacity(.2),
+                            border: Border.all(
+                              color: context.colors.primary,
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+                          ),
+                          child: Text(
+                            liveScore.time.status?.toLowerCase() == 'ns'
+                                ? 'NS'
+                                : liveScore.time.status?.toLowerCase() == 'live'
+                                    ? '${liveScore.time.minute}\''
+                                    : '${liveScore.time.status}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: context.colors.primary,
+                            ),
+                          ),
+                        ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8)
                             .add(const EdgeInsets.symmetric(vertical: 4)),
@@ -253,7 +284,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                           children: <Widget>[
                             Text(
                               snapshot.hasData && snapshot.data != null
-                                  ? '${snapshot.data!.scores?.localTeamScore}'
+                                  ? '${snapshot.data!.scores?.localTeamScore} - ${snapshot.data!.scores?.visitorTeamScore}'
                                   : widget.bet.score ?? '? - ?',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,

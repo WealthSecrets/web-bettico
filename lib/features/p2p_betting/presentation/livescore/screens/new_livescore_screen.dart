@@ -85,8 +85,8 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                         const SizedBox(height: 6),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            const Text(
+                          children: const <Widget>[
+                            Text(
                               'Leagues',
                               style: TextStyle(
                                 fontSize: 14,
@@ -94,18 +94,6 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                 color: Colors.black,
                               ),
                             ),
-                            if (lController.sLeagues.length >= 10)
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'More',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: context.colors.primary,
-                                  ),
-                                ),
-                              ),
                           ],
                         ),
                         SizedBox(
