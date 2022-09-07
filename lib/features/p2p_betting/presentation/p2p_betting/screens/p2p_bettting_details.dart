@@ -1,6 +1,5 @@
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
@@ -24,6 +23,13 @@ class P2PBettingDetailsScreen extends StatefulWidget {
 class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
+
+  @override
+  void initState() {
+    lController.convertAmount(context, 'wsc', widget.bet.amount);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -61,7 +67,8 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isUpdatingBet.value,
+            loading: controller.isUpdatingBet.value ||
+                lController.showLoadingLogo.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
@@ -81,8 +88,6 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                     ),
                     localTeamScore: 0,
                     visitorTeamScore: 0,
-                    time: widget.bet.time,
-                    date: widget.bet.date,
                     onAwayPressed:
                         widget.bet.creator.teamId != widget.bet.awayTeam.teamId
                             ? () => controller.selectTeam(
@@ -173,11 +178,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                           color: context.colors.success,
                           textColor: Colors.white,
                           onPressed: () => controller.selectChoice('win'),
-                          selected:
-                              widget.bet.creator.choice == BettorChoice.win ||
-                                  controller.choice.value == 'win',
-                          disabled:
-                              widget.bet.creator.choice == BettorChoice.win,
+                          selected: controller.choice.value == 'win',
                         ),
                         AppConstrainedButton(
                           text: 'Draw',
@@ -185,11 +186,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                           color: context.colors.primary,
                           textColor: Colors.white,
                           onPressed: () => controller.selectChoice('draw'),
-                          selected:
-                              widget.bet.creator.choice == BettorChoice.draw ||
-                                  controller.choice.value == 'draw',
-                          disabled:
-                              widget.bet.creator.choice == BettorChoice.draw,
+                          selected: controller.choice.value == 'draw',
                         ),
                         AppConstrainedButton(
                           text: 'Loss',
@@ -197,11 +194,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                           color: context.colors.error,
                           textColor: Colors.white,
                           onPressed: () => controller.selectChoice('loss'),
-                          selected:
-                              widget.bet.creator.choice == BettorChoice.loss ||
-                                  controller.choice.value == 'loss',
-                          disabled:
-                              widget.bet.creator.choice == BettorChoice.loss,
+                          selected: controller.choice.value == 'loss',
                         )
                       ],
                     ),
@@ -210,11 +203,15 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   Obx(
                     () => AppButton(
                       onPressed: () async {
-                        controller.addOpponentToBet(
-                          context,
-                          widget.bet.id,
-                          lController.walletAddress.value,
-                        );
+                        final String? actualHash =
+                            await lController.send(context);
+                        if (actualHash != null) {
+                          controller.addOpponentToBet(
+                            context,
+                            widget.bet.id,
+                            lController.walletAddress.value,
+                          );
+                        }
                       },
                       enabled: controller.isDetailsValid,
                       borderRadius: AppBorderRadius.largeAll,

@@ -20,6 +20,7 @@ class Bettor with _$Bettor {
     required String team,
     required int teamId,
     required BettorChoice choice,
+    required String wallet,
   }) = _Bettor;
 
   const Bettor._();
@@ -31,7 +32,8 @@ class Bettor with _$Bettor {
       id: const Uuid().v1(),
       team: Faker().person.name(),
       teamId: Random().nextInt(1000),
-      user: User.empty());
+      user: User.empty(),
+      wallet: '');
 
   factory Bettor.empty() => Bettor(
         choice: Faker().randomGenerator.element(BettorChoice.values),
@@ -39,6 +41,7 @@ class Bettor with _$Bettor {
         team: '',
         teamId: 0,
         id: '',
+        wallet: '',
       );
 }
 

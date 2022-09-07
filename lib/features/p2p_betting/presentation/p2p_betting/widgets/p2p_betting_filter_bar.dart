@@ -34,9 +34,10 @@ class P2PBettingFilterBar extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       'My Bets',
-                      style: context.body1.copyWith(
+                      style: TextStyle(
                         color: context.colors.textDark,
                         fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                     const Spacer(),
@@ -60,23 +61,25 @@ class P2PBettingFilterBar extends StatelessWidget {
                           if (item == null)
                             Text(
                               'Select',
-                              style: context.caption.copyWith(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.text,
+                                fontSize: 12,
                               ),
                             )
                           else
                             Text(
                               item,
-                              style: context.caption.copyWith(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.text,
+                                fontSize: 12,
                               ),
                             ),
                           const AppSpacing(h: 5),
-                          Icon(
+                          const Icon(
                             CupertinoIcons.chevron_down,
-                            size: AppFontSizes.caption,
+                            size: 12,
                           )
                         ],
                       ),

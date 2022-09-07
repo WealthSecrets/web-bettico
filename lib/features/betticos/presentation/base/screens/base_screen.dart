@@ -274,11 +274,12 @@ class BaseScreenState extends State<BaseScreen> {
                         borderRadius: BorderRadius.circular(25),
                         image: DecorationImage(
                           image: NetworkImage(
-                              '${AppEndpoints.userImages}/${controller.user.value.photo}',
-                              headers: {
-                                'Authorization':
-                                    'Bearer ${controller.userToken.value}',
-                              }),
+                            '${AppEndpoints.userImages}/${controller.user.value.photo}',
+                            headers: {
+                              'Authorization':
+                                  'Bearer ${controller.userToken.value}',
+                            },
+                          ),
                           fit: BoxFit.cover,
                         ),
                       ),
