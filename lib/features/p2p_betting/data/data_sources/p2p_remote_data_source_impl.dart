@@ -91,6 +91,15 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
+  Future<LiveScore> getSFixture(int fixtureId) async {
+    final Map<String, dynamic> json = await _client.get(
+      P2pEndpoints.getSFixture(fixtureId),
+    );
+
+    return LiveScore.fromJson(json);
+  }
+
+  @override
   Future<SoccerMatch?> getCompetitionMatch(
     String apiKey,
     String secretKey,
@@ -211,9 +220,34 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
+  Future<List<LiveScore>> fetchLiveScores(int leagueId) async {
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.liveScore(leagueId: leagueId));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<LiveScore>.from(
+      items.map<LiveScore>(
+        (dynamic json) => LiveScore.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+  }
+
+  @override
+  Future<List<LiveScore>> fetchFixtures(int leagueId) async {
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.sFixtures(leagueId: leagueId));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<LiveScore>.from(
+      items.map<LiveScore>(
+        (dynamic json) => LiveScore.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+  }
+
+  @override
   Future<ListPage<LiveScore>> fetchPaginatedLiveScores(
       int page, int limit, int leagueId) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.liveScore(
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.paginateLiveScore(
       page: page,
       size: limit,
       leagueId: leagueId,
@@ -233,7 +267,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   @override
   Future<ListPage<LiveScore>> fetchPaginatedFixtures(
       int page, int limit, int leagueId) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.sfixtures(
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.spaginateFixtures(
       page: page,
       size: limit,
       leagueId: leagueId,

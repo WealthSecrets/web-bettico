@@ -1,8 +1,11 @@
 import 'package:betticos/features/p2p_betting/domain/usecases/crypto/convert_amount_to_currency.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixtures.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_fixtures.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_leagues.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_livescores.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_livescore.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sfixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:get/get.dart';
 
@@ -36,6 +39,15 @@ class LiveScoreBindings {
           p2pRepository: Get.find(),
         ),
         getLeague: GetLeague(
+          p2pRepository: Get.find(),
+        ),
+        fetchLiveScores: FetchLiveScores(
+          p2pRepository: Get.find(),
+        ),
+        fetchFixtures: FetchFixtures(
+          p2pRepository: Get.find(),
+        ),
+        getSFixture: GetSFixture(
           p2pRepository: Get.find(),
         ),
       ),

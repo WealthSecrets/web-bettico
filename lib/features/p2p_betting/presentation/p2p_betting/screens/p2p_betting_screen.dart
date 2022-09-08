@@ -124,9 +124,9 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         logo: widget.liveScore.visitorTeam.data.logo,
                       ),
                       localTeamScore: widget.liveScore.scores!.localTeamScore,
+                      time: widget.liveScore.time,
                       visitorTeamScore:
                           widget.liveScore.scores!.visitorTeamScore,
-                      time: widget.liveScore.time.minute.toString(),
                       onAwayPressed: () => controller.selectTeam(
                         widget.liveScore.visitorTeam.data.name,
                         widget.liveScore.visitorTeam.data.id,

@@ -1,6 +1,6 @@
+import 'package:betticos/features/p2p_betting/data/models/sportmonks/time/time.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
@@ -21,7 +21,6 @@ class P2PBettingCard extends StatefulWidget {
     required this.localTeamScore,
     required this.visitorTeamScore,
     this.time,
-    this.date,
     this.awayDisabled = false,
     this.homeDisabled = false,
     this.onAwayPressed,
@@ -35,8 +34,7 @@ class P2PBettingCard extends StatefulWidget {
   // final String score;
   final int localTeamScore;
   final int visitorTeamScore;
-  final String? time;
-  final String? date;
+  final Time? time;
   final bool? awayDisabled;
   final bool? homeDisabled;
   final Function()? onAwayPressed;
@@ -140,13 +138,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 ],
               ),
               const AppSpacing(v: 8),
-              if (widget.date != null && widget.time != null)
-                TimeCard(
-                  dateTime: DateTime.parse(
-                    widget.date! + ' ' + widget.time!,
-                  ),
-                )
-              else
+              if (widget.time != null)
                 ChipCard(
                   child: Padding(
                     padding: AppPaddings.sH,
@@ -158,7 +150,11 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                         ),
                         const AppSpacing(h: 5),
                         Text(
-                          '${widget.time}\'',
+                          widget.time!.status?.toLowerCase() == 'ns'
+                              ? 'NS'
+                              : widget.time!.status?.toLowerCase() == 'live'
+                                  ? '${widget.time!.minute}\''
+                                  : '${widget.time!.status}',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: context.colors.text,

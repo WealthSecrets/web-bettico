@@ -30,6 +30,10 @@ abstract class P2pRepository {
     int leagueId,
   );
 
+  Future<Either<Failure, List<LiveScore>>> fetchLiveScores(int leagueId);
+
+  Future<Either<Failure, List<LiveScore>>> fetchFixtures(int leagueId);
+
   Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedFixtures(
     int page,
     int limit,
@@ -58,6 +62,8 @@ abstract class P2pRepository {
   Future<Either<Failure, Team>> getTeam(int teamId);
 
   Future<Either<Failure, SLeague>> getLeague(int leagueId);
+
+  Future<Either<Failure, LiveScore>> getSFixture(int fixtureId);
 
   Future<Either<Failure, SoccerMatch?>> getTeamMatch(
     String apiKey,
