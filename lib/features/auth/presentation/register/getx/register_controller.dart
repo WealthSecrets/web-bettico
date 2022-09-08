@@ -298,12 +298,7 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        navigationController.navigateTo(
-          AppRoutes.otpVerify,
-          arguments: const OTPVerificationArgument(
-            otpReceiverType: OTPReceiverType.email,
-          ),
-        );
+        navigationController.navigateTo(AppRoutes.personalInformation);
       },
     );
   }
@@ -323,8 +318,9 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
-        isUpdatingUserRole(false);
-        lController.reRouteOddster(context, us);
+        Get.offAll<void>(const HomeBaseScreen());
+        navigationController.navigateTo(AppRoutes.timeline);
+        menuController.changeActiveItemTo(AppRoutes.timeline);
       },
     );
   }
@@ -349,8 +345,7 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
-        isAddingPersonalInformation(false);
-        sendSmstoPhoneNumber(context, u: us);
+        navigationController.navigateTo(AppRoutes.accountType);
       },
     );
   }

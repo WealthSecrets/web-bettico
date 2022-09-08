@@ -87,9 +87,7 @@ class LoginController extends GetxController {
   void reRouteOddster(BuildContext context, User user,
       {bool? isSkipEmail, bool? isSkipPhone}) {
     if (user.role == 'oddster') {
-      if (user.emailVerifiedAt == null && !(isSkipEmail ?? false)) {
-        resendOTPEmail(context, user.email);
-      } else if (user.profileAt == null) {
+      if (user.profileAt == null) {
         navigationController.navigateTo(
           AppRoutes.personalInformation,
           arguments: UserArgument(user: user),
@@ -108,11 +106,13 @@ class LoginController extends GetxController {
       //   }
       // }
 
-      else if (user.identification == null) {
-        navigationController.navigateTo(AppRoutes.documentScreen);
-      } else if (user.photo == null) {
-        navigationController.navigateTo(AppRoutes.profilePhoto);
-      } else {
+      // else if (user.identification == null) {
+      //   navigationController.navigateTo(AppRoutes.documentScreen);
+      // }
+      // else if (user.photo == null) {
+      //   navigationController.navigateTo(AppRoutes.profilePhoto);
+      // }
+      else {
         if (ResponsiveWidget.isSmallScreen(context)) {
           navigationController.navigateTo(AppRoutes.base);
         } else {
@@ -123,22 +123,11 @@ class LoginController extends GetxController {
         }
       }
     } else {
-      if (user.emailVerifiedAt == null && !(isSkipEmail ?? false)) {
-        resendOTPEmail(context, user.email);
-      } else if (user.profileAt == null) {
+      if (user.profileAt == null) {
         navigationController.navigateTo(
           AppRoutes.personalInformation,
           arguments: UserArgument(user: user),
         );
-      } else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
-        if (user.phone != null) {
-          resendOTPSms(context, user.phone!);
-        } else {
-          navigationController.navigateTo(
-            AppRoutes.personalInformation,
-            arguments: UserArgument(user: user),
-          );
-        }
       } else {
         if (ResponsiveWidget.isSmallScreen(context)) {
           navigationController.navigateTo(AppRoutes.base);

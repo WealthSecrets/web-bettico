@@ -38,6 +38,7 @@ void main() async {
   SplashBindings.dependencies();
   OnBoardBindings.dependencies();
   BaseBindings.dependencies();
+  LiveScoreBindings.dependencies();
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
 
@@ -45,7 +46,6 @@ void main() async {
 
   ForgotBindings.dependencies();
   ResetBindings.dependencies();
-  LiveScoreBindings.dependencies();
   P2PBetBindings.dependencies();
   TimelineBindings.dependencies();
   SettingsBindings.dependencies();
