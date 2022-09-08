@@ -118,7 +118,7 @@ class LiveScoreCard extends StatelessWidget {
                           liveScore.time.status?.toLowerCase() == 'ns'
                               ? 'NS'
                               : liveScore.time.status?.toLowerCase() == 'live'
-                                  ? '${liveScore.time.minute}:${liveScore.time.second}'
+                                  ? '${liveScore.time.minute}\''
                                   : '${liveScore.time.status}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,

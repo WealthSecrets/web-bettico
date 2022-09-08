@@ -218,7 +218,14 @@ class AppDialogueModal extends StatelessWidget {
               onDismissed();
               Navigator.of(context).pop();
             },
-            child: Text(buttonText),
+            child: Text(
+              buttonText,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           )
         ],
       ),

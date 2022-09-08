@@ -262,30 +262,39 @@ class P2PBetController extends GetxController {
           barrierDismissible: false,
           context: context,
           alignment: Alignment.center,
-          builder: (BuildContext modalContext) => Column(
-            children: <Widget>[
-              const Spacer(),
-              AppDialogueModal(
-                icon: Icon(
-                  Ionicons.checkmark_circle_sharp,
-                  color: context.colors.success,
-                  size: 60,
+          builder: (BuildContext modalContext) {
+            return Center(
+              child: SizedBox(
+                width: 600,
+                height: 500,
+                child: Column(
+                  children: <Widget>[
+                    const Spacer(),
+                    AppDialogueModal(
+                      icon: Icon(
+                        Ionicons.checkmark_circle_sharp,
+                        color: context.colors.success,
+                        size: 60,
+                      ),
+                      description: 'You have successfully accepted this bet.',
+                      title: Text(
+                        'Challenge Accepted',
+                        style: TextStyle(
+                          color: context.colors.success,
+                          fontSize: 20,
+                        ),
+                      ),
+                      buttonText: 'Dismiss',
+                      onDismissed: () async {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    const Spacer(),
+                  ],
                 ),
-                description: 'You have successfully accepted this bet.',
-                title: Text(
-                  'Challenge Accepted',
-                  style: context.h6.copyWith(
-                    color: context.colors.success,
-                  ),
-                ),
-                buttonText: 'Dismiss',
-                onDismissed: () async {
-                  Navigator.of(context).pop();
-                },
               ),
-              const Spacer(),
-            ],
-          ),
+            );
+          },
         );
       },
     );

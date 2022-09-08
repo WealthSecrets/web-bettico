@@ -65,10 +65,11 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
                                 useRootNavigator: true,
                                 animationCurve: Curves.fastLinearToSlowEaseIn,
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(30),
-                                  topLeft: Radius.circular(30),
-                                )),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    topLeft: Radius.circular(30),
+                                  ),
+                                ),
                                 builder: (BuildContext modalContext) {
                                   return P2PBettingBottomSheet(
                                     bet: _p2pBetController.myBets[index],

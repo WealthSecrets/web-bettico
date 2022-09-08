@@ -172,6 +172,14 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
           p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
 
   @override
+  Future<Either<Failure, List<LiveScore>>> fetchLiveScores(int leagueId) =>
+      makeRequest(p2pRemoteDataSource.fetchLiveScores(leagueId));
+
+  @override
+  Future<Either<Failure, List<LiveScore>>> fetchFixtures(int leagueId) =>
+      makeRequest(p2pRemoteDataSource.fetchFixtures(leagueId));
+
+  @override
   Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedFixtures(
     int page,
     int limit,
@@ -187,4 +195,8 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, SLeague>> getLeague(int leagueId) =>
       makeRequest(p2pRemoteDataSource.getLeague(leagueId));
+
+  @override
+  Future<Either<Failure, LiveScore>> getSFixture(int fixtureId) =>
+      makeRequest(p2pRemoteDataSource.getSFixture(fixtureId));
 }

@@ -356,48 +356,52 @@ class _TimelineScreenState extends State<TimelineScreen> {
                             'awaiting') {
                           if (!lController.isConnected) {
                             if (Ethereum.isSupported) {
-                              lController.initiateWalletConnect(() {
-                                Navigator.of(context).push<void>(
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        P2PBettingDetailsScreen(
-                                      bet: _p2pBetController
-                                                  .selectedButton.value ==
-                                              'ongoing'
-                                          ? _p2pBetController
-                                              .ongoingBets[index - 1]
-                                          : _p2pBetController
-                                                      .selectedButton.value ==
-                                                  'completed'
-                                              ? _p2pBetController
-                                                  .completedBets[index - 1]
-                                              : _p2pBetController
-                                                  .awaitingBets[index - 1],
+                              lController.initiateWalletConnect(
+                                () {
+                                  Navigator.of(context).push<void>(
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          P2PBettingDetailsScreen(
+                                        bet: _p2pBetController
+                                                    .selectedButton.value ==
+                                                'ongoing'
+                                            ? _p2pBetController
+                                                .ongoingBets[index - 1]
+                                            : _p2pBetController
+                                                        .selectedButton.value ==
+                                                    'completed'
+                                                ? _p2pBetController
+                                                    .completedBets[index - 1]
+                                                : _p2pBetController
+                                                    .awaitingBets[index - 1],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              });
+                                  );
+                                },
+                              );
                             } else {
                               lController.connectWC().then((_) {
-                                Navigator.of(context).push<void>(
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        P2PBettingDetailsScreen(
-                                      bet: _p2pBetController
-                                                  .selectedButton.value ==
-                                              'ongoing'
-                                          ? _p2pBetController
-                                              .ongoingBets[index - 1]
-                                          : _p2pBetController
-                                                      .selectedButton.value ==
-                                                  'completed'
-                                              ? _p2pBetController
-                                                  .completedBets[index - 1]
-                                              : _p2pBetController
-                                                  .awaitingBets[index - 1],
+                                if (lController.walletAddress.isNotEmpty) {
+                                  Navigator.of(context).push<void>(
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          P2PBettingDetailsScreen(
+                                        bet: _p2pBetController
+                                                    .selectedButton.value ==
+                                                'ongoing'
+                                            ? _p2pBetController
+                                                .ongoingBets[index - 1]
+                                            : _p2pBetController
+                                                        .selectedButton.value ==
+                                                    'completed'
+                                                ? _p2pBetController
+                                                    .completedBets[index - 1]
+                                                : _p2pBetController
+                                                    .awaitingBets[index - 1],
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }
                               });
                             }
                           } else {
