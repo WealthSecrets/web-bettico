@@ -298,12 +298,7 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        navigationController.navigateTo(
-          AppRoutes.otpVerify,
-          arguments: const OTPVerificationArgument(
-            otpReceiverType: OTPReceiverType.email,
-          ),
-        );
+        navigationController.navigateTo(AppRoutes.personalInformation);
       },
     );
   }
