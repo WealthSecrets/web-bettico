@@ -41,6 +41,7 @@ class P2pEndpoints {
       'sportmonks/fixtures?leagues=$leagueId&include=localTeam,visitorTeam';
 
   static const String leagues = 'sportmonks/leagues';
+  static const String userBonus = 'users/bonus';
   static String getTeam(int teamId) => 'sportmonks/team/$teamId';
   static String getLeague(int leagueId) => 'sportmonks/league/$leagueId';
   static String getSFixture(int fixtureId) =>

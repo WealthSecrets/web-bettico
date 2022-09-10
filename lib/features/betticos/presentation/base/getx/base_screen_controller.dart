@@ -1,6 +1,8 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,17 +22,20 @@ class BaseScreenController extends GetxController {
     required this.loadToken,
     required this.logoutUser,
     required this.getMyFollowers,
+    required this.updateUserBonus,
     required this.getMyFollowings,
   });
   final LoadUser loadUser;
   final LoadToken loadToken;
   final LogoutUser logoutUser;
+  final UpdateUserBonus updateUserBonus;
   final GetMyFollowers getMyFollowers;
   final GetMyFollowings getMyFollowings;
 
   Rx<User> user = User.empty().obs;
   Rx<String> userToken = ''.obs;
   RxBool isLoading = false.obs;
+  RxBool isUpdatingUserBonus = false.obs;
   RxList<User> myFollowers = <User>[].obs;
   RxList<User> myFollowings = <User>[].obs;
 
@@ -51,6 +56,26 @@ class BaseScreenController extends GetxController {
         user(value);
         loadMyFollowers();
         loadMyFollowings();
+      },
+    );
+  }
+
+  void increaseDecreaseUserBonus(String type, double amount) async {
+    isUpdatingUserBonus.value = true;
+    final Either<Failure, User> failureOrUser = await updateUserBonus(
+      UserBonusRequest(
+        type: type,
+        amount: amount,
+      ),
+    );
+
+    failureOrUser.fold<void>(
+      (Failure failure) {
+        isUpdatingUserBonus.value = false;
+      },
+      (User value) {
+        user(value);
+        isUpdatingUserBonus.value = false;
       },
     );
   }

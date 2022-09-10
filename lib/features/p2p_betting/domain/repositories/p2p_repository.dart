@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
@@ -91,6 +92,11 @@ abstract class P2pRepository {
     required String betId,
     required String status,
     required BettorRequest opponent,
+  });
+
+  Future<Either<Failure, User>> updateUserBonus({
+    required String type,
+    required double amount,
   });
 
   Future<Either<Failure, List<Bet>>> fetchBets();

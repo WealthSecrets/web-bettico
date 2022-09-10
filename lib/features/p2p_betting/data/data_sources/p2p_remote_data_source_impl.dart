@@ -1,5 +1,7 @@
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
@@ -79,6 +81,16 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
     );
 
     return Team.fromJson(json);
+  }
+
+  @override
+  Future<User> updateBonus(UserBonusRequest request) async {
+    final Map<String, dynamic> json = await _client.post(
+      P2pEndpoints.userBonus,
+      body: request.toJson(),
+    );
+
+    return User.fromJson(json);
   }
 
   @override

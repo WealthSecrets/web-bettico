@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
@@ -6,6 +7,7 @@ import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sle
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 
 import '../../../betticos/data/models/listpage/listpage.dart';
 import '../models/crypto/network.dart';
@@ -61,6 +63,8 @@ abstract class P2pRemoteDataSource {
   );
 
   Future<Team> getTeam(int teamId);
+
+  Future<User> updateBonus(UserBonusRequest request);
 
   Future<SLeague> getLeague(int leagueId);
 
