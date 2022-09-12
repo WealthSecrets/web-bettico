@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/profile/screens/my_posts_screen.dart';
+import 'package:betticos/features/betticos/presentation/profile/screens/update_profile_screen.dart';
 import 'package:betticos/features/betticos/presentation/profile/widgets/circle_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,10 +15,8 @@ import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/core/presentation/utils/app_endpoints.dart';
 import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/presentation/profile/arguments/profile_argument.dart';
 import '/features/betticos/presentation/profile/getx/profile_controller.dart';
 import '/features/betticos/presentation/profile/screens/user_list_screen.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
 import '../../timeline/widgets/modal_fit.dart';
 
 class ProfileScreen extends KFDrawerContent {
@@ -280,10 +279,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // }
 
                               final dynamic value =
-                                  await navigationController.navigateTo(
-                                AppRoutes.updateProfile,
-                                arguments: ProfileArgument(
-                                  user: controller.user.value,
+                                  await Navigator.push<dynamic>(
+                                context,
+                                MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) =>
+                                      UpdateProfileScreen(
+                                    user: controller.user.value,
+                                  ),
                                 ),
                               );
 

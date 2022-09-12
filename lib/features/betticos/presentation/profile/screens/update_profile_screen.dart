@@ -1,23 +1,26 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
-import '/features/betticos/presentation/profile/arguments/profile_argument.dart';
 
 class UpdateProfileScreen extends GetWidget<ProfileController> {
-  const UpdateProfileScreen({Key? key}) : super(key: key);
+  UpdateProfileScreen({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+  final User user;
+
+  final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    final ProfileArgument? args =
-        ModalRoute.of(context)?.settings.arguments as ProfileArgument?;
-    if (args != null) {
-      controller.setUserDetails(args.user);
-    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -44,7 +47,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
       ),
       body: Obx(
         () => AppLoadingBox(
-          loading: controller.isLoading.value,
+          loading: controller.isUpdatingUserProfile.value,
           child: SafeArea(
             child: SizedBox.expand(
               child: SingleChildScrollView(
@@ -65,7 +68,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             color: context.colors.hintLight,
                             size: 18,
                           ),
-                          initialValue: args?.user.firstName,
+                          initialValue: user.firstName,
                           backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
@@ -83,7 +86,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             color: context.colors.hintLight,
                             size: 18,
                           ),
-                          initialValue: args?.user.lastName,
+                          initialValue: user.lastName,
                           backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
@@ -100,7 +103,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             color: context.colors.hintLight,
                             size: 18,
                           ),
-                          initialValue: args?.user.username,
+                          initialValue: user.username,
                           backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
@@ -119,7 +122,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             color: context.colors.hintLight,
                             size: 18,
                           ),
-                          initialValue: args?.user.email,
+                          initialValue: user.email,
                           backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
@@ -146,12 +149,12 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             fontWeight: FontWeight.w700,
                             fontSize: 10,
                           ),
-                          initialDate: args?.user.dateOfBirth,
+                          initialDate: user.dateOfBirth,
                         ),
                         const AppSpacing(v: 8),
                         AppPhoneInput(
                           labelText: 'phone_number'.tr.toUpperCase(),
-                          initialValue: args?.user.phone,
+                          initialValue: user.phone,
                           textInputType: TextInputType.phone,
                           backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
@@ -171,7 +174,20 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                         AppButton(
                           enabled: true,
                           borderRadius: AppBorderRadius.largeAll,
-                          onPressed: () => controller.updateProfile(context),
+                          onPressed: () async {
+                            final Either<Failure, User> failurOrUser =
+                                await controller.updateProfile(context);
+
+                            failurOrUser.fold((Failure failure) {
+                              controller.setUpdatingUserProfile(false);
+                              AppSnacks.show(context, message: failure.message);
+                            }, (User user) {
+                              controller.setUpdatingUserProfile(false);
+                              bController.updateTheUser(user);
+                              controller.setProfileUser(user);
+                              Navigator.of(context).pop(true);
+                            });
+                          },
                           // onPressed: () => Get.back<void>(),
                           child: Text(
                             'update_profile'.tr.toUpperCase(),
