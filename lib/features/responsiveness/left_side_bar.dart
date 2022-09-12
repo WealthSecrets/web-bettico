@@ -143,13 +143,24 @@ class LeftSideBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(height: 8),
-                  Text(
-                    '${bController.user.value.firstName} ${bController.user.value.lastName}',
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        '${bController.user.value.firstName} ${bController.user.value.lastName}',
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      if (bController.user.value.role == 'admin')
+                        Image.asset(
+                          AssetImages.verified,
+                          height: 14,
+                          width: 14,
+                        ),
+                    ],
                   ),
                   Text(
                     '@${bController.user.value.username}',

@@ -233,11 +233,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           const AppSpacing(h: 5),
-                          Image.asset(
-                            AssetImages.verified,
-                            height: 14,
-                            width: 14,
-                          ),
+                          if (controller.user.value.role == 'admin')
+                            Image.asset(
+                              AssetImages.verified,
+                              height: 14,
+                              width: 14,
+                            ),
                         ],
                       ),
                       Center(
