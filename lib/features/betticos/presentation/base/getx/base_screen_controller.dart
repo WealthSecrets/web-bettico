@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
+import '../../../../p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/domain/usecases/load_user.dart';
@@ -119,6 +121,8 @@ class BaseScreenController extends GetxController {
       (void _) {
         navigationController.navigateTo(AppRoutes.login);
         Get.offAll<void>(webNavigator());
+        LiveScoreBindings.dependencies();
+        P2PBetBindings.dependencies();
       },
     );
   }
