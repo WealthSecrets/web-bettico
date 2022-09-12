@@ -12,7 +12,7 @@ List<MenuItem> sideMenuItemRoutes = <MenuItem>[
   const MenuItem('Odds Box', AppRoutes.oddboxes),
   const MenuItem('Members', AppRoutes.members),
   const MenuItem('Oddsters', AppRoutes.oddsters),
-  const MenuItem('Live Score', AppRoutes.livescore),
+  const MenuItem('P2P Betting', AppRoutes.livescore),
   const MenuItem('Refer A Friend', AppRoutes.referral),
   const MenuItem('Settings', AppRoutes.settings),
   const MenuItem('Logout', AppRoutes.login),
