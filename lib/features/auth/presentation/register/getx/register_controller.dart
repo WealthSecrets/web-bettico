@@ -330,12 +330,10 @@ class RegisterController extends GetxController {
 
     final Either<Failure, User> failureOrUser = await updateProfile(
       UpdateRequest(
-        dateOfBirth: dateOfBirth.value,
-        email: email.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        username: username.value,
-        phone: phone.value,
+        firstName: firstName.value.isEmpty ? null : firstName.value,
+        lastName: lastName.value.isEmpty ? null : lastName.value,
+        username: username.value.isEmpty ? null : username.value,
+        phone: phone.value.isEmpty ? null : phone.value,
       ),
     );
 

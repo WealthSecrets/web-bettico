@@ -22,7 +22,7 @@ import '../../../features/auth/presentation/register/screens/registration_upload
 import '../../../features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import '../../../features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
 import '../../../features/betticos/presentation/profile/screens/profile_screen.dart';
-import '../../../features/betticos/presentation/profile/screens/update_profile_screen.dart';
+// import '../../../features/betticos/presentation/profile/screens/update_profile_screen.dart';
 import '../../../features/betticos/presentation/report/screens/report_screen.dart';
 import '../../../features/betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import '../../../features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
@@ -56,8 +56,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const ResetScreen(), settings);
     case AppRoutes.profilePhoto:
       return _getPageRoute(const RegistrationUploadPhotoScreen(), settings);
-    case AppRoutes.updateProfile:
-      return _getPageRoute(const UpdateProfileScreen(), settings);
+    // case AppRoutes.updateProfile:
+    //   return _getPageRoute(const UpdateProfileScreen(), settings);
     case AppRoutes.otpVerify:
       final OTPVerificationArgument? args =
           settings.arguments as OTPVerificationArgument?;

@@ -104,7 +104,7 @@ class ProfileController extends GetxController {
   RxBool isResolvingUser = false.obs;
   RxBool isLikingPost = false.obs;
   RxBool isDislikingPost = false.obs;
-
+  RxBool isUpdatingUserProfile = false.obs;
   RxBool isFollowedByUser = false.obs;
 
   // get the loggedInUser
@@ -155,6 +155,10 @@ class ProfileController extends GetxController {
     if (performActions ?? false) {
       performAllActions();
     }
+  }
+
+  void setUpdatingUserProfile(bool value) {
+    isUpdatingUserProfile(value);
   }
 
   bool isNotLoggedInUser() {
@@ -417,34 +421,18 @@ class ProfileController extends GetxController {
     }
   }
 
-  void updateProfile(BuildContext context) async {
-    // ignore: unawaited_futures
-    isLoading(true);
+  Future<Either<Failure, User>> updateProfile(BuildContext context) async {
+    isUpdatingUserProfile(true);
 
     final Either<Failure, User> failureOrUser = await updateUser(
       UpdateRequest(
-        firstName: firstName.value,
-        lastName: lastName.value,
-        username: username.value,
-        email: email.value,
-        dateOfBirth: dateOfBirth.value,
-        phone: phone.value,
+        firstName: firstName.value.isEmpty ? null : firstName.value,
+        lastName: lastName.value.isEmpty ? null : lastName.value,
+        username: username.value.isEmpty ? null : username.value,
+        phone: phone.value.isEmpty ? null : phone.value,
       ),
     );
-
-    // ignore: unawaited_futures
-    failureOrUser.fold(
-      (Failure failure) {
-        isLoading(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (User value) {
-        isLoading(false);
-        user(value);
-        Get.find<BaseScreenController>().updateTheUser(value);
-        Get.back<bool>(result: true);
-      },
-    );
+    return failureOrUser;
   }
 
   void resetValues() {
