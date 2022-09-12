@@ -65,7 +65,7 @@ class LeftSideBar extends StatelessWidget {
                   name: item.name,
                   route: item.route,
                   onTap: () {
-                    if (item.route == AppRoutes.login) {
+                    if (item.route == AppRoutes.logout) {
                       showLogoutDialog(context);
                       // menuController.changeActiveItemTo(AppRoutes.timeline);
                     }
