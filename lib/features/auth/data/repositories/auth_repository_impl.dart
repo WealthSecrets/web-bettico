@@ -194,9 +194,8 @@ class AuthRepositoryImpl extends Repository implements AuthRepository {
 
   @override
   Future<Either<Failure, User>> resetPassword(ResetRequest request) async {
-    final User? user = await authLocalDataSource.getUserData();
     final Either<Failure, AuthResponse> response = await makeRequest(
-        authRemoteDataSource.resetPassword(request, user!.passwordResetToken!));
+        authRemoteDataSource.resetPassword(request, request.code));
     return response.fold((Failure failure) => left(failure),
         (AuthResponse response) async {
       await authLocalDataSource.persistAuthResponse(response);

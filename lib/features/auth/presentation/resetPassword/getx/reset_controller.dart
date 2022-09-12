@@ -17,6 +17,7 @@ class ResetController extends GetxController {
   RxBool isObscured = true.obs;
   RxBool isLoading = false.obs;
   RxString confirmPassword = ''.obs;
+  RxString resetCode = ''.obs;
   RxString password = ''.obs;
 
   void togglePasswordVisibility() {
@@ -31,6 +32,7 @@ class ResetController extends GetxController {
       ResetRequest(
         confirmPassword: confirmPassword.value,
         password: password.value,
+        code: resetCode.value,
       ),
     );
 
@@ -56,10 +58,25 @@ class ResetController extends GetxController {
     password(value.trim());
   }
 
+  void onResetInputChanged(String value) {
+    resetCode.value = value;
+  }
+
   String? validatePassword(String? password) {
     String? errorMessage;
     if (password!.isEmpty) {
       errorMessage = 'Please enter password';
+    }
+    return errorMessage;
+  }
+
+  String? validateResetCode(String? resetCode) {
+    String? errorMessage;
+    if (resetCode!.isEmpty) {
+      errorMessage = 'Please reset code is required';
+    }
+    if (resetCode.length != 6) {
+      errorMessage = 'Reset code is invalid';
     }
     return errorMessage;
   }
