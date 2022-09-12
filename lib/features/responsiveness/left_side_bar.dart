@@ -110,7 +110,13 @@ class LeftSideBar extends StatelessWidget {
         children: <Widget>[
           Obx(
             () => GestureDetector(
-              onTap: () => navigationController.navigateTo(AppRoutes.login),
+              onTap: () {
+                menuController.changeActiveItemTo(AppRoutes.profile);
+                if (ResponsiveWidget.isSmallScreen(context)) {
+                  Get.back<void>();
+                }
+                navigationController.navigateTo(AppRoutes.profile);
+              },
               child: Container(
                 height: 40,
                 width: 40,
@@ -225,149 +231,4 @@ class LeftSideBar extends StatelessWidget {
       ),
     );
   }
-
-  // Widget _buildButtonColumnCards(BuildContext context) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-  //     children: <Widget>[
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: <Widget>[
-  //           _buildCustomButton(
-  //             context,
-  //             'TIMELINE',
-  //             Ionicons.time_outline,
-  //             onTap: () {
-  //               navigationController.navigateTo(AppRoutes.timeline);
-  //             },
-  //           ),
-  //           _buildCustomButton(
-  //             context,
-  //             'UPDATES',
-  //             Ionicons.thunderstorm_outline,
-  //             onTap: () {
-  //               navigationController.navigateTo(AppRoutes.updates);
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //       const AppSpacing(v: 8),
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: <Widget>[
-  //           _buildCustomButton(
-  //             context,
-  //             'ODDBOXES',
-  //             Ionicons.football_outline,
-  //             onTap: () {
-  //               navigationController.navigateTo(AppRoutes.oddboxes);
-  //             },
-  //           ),
-  //           _buildCustomButton(
-  //             context,
-  //             'PROMOS',
-  //             Ionicons.megaphone_outline,
-  //             onTap: () {},
-  //           ),
-  //         ],
-  //       )
-  //     ],
-  //   );
-  // }
-
-  // Widget _buildCardButton(BuildContext context, String text, IconData icon,
-  //     {Function()? onTap}) {
-  //   return GestureDetector(
-  //     onTap: onTap,
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         boxShadow: const <BoxShadow>[
-  //           BoxShadow(
-  //             blurRadius: 5,
-  //             color: Colors.black12,
-  //             offset: Offset(0, 1),
-  //           )
-  //         ],
-  //         borderRadius: AppBorderRadius.smallAll,
-  //       ),
-  //       height: 90,
-  //       width: 130,
-  //       child: Center(
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               icon,
-  //               size: 24,
-  //               color: context.colors.primary,
-  //             ),
-  //             const SizedBox(height: 5),
-  //             Text(
-  //               text,
-  //               style: TextStyle(
-  //                 fontSize: 12,
-  //                 fontWeight: FontWeight.w600,
-  //                 color: context.colors.textDark,
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildCustomButton(BuildContext context, String text, IconData icon,
-  //     {Function()? onTap}) {
-  //   return SizedBox(
-  //     height: 90,
-  //     width: 130,
-  //     child: TextButton(
-  //       onPressed: onTap,
-  //       child: Center(
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               icon,
-  //               size: 24,
-  //               color: context.colors.primary,
-  //             ),
-  //             const SizedBox(height: 5),
-  //             Text(
-  //               text,
-  //               style: TextStyle(
-  //                 fontSize: 12,
-  //                 fontWeight: FontWeight.w600,
-  //                 color: context.colors.textDark,
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildIconInfo(BuildContext context, String text, IconData icon) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.start,
-  //     children: <Widget>[
-  //       Icon(
-  //         icon,
-  //         color: Colors.black,
-  //         size: 18,
-  //       ),
-  //       const SizedBox(width: 8),
-  //       Text(
-  //         text,
-  //         style: TextStyle(
-  //           fontSize: 12,
-  //           color: context.colors.text,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 }
