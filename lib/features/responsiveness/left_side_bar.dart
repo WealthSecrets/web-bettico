@@ -108,21 +108,23 @@ class LeftSideBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          GestureDetector(
-            onTap: () => navigationController.navigateTo(AppRoutes.login),
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppEndpoints.userImages}/${bController.user.value.photo}',
-                    headers: <String, String>{
-                      'Authorization': 'Bearer ${bController.userToken.value}'
-                    },
+          Obx(
+            () => GestureDetector(
+              onTap: () => navigationController.navigateTo(AppRoutes.login),
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      '${AppEndpoints.userImages}/${bController.user.value.photo}',
+                      headers: <String, String>{
+                        'Authorization': 'Bearer ${bController.userToken.value}'
+                      },
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
                 ),
               ),
             ),
