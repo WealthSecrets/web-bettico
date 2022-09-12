@@ -8,6 +8,7 @@ class ResetRequest with _$ResetRequest {
   const factory ResetRequest({
     required String password,
     required String confirmPassword,
+    required String code,
   }) = _ResetRequest;
   factory ResetRequest.fromJson(Map<String, dynamic> json) =>
       _$ResetRequestFromJson(json);
