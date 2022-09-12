@@ -129,13 +129,24 @@ class TimelineCard extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Expanded(
-                            child: Text(
-                              '${post.user.firstName} ${post.user.lastName}',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  '${post.user.firstName} ${post.user.lastName}',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                if (post.user.role == 'admin')
+                                  Image.asset(
+                                    AssetImages.verified,
+                                    height: 14,
+                                    width: 14,
+                                  ),
+                              ],
                             ),
                           ),
                           const SizedBox(width: 5),

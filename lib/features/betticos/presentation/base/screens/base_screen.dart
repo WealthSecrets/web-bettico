@@ -290,13 +290,23 @@ class BaseScreenState extends State<BaseScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          '${controller.user.value.firstName} ${controller.user.value.lastName}',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              '${controller.user.value.firstName} ${controller.user.value.lastName}',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (controller.user.value.role == 'admin')
+                              Image.asset(
+                                AssetImages.verified,
+                                height: 14,
+                                width: 14,
+                              ),
+                          ],
                         ),
                         Text(
                           '@${controller.user.value.username}',
