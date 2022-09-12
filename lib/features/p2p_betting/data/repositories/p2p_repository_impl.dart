@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/data/models/listpage/listpage.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
@@ -7,6 +8,7 @@ import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
@@ -191,6 +193,18 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, Team>> getTeam(int teamId) =>
       makeRequest(p2pRemoteDataSource.getTeam(teamId));
+
+  @override
+  Future<Either<Failure, User>> updateUserBonus(
+          {required String type, required double amount}) =>
+      makeRequest(
+        p2pRemoteDataSource.updateBonus(
+          UserBonusRequest(
+            type: type,
+            amount: amount,
+          ),
+        ),
+      );
 
   @override
   Future<Either<Failure, SLeague>> getLeague(int leagueId) =>

@@ -1,6 +1,7 @@
 import 'package:betticos/features/betticos/domain/usecases/follow/get_my_followers.dart';
 import 'package:betticos/features/betticos/domain/usecases/follow/get_my_followings.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
 import 'package:get/get.dart';
 
 import '/features/auth/domain/usecases/logout_user.dart';
@@ -51,6 +52,9 @@ class BaseBindings {
         ),
         getMyFollowings: GetMyFollowings(
           betticosRepository: Get.find(),
+        ),
+        updateUserBonus: UpdateUserBonus(
+          p2prepository: Get.find(),
         ),
       ),
       permanent: true,

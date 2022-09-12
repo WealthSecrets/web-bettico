@@ -1,3 +1,4 @@
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../auth/data/models/user/user.dart';
 import '/core/core.dart';
 import '/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
 import '../../livescore/getx/live_score_controllers.dart';
@@ -35,6 +37,7 @@ class P2PBettingScreen extends StatefulWidget {
 class _P2PBettingScreenState extends State<P2PBettingScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final BaseScreenController bController = Get.find<BaseScreenController>();
   // final LiveScoreArguments? args = Get.arguments as LiveScoreArguments?;
 
   @override
@@ -57,6 +60,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final User user = bController.user.value;
     return SizedBox(
       child: Scaffold(
         appBar: AppBar(
@@ -225,14 +229,26 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   const AppSpacing(v: 70),
                   AppButton(
                     onPressed: () async {
-                      final String? actualHash =
-                          await lController.send(context);
+                      if (user.bonus != null &&
+                          user.bonus! > controller.amount.value) {
+                        // deduct from the bonus
+                        bController.increaseDecreaseUserBonus(
+                            'decrease', controller.amount.value);
 
-                      if (actualHash != null) {
                         controller.addNewBet(
                           context,
                           lController.walletAddress.value,
                         );
+                      } else {
+                        final String? actualHash =
+                            await lController.send(context);
+
+                        if (actualHash != null) {
+                          controller.addNewBet(
+                            context,
+                            lController.walletAddress.value,
+                          );
+                        }
                       }
                     },
                     enabled: controller.isValid && !lController.isLoading.value,

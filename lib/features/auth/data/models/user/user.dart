@@ -33,6 +33,7 @@ class User with _$User {
     DateTime? createdAt,
     DateTime? updatedAt,
     int? referrals,
+    @JsonKey(name: 'bonus') double? bonus,
   }) = _User;
 
   const User._();
