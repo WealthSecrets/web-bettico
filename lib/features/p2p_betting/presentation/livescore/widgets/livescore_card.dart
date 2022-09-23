@@ -89,7 +89,7 @@ class LiveScoreCard extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             liveScore.scores != null
-                                ? liveScore.scores!.localTeamScore.toString()
+                                ? liveScore.scores!.visitorTeamScore.toString()
                                 : '0',
                             style: const TextStyle(
                               fontSize: 26,

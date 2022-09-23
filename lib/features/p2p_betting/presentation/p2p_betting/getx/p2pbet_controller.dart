@@ -3,13 +3,17 @@ import 'dart:convert';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_status_score_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/fixture_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_competition_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_awaiting_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_score_status.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_competition_match.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_team_match.dart';
@@ -34,6 +38,8 @@ class P2PBetController extends GetxController {
   P2PBetController({
     required this.addBet,
     required this.updateBet,
+    required this.updateBetStatusScore,
+    required this.updateBetPayoutStatus,
     required this.fetchBets,
     required this.fetchAwaitingBets,
     required this.fetchMyBets,
@@ -44,6 +50,8 @@ class P2PBetController extends GetxController {
 
   final AddBet addBet;
   final UpdateBet updateBet;
+  final UpdateBetStatusScore updateBetStatusScore;
+  final UpdateBetPayoutStatus updateBetPayoutStatus;
   final FetchBets fetchBets;
   final FetchAwaitingBets fetchAwaitingBets;
   final FetchMyBets fetchMyBets;
@@ -296,6 +304,76 @@ class P2PBetController extends GetxController {
             );
           },
         );
+      },
+    );
+  }
+
+  void addStatusScoreToBet({
+    required String betId,
+    required String score,
+    required String status,
+    String? winner,
+  }) async {
+    isUpdatingBet(true);
+
+    String status = 'awaiting';
+
+    if (status.toLowerCase() == 'live') {
+      status = 'ongoing';
+    } else if (status.toLowerCase() == 'ft') {
+      status = 'completed';
+    }
+
+    final Either<Failure, Bet> failureOrBet = await updateBetStatusScore(
+      UpdateBetStatusScoreRequest(
+        betId: betId,
+        score: score,
+        status: status,
+        winner: winner,
+      ),
+    );
+
+    failureOrBet.fold<void>(
+      (Failure failure) {
+        isUpdatingBet(false);
+      },
+      (Bet value) {
+        isUpdatingBet(false);
+        bet(value);
+        bets.removeWhere((Bet b) => b.id == betId);
+        final List<Bet> copyBetList = List<Bet>.from(bets);
+        copyBetList.add(value);
+        bets(copyBetList);
+        rebuildBets(copyBetList);
+      },
+    );
+  }
+
+  void closePayout({required String betId}) async {
+    isUpdatingBet(true);
+
+    const String status = 'completed';
+
+    final Either<Failure, Bet> failureOrBet = await updateBetPayoutStatus(
+      UpdateBetPayoutRequest(
+        betId: betId,
+        payout: false,
+        status: status,
+      ),
+    );
+
+    failureOrBet.fold<void>(
+      (Failure failure) {
+        isUpdatingBet(false);
+      },
+      (Bet value) {
+        isUpdatingBet(false);
+        bet(value);
+        bets.removeWhere((Bet b) => b.id == betId);
+        final List<Bet> copyBetList = List<Bet>.from(bets);
+        copyBetList.add(value);
+        bets(copyBetList);
+        rebuildBets(copyBetList);
       },
     );
   }

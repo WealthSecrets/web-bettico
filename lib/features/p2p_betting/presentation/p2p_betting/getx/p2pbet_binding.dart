@@ -1,6 +1,8 @@
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_awaiting_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_score_status.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_competition_match.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_team_match.dart';
@@ -66,11 +68,17 @@ class P2PBetBindings {
         updateBet: UpdateBet(
           p2prepository: Get.find(),
         ),
+        updateBetStatusScore: UpdateBetStatusScore(
+          p2prepository: Get.find(),
+        ),
         getFixture: GetFixture(
           p2pRepository: Get.find(),
         ),
         fetchMyBets: FetchMyBets(
           p2pRepository: Get.find(),
+        ),
+        updateBetPayoutStatus: UpdateBetPayoutStatus(
+          p2prepository: Get.find(),
         ),
       ),
     );

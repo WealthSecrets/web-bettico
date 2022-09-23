@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +14,7 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 
 class P2PBettingHistoryCard extends StatefulWidget {
-  P2PBettingHistoryCard({
+  const P2PBettingHistoryCard({
     Key? key,
     required this.bet,
     this.onPressed,
@@ -27,6 +29,8 @@ class P2PBettingHistoryCard extends StatefulWidget {
 
 class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final BaseScreenController bController = Get.find<BaseScreenController>();
+  final P2PBetController p2pBetController = Get.find<P2PBetController>();
 
   Timer? _timer;
 
@@ -48,7 +52,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   }
 
   void startBroadcast(int fixtureId) async {
-    _timer = Timer.periodic(const Duration(seconds: 60), (Timer timer) async {
+    _timer = Timer.periodic(const Duration(seconds: 10), (Timer timer) async {
       final LiveScore? sFixture = await lController.getMatchSFixture(fixtureId);
 
       _liveScoreStreamController.add(sFixture);
@@ -63,66 +67,48 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
         final LiveScore? liveScore = snapshot.data;
         if (snapshot.hasData && snapshot.data != null) {
           final LiveScore liveScoreData = snapshot.data!;
+          String? winner;
           if (liveScoreData.time.status?.toLowerCase() == 'ft') {
-            if (liveScoreData.scores != null) {
-              if ((widget.bet.creator.teamId == liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore >
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  widget.bet.creator.choice == BettorChoice.win) {
-                lController.convertAmount(
-                    context, 'wsc', widget.bet.amount * 2);
-
-                lController.payout(
-                  context,
-                  widget.bet.creator.wallet,
-                  lController.convertedAmount.value,
-                );
-              } else if ((widget.bet.creator.teamId ==
-                      liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore <
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  widget.bet.creator.choice == BettorChoice.loss) {
-                lController.convertAmount(
-                    context, 'wsc', widget.bet.amount * 2);
-
-                lController.payout(
-                  context,
-                  widget.bet.creator.wallet,
-                  lController.convertedAmount.value,
-                );
-              } else if ((widget.bet.opponent?.teamId ==
-                      liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore <
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  widget.bet.opponent?.choice == BettorChoice.loss) {
-                lController.convertAmount(
-                    context, 'wsc', widget.bet.amount * 2);
-
-                if (widget.bet.opponent != null) {
-                  lController.payout(
-                    context,
-                    widget.bet.opponent!.wallet,
-                    lController.convertedAmount.value,
-                  );
-                }
-              } else if ((widget.bet.opponent?.teamId ==
-                      liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore >
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  widget.bet.opponent?.choice == BettorChoice.win) {
-                lController.convertAmount(
-                    context, 'wsc', widget.bet.amount * 2);
-
-                if (widget.bet.opponent != null) {
-                  lController.payout(
-                    context,
-                    widget.bet.opponent!.wallet,
-                    lController.convertedAmount.value,
-                  );
-                }
-              }
+            if ((widget.bet.creator.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore >
+                    liveScoreData.scores!.visitorTeamScore) &&
+                widget.bet.creator.choice == BettorChoice.win) {
+              winner = widget.bet.creator.id;
+            } else if ((widget.bet.creator.teamId ==
+                    liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore <
+                    liveScoreData.scores!.visitorTeamScore) &&
+                widget.bet.creator.choice == BettorChoice.loss) {
+              winner = widget.bet.creator.id;
+            } else if ((widget.bet.opponent?.teamId ==
+                    liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore <
+                    liveScoreData.scores!.visitorTeamScore) &&
+                widget.bet.opponent?.choice == BettorChoice.loss) {
+              winner = widget.bet.opponent?.id;
+            } else if ((widget.bet.opponent?.teamId ==
+                    liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore >
+                    liveScoreData.scores!.visitorTeamScore) &&
+                widget.bet.opponent?.choice == BettorChoice.win) {
+              winner = widget.bet.opponent?.id;
+            } else if (widget.bet.creator.choice == BettorChoice.draw &&
+                (liveScoreData.scores!.localTeamScore ==
+                    liveScoreData.scores!.visitorTeamScore)) {
+              winner = widget.bet.creator.id;
+            } else if (widget.bet.opponent?.choice == BettorChoice.draw &&
+                (liveScoreData.scores!.localTeamScore ==
+                    liveScoreData.scores!.visitorTeamScore)) {
+              winner = widget.bet.opponent?.id;
             }
           }
+          p2pBetController.addStatusScoreToBet(
+            betId: widget.bet.id,
+            score:
+                '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+            status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
+            winner: winner,
+          );
         }
         return Container(
           width: MediaQuery.of(context).size.width,
@@ -148,6 +134,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                       const EdgeInsets.symmetric(horizontal: 38),
                     ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -392,6 +379,49 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 16),
+                  AppConstrainedButton(
+                    disabled: !bController.isYou(widget.bet.winner?.id) &&
+                        !(widget.bet.payout ?? false),
+                    color: context.colors.success,
+                    textColor: Colors.white,
+                    selected: true,
+                    text: 'Cashout',
+                    onPressed: () async {
+                      // get the winner's wallet address
+                      if (widget.bet.winner != null) {
+                        String? walletAddress;
+                        if (widget.bet.winner?.id == widget.bet.creator.id) {
+                          walletAddress = widget.bet.creator.wallet;
+                        } else if (widget.bet.winner?.id ==
+                            widget.bet.opponent?.id) {
+                          walletAddress = widget.bet.opponent?.wallet;
+                        }
+                        if (walletAddress != null &&
+                            (widget.bet.payout ?? false)) {
+                          lController.convertAmount(
+                              context, 'wsc', widget.bet.amount * 2);
+
+                          final String? feedback = await lController.payout(
+                            context,
+                            walletAddress,
+                            lController.convertedAmount.value,
+                          );
+
+                          if (feedback != null) {
+                            p2pBetController.closePayout(
+                              betId: widget.bet.id,
+                            );
+                          }
+                        } else {
+                          await AppSnacks.show(
+                            context,
+                            message: 'Cashout not allowed',
+                          );
+                        }
+                      }
+                    },
                   ),
                 ],
               ),
