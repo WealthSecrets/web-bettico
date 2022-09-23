@@ -212,7 +212,10 @@ class LiveScoreController extends GetxController {
   }
 
   Future<String?> payout(
-      BuildContext context, String winningAddress, double payoutAmount) async {
+    BuildContext context,
+    String winningAddress,
+    double payoutAmount,
+  ) async {
     showLoadingLogo.value = true;
 
     const String contractAddess = '0x6C9AECa89a93b5df6b23DEbA8dC87D95C07E98fc';
@@ -258,18 +261,19 @@ class LiveScoreController extends GetxController {
       final Contract wscPayout = Contract(
         contractAddess,
         Interface(jsonAbi),
-        provider!.getSigner(),
+        web3wc?.getSigner(),
       );
 
-      await wscPayout.call<dynamic>('transferFrom',
+      final dynamic value = await wscPayout.call<dynamic>('transferFrom',
           <dynamic>[tokenAddress, contractAddess, winningAddress, amount]);
 
       showLoadingLogo.value = false;
+      await AppSnacks.show(context,
+          message: 'Value: $value', backgroundColor: context.colors.success);
       return '0xsiwowh19029198';
     } catch (e) {
       showLoadingLogo.value = false;
-      await AppSnacks.show(context,
-          message: 'Couldn\'t make payment, something went wrong.');
+      await AppSnacks.show(context, message: '$e');
       return null;
     }
   }

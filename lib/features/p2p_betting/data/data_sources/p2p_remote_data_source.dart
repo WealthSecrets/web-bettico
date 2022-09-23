@@ -10,6 +10,8 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_req
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 
 import '../../../betticos/data/models/listpage/listpage.dart';
+import '../../domain/requests/bet/update_bet_payout_request.dart';
+import '../../domain/requests/bet/update_bet_status_score_request.dart';
 import '../models/crypto/network.dart';
 import '../models/crypto/volume.dart';
 
@@ -32,6 +34,16 @@ abstract class P2pRemoteDataSource {
 
   Future<Bet> updateBet(
       {required BetUpdateRequest request, required String betId});
+
+  Future<Bet> updateBetStatusScore({
+    required UpdateBetStatusScoreRequest request,
+    required String betId,
+  });
+
+  Future<Bet> updateBetPayoutStatus({
+    required UpdateBetPayoutRequest request,
+    required String betId,
+  });
 
   Future<List<Bet>> fetchBets();
 

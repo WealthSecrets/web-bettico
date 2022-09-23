@@ -44,9 +44,9 @@ class FixtureCard extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 flex: 1,
-                child: _buildRightFixtureCard(
-                  imagePath: sFixture.visitorTeam.data.logo,
-                  name: sFixture.visitorTeam.data.name,
+                child: _buildLeftFixtureCard(
+                  imagePath: sFixture.localTeam.data.logo,
+                  name: sFixture.localTeam.data.name,
                 ),
               ),
               const SizedBox(width: 10),
@@ -76,7 +76,7 @@ class FixtureCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         sFixture.scores != null
-                            ? sFixture.scores!.localTeamScore.toString()
+                            ? sFixture.scores!.visitorTeamScore.toString()
                             : '0',
                         style: const TextStyle(
                           fontSize: 12,
@@ -120,10 +120,10 @@ class FixtureCard extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 flex: 1,
-                child: _buildLeftFixtureCard(
-                  imagePath: sFixture.localTeam.data.logo,
+                child: _buildRightFixtureCard(
+                  imagePath: sFixture.visitorTeam.data.logo,
                   name: StringUtils.capitalizeFirst(
-                    sFixture.localTeam.data.name,
+                    sFixture.visitorTeam.data.name,
                   ),
                 ),
               ),
