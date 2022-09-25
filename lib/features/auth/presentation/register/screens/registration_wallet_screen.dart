@@ -98,8 +98,8 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                         AppButton(
                           borderRadius: AppBorderRadius.largeAll,
                           backgroundColor: context.colors.primary,
-                          onPressed: () =>
-                              controller.updateAddressInformation(context),
+                          onPressed: () => controller.updateAddressInformation(
+                              context, lController.walletAddress.value),
                           child: Text(
                             'next'.tr,
                             style: const TextStyle(
