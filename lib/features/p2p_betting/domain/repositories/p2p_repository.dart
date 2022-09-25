@@ -94,6 +94,18 @@ abstract class P2pRepository {
     required BettorRequest opponent,
   });
 
+  Future<Either<Failure, Bet>> updateBetStatusScore({
+    required String betId,
+    required String status,
+    required String score,
+  });
+
+  Future<Either<Failure, Bet>> updateBetPayoutStatus({
+    required String betId,
+    required String status,
+    required bool payout,
+  });
+
   Future<Either<Failure, User>> updateUserBonus({
     required String type,
     required double amount,

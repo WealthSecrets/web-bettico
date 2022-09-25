@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 import 'dart:math';
 
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:faker/faker.dart';
@@ -22,11 +23,13 @@ class Bet with _$Bet {
     required Bettor creator,
     required Team awayTeam,
     required Team homeTeam,
+    @JsonKey(name: 'winner') User? winner,
     Bettor? opponent,
     String? date,
     String? time,
     String? score,
     bool? isFixture,
+    @JsonKey(name: 'payout') bool? payout,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _Bet;

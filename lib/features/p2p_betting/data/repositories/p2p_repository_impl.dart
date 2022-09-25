@@ -8,6 +8,8 @@ import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_status_score_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import 'package:dartz/dartz.dart';
 
@@ -136,6 +138,40 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       makeRequest(
         p2pRemoteDataSource.updateBet(
           request: BetUpdateRequest(opponent: opponent, status: status),
+          betId: betId,
+        ),
+      );
+
+  @override
+  Future<Either<Failure, Bet>> updateBetStatusScore({
+    required String betId,
+    required String status,
+    required String score,
+  }) =>
+      makeRequest(
+        p2pRemoteDataSource.updateBetStatusScore(
+          request: UpdateBetStatusScoreRequest(
+            betId: betId,
+            status: status,
+            score: score,
+          ),
+          betId: betId,
+        ),
+      );
+
+  @override
+  Future<Either<Failure, Bet>> updateBetPayoutStatus({
+    required String betId,
+    required String status,
+    required bool payout,
+  }) =>
+      makeRequest(
+        p2pRemoteDataSource.updateBetPayoutStatus(
+          request: UpdateBetPayoutRequest(
+            betId: betId,
+            status: status,
+            payout: payout,
+          ),
           betId: betId,
         ),
       );

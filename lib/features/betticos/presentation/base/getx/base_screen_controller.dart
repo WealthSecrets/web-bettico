@@ -114,6 +114,13 @@ class BaseScreenController extends GetxController {
     user(u);
   }
 
+  bool isYou(String? userId) {
+    if (userId == null) {
+      return false;
+    }
+    return user.value.id == userId;
+  }
+
   void logOutTheUser(BuildContext context) async {
     final Either<Failure, void> failureOrVoid = await logoutUser(NoParams());
     failureOrVoid.fold<void>(
