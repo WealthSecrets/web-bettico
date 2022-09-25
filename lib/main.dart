@@ -36,9 +36,9 @@ void main() async {
   Get.put(NavigationController());
   Get.put(MenuController());
   SplashBindings.dependencies();
+  LiveScoreBindings.dependencies();
   OnBoardBindings.dependencies();
   BaseBindings.dependencies();
-  LiveScoreBindings.dependencies();
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
 

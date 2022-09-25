@@ -17,6 +17,7 @@ class AppStrings extends Translations {
           'login_mobile': 'Login with mobile',
           'login_email': 'Login with email',
           'create_account': 'Create an account.',
+          'address_verification': 'Address Verification',
           'signup_info':
               'Please provide your email and password and click \'Next\' to continue.',
           'confirm_pass': 'Confirm Password',
@@ -170,6 +171,7 @@ class AppStrings extends Translations {
           'login_mobile': '用手机登录',
           'login_email': '使用电子邮件登录',
           'create_account': '创建一个帐户',
+          'address_verification': '地址验证',
           'signup_info': '请提供您的电子邮件和密码，然后单击“下一步”继续。',
           'confirm_pass': '确认密码',
           'ref_code_opt': '推荐代码（可选）',

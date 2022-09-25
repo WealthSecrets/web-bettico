@@ -1,6 +1,7 @@
 import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
 import 'package:betticos/features/betticos/presentation/base/screens/base_screen.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
@@ -14,11 +15,12 @@ import 'package:flutter/material.dart';
 
 import '../../../features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import '../../../features/auth/presentation/register/screens/otp_verification_screen.dart';
-import '../../../features/auth/presentation/register/screens/registratino_personal_information_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_account_type_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_document_screen.dart';
+import '../../../features/auth/presentation/register/screens/registration_personal_information_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_upload_photo_screen.dart';
+import '../../../features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
 import '../../../features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import '../../../features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
 import '../../../features/betticos/presentation/profile/screens/profile_screen.dart';
@@ -50,6 +52,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           settings);
     case AppRoutes.accountType:
       return _getPageRoute(const RegistrationAccountTypeScreen(), settings);
+    case AppRoutes.walletConnect:
+      return _getPageRoute(ForgotWalletScreen(), settings);
+    case AppRoutes.addressConnect:
+      return _getPageRoute(RegistrationWalletScreen(), settings);
     case AppRoutes.forgot:
       return _getPageRoute(const ForgotPasswordScreen(), settings);
     case AppRoutes.reset:

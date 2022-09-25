@@ -35,7 +35,7 @@ class ForgotController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        navigationController.navigateTo(AppRoutes.reset);
+        navigationController.navigateTo(AppRoutes.walletConnect);
       },
     );
   }

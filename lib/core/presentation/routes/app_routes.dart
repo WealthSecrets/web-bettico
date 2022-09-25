@@ -24,6 +24,8 @@ class AppRoutes {
   static const String report = '/report';
   static const String settings = '/settings';
   static const String accountType = '/accountType';
+  static const String walletConnect = '/walletConnect';
+  static const String addressConnect = '/addressConnect';
   static const String livescore = '/livescore';
   static const String p2pBetting = '/p2pBetting';
   static const String p2pBettingHistory = '/p2pBettingHistory';

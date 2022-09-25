@@ -4,6 +4,7 @@ import 'package:betticos/features/auth/domain/requests/update_user_role/update_u
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
@@ -99,6 +100,7 @@ class RegisterController extends GetxController {
 
   // controllers
   final LoginController lController = Get.find<LoginController>();
+  final LiveScoreController wController = Get.find<LiveScoreController>();
 
   // social authentication
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -335,6 +337,24 @@ class RegisterController extends GetxController {
         username: username.value.isEmpty ? null : username.value,
         phone: phone.value.isEmpty ? null : phone.value,
       ),
+    );
+
+    failureOrUser.fold(
+      (Failure failure) {
+        isAddingPersonalInformation(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (User us) {
+        navigationController.navigateTo(AppRoutes.addressConnect);
+      },
+    );
+  }
+
+  void updateAddressInformation(BuildContext context, String address) async {
+    isAddingPersonalInformation(true);
+
+    final Either<Failure, User> failureOrUser = await updateProfile(
+      const UpdateRequest(walletAddress: 'address'),
     );
 
     failureOrUser.fold(
