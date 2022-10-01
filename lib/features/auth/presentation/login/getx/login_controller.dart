@@ -86,56 +86,18 @@ class LoginController extends GetxController {
 
   void reRouteOddster(BuildContext context, User user,
       {bool? isSkipEmail, bool? isSkipPhone}) {
-    if (user.role == 'oddster') {
-      if (user.profileAt == null) {
-        navigationController.navigateTo(
-          AppRoutes.personalInformation,
-          arguments: UserArgument(user: user),
-        );
-      }
-
-      // else if (user.phoneVerifiedAt == null && !(isSkipPhone ?? false)) {
-      //   if (user.phone != null) {
-      //     resendOTPSms(context, user.phone!);
-      //   } else {
-      //     navigationController.navigateTo(AppRoutes.personalInformation);
-      //     Get.to<void>(
-      //       webNavigator(),
-      //       arguments: UserArgument(user: user),
-      //     );
-      //   }
-      // }
-
-      // else if (user.identification == null) {
-      //   navigationController.navigateTo(AppRoutes.documentScreen);
-      // }
-      // else if (user.photo == null) {
-      //   navigationController.navigateTo(AppRoutes.profilePhoto);
-      // }
-      else {
-        if (ResponsiveWidget.isSmallScreen(context)) {
-          navigationController.navigateTo(AppRoutes.base);
-        } else {
-          // navigationController.navigateTo(AppRoutes.responsiveLayout);
-          Get.offAll<void>(const HomeBaseScreen());
-          navigationController.navigateTo(AppRoutes.timeline);
-          menuController.changeActiveItemTo(AppRoutes.timeline);
-        }
-      }
+    if (user.username == null) {
+      navigationController.navigateTo(
+        AppRoutes.personalInformation,
+        arguments: UserArgument(user: user),
+      );
     } else {
-      if (user.profileAt == null) {
-        navigationController.navigateTo(
-          AppRoutes.personalInformation,
-          arguments: UserArgument(user: user),
-        );
+      if (ResponsiveWidget.isSmallScreen(context)) {
+        navigationController.navigateTo(AppRoutes.base);
       } else {
-        if (ResponsiveWidget.isSmallScreen(context)) {
-          navigationController.navigateTo(AppRoutes.base);
-        } else {
-          Get.offAll<void>(const HomeBaseScreen());
-          navigationController.navigateTo(AppRoutes.timeline);
-          menuController.changeActiveItemTo(AppRoutes.timeline);
-        }
+        Get.offAll<void>(const HomeBaseScreen());
+        navigationController.navigateTo(AppRoutes.timeline);
+        menuController.changeActiveItemTo(AppRoutes.timeline);
       }
     }
   }

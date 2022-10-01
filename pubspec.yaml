@@ -51,6 +51,7 @@ dependencies:
   share_plus: ^4.0.3 #web
   shared_preferences: ^2.0.11 #web
   # socket_io_client: ^1.0.1 #web
+  slider_captcha: ^0.1.7
   step_progress_indicator: ^1.0.1 #web
   timeago: ^3.1.0 #web
   tutorial_coach_mark: ^1.2.2 #web

@@ -332,10 +332,10 @@ class RegisterController extends GetxController {
 
     final Either<Failure, User> failureOrUser = await updateProfile(
       UpdateRequest(
-        firstName: firstName.value.isEmpty ? null : firstName.value,
-        lastName: lastName.value.isEmpty ? null : lastName.value,
-        username: username.value.isEmpty ? null : username.value,
-        phone: phone.value.isEmpty ? null : phone.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        username: username.value,
+        phone: phone.value,
       ),
     );
 
@@ -345,25 +345,8 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
+        isAddingPersonalInformation(true);
         navigationController.navigateTo(AppRoutes.addressConnect);
-      },
-    );
-  }
-
-  void updateAddressInformation(BuildContext context, String address) async {
-    isAddingPersonalInformation(true);
-
-    final Either<Failure, User> failureOrUser = await updateProfile(
-      const UpdateRequest(walletAddress: 'address'),
-    );
-
-    failureOrUser.fold(
-      (Failure failure) {
-        isAddingPersonalInformation(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (User us) {
-        navigationController.navigateTo(AppRoutes.accountType);
       },
     );
   }

@@ -154,10 +154,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthResponse> resetPassword(
-      ResetRequest request, String passwordResetToken) async {
+  Future<AuthResponse> resetPassword(ResetRequest request) async {
     final Map<String, dynamic> json = await _client.patch(
-      BetticosEndpoints.resetPassword(passwordResetToken),
+      BetticosEndpoints.resetPassword,
       body: request.toJson(),
     );
     final AuthResponse resetResponse = AuthResponse.fromJson(json);

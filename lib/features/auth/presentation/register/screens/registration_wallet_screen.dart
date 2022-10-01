@@ -1,16 +1,16 @@
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
-
+import 'package:slider_captcha/slider_capchar.dart';
 import '/core/core.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class RegistrationWalletScreen extends GetWidget<RegisterController> {
   RegistrationWalletScreen({Key? key}) : super(key: key);
   final LiveScoreController lController = Get.find<LiveScoreController>();
-
+  final SliderController sController = SliderController();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -41,75 +41,28 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text(
-                        'address_verification'.tr,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 16,
+                      SliderCaptcha(
+                        controller: sController,
+                        titleStyle: TextStyle(
+                          color: context.colors.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
                         ),
+                        image: Image.asset(
+                          'assets/images/nightmode.jpg',
+                          fit: BoxFit.fitWidth,
+                        ),
+                        colorBar: const Color.fromARGB(255, 255, 255, 255),
+                        colorCaptChar: const Color.fromARGB(255, 248, 248, 248),
+                        onConfirm: (bool value) async {
+                          if (value) {
+                            await navigationController
+                                .navigateTo(AppRoutes.accountType);
+                          } else {
+                            sController.create();
+                          }
+                        },
                       ),
-                      const AppSpacing(v: 47),
-                      if (lController.walletAddress.value == '')
-                        AppButton(
-                          borderRadius: AppBorderRadius.largeAll,
-                          backgroundColor: context.colors.primary,
-                          onPressed: () {
-                            if (Ethereum.isSupported) {
-                              lController.initiateWalletConnect();
-                            } else {
-                              lController.connectWC();
-                            }
-                          },
-                          child: const Text(
-                            'Connect Wallet',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      const AppSpacing(v: 49),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.colors.primary.shade50,
-                          borderRadius: AppBorderRadius.smallAll,
-                        ),
-                        padding: const EdgeInsets.all(22),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Wallet Address: ' +
-                                  lController.walletAddress.value,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: context.colors.primary,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const AppSpacing(v: 49),
-                      if (lController.walletAddress.value != '')
-                        AppButton(
-                          borderRadius: AppBorderRadius.largeAll,
-                          backgroundColor: context.colors.primary,
-                          onPressed: () => controller.updateAddressInformation(
-                              context, lController.walletAddress.value),
-                          child: Text(
-                            'next'.tr,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      const AppSpacing(v: 100)
                     ],
                   ),
                 ),

@@ -17,14 +17,6 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          leading: Transform.translate(
-            offset: const Offset(10, 0),
-            child: const AppBackButton(),
-          ),
-        ),
         backgroundColor: context.colors.background,
         body: SafeArea(
           child: AppLoadingBox(

@@ -40,6 +40,10 @@ class ForgotController extends GetxController {
     );
   }
 
+  void nextToRest(BuildContext context) {
+    navigationController.navigateTo(AppRoutes.reset);
+  }
+
   void onEmailInputChanged(String value) {
     email(value.trim());
   }
@@ -57,5 +61,5 @@ class ForgotController extends GetxController {
     return errorMessage;
   }
 
-  bool get formIsValid => validateEmail(email.value) == null;
+  bool get formIsValid => validateEmail(email.value) == '';
 }

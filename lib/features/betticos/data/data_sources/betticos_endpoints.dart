@@ -22,6 +22,7 @@ class BetticosEndpoints {
   static const String referUser = 'users/refer';
   static const String referCode = 'users/refer/code';
   static const String subscribedOddboxes = 'subscriptions/oddboxes';
+  static String resetPassword = 'users/resetPassword';
   static String checkSubscription(String userId) =>
       'subscriptions/check/$userId';
   static String checkFollowing(String userId) => 'follow/check/$userId';
@@ -33,7 +34,6 @@ class BetticosEndpoints {
   static String likePost(String postId) => 'posts/$postId/likePost';
   static String dislikePost(String postId) => 'posts/$postId/dislikePost';
   static String commentReplies(String commentId) => '';
-  static String resetPassword(String? token) => 'users/resetPassword/$token';
   static String unfollowUser(String userId) => 'follow/$userId';
   static String blockUser(String userId) => 'users/$userId/block';
   static String optionsByType(String type) => 'options/$type/type';

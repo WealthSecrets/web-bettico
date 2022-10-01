@@ -24,7 +24,7 @@ class ResetController extends GetxController {
     isObscured(!isObscured.value);
   }
 
-  void reset(BuildContext context) async {
+  void reset(BuildContext context, String email) async {
     // ignore: unawaited_futures
     isLoading(true);
 
@@ -32,7 +32,7 @@ class ResetController extends GetxController {
       ResetRequest(
         confirmPassword: confirmPassword.value,
         password: password.value,
-        code: resetCode.value,
+        email: email,
       ),
     );
 
@@ -44,8 +44,7 @@ class ResetController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        navigationController.navigatorKey.currentState
-            ?.pushReplacementNamed(AppRoutes.login);
+        navigationController.navigateTo(AppRoutes.login);
       },
     );
   }
@@ -70,16 +69,16 @@ class ResetController extends GetxController {
     return errorMessage;
   }
 
-  String? validateResetCode(String? resetCode) {
-    String? errorMessage;
-    if (resetCode!.isEmpty) {
-      errorMessage = 'Please reset code is required';
-    }
-    if (resetCode.length != 6) {
-      errorMessage = 'Reset code is invalid';
-    }
-    return errorMessage;
-  }
+  // String? validateResetCode(String? resetCode) {
+  //   String? errorMessage;
+  //   if (resetCode!.isEmpty) {
+  //     errorMessage = 'Please reset code is required';
+  //   }
+  //   if (resetCode.length != 6) {
+  //     errorMessage = 'Reset code is invalid';
+  //   }
+  //   return errorMessage;
+  // }
 
   String? validateConfirmPassword(String? confirm) {
     String? errorMessage;

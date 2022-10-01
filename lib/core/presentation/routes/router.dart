@@ -59,7 +59,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.forgot:
       return _getPageRoute(const ForgotPasswordScreen(), settings);
     case AppRoutes.reset:
-      return _getPageRoute(const ResetScreen(), settings);
+      return _getPageRoute(ResetScreen(), settings);
     case AppRoutes.profilePhoto:
       return _getPageRoute(const RegistrationUploadPhotoScreen(), settings);
     // case AppRoutes.updateProfile:

@@ -10,7 +10,7 @@ import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class ForgotWalletScreen extends GetWidget<RegisterController> {
   ForgotWalletScreen({Key? key}) : super(key: key);
-  final ForgotController wController = Get.find<ForgotController>();
+  final ForgotController fController = Get.find<ForgotController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
 
   @override
@@ -101,11 +101,12 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                           borderRadius: AppBorderRadius.largeAll,
                           backgroundColor: context.colors.primary,
                           onPressed: () {
-                            if (Ethereum.isSupported) {
-                              lController.initiateWalletConnect();
-                            } else {
-                              lController.connectWC();
-                            }
+                            // if (Ethereum.isSupported) {
+                            //   lController.initiateWalletConnect();
+                            // } else {
+                            //   lController.connectWC();
+                            // }
+                            fController.nextToRest(context);
                           },
                           child: Text(
                             'next'.tr,
