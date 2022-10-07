@@ -10,6 +10,5 @@ class SubscribeRequest with _$SubscribeRequest {
   const factory SubscribeRequest({
     required String userId,
   }) = _SubscribeRequest;
-  factory SubscribeRequest.fromJson(Map<String, dynamic> json) =>
-      _$SubscribeRequestFromJson(json);
+  factory SubscribeRequest.fromJson(Map<String, dynamic> json) => _$SubscribeRequestFromJson(json);
 }

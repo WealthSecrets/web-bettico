@@ -1,4 +1,4 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -15,6 +15,8 @@ class LargeTimelineScreen extends StatefulWidget {
 }
 
 class _LargeTimelineScreenState extends State<LargeTimelineScreen> {
+  final TimelineController timelineController = Get.find<TimelineController>();
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -43,33 +45,25 @@ class _LargeTimelineScreenState extends State<LargeTimelineScreen> {
                     context,
                     pstId: post.id,
                   ),
-                  onLikeTap: () =>
-                      timelineController.likeThePost(context, post.id),
-                  onDislikeTap: () =>
-                      timelineController.dislikeThePost(context, post.id),
+                  onLikeTap: () => timelineController.likeThePost(context, post.id),
+                  onDislikeTap: () => timelineController.dislikeThePost(context, post.id),
                 ),
               );
             },
-            firstPageErrorIndicatorBuilder: (BuildContext context) =>
-                ErrorIndicator(
+            firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
               error: timelineController.pagingController.value.error as Failure,
-              onTryAgain: () =>
-                  timelineController.pagingController.value.refresh(),
+              onTryAgain: () => timelineController.pagingController.value.refresh(),
             ),
-            noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                const EmptyListIndicator(),
-            newPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
+            noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
+            newPageProgressIndicatorBuilder: (BuildContext context) => const Center(
               child: LoadingLogo(),
             ),
-            firstPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
+            firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(
               child: LoadingLogo(),
             ),
             // padding: AppPaddings.homeA,
           ),
-          separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox.shrink(),
+          separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
         ),
       ),
     );

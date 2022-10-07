@@ -67,8 +67,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isUpdatingBet.value ||
-                lController.showLoadingLogo.value,
+            loading: controller.isUpdatingBet.value || lController.showLoadingLogo.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
@@ -88,24 +87,20 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                     ),
                     localTeamScore: 0,
                     visitorTeamScore: 0,
-                    onAwayPressed:
-                        widget.bet.creator.teamId != widget.bet.awayTeam.teamId
-                            ? () => controller.selectTeam(
-                                  widget.bet.awayTeam.name,
-                                  widget.bet.awayTeam.teamId,
-                                )
-                            : null,
-                    onHomePressed:
-                        widget.bet.creator.teamId != widget.bet.homeTeam.teamId
-                            ? () => controller.selectTeam(
-                                  widget.bet.homeTeam.name,
-                                  widget.bet.homeTeam.teamId,
-                                )
-                            : null,
-                    awayDisabled:
-                        widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
-                    homeDisabled:
-                        widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
+                    onAwayPressed: widget.bet.creator.teamId != widget.bet.awayTeam.teamId
+                        ? () => controller.selectTeam(
+                              widget.bet.awayTeam.name,
+                              widget.bet.awayTeam.teamId,
+                            )
+                        : null,
+                    onHomePressed: widget.bet.creator.teamId != widget.bet.homeTeam.teamId
+                        ? () => controller.selectTeam(
+                              widget.bet.homeTeam.name,
+                              widget.bet.homeTeam.teamId,
+                            )
+                        : null,
+                    awayDisabled: widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
+                    homeDisabled: widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
                   ),
                   const AppSpacing(v: 30),
                   Text(
@@ -203,8 +198,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   Obx(
                     () => AppButton(
                       onPressed: () async {
-                        final String? actualHash =
-                            await lController.send(context);
+                        final String? actualHash = await lController.send(context);
                         if (actualHash != null) {
                           controller.addOpponentToBet(
                             context,

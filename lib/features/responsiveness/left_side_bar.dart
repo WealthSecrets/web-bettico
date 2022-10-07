@@ -1,25 +1,22 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-// import 'package:betticos/features/responsiveness/side_menu.dart';
+import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
-// import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-// import 'package:get/get.dart';
-// import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
-import '../../core/presentation/routes/side_menu_routes.dart'
-    as side_menu_routes;
+import '../../core/presentation/routes/side_menu_routes.dart' as side_menu_routes;
 import '../../core/presentation/utils/app_endpoints.dart';
 import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
-import 'constants/web_controller.dart';
 import 'custom_text.dart';
 
 class LeftSideBar extends StatelessWidget {
   LeftSideBar({Key? key}) : super(key: key);
   final BaseScreenController bController = Get.find<BaseScreenController>();
+  final MenuController menuController = Get.find<MenuController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +24,7 @@ class LeftSideBar extends StatelessWidget {
     return ListView(
       padding: AppPaddings.lA,
       children: <Widget>[
-        if (!ResponsiveWidget.isSmallScreen(context))
-          _buildUserInfoContainer(context),
+        if (!ResponsiveWidget.isSmallScreen(context)) _buildUserInfoContainer(context),
         const SizedBox(height: 8),
         if (ResponsiveWidget.isSmallScreen(context))
           Column(
@@ -65,16 +61,16 @@ class LeftSideBar extends StatelessWidget {
                   name: item.name,
                   route: item.route,
                   onTap: () {
-                    if (item.route == AppRoutes.logout) {
-                      showLogoutDialog(context);
-                      // menuController.changeActiveItemTo(AppRoutes.timeline);
-                    }
+                    // if (item.route == AppRoutes.logout) {
+                    //   showLogoutDialog(context);
+                    //   // menuController.changeActiveItemTo(AppRoutes.timeline);
+                    // }
                     if (!menuController.isActive(item.route)) {
                       menuController.changeActiveItemTo(item.route);
                       if (ResponsiveWidget.isSmallScreen(context)) {
                         Get.back<void>();
                       }
-                      navigationController.navigateTo(item.route);
+                      Get.toNamed<void>(item.route);
                     }
                   },
                 ),
@@ -111,11 +107,12 @@ class LeftSideBar extends StatelessWidget {
           Obx(
             () => GestureDetector(
               onTap: () {
-                menuController.changeActiveItemTo(AppRoutes.profile);
+                menuController.changeActiveItemTo(ProfileScreen.route);
+
                 if (ResponsiveWidget.isSmallScreen(context)) {
                   Get.back<void>();
                 }
-                navigationController.navigateTo(AppRoutes.profile);
+                Get.toNamed<void>(ProfileScreen.route);
               },
               child: Container(
                 height: 40,
@@ -125,9 +122,7 @@ class LeftSideBar extends StatelessWidget {
                   image: DecorationImage(
                     image: NetworkImage(
                       '${AppEndpoints.userImages}/${bController.user.value.photo}',
-                      headers: <String, String>{
-                        'Authorization': 'Bearer ${bController.userToken.value}'
-                      },
+                      headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -236,7 +231,7 @@ class LeftSideBar extends StatelessWidget {
             backgroundColor: context.colors.error,
             message: 'sure_logout'.tr,
             affirmButtonText: 'logout'.tr.toUpperCase(),
-            onPressed: () => baseScreenController.logOutTheUser(context),
+            onPressed: () => bController.logOutTheUser(context),
           ),
         ),
       ),

@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import '../../core/presentation/helpers/responsiveness.dart';
 import 'custom_text.dart';
 
-AppBar topNavigationBar(
-    BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
+AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
   return AppBar(
     elevation: 0,
     leading: !ResponsiveWidget.isSmallScreen(context)

@@ -11,6 +11,5 @@ class ReplyRequest with _$ReplyRequest {
     required String text,
     required String commentId,
   }) = _ReplyRequest;
-  factory ReplyRequest.fromJson(Map<String, dynamic> json) =>
-      _$ReplyRequestFromJson(json);
+  factory ReplyRequest.fromJson(Map<String, dynamic> json) => _$ReplyRequestFromJson(json);
 }

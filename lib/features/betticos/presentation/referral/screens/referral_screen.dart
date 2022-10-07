@@ -12,6 +12,8 @@ import '/features/betticos/presentation/referral/getx/referral_controller.dart';
 
 class ReferralScreen extends KFDrawerContent {
   ReferralScreen({Key? key}) : super(key: key);
+
+  static const String route = '/referral';
   @override
   State<ReferralScreen> createState() => _ReferralScreenState();
 }
@@ -52,8 +54,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
       ),
       body: Obx(
         () => AppLoadingBox(
-          loading: referralController.isLoading.value ||
-              referralController.isReferringUser.value,
+          loading: referralController.isLoading.value || referralController.isReferringUser.value,
           child: Padding(
             padding: AppPaddings.homeH,
             child: SingleChildScrollView(

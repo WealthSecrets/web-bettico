@@ -1,6 +1,6 @@
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:slider_captcha/slider_capchar.dart';
@@ -9,6 +9,9 @@ import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class RegistrationWalletScreen extends GetWidget<RegisterController> {
   RegistrationWalletScreen({Key? key}) : super(key: key);
+
+  static const String route = '/address-connect';
+
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final SliderController sController = SliderController();
   @override
@@ -29,9 +32,7 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
             loading: controller.isUpdatingUserRole.value,
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
@@ -56,8 +57,7 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                         colorCaptChar: const Color.fromARGB(255, 248, 248, 248),
                         onConfirm: (bool value) async {
                           if (value) {
-                            await navigationController
-                                .navigateTo(AppRoutes.accountType);
+                            await Get.toNamed<void>(RegistrationAccountTypeScreen.route);
                           } else {
                             sController.create();
                           }

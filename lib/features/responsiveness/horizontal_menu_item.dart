@@ -1,12 +1,11 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'constants/web_controller.dart';
 import 'custom_text.dart';
 
 class HorizontalMenuItem extends StatelessWidget {
-  const HorizontalMenuItem({
+  HorizontalMenuItem({
     Key? key,
     required this.name,
     required this.route,
@@ -17,23 +16,20 @@ class HorizontalMenuItem extends StatelessWidget {
   final String route;
   final void Function() onTap;
 
+  final MenuController menuController = Get.find<MenuController>();
+
   @override
   Widget build(BuildContext context) {
-    // final double _width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onTap,
       onHover: (bool value) {
-        value
-            ? menuController.onHover(route)
-            : menuController.onHover('not hovering');
+        value ? menuController.onHover(route) : menuController.onHover('not hovering');
       },
       borderRadius: BorderRadius.circular(30),
       child: Obx(
         () => Container(
           decoration: BoxDecoration(
-            color: menuController.isHovering(route)
-                ? context.colors.lightGrey.withOpacity(.1)
-                : Colors.transparent,
+            color: menuController.isHovering(route) ? context.colors.lightGrey.withOpacity(.1) : Colors.transparent,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Row(
@@ -62,9 +58,7 @@ class HorizontalMenuItem extends StatelessWidget {
                   text: name,
                   color: context.colors.textDark,
                   size: !menuController.isActive(route) ? 15 : 16,
-                  weight: !menuController.isActive(route)
-                      ? FontWeight.w600
-                      : FontWeight.bold,
+                  weight: !menuController.isActive(route) ? FontWeight.w600 : FontWeight.bold,
                 ),
               )
               // else

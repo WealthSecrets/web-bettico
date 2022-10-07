@@ -8,12 +8,13 @@ import '/features/auth/presentation/register/getx/register_controller.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '../../../data/models/user/user.dart';
 
-class RegistrationPersonalInformationScreen
-    extends GetWidget<RegisterController> {
+class RegistrationPersonalInformationScreen extends GetWidget<RegisterController> {
   const RegistrationPersonalInformationScreen({
     Key? key,
     this.user,
   }) : super(key: key);
+
+  static const String route = '/personal-information';
 
   final User? user;
 
@@ -21,8 +22,7 @@ class RegistrationPersonalInformationScreen
   Widget build(BuildContext context) {
     return Obx(
       () => AppLoadingBox(
-        loading: controller.isAddingPersonalInformation.value ||
-            controller.isSendingSms.value,
+        loading: controller.isAddingPersonalInformation.value || controller.isSendingSms.value,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -36,9 +36,7 @@ class RegistrationPersonalInformationScreen
           body: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.lH,
                   child: AppAnimatedColumn(
@@ -117,9 +115,7 @@ class RegistrationPersonalInformationScreen
                       AppDatePicker(
                         labelText: 'dob'.tr,
                         validator: (DateTime? dateOfBirth) =>
-                            controller.validateMinimumAge(
-                                dateOfBirth: dateOfBirth ?? DateTime.now(),
-                                minimumAge: 18),
+                            controller.validateMinimumAge(dateOfBirth: dateOfBirth ?? DateTime.now(), minimumAge: 18),
                         onDateTimeChanged: controller.onDateOfBirthInputChanged,
                         backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(

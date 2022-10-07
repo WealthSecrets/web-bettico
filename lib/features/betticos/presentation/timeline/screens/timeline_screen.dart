@@ -34,6 +34,7 @@ import '../../profile/widgets/circle_indicator.dart';
 // ignore: must_be_immutable
 class TimelineScreen extends KFDrawerContent {
   TimelineScreen({Key? key}) : super(key: key);
+  static const String route = '/timeline';
   @override
   State<TimelineScreen> createState() => _TimelineScreenState();
 }
@@ -42,8 +43,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = <TargetFocus>[];
   final TimelineController controller = Get.find<TimelineController>();
-  final BaseScreenController baseScreenController =
-      Get.find<BaseScreenController>();
+  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final SettingsController sController = Get.find<SettingsController>();
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
@@ -115,8 +115,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 return true;
               },
               child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     _buildSliverAppBar(),
                     SliverPersistentHeader(
@@ -214,8 +213,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
             itemBuilder: (BuildContext context, int index) {
               return _buildListUserRow(topPosts[index].user);
             },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
           );
   }
 
@@ -322,12 +320,8 @@ class _TimelineScreenState extends State<TimelineScreen> {
                                       borderRadius: AppBorderRadius.largeAll,
                                       color: context.colors.primary,
                                       textColor: Colors.white,
-                                      onPressed: () =>
-                                          _p2pBetController.setButtonSelected(
-                                              text.toLowerCase()),
-                                      selected: _p2pBetController
-                                              .selectedButton.value ==
-                                          text.toLowerCase(),
+                                      onPressed: () => _p2pBetController.setButtonSelected(text.toLowerCase()),
+                                      selected: _p2pBetController.selectedButton.value == text.toLowerCase(),
                                     ),
                                   ),
                                 )
@@ -340,40 +334,29 @@ class _TimelineScreenState extends State<TimelineScreen> {
                       key: ObjectKey(
                         _p2pBetController.selectedButton.value == 'ongoing'
                             ? _p2pBetController.ongoingBets[index - 1].id
-                            : _p2pBetController.selectedButton.value ==
-                                    'completed'
+                            : _p2pBetController.selectedButton.value == 'completed'
                                 ? _p2pBetController.completedBets[index - 1]
                                 : _p2pBetController.awaitingBets[index - 1].id,
                       ),
                       bet: _p2pBetController.selectedButton.value == 'ongoing'
                           ? _p2pBetController.ongoingBets[index - 1]
-                          : _p2pBetController.selectedButton.value ==
-                                  'completed'
+                          : _p2pBetController.selectedButton.value == 'completed'
                               ? _p2pBetController.completedBets[index - 1]
                               : _p2pBetController.awaitingBets[index - 1],
                       onPressed: () {
-                        if (_p2pBetController.selectedButton.value ==
-                            'awaiting') {
+                        if (_p2pBetController.selectedButton.value == 'awaiting') {
                           if (!lController.isConnected) {
                             if (Ethereum.isSupported) {
                               lController.initiateWalletConnect(
                                 () {
                                   Navigator.of(context).push<void>(
                                     MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          P2PBettingDetailsScreen(
-                                        bet: _p2pBetController
-                                                    .selectedButton.value ==
-                                                'ongoing'
-                                            ? _p2pBetController
-                                                .ongoingBets[index - 1]
-                                            : _p2pBetController
-                                                        .selectedButton.value ==
-                                                    'completed'
-                                                ? _p2pBetController
-                                                    .completedBets[index - 1]
-                                                : _p2pBetController
-                                                    .awaitingBets[index - 1],
+                                      builder: (BuildContext context) => P2PBettingDetailsScreen(
+                                        bet: _p2pBetController.selectedButton.value == 'ongoing'
+                                            ? _p2pBetController.ongoingBets[index - 1]
+                                            : _p2pBetController.selectedButton.value == 'completed'
+                                                ? _p2pBetController.completedBets[index - 1]
+                                                : _p2pBetController.awaitingBets[index - 1],
                                       ),
                                     ),
                                   );
@@ -384,20 +367,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
                                 if (lController.walletAddress.isNotEmpty) {
                                   Navigator.of(context).push<void>(
                                     MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          P2PBettingDetailsScreen(
-                                        bet: _p2pBetController
-                                                    .selectedButton.value ==
-                                                'ongoing'
-                                            ? _p2pBetController
-                                                .ongoingBets[index - 1]
-                                            : _p2pBetController
-                                                        .selectedButton.value ==
-                                                    'completed'
-                                                ? _p2pBetController
-                                                    .completedBets[index - 1]
-                                                : _p2pBetController
-                                                    .awaitingBets[index - 1],
+                                      builder: (BuildContext context) => P2PBettingDetailsScreen(
+                                        bet: _p2pBetController.selectedButton.value == 'ongoing'
+                                            ? _p2pBetController.ongoingBets[index - 1]
+                                            : _p2pBetController.selectedButton.value == 'completed'
+                                                ? _p2pBetController.completedBets[index - 1]
+                                                : _p2pBetController.awaitingBets[index - 1],
                                       ),
                                     ),
                                   );
@@ -407,18 +382,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
                           } else {
                             Navigator.of(context).push<void>(
                               MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    P2PBettingDetailsScreen(
-                                  bet: _p2pBetController.selectedButton.value ==
-                                          'ongoing'
+                                builder: (BuildContext context) => P2PBettingDetailsScreen(
+                                  bet: _p2pBetController.selectedButton.value == 'ongoing'
                                       ? _p2pBetController.ongoingBets[index - 1]
-                                      : _p2pBetController
-                                                  .selectedButton.value ==
-                                              'completed'
-                                          ? _p2pBetController
-                                              .completedBets[index - 1]
-                                          : _p2pBetController
-                                              .awaitingBets[index - 1],
+                                      : _p2pBetController.selectedButton.value == 'completed'
+                                          ? _p2pBetController.completedBets[index - 1]
+                                          : _p2pBetController.awaitingBets[index - 1],
                                 ),
                               ),
                             );
@@ -435,15 +404,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
                             )),
                             builder: (BuildContext modalContext) {
                               return P2PBettingBottomSheet(
-                                bet: _p2pBetController.selectedButton.value ==
-                                        'ongoing'
+                                bet: _p2pBetController.selectedButton.value == 'ongoing'
                                     ? _p2pBetController.ongoingBets[index - 1]
-                                    : _p2pBetController.selectedButton.value ==
-                                            'completed'
-                                        ? _p2pBetController
-                                            .completedBets[index - 1]
-                                        : _p2pBetController
-                                            .awaitingBets[index - 1],
+                                    : _p2pBetController.selectedButton.value == 'completed'
+                                        ? _p2pBetController.completedBets[index - 1]
+                                        : _p2pBetController.awaitingBets[index - 1],
                               );
                             },
                             context: context,
@@ -452,8 +417,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                       },
                     );
                   },
-                  childCount: _p2pBetController.selectedButton.value ==
-                          'ongoing'
+                  childCount: _p2pBetController.selectedButton.value == 'ongoing'
                       ? _p2pBetController.ongoingBets.length + 1
                       : _p2pBetController.selectedButton.value == 'completed'
                           ? _p2pBetController.completedBets.length + 1
@@ -461,43 +425,38 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 ),
               ),
             ),
-          if ((_p2pBetController.awaitingBets.isEmpty &&
-                  _p2pBetController.selectedButton.value == 'awaiting') ||
-              (_p2pBetController.ongoingBets.isEmpty &&
-                  _p2pBetController.selectedButton.value == 'ongoing') ||
-              (_p2pBetController.completedBets.isEmpty &&
-                  _p2pBetController.selectedButton.value == 'completed'))
+          if ((_p2pBetController.awaitingBets.isEmpty && _p2pBetController.selectedButton.value == 'awaiting') ||
+              (_p2pBetController.ongoingBets.isEmpty && _p2pBetController.selectedButton.value == 'ongoing') ||
+              (_p2pBetController.completedBets.isEmpty && _p2pBetController.selectedButton.value == 'completed'))
             SliverFillRemaining(
               child: Padding(
                 padding: AppPaddings.bodyH,
-                child: AppAnimatedColumn(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      const AppSpacing(v: 30),
-                      SvgPicture.asset(
-                        AssetSVGs.emptyState.path,
-                        height: 300,
-                      ),
-                      const AppSpacing(v: 10),
-                      Text(
-                        'Nothing to See Here',
-                        style: TextStyle(
-                          color: context.colors.textDark,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const AppSpacing(v: 10),
-                      Text(
-                        'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: context.colors.text,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ]),
+                child: AppAnimatedColumn(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+                  const AppSpacing(v: 30),
+                  SvgPicture.asset(
+                    AssetSVGs.emptyState.path,
+                    height: 300,
+                  ),
+                  const AppSpacing(v: 10),
+                  Text(
+                    'Nothing to See Here',
+                    style: TextStyle(
+                      color: context.colors.textDark,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const AppSpacing(v: 10),
+                  Text(
+                    'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: context.colors.text,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                    ),
+                  ),
+                ]),
               ),
             ),
         ],
@@ -532,30 +491,24 @@ class _TimelineScreenState extends State<TimelineScreen> {
                     pstId: post.id,
                   ),
                   onLikeTap: () => controller.likeThePost(context, post.id),
-                  onDislikeTap: () =>
-                      controller.dislikeThePost(context, post.id),
+                  onDislikeTap: () => controller.dislikeThePost(context, post.id),
                 ),
               );
             },
-            firstPageErrorIndicatorBuilder: (BuildContext context) =>
-                ErrorIndicator(
+            firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
               error: controller.pagingController.value.error as Failure,
               onTryAgain: () => controller.pagingController.value.refresh(),
             ),
-            noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                const EmptyListIndicator(),
-            newPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
+            noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
+            newPageProgressIndicatorBuilder: (BuildContext context) => const Center(
               child: LoadingLogo(),
             ),
-            firstPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
+            firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(
               child: LoadingLogo(),
             ),
             // padding: AppPaddings.homeA,
           ),
-          separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox.shrink(),
+          separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
         ),
       ),
     );
@@ -582,8 +535,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               CarouselSlider(
                 items: const [
                   Image(
-                    image: NetworkImage(
-                        'https://www.wealthsecrets.io/public/images/slider/slider_1649078709.jpg'),
+                    image: NetworkImage('https://www.wealthsecrets.io/public/images/slider/slider_1649078709.jpg'),
                     fit: BoxFit.contain,
                   ),
                   Image(
@@ -661,8 +613,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               image: const DecorationImage(
-                image: NetworkImage(
-                    'https://www.wealthsecrets.io/public/images/slider/slider_1649078036.jpg'),
+                image: NetworkImage('https://www.wealthsecrets.io/public/images/slider/slider_1649078036.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -799,10 +750,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               image: DecorationImage(
                 image: NetworkImage(
                   '${AppEndpoints.userImages}/${user.photo}',
-                  headers: <String, String>{
-                    'Authorization':
-                        'Bearer ${baseScreenController.userToken.value}'
-                  },
+                  headers: <String, String>{'Authorization': 'Bearer ${baseScreenController.userToken.value}'},
                 ),
                 fit: BoxFit.cover,
               ),
@@ -854,9 +802,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
             Text(
               '${averageUserPosts.toStringAsFixed(2)}%',
               style: TextStyle(
-                color: averageUserPosts >= 50
-                    ? context.colors.success
-                    : context.colors.error,
+                color: averageUserPosts >= 50 ? context.colors.success : context.colors.error,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
@@ -900,10 +846,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 children: <Widget>[
                   Text(
                     'view_posts_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -957,10 +900,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 children: <Widget>[
                   Text(
                     'update_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -984,10 +924,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 children: <Widget>[
                   Text(
                     'promo_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );

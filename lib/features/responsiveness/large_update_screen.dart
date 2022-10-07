@@ -1,6 +1,7 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -11,7 +12,11 @@ import '../auth/data/models/user/user.dart';
 import '../betticos/data/models/post/post_model.dart';
 
 class LargeUdpateScreen extends StatelessWidget {
-  const LargeUdpateScreen({Key? key}) : super(key: key);
+  LargeUdpateScreen({Key? key}) : super(key: key);
+
+  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
+
+  final TimelineController timelineController = Get.find<TimelineController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +44,12 @@ class LargeUdpateScreen extends StatelessWidget {
               }
               return _buildListUserRow(topPosts[index - 1].user, context);
             },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
           );
   }
 
   Widget _buildListUserRow(User user, BuildContext context) {
-    final double averageUserPosts =
-        timelineController.getUserPercentage(user.id);
+    final double averageUserPosts = timelineController.getUserPercentage(user.id);
     return Row(
       children: <Widget>[
         GestureDetector(
@@ -66,10 +69,7 @@ class LargeUdpateScreen extends StatelessWidget {
               image: DecorationImage(
                 image: NetworkImage(
                   '${AppEndpoints.userImages}/${user.photo}',
-                  headers: <String, String>{
-                    'Authorization':
-                        'Bearer ${baseScreenController.userToken.value}'
-                  },
+                  headers: <String, String>{'Authorization': 'Bearer ${baseScreenController.userToken.value}'},
                 ),
                 fit: BoxFit.cover,
               ),
@@ -122,9 +122,7 @@ class LargeUdpateScreen extends StatelessWidget {
             Text(
               '${averageUserPosts.toStringAsFixed(2)}%',
               style: TextStyle(
-                color: averageUserPosts >= 50
-                    ? context.colors.success
-                    : context.colors.error,
+                color: averageUserPosts >= 50 ? context.colors.success : context.colors.error,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),

@@ -48,8 +48,7 @@ class User with _$User {
         lastName: Faker().person.lastName(),
         username: Faker().person.name(),
         dateOfBirth: Faker().date.dateTime(maxYear: 1998, minYear: 1960),
-        phone:
-            '+233024${Faker().randomGenerator.integer(9999999, min: 1000000)}',
+        phone: '+233024${Faker().randomGenerator.integer(9999999, min: 1000000)}',
         role: 'user',
         passwordResetToken: '',
         walletAddress: '',

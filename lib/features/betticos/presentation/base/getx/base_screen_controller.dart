@@ -1,16 +1,12 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
-import '../../../../p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/domain/usecases/load_user.dart';
@@ -95,19 +91,15 @@ class BaseScreenController extends GetxController {
   }
 
   void loadMyFollowers() async {
-    final Either<Failure, List<User>> fialureOrSuccess =
-        await getMyFollowers(UserRequest(userId: user.value.id));
+    final Either<Failure, List<User>> fialureOrSuccess = await getMyFollowers(UserRequest(userId: user.value.id));
 
-    fialureOrSuccess.fold(
-        (_) {}, (List<User> followers) => myFollowers(followers));
+    fialureOrSuccess.fold((_) {}, (List<User> followers) => myFollowers(followers));
   }
 
   void loadMyFollowings() async {
-    final Either<Failure, List<User>> fialureOrSuccess =
-        await getMyFollowings(UserRequest(userId: user.value.id));
+    final Either<Failure, List<User>> fialureOrSuccess = await getMyFollowings(UserRequest(userId: user.value.id));
 
-    fialureOrSuccess.fold(
-        (_) {}, (List<User> followers) => myFollowings(followers));
+    fialureOrSuccess.fold((_) {}, (List<User> followers) => myFollowings(followers));
   }
 
   void updateTheUser(User u) {
@@ -125,11 +117,8 @@ class BaseScreenController extends GetxController {
     final Either<Failure, void> failureOrVoid = await logoutUser(NoParams());
     failureOrVoid.fold<void>(
       (Failure failure) => AppSnacks.show(context, message: failure.message),
-      (void _) {
-        navigationController.navigateTo(AppRoutes.login);
-        Get.offAll<void>(webNavigator());
-        LiveScoreBindings.dependencies();
-        P2PBetBindings.dependencies();
+      (_) {
+        Get.offAllNamed<void>(LoginScreen.route);
       },
     );
   }

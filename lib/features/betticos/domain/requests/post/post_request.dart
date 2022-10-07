@@ -17,6 +17,5 @@ class PostRequest with _$PostRequest {
     List<String>? dislikeUsers,
     List<String>? shares,
   }) = _PostRequest;
-  factory PostRequest.fromJson(Map<String, dynamic> json) =>
-      _$PostRequestFromJson(json);
+  factory PostRequest.fromJson(Map<String, dynamic> json) => _$PostRequestFromJson(json);
 }

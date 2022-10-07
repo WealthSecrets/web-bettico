@@ -17,6 +17,8 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
   }) : super(key: key);
   final User user;
 
+  static const String route = '/update-profile';
+
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
@@ -136,13 +138,11 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                         AppDatePicker(
                           disabled: true,
                           labelText: 'dob'.tr.toUpperCase(),
-                          validator: (DateTime? dateOfBirth) =>
-                              controller.validateMinimumAge(
+                          validator: (DateTime? dateOfBirth) => controller.validateMinimumAge(
                             dateOfBirth: dateOfBirth ?? DateTime.now(),
                             minimumAge: 18,
                           ),
-                          onDateTimeChanged:
-                              controller.onDateOfBirthInputChanged,
+                          onDateTimeChanged: controller.onDateOfBirthInputChanged,
                           backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
@@ -175,8 +175,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                           enabled: true,
                           borderRadius: AppBorderRadius.largeAll,
                           onPressed: () async {
-                            final Either<Failure, User> failurOrUser =
-                                await controller.updateProfile(context);
+                            final Either<Failure, User> failurOrUser = await controller.updateProfile(context);
 
                             failurOrUser.fold((Failure failure) {
                               controller.setUpdatingUserProfile(false);

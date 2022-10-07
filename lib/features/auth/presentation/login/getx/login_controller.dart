@@ -1,6 +1,9 @@
+import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
+import 'package:betticos/features/betticos/presentation/base/screens/base_screen.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,6 +46,7 @@ class LoginController extends GetxController {
   RxBool isSendingSms = false.obs;
 
   final BaseScreenController controller = Get.find<BaseScreenController>();
+  final MenuController menuController = Get.find<MenuController>();
 
   void togglePasswordVisibility() {
     isObscured(!isObscured.value);
@@ -55,7 +59,6 @@ class LoginController extends GetxController {
   }
 
   void login(BuildContext context) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
     final Either<Failure, User> failureOrUser = await loginUser(
@@ -66,7 +69,6 @@ class LoginController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
@@ -84,20 +86,18 @@ class LoginController extends GetxController {
     Get.updateLocale(locale);
   }
 
-  void reRouteOddster(BuildContext context, User user,
-      {bool? isSkipEmail, bool? isSkipPhone}) {
+  void reRouteOddster(BuildContext context, User user, {bool? isSkipEmail, bool? isSkipPhone}) {
     if (user.username == null) {
-      navigationController.navigateTo(
-        AppRoutes.personalInformation,
+      Get.toNamed<void>(
+        RegistrationPersonalInformationScreen.route,
         arguments: UserArgument(user: user),
       );
     } else {
       if (ResponsiveWidget.isSmallScreen(context)) {
-        navigationController.navigateTo(AppRoutes.base);
+        Get.toNamed<void>(BaseScreen.route);
       } else {
-        Get.offAll<void>(const HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+        Get.offAll<void>(TimelineScreen.route);
+        menuController.changeActiveItemTo(TimelineScreen.route);
       }
     }
   }
@@ -114,8 +114,8 @@ class LoginController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User user) {
       isResendingEmail(false);
-      navigationController.navigateTo(
-        AppRoutes.otpVerify,
+      Get.toNamed<void>(
+        OTPVerificationScreen.route,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.email,
           user: user,
@@ -132,12 +132,11 @@ class LoginController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.offAll<void>(AppRoutes.otpVerify);
+      Get.offAll<void>(OTPVerificationScreen.route);
     }, (TwilioResponse value) {
       isSendingSms(false);
-      navigationController.navigateTo(
-        AppRoutes.otpVerify,
+      Get.offAll<void>(
+        OTPVerificationScreen.route,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.phoneNumber,
           user: controller.user.value,
@@ -189,6 +188,5 @@ class LoginController extends GetxController {
 
   bool get formIsValid =>
       validateEmail(email.value) == null ||
-      validatePhone(phone.value) == null &&
-          validatePassword(password.value) == null;
+      validatePhone(phone.value) == null && validatePassword(password.value) == null;
 }

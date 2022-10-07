@@ -12,8 +12,7 @@ class LiveScoreCard extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final LiveScoreController liveScoreController =
-      Get.find<LiveScoreController>();
+  final LiveScoreController liveScoreController = Get.find<LiveScoreController>();
 
   final LiveScore liveScore;
   final Function() onTap;
@@ -68,9 +67,7 @@ class LiveScoreCard extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            liveScore.scores != null
-                                ? liveScore.scores!.localTeamScore.toString()
-                                : '0',
+                            liveScore.scores != null ? liveScore.scores!.localTeamScore.toString() : '0',
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
@@ -88,9 +85,7 @@ class LiveScoreCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            liveScore.scores != null
-                                ? liveScore.scores!.visitorTeamScore.toString()
-                                : '0',
+                            liveScore.scores != null ? liveScore.scores!.visitorTeamScore.toString() : '0',
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,

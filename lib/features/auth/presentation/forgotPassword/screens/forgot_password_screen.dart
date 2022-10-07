@@ -1,5 +1,5 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +12,8 @@ import '/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
 
 class ForgotPasswordScreen extends GetWidget<ForgotController> {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
+
+  static const String route = '/forgot-password';
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
           ),
           body: Center(
             child: SizedBox(
-              width: ResponsiveWidget.isSmallScreen(context)
-                  ? double.infinity
-                  : 450,
+              width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: AppPaddings.lH,
@@ -50,8 +50,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                             color: context.colors.secondary,
                           ),
                         ),
-                      if (ResponsiveWidget.isSmallScreen(context))
-                        const SizedBox(height: 60),
+                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 60),
                       Align(
                         alignment: Alignment.center,
                         child: RichText(
@@ -106,7 +105,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                       const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          navigationController.navigateTo(AppRoutes.login);
+                          Get.toNamed<void>(LoginScreen.route);
                         },
                         child: Center(
                           child: RichText(
@@ -129,8 +128,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                                   text: 'sign_in'.tr,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      navigationController
-                                          .navigateTo(AppRoutes.login);
+                                      Get.toNamed<void>(LoginScreen.route);
                                     },
                                   style: TextStyle(
                                     color: context.colors.primary,

@@ -13,6 +13,8 @@ import '/core/core.dart';
 class MembersScreen extends KFDrawerContent {
   MembersScreen({Key? key}) : super(key: key);
 
+  static const String route = '/members';
+
   @override
   State<MembersScreen> createState() => _MembersScreenState();
 }
@@ -37,8 +39,7 @@ class _MembersScreenState extends State<MembersScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: ResponsiveWidget.isSmallScreen(context) ? 0.5 : 0,
-            automaticallyImplyLeading:
-                ResponsiveWidget.isSmallScreen(context) ? false : true,
+            automaticallyImplyLeading: ResponsiveWidget.isSmallScreen(context) ? false : true,
             leading: ResponsiveWidget.isSmallScreen(context)
                 ? IconButton(
                     icon: const Icon(
@@ -68,16 +69,14 @@ class _MembersScreenState extends State<MembersScreen> {
                       () => null,
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
                 ),
         ),
       ),
     );
   }
 
-  Widget _buildListUserRow(
-      BuildContext context, User user, Function() onPressed) {
+  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed) {
     return Row(
       children: <Widget>[
         GestureDetector(

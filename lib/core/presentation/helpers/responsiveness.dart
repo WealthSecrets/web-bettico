@@ -23,8 +23,7 @@ class ResponsiveWidget extends StatelessWidget {
   }
 
   static bool isMediumScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width >= mediumScreenSize &&
-        MediaQuery.of(context).size.width < largeScreenSize;
+    return MediaQuery.of(context).size.width >= mediumScreenSize && MediaQuery.of(context).size.width < largeScreenSize;
   }
 
   static bool isLargeScreen(BuildContext context) {
@@ -42,8 +41,7 @@ class ResponsiveWidget extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         if (constraints.maxWidth >= largeScreenSize) {
           return largeScreen;
-        } else if (constraints.maxWidth < largeScreenSize &&
-            constraints.maxWidth >= mediumScreenSize) {
+        } else if (constraints.maxWidth < largeScreenSize && constraints.maxWidth >= mediumScreenSize) {
           return mediumScreen ?? largeScreen;
         } else {
           return smallScreen ?? largeScreen;

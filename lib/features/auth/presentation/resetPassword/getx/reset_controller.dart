@@ -1,7 +1,7 @@
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/domain/requests/reset_request/reset_request.dart';
 import 'package:betticos/features/auth/domain/usecases/reset_password.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +25,6 @@ class ResetController extends GetxController {
   }
 
   void reset(BuildContext context, String email) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
     final Either<Failure, User> failureOrUser = await resetPassword(
@@ -36,7 +35,6 @@ class ResetController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
@@ -44,7 +42,7 @@ class ResetController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        navigationController.navigateTo(AppRoutes.login);
+        Get.toNamed<void>(LoginScreen.route);
       },
     );
   }
@@ -69,17 +67,6 @@ class ResetController extends GetxController {
     return errorMessage;
   }
 
-  // String? validateResetCode(String? resetCode) {
-  //   String? errorMessage;
-  //   if (resetCode!.isEmpty) {
-  //     errorMessage = 'Please reset code is required';
-  //   }
-  //   if (resetCode.length != 6) {
-  //     errorMessage = 'Reset code is invalid';
-  //   }
-  //   return errorMessage;
-  // }
-
   String? validateConfirmPassword(String? confirm) {
     String? errorMessage;
     if (confirm!.isEmpty) {
@@ -94,6 +81,5 @@ class ResetController extends GetxController {
   }
 
   bool get formIsValid =>
-      validatePassword(password.value) == null &&
-      validateConfirmPassword(confirmPassword.value) == null;
+      validatePassword(password.value) == null && validateConfirmPassword(confirmPassword.value) == null;
 }

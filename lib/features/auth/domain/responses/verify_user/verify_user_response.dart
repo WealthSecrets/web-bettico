@@ -9,6 +9,5 @@ class VerifyUserResponse with _$VerifyUserResponse {
     required String email,
     required bool verified,
   }) = _VerifyUserResponse;
-  factory VerifyUserResponse.fromJson(Map<String, dynamic> json) =>
-      _$VerifyUserResponseFromJson(json);
+  factory VerifyUserResponse.fromJson(Map<String, dynamic> json) => _$VerifyUserResponseFromJson(json);
 }

@@ -1,21 +1,19 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
+import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
 
-const List<String> documentTypes = <String>[
-  'Passport',
-  'Voter ID',
-  'National Card',
-  'Driver\'s License'
-];
+const List<String> documentTypes = <String>['Passport', 'Voter ID', 'National Card', 'Driver\'s License'];
 
 class RegistrationDocumentScreen extends GetWidget<RegisterController> {
-  const RegistrationDocumentScreen({Key? key}) : super(key: key);
+  RegistrationDocumentScreen({Key? key}) : super(key: key);
+  static const String route = '/registration-document';
+
+  final MenuController menuController = Get.find<MenuController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -38,9 +36,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
             return SafeArea(
               child: Center(
                 child: SizedBox(
-                  width: ResponsiveWidget.isSmallScreen(context)
-                      ? double.infinity
-                      : 450,
+                  width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                   child: SingleChildScrollView(
                     padding: AppPaddings.lH.add(AppPaddings.lV),
                     child: AppAnimatedColumn(
@@ -70,10 +66,8 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             fontWeight: FontWeight.w700,
                             fontSize: 10,
                           ),
-                          titleBuilder: (_, String documentType) =>
-                              documentType,
-                          onChanged:
-                              controller.onIdentificationTypeInputChanged,
+                          titleBuilder: (_, String documentType) => documentType,
+                          onChanged: controller.onIdentificationTypeInputChanged,
                           options: documentTypes,
                         ),
                         const AppSpacing(v: 8),
@@ -88,8 +82,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             fontSize: 10,
                           ),
                           validator: controller.validateIdentificationNumber,
-                          onChanged:
-                              controller.onIdentificationNumberInputChanged,
+                          onChanged: controller.onIdentificationNumberInputChanged,
                         ),
                         AppDatePicker(
                           labelText: 'exp_date'.tr.toUpperCase(),
@@ -100,8 +93,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             fontSize: 10,
                           ),
                           validator: controller.validateExpiryDate,
-                          onDateTimeChanged:
-                              controller.onExpiryDateInputChanged,
+                          onDateTimeChanged: controller.onExpiryDateInputChanged,
                         ),
                         const AppSpacing(v: 35),
                         UploadButton(
@@ -114,8 +106,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                           () => AppButton(
                             enabled: controller.documentFormIsValid,
                             borderRadius: AppBorderRadius.largeAll,
-                            onPressed: () =>
-                                controller.uploadUserIdentification(context),
+                            onPressed: () => controller.uploadUserIdentification(context),
                             child: Text(
                               'next'.tr.toUpperCase(),
                               style: const TextStyle(
@@ -130,11 +121,8 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              Get.offAll<void>(const HomeBaseScreen());
-                              navigationController
-                                  .navigateTo(AppRoutes.timeline);
-                              menuController
-                                  .changeActiveItemTo(AppRoutes.timeline);
+                              Get.offAllNamed<void>(TimelineScreen.route);
+                              menuController.changeActiveItemTo(TimelineScreen.route);
                             },
                             child: Text(
                               'skip'.tr,

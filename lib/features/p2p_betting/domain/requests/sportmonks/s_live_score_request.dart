@@ -9,6 +9,5 @@ class SLiveScoreRequest with _$SLiveScoreRequest {
   const factory SLiveScoreRequest({
     required int leagueId,
   }) = _SLiveScoreRequest;
-  factory SLiveScoreRequest.fromJson(Map<String, dynamic> json) =>
-      _$SLiveScoreRequestFromJson(json);
+  factory SLiveScoreRequest.fromJson(Map<String, dynamic> json) => _$SLiveScoreRequestFromJson(json);
 }

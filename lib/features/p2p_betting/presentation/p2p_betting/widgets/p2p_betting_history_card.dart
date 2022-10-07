@@ -34,8 +34,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
 
   Timer? _timer;
 
-  final StreamController<LiveScore?> _liveScoreStreamController =
-      StreamController<LiveScore?>.broadcast();
+  final StreamController<LiveScore?> _liveScoreStreamController = StreamController<LiveScore?>.broadcast();
 
   @override
   void initState() {
@@ -70,42 +69,32 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
           String? winner;
           if (liveScoreData.time.status?.toLowerCase() == 'ft') {
             if ((widget.bet.creator.teamId == liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore >
-                    liveScoreData.scores!.visitorTeamScore) &&
+                (liveScoreData.scores!.localTeamScore > liveScoreData.scores!.visitorTeamScore) &&
                 widget.bet.creator.choice == BettorChoice.win) {
               winner = widget.bet.creator.id;
-            } else if ((widget.bet.creator.teamId ==
-                    liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore <
-                    liveScoreData.scores!.visitorTeamScore) &&
+            } else if ((widget.bet.creator.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore < liveScoreData.scores!.visitorTeamScore) &&
                 widget.bet.creator.choice == BettorChoice.loss) {
               winner = widget.bet.creator.id;
-            } else if ((widget.bet.opponent?.teamId ==
-                    liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore <
-                    liveScoreData.scores!.visitorTeamScore) &&
+            } else if ((widget.bet.opponent?.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore < liveScoreData.scores!.visitorTeamScore) &&
                 widget.bet.opponent?.choice == BettorChoice.loss) {
               winner = widget.bet.opponent?.id;
-            } else if ((widget.bet.opponent?.teamId ==
-                    liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore >
-                    liveScoreData.scores!.visitorTeamScore) &&
+            } else if ((widget.bet.opponent?.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore > liveScoreData.scores!.visitorTeamScore) &&
                 widget.bet.opponent?.choice == BettorChoice.win) {
               winner = widget.bet.opponent?.id;
             } else if (widget.bet.creator.choice == BettorChoice.draw &&
-                (liveScoreData.scores!.localTeamScore ==
-                    liveScoreData.scores!.visitorTeamScore)) {
+                (liveScoreData.scores!.localTeamScore == liveScoreData.scores!.visitorTeamScore)) {
               winner = widget.bet.creator.id;
             } else if (widget.bet.opponent?.choice == BettorChoice.draw &&
-                (liveScoreData.scores!.localTeamScore ==
-                    liveScoreData.scores!.visitorTeamScore)) {
+                (liveScoreData.scores!.localTeamScore == liveScoreData.scores!.visitorTeamScore)) {
               winner = widget.bet.opponent?.id;
             }
           }
           p2pBetController.addStatusScoreToBet(
             betId: widget.bet.id,
-            score:
-                '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+            score: '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
             status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
             winner: winner,
           );
@@ -140,11 +129,9 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       if (widget.bet.date != null &&
-                          (liveScore != null &&
-                              liveScore.time.status?.toLowerCase() == 'ns'))
+                          (liveScore != null && liveScore.time.status?.toLowerCase() == 'ns'))
                         TimeCard(dateTime: DateTime.parse(widget.bet.date!)),
-                      if (liveScore != null &&
-                          liveScore.time.status?.toLowerCase() == 'live')
+                      if (liveScore != null && liveScore.time.status?.toLowerCase() == 'live')
                         Container(
                           padding: const EdgeInsets.symmetric(
                             vertical: 2,
@@ -173,12 +160,10 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                           ),
                         ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8)
-                            .add(const EdgeInsets.symmetric(vertical: 4)),
+                        padding: const EdgeInsets.symmetric(horizontal: 8).add(const EdgeInsets.symmetric(vertical: 4)),
                         decoration: BoxDecoration(
                           borderRadius: AppBorderRadius.largeAll,
-                          color:
-                              widget.bet.status.color(context).withOpacity(.3),
+                          color: widget.bet.status.color(context).withOpacity(.3),
                           border: Border.all(
                             color: widget.bet.status.color(context),
                             width: 1,
@@ -187,13 +172,9 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                         child: Text(
                           widget.bet.status.stringValue.toUpperCase(),
                           style: TextStyle(
-                            fontSize: ResponsiveWidget.isSmallScreen(context)
-                                ? 8
-                                : 10,
+                            fontSize: ResponsiveWidget.isSmallScreen(context) ? 8 : 10,
                             // fontWeight: FontWeight.w700,
-                            fontWeight: ResponsiveWidget.isSmallScreen(context)
-                                ? FontWeight.w700
-                                : FontWeight.normal,
+                            fontWeight: ResponsiveWidget.isSmallScreen(context) ? FontWeight.w700 : FontWeight.normal,
                             color: widget.bet.status.color(context),
                           ),
                         ),
@@ -218,15 +199,11 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                 padding: AppPaddings.lA,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: widget.bet.creator.teamId ==
-                                            widget.bet.homeTeam.teamId
-                                        ? widget.bet.creator.choice
-                                            .color(context)
+                                    color: widget.bet.creator.teamId == widget.bet.homeTeam.teamId
+                                        ? widget.bet.creator.choice.color(context)
                                         : widget.bet.opponent != null
-                                            ? widget.bet.opponent!.teamId ==
-                                                    widget.bet.homeTeam.teamId
-                                                ? widget.bet.opponent!.choice
-                                                    .color(context)
+                                            ? widget.bet.opponent!.teamId == widget.bet.homeTeam.teamId
+                                                ? widget.bet.opponent!.choice.color(context)
                                                 : context.colors.text
                                             : context.colors.text,
                                     width: 2,
@@ -242,22 +219,15 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                 ),
                               ),
                             SizedBox(
-                              height: ResponsiveWidget.isSmallScreen(context)
-                                  ? 8
-                                  : 12,
+                              height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
                             ),
                             Text(
                               widget.bet.homeTeam.name,
                               style: TextStyle(
                                 color: context.colors.black,
-                                fontSize:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? 12
-                                        : 14,
+                                fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                 fontWeight:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
+                                    ResponsiveWidget.isSmallScreen(context) ? FontWeight.bold : FontWeight.normal,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -280,39 +250,28 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                               ),
                             ),
                             SizedBox(
-                              height: ResponsiveWidget.isSmallScreen(context)
-                                  ? 8
-                                  : 12,
+                              height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
                             ),
                             Container(
                               padding: ResponsiveWidget.isSmallScreen(context)
-                                  ? const EdgeInsets.symmetric(vertical: 4).add(
-                                      const EdgeInsets.symmetric(horizontal: 8))
-                                  : const EdgeInsets.symmetric(vertical: 4).add(
-                                      const EdgeInsets.symmetric(
-                                          horizontal: 16)),
+                                  ? const EdgeInsets.symmetric(vertical: 4)
+                                      .add(const EdgeInsets.symmetric(horizontal: 8))
+                                  : const EdgeInsets.symmetric(vertical: 4)
+                                      .add(const EdgeInsets.symmetric(horizontal: 16)),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 color: widget.bet.status.color(context),
                               ),
                               child: Center(
                                 child: Text(
-                                  widget.bet.status
-                                      .stringAmount(widget.bet.amount),
+                                  widget.bet.status.stringAmount(widget.bet.amount),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
+                                        ResponsiveWidget.isSmallScreen(context) ? FontWeight.bold : FontWeight.normal,
                                     decoration:
-                                        widget.bet.status == BetStatus.cancelled
-                                            ? TextDecoration.lineThrough
-                                            : null,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                        widget.bet.status == BetStatus.cancelled ? TextDecoration.lineThrough : null,
+                                    fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                   ),
                                 ),
                               ),
@@ -333,15 +292,11 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                 padding: AppPaddings.lA,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: widget.bet.creator.teamId ==
-                                            widget.bet.awayTeam.teamId
-                                        ? widget.bet.creator.choice
-                                            .color(context)
+                                    color: widget.bet.creator.teamId == widget.bet.awayTeam.teamId
+                                        ? widget.bet.creator.choice.color(context)
                                         : widget.bet.opponent != null
-                                            ? widget.bet.opponent!.teamId ==
-                                                    widget.bet.awayTeam.teamId
-                                                ? widget.bet.opponent!.choice
-                                                    .color(context)
+                                            ? widget.bet.opponent!.teamId == widget.bet.awayTeam.teamId
+                                                ? widget.bet.opponent!.choice.color(context)
                                                 : context.colors.text
                                             : context.colors.text,
                                     width: 2,
@@ -357,22 +312,15 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                 ),
                               ),
                             SizedBox(
-                              height: ResponsiveWidget.isSmallScreen(context)
-                                  ? 8
-                                  : 12,
+                              height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
                             ),
                             Text(
                               widget.bet.awayTeam.name,
                               style: TextStyle(
                                 color: context.colors.black,
                                 fontWeight:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                fontSize:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? 12
-                                        : 14,
+                                    ResponsiveWidget.isSmallScreen(context) ? FontWeight.bold : FontWeight.normal,
+                                fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                               ),
                             ),
                           ],
@@ -382,8 +330,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                   ),
                   const SizedBox(height: 16),
                   AppConstrainedButton(
-                    disabled: !bController.isYou(widget.bet.winner?.id) &&
-                        !(widget.bet.payout ?? false),
+                    disabled: !bController.isYou(widget.bet.winner?.id) && !(widget.bet.payout ?? false),
                     color: context.colors.success,
                     textColor: Colors.white,
                     selected: true,
@@ -394,14 +341,11 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                         String? walletAddress;
                         if (widget.bet.winner?.id == widget.bet.creator.id) {
                           walletAddress = widget.bet.creator.wallet;
-                        } else if (widget.bet.winner?.id ==
-                            widget.bet.opponent?.id) {
+                        } else if (widget.bet.winner?.id == widget.bet.opponent?.id) {
                           walletAddress = widget.bet.opponent?.wallet;
                         }
-                        if (walletAddress != null &&
-                            (widget.bet.payout ?? false)) {
-                          lController.convertAmount(
-                              context, 'wsc', widget.bet.amount * 2);
+                        if (walletAddress != null && (widget.bet.payout ?? false)) {
+                          lController.convertAmount(context, 'wsc', widget.bet.amount * 2);
 
                           final String? feedback = await lController.payout(
                             context,

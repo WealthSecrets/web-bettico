@@ -8,7 +8,7 @@ import '/features/onboarding_splash/presentation/onbaording/widgets/onboard_card
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
-  static const String route = 'OnboardingScreen';
+  static const String route = '/onboard';
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }

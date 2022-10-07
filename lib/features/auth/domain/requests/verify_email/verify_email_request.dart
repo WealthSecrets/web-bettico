@@ -9,6 +9,5 @@ class VerifyEmailRequest with _$VerifyEmailRequest {
     required String email,
     required String code,
   }) = _VerifyEmailRequest;
-  factory VerifyEmailRequest.fromJson(Map<String, dynamic> json) =>
-      _$VerifyEmailRequestFromJson(json);
+  factory VerifyEmailRequest.fromJson(Map<String, dynamic> json) => _$VerifyEmailRequestFromJson(json);
 }

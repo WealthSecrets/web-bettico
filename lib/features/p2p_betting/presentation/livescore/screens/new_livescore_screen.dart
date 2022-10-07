@@ -27,8 +27,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
-  Map<String, StreamController<LiveScore>> liveScoreStreamControllers =
-      <String, StreamController<LiveScore>>{};
+  Map<String, StreamController<LiveScore>> liveScoreStreamControllers = <String, StreamController<LiveScore>>{};
 
   late final Timer _timer;
 
@@ -109,12 +108,9 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                 () => VerticalLeagueCard(
                                   name: lController.sLeagues[index].name,
                                   imagePath: lController.sLeagues[index].logo,
-                                  isSelected:
-                                      lController.selectedLeague.value ==
-                                          lController.sLeagues[index],
+                                  isSelected: lController.selectedLeague.value == lController.sLeagues[index],
                                   onTap: () {
-                                    lController.setSelectedLeague(
-                                        lController.sLeagues[index]);
+                                    lController.setSelectedLeague(lController.sLeagues[index]);
                                   },
                                 ),
                               );
@@ -222,19 +218,15 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     () => SizedBox(
                       height: 220,
                       child: lController.liveScores.isEmpty
-                          ? const AppEmptyScreen(
-                              message:
-                                  'No Livescores were found for the selected league.')
+                          ? const AppEmptyScreen(message: 'No Livescores were found for the selected league.')
                           : ListView.builder(
-                              padding: const EdgeInsets.only(
-                                  top: 20, bottom: 20, left: 20),
+                              padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
                               scrollDirection: Axis.horizontal,
                               itemCount: lController.liveScores.length >= 10
                                   ? lController.liveScores.take(10).length
                                   : lController.liveScores.length,
                               itemBuilder: (BuildContext context, int index) {
-                                final LiveScore liveScore =
-                                    lController.liveScores[index];
+                                final LiveScore liveScore = lController.liveScores[index];
                                 return LiveScoreCard(
                                   liveScore: liveScore,
                                   onTap: () async {
@@ -248,8 +240,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                       if (liveScore.time.status == 'FT') {
                                         await AppSnacks.show(
                                           context,
-                                          message:
-                                              'Can\'t bet on this match. It is already completed.',
+                                          message: 'Can\'t bet on this match. It is already completed.',
                                           backgroundColor: context.colors.error,
                                           leadingIcon: const Icon(
                                             Ionicons.checkmark_circle_outline,
@@ -259,8 +250,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                       } else {
                                         await Navigator.of(context).push<void>(
                                           MaterialPageRoute<void>(
-                                            builder: (BuildContext context) =>
-                                                P2PBettingScreen(
+                                            builder: (BuildContext context) => P2PBettingScreen(
                                               liveScore: liveScore,
                                             ),
                                           ),
@@ -331,16 +321,13 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                   // ),
                   Obx(
                     () => lController.sFixtures.isEmpty
-                        ? const AppEmptyScreen(
-                            message:
-                                'No fixtures were found for the selected league.')
+                        ? const AppEmptyScreen(message: 'No fixtures were found for the selected league.')
                         : lController.isFetchingFixtures.value
                             ? const Center(
                                 child: LoadingLogo(),
                               )
                             : Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 20, left: 20, right: 20),
+                                padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                                 child: Column(
                                   children: lController.sFixtures
                                       .map(
@@ -349,8 +336,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                           onTap: () async {
                                             if (!lController.isConnected) {
                                               if (Ethereum.isSupported) {
-                                                lController
-                                                    .initiateWalletConnect();
+                                                lController.initiateWalletConnect();
                                               } else {
                                                 await lController.connectWC();
                                               }
@@ -358,23 +344,17 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                               if (f.time.status == 'FT') {
                                                 await AppSnacks.show(
                                                   context,
-                                                  message:
-                                                      'Can\'t bet on this match. It is already completed.',
-                                                  backgroundColor:
-                                                      context.colors.error,
+                                                  message: 'Can\'t bet on this match. It is already completed.',
+                                                  backgroundColor: context.colors.error,
                                                   leadingIcon: const Icon(
-                                                    Ionicons
-                                                        .checkmark_circle_outline,
+                                                    Ionicons.checkmark_circle_outline,
                                                     color: Colors.white,
                                                   ),
                                                 );
                                               } else {
-                                                await Navigator.of(context)
-                                                    .push<void>(
+                                                await Navigator.of(context).push<void>(
                                                   MaterialPageRoute<void>(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        P2PBettingScreen(
+                                                    builder: (BuildContext context) => P2PBettingScreen(
                                                       liveScore: f,
                                                     ),
                                                   ),
@@ -409,8 +389,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
         modalContext: context,
         title: 'Disconnect Wallet',
         backgroundColor: context.colors.error,
-        message:
-            'This will disconnect your wallet address from Bettico. Are you sure you want to disconnect wallet?',
+        message: 'This will disconnect your wallet address from Bettico. Are you sure you want to disconnect wallet?',
         affirmButtonText: 'Disconnect'.toUpperCase(),
         onPressed: () async {
           lController.disconnect();

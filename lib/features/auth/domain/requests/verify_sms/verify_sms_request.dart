@@ -9,6 +9,5 @@ class VerifySmsRequest with _$VerifySmsRequest {
     required String phone,
     required String code,
   }) = _VerifySmsRequest;
-  factory VerifySmsRequest.fromJson(Map<String, dynamic> json) =>
-      _$VerifySmsRequestFromJson(json);
+  factory VerifySmsRequest.fromJson(Map<String, dynamic> json) => _$VerifySmsRequestFromJson(json);
 }

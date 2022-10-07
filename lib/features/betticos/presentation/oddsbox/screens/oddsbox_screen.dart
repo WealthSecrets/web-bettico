@@ -13,6 +13,8 @@ import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 class OddsboxScreen extends KFDrawerContent {
   OddsboxScreen({Key? key}) : super(key: key);
 
+  static const String route = '/oddsbox';
+
   @override
   State<OddsboxScreen> createState() => _OddsboxScreenState();
 }
@@ -37,8 +39,7 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: ResponsiveWidget.isSmallScreen(context) ? 0.5 : null,
-            automaticallyImplyLeading:
-                ResponsiveWidget.isSmallScreen(context) ? false : true,
+            automaticallyImplyLeading: ResponsiveWidget.isSmallScreen(context) ? false : true,
             leading: ResponsiveWidget.isSmallScreen(context)
                 ? IconButton(
                     icon: const Icon(
@@ -68,8 +69,7 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                         onTap: () {
                           Navigator.of(context).push<void>(
                             MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  PostDetailsScreen(post: post),
+                              builder: (BuildContext context) => PostDetailsScreen(post: post),
                             ),
                           );
                         },
@@ -77,10 +77,8 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                           context,
                           pstId: post.id,
                         ),
-                        onLikeTap: () => controller
-                            .likeThePost(context, post.id, isOddbox: true),
-                        onDislikeTap: () => controller
-                            .dislikeThePost(context, post.id, isOddbox: true),
+                        onLikeTap: () => controller.likeThePost(context, post.id, isOddbox: true),
+                        onDislikeTap: () => controller.dislikeThePost(context, post.id, isOddbox: true),
                       );
                     },
                   ),

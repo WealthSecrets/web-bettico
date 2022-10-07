@@ -18,6 +18,7 @@ import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 
 class TimelinePostScreen extends StatefulWidget {
   const TimelinePostScreen({Key? key}) : super(key: key);
+  static const String route = '/post';
   @override
   _TimelinePostScreenState createState() => _TimelinePostScreenState();
 }
@@ -96,12 +97,10 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AddPostCommentArgument? args =
-        ModalRoute.of(context)?.settings.arguments as AddPostCommentArgument?;
+    final AddPostCommentArgument? args = ModalRoute.of(context)?.settings.arguments as AddPostCommentArgument?;
     return Obx(
       () => AppLoadingBox(
-        loading: timelineController.isAddingPost.value ||
-            timelineController.isAddingComment.value,
+        loading: timelineController.isAddingPost.value || timelineController.isAddingComment.value,
         child: WillPopScope(
           onWillPop: () {
             timelineController.resetValuesAfterPost();
@@ -143,8 +142,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                             if (ResponsiveWidget.isSmallScreen(context)) {
                               showModalBottomSheet<void>(
                                 context: context,
-                                builder: ((BuildContext context) =>
-                                    bottomSheet()),
+                                builder: ((BuildContext context) => bottomSheet()),
                               );
                             } else {
                               takePhoto(ImageSource.camera, context);
@@ -192,8 +190,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                     onPressed: () {
                       if (!timelineController.timelineIsInvalid) {
                         if (args != null) {
-                          timelineController.addNewPost(context,
-                              isReply: true, postId: args.postId);
+                          timelineController.addNewPost(context, isReply: true, postId: args.postId);
                         } else {
                           timelineController.addNewPost(context);
                         }
@@ -229,8 +226,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                         focusedBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
                         focusedErrorBorder: InputBorder.none,
-                        hintText:
-                            args != null ? 'add_reply'.tr : 'have_to_say'.tr,
+                        hintText: args != null ? 'add_reply'.tr : 'have_to_say'.tr,
                         hintStyle: const TextStyle(fontSize: 16),
                         counterStyle: const TextStyle(fontSize: 16)),
                     style: TextStyle(
@@ -299,10 +295,8 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        FullImage(
-                                          image:
-                                              timelineController.files[index],
+                                    builder: (BuildContext context) => FullImage(
+                                          image: timelineController.files[index],
                                         )));
                           },
                           child: Container(
@@ -365,8 +359,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
               modalContext: context,
               onChanged: (String value) {},
               onAffrimButtonPressed: () {
-                timelineController
-                    .onSlipCodeFieldSubmitted(textController.text);
+                timelineController.onSlipCodeFieldSubmitted(textController.text);
               },
               affirmButtonText: 'ADD CODE',
               title: 'Odds Slip code',
@@ -450,18 +443,14 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'img_post_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -479,18 +468,14 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'slip_code_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -508,18 +493,14 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'send_post_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );

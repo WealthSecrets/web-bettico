@@ -8,6 +8,5 @@ class ForgotRequest with _$ForgotRequest {
   const factory ForgotRequest({
     required String email,
   }) = _ForgotRequest;
-  factory ForgotRequest.fromJson(Map<String, dynamic> json) =>
-      _$ForgotRequestFromJson(json);
+  factory ForgotRequest.fromJson(Map<String, dynamic> json) => _$ForgotRequestFromJson(json);
 }

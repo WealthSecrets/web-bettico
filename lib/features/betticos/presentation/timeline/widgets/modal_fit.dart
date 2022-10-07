@@ -9,8 +9,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ModalFit extends StatelessWidget {
-  ModalFit({Key? key, required this.ctx, this.post, this.user})
-      : super(key: key);
+  ModalFit({Key? key, required this.ctx, this.post, this.user}) : super(key: key);
   final BuildContext ctx;
   final Post? post;
   final User? user;
@@ -73,11 +72,8 @@ class ModalFit extends StatelessWidget {
                     ),
                     const AppSpacing(h: 16),
                     Text(
-                      post != null
-                          ? '${'mute'.tr} @${post!.user.username}'
-                          : '${'mute'.tr}  @${user!.username}',
-                      style: context.body2
-                          .copyWith(color: context.colors.text, fontSize: 16),
+                      post != null ? '${'mute'.tr} @${post!.user.username}' : '${'mute'.tr}  @${user!.username}',
+                      style: context.body2.copyWith(color: context.colors.text, fontSize: 16),
                     ),
                   ],
                 ),
@@ -105,11 +101,8 @@ class ModalFit extends StatelessWidget {
                     ),
                     const AppSpacing(h: 16),
                     Text(
-                      post != null
-                          ? '${'block'.tr} @${post!.user.username}'
-                          : '${'block'.tr} @${user!.username}',
-                      style: context.body2
-                          .copyWith(color: context.colors.text, fontSize: 16),
+                      post != null ? '${'block'.tr} @${post!.user.username}' : '${'block'.tr} @${user!.username}',
+                      style: context.body2.copyWith(color: context.colors.text, fontSize: 16),
                     ),
                   ],
                 ),

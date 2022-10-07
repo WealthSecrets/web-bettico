@@ -11,25 +11,14 @@ import '/core/core.dart';
 class SettingsScreen extends KFDrawerContent {
   SettingsScreen({Key? key}) : super(key: key);
 
+  static const String route = '/settings';
+
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final SettingsController controller = Get.find<SettingsController>();
-  // late bool intro = false;
-
-  // Future<void> showTutorial() async {
-  //   final SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   intro = preferences.getBool('intro') ?? false;
-  // }
-
-  // void updatePref(bool value) async {
-  //   final SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   await preferences.setBool('intro', value);
-  //   intro = preferences.getBool('intro') ?? false;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,8 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          automaticallyImplyLeading:
-              !ResponsiveWidget.isSmallScreen(context) ? true : false,
+          automaticallyImplyLeading: !ResponsiveWidget.isSmallScreen(context) ? true : false,
           leading: ResponsiveWidget.isSmallScreen(context)
               ? IconButton(
                   icon: const Icon(
@@ -72,8 +60,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         controller.updateLanguagePreference('en');
                       }
                     },
-                    value: Text(
-                        controller.isLanguage.value == 'en' ? '🇨🇳' : '🇺🇸'),
+                    value: Text(controller.isLanguage.value == 'en' ? '🇨🇳' : '🇺🇸'),
                   ),
                   SettingsTile.switchTile(
                     onToggle: controller.updateIntroductionPreference,
@@ -84,47 +71,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SettingsTile.navigation(
                     title: const Text('Certik'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
-                      ]);
+                      js.context.callMethod(
+                          'open', <String>['https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Audit'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
-                      ]);
+                      js.context.callMethod(
+                          'open', <String>['https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Whitepaper'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW'
-                      ]);
+                      js.context.callMethod(
+                          'open', <String>['https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Buy WSC'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open',
-                          <String>['https://staking.wealthsecrets.io/swap']);
+                      js.context.callMethod('open', <String>['https://staking.wealthsecrets.io/swap']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Store'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod(
-                          'open', <String>['https://wealthsecrets.store/']);
+                      js.context.callMethod('open', <String>['https://wealthsecrets.store/']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Advertise'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://www.wealthsecrets.io/advertiseRequest'
-                      ]);
+                      js.context.callMethod('open', <String>['https://www.wealthsecrets.io/advertiseRequest']);
                     },
                   ),
                 ],

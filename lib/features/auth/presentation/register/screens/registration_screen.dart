@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +9,17 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '/core/core.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends GetWidget<RegisterController> {
   const RegistrationScreen({Key? key}) : super(key: key);
+
+  static const String route = '/register';
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => AppLoadingBox(
-        loading: registerController.isRegisteringUser.value,
+        loading: controller.isRegisteringUser.value,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -31,9 +33,7 @@ class RegistrationScreen extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.lH,
                   child: AppAnimatedColumn(
@@ -79,8 +79,8 @@ class RegistrationScreen extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           fontSize: 10,
                         ),
-                        validator: registerController.validateEmail,
-                        onChanged: registerController.onEmailInputChanged,
+                        validator: controller.validateEmail,
+                        onChanged: controller.onEmailInputChanged,
                       ),
                       const AppSpacing(v: 8),
                       AppTextInput(
@@ -101,8 +101,8 @@ class RegistrationScreen extends StatelessWidget {
                           color: context.colors.error,
                           fontSize: 12,
                         ),
-                        validator: registerController.validatePassword,
-                        onChanged: registerController.onPasswordInputChanged,
+                        validator: controller.validatePassword,
+                        onChanged: controller.onPasswordInputChanged,
                       ),
                       const AppSpacing(v: 8),
                       AppTextInput(
@@ -123,9 +123,8 @@ class RegistrationScreen extends StatelessWidget {
                           color: context.colors.error,
                           fontSize: 12,
                         ),
-                        validator: registerController.validateConfrimPassword,
-                        onChanged:
-                            registerController.onConfirmPasswordInputChanged,
+                        validator: controller.validateConfrimPassword,
+                        onChanged: controller.onConfirmPasswordInputChanged,
                       ),
                       const AppSpacing(v: 8),
                       AppTextInput(
@@ -140,8 +139,8 @@ class RegistrationScreen extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           fontSize: 10,
                         ),
-                        validator: registerController.validateReferralCode,
-                        onChanged: registerController.onReferralInputChanged,
+                        validator: controller.validateReferralCode,
+                        onChanged: controller.onReferralInputChanged,
                       ),
                       const AppSpacing(v: 8),
                       Align(
@@ -152,8 +151,7 @@ class RegistrationScreen extends StatelessWidget {
                           trimMode: TrimMode.Line,
                           trimCollapsedText: 'more',
                           trimExpandedText: '...less',
-                          text:
-                              'By signing up, you agree to our Terms & Privacy Policy.',
+                          text: 'By signing up, you agree to our Terms & Privacy Policy.',
                           detectionRegExp: RegExp(
                             '(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent',
                             multiLine: true,
@@ -184,9 +182,9 @@ class RegistrationScreen extends StatelessWidget {
                       ),
                       const AppSpacing(v: 49),
                       AppButton(
-                        enabled: registerController.registrationFormIsValid,
+                        enabled: controller.registrationFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
-                        onPressed: () => registerController.register(context),
+                        onPressed: () => controller.register(context),
                         child: Text(
                           'next'.tr,
                           style: const TextStyle(

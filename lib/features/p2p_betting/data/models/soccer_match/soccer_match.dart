@@ -46,8 +46,7 @@ class SoccerMatch with _$SoccerMatch {
 
   const SoccerMatch._();
 
-  factory SoccerMatch.fromJson(Map<String, dynamic> json) =>
-      _$SoccerMatchFromJson(json);
+  factory SoccerMatch.fromJson(Map<String, dynamic> json) => _$SoccerMatchFromJson(json);
 
   factory SoccerMatch.empty() => const SoccerMatch(
         awayId: 0,

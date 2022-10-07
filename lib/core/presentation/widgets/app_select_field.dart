@@ -122,42 +122,31 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                           final bool selected = item == _selectedItem.value;
                           final TextButton childListItem = TextButton(
                             style: TextButton.styleFrom(
-                              backgroundColor: selected
-                                  ? context.colors.primary.shade100
-                                  : Colors.transparent,
+                              backgroundColor: selected ? context.colors.primary.shade100 : Colors.transparent,
                             ),
                             onPressed: () {
                               FocusScope.of(context).unfocus();
                               widget.onChanged(item);
                               _selectedItem.value = item;
-                              controller.value = TextEditingValue(
-                                  text: widget.titleBuilder(context, item));
+                              controller.value = TextEditingValue(text: widget.titleBuilder(context, item));
                               Navigator.of(context).pop();
                             },
                             child: Padding(
                               padding: AppPaddings.bodyH.add(AppPaddings.mV),
                               child: widget.customTitleBuilder != null
-                                  ? widget.customTitleBuilder!(
-                                      context, item, selected)
+                                  ? widget.customTitleBuilder!(context, item, selected)
                                   : Text(
                                       widget.titleBuilder(context, item),
                                       style: context.body2.copyWith(
-                                        fontWeight: selected
-                                            ? FontWeight.bold
-                                            : FontWeight.w300,
-                                        color: selected
-                                            ? context.colors.primary
-                                            : context.colors.textDark,
+                                        fontWeight: selected ? FontWeight.bold : FontWeight.w300,
+                                        color: selected ? context.colors.primary : context.colors.textDark,
                                       ),
                                     ),
                             ),
                           );
                           if (index == 0 && widget.header != null) {
                             return Column(
-                              children: <Widget>[
-                                widget.header!(context),
-                                childListItem
-                              ],
+                              children: <Widget>[widget.header!(context), childListItem],
                             );
                           }
 
@@ -182,12 +171,9 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                           validator: (_) {
                             return null;
                           },
-                          initialValue: item == null
-                              ? ''
-                              : widget.titleBuilder(context, item),
+                          initialValue: item == null ? '' : widget.titleBuilder(context, item),
                           controller: controller,
-                          backgroundColor: widget.backgroundColor ??
-                              context.colors.primary.shade50,
+                          backgroundColor: widget.backgroundColor ?? context.colors.primary.shade50,
                           hintText: '',
                           onChanged: (_) {},
                           suffixIcon: widget.showIcon

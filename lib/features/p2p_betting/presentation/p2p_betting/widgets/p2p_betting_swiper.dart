@@ -36,9 +36,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
     _controller = PageController(
       viewportFraction: fraction,
     );
-    ongoingBets = _p2pBetController.bets
-        .where((Bet b) => b.status == BetStatus.ongoing)
-        .toList();
+    ongoingBets = _p2pBetController.bets.where((Bet b) => b.status == BetStatus.ongoing).toList();
     super.initState();
   }
 
@@ -58,8 +56,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                 SizedBox(
                   height: 125,
                   child: PageView(
-                    onPageChanged: (int index) =>
-                        _activePageValueNotifier.value = index,
+                    onPageChanged: (int index) => _activePageValueNotifier.value = index,
                     controller: _controller,
                     children: <Widget>[
                       ...ongoingBets.map(
@@ -156,13 +153,10 @@ class P2POngoingCard extends StatelessWidget {
               context,
               bet.creator.teamId,
               bet.competitionId,
-              bet.isFixture ?? false
-                  ? bet.date!
-                  : DateFormat('yyyy-MM-dd').format(bet.createdAt),
+              bet.isFixture ?? false ? bet.date! : DateFormat('yyyy-MM-dd').format(bet.createdAt),
               isFixture: bet.isFixture,
             ),
-            builder:
-                (BuildContext context, AsyncSnapshot<SoccerMatch?> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<SoccerMatch?> snapshot) {
               if (snapshot.hasData) {
                 return snapshot.data != null
                     ? ScoreRow(

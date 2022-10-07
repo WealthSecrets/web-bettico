@@ -10,8 +10,7 @@ import '../../../features/settings/presentation/settings/screens/settings_screen
 
 typedef Constructor<T> = T Function();
 
-final Map<String, Constructor<Object>> _constructors =
-    <String, Constructor<Object>>{};
+final Map<String, Constructor<Object>> _constructors = <String, Constructor<Object>>{};
 
 void register<T>(Constructor<T> constructor) {
   _constructors[T.toString()] = constructor as Constructor<Object>;

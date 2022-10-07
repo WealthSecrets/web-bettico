@@ -1,12 +1,11 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'constants/web_controller.dart';
 import 'custom_text.dart';
 
 class VerticalMenuItem extends StatelessWidget {
-  const VerticalMenuItem({
+  VerticalMenuItem({
     Key? key,
     required this.name,
     required this.route,
@@ -17,26 +16,23 @@ class VerticalMenuItem extends StatelessWidget {
   final String route;
   final void Function() onTap;
 
+  final MenuController menuController = Get.find<MenuController>();
+
   @override
   Widget build(BuildContext context) {
     // final double _width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onTap,
       onHover: (bool value) {
-        value
-            ? menuController.onHover(route)
-            : menuController.onHover('not hovering');
+        value ? menuController.onHover(route) : menuController.onHover('not hovering');
       },
       child: Obx(
         () => Container(
-          color: menuController.isHovering(route)
-              ? context.colors.lightGrey
-              : Colors.transparent,
+          color: menuController.isHovering(route) ? context.colors.lightGrey : Colors.transparent,
           child: Row(
             children: <Widget>[
               Visibility(
-                visible: menuController.isHovering(route) ||
-                    menuController.isActive(route),
+                visible: menuController.isHovering(route) || menuController.isActive(route),
                 maintainSize: true,
                 maintainState: true,
                 maintainAnimation: true,
@@ -58,9 +54,7 @@ class VerticalMenuItem extends StatelessWidget {
                       Flexible(
                         child: CustomText(
                           text: name,
-                          color: menuController.isHovering(route)
-                              ? context.colors.textDark
-                              : context.colors.lightGrey,
+                          color: menuController.isHovering(route) ? context.colors.textDark : context.colors.lightGrey,
                         ),
                       )
                     else

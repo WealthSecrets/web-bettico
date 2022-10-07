@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:flutter/material.dart';
 
 // import 'large_timeline_screen.dart';
@@ -16,10 +15,10 @@ class LargeScreen extends StatelessWidget {
           flex: 5,
           child: LeftSideBar(),
         ),
-        Expanded(
-          flex: 8,
-          child: webNavigator(),
-        ),
+        // Expanded(
+        //   flex: 8,
+        //   child: webNavigator(),
+        // ),
         Expanded(
           flex: 3,
           child: Container(

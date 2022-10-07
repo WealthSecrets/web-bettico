@@ -13,6 +13,5 @@ class LiveCompetitionRequest with _$LiveCompetitionRequest {
     required int competitionId,
     required int teamId,
   }) = _LiveCompetitionRequest;
-  factory LiveCompetitionRequest.fromJson(Map<String, dynamic> json) =>
-      _$LiveCompetitionRequestFromJson(json);
+  factory LiveCompetitionRequest.fromJson(Map<String, dynamic> json) => _$LiveCompetitionRequestFromJson(json);
 }

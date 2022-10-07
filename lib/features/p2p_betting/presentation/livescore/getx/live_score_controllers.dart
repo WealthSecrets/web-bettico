@@ -182,8 +182,7 @@ class LiveScoreController extends GetxController {
     final double amount = convertedAmount * 1000000000 * 1000000000;
 
     try {
-      final ContractERC20 token =
-          ContractERC20(contractAddress, web3wc!.getSigner());
+      final ContractERC20 token = ContractERC20(contractAddress, web3wc!.getSigner());
       // ignore: unawaited_futures
       AppSnacks.show(
         context,
@@ -205,8 +204,7 @@ class LiveScoreController extends GetxController {
       return tx.hash;
     } catch (e) {
       showLoadingLogo.value = false;
-      await AppSnacks.show(context,
-          message: 'Couldn\'t make payment, please check your wallet balance');
+      await AppSnacks.show(context, message: 'Couldn\'t make payment, please check your wallet balance');
       return null;
     }
   }
@@ -264,12 +262,11 @@ class LiveScoreController extends GetxController {
         web3wc?.getSigner(),
       );
 
-      final dynamic value = await wscPayout.call<dynamic>('transferFrom',
-          <dynamic>[tokenAddress, contractAddess, winningAddress, amount]);
+      final dynamic value = await wscPayout
+          .call<dynamic>('transferFrom', <dynamic>[tokenAddress, contractAddess, winningAddress, amount]);
 
       showLoadingLogo.value = false;
-      await AppSnacks.show(context,
-          message: 'Value: $value', backgroundColor: context.colors.success);
+      await AppSnacks.show(context, message: 'Value: $value', backgroundColor: context.colors.success);
       return '0xsiwowh19029198';
     } catch (e) {
       showLoadingLogo.value = false;
@@ -290,15 +287,12 @@ class LiveScoreController extends GetxController {
 
   void getAllLiveMatches(BuildContext context) async {
     isLoading(true);
-    final String response =
-        await rootBundle.loadString('assets/keys/live_score.json');
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
+    final String response = await rootBundle.loadString('assets/keys/live_score.json');
+    final Map<String, dynamic> liveScoreKeys = await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
     final String secretKey = liveScoreKeys['secret_key'] as String;
 
-    final Either<Failure, List<SoccerMatch>> failureOrMatches =
-        await getLiveMatches(
+    final Either<Failure, List<SoccerMatch>> failureOrMatches = await getLiveMatches(
       LiveScoreRequest(
         apiKey: apiKey,
         secretKey: secretKey,
@@ -411,8 +405,7 @@ class LiveScoreController extends GetxController {
 
   void getAllLeagues() async {
     isFetchingLeagues(true);
-    final Either<Failure, List<SLeague>> failureOrLeagues =
-        await fetchLeagues(NoParams());
+    final Either<Failure, List<SLeague>> failureOrLeagues = await fetchLeagues(NoParams());
     failureOrLeagues.fold<void>(
       (Failure failure) {
         isFetchingLeagues(false);
@@ -431,8 +424,7 @@ class LiveScoreController extends GetxController {
   void getLiveScores() async {
     isFetchingLiveScores(true);
     final Either<Failure, List<LiveScore>> failureOrLiveScores =
-        await fetchLiveScores(
-            SLiveScoreRequest(leagueId: selectedLeague.value.id));
+        await fetchLiveScores(SLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrLiveScores.fold<void>(
       (Failure failure) {
         isFetchingLiveScores(false);
@@ -447,8 +439,7 @@ class LiveScoreController extends GetxController {
   void getSFixtures() async {
     isFetchingFixtures(true);
     final Either<Failure, List<LiveScore>> failureOrSFixtures =
-        await fetchFixtures(
-            SLiveScoreRequest(leagueId: selectedLeague.value.id));
+        await fetchFixtures(SLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrSFixtures.fold<void>(
       (Failure failure) {
         isFetchingFixtures(false);
@@ -515,13 +506,11 @@ class LiveScoreController extends GetxController {
     selectedCurrency.value = currency.toLowerCase();
   }
 
-  void convertAmount(
-      BuildContext context, String currency, double amount) async {
+  void convertAmount(BuildContext context, String currency, double amount) async {
     isLoading(true);
 
     final Either<Failure, Volume> failureOrVolume =
-        await convertAmountToCurrency(
-            ConvertAmountRequest(amount: amount, currency: currency));
+        await convertAmountToCurrency(ConvertAmountRequest(amount: amount, currency: currency));
 
     failureOrVolume.fold<void>(
       (Failure failure) {
@@ -538,10 +527,8 @@ class LiveScoreController extends GetxController {
   void getAllFixtures(BuildContext context) async {
     isLoading(true);
 
-    final String response =
-        await rootBundle.loadString('assets/keys/live_score.json');
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
+    final String response = await rootBundle.loadString('assets/keys/live_score.json');
+    final Map<String, dynamic> liveScoreKeys = await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
     final String secretKey = liveScoreKeys['secret_key'] as String;
 
@@ -565,8 +552,7 @@ class LiveScoreController extends GetxController {
   }
 
   void getFilteredMatches(String filter) {
-    final List<SoccerMatch> newMatches =
-        matches.where((SoccerMatch match) => match.status == filter).toList();
+    final List<SoccerMatch> newMatches = matches.where((SoccerMatch match) => match.status == filter).toList();
     if (filter == 'FINISHED') {
       finishedMatches(newMatches);
     } else if (filter == 'IN PLAY') {
@@ -579,16 +565,12 @@ class LiveScoreController extends GetxController {
   void searchLiveMatchesAndFixtures(String query) async {
     isSearching(true);
     final List<SoccerMatch> ss = matches
-        .where((SoccerMatch s) =>
-            s.awayName.toLowerCase().contains(query) ||
-            s.homeName.toLowerCase().contains(query))
+        .where((SoccerMatch s) => s.awayName.toLowerCase().contains(query) || s.homeName.toLowerCase().contains(query))
         .toList();
     sMatches(ss);
     if (ss.isEmpty) {
       final List<Fixture> ff = fixtures
-          .where((Fixture f) =>
-              f.awayName.toLowerCase().contains(query) ||
-              f.homeName.toLowerCase().contains(query))
+          .where((Fixture f) => f.awayName.toLowerCase().contains(query) || f.homeName.toLowerCase().contains(query))
           .toList();
       searchedFixtures(ff);
     }

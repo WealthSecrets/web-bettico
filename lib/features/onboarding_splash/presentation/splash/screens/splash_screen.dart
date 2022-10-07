@@ -9,6 +9,7 @@ import '/features/onboarding_splash/presentation/splash/getx/splash_controller.d
 // ignore: must_be_immutable
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+  static const String route = '/splash';
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }

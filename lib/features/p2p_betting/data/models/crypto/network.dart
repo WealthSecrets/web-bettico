@@ -17,8 +17,7 @@ class Network with _$Network {
 
   const Network._();
 
-  factory Network.fromJson(Map<String, dynamic> json) =>
-      _$NetworkFromJson(json);
+  factory Network.fromJson(Map<String, dynamic> json) => _$NetworkFromJson(json);
 
   factory Network.empty() => const Network(
         id: '',

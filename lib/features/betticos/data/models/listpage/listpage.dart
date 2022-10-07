@@ -14,8 +14,7 @@ class ListPage<T> {
 
   bool isLastPage(int previouslyFetchedItemsCount) {
     final int newItemsCount = itemList.length;
-    final int totalFetchedItemsCount =
-        previouslyFetchedItemsCount + newItemsCount;
+    final int totalFetchedItemsCount = previouslyFetchedItemsCount + newItemsCount;
     return totalFetchedItemsCount == grandTotalCount;
   }
 }

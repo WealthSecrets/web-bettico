@@ -264,24 +264,18 @@ extension ThemeExtension on BuildContext {
   TextStyle get sub2 => theme.textTheme.subtitle2!;
   TextStyle get body1 => theme.textTheme.bodyText1!;
   TextStyle get body2 => theme.textTheme.bodyText2!;
-  TextStyle get body2Bold =>
-      theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w800);
-  TextStyle get bodyError =>
-      theme.textTheme.bodyText2!.copyWith(color: Theme.of(this).errorColor);
+  TextStyle get body2Bold => theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w800);
+  TextStyle get bodyError => theme.textTheme.bodyText2!.copyWith(color: Theme.of(this).errorColor);
   TextStyle get caption => theme.textTheme.caption!;
-  TextStyle get smallest =>
-      theme.textTheme.bodyText2!.copyWith(fontSize: AppFontSizes.smallest);
-  TextStyle get captionError =>
-      theme.textTheme.caption!.copyWith(color: Theme.of(this).errorColor);
+  TextStyle get smallest => theme.textTheme.bodyText2!.copyWith(fontSize: AppFontSizes.smallest);
+  TextStyle get captionError => theme.textTheme.caption!.copyWith(color: Theme.of(this).errorColor);
   TextStyle get button => theme.textTheme.button!;
-  TextStyle get buttonSmall =>
-      theme.textTheme.button!.copyWith(fontSize: AppFontSizes.caption);
+  TextStyle get buttonSmall => theme.textTheme.button!.copyWith(fontSize: AppFontSizes.caption);
   TextStyle get overline => theme.textTheme.overline!;
   TextStyle get appBarTitle => theme.textTheme.bodyText1!.copyWith(
         fontSize: AppFontSizes.h6,
         fontWeight: FontWeight.w600,
         fontFamily: AppFonts.base,
       );
-  bool get isDarkMode =>
-      MediaQuery.of(this).platformBrightness == Brightness.dark;
+  bool get isDarkMode => MediaQuery.of(this).platformBrightness == Brightness.dark;
 }

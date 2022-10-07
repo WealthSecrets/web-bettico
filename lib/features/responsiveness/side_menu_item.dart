@@ -5,9 +5,7 @@ import '../../core/presentation/helpers/responsiveness.dart';
 import 'horizontal_menu_item.dart';
 
 class SideMenuItem extends StatelessWidget {
-  const SideMenuItem(
-      {Key? key, required this.name, required this.route, required this.onTap})
-      : super(key: key);
+  const SideMenuItem({Key? key, required this.name, required this.route, required this.onTap}) : super(key: key);
 
   final String name;
   final String route;

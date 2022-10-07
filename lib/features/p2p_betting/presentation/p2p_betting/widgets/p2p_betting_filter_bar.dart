@@ -45,8 +45,7 @@ class P2PBettingFilterBar extends StatelessWidget {
                       onChanged: (String value) {},
                       options: filter,
                       value: filter[0].toUpperCase(),
-                      customChildBuilder:
-                          (BuildContext context, String? item) => Row(
+                      customChildBuilder: (BuildContext context, String? item) => Row(
                         children: <Widget>[
                           const Icon(
                             Ionicons.funnel_outline,

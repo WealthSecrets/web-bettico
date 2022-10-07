@@ -1,8 +1,9 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_search_delegate.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/presentation/presentation.dart';
@@ -89,21 +90,18 @@ class LiveScoreAppBar extends StatelessWidget {
                   ),
                   IconButton(
                     icon: Image.asset(
-                      'assets/images/betting.png',
+                      AssetImages.betting,
                       color: Colors.black,
                       height: 24,
                       width: 24,
                     ),
                     onPressed: () {
-                      navigationController
-                          .navigateTo(AppRoutes.p2pBettingHistory);
+                      Get.toNamed<void>(P2PBettingHistoryScreen.route);
                     },
                   ),
                   IconButton(
                     onPressed: () {
-                      showSearch<String>(
-                          context: context,
-                          delegate: LivescoreSearchDelegate());
+                      showSearch<String>(context: context, delegate: LivescoreSearchDelegate());
                     },
                     icon: Icon(
                       Icons.search,
@@ -122,9 +120,7 @@ class LiveScoreAppBar extends StatelessWidget {
                     Icon(
                       Ionicons.wallet_sharp,
                       size: 20,
-                      color: walletAddress.isEmpty
-                          ? context.colors.grey
-                          : context.colors.primary,
+                      color: walletAddress.isEmpty ? context.colors.grey : context.colors.primary,
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -152,9 +148,7 @@ class LiveScoreAppBar extends StatelessWidget {
                               ? context.colors.grey.withOpacity(.3)
                               : context.colors.success.withOpacity(.3),
                           border: Border.all(
-                            color: walletAddress.isEmpty
-                                ? context.colors.grey
-                                : context.colors.success,
+                            color: walletAddress.isEmpty ? context.colors.grey : context.colors.success,
                             width: 1,
                           ),
                         ),
@@ -163,9 +157,7 @@ class LiveScoreAppBar extends StatelessWidget {
                           style: context.overline.copyWith(
                             fontSize: 8,
                             fontWeight: FontWeight.w700,
-                            color: walletAddress.isEmpty
-                                ? context.colors.text
-                                : context.colors.success,
+                            color: walletAddress.isEmpty ? context.colors.text : context.colors.success,
                           ),
                         ),
                       ),

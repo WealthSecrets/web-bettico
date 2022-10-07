@@ -12,8 +12,7 @@ class FixtureCard extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final LiveScoreController liveScoreController =
-      Get.find<LiveScoreController>();
+  final LiveScoreController liveScoreController = Get.find<LiveScoreController>();
 
   final LiveScore sFixture;
   final Function() onTap;
@@ -55,9 +54,7 @@ class FixtureCard extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text(
-                        sFixture.scores != null
-                            ? sFixture.scores!.localTeamScore.toString()
-                            : '0',
+                        sFixture.scores != null ? sFixture.scores!.localTeamScore.toString() : '0',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -75,9 +72,7 @@ class FixtureCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        sFixture.scores != null
-                            ? sFixture.scores!.visitorTeamScore.toString()
-                            : '0',
+                        sFixture.scores != null ? sFixture.scores!.visitorTeamScore.toString() : '0',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

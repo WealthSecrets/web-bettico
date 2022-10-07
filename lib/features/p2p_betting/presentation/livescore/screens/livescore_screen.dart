@@ -17,6 +17,9 @@ import '../widgets/score_row.dart';
 // ignore: must_be_immutable
 class LiveScoreScreen extends KFDrawerContent {
   LiveScoreScreen({Key? key}) : super(key: key);
+
+  static const String route = '/betting';
+
   @override
   State<LiveScoreScreen> createState() => _LiveScoreScreenState();
 }
@@ -69,9 +72,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
               loading: lController.isLoading.value,
               child: CustomScrollView(
                 slivers: <Widget>[
-                  if (lController.matches.isEmpty &&
-                      lController.fixtures.isEmpty &&
-                      !lController.isLoading.value)
+                  if (lController.matches.isEmpty && lController.fixtures.isEmpty && !lController.isLoading.value)
                     SliverFillRemaining(
                       child: Padding(
                         padding: AppPaddings.bodyH,
@@ -120,10 +121,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                    fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                   ),
                                 ),
                               );
@@ -163,10 +161,8 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                     ),
                                   ),
                                   child: ScoreRow(
-                                    awayName: lController
-                                        .fixtures[index - 1].awayName,
-                                    homeName: lController
-                                        .fixtures[index - 1].homeName,
+                                    awayName: lController.fixtures[index - 1].awayName,
+                                    homeName: lController.fixtures[index - 1].homeName,
                                     score: '? - ?',
                                     time: lController.fixtures[index - 1].time,
                                   ),
@@ -192,10 +188,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                    fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                   ),
                                 ),
                               );
@@ -211,14 +204,11 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                       lController.connectWC();
                                     }
                                   } else {
-                                    final SoccerMatch match =
-                                        lController.matches[index - 1];
-                                    if (match.time.contains('FT') ||
-                                        match.status == 'FINISHED') {
+                                    final SoccerMatch match = lController.matches[index - 1];
+                                    if (match.time.contains('FT') || match.status == 'FINISHED') {
                                       await AppSnacks.show(
                                         context,
-                                        message:
-                                            'Can\'t bet on this match. It is already completed.',
+                                        message: 'Can\'t bet on this match. It is already completed.',
                                         backgroundColor: context.colors.error,
                                         leadingIcon: const Icon(
                                           Ionicons.checkmark_circle_outline,
@@ -248,12 +238,9 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                     ),
                                   ),
                                   child: ScoreRow(
-                                    awayName:
-                                        lController.matches[index - 1].awayName,
-                                    homeName:
-                                        lController.matches[index - 1].homeName,
-                                    score:
-                                        lController.matches[index - 1].score!,
+                                    awayName: lController.matches[index - 1].awayName,
+                                    homeName: lController.matches[index - 1].homeName,
+                                    score: lController.matches[index - 1].score!,
                                     time: lController.matches[index - 1].time,
                                   ),
                                 ),
@@ -285,8 +272,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
         modalContext: context,
         title: 'Disconnect Wallet',
         backgroundColor: context.colors.error,
-        message:
-            'This will disconnect your wallet address from Bettico. Are you sure you want to disconnect wallet?',
+        message: 'This will disconnect your wallet address from Bettico. Are you sure you want to disconnect wallet?',
         affirmButtonText: 'Disconnect'.toUpperCase(),
         onPressed: () async {
           lController.disconnect();

@@ -1,6 +1,7 @@
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -81,8 +82,7 @@ class LivescoreSearchDelegate extends SearchDelegate<String> {
       margin: AppPaddings.sV.add(AppPaddings.sT),
       child: InkWell(
         onTap: () {
-          if ((match.time as String).contains('FT') ||
-              match.status == 'FINISHED') {
+          if ((match.time as String).contains('FT') || match.status == 'FINISHED') {
             AppSnacks.show(
               context,
               message: 'Can\'t bet on this match. It is already completed.',
@@ -95,14 +95,14 @@ class LivescoreSearchDelegate extends SearchDelegate<String> {
           } else {
             if (lController.sMatches.isNotEmpty) {
               Get.toNamed<void>(
-                AppRoutes.p2pBetting,
+                P2PBettingScreen.route,
                 arguments: LiveScoreArguments(
                   match: match as SoccerMatch,
                 ),
               );
             } else {
               Get.toNamed<void>(
-                AppRoutes.p2pBetting,
+                P2PBettingScreen.route,
                 arguments: LiveScoreArguments(
                   fixture: match as Fixture,
                 ),

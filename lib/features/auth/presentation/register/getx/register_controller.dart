@@ -1,12 +1,18 @@
 import 'dart:io';
 
+import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
+import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_document_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
+import 'package:betticos/features/betticos/presentation/base/screens/base_screen.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -101,6 +107,7 @@ class RegisterController extends GetxController {
   // controllers
   final LoginController lController = Get.find<LoginController>();
   final LiveScoreController wController = Get.find<LiveScoreController>();
+  final MenuController menuController = Get.find<MenuController>();
 
   // social authentication
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -125,11 +132,10 @@ class RegisterController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
       AppSnacks.show(context, message: failure.message);
-      // navigationController.navigateTo(AppRoutes.otpVerify);
     }, (TwilioResponse value) {
       isSendingSms(false);
-      navigationController.navigateTo(
-        AppRoutes.otpVerify,
+      Get.toNamed<void>(
+        OTPVerificationScreen.route,
         arguments: OTPVerificationArgument(
           otpReceiverType: OTPReceiverType.phoneNumber,
           user: u,
@@ -141,9 +147,8 @@ class RegisterController extends GetxController {
   void verifyUserPhoneNumber(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
 
-    final Either<Failure, User> fialureOrSuccess = await verifySms(
-        VerifySmsRequest(
-            code: otpCode.value, phone: u != null ? u.phone! : phone.value));
+    final Either<Failure, User> fialureOrSuccess =
+        await verifySms(VerifySmsRequest(code: otpCode.value, phone: u != null ? u.phone! : phone.value));
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
@@ -155,8 +160,7 @@ class RegisterController extends GetxController {
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        navigationController.navigateTo(AppRoutes.documentScreen);
-        Get.offAll<void>(AppRoutes.documentScreen);
+        Get.offAll<void>(RegistrationDocumentScreen.route);
       }
     });
   }
@@ -164,9 +168,8 @@ class RegisterController extends GetxController {
   void verifyUserEmailAddress(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
 
-    final Either<Failure, User> fialureOrSuccess = await verifyEmail(
-        VerifyEmailRequest(
-            code: otpCode.value, email: u != null ? u.email : email.value));
+    final Either<Failure, User> fialureOrSuccess =
+        await verifyEmail(VerifyEmailRequest(code: otpCode.value, email: u != null ? u.email : email.value));
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
@@ -177,7 +180,7 @@ class RegisterController extends GetxController {
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        navigationController.navigateTo(AppRoutes.accountType);
+        Get.toNamed<void>(RegistrationAccountTypeScreen.route);
       }
     });
   }
@@ -209,19 +212,16 @@ class RegisterController extends GetxController {
     });
   }
 
-  void registerWithGoogleAuth(BuildContext context,
-      {bool isRequestFromLogin = false}) async {
+  void registerWithGoogleAuth(BuildContext context, {bool isRequestFromLogin = false}) async {
     type('google');
 
     try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String googleEmail = googleSignInAccount.email;
         final String? displayName = googleSignInAccount.displayName;
         final String? photoUrl = googleSignInAccount.photoUrl;
-        final GoogleSignInAuthentication kd =
-            await googleSignInAccount.authentication;
+        final GoogleSignInAuthentication kd = await googleSignInAccount.authentication;
         email(googleEmail);
         if (displayName != null) {
           username(displayName);
@@ -270,11 +270,10 @@ class RegisterController extends GetxController {
     }, (User value) {
       isAddingProfileImage(false);
       if (ResponsiveWidget.isSmallScreen(context)) {
-        navigationController.navigateTo(AppRoutes.base);
+        Get.toNamed<void>(BaseScreen.route);
       } else {
-        Get.offAll<void>(const HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+        Get.toNamed<void>(TimelineScreen.route);
+        menuController.changeActiveItemTo(TimelineScreen.route);
       }
     });
   }
@@ -300,7 +299,7 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        navigationController.navigateTo(AppRoutes.personalInformation);
+        Get.toNamed<void>(RegistrationPersonalInformationScreen.route);
       },
     );
   }
@@ -320,9 +319,8 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
-        Get.offAll<void>(const HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+        Get.offAll<void>(TimelineScreen.route);
+        menuController.changeActiveItemTo(TimelineScreen.route);
       },
     );
   }
@@ -346,7 +344,7 @@ class RegisterController extends GetxController {
       },
       (User us) {
         isAddingPersonalInformation(true);
-        navigationController.navigateTo(AppRoutes.addressConnect);
+        Get.toNamed<void>(RegistrationWalletScreen.route);
       },
     );
   }
@@ -492,8 +490,7 @@ class RegisterController extends GetxController {
     required int minimumAge,
     String? errorMessage,
   }) {
-    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() <
-        minimumAge) {
+    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() < minimumAge) {
       return errorMessage ?? 'You should be at least $minimumAge years old';
     }
 
@@ -548,6 +545,5 @@ class RegisterController extends GetxController {
       validateLastName(lastName.value) == null &&
       validateUsername(username.value) == null &&
       validatePhone(phone.value) == null &&
-      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) ==
-          null;
+      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) == null;
 }

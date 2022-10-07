@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 ///Colors Generated from http://mcg.mbitson.com/
 
 class PrimaryColor {
-  static const MaterialColor color =
-      MaterialColor(_betticosPrimaryValue, <int, Color>{
+  static const MaterialColor color = MaterialColor(_betticosPrimaryValue, <int, Color>{
     50: Color(0xFFFFF7E3),
     100: Color(0xFFFEECB8),
     200: Color(0xFFFEDF89),
@@ -18,8 +17,7 @@ class PrimaryColor {
   });
   static const int _betticosPrimaryValue = 0xFFFDBE13;
 
-  static const MaterialColor accent =
-      MaterialColor(_betticosAccentValue, <int, Color>{
+  static const MaterialColor accent = MaterialColor(_betticosAccentValue, <int, Color>{
     100: Color(0xFFCA842A),
     200: Color(0xFFC57C25),
     400: Color(0xFFBD711F),

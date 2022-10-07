@@ -1,6 +1,6 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +12,8 @@ import '/features/auth/presentation/resetPassword/getx/reset_controller.dart';
 
 class ResetScreen extends GetWidget<ResetController> {
   ResetScreen({Key? key}) : super(key: key);
+  static const String route = '/reset-password';
+
   final ForgotController fController = Get.find<ForgotController>();
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,7 @@ class ResetScreen extends GetWidget<ResetController> {
           backgroundColor: Colors.white,
           body: Center(
             child: SizedBox(
-              width: ResponsiveWidget.isSmallScreen(context)
-                  ? double.infinity
-                  : 450,
+              width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: AppPaddings.lH,
@@ -42,8 +42,7 @@ class ResetScreen extends GetWidget<ResetController> {
                             color: context.colors.secondary,
                           ),
                         ),
-                      if (ResponsiveWidget.isSmallScreen(context))
-                        const SizedBox(height: 10),
+                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.center,
                         child: RichText(
@@ -58,24 +57,6 @@ class ResetScreen extends GetWidget<ResetController> {
                         ),
                       ),
                       const SizedBox(height: 50),
-                      // AppTextInput(
-                      //   obscureText: true,
-                      //   labelText: 'RESET CODE',
-                      //   showObscureTextToggle: true,
-                      //   backgroundColor: context.colors.primary.shade100,
-                      //   lableStyle: TextStyle(
-                      //     color: context.colors.primary,
-                      //     fontWeight: FontWeight.w700,
-                      //     fontSize: 10,
-                      //   ),
-                      //   errorStyle: TextStyle(
-                      //     color: context.colors.error,
-                      //     fontSize: 12,
-                      //   ),
-                      //   textInputType: TextInputType.number,
-                      //   validator: controller.validateResetCode,
-                      //   onChanged: controller.onResetInputChanged,
-                      // ),
                       AppTextInput(
                         obscureText: true,
                         labelText: 'NEW PASSWORD',
@@ -110,17 +91,14 @@ class ResetScreen extends GetWidget<ResetController> {
                         validator: controller.validateConfirmPassword,
                         onChanged: controller.onConfirmPasswordInputChanged,
                       ),
-                      if (ResponsiveWidget.isSmallScreen(context))
-                        const SizedBox(height: 10),
-                      if (!ResponsiveWidget.isSmallScreen(context))
-                        const SizedBox(height: 50),
+                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 10),
+                      if (!ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 50),
                       AppButton(
                         enabled: controller.formIsValid,
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.primary,
-                        onPressed: () =>
-                            controller.reset(context, fController.email.value),
+                        onPressed: () => controller.reset(context, fController.email.value),
                         // onPressed: () => Get.toNamed<void>(AppRoutes.reset),
                         child: Text(
                           'reset password'.toUpperCase(),
@@ -134,7 +112,7 @@ class ResetScreen extends GetWidget<ResetController> {
                       const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          navigationController.navigateTo(AppRoutes.forgot);
+                          Get.toNamed<void>(ForgotPasswordScreen.route);
                         },
                         child: Center(
                           child: RichText(
@@ -155,8 +133,7 @@ class ResetScreen extends GetWidget<ResetController> {
                                   text: 'Tap here',
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      navigationController
-                                          .navigateTo(AppRoutes.forgot);
+                                      Get.toNamed<void>(ForgotPasswordScreen.route);
                                     },
                                   style: TextStyle(
                                     color: context.colors.primary,

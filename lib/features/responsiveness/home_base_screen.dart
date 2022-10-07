@@ -6,6 +6,7 @@ import 'large_screen.dart';
 
 class HomeBaseScreen extends StatelessWidget {
   const HomeBaseScreen({Key? key}) : super(key: key);
+  static const String route = '/home';
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

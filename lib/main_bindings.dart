@@ -24,109 +24,9 @@ import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/p2p_betting/data/repositories/p2p_repository_impl.dart';
 
-// class MainBindings extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.put<Dio>(
-//       Dio(
-//         BaseOptions(
-//           baseUrl: environment.url,
-//           connectTimeout: 40000,
-//           receiveTimeout: 40000,
-//           headers: <String, dynamic>{
-//             'Content-Type': 'application/json',
-//           },
-//         ),
-//       ),
-//       permanent: true,
-//     );
-
-//     Get.put<SharedPreferencesWrapper>(
-//       SharedPreferencesWrapper(),
-//       permanent: true,
-//     );
-
-//     Get.put<SettingsLocalDataSource>(
-//       SettingsLocalDataSourceImpl(Get.find()),
-//       permanent: true,
-//     );
-
-//     Get.put<AuthLocalDataSource>(
-//       AuthLocalDataSourceImpl(Get.find()),
-//       permanent: true,
-//     );
-
-//     Get.put<OnBoardLocalDataSource>(
-//       OnBoardLocalDataSourceImpl(Get.find()),
-//       permanent: true,
-//     );
-
-//     Get.put<AppHTTPClient>(
-//       DioHTTPClient(
-//         authLocalDataSource: Get.find(),
-//         client: Get.find(),
-//       ),
-//       permanent: true,
-//     );
-
-//     Get.put<AuthRemoteDataSource>(
-//       AuthRemoteDataSourceImpl(client: Get.find()),
-//       permanent: true,
-//     );
-
-//     Get.put<BetticosRemoteDataSource>(
-//       BetticosRemoteDataSourceImpl(client: Get.find()),
-//       permanent: true,
-//     );
-
-//     Get.put<P2pRemoteDataSource>(
-//       P2pRemoteDataSourceImpl(client: Get.find()),
-//       permanent: true,
-//     );
-
-//     Get.put<OnBoardRepository>(
-//       OnBoardRepositoryImpl(
-//         onBoardLocalDataSource: Get.find(),
-//       ),
-//       permanent: true,
-//     );
-
-//     Get.put<SettingsRepository>(
-//       SettingsRepositoryImpl(
-//         settingsLocalDataSource: Get.find(),
-//       ),
-//       permanent: true,
-//     );
-
-//     Get.put<AuthRepository>(
-//       AuthRepositoryImpl(
-//         authLocalDataSource: Get.find(),
-//         authRemoteDataSource: Get.find(),
-//       ),
-//       permanent: true,
-//     );
-
-//     Get.put<BetticosRepository>(
-//       BetticosRepositoryImpl(
-//         authLocalDataSource: Get.find(),
-//         betticoslineRemoteDataSource: Get.find(),
-//       ),
-//       permanent: true,
-//     );
-
-//     Get.put<P2pRepository>(
-//       P2pRepositoryImpl(
-//         p2pRemoteDataSource: Get.find(),
-//       ),
-//       permanent: true,
-//     );
-
-//     TimelineBindings();
-//   }
-// }
-
-class MainBindings {
-  static void dependencies() {
+class MainBindings extends Bindings {
+  @override
+  void dependencies() {
     Get.put<Dio>(
       Dio(
         BaseOptions(
@@ -224,3 +124,103 @@ class MainBindings {
     TimelineBindings();
   }
 }
+
+// class MainBindings {
+//   static void dependencies() {
+//     Get.put<Dio>(
+//       Dio(
+//         BaseOptions(
+//           baseUrl: environment.url,
+//           connectTimeout: 40000,
+//           receiveTimeout: 40000,
+//           headers: <String, dynamic>{
+//             'Content-Type': 'application/json',
+//           },
+//         ),
+//       ),
+//       permanent: true,
+//     );
+
+//     Get.put<SharedPreferencesWrapper>(
+//       SharedPreferencesWrapper(),
+//       permanent: true,
+//     );
+
+//     Get.put<SettingsLocalDataSource>(
+//       SettingsLocalDataSourceImpl(Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<AuthLocalDataSource>(
+//       AuthLocalDataSourceImpl(Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<OnBoardLocalDataSource>(
+//       OnBoardLocalDataSourceImpl(Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<AppHTTPClient>(
+//       DioHTTPClient(
+//         authLocalDataSource: Get.find(),
+//         client: Get.find(),
+//       ),
+//       permanent: true,
+//     );
+
+//     Get.put<AuthRemoteDataSource>(
+//       AuthRemoteDataSourceImpl(client: Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<BetticosRemoteDataSource>(
+//       BetticosRemoteDataSourceImpl(client: Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<P2pRemoteDataSource>(
+//       P2pRemoteDataSourceImpl(client: Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<OnBoardRepository>(
+//       OnBoardRepositoryImpl(
+//         onBoardLocalDataSource: Get.find(),
+//       ),
+//       permanent: true,
+//     );
+
+//     Get.put<SettingsRepository>(
+//       SettingsRepositoryImpl(
+//         settingsLocalDataSource: Get.find(),
+//       ),
+//       permanent: true,
+//     );
+
+//     Get.put<AuthRepository>(
+//       AuthRepositoryImpl(
+//         authLocalDataSource: Get.find(),
+//         authRemoteDataSource: Get.find(),
+//       ),
+//       permanent: true,
+//     );
+
+//     Get.put<BetticosRepository>(
+//       BetticosRepositoryImpl(
+//         authLocalDataSource: Get.find(),
+//         betticoslineRemoteDataSource: Get.find(),
+//       ),
+//       permanent: true,
+//     );
+
+//     Get.put<P2pRepository>(
+//       P2pRepositoryImpl(
+//         p2pRemoteDataSource: Get.find(),
+//       ),
+//       permanent: true,
+//     );
+
+//     TimelineBindings();
+//   }
+// }

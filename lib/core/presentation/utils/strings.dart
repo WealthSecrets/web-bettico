@@ -9,8 +9,7 @@ class AppStrings extends Translations {
           'verify_email': 'Verify Email',
           'password': 'Password',
           'forgot_pass': 'Forgot Password?',
-          'forgot_password':
-              'Enter a secure password that you can easily remember',
+          'forgot_password': 'Enter a secure password that you can easily remember',
           'sign_in': 'Sign In',
           'no_account': 'Don\'t have an account? ',
           'register_now': 'Register Now',
@@ -18,15 +17,13 @@ class AppStrings extends Translations {
           'login_email': 'Login with email',
           'create_account': 'Create an account.',
           'address_verification': 'Address Verification',
-          'signup_info':
-              'Please provide your email and password and click \'Next\' to continue.',
+          'signup_info': 'Please provide your email and password and click \'Next\' to continue.',
           'confirm_pass': 'Confirm Password',
           'ref_code_opt': 'REFERRAL CODE (OPTIONAL)',
           'oddster_select': 'Sign up as Oddster',
           'next': 'Next',
           'personal_info': 'Personal Information',
-          'fill_form':
-              'Please fill in the form  If you are satisfied with the content, please click \'Next\'',
+          'fill_form': 'Please fill in the form  If you are satisfied with the content, please click \'Next\'',
           'first_name': 'First Name',
           'last_name': 'Last Name',
           'username': 'Username',
@@ -39,8 +36,7 @@ class AppStrings extends Translations {
           'otp_msg_2': 'you provided during registration',
           'resend_code': 'Resend verification code in: ',
           'skip': 'Skip',
-          'upload_doc':
-              'Please upload an identification document to complete your profile.',
+          'upload_doc': 'Please upload an identification document to complete your profile.',
           'identification': 'Identification',
           'iden_type': 'Identification Type',
           'iden_number': 'Identification Number',
@@ -110,20 +106,17 @@ class AppStrings extends Translations {
           'send_again': 'Send code again',
           'no_oddboxes': 'No odd boxes were found.',
           'no_posts': 'No posts were found.',
-          'enjoy_exclusive_1':
-              'Enjoy exclusive offers on odds by signing up with Bettico.',
+          'enjoy_exclusive_1': 'Enjoy exclusive offers on odds by signing up with Bettico.',
           'enjoy_exclusive_2':
               'Download the app here: https://play.google.com/store/apps/details?id=com.betticos.mobile',
           'slip_code': 'Slip Code',
           'remove_slip_code': 'Remove Slip Code',
-          'fast_betting':
-              'Fast live betting for over 2,000 live games everyday.',
+          'fast_betting': 'Fast live betting for over 2,000 live games everyday.',
           'sporting': 'Sporting',
           'sport_news':
               'Sports news, previews, reviews and betting tips and interviews with stars of horse racing, football & much more...',
           'online_odds': 'Online Odds',
-          'have_lost':
-              'Have you ever lost a potential big WIN just because of one match?',
+          'have_lost': 'Have you ever lost a potential big WIN just because of one match?',
           'liked_by': 'Liked by',
           'follow_oddsters': 'Follow oddsters',
           'sure_bet': 'Sure Betting',
@@ -136,14 +129,11 @@ class AppStrings extends Translations {
           'win_again': 'Win Again',
           'enter': 'Enter',
           'remember_now': 'You remember now? ',
-          'img_post_tut':
-              'Make your posts more graphical by adding images here',
+          'img_post_tut': 'Make your posts more graphical by adding images here',
           'slip_code_tut': 'Add your odds slip code here',
-          'send_post_tut':
-              'Finally, click here to share your awesome post with the world',
+          'send_post_tut': 'Finally, click here to share your awesome post with the world',
           'view_posts_tut': 'View all interesting posts here',
-          'create_posts_tut':
-              'Create your awesome contributions and posts here',
+          'create_posts_tut': 'Create your awesome contributions and posts here',
           'update_tut': 'Check the hottest oddsters out here',
           'promo_tut': 'Check out your favorite promos and products here',
           'lang': 'language',
@@ -258,8 +248,7 @@ class AppStrings extends Translations {
           'choose_profile_photo': '选择个人资料照片',
           'update_profile': '更新个人信息',
           'enjoy_exclusive_1': '注册 Bettico 即可享受独家赔率优惠。',
-          'enjoy_exclusive_2':
-              '在此处下载应用程序：https://play.google.com/store/apps/details?id=com.betticos.mobile',
+          'enjoy_exclusive_2': '在此处下载应用程序：https://play.google.com/store/apps/details?id=com.betticos.mobile',
           'copied': '复制到剪贴板',
           'user': '用户',
           'settings_screen': '设定画面',

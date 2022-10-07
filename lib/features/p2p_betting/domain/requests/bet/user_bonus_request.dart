@@ -11,6 +11,5 @@ class UserBonusRequest with _$UserBonusRequest {
     required String type,
     required double amount,
   }) = _UserBonusRequest;
-  factory UserBonusRequest.fromJson(Map<String, dynamic> json) =>
-      _$UserBonusRequestFromJson(json);
+  factory UserBonusRequest.fromJson(Map<String, dynamic> json) => _$UserBonusRequestFromJson(json);
 }

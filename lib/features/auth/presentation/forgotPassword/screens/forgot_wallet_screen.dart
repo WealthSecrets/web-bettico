@@ -10,6 +10,9 @@ import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class ForgotWalletScreen extends GetWidget<RegisterController> {
   ForgotWalletScreen({Key? key}) : super(key: key);
+
+  static const String route = '/forgot-wallet-connect';
+
   final ForgotController fController = Get.find<ForgotController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
 
@@ -31,9 +34,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
             loading: controller.isUpdatingUserRole.value,
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
@@ -84,8 +85,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Wallet Address: ' +
-                                  lController.walletAddress.value,
+                              'Wallet Address: ' + lController.walletAddress.value,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.primary,

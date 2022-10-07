@@ -13,8 +13,9 @@ import '/features/p2p_betting/presentation/livescore/getx/live_score_controllers
 import '../../../domain/usecases/live_score/get_live_matches.dart';
 import '../../../domain/usecases/sportmonks/get_league.dart';
 
-class LiveScoreBindings {
-  static void dependencies() {
+class LiveScoreBindings extends Bindings {
+  @override
+  void dependencies() {
     Get.lazyPut(
       () => LiveScoreController(
         getLiveMatches: GetLiveMatches(

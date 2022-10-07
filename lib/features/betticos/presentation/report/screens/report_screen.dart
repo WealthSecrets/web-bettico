@@ -11,6 +11,8 @@ import '/core/core.dart';
 class ReportScreen extends StatefulWidget {
   const ReportScreen({Key? key}) : super(key: key);
 
+  static const String route = '/report';
+
   @override
   State<ReportScreen> createState() => _ReportScreenState();
 }
@@ -30,8 +32,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ReportArgument? args =
-        ModalRoute.of(context)?.settings.arguments as ReportArgument?;
+    final ReportArgument? args = ModalRoute.of(context)?.settings.arguments as ReportArgument?;
     if (args != null) {
       controller.setPostId(pId: args.postId);
       controller.setUserId(uId: args.userId);

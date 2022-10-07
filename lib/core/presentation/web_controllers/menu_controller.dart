@@ -1,4 +1,12 @@
-import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
+import 'package:betticos/features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
+import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
+import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
+import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
+import 'package:betticos/features/settings/presentation/settings/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -6,7 +14,7 @@ import 'package:ionicons/ionicons.dart';
 class MenuController extends GetxController {
   static MenuController instance = Get.find();
 
-  RxString activeitem = AppRoutes.timeline.obs;
+  RxString activeitem = TimelineScreen.route.obs;
   RxString hoverItem = ''.obs;
 
   void changeActiveItemTo(String itemName) {
@@ -25,23 +33,23 @@ class MenuController extends GetxController {
 
   Widget returnIconFor(String itemName) {
     switch (itemName) {
-      case AppRoutes.timeline:
+      case TimelineScreen.route:
         return _customIcon(Ionicons.home, itemName);
-      case AppRoutes.profile:
+      case ProfileScreen.route:
         return _customIcon(Ionicons.person_circle, itemName);
-      case AppRoutes.livescore:
+      case LiveScoreScreen.route:
         return _customIcon(Ionicons.football, itemName);
-      case AppRoutes.oddboxes:
+      case OddsboxScreen.route:
         return _customIcon(Ionicons.gift, itemName);
-      case AppRoutes.members:
+      case MembersScreen.route:
         return _customIcon(Ionicons.people_circle, itemName);
-      case AppRoutes.oddsters:
+      case OddstersScreen.route:
         return _customIcon(Ionicons.trending_up, itemName);
-      case AppRoutes.p2pBetting:
+      case P2PBettingScreen.route:
         return _customIcon(Ionicons.baseball, itemName);
-      case AppRoutes.referral:
+      case ReferralScreen.route:
         return _customIcon(Ionicons.share_social, itemName);
-      case AppRoutes.settings:
+      case SettingsScreen.route:
         return _customIcon(Ionicons.settings, itemName);
       default:
         return _customIcon(Icons.exit_to_app, itemName);
@@ -56,9 +64,7 @@ class MenuController extends GetxController {
     return Icon(
       icon,
       size: 24,
-      color: isHovering(itemName)
-          ? const Color(0xFF3d3d3d)
-          : const Color(0xFFD3D3D3),
+      color: isHovering(itemName) ? const Color(0xFF3d3d3d) : const Color(0xFFD3D3D3),
     );
   }
 }

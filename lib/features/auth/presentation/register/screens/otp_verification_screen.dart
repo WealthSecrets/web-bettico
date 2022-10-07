@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +20,8 @@ class OTPVerificationScreen extends StatefulWidget {
     required this.otpReceiverType,
     this.user,
   }) : super(key: key);
+
+  static const String route = '/otp-verification';
 
   final OTPReceiverType otpReceiverType;
   final User? user;
@@ -82,9 +84,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           body: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyA,
                   child: AppAnimatedColumn(
@@ -151,11 +151,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                           alignment: Alignment.center,
                           child: Text(
                             'didnt_receive'.tr,
-                            style:
-                                Theme.of(context).textTheme.headline6?.copyWith(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
+                            style: Theme.of(context).textTheme.headline6?.copyWith(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -176,20 +175,15 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 _showResendButton = false;
                               });
                               _startTimer();
-                              if (widget.otpReceiverType ==
-                                  OTPReceiverType.email) {
+                              if (widget.otpReceiverType == OTPReceiverType.email) {
                                 lController.resendOTPEmail(
                                   context,
-                                  widget.user != null
-                                      ? widget.user!.email
-                                      : controller.email.value,
+                                  widget.user != null ? widget.user!.email : controller.email.value,
                                 );
                               } else {
                                 lController.resendOTPSms(
                                   context,
-                                  widget.user != null
-                                      ? widget.user!.phone!
-                                      : controller.phone.value,
+                                  widget.user != null ? widget.user!.phone! : controller.phone.value,
                                 );
                               }
                             },
@@ -212,14 +206,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               lController.reRouteOddster(
                                 context,
                                 widget.user!,
-                                isSkipEmail: widget.otpReceiverType ==
-                                    OTPReceiverType.email,
-                                isSkipPhone: widget.otpReceiverType !=
-                                    OTPReceiverType.email,
+                                isSkipEmail: widget.otpReceiverType == OTPReceiverType.email,
+                                isSkipPhone: widget.otpReceiverType != OTPReceiverType.email,
                               );
                             } else {
-                              navigationController
-                                  .navigateTo(AppRoutes.accountType);
+                              Get.toNamed<void>(RegistrationAccountTypeScreen.route);
                             }
                           },
                           child: Text(

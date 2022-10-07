@@ -7,6 +7,7 @@ import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegistrationUploadPhotoScreen extends GetWidget<RegisterController> {
   const RegistrationUploadPhotoScreen({Key? key}) : super(key: key);
+  static const String route = '/profile-photo';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +25,7 @@ class RegistrationUploadPhotoScreen extends GetWidget<RegisterController> {
           child: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.homeH,
                   child: AppAnimatedColumn(
@@ -66,8 +65,7 @@ class RegistrationUploadPhotoScreen extends GetWidget<RegisterController> {
                       AppButton(
                         enabled: controller.profileFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
-                        onPressed: () =>
-                            controller.updateTheUserProfilePhoto(context),
+                        onPressed: () => controller.updateTheUserProfilePhoto(context),
                         child: Text(
                           'next'.tr,
                           style: const TextStyle(

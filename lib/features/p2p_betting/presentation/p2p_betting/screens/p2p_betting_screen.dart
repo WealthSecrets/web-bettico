@@ -26,9 +26,9 @@ class P2PBettingScreen extends StatefulWidget {
     required this.liveScore,
   }) : super(key: key);
 
-  // final Fixture? fixture;
-  // final SoccerMatch? match;
   final LiveScore liveScore;
+
+  static const String route = '/create-bet';
 
   @override
   State<StatefulWidget> createState() => _P2PBettingScreenState();
@@ -96,8 +96,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isAddingBet.value ||
-                lController.showLoadingLogo.value,
+            loading: controller.isAddingBet.value || lController.showLoadingLogo.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
@@ -129,8 +128,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                       ),
                       localTeamScore: widget.liveScore.scores!.localTeamScore,
                       time: widget.liveScore.time,
-                      visitorTeamScore:
-                          widget.liveScore.scores!.visitorTeamScore,
+                      visitorTeamScore: widget.liveScore.scores!.visitorTeamScore,
                       onAwayPressed: () => controller.selectTeam(
                         widget.liveScore.visitorTeam.data.name,
                         widget.liveScore.visitorTeam.data.id,
@@ -158,8 +156,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                       controller.onAmountInputChanged(value);
                       final double? amount = double.tryParse(value);
                       if (amount != null) {
-                        lController.convertAmount(context,
-                            lController.selectedCurrency.value, amount);
+                        lController.convertAmount(context, lController.selectedCurrency.value, amount);
                       }
                     },
                     inputFormatters: <TextInputFormatter>[
@@ -229,19 +226,16 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   const AppSpacing(v: 70),
                   AppButton(
                     onPressed: () async {
-                      if (user.bonus != null &&
-                          user.bonus! > controller.amount.value) {
+                      if (user.bonus != null && user.bonus! > controller.amount.value) {
                         // deduct from the bonus
-                        bController.increaseDecreaseUserBonus(
-                            'decrease', controller.amount.value);
+                        bController.increaseDecreaseUserBonus('decrease', controller.amount.value);
 
                         controller.addNewBet(
                           context,
                           lController.walletAddress.value,
                         );
                       } else {
-                        final String? actualHash =
-                            await lController.send(context);
+                        final String? actualHash = await lController.send(context);
 
                         if (actualHash != null) {
                           controller.addNewBet(

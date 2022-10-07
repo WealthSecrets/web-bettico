@@ -73,8 +73,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                 bounce: true,
                 backgroundColor: Colors.white,
                 animationCurve: Curves.fastLinearToSlowEaseIn,
-                shape: RoundedRectangleBorder(
-                    borderRadius: AppBorderRadius.largeTop),
+                shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.largeTop),
                 builder: (BuildContext context) {
                   return Container(
                     decoration: const BoxDecoration(
@@ -102,10 +101,8 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                 dateTime.month,
                                 dateTime.day,
                               );
-                              controller.value = TextEditingValue(
-                                  text: AppDateUtils.format(dateTime));
-                              if (widget.onDateTimeChanged != null &&
-                                  _selectedDate.value != null) {
+                              controller.value = TextEditingValue(text: AppDateUtils.format(dateTime));
+                              if (widget.onDateTimeChanged != null && _selectedDate.value != null) {
                                 widget.onDateTimeChanged!(_selectedDate.value!);
                               }
                               widget.validator!(_selectedDate.value);
@@ -150,12 +147,9 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                   dateTime.month,
                                   dateTime.day,
                                 );
-                                controller.value = TextEditingValue(
-                                    text: AppDateUtils.format(dateTime));
-                                if (widget.onDateTimeChanged != null &&
-                                    _selectedDate.value != null) {
-                                  widget
-                                      .onDateTimeChanged!(_selectedDate.value!);
+                                controller.value = TextEditingValue(text: AppDateUtils.format(dateTime));
+                                if (widget.onDateTimeChanged != null && _selectedDate.value != null) {
+                                  widget.onDateTimeChanged!(_selectedDate.value!);
                                 }
                                 widget.validator!(_selectedDate.value);
                               },
@@ -182,8 +176,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                   },
                   initialValue: date == null ? null : AppDateUtils.format(date),
                   controller: controller,
-                  backgroundColor:
-                      widget.backgroundColor ?? context.colors.primary.shade50,
+                  backgroundColor: widget.backgroundColor ?? context.colors.primary.shade50,
                   hintText: '',
                   onChanged: (_) {},
                   prefixIcon: widget.showIcon
@@ -193,8 +186,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                               await showMaterialModalBottomSheet<void>(
                                 bounce: true,
                                 animationCurve: Curves.fastLinearToSlowEaseIn,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: AppBorderRadius.largeTop),
+                                shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.largeTop),
                                 builder: (BuildContext context) {
                                   return Container(
                                     decoration: const BoxDecoration(
@@ -206,8 +198,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                       child: CupertinoTheme(
                                         data: CupertinoThemeData(
                                           textTheme: CupertinoTextThemeData(
-                                            dateTimePickerTextStyle:
-                                                context.body1.copyWith(
+                                            dateTimePickerTextStyle: context.body1.copyWith(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w400,
                                               color: context.colors.textDark,
@@ -217,24 +208,17 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                         child: CupertinoDatePicker(
                                           mode: CupertinoDatePickerMode.date,
                                           initialDateTime: _selectedDate.value,
-                                          onDateTimeChanged:
-                                              (DateTime dateTime) {
+                                          onDateTimeChanged: (DateTime dateTime) {
                                             _selectedDate.value = DateTime.utc(
                                               dateTime.year,
                                               dateTime.month,
                                               dateTime.day,
                                             );
-                                            controller.value = TextEditingValue(
-                                                text: AppDateUtils.format(
-                                                    dateTime));
-                                            if (widget.onDateTimeChanged !=
-                                                    null &&
-                                                _selectedDate.value != null) {
-                                              widget.onDateTimeChanged!(
-                                                  _selectedDate.value!);
+                                            controller.value = TextEditingValue(text: AppDateUtils.format(dateTime));
+                                            if (widget.onDateTimeChanged != null && _selectedDate.value != null) {
+                                              widget.onDateTimeChanged!(_selectedDate.value!);
                                             }
-                                            widget.validator!(
-                                                _selectedDate.value);
+                                            widget.validator!(_selectedDate.value);
                                           },
                                         ),
                                       ),
@@ -257,47 +241,32 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                         width: 400,
                                         height: 300,
                                         child: ClipRRect(
-                                          borderRadius:
-                                              AppBorderRadius.mediumAll,
+                                          borderRadius: AppBorderRadius.mediumAll,
                                           child: CupertinoTheme(
                                             data: CupertinoThemeData(
                                               textTheme: CupertinoTextThemeData(
-                                                dateTimePickerTextStyle:
-                                                    context.body1.copyWith(
+                                                dateTimePickerTextStyle: context.body1.copyWith(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w400,
-                                                  color:
-                                                      context.colors.textDark,
+                                                  color: context.colors.textDark,
                                                 ),
                                               ),
                                             ),
                                             child: CupertinoDatePicker(
-                                              mode:
-                                                  CupertinoDatePickerMode.date,
-                                              initialDateTime:
-                                                  _selectedDate.value,
-                                              onDateTimeChanged:
-                                                  (DateTime dateTime) {
-                                                _selectedDate.value =
-                                                    DateTime.utc(
+                                              mode: CupertinoDatePickerMode.date,
+                                              initialDateTime: _selectedDate.value,
+                                              onDateTimeChanged: (DateTime dateTime) {
+                                                _selectedDate.value = DateTime.utc(
                                                   dateTime.year,
                                                   dateTime.month,
                                                   dateTime.day,
                                                 );
                                                 controller.value =
-                                                    TextEditingValue(
-                                                        text:
-                                                            AppDateUtils.format(
-                                                                dateTime));
-                                                if (widget.onDateTimeChanged !=
-                                                        null &&
-                                                    _selectedDate.value !=
-                                                        null) {
-                                                  widget.onDateTimeChanged!(
-                                                      _selectedDate.value!);
+                                                    TextEditingValue(text: AppDateUtils.format(dateTime));
+                                                if (widget.onDateTimeChanged != null && _selectedDate.value != null) {
+                                                  widget.onDateTimeChanged!(_selectedDate.value!);
                                                 }
-                                                widget.validator!(
-                                                    _selectedDate.value);
+                                                widget.validator!(_selectedDate.value);
                                               },
                                             ),
                                           ),

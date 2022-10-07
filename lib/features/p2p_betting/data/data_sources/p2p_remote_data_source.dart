@@ -32,8 +32,7 @@ abstract class P2pRemoteDataSource {
 
   Future<Bet> addBet({required BetRequest request});
 
-  Future<Bet> updateBet(
-      {required BetUpdateRequest request, required String betId});
+  Future<Bet> updateBet({required BetUpdateRequest request, required String betId});
 
   Future<Bet> updateBetStatusScore({
     required UpdateBetStatusScoreRequest request,

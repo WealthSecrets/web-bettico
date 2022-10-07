@@ -75,9 +75,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 if (widget.awayDisabled ?? false)
                   MatchAvatar(
                     logo: widget.awayTeam.logo,
-                    selected: widget.awayDisabled ??
-                        p2pBetController.teamSelected.value ==
-                            widget.awayTeam.name,
+                    selected: widget.awayDisabled ?? p2pBetController.teamSelected.value == widget.awayTeam.name,
                     disabled: widget.awayDisabled,
                     onPressed: widget.onAwayPressed,
                   )
@@ -85,8 +83,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                   Obx(
                     () => MatchAvatar(
                       logo: widget.awayTeam.logo,
-                      selected: p2pBetController.teamSelected.value ==
-                          widget.awayTeam.name,
+                      selected: p2pBetController.teamSelected.value == widget.awayTeam.name,
                       disabled: widget.awayDisabled,
                       onPressed: widget.onAwayPressed,
                     ),
@@ -175,9 +172,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 if (widget.homeDisabled ?? false)
                   MatchAvatar(
                     logo: widget.homeTeam.name,
-                    selected: widget.homeDisabled ??
-                        p2pBetController.teamSelected.value ==
-                            widget.homeTeam.name,
+                    selected: widget.homeDisabled ?? p2pBetController.teamSelected.value == widget.homeTeam.name,
                     disabled: widget.homeDisabled,
                     onPressed: widget.onHomePressed,
                   )
@@ -185,8 +180,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                   Obx(
                     () => MatchAvatar(
                       logo: widget.homeTeam.logo,
-                      selected: p2pBetController.teamSelected.value ==
-                          widget.homeTeam.name,
+                      selected: p2pBetController.teamSelected.value == widget.homeTeam.name,
                       disabled: widget.homeDisabled,
                       onPressed: widget.onHomePressed,
                     ),

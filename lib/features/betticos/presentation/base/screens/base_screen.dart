@@ -1,4 +1,5 @@
 // ignore_for_file: always_specify_types, use_full_hex_values_for_flutter_colors
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ import '../../referral/screens/referral_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
+  static const String route = '/base';
   @override
   BaseScreenState createState() => BaseScreenState();
 }
@@ -70,8 +72,7 @@ class BaseScreenState extends State<BaseScreen> {
               _drawerController?.close!();
               Navigator.of(context).push<void>(
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) =>
-                      ProfileScreen(showBackButton: true),
+                  builder: (BuildContext context) => ProfileScreen(showBackButton: true),
                 ),
               );
             },
@@ -220,7 +221,7 @@ class BaseScreenState extends State<BaseScreen> {
                 size: 20,
               ),
               onPressed: () {
-                Get.toNamed<void>(AppRoutes.login);
+                Get.toNamed<void>(LoginScreen.route);
               },
             ),
           KFDrawerItem(
@@ -260,8 +261,7 @@ class BaseScreenState extends State<BaseScreen> {
                 onTap: () {
                   Navigator.of(context).push<void>(
                     MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          ProfileScreen(showBackButton: true),
+                      builder: (BuildContext context) => ProfileScreen(showBackButton: true),
                     ),
                   );
                 },
@@ -276,8 +276,7 @@ class BaseScreenState extends State<BaseScreen> {
                           image: NetworkImage(
                             '${AppEndpoints.userImages}/${controller.user.value.photo}',
                             headers: {
-                              'Authorization':
-                                  'Bearer ${controller.userToken.value}',
+                              'Authorization': 'Bearer ${controller.userToken.value}',
                             },
                           ),
                           fit: BoxFit.cover,

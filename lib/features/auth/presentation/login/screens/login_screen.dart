@@ -1,7 +1,9 @@
 import 'dart:js' as js;
 
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,54 +14,42 @@ import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
-// import '../../../../../core/presentation/helpers/web_navigator.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
+
+  static const String route = '/login';
 
   final RegisterController rController = Get.find<RegisterController>();
 
   List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
       'text': 'Certik',
-      'link':
-          'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
+      'link': 'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
     },
     <String, dynamic>{
       'text': 'Audit',
-      'link':
-          'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
+      'link': 'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
     },
     <String, dynamic>{
       'text': 'Whitepaper',
-      'link':
-          'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
+      'link': 'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
     },
-    <String, dynamic>{
-      'text': 'Buy WSC',
-      'link': 'https://staking.wealthsecrets.io/swap'
-    },
+    <String, dynamic>{'text': 'Buy WSC', 'link': 'https://staking.wealthsecrets.io/swap'},
     <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
-    <String, dynamic>{
-      'text': 'Advertise',
-      'link': 'https://www.wealthsecrets.io/advertiseRequest'
-    },
+    <String, dynamic>{'text': 'Advertise', 'link': 'https://www.wealthsecrets.io/advertiseRequest'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return AppLoadingBox(
-        loading:
-            controller.isLoading.value || controller.isResendingEmail.value,
+        loading: controller.isLoading.value || controller.isResendingEmail.value,
         child: Scaffold(
           backgroundColor: Colors.white,
           body: Center(
             child: SizedBox(
-              width: ResponsiveWidget.isSmallScreen(context)
-                  ? double.infinity
-                  : 500,
+              width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 500,
               child: SingleChildScrollView(
                 padding: AppPaddings.lH,
                 child: AppAnimatedColumn(
@@ -67,10 +57,8 @@ class LoginScreen extends GetWidget<LoginController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    if (ResponsiveWidget.isSmallScreen(context))
-                      const SizedBox(height: 20),
-                    if (!ResponsiveWidget.isSmallScreen(context))
-                      const SizedBox(height: 100),
+                    if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 20),
+                    if (!ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 100),
                     Align(
                       alignment: Alignment.topLeft,
                       child: TextButton(
@@ -85,9 +73,7 @@ class LoginScreen extends GetWidget<LoginController> {
                           }
                         },
                         child: Text(
-                          Get.locale == const Locale('en', 'US')
-                              ? '🇨🇳'
-                              : '🇺🇸',
+                          Get.locale == const Locale('en', 'US') ? '🇨🇳' : '🇺🇸',
                         ),
                       ),
                     ),
@@ -177,25 +163,18 @@ class LoginScreen extends GetWidget<LoginController> {
                           right: 10,
                           child: AnimatedSwitcher(
                             reverseDuration: Duration.zero,
-                            transitionBuilder:
-                                (Widget? child, Animation<double> animation) {
-                              final Animation<double> offset =
-                                  Tween<double>(begin: 0, end: 1.0)
-                                      .animate(animation);
-                              return ScaleTransition(
-                                  scale: offset, child: child);
+                            transitionBuilder: (Widget? child, Animation<double> animation) {
+                              final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
+                              return ScaleTransition(scale: offset, child: child);
                             },
                             switchInCurve: Curves.elasticOut,
                             duration: const Duration(milliseconds: 700),
                             child: RichText(
                               text: TextSpan(
-                                text: controller.isPhone.value
-                                    ? 'login_mobile'.tr
-                                    : 'login_email'.tr,
+                                text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    controller.togglePhoneVisibility(
-                                        !controller.isPhone.value);
+                                    controller.togglePhoneVisibility(!controller.isPhone.value);
                                   },
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w800,
@@ -237,7 +216,7 @@ class LoginScreen extends GetWidget<LoginController> {
                           text: 'forgot_pass'.tr,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              navigationController.navigateTo(AppRoutes.forgot);
+                              Get.toNamed<void>(ForgotPasswordScreen.route);
                             },
                           style: TextStyle(
                             color: context.colors.error,
@@ -302,29 +281,19 @@ class LoginScreen extends GetWidget<LoginController> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () =>
-                              rController.registerWithGoogleAuth(context),
+                          onPressed: () => rController.registerWithGoogleAuth(context),
                           child: Image.asset(
                             'assets/images/google.png',
                             height: 40,
                             width: 40,
                           ),
                         ),
-                        // TextButton(
-                        //   onPressed: () {},
-                        //   child: Image.asset(
-                        //     'assets/images/twitter.png',
-                        //     height: 40,
-                        //     width: 40,
-                        //   ),
-                        // ),
                       ],
                     ),
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
-                        navigationController.navigateTo(AppRoutes.registration);
-                        // Get.offAll<void>(webNavigator());
+                        Get.offAllNamed<void>(RegistrationScreen.route);
                       },
                       child: Center(
                         child: RichText(
@@ -343,9 +312,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 text: 'register_now'.tr,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    navigationController.navigateTo(
-                                      AppRoutes.registration,
-                                    );
+                                    Get.toNamed<void>(RegistrationScreen.route);
                                   },
                                 style: TextStyle(
                                   color: context.colors.primary,
@@ -372,8 +339,7 @@ class LoginScreen extends GetWidget<LoginController> {
                               .map(
                                 (Map<String, dynamic> footerLink) => TextButton(
                                   onPressed: () {
-                                    js.context.callMethod('open',
-                                        <String>[footerLink['link'] as String]);
+                                    js.context.callMethod('open', <String>[footerLink['link'] as String]);
                                   },
                                   child: Text(
                                     footerLink['text'] as String,

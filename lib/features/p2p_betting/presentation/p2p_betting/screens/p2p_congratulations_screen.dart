@@ -10,9 +10,9 @@ class P2PBettingCongratScreen extends StatefulWidget {
   const P2PBettingCongratScreen({
     Key? key,
   }) : super(key: key);
+  static const String route = '/p2p-success';
   @override
-  _P2PBettingCongratScreenState createState() =>
-      _P2PBettingCongratScreenState();
+  _P2PBettingCongratScreenState createState() => _P2PBettingCongratScreenState();
 }
 
 class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
@@ -66,8 +66,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         padding: AppPaddings.sA,
                         decoration: BoxDecoration(
                           border: p2pBetController.bet.value.creator.team !=
-                                  p2pBetController
-                                      .liveScore.value.localTeam.data.name
+                                  p2pBetController.liveScore.value.localTeam.data.name
                               ? null
                               : Border.all(
                                   color: context.colors.primary,
@@ -78,8 +77,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         ),
                         child: Center(
                           child: Image.network(
-                            p2pBetController
-                                .liveScore.value.localTeam.data.logo,
+                            p2pBetController.liveScore.value.localTeam.data.logo,
                             height: 45,
                             width: 45,
                           ),
@@ -111,8 +109,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         padding: AppPaddings.sA,
                         decoration: BoxDecoration(
                           border: p2pBetController.bet.value.creator.team !=
-                                  p2pBetController
-                                      .liveScore.value.visitorTeam.data.name
+                                  p2pBetController.liveScore.value.visitorTeam.data.name
                               ? null
                               : Border.all(
                                   color: context.colors.primary,
@@ -123,8 +120,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         ),
                         child: Center(
                           child: Image.network(
-                            p2pBetController
-                                .liveScore.value.visitorTeam.data.logo,
+                            p2pBetController.liveScore.value.visitorTeam.data.logo,
                             height: 45,
                             width: 45,
                           ),
@@ -159,8 +155,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         ),
                       ),
                       Text(
-                        p2pBetController.bet.value.creator.choice.stringValue
-                            .toUpperCase(),
+                        p2pBetController.bet.value.creator.choice.stringValue.toUpperCase(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: context.colors.success,

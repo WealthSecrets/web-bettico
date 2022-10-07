@@ -20,6 +20,7 @@ class BetticosApp extends StatelessWidget {
           title: 'Bettico',
           theme: AppTheme(AppLightTheme()).data,
           home: const SplashScreen(),
+          getPages: Pages.pages,
         ),
       ),
     );

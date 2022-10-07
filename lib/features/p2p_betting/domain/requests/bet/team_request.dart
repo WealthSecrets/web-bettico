@@ -12,6 +12,5 @@ class TeamRequest with _$TeamRequest {
     required int teamId,
     required String logo_path,
   }) = _TeamRequest;
-  factory TeamRequest.fromJson(Map<String, dynamic> json) =>
-      _$TeamRequestFromJson(json);
+  factory TeamRequest.fromJson(Map<String, dynamic> json) => _$TeamRequestFromJson(json);
 }

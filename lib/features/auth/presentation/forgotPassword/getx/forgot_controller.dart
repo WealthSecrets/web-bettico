@@ -1,4 +1,5 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
+import 'package:betticos/features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,6 @@ class ForgotController extends GetxController {
   RxString email = ''.obs;
 
   void forgot(BuildContext context) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
     final Either<Failure, User> failureOrUser = await forgotPassword(
@@ -27,7 +27,6 @@ class ForgotController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
@@ -35,13 +34,13 @@ class ForgotController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        navigationController.navigateTo(AppRoutes.walletConnect);
+        Get.toNamed<void>(ForgotWalletScreen.route);
       },
     );
   }
 
   void nextToRest(BuildContext context) {
-    navigationController.navigateTo(AppRoutes.reset);
+    Get.toNamed<void>(ResetScreen.route);
   }
 
   void onEmailInputChanged(String value) {

@@ -47,8 +47,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
           files: files != null
               ? List<FormUploadDocument>.from(
                   files.map<FormUploadDocument>(
-                    (File file) =>
-                        FormUploadDocument(field: 'file', file: file),
+                    (File file) => FormUploadDocument(field: 'file', file: file),
                   ),
                 )
               : <FormUploadDocument>[],
@@ -122,24 +121,20 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
-  Future<Either<Failure, List<Post>>> fetchPostComments(String postId) =>
-      makeRequest(
+  Future<Either<Failure, List<Post>>> fetchPostComments(String postId) => makeRequest(
         betticoslineRemoteDataSource.fetchPostComments(postId),
       );
 
   @override
   Future<Either<Failure, User>> resolveUser({required String userId}) async {
-    final Either<Failure, User> response =
-        await makeRequest(betticoslineRemoteDataSource.resolveUser(userId));
-    return response.fold((Failure failure) => left(failure),
-        (User response) async {
+    final Either<Failure, User> response = await makeRequest(betticoslineRemoteDataSource.resolveUser(userId));
+    return response.fold((Failure failure) => left(failure), (User response) async {
       return right(response);
     });
   }
 
   @override
-  Future<Either<Failure, void>> referUser({required String email}) =>
-      makeRequest(
+  Future<Either<Failure, void>> referUser({required String email}) => makeRequest(
         betticoslineRemoteDataSource.referUser(
           ReferralRequest(email: email),
         ),
@@ -147,8 +142,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
 
   @override
   Future<Either<Failure, User>> getReferralCode() async {
-    final Either<Failure, User> response =
-        await makeRequest(betticoslineRemoteDataSource.getReferralCode());
+    final Either<Failure, User> response = await makeRequest(betticoslineRemoteDataSource.getReferralCode());
     return response.fold((Failure failure) => left(failure), (User user) async {
       await authLocalDataSource.persistUserData(user);
       return right(user);
@@ -202,8 +196,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
-  Future<Either<Failure, Follow>> followUser({required String userId}) =>
-      makeRequest(
+  Future<Either<Failure, Follow>> followUser({required String userId}) => makeRequest(
         betticoslineRemoteDataSource.followUser(
           request: UserRequest(
             userId: userId,
@@ -212,15 +205,12 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
-  Future<Either<Failure, User>> blockUser({required String userId}) =>
-      makeRequest(
+  Future<Either<Failure, User>> blockUser({required String userId}) => makeRequest(
         betticoslineRemoteDataSource.blockUser(userId: userId),
       );
 
   @override
-  Future<Either<Failure, Subscription>> subscribeToUser(
-          {required String userId}) =>
-      makeRequest(
+  Future<Either<Failure, Subscription>> subscribeToUser({required String userId}) => makeRequest(
         betticoslineRemoteDataSource.subscribeToUser(
           request: SubscribeRequest(
             userId: userId,
@@ -229,8 +219,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
-  Future<Either<Failure, Subscription>> checkSubscription(
-          {required String userId}) =>
+  Future<Either<Failure, Subscription>> checkSubscription({required String userId}) =>
       makeRequest(betticoslineRemoteDataSource.checkSubscription(userId));
 
   @override
@@ -238,8 +227,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(betticoslineRemoteDataSource.checkFollowing(userId));
 
   @override
-  Future<Either<Failure, List<User>>> getMyMembers() =>
-      makeRequest(betticoslineRemoteDataSource.getMyMembers());
+  Future<Either<Failure, List<User>>> getMyMembers() => makeRequest(betticoslineRemoteDataSource.getMyMembers());
 
   @override
   Future<Either<Failure, List<Post>>> fetchSubscribedOddbox() => makeRequest(
@@ -271,8 +259,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(betticoslineRemoteDataSource.deletePost(postId));
 
   @override
-  Future<Either<Failure, List<User>>> getAllOddsters() =>
-      makeRequest(betticoslineRemoteDataSource.getAllOddsters());
+  Future<Either<Failure, List<User>>> getAllOddsters() => makeRequest(betticoslineRemoteDataSource.getAllOddsters());
 
   @override
   Future<Either<Failure, List<User>>> searchAllOddsters(String query) =>
@@ -287,8 +274,6 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(betticoslineRemoteDataSource.getReportOptions(type));
 
   @override
-  Future<Either<Failure, ListPage<Post>>> fetchPaginatedPosts(
-          int page, int limit) =>
-      makeRequest(
-          betticoslineRemoteDataSource.fetchPaginatedPosts(page, limit));
+  Future<Either<Failure, ListPage<Post>>> fetchPaginatedPosts(int page, int limit) =>
+      makeRequest(betticoslineRemoteDataSource.fetchPaginatedPosts(page, limit));
 }

@@ -76,15 +76,11 @@ class OddsterSearch extends SearchDelegate<String> {
 
     return Obx(() {
       return ListView.separated(
-        itemCount: query.isNotEmpty
-            ? oController.userSearchResults.length
-            : oController.oddsters.length,
+        itemCount: query.isNotEmpty ? oController.userSearchResults.length : oController.oddsters.length,
         itemBuilder: (BuildContext context, int index) {
           return _buildListUserRow(
             context,
-            query.isNotEmpty
-                ? oController.userSearchResults[index]
-                : oController.oddsters[index],
+            query.isNotEmpty ? oController.userSearchResults[index] : oController.oddsters[index],
             () {},
           );
         },
@@ -95,8 +91,7 @@ class OddsterSearch extends SearchDelegate<String> {
     });
   }
 
-  Widget _buildListUserRow(
-      BuildContext context, User user, Function() onPressed) {
+  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed) {
     return Row(
       children: <Widget>[
         GestureDetector(

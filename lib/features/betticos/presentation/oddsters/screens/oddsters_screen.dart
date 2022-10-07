@@ -17,6 +17,7 @@ import '../../profile/widgets/circle_indicator.dart';
 
 class OddstersScreen extends KFDrawerContent {
   OddstersScreen({Key? key}) : super(key: key);
+  static const String route = '/oddsters';
   @override
   State<OddstersScreen> createState() => _OddstersScreenState();
 }
@@ -45,8 +46,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
               return true;
             },
             child: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   _buildSliverAppBar(),
                   SliverPersistentHeader(
@@ -101,8 +101,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
       floating: false,
       pinned: true,
       elevation: 0,
-      automaticallyImplyLeading:
-          ResponsiveWidget.isSmallScreen(context) ? false : true,
+      automaticallyImplyLeading: ResponsiveWidget.isSmallScreen(context) ? false : true,
       title: Text(
         'oddsters'.tr,
         style: const TextStyle(
@@ -176,8 +175,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
                   }
                   controller.loadAllOddsters(context);
                 },
-                isFollowing:
-                    profileController.checkIfFollowingUser(users[index]),
+                isFollowing: profileController.checkIfFollowingUser(users[index]),
               );
             });
           },
@@ -189,8 +187,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
     );
   }
 
-  Widget _buildListUserRow(
-      BuildContext context, User user, Function() onPressed,
+  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed,
       {bool isFollowingTab = false, bool isFollowing = false}) {
     return GestureDetector(
       onTap: () {

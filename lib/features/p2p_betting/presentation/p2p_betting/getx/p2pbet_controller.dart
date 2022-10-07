@@ -116,10 +116,7 @@ class P2PBetController extends GetxController {
     selectedButton(value);
 
     // filter the bets
-    bets
-        .where((Bet b) =>
-            b.status.stringValue.toLowerCase() == value.toLowerCase())
-        .toList();
+    bets.where((Bet b) => b.status.stringValue.toLowerCase() == value.toLowerCase()).toList();
   }
 
   void setCompetitionId(int value) {
@@ -176,8 +173,7 @@ class P2PBetController extends GetxController {
       choice.isNotEmpty &&
       validateAmount(amount.value.toString()) == null;
 
-  bool get isDetailsValid =>
-      choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty;
+  bool get isDetailsValid => choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty;
 
   void addNewBet(BuildContext context, String wallet) async {
     isAddingBet(true);
@@ -379,17 +375,11 @@ class P2PBetController extends GetxController {
   }
 
   void rebuildBets(List<Bet> bs) {
-    final List<Bet> aBets = bs
-        .where((Bet b) => b.status.stringValue.toLowerCase() == 'awaiting')
-        .toList();
+    final List<Bet> aBets = bs.where((Bet b) => b.status.stringValue.toLowerCase() == 'awaiting').toList();
     awaitingBets(aBets);
-    final List<Bet> oBets = bs
-        .where((Bet b) => b.status.stringValue.toLowerCase() == 'ongoing')
-        .toList();
+    final List<Bet> oBets = bs.where((Bet b) => b.status.stringValue.toLowerCase() == 'ongoing').toList();
     ongoingBets(oBets);
-    final List<Bet> cBets = bs
-        .where((Bet b) => b.status.stringValue.toLowerCase() == 'completed')
-        .toList();
+    final List<Bet> cBets = bs.where((Bet b) => b.status.stringValue.toLowerCase() == 'completed').toList();
     completedBets(cBets);
   }
 
@@ -401,13 +391,11 @@ class P2PBetController extends GetxController {
     isFetchingCompetitionMatches(true);
     SoccerMatch? teamMatch;
     final String response = await rootBundle.loadString(AppAssetJson.liveScore);
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
+    final Map<String, dynamic> liveScoreKeys = await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
     final String secretKey = liveScoreKeys['secret_key'] as String;
 
-    final Either<Failure, SoccerMatch?> failureOrMatches =
-        await getCompetitionMatch(
+    final Either<Failure, SoccerMatch?> failureOrMatches = await getCompetitionMatch(
       LiveCompetitionRequest(
         apiKey: apiKey,
         secretKey: secretKey,
@@ -439,8 +427,7 @@ class P2PBetController extends GetxController {
     isFetchingCompetitionMatches(true);
     SoccerMatch? teamMatch;
     final String response = await rootBundle.loadString(AppAssetJson.liveScore);
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
+    final Map<String, dynamic> liveScoreKeys = await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
     final String secretKey = liveScoreKeys['secret_key'] as String;
 
@@ -478,14 +465,12 @@ class P2PBetController extends GetxController {
     SoccerMatch? teamMatch;
     isFetchingLiveTeamMatch(true);
     final String response = await rootBundle.loadString(AppAssetJson.liveScore);
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
+    final Map<String, dynamic> liveScoreKeys = await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
     final String secretKey = liveScoreKeys['secret_key'] as String;
 
     if (isFixture ?? false) {
-      final SoccerMatch? sm =
-          await getTeamFixture(context, competitionId, teamId, date);
+      final SoccerMatch? sm = await getTeamFixture(context, competitionId, teamId, date);
 
       if (sm == null) {
         teamMatch = null;
@@ -511,8 +496,7 @@ class P2PBetController extends GetxController {
         (SoccerMatch? value) async {
           isFetchingLiveTeamMatch(false);
           if (value == null) {
-            final SoccerMatch? sm =
-                await getLiveCompetitionMatch(context, competitionId, teamId);
+            final SoccerMatch? sm = await getLiveCompetitionMatch(context, competitionId, teamId);
 
             if (sm == null) {
               // fetch fixtures
@@ -574,8 +558,7 @@ class P2PBetController extends GetxController {
   void getMyBets() async {
     isFetchingMyBets(true);
 
-    final Either<Failure, List<Bet>> failureOrBets =
-        await fetchMyBets(NoParams());
+    final Either<Failure, List<Bet>> failureOrBets = await fetchMyBets(NoParams());
 
     failureOrBets.fold<void>(
       (Failure failure) {

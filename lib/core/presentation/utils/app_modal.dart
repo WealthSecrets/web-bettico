@@ -64,8 +64,7 @@ class _CupertinoModalPopupRoute<T> extends PopupRoute<T> {
   bool get semanticsDismissible => false;
 
   @override
-  Duration get transitionDuration =>
-      duration ?? const Duration(milliseconds: 1000);
+  Duration get transitionDuration => duration ?? const Duration(milliseconds: 1000);
 
   @override
   String? get barrierLabel => '';
@@ -108,9 +107,7 @@ class _CupertinoModalPopupRoute<T> extends PopupRoute<T> {
           child: FadeTransition(
             opacity: animation,
             child: ColorFiltered(
-              colorFilter: colorFilter ??
-                  const ColorFilter.mode(
-                      Colors.transparent, BlendMode.multiply),
+              colorFilter: colorFilter ?? const ColorFilter.mode(Colors.transparent, BlendMode.multiply),
               child: const Material(
                 color: Colors.transparent,
                 child: SizedBox.expand(),
@@ -154,9 +151,7 @@ class _CupertinoModalPopupRoute<T> extends PopupRoute<T> {
                   curve: Interval(
                     .0,
                     1.0,
-                    curve: _animation.status == AnimationStatus.reverse
-                        ? Curves.bounceIn.flipped
-                        : Curves.bounceIn,
+                    curve: _animation.status == AnimationStatus.reverse ? Curves.bounceIn.flipped : Curves.bounceIn,
                   ),
                   parent: _animation,
                 ),
@@ -322,8 +317,7 @@ class AppOptionDialogueModal extends StatelessWidget {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
-                        backgroundColor:
-                            backgroundColor ?? context.colors.primary,
+                        backgroundColor: backgroundColor ?? context.colors.primary,
                       ),
                       onPressed: onPressed,
                       child: Text(

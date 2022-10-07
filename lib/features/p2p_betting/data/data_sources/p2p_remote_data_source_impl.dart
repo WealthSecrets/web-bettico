@@ -18,15 +18,12 @@ import '../models/crypto/network.dart';
 import '../models/crypto/volume.dart';
 
 class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
-  const P2pRemoteDataSourceImpl({required AppHTTPClient client})
-      : _client = client;
+  const P2pRemoteDataSourceImpl({required AppHTTPClient client}) : _client = client;
   final AppHTTPClient _client;
 
   @override
-  Future<List<SoccerMatch>> getLiveMatches(
-      String apiKey, String secretKey) async {
-    final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.liveMatches(apiKey, secretKey));
+  Future<List<SoccerMatch>> getLiveMatches(String apiKey, String secretKey) async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.liveMatches(apiKey, secretKey));
     final List<dynamic> items = json['match'] as List<dynamic>;
     return List<SoccerMatch>.from(
       items.map<SoccerMatch>(
@@ -154,8 +151,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
       ),
     );
     if ((json['match'] as List<dynamic>).isNotEmpty) {
-      return SoccerMatch.fromJson(
-          (json['match'] as List<dynamic>).first as Map<String, dynamic>);
+      return SoccerMatch.fromJson((json['match'] as List<dynamic>).first as Map<String, dynamic>);
     } else {
       return null;
     }
@@ -171,8 +167,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<Bet> updateBet(
-      {required BetUpdateRequest request, required String betId}) async {
+  Future<Bet> updateBet({required BetUpdateRequest request, required String betId}) async {
     final Map<String, dynamic> json = await _client.patch(
       P2pEndpoints.updateBet(betId),
       body: request.toJson(),
@@ -217,8 +212,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<Bet>> fetchAwaitingBets() async {
-    final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.awaitingBets);
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.awaitingBets);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
       items.map<Bet>(
@@ -259,8 +253,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<LiveScore>> fetchLiveScores(int leagueId) async {
-    final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.liveScore(leagueId: leagueId));
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.liveScore(leagueId: leagueId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<LiveScore>.from(
       items.map<LiveScore>(
@@ -271,8 +264,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<LiveScore>> fetchFixtures(int leagueId) async {
-    final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.sFixtures(leagueId: leagueId));
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.sFixtures(leagueId: leagueId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<LiveScore>.from(
       items.map<LiveScore>(
@@ -282,10 +274,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<ListPage<LiveScore>> fetchPaginatedLiveScores(
-      int page, int limit, int leagueId) async {
-    final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.paginateLiveScore(
+  Future<ListPage<LiveScore>> fetchPaginatedLiveScores(int page, int limit, int leagueId) async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.paginateLiveScore(
       page: page,
       size: limit,
       leagueId: leagueId,
@@ -303,10 +293,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<ListPage<LiveScore>> fetchPaginatedFixtures(
-      int page, int limit, int leagueId) async {
-    final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.spaginateFixtures(
+  Future<ListPage<LiveScore>> fetchPaginatedFixtures(int page, int limit, int leagueId) async {
+    final Map<String, dynamic> json = await _client.get(P2pEndpoints.spaginateFixtures(
       page: page,
       size: limit,
       leagueId: leagueId,

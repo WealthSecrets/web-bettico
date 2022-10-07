@@ -9,11 +9,12 @@ import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
 class PostDetailsScreen extends StatefulWidget {
-  PostDetailsScreen({Key? key, required this.post, this.thePrevPost})
-      : super(key: key);
+  PostDetailsScreen({Key? key, required this.post, this.thePrevPost}) : super(key: key);
 
   Post post;
   Post? thePrevPost;
+
+  static const String route = '/post-detail';
 
   @override
   State<PostDetailsScreen> createState() => _PostDetailsScreenState();
@@ -65,12 +66,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     context,
                     pstId: widget.post.id,
                   ),
-                  onLikeTap: () => controller.likeThePost(
-                      context, widget.post.id,
-                      isOddbox: widget.post.isOddbox),
-                  onDislikeTap: () => controller.dislikeThePost(
-                      context, widget.post.id,
-                      isOddbox: widget.post.isOddbox),
+                  onLikeTap: () => controller.likeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
+                  onDislikeTap: () =>
+                      controller.dislikeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
                 );
               }
 
@@ -79,8 +77,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 child: TimelineCard(
                   post: controller.postComments[index - 1],
                   onTap: () async {
-                    final Post? thePrevPost =
-                        await Navigator.of(context).push<Post>(
+                    final Post? thePrevPost = await Navigator.of(context).push<Post>(
                       MaterialPageRoute<Post>(
                         builder: (BuildContext context) => PostDetailsScreen(
                           post: controller.postComments[index - 1],

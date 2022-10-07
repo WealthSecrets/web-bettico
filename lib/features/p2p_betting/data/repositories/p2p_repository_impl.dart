@@ -177,20 +177,16 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       );
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchBets() =>
-      makeRequest(p2pRemoteDataSource.fetchBets());
+  Future<Either<Failure, List<Bet>>> fetchBets() => makeRequest(p2pRemoteDataSource.fetchBets());
 
   @override
-  Future<Either<Failure, List<SLeague>>> fetchLeagues() =>
-      makeRequest(p2pRemoteDataSource.fetchLeagues());
+  Future<Either<Failure, List<SLeague>>> fetchLeagues() => makeRequest(p2pRemoteDataSource.fetchLeagues());
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchAwaitingBets() =>
-      makeRequest(p2pRemoteDataSource.fetchAwaitingBets());
+  Future<Either<Failure, List<Bet>>> fetchAwaitingBets() => makeRequest(p2pRemoteDataSource.fetchAwaitingBets());
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchMyBets() =>
-      makeRequest(p2pRemoteDataSource.fetchMyBets());
+  Future<Either<Failure, List<Bet>>> fetchMyBets() => makeRequest(p2pRemoteDataSource.fetchMyBets());
 
   @override
   Future<Either<Failure, List<Network>>> fetchCryptoNetworks() =>
@@ -206,8 +202,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
     int limit,
     int leagueId,
   ) =>
-      makeRequest(
-          p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
+      makeRequest(p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
 
   @override
   Future<Either<Failure, List<LiveScore>>> fetchLiveScores(int leagueId) =>
@@ -223,17 +218,13 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
     int limit,
     int leagueId,
   ) =>
-      makeRequest(
-          p2pRemoteDataSource.fetchPaginatedFixtures(page, limit, leagueId));
+      makeRequest(p2pRemoteDataSource.fetchPaginatedFixtures(page, limit, leagueId));
 
   @override
-  Future<Either<Failure, Team>> getTeam(int teamId) =>
-      makeRequest(p2pRemoteDataSource.getTeam(teamId));
+  Future<Either<Failure, Team>> getTeam(int teamId) => makeRequest(p2pRemoteDataSource.getTeam(teamId));
 
   @override
-  Future<Either<Failure, User>> updateUserBonus(
-          {required String type, required double amount}) =>
-      makeRequest(
+  Future<Either<Failure, User>> updateUserBonus({required String type, required double amount}) => makeRequest(
         p2pRemoteDataSource.updateBonus(
           UserBonusRequest(
             type: type,
@@ -243,8 +234,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       );
 
   @override
-  Future<Either<Failure, SLeague>> getLeague(int leagueId) =>
-      makeRequest(p2pRemoteDataSource.getLeague(leagueId));
+  Future<Either<Failure, SLeague>> getLeague(int leagueId) => makeRequest(p2pRemoteDataSource.getLeague(leagueId));
 
   @override
   Future<Either<Failure, LiveScore>> getSFixture(int fixtureId) =>
