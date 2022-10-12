@@ -14,13 +14,13 @@ import 'package:betticos/features/responsiveness/large_update_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
+import '../../../features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
 import '../../../features/auth/presentation/register/screens/otp_verification_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_account_type_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_document_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_personal_information_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_screen.dart';
 import '../../../features/auth/presentation/register/screens/registration_upload_photo_screen.dart';
-import '../../../features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
 import '../../../features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import '../../../features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
 import '../../../features/betticos/presentation/profile/screens/profile_screen.dart';

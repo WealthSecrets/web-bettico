@@ -26,8 +26,6 @@ class P2PBettingScreen extends StatefulWidget {
     required this.liveScore,
   }) : super(key: key);
 
-  // final Fixture? fixture;
-  // final SoccerMatch? match;
   final LiveScore liveScore;
 
   @override
@@ -38,20 +36,10 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
-  // final LiveScoreArguments? args = Get.arguments as LiveScoreArguments?;
 
   @override
   void initState() {
     super.initState();
-
-    // if (widget.match != null) {
-    //   controller.setCompetitionId(widget.match!.competitionId);
-    //   controller.setMatch(widget.match!);
-    // } else if (widget.fixture != null) {
-    //   controller.setCompetitionId(widget.fixture!.competitionId);
-    //   controller.setFixture(widget.fixture!);
-    // }
-
     controller.setLiveScore(widget.liveScore);
     controller.setLiveScoreId(widget.liveScore.id);
 
@@ -278,84 +266,4 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
       ),
     );
   }
-
-  // String _transactionStateToString({required ConnectionState state}) {
-  //   switch (state) {
-  //     case ConnectionState.disconnected:
-  //       return 'Connect!';
-  //     case ConnectionState.connecting:
-  //       return 'Connecting';
-  //     case ConnectionState.connected:
-  //       return 'Session connected';
-  //     case ConnectionState.connectionFailed:
-  //       return 'Connection failed';
-  //     case ConnectionState.connectionCancelled:
-  //       return 'Connection cancelled';
-  //   }
-  // }
-
-  // void _openWalletPage() {
-  //   Navigator.of(context).push<void>(
-  //     MaterialPageRoute<void>(
-  //       builder: (BuildContext context) => WalletScreen(connector: connector),
-  //     ),
-  //   );
-  // }
-
-//   VoidCallback? _transactionStateToAction(BuildContext context,
-//       {required ConnectionState state}) {
-//     print('State: ${_transactionStateToString(state: state)}');
-//     switch (state) {
-//       // Progress, action disabled
-//       case ConnectionState.connecting:
-//         return null;
-//       case ConnectionState.connected:
-//         // Open new page
-//         return () => _openWalletPage();
-
-//       // Initiate the connection
-//       case ConnectionState.disconnected:
-//       case ConnectionState.connectionCancelled:
-//       case ConnectionState.connectionFailed:
-//         return () async {
-//           setState(() => _state = ConnectionState.connecting);
-//           try {
-//             final SessionStatus? session = await connector.connect(context);
-//             if (session != null) {
-//               setState(() => _state = ConnectionState.connected);
-//               Future<void>.delayed(Duration.zero, () => _openWalletPage());
-//             } else {
-//               setState(() => _state = ConnectionState.connectionCancelled);
-//             }
-//           } catch (e) {
-//             print('WC exception occured: $e');
-//             setState(() => _state = ConnectionState.connectionFailed);
-//           }
-//         };
-//     }
-//   }
-
-//   void _changeNetwork(String? network) {
-//     if (network == null || _networkName == network) {
-//       return;
-//     }
-
-//     final int index = _networks.indexOf(network);
-//     // update connector
-//     switch (index) {
-//       case 0:
-//         connector = EthereumTestConnector();
-//         break;
-//       case 1:
-//         connector = AlgorandTestConnector();
-//         break;
-//     }
-
-//     setState(
-//       () {
-//         _networkName = network;
-//         _state = ConnectionState.disconnected;
-//       },
-//     );
-//   }
 }
