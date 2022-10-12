@@ -29,7 +29,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       AuthEndpoints.signin,
       body: request.toJson(),
     );
-    print('displaying the json after login called: $json');
     final AuthResponse authResponse = AuthResponse.fromJson(json);
     return authResponse;
   }

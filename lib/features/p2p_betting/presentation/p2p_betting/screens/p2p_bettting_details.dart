@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -23,6 +24,7 @@ class P2PBettingDetailsScreen extends StatefulWidget {
 class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   void initState() {
@@ -203,14 +205,22 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   Obx(
                     () => AppButton(
                       onPressed: () async {
-                        final String? actualHash =
-                            await lController.send(context);
-                        if (actualHash != null) {
-                          controller.addOpponentToBet(
-                            context,
-                            widget.bet.id,
-                            lController.walletAddress.value,
-                          );
+                        print(
+                            'checking creator id: ${widget.bet.creator.user.id} and checking user id: ${bController.user.value.id}');
+                        if (widget.bet.creator.user.id !=
+                            bController.user.value.id) {
+                          final String? actualHash =
+                              await lController.send(context);
+                          if (actualHash != null) {
+                            controller.addOpponentToBet(
+                              context,
+                              widget.bet,
+                              lController.walletAddress.value,
+                            );
+                          }
+                        } else {
+                          await AppSnacks.show(context,
+                              message: 'You cannot accept bets you created');
                         }
                       },
                       enabled: controller.isDetailsValid,

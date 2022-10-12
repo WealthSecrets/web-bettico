@@ -233,14 +233,13 @@ class P2PBetController extends GetxController {
 
   void addOpponentToBet(
     BuildContext context,
-    String betId,
+    Bet b,
     String wallet,
   ) async {
     isUpdatingBet(true);
-
     final Either<Failure, Bet> failureOrBet = await updateBet(
       UpdateBetRequest(
-        betId: betId,
+        betId: b.id,
         opponent: BettorRequest(
           choice: choice.value,
           team: teamSelected.value,
