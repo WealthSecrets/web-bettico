@@ -46,10 +46,10 @@ extension EnvironmentX on Environment {
 
   String get url {
     return <Environment, String>{
-      Environment.development: 'http://192.168.0.117:8000/api/v1/',
+      Environment.development: 'https://api.wealthsecrets.io/api/v1/',
       // Environment.development:
-      //     'https://cors-everywhere-me.herokuapp.com/http://api.wealthsecrets.io:8000/api/v1/',
-      Environment.production: 'http://api.wealthsecrets.io:8000/api/v1/',
+      //     'https://api.wealthsecrets.io/api/v1/',
+      Environment.production: 'https://api.wealthsecrets.io/api/v1/',
     }[this]!;
   }
 }
