@@ -1,15 +1,15 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../auth/data/models/user/user.dart';
-import '/core/core.dart';
-import '/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
 import '../../livescore/getx/live_score_controllers.dart';
 
 enum ConnectionState {
