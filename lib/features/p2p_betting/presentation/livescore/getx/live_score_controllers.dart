@@ -16,6 +16,7 @@ import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_p
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_livescore.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_league.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sfixture.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_slivescore.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,7 @@ class LiveScoreController extends GetxController {
     required this.fetchLeagues,
     required this.getTeam,
     required this.getSFixture,
+    required this.getSLiveScore,
     required this.getLeague,
   });
 
@@ -59,6 +61,7 @@ class LiveScoreController extends GetxController {
   final GetFixtures getFixtures;
   final GetTeam getTeam;
   final GetSFixture getSFixture;
+  final GetSLiveScore getSLiveScore;
   final GetLeague getLeague;
 
   final ConvertAmountToCurrency convertAmountToCurrency;
@@ -481,6 +484,23 @@ class LiveScoreController extends GetxController {
     isFetchingSFixture(true);
     final Either<Failure, LiveScore> failureOrLiveScore = await getSFixture(
       SFixtureRequest(fixtureId: fixtureId),
+    );
+    return failureOrLiveScore.fold<LiveScore?>(
+      (Failure failure) {
+        isFetchingSFixture(false);
+        return null;
+      },
+      (LiveScore value) {
+        isFetchingSFixture(false);
+        return value;
+      },
+    );
+  }
+
+  Future<LiveScore?> getMatchSLiveScore(int liveScoreId) async {
+    isFetchingSFixture(true);
+    final Either<Failure, LiveScore> failureOrLiveScore = await getSLiveScore(
+      SFixtureRequest(fixtureId: liveScoreId),
     );
     return failureOrLiveScore.fold<LiveScore?>(
       (Failure failure) {

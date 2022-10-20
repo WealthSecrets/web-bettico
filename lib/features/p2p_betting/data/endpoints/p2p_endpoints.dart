@@ -46,6 +46,8 @@ class P2pEndpoints {
   static String getLeague(int leagueId) => 'sportmonks/league/$leagueId';
   static String getSFixture(int fixtureId) =>
       'sportmonks/fixtures/$fixtureId?include=localTeam,visitorTeam';
+  static String getSLiveScore(int liveScoreId) =>
+      'sportmonks/livescores/$liveScoreId?include=localTeam,visitorTeam';
   static String conversion(String symbol, double amount) =>
       'networks/convert/$symbol/$amount';
 }

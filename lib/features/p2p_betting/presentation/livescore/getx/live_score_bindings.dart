@@ -6,6 +6,7 @@ import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_l
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_livescore.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sfixture.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_slivescore.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:get/get.dart';
 
@@ -48,6 +49,9 @@ class LiveScoreBindings {
           p2pRepository: Get.find(),
         ),
         getSFixture: GetSFixture(
+          p2pRepository: Get.find(),
+        ),
+        getSLiveScore: GetSLiveScore(
           p2pRepository: Get.find(),
         ),
       ),
