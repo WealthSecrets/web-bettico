@@ -66,6 +66,8 @@ abstract class P2pRepository {
 
   Future<Either<Failure, LiveScore>> getSFixture(int fixtureId);
 
+  Future<Either<Failure, LiveScore>> getSLiveScore(int liveScoreId);
+
   Future<Either<Failure, SoccerMatch?>> getTeamMatch(
     String apiKey,
     String secretKey,

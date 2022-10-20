@@ -249,4 +249,8 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, LiveScore>> getSFixture(int fixtureId) =>
       makeRequest(p2pRemoteDataSource.getSFixture(fixtureId));
+
+  @override
+  Future<Either<Failure, LiveScore>> getSLiveScore(int liveScoreId) =>
+      makeRequest(p2pRemoteDataSource.getSLiveScore(liveScoreId));
 }

@@ -114,6 +114,15 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
+  Future<LiveScore> getSLiveScore(int liveScoreId) async {
+    final Map<String, dynamic> json = await _client.get(
+      P2pEndpoints.getSLiveScore(liveScoreId),
+    );
+
+    return LiveScore.fromJson(json);
+  }
+
+  @override
   Future<SoccerMatch?> getCompetitionMatch(
     String apiKey,
     String secretKey,

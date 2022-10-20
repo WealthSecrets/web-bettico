@@ -82,6 +82,8 @@ abstract class P2pRemoteDataSource {
 
   Future<LiveScore> getSFixture(int fixtureId);
 
+  Future<LiveScore> getSLiveScore(int fixtureId);
+
   Future<List<SLeague>> fetchLeagues();
 
   Future<ListPage<LiveScore>> fetchPaginatedLiveScores(
