@@ -55,7 +55,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                     if (Ethereum.isSupported) {
                       lController.initiateWalletConnect();
                     } else {
-                      lController.connectWC();
+                      await lController.connectWC();
                     }
                   }
                 },
@@ -136,7 +136,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                     if (Ethereum.isSupported) {
                                       lController.initiateWalletConnect();
                                     } else {
-                                      lController.connectWC();
+                                      await lController.connectWC();
                                     }
                                   } else {
                                     // final Fixture fixture =
@@ -208,7 +208,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
                                     if (Ethereum.isSupported) {
                                       lController.initiateWalletConnect();
                                     } else {
-                                      lController.connectWC();
+                                      await lController.connectWC();
                                     }
                                   } else {
                                     final SoccerMatch match =

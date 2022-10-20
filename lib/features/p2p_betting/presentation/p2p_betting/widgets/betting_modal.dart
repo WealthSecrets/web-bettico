@@ -181,7 +181,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
             image: DecorationImage(
               image: NetworkImage(
                 '${AppEndpoints.userImages}/${user.photo}',
-                headers: {
+                headers: <String, String>{
                   'Authorization': 'Bearer ${bController.userToken.value}',
                 },
               ),

@@ -205,8 +205,6 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   Obx(
                     () => AppButton(
                       onPressed: () async {
-                        print(
-                            'checking creator id: ${widget.bet.creator.user.id} and checking user id: ${bController.user.value.id}');
                         if (widget.bet.creator.user.id !=
                             bController.user.value.id) {
                           final String? actualHash =
