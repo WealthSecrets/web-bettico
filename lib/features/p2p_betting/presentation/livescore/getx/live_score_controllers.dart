@@ -111,16 +111,16 @@ class LiveScoreController extends GetxController {
   // Rx<PagingController<int, LiveScore>> fixturePagingController =
   //     PagingController<int, LiveScore>(firstPageKey: 1).obs;
 
-  @override
-  void onInit() {
-    // pagingController.value.addPageRequestListener((int pageKey) {
-    //   getAllLiveScores(pageKey, selectedLeague.value.id);
-    // });
-    // fixturePagingController.value.addPageRequestListener((int pageKey) {
-    //   getAllSFixtures(pageKey, selectedLeague.value.id);
-    // });
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  // pagingController.value.addPageRequestListener((int pageKey) {
+  //   getAllLiveScores(pageKey, selectedLeague.value.id);
+  // });
+  // fixturePagingController.value.addPageRequestListener((int pageKey) {
+  //   getAllSFixtures(pageKey, selectedLeague.value.id);
+  // });
+  //   super.onInit();
+  // }
 
   void connectProvider([Function()? func]) async {
     if (Ethereum.isSupported) {

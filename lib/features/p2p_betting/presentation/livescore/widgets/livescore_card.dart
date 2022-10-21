@@ -40,6 +40,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
   @override
   void dispose() {
     _liveScoreStreamController.close();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -59,7 +60,6 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
       child: StreamBuilder<LiveScore?>(
         builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
           final LiveScore? liveScore = snapshot.data;
-          print('checking the liveScore: $liveScore');
           return Container(
             width: 300,
             margin: const EdgeInsets.only(

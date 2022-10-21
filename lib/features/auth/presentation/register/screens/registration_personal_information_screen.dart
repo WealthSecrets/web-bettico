@@ -115,7 +115,7 @@ class RegistrationPersonalInformationScreen
                       ),
                       const AppSpacing(v: 8),
                       AppDatePicker(
-                        labelText: 'dob'.tr,
+                        labelText: 'dob'.tr.toUpperCase(),
                         validator: (DateTime? dateOfBirth) =>
                             controller.validateMinimumAge(
                                 dateOfBirth: dateOfBirth ?? DateTime.now(),

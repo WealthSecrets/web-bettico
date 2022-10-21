@@ -113,6 +113,13 @@ abstract class P2pRepository {
     required double amount,
   });
 
+  Future<Either<Failure, List<Bet>>> getFilteredBets({
+    String? status,
+    required String title,
+    String? from,
+    String? to,
+  });
+
   Future<Either<Failure, List<Bet>>> fetchBets();
 
   Future<Either<Failure, List<SLeague>>> fetchLeagues();

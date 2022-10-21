@@ -1,24 +1,17 @@
-// ignore_for_file: always_specify_types
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/betticos/presentation/timeline/widgets/p2pbet_tab.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_bettting_details.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/betting_modal.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_history_card.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '/core/core.dart';
 import '/core/presentation/utils/app_endpoints.dart';
 import '/core/presentation/widgets/app_empty_screen.dart';
@@ -58,14 +51,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero, showTutorial);
+    Future<void>.delayed(Duration.zero, showTutorial);
     _p2pBetController.getAllBets();
     super.initState();
   }
 
   Future<void> showTutorial() async {
-    // final SharedPreferences preferences = await SharedPreferences.getInstance();
-    // final intro = preferences.getBool('intro') ?? false;
     if (sController.isIntro.value) {
       initTargets();
       tutorialCoachMark = TutorialCoachMark(
@@ -156,7 +147,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                   children: <Widget>[
                     _buildTimelineTab(),
                     _buildUpdatesTab(),
-                    _buildP2PBetsTab(),
+                    const P2pBetTab(),
                     _buildPromoTab(),
                   ],
                 ),
@@ -217,215 +208,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
           );
-  }
-
-  Widget _buildP2PBetsTab() {
-    return Obx(
-      () => CustomScrollView(
-        slivers: <Widget>[
-          if (_p2pBetController.awaitingBets.isNotEmpty ||
-              _p2pBetController.ongoingBets.isNotEmpty ||
-              _p2pBetController.completedBets.isNotEmpty)
-            SliverPadding(
-              padding: AppPaddings.homeH,
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, int index) {
-                    if (index == 0) {
-                      return SizedBox(
-                        height: 30,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            ..._p2pBetController.buttonTexts
-                                .map(
-                                  (String text) => Obx(
-                                    () => AppConstrainedButton(
-                                      text: StringUtils.capitalizeFirst(text),
-                                      borderRadius: AppBorderRadius.largeAll,
-                                      color: context.colors.primary,
-                                      textColor: Colors.white,
-                                      onPressed: () =>
-                                          _p2pBetController.setButtonSelected(
-                                              text.toLowerCase()),
-                                      selected: _p2pBetController
-                                              .selectedButton.value ==
-                                          text.toLowerCase(),
-                                    ),
-                                  ),
-                                )
-                                .toList()
-                          ],
-                        ),
-                      );
-                    }
-                    return P2PBettingHistoryCard(
-                      key: ObjectKey(
-                        _p2pBetController.selectedButton.value == 'ongoing'
-                            ? _p2pBetController.ongoingBets[index - 1].id
-                            : _p2pBetController.selectedButton.value ==
-                                    'completed'
-                                ? _p2pBetController.completedBets[index - 1]
-                                : _p2pBetController.awaitingBets[index - 1].id,
-                      ),
-                      bet: _p2pBetController.selectedButton.value == 'ongoing'
-                          ? _p2pBetController.ongoingBets[index - 1]
-                          : _p2pBetController.selectedButton.value ==
-                                  'completed'
-                              ? _p2pBetController.completedBets[index - 1]
-                              : _p2pBetController.awaitingBets[index - 1],
-                      onPressed: () {
-                        if (_p2pBetController.selectedButton.value ==
-                            'awaiting') {
-                          if (!lController.isConnected) {
-                            if (Ethereum.isSupported) {
-                              lController.initiateWalletConnect(
-                                () {
-                                  Navigator.of(context).push<void>(
-                                    MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          P2PBettingDetailsScreen(
-                                        bet: _p2pBetController
-                                                    .selectedButton.value ==
-                                                'ongoing'
-                                            ? _p2pBetController
-                                                .ongoingBets[index - 1]
-                                            : _p2pBetController
-                                                        .selectedButton.value ==
-                                                    'completed'
-                                                ? _p2pBetController
-                                                    .completedBets[index - 1]
-                                                : _p2pBetController
-                                                    .awaitingBets[index - 1],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            } else {
-                              lController.connectWC().then((_) {
-                                if (lController.walletAddress.isNotEmpty) {
-                                  Navigator.of(context).push<void>(
-                                    MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          P2PBettingDetailsScreen(
-                                        bet: _p2pBetController
-                                                    .selectedButton.value ==
-                                                'ongoing'
-                                            ? _p2pBetController
-                                                .ongoingBets[index - 1]
-                                            : _p2pBetController
-                                                        .selectedButton.value ==
-                                                    'completed'
-                                                ? _p2pBetController
-                                                    .completedBets[index - 1]
-                                                : _p2pBetController
-                                                    .awaitingBets[index - 1],
-                                      ),
-                                    ),
-                                  );
-                                }
-                              });
-                            }
-                          } else {
-                            Navigator.of(context).push<void>(
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    P2PBettingDetailsScreen(
-                                  bet: _p2pBetController.selectedButton.value ==
-                                          'ongoing'
-                                      ? _p2pBetController.ongoingBets[index - 1]
-                                      : _p2pBetController
-                                                  .selectedButton.value ==
-                                              'completed'
-                                          ? _p2pBetController
-                                              .completedBets[index - 1]
-                                          : _p2pBetController
-                                              .awaitingBets[index - 1],
-                                ),
-                              ),
-                            );
-                          }
-                        } else {
-                          showMaterialModalBottomSheet<bool?>(
-                            bounce: true,
-                            useRootNavigator: true,
-                            animationCurve: Curves.fastLinearToSlowEaseIn,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(30),
-                              topLeft: Radius.circular(30),
-                            )),
-                            builder: (BuildContext modalContext) {
-                              return P2PBettingBottomSheet(
-                                bet: _p2pBetController.selectedButton.value ==
-                                        'ongoing'
-                                    ? _p2pBetController.ongoingBets[index - 1]
-                                    : _p2pBetController.selectedButton.value ==
-                                            'completed'
-                                        ? _p2pBetController
-                                            .completedBets[index - 1]
-                                        : _p2pBetController
-                                            .awaitingBets[index - 1],
-                              );
-                            },
-                            context: context,
-                          );
-                        }
-                      },
-                    );
-                  },
-                  childCount: _p2pBetController.selectedButton.value ==
-                          'ongoing'
-                      ? _p2pBetController.ongoingBets.length + 1
-                      : _p2pBetController.selectedButton.value == 'completed'
-                          ? _p2pBetController.completedBets.length + 1
-                          : _p2pBetController.awaitingBets.length + 1,
-                ),
-              ),
-            ),
-          if ((_p2pBetController.awaitingBets.isEmpty &&
-                  _p2pBetController.selectedButton.value == 'awaiting') ||
-              (_p2pBetController.ongoingBets.isEmpty &&
-                  _p2pBetController.selectedButton.value == 'ongoing') ||
-              (_p2pBetController.completedBets.isEmpty &&
-                  _p2pBetController.selectedButton.value == 'completed'))
-            SliverFillRemaining(
-              child: Padding(
-                padding: AppPaddings.bodyH,
-                child: AppAnimatedColumn(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      const AppSpacing(v: 30),
-                      SvgPicture.asset(
-                        AssetSVGs.emptyState.path,
-                        height: 300,
-                      ),
-                      const AppSpacing(v: 10),
-                      Text(
-                        'Nothing to See Here',
-                        style: TextStyle(
-                          color: context.colors.textDark,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const AppSpacing(v: 10),
-                      Text(
-                        'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: context.colors.text,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ]),
-              ),
-            ),
-        ],
-      ),
-    );
   }
 
   Widget _buildTimelineTab() {
@@ -493,7 +275,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   }
 
   Widget _buildPromoTab() {
-    return Stack(alignment: Alignment.center, children: [
+    return Stack(alignment: Alignment.center, children: <Widget>[
       Container(
         alignment: Alignment.topCenter,
         child: Transform.translate(
@@ -501,9 +283,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+            children: <Widget>[
               CarouselSlider(
-                items: const [
+                items: const <Widget>[
                   Image(
                     image: NetworkImage(
                         'https://www.wealthsecrets.io/public/images/slider/slider_1649078709.jpg'),
@@ -578,7 +360,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       ),
       const SizedBox(height: 15.0),
       CarouselSlider(
-        items: [
+        items: <Widget>[
           Container(
             margin: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
@@ -813,10 +595,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
         identify: 'timelineTab',
         keyTarget: timelineTab,
         alignSkip: Alignment.topRight,
-        contents: [
+        contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.bottom,
-            builder: (context, controller) {
+            builder:
+                (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -841,10 +624,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
         identify: 'createPost',
         keyTarget: createPost,
         alignSkip: Alignment.topRight,
-        contents: [
+        contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder: (context, controller) {
+            builder:
+                (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -870,10 +654,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
         identify: 'updateTab',
         keyTarget: updateTab,
         alignSkip: Alignment.topRight,
-        contents: [
+        contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.bottom,
-            builder: (context, controller) {
+            builder:
+                (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -897,10 +682,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
         identify: 'promoTab',
         keyTarget: promoTab,
         alignSkip: Alignment.topRight,
-        contents: [
+        contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.bottom,
-            builder: (context, controller) {
+            builder:
+                (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

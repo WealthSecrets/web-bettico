@@ -101,4 +101,11 @@ abstract class P2pRemoteDataSource {
     int limit,
     int leagueId,
   );
+
+  Future<List<Bet>> getFilteredBets({
+    String? status,
+    required String title,
+    String? from,
+    String? to,
+  });
 }

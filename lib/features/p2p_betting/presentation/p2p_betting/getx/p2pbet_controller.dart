@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/search_bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_request.dart';
@@ -11,6 +12,7 @@ import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_co
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_awaiting_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_score_status.dart';
@@ -46,11 +48,13 @@ class P2PBetController extends GetxController {
     required this.getCompetitionMatch,
     required this.getTeamMatch,
     required this.getFixture,
+    required this.searchBets,
   });
 
   final AddBet addBet;
   final UpdateBet updateBet;
   final UpdateBetStatusScore updateBetStatusScore;
+  final SearchBets searchBets;
   final UpdateBetPayoutStatus updateBetPayoutStatus;
   final FetchBets fetchBets;
   final FetchAwaitingBets fetchAwaitingBets;
@@ -74,6 +78,7 @@ class P2PBetController extends GetxController {
   RxBool isAddingBet = false.obs;
   RxBool isUpdatingBet = false.obs;
   RxBool isFetchingBets = false.obs;
+  RxBool isFilteringBets = false.obs;
   RxBool isFetchingMyBets = false.obs;
   RxBool isFetchingCompetitionMatches = false.obs;
   RxBool isFetchingLiveTeamMatch = false.obs;
@@ -89,6 +94,12 @@ class P2PBetController extends GetxController {
   RxInt teamId = (-1).obs;
   RxString choice = ''.obs;
   RxString selectedButton = 'awaiting'.obs;
+
+  // for filtering bets
+  RxString title = ''.obs;
+  RxString searchStatus = ''.obs;
+  RxString from = ''.obs;
+  RxString to = ''.obs;
 
   final List<String> buttonTexts = <String>['Awaiting', 'Ongoing', 'Completed'];
 
@@ -545,6 +556,35 @@ class P2PBetController extends GetxController {
         rebuildBets(value);
       },
     );
+  }
+
+  void filterBets() async {
+    isFetchingBets(true);
+
+    final Either<Failure, List<Bet>> failureOrBets = await searchBets(
+      SearchBetRequest(
+          title: title.value,
+          status: searchStatus.isEmpty ? null : searchStatus.value,
+          from: from.isEmpty ? null : from.value,
+          to: to.isEmpty ? null : to.value),
+    );
+
+    failureOrBets.fold<void>(
+      (Failure failure) {
+        isFetchingBets(false);
+      },
+      (List<Bet> value) {
+        isFetchingBets(false);
+        rebuildBets(value);
+      },
+    );
+  }
+
+  void resetSearch() {
+    title('');
+    searchStatus('');
+    from('');
+    to('');
   }
 
   Future<List<Bet>>? getAllAwaitingBets(BuildContext context) async {

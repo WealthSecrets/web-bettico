@@ -50,4 +50,11 @@ class P2pEndpoints {
       'sportmonks/livescores/$liveScoreId?include=localTeam,visitorTeam';
   static String conversion(String symbol, double amount) =>
       'networks/convert/$symbol/$amount';
+  static String filteredBets({
+    String? status,
+    required String title,
+    String? from,
+    String? to,
+  }) =>
+      'bets/search?${status != null ? 'status=$status&' : ''}${title.isNotEmpty ? '&title=$title' : ''}${from != null ? '&from=$from' : ''}${to != null ? '&to=$to' : ''}';
 }
