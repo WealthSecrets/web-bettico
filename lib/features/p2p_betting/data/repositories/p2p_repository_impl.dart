@@ -243,6 +243,23 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       );
 
   @override
+  Future<Either<Failure, List<Bet>>> getFilteredBets({
+    String? status,
+    required String title,
+    String? from,
+    String? to,
+  }) {
+    return makeRequest(
+      p2pRemoteDataSource.getFilteredBets(
+        status: status,
+        title: title,
+        from: from,
+        to: to,
+      ),
+    );
+  }
+
+  @override
   Future<Either<Failure, SLeague>> getLeague(int leagueId) =>
       makeRequest(p2pRemoteDataSource.getLeague(leagueId));
 

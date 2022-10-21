@@ -9,11 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
-import '../../../../p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/domain/usecases/load_user.dart';
+import '../../../../p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
+import '../../../../p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
 import '../../../domain/requests/follow/user_request.dart';
 import '../../../domain/usecases/follow/get_my_followers.dart';
 import '../../../domain/usecases/follow/get_my_followings.dart';

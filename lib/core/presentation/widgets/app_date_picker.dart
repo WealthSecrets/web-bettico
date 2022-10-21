@@ -60,9 +60,10 @@ class _AppDatePickerState extends State<AppDatePicker> {
             widget.labelText!,
             textAlign: TextAlign.left,
             style: widget.lableStyle ??
-                context.overline.copyWith(
+                TextStyle(
                   color: context.colors.text,
                   fontWeight: FontWeight.w700,
+                  fontSize: 10,
                 ),
           ),
         ),
@@ -86,7 +87,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                       child: CupertinoTheme(
                           data: CupertinoThemeData(
                             textTheme: CupertinoTextThemeData(
-                              dateTimePickerTextStyle: context.body1.copyWith(
+                              dateTimePickerTextStyle: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
                                   color: context.colors.textDark,
@@ -134,7 +135,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                           child: CupertinoTheme(
                             data: CupertinoThemeData(
                               textTheme: CupertinoTextThemeData(
-                                dateTimePickerTextStyle: context.body1.copyWith(
+                                dateTimePickerTextStyle: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
                                     color: context.colors.textDark,
@@ -206,8 +207,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                       child: CupertinoTheme(
                                         data: CupertinoThemeData(
                                           textTheme: CupertinoTextThemeData(
-                                            dateTimePickerTextStyle:
-                                                context.body1.copyWith(
+                                            dateTimePickerTextStyle: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w400,
                                               color: context.colors.textDark,
@@ -263,7 +263,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                                             data: CupertinoThemeData(
                                               textTheme: CupertinoTextThemeData(
                                                 dateTimePickerTextStyle:
-                                                    context.body1.copyWith(
+                                                    TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w400,
                                                   color:

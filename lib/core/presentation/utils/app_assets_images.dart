@@ -12,4 +12,7 @@ class AssetImages {
   static String leicester = 'assets/images/leicester.png';
   static String manchester = 'assets/images/manchester.png';
   static String verified = 'assets/images/verified.jpeg';
+  static String closeSmall = 'assets/images/close-small.png';
+  static String caretDown = 'assets/images/caret-down.png';
+  static String filter = 'assets/images/filter.png';
 }

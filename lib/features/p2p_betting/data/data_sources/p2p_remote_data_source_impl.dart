@@ -3,7 +3,7 @@ import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sle
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
-import '../../domain/requests/bet/update_bet_status_score_request.dart';
+
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
 import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
@@ -13,6 +13,7 @@ import '/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import '/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import '/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 import '../../../betticos/data/models/listpage/listpage.dart';
+import '../../domain/requests/bet/update_bet_status_score_request.dart';
 import '../models/bet/bet.dart';
 import '../models/crypto/network.dart';
 import '../models/crypto/volume.dart';
@@ -287,6 +288,28 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
       items.map<LiveScore>(
         (dynamic json) => LiveScore.fromJson(json as Map<String, dynamic>),
       ),
+    );
+  }
+
+  @override
+  Future<List<Bet>> getFilteredBets({
+    String? status,
+    required String title,
+    String? from,
+    String? to,
+  }) async {
+    final Map<String, dynamic> json = await _client.get(
+      P2pEndpoints.filteredBets(
+        title: title,
+        status: status,
+        from: from,
+        to: to,
+      ),
+    );
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Bet>.from(
+      items.map<Bet>(
+          (dynamic json) => Bet.fromJson(json as Map<String, dynamic>)),
     );
   }
 
