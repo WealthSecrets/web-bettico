@@ -60,7 +60,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
     if (sController.isIntro.value) {
       initTargets();
       tutorialCoachMark = TutorialCoachMark(
-        context,
         targets: targets,
         colorShadow: context.colors.primary,
         textSkip: 'SKIP',
@@ -75,7 +74,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-      )..show();
+      )..show(context: context);
     }
   }
 

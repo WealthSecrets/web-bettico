@@ -24,10 +24,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'core/core.dart';
 
 void main() async {
+  setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   ClassBuilder.registerClasses();
 
@@ -57,6 +59,7 @@ void main() async {
   ReportBindings.dependencies();
 
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+
     DeviceOrientation.portraitUp,
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
