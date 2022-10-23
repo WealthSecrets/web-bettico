@@ -143,81 +143,6 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // SizedBox(
-                  //   height: 220,
-                  //   child: PagedListView<int, LiveScore>.separated(
-                  //     pagingController: lController.pagingController.value,
-                  //     padding:
-                  //         const EdgeInsets.only(top: 20, bottom: 20, left: 20),
-                  //     scrollDirection: Axis.horizontal,
-                  //     builderDelegate: PagedChildBuilderDelegate<LiveScore>(
-                  //       itemBuilder: (BuildContext context, LiveScore liveScore,
-                  //           int index) {
-                  //         return LiveScoreCard(
-                  //           liveScore: liveScore,
-                  //           onTap: () async {
-                  //             if (!lController.isConnected) {
-                  //               if (Ethereum.isSupported) {
-                  //                 lController.initiateWalletConnect();
-                  //               } else {
-                  //                 await lController.connectWC();
-                  //               }
-                  //             } else {
-                  //               if (liveScore.time.status == 'FT') {
-                  //                 await AppSnacks.show(
-                  //                   context,
-                  //                   message:
-                  //                       'Can\'t bet on this match. It is already completed.',
-                  //                   backgroundColor: context.colors.error,
-                  //                   leadingIcon: const Icon(
-                  //                     Ionicons.checkmark_circle_outline,
-                  //                     color: Colors.white,
-                  //                   ),
-                  //                 );
-                  //               } else {
-                  //                 await Navigator.of(context).push<void>(
-                  //                   MaterialPageRoute<void>(
-                  //                     builder: (BuildContext context) =>
-                  //                         P2PBettingScreen(
-                  //                       liveScore: liveScore,
-                  //                     ),
-                  //                   ),
-                  //                 );
-                  //               }
-                  //             }
-                  //           },
-                  //         );
-                  //       },
-                  //       firstPageErrorIndicatorBuilder:
-                  //           (BuildContext context) => ErrorIndicator(
-                  //         error: lController.pagingController.value.error
-                  //             as Failure,
-                  //         onTryAgain: () =>
-                  //             lController.pagingController.value.refresh(),
-                  //       ),
-                  //       noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                  //           EmptyListIndicator(
-                  //         title: 'Nothing Found',
-                  //         message:
-                  //             'No livescores were found for this ${lController.selectedLeague.value.name}.',
-                  //         size: 50,
-                  //         gap: 16,
-                  //         spacing: 8,
-                  //       ),
-                  //       newPageProgressIndicatorBuilder:
-                  //           (BuildContext context) => const Center(
-                  //         child: LoadingLogo(),
-                  //       ),
-                  //       firstPageProgressIndicatorBuilder:
-                  //           (BuildContext context) => const Center(
-                  //         child: LoadingLogo(),
-                  //       ),
-                  //       // padding: AppPaddings.homeA,
-                  //     ),
-                  //     separatorBuilder: (BuildContext context, int index) =>
-                  //         const SizedBox.shrink(),
-                  //   ),
-                  // ),
                   Obx(
                     () => SizedBox(
                       height: 220,
@@ -235,39 +160,11 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                               itemBuilder: (BuildContext context, int index) {
                                 final LiveScore liveScore =
                                     lController.liveScores[index];
+
                                 return LiveScoreCard(
                                   liveScore: liveScore,
-                                  onTap: () async {
-                                    if (!lController.isConnected) {
-                                      if (Ethereum.isSupported) {
-                                        lController.initiateWalletConnect();
-                                      } else {
-                                        await lController.connectWC();
-                                      }
-                                    } else {
-                                      if (liveScore.time.status == 'FT') {
-                                        await AppSnacks.show(
-                                          context,
-                                          message:
-                                              'Can\'t bet on this match. It is already completed.',
-                                          backgroundColor: context.colors.error,
-                                          leadingIcon: const Icon(
-                                            Ionicons.checkmark_circle_outline,
-                                            color: Colors.white,
-                                          ),
-                                        );
-                                      } else {
-                                        await Navigator.of(context).push<void>(
-                                          MaterialPageRoute<void>(
-                                            builder: (BuildContext context) =>
-                                                P2PBettingScreen(
-                                              liveScore: liveScore,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  },
+                                  onTap: () async =>
+                                      onMatchCardTapped(liveScore),
                                 );
                               },
                             ),
@@ -286,49 +183,6 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // SizedBox(
-                  //   height: 125,
-                  //   child: PagedListView<int, SFixture>.separated(
-                  //     pagingController:
-                  //         lController.fixturePagingController.value,
-                  //     padding:
-                  //         const EdgeInsets.only(top: 20, bottom: 20, left: 20),
-                  //     scrollDirection: Axis.vertical,
-                  //     builderDelegate: PagedChildBuilderDelegate<SFixture>(
-                  //       itemBuilder: (BuildContext context, SFixture sFixture,
-                  //           int index) {
-                  //         return FixtureCard(sFixture: sFixture);
-                  //       },
-                  //       firstPageErrorIndicatorBuilder:
-                  //           (BuildContext context) => ErrorIndicator(
-                  //         error: lController.fixturePagingController.value.error
-                  //             as Failure,
-                  //         onTryAgain: () => lController
-                  //             .fixturePagingController.value
-                  //             .refresh(),
-                  //       ),
-                  //       noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                  //           const EmptyListIndicator(
-                  //         title: 'Nothing Found',
-                  //         message: 'No fixtures were found for this league.',
-                  //         size: 50,
-                  //         gap: 16,
-                  //         spacing: 8,
-                  //       ),
-                  //       newPageProgressIndicatorBuilder:
-                  //           (BuildContext context) => const Center(
-                  //         child: LoadingLogo(),
-                  //       ),
-                  //       firstPageProgressIndicatorBuilder:
-                  //           (BuildContext context) => const Center(
-                  //         child: LoadingLogo(),
-                  //       ),
-                  //       // padding: AppPaddings.homeA,
-                  //     ),
-                  //     separatorBuilder: (BuildContext context, int index) =>
-                  //         const SizedBox.shrink(),
-                  //   ),
-                  // ),
                   Obx(
                     () => lController.sFixtures.isEmpty
                         ? const AppEmptyScreen(
@@ -344,44 +198,10 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                                 child: Column(
                                   children: lController.sFixtures
                                       .map(
-                                        (LiveScore f) => FixtureCard(
-                                          sFixture: f,
-                                          onTap: () async {
-                                            if (!lController.isConnected) {
-                                              if (Ethereum.isSupported) {
-                                                lController
-                                                    .initiateWalletConnect();
-                                              } else {
-                                                await lController.connectWC();
-                                              }
-                                            } else {
-                                              if (f.time.status == 'FT') {
-                                                await AppSnacks.show(
-                                                  context,
-                                                  message:
-                                                      'Can\'t bet on this match. It is already completed.',
-                                                  backgroundColor:
-                                                      context.colors.error,
-                                                  leadingIcon: const Icon(
-                                                    Ionicons
-                                                        .checkmark_circle_outline,
-                                                    color: Colors.white,
-                                                  ),
-                                                );
-                                              } else {
-                                                await Navigator.of(context)
-                                                    .push<void>(
-                                                  MaterialPageRoute<void>(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        P2PBettingScreen(
-                                                      liveScore: f,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                            }
-                                          },
+                                        (LiveScore liveScore) => FixtureCard(
+                                          sFixture: liveScore,
+                                          onTap: () async =>
+                                              onMatchCardTapped(liveScore),
                                         ),
                                       )
                                       .toList(),
@@ -418,5 +238,59 @@ class _NewLiveScoreState extends State<NewLiveScore> {
         },
       ),
     );
+  }
+
+  void onMatchCardTapped(LiveScore liveScore) async {
+    final int? minutes = liveScore.time.minute;
+    final int? localTeamScore = liveScore.scores?.localTeamScore;
+    final int? visitorTeamScore = liveScore.scores?.visitorTeamScore;
+    if (liveScore.time.status?.toLowerCase() == 'ft') {
+      await AppSnacks.show(
+        context,
+        message: 'Sorry, match is already completed',
+        backgroundColor: context.colors.error,
+        leadingIcon: const Icon(
+          Ionicons.checkmark_circle_outline,
+          color: Colors.white,
+        ),
+      );
+    } else if (minutes != null && minutes > 10) {
+      await AppSnacks.show(
+        context,
+        message: 'Sorry, match has already started',
+        backgroundColor: context.colors.error,
+        leadingIcon: const Icon(
+          Ionicons.checkmark_circle_outline,
+          color: Colors.white,
+        ),
+      );
+    } else if ((localTeamScore != null && localTeamScore > 0) ||
+        (visitorTeamScore != null && visitorTeamScore > 0)) {
+      await AppSnacks.show(
+        context,
+        message: 'Can\'t bet on match when there is already a goal.',
+        backgroundColor: context.colors.error,
+        leadingIcon: const Icon(
+          Ionicons.checkmark_circle_outline,
+          color: Colors.white,
+        ),
+      );
+    } else {
+      if (!lController.isConnected) {
+        if (Ethereum.isSupported) {
+          lController.initiateWalletConnect();
+        } else {
+          await lController.connectWC();
+        }
+      } else {
+        await Navigator.of(context).push<void>(
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => P2PBettingScreen(
+              liveScore: liveScore,
+            ),
+          ),
+        );
+      }
+    }
   }
 }

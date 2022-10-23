@@ -442,7 +442,10 @@ class LiveScoreController extends GetxController {
       },
       (List<LiveScore> value) {
         isFetchingLiveScores(false);
-        liveScores.value = value;
+        final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
+        copyLiveScores
+            .removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
+        liveScores.value = copyLiveScores;
       },
     );
   }
@@ -458,7 +461,17 @@ class LiveScoreController extends GetxController {
       },
       (List<LiveScore> value) {
         isFetchingFixtures(false);
-        sFixtures.value = value;
+        final DateTime now = DateTime.now();
+        final DateTime today = DateTime(now.year, now.month, now.day);
+
+        final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
+        copyLiveScores.removeWhere((LiveScore l) {
+          final DateTime lDateTime = DateTime.parse(
+            l.time.startingAt.dateTime,
+          );
+          return lDateTime.isBefore(today);
+        });
+        sFixtures.value = copyLiveScores;
       },
     );
   }
