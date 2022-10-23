@@ -311,19 +311,22 @@ class P2PBetController extends GetxController {
   }) async {
     isUpdatingBet(true);
 
-    String status = 'awaiting';
+    String st = 'awaiting';
 
-    if (status.toLowerCase() == 'live') {
-      status = 'ongoing';
+    if (status.toLowerCase() == 'live' ||
+        status.toLowerCase() == 'h1' ||
+        status.toLowerCase() == 'ht' ||
+        status.toLowerCase() == 'h2') {
+      st = 'ongoing';
     } else if (status.toLowerCase() == 'ft') {
-      status = 'completed';
+      st = 'completed';
     }
 
     final Either<Failure, Bet> failureOrBet = await updateBetStatusScore(
       UpdateBetStatusScoreRequest(
         betId: betId,
         score: score,
-        status: status,
+        status: st,
         winner: winner,
       ),
     );
@@ -334,7 +337,10 @@ class P2PBetController extends GetxController {
       },
       (Bet value) {
         isUpdatingBet(false);
-        bet(value);
+        final List<Bet> betCopy = List<Bet>.from(bets);
+        final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
+        betCopy[valueIndex] = value;
+        bets(betCopy);
       },
     );
   }
