@@ -131,7 +131,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                   ),
                   const AppSpacing(v: 30),
                   Text(
-                    'How much do you want to bet ?',
+                    'How much do you want to bet?',
                     style: TextStyle(
                       color: context.colors.textDark,
                       fontWeight: FontWeight.w700,
@@ -143,9 +143,9 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                     labelText: 'AMOUNT (USD)',
                     textInputType: TextInputType.number,
                     onChanged: (String value) {
-                      controller.onAmountInputChanged(value);
                       final double? amount = double.tryParse(value);
                       if (amount != null) {
+                        controller.onAmountInputChanged(amount);
                         lController.convertAmount(context,
                             lController.selectedCurrency.value, amount);
                       }
@@ -224,9 +224,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             'decrease', controller.amount.value);
 
                         controller.addNewBet(
-                          context,
-                          lController.walletAddress.value,
-                        );
+                            context, lController.walletAddress.value, 'bonus');
                       } else {
                         final String? actualHash =
                             await lController.send(context);
@@ -235,6 +233,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           controller.addNewBet(
                             context,
                             lController.walletAddress.value,
+                            actualHash,
                           );
                         }
                       }

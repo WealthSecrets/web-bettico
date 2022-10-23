@@ -226,9 +226,9 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<List<Bet>> fetchAwaitingBets() async {
+  Future<List<Bet>> fetchStatusBets(String status) async {
     final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.awaitingBets);
+        await _client.get(P2pEndpoints.statusBets(status));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
       items.map<Bet>(
@@ -306,6 +306,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
         to: to,
       ),
     );
+    print('the actual json received: $json');
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
       items.map<Bet>(

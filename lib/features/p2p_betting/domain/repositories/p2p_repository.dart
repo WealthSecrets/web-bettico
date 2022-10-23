@@ -84,6 +84,7 @@ abstract class P2pRepository {
     BettorRequest? opponent,
     required TeamRequest awayTeam,
     required TeamRequest homeTeam,
+    required String txthash,
     String? date,
     String? time,
     String? score,
@@ -124,7 +125,7 @@ abstract class P2pRepository {
 
   Future<Either<Failure, List<SLeague>>> fetchLeagues();
 
-  Future<Either<Failure, List<Bet>>> fetchAwaitingBets();
+  Future<Either<Failure, List<Bet>>> fetchStatusBets(String status);
 
   Future<Either<Failure, List<Bet>>> fetchMyBets();
 }

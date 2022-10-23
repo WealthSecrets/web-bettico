@@ -47,7 +47,7 @@ abstract class P2pRemoteDataSource {
 
   Future<List<Bet>> fetchBets();
 
-  Future<List<Bet>> fetchAwaitingBets();
+  Future<List<Bet>> fetchStatusBets(String status);
 
   Future<List<Bet>> fetchMyBets();
 

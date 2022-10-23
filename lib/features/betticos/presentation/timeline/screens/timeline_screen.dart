@@ -52,7 +52,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
   @override
   void initState() {
     Future<void>.delayed(Duration.zero, showTutorial);
-    _p2pBetController.getAllBets();
+    WidgetUtils.onWidgetDidBuild(() {
+      _p2pBetController.setButtonSelected(context, 'awaiting');
+    });
     super.initState();
   }
 

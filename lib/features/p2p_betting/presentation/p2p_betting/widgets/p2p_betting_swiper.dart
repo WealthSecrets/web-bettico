@@ -31,7 +31,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
   @override
   void initState() {
     //ScreenWidth minus padding(60)
-    _p2pBetController.getAllBets();
+    // _p2pBetController.getAllBets();
     final double fraction = (1.sw - 30) / 1.sw;
     _controller = PageController(
       viewportFraction: fraction,

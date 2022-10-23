@@ -16,7 +16,7 @@ class P2pEndpoints {
       'https://livescore-api.com/api-client/fixtures/matches.json?competition_id=$competitionId&teamId=$teamId&date=$date&key=$apiKey&secret=$secretKey';
   static const String bets = 'bets';
   static String updateBet(String betId) => 'bets/$betId';
-  static const String awaitingBets = 'bets/awaiting';
+  static String statusBets(String status) => 'bets/status/$status';
   static const String ongoingBets = 'bets/ongoing';
   static const String myBets = 'bets/mybets';
   static const String networks = 'networks';
