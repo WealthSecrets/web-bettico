@@ -22,14 +22,12 @@ import 'package:betticos/features/settings/presentation/settings/getx/settings_b
 import 'package:betticos/main_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 
 import 'core/core.dart';
 
 void main() async {
-  usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   ClassBuilder.registerClasses();
 
