@@ -41,9 +41,14 @@ class LoginScreen extends GetWidget<LoginController> {
       'link': 'https://staking.wealthsecrets.io/swap'
     },
     <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
+    // <String, dynamic>{
+    //   'text': 'Advertise',
+    //   'link': 'https://www.wealthsecrets.io/advertiseRequest'
+    // },
     <String, dynamic>{
-      'text': 'Advertise',
-      'link': 'https://www.wealthsecrets.io/advertiseRequest'
+      'text': 'Terms & Condition',
+      'link':
+          'https://docs.google.com/document/d/1Vn14jjtxqu9YIJTw8e0AQxpdFImu8zNL/edit?usp=sharing&ouid=110662449020690083700&rtpof=true&sd=true'
     },
   ];
 
@@ -364,30 +369,41 @@ class LoginScreen extends GetWidget<LoginController> {
                     SizedBox(
                       height: 40,
                       width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          ...footerLinks
-                              .map(
-                                (Map<String, dynamic> footerLink) => TextButton(
-                                  onPressed: () {
-                                    js.context.callMethod('open',
-                                        <String>[footerLink['link'] as String]);
-                                  },
-                                  child: Text(
-                                    footerLink['text'] as String,
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
+                      child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                '18+',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            ...footerLinks
+                                .map(
+                                  (Map<String, dynamic> footerLink) =>
+                                      TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        footerLink['link'] as String
+                                      ]);
+                                    },
+                                    child: Text(
+                                      footerLink['text'] as String,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
-                              .toList(),
-                        ],
-                      ),
+                                )
+                                .toList(),
+                          ]),
                     ),
                   ],
                 ),

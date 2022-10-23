@@ -167,7 +167,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                           child: TextButton(
                             style: TextButton.styleFrom(
                               shadowColor: context.colors.primary,
-                              foregroundColor: context.colors.primary,
+                              backgroundColor: context.colors.primary,
                             ),
                             onPressed: () {
                               setState(() {
