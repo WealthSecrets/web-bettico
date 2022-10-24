@@ -40,92 +40,49 @@ class FixtureCard extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: _buildLeftFixtureCard(
-                  imagePath: sFixture.localTeam.data.logo,
-                  name: sFixture.localTeam.data.name,
+              Align(
+                alignment: Alignment.centerRight,
+                child: TimeCard(
+                  dateTime: DateTime.parse(
+                    sFixture.time.startingAt.dateTime,
+                  ),
                 ),
               ),
-              const SizedBox(width: 10),
-              Column(
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        sFixture.scores != null
-                            ? sFixture.scores!.localTeamScore.toString()
-                            : '0',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      const Text(
-                        ':',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        sFixture.scores != null
-                            ? sFixture.scores!.visitorTeamScore.toString()
-                            : '0',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 3),
-                  TimeCard(
-                    dateTime: DateTime.parse(
-                      sFixture.time.startingAt.dateTime,
+                  Expanded(
+                    flex: 1,
+                    child: _buildLeftFixtureCard(
+                      imagePath: sFixture.localTeam.data.logo,
+                      name: sFixture.localTeam.data.name,
                     ),
                   ),
-                  // Container(
-                  //   padding: const EdgeInsets.symmetric(
-                  //     vertical: 3,
-                  //     horizontal: 5,
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(5),
-                  //     color: context.colors.primary.withOpacity(.2),
-                  //     border: Border.all(
-                  //       color: context.colors.primary,
-                  //       width: 1,
-                  //       style: BorderStyle.solid,
-                  //     ),
-                  //   ),
-                  //   child: Text(
-                  //     '${sFixture.scores.}\'',
-                  //     style: TextStyle(
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: 14,
-                  //       color: context.colors.primary,
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                flex: 1,
-                child: _buildRightFixtureCard(
-                  imagePath: sFixture.visitorTeam.data.logo,
-                  name: StringUtils.capitalizeFirst(
-                    sFixture.visitorTeam.data.name,
+                  const SizedBox(width: 10),
+                  Text(
+                    '${sFixture.scores?.localTeamScore ?? 0} - ${sFixture.scores?.visitorTeamScore ?? 0}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 1,
+                    child: _buildRightFixtureCard(
+                      imagePath: sFixture.visitorTeam.data.logo,
+                      name: StringUtils.capitalizeFirst(
+                        sFixture.visitorTeam.data.name,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

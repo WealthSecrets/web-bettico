@@ -1,5 +1,5 @@
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_awaiting_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_status_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
@@ -32,7 +32,7 @@ class P2PBetBindings {
         getTeamMatch: GetTeamMatch(
           p2pRepository: Get.find(),
         ),
-        fetchAwaitingBets: FetchAwaitingBets(
+        fetchStatusBets: FetchStatusBets(
           p2pRepository: Get.find(),
         ),
         updateBet: UpdateBet(

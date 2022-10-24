@@ -107,6 +107,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
     BettorRequest? opponent,
     required TeamRequest awayTeam,
     required TeamRequest homeTeam,
+    required String txthash,
     String? date,
     String? time,
     String? score,
@@ -116,6 +117,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
         p2pRemoteDataSource.addBet(
           request: BetRequest(
             amount: amount,
+            txthash: txthash,
             competitionId: competitionId,
             creator: creator,
             opponent: opponent,
@@ -185,8 +187,8 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       makeRequest(p2pRemoteDataSource.fetchLeagues());
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchAwaitingBets() =>
-      makeRequest(p2pRemoteDataSource.fetchAwaitingBets());
+  Future<Either<Failure, List<Bet>>> fetchStatusBets(String status) =>
+      makeRequest(p2pRemoteDataSource.fetchStatusBets(status));
 
   @override
   Future<Either<Failure, List<Bet>>> fetchMyBets() =>

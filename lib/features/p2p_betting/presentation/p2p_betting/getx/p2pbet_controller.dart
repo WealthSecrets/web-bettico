@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/search_bet_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/bet/status_bets_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_request.dart';
@@ -10,8 +11,8 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_sta
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/fixture_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_competition_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_team_request.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_awaiting_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_status_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
@@ -43,7 +44,7 @@ class P2PBetController extends GetxController {
     required this.updateBetStatusScore,
     required this.updateBetPayoutStatus,
     required this.fetchBets,
-    required this.fetchAwaitingBets,
+    required this.fetchStatusBets,
     required this.fetchMyBets,
     required this.getCompetitionMatch,
     required this.getTeamMatch,
@@ -57,7 +58,7 @@ class P2PBetController extends GetxController {
   final SearchBets searchBets;
   final UpdateBetPayoutStatus updateBetPayoutStatus;
   final FetchBets fetchBets;
-  final FetchAwaitingBets fetchAwaitingBets;
+  final FetchStatusBets fetchStatusBets;
   final FetchMyBets fetchMyBets;
   final GetCompetitionMatch getCompetitionMatch;
   final GetTeamMatch getTeamMatch;
@@ -66,9 +67,10 @@ class P2PBetController extends GetxController {
   Rx<Bet> bet = Bet.empty().obs;
   RxList<Bet> bets = <Bet>[].obs;
   RxList<Bet> myBets = <Bet>[].obs;
-  RxList<Bet> awaitingBets = <Bet>[].obs;
-  RxList<Bet> ongoingBets = <Bet>[].obs;
-  RxList<Bet> completedBets = <Bet>[].obs;
+  // RxList<Bet> awaitingBets = <Bet>[].obs;
+  // RxList<Bet> ongoingBets = <Bet>[].obs;
+  // RxList<Bet> filteredBets = <Bet>[].obs;
+  // RxList<Bet> completedBets = <Bet>[].obs;
   Rx<SoccerMatch> match = SoccerMatch.empty().obs;
   Rx<Fixture> fixture = Fixture.empty().obs;
   Rx<LiveScore> liveScore = LiveScore.empty().obs;
@@ -123,14 +125,9 @@ class P2PBetController extends GetxController {
     choice(value);
   }
 
-  void setButtonSelected(String value) {
+  void setButtonSelected(BuildContext context, String value) {
     selectedButton(value);
-
-    // filter the bets
-    bets
-        .where((Bet b) =>
-            b.status.stringValue.toLowerCase() == value.toLowerCase())
-        .toList();
+    getAllStatusBets(context, value.toLowerCase());
   }
 
   void setCompetitionId(int value) {
@@ -151,11 +148,8 @@ class P2PBetController extends GetxController {
     liveScore.value = value;
   }
 
-  void onAmountInputChanged(String value) {
-    final double? am = double.tryParse(value);
-    if (am != null) {
-      amount(am);
-    }
+  void onAmountInputChanged(double value) {
+    amount(value);
   }
 
   String? validateFirstName(String? firstName) {
@@ -190,7 +184,7 @@ class P2PBetController extends GetxController {
   bool get isDetailsValid =>
       choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty;
 
-  void addNewBet(BuildContext context, String wallet) async {
+  void addNewBet(BuildContext context, String wallet, String txthash) async {
     isAddingBet(true);
     final Either<Failure, Bet> failureOrBet = await addBet(
       BetRequest(
@@ -213,6 +207,7 @@ class P2PBetController extends GetxController {
           teamId: liveScore.value.localTeam.data.id,
           logo_path: liveScore.value.localTeam.data.logo,
         ),
+        txthash: txthash,
         status: status.value,
         time: liveScore.value.time.startingAt.time,
         date: liveScore.value.time.startingAt.date,
@@ -229,10 +224,6 @@ class P2PBetController extends GetxController {
       (Bet value) {
         isAddingBet(false);
         bet(value);
-        final List<Bet> allBets = List<Bet>.from(bets);
-        allBets.insert(0, value);
-        bets.value = allBets;
-        rebuildBets(allBets);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute<void>(
             builder: (BuildContext context) => const P2PBettingCongratScreen(),
@@ -270,12 +261,6 @@ class P2PBetController extends GetxController {
       (Bet value) {
         isUpdatingBet(false);
         bet(value);
-        final List<Bet> allBets = List<Bet>.from(bets);
-        allBets.indexWhere((Bet b) => false);
-        allBets.removeWhere((Bet b) => b.id == value.id);
-        allBets.add(value);
-        bets.value = allBets;
-        rebuildBets(allBets);
         showAppModal<void>(
           barrierDismissible: false,
           context: context,
@@ -326,19 +311,22 @@ class P2PBetController extends GetxController {
   }) async {
     isUpdatingBet(true);
 
-    String status = 'awaiting';
+    String st = 'awaiting';
 
-    if (status.toLowerCase() == 'live') {
-      status = 'ongoing';
+    if (status.toLowerCase() == 'live' ||
+        status.toLowerCase() == 'h1' ||
+        status.toLowerCase() == 'ht' ||
+        status.toLowerCase() == 'h2') {
+      st = 'ongoing';
     } else if (status.toLowerCase() == 'ft') {
-      status = 'completed';
+      st = 'completed';
     }
 
     final Either<Failure, Bet> failureOrBet = await updateBetStatusScore(
       UpdateBetStatusScoreRequest(
         betId: betId,
         score: score,
-        status: status,
+        status: st,
         winner: winner,
       ),
     );
@@ -349,12 +337,10 @@ class P2PBetController extends GetxController {
       },
       (Bet value) {
         isUpdatingBet(false);
-        bet(value);
-        bets.removeWhere((Bet b) => b.id == betId);
-        final List<Bet> copyBetList = List<Bet>.from(bets);
-        copyBetList.add(value);
-        bets(copyBetList);
-        rebuildBets(copyBetList);
+        final List<Bet> betCopy = List<Bet>.from(bets);
+        final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
+        betCopy[valueIndex] = value;
+        bets(betCopy);
       },
     );
   }
@@ -379,29 +365,24 @@ class P2PBetController extends GetxController {
       (Bet value) {
         isUpdatingBet(false);
         bet(value);
-        bets.removeWhere((Bet b) => b.id == betId);
-        final List<Bet> copyBetList = List<Bet>.from(bets);
-        copyBetList.add(value);
-        bets(copyBetList);
-        rebuildBets(copyBetList);
       },
     );
   }
 
-  void rebuildBets(List<Bet> bs) {
-    final List<Bet> aBets = bs
-        .where((Bet b) => b.status.stringValue.toLowerCase() == 'awaiting')
-        .toList();
-    awaitingBets(aBets);
-    final List<Bet> oBets = bs
-        .where((Bet b) => b.status.stringValue.toLowerCase() == 'ongoing')
-        .toList();
-    ongoingBets(oBets);
-    final List<Bet> cBets = bs
-        .where((Bet b) => b.status.stringValue.toLowerCase() == 'completed')
-        .toList();
-    completedBets(cBets);
-  }
+  // void rebuildBets(List<Bet> bs) {
+  //   final List<Bet> aBets = bs
+  //       .where((Bet b) => b.status.stringValue.toLowerCase() == 'awaiting')
+  //       .toList();
+  //   awaitingBets(aBets);
+  //   final List<Bet> oBets = bs
+  //       .where((Bet b) => b.status.stringValue.toLowerCase() == 'ongoing')
+  //       .toList();
+  //   ongoingBets(oBets);
+  //   final List<Bet> cBets = bs
+  //       .where((Bet b) => b.status.stringValue.toLowerCase() == 'completed')
+  //       .toList();
+  //   completedBets(cBets);
+  // }
 
   Future<SoccerMatch?> getLiveCompetitionMatch(
     BuildContext context,
@@ -539,7 +520,7 @@ class P2PBetController extends GetxController {
     return Future<SoccerMatch?>.value(teamMatch);
   }
 
-  void getAllBets() async {
+  void getAllBs() async {
     isFetchingBets(true);
 
     final Either<Failure, List<Bet>> failureOrBets = await fetchBets(
@@ -553,7 +534,6 @@ class P2PBetController extends GetxController {
       (List<Bet> value) {
         isFetchingBets(false);
         bets(value);
-        rebuildBets(value);
       },
     );
   }
@@ -575,10 +555,23 @@ class P2PBetController extends GetxController {
       },
       (List<Bet> value) {
         isFetchingBets(false);
-        rebuildBets(value);
+        bets(value);
       },
     );
   }
+
+  void clearFilter(BuildContext context) {
+    title('');
+    searchStatus('');
+    from('');
+    to('');
+    getAllStatusBets(context, selectedButton.value);
+  }
+
+  bool get isFiltering =>
+      title.isNotEmpty ||
+      status.isNotEmpty ||
+      (from.isNotEmpty && to.isNotEmpty);
 
   void resetSearch() {
     title('');
@@ -587,12 +580,11 @@ class P2PBetController extends GetxController {
     to('');
   }
 
-  Future<List<Bet>>? getAllAwaitingBets(BuildContext context) async {
-    List<Bet>? awaitingB;
+  void getAllStatusBets(BuildContext context, String status) async {
     isFetchingBets(true);
 
-    final Either<Failure, List<Bet>> failureOrBets = await fetchAwaitingBets(
-      NoParams(),
+    final Either<Failure, List<Bet>> failureOrBets = await fetchStatusBets(
+      StatusBetsRequests(status: status),
     );
 
     failureOrBets.fold<void>(
@@ -602,12 +594,16 @@ class P2PBetController extends GetxController {
       },
       (List<Bet> value) {
         isFetchingBets(false);
-        awaitingB = value;
-        awaitingBets(value);
+        // if (status.toLowerCase() == 'awaiting') {
+        //   awaitingBets(value);
+        // } else if (status.toLowerCase() == 'ongoing') {
+        //   ongoingBets(value);
+        // } else {
+        //   completedBets(value);
+        // }
+        bets(value);
       },
     );
-
-    return Future<List<Bet>>.value(awaitingB);
   }
 
   void getMyBets() async {

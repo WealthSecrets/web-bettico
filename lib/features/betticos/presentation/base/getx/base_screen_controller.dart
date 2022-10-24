@@ -62,23 +62,14 @@ class BaseScreenController extends GetxController {
     );
   }
 
-  void increaseDecreaseUserBonus(String type, double amount) async {
+  Future<Either<Failure, User>> increaseDecreaseUserBonus(
+      String type, double amount) async {
     isUpdatingUserBonus.value = true;
-    final Either<Failure, User> failureOrUser = await updateUserBonus(
+    return updateUserBonus(
       UserBonusRequest(
         type: type,
         amount: amount,
       ),
-    );
-
-    failureOrUser.fold<void>(
-      (Failure failure) {
-        isUpdatingUserBonus.value = false;
-      },
-      (User value) {
-        user(value);
-        isUpdatingUserBonus.value = false;
-      },
     );
   }
 
