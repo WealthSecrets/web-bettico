@@ -131,10 +131,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   SliverAppBar _buildSliverAppBar() {
     return SliverAppBar(
-      expandedHeight: 300,
+      toolbarHeight: 0,
+      expandedHeight: 200,
       floating: false,
       pinned: true,
       backgroundColor: Colors.white,
+      automaticallyImplyLeading: false,
       actions: <Widget>[
         if (widget.user != null && widget.user!.id != controller.user.value.id)
           GestureDetector(
@@ -168,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Obx(
               () => Column(
                 children: <Widget>[
-                  const AppSpacing(v: 100),
+                  const AppSpacing(v: 30),
                   if (controller.user.value.role == 'oddster')
                     Align(
                       alignment: Alignment.center,

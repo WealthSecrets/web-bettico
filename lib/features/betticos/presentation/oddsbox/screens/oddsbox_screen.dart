@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_ructors
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,28 +33,6 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
       () => AppLoadingBox(
         loading: controller.isOddboxLoading.value,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: ResponsiveWidget.isSmallScreen(context) ? 0.5 : null,
-            automaticallyImplyLeading:
-                ResponsiveWidget.isSmallScreen(context) ? false : true,
-            leading: ResponsiveWidget.isSmallScreen(context)
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {},
-                  )
-                : null,
-            title: Text(
-              'odd_boxes'.tr,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
-          ),
           body: controller.oddboxes.isEmpty
               ? AppEmptyScreen(message: 'no_oddboxes'.tr)
               : Obx(

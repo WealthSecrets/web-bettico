@@ -1,7 +1,4 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
-
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/betticos/presentation/oddsters/widgets/oddsters_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -49,7 +46,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
-                  _buildSliverAppBar(),
+                  SliverPadding(padding: AppPaddings.lT),
                   SliverPersistentHeader(
                     delegate: SliverAppBarDelegate(
                       TabBar(
@@ -93,44 +90,6 @@ class _OddstersScreenState extends State<OddstersScreen> {
               }),
             )),
       ),
-    );
-  }
-
-  SliverAppBar _buildSliverAppBar() {
-    return SliverAppBar(
-      backgroundColor: Colors.white,
-      floating: false,
-      pinned: true,
-      elevation: 0,
-      automaticallyImplyLeading:
-          ResponsiveWidget.isSmallScreen(context) ? false : true,
-      title: Text(
-        'oddsters'.tr,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-        ),
-      ),
-      leading: ResponsiveWidget.isSmallScreen(context)
-          ? IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            )
-          : null,
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {
-            showSearch<String>(context: context, delegate: OddsterSearch());
-          },
-          icon: Icon(
-            Icons.search,
-            color: context.colors.black,
-          ),
-        )
-      ],
     );
   }
 
