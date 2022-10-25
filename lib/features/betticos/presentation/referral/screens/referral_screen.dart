@@ -10,8 +10,8 @@ import 'package:share_plus/share_plus.dart';
 import '/core/core.dart';
 import '/features/betticos/presentation/referral/getx/referral_controller.dart';
 
-class ReferralScreen extends KFDrawerContent {
-  ReferralScreen({Key? key}) : super(key: key);
+class ReferralScreen extends StatefulWidget {
+  const ReferralScreen({Key? key}) : super(key: key);
   @override
   State<ReferralScreen> createState() => _ReferralScreenState();
 }
@@ -46,7 +46,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                   Icons.menu,
                   color: Colors.black,
                 ),
-                onPressed: widget.onMenuPressed,
+                onPressed: () {},
               )
             : null,
       ),

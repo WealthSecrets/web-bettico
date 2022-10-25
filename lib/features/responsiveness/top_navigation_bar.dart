@@ -30,24 +30,13 @@ AppBar topNavigationBar(
           ),
     backgroundColor: Colors.transparent,
     title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Visibility(
-          child: CustomText(
-            text: 'Bettico',
-            color: context.colors.text,
-            size: 20,
-            weight: FontWeight.bold,
-          ),
-        ),
-        Expanded(
-          child: Container(),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.settings,
-            color: context.colors.textDark.withOpacity(.7),
-          ),
+        CustomText(
+          text: 'Bettico',
+          color: context.colors.textDark,
+          size: 20,
+          weight: FontWeight.bold,
         ),
         Stack(
           children: <Widget>[
@@ -73,34 +62,6 @@ AppBar topNavigationBar(
               ),
             ),
           ],
-        ),
-        Container(
-          width: 1,
-          height: 22,
-          color: context.colors.lightGrey,
-        ),
-        const SizedBox(width: 24),
-        CustomText(
-          text: 'Blankson Richmond',
-          color: context.colors.lightGrey,
-        ),
-        const SizedBox(width: 16),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(2),
-            margin: const EdgeInsets.all(2),
-            child: CircleAvatar(
-              backgroundColor: context.colors.hintLight,
-              child: Icon(
-                Icons.person_outline,
-                color: context.colors.textDark,
-              ),
-            ),
-          ),
         ),
       ],
     ),

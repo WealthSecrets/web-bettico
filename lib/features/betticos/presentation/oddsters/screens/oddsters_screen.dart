@@ -15,8 +15,9 @@ import '/features/betticos/presentation/profile/getx/profile_controller.dart';
 import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
-class OddstersScreen extends KFDrawerContent {
-  OddstersScreen({Key? key}) : super(key: key);
+class OddstersScreen extends StatefulWidget {
+  const OddstersScreen({Key? key}) : super(key: key);
+
   @override
   State<OddstersScreen> createState() => _OddstersScreenState();
 }
@@ -116,7 +117,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
                 Icons.menu,
                 color: Colors.black,
               ),
-              onPressed: widget.onMenuPressed,
+              onPressed: () {},
             )
           : null,
       actions: <Widget>[

@@ -4,13 +4,7 @@ import 'package:get/get.dart';
 
 import '/core/core.dart';
 
-class BetCompetitionScreen extends KFDrawerContent {
-  BetCompetitionScreen({Key? key}) : super(key: key);
-  @override
-  State<BetCompetitionScreen> createState() => _BetCompetitionScreenState();
-}
-
-class _BetCompetitionScreenState extends State<BetCompetitionScreen> {
+class BetCompetitionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +18,7 @@ class _BetCompetitionScreenState extends State<BetCompetitionScreen> {
               Icons.menu,
               color: Colors.black,
             ),
-            onPressed: widget.onMenuPressed,
+            onPressed: () {},
           ),
           title: Text(
             'bet_comp'.tr,

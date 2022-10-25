@@ -47,8 +47,8 @@ void main() async {
   ForgotBindings.dependencies();
   ResetBindings.dependencies();
   P2PBetBindings.dependencies();
-  TimelineBindings.dependencies();
   SettingsBindings.dependencies();
+  TimelineBindings.dependencies();
 
   MembersBindings.dependencies();
   OddstersBindings.dependencies();

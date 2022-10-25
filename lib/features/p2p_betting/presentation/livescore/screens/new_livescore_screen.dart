@@ -16,8 +16,8 @@ import '../../../../betticos/presentation/base/getx/base_screen_controller.dart'
 import '../../p2p_betting/screens/p2p_betting_screen.dart';
 import '../getx/live_score_controllers.dart';
 
-class NewLiveScore extends KFDrawerContent {
-  NewLiveScore({Key? key}) : super(key: key);
+class NewLiveScore extends StatefulWidget {
+  const NewLiveScore({Key? key}) : super(key: key);
 
   @override
   State<NewLiveScore> createState() => _NewLiveScoreState();
@@ -56,7 +56,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
         children: <Widget>[
           Obx(
             () => NewLiveScoreAppBar(
-              onMenuPressed: widget.onMenuPressed,
+              onMenuPressed: () {},
               onChanged: (String text) {},
               walletAddress: lController.walletAddress.value,
               onPressed: () async {

@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
@@ -10,9 +9,8 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 
 // TODO: create controller specific for oddbox
-class MembersScreen extends KFDrawerContent {
-  MembersScreen({Key? key}) : super(key: key);
-
+class MembersScreen extends StatefulWidget {
+  const MembersScreen({Key? key}) : super(key: key);
   @override
   State<MembersScreen> createState() => _MembersScreenState();
 }
@@ -34,28 +32,6 @@ class _MembersScreenState extends State<MembersScreen> {
       () => AppLoadingBox(
         loading: controller.isLoading.value,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: ResponsiveWidget.isSmallScreen(context) ? 0.5 : 0,
-            automaticallyImplyLeading:
-                ResponsiveWidget.isSmallScreen(context) ? false : true,
-            leading: ResponsiveWidget.isSmallScreen(context)
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                    ),
-                    onPressed: widget.onMenuPressed,
-                  )
-                : null,
-            title: Text(
-              'members'.tr,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
-          ),
           body: (controller.myMembers.isEmpty)
               ? AppEmptyScreen(message: 'no_members'.tr)
               : ListView.separated(

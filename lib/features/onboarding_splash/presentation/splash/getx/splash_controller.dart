@@ -1,6 +1,5 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,6 @@ import '/features/auth/data/models/user/user.dart';
 import '/features/auth/domain/usecases/is_authenticated.dart';
 import '/features/auth/domain/usecases/validate_session.dart';
 import '/features/onboarding_splash/domain/usecases/get_onboard.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class SplashController extends GetxController {
   SplashController({
@@ -20,8 +18,6 @@ class SplashController extends GetxController {
     required this.validateSession,
     required this.isAuthenticated,
   });
-
-  static SplashController instance = Get.find();
 
   final GetOnBoard getOnBoard;
   final ValidateSession validateSession;
@@ -50,16 +46,14 @@ class SplashController extends GetxController {
         await isAuthenticated(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      debugPrint('Inside :isUserAuthenticated: method failed');
       navigationController.navigateTo(AppRoutes.login);
       Get.offAll<void>(webNavigator());
     }, (bool respone) {
-      debugPrint('Inside :isUserAuthenticated: method success: $respone');
       if (respone) {
         validateUserSession(context);
       } else {
-        navigationController.navigateTo(AppRoutes.login);
-        Get.offAll<void>(webNavigator());
+        Get.offAllNamed<void>(AppRoutes.login);
+        menuController.changeActiveItemTo(AppRoutes.timeline);
       }
     });
   }
@@ -69,18 +63,11 @@ class SplashController extends GetxController {
         await validateSession(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      debugPrint('Inside :validateUserSession: method failed');
-      navigationController.navigateTo(AppRoutes.login);
-      Get.offAll<void>(webNavigator());
+      Get.offAllNamed<void>(AppRoutes.login);
+      menuController.changeActiveItemTo(AppRoutes.timeline);
     }, (User user) {
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        navigationController.navigateTo(AppRoutes.base);
-        Get.offAll<void>(webNavigator());
-      } else {
-        Get.offAll<void>(const HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
-      }
+      Get.offAllNamed<void>(AppRoutes.home);
+      menuController.changeActiveItemTo(AppRoutes.timeline);
     });
   }
 }

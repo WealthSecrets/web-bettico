@@ -41,8 +41,6 @@ class BaseScreenController extends GetxController {
   RxList<User> myFollowers = <User>[].obs;
   RxList<User> myFollowings = <User>[].obs;
 
-  static BaseScreenController instance = Get.find();
-
   @override
   void onInit() {
     loadUserFromToken();

@@ -15,8 +15,8 @@ import '../widgets/livescore_app_bar.dart';
 import '../widgets/score_row.dart';
 
 // ignore: must_be_immutable
-class LiveScoreScreen extends KFDrawerContent {
-  LiveScoreScreen({Key? key}) : super(key: key);
+class LiveScoreScreen extends StatefulWidget {
+  const LiveScoreScreen({Key? key}) : super(key: key);
   @override
   State<LiveScoreScreen> createState() => _LiveScoreScreenState();
 }
@@ -45,7 +45,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
           return <Widget>[
             Obx(
               () => LiveScoreAppBar(
-                onMenuPressed: widget.onMenuPressed,
+                onMenuPressed: () {},
                 onChanged: (String text) {},
                 walletAddress: lController.walletAddress.value,
                 onPressed: () async {

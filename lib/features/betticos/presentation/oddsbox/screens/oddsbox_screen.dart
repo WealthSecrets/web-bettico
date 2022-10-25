@@ -10,8 +10,8 @@ import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
-class OddsboxScreen extends KFDrawerContent {
-  OddsboxScreen({Key? key}) : super(key: key);
+class OddsboxScreen extends StatefulWidget {
+  const OddsboxScreen({Key? key}) : super(key: key);
 
   @override
   State<OddsboxScreen> createState() => _OddsboxScreenState();
@@ -45,7 +45,7 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                       Icons.menu,
                       color: Colors.black,
                     ),
-                    onPressed: widget.onMenuPressed,
+                    onPressed: () {},
                   )
                 : null,
             title: Text(
