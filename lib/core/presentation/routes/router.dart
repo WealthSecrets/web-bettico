@@ -1,16 +1,12 @@
-import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
-import 'package:betticos/features/betticos/presentation/base/screens/base_screen.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
-import 'package:betticos/features/responsiveness/large_timeline_screen.dart';
-import 'package:betticos/features/responsiveness/large_update_screen.dart';
+import 'package:betticos/features/responsiveness/not_found_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
@@ -24,13 +20,10 @@ import '../../../features/auth/presentation/register/screens/registration_upload
 import '../../../features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import '../../../features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
 import '../../../features/betticos/presentation/profile/screens/profile_screen.dart';
-// import '../../../features/betticos/presentation/profile/screens/update_profile_screen.dart';
 import '../../../features/betticos/presentation/report/screens/report_screen.dart';
 import '../../../features/betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import '../../../features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
-import '../../../features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
 import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
-// import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import '../../../features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import '../../../features/settings/presentation/settings/screens/settings_screen.dart';
 import 'app_routes.dart';
@@ -38,11 +31,9 @@ import 'app_routes.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.profile:
-      return _getPageRoute(ProfileScreen(), settings);
-    case AppRoutes.login:
-      return _getPageRoute(LoginScreen(), settings);
+      return _getPageRoute(const ProfileScreen(), settings);
     case AppRoutes.registration:
-      return _getPageRoute(const RegistrationScreen(), settings);
+      return _getPageRoute(RegistrationScreen(), settings);
     case AppRoutes.personalInformation:
       final UserArgument? args = settings.arguments as UserArgument?;
       return _getPageRoute(
@@ -51,7 +42,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           ),
           settings);
     case AppRoutes.accountType:
-      return _getPageRoute(const RegistrationAccountTypeScreen(), settings);
+      return _getPageRoute(RegistrationAccountTypeScreen(), settings);
     case AppRoutes.walletConnect:
       return _getPageRoute(ForgotWalletScreen(), settings);
     case AppRoutes.addressConnect:
@@ -62,8 +53,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ResetScreen(), settings);
     case AppRoutes.profilePhoto:
       return _getPageRoute(const RegistrationUploadPhotoScreen(), settings);
-    // case AppRoutes.updateProfile:
-    //   return _getPageRoute(const UpdateProfileScreen(), settings);
     case AppRoutes.otpVerify:
       final OTPVerificationArgument? args =
           settings.arguments as OTPVerificationArgument?;
@@ -78,39 +67,32 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.timelinePost:
       return _getPageRoute(const TimelinePostScreen(), settings);
     case AppRoutes.members:
-      return _getPageRoute(MembersScreen(), settings);
+      return _getPageRoute(const MembersScreen(), settings);
     case AppRoutes.oddsters:
-      return _getPageRoute(OddstersScreen(), settings);
+      return _getPageRoute(const OddstersScreen(), settings);
     case AppRoutes.oddboxes:
-      return _getPageRoute(OddsboxScreen(), settings);
+      return _getPageRoute(const OddsboxScreen(), settings);
     case AppRoutes.onboard:
       return _getPageRoute(const OnboardingScreen(), settings);
-    case AppRoutes.home:
-      return _getPageRoute(const HomeBaseScreen(), settings);
-    case AppRoutes.splash:
-      return _getPageRoute(const SplashScreen(), settings);
+    // case AppRoutes.splash:
+    //   return _getPageRoute(const SplashScreen(), settings);
     case AppRoutes.report:
       return _getPageRoute(const ReportScreen(), settings);
     case AppRoutes.settings:
-      return _getPageRoute(SettingsScreen(), settings);
+      return _getPageRoute(const SettingsScreen(), settings);
     case AppRoutes.livescore:
-      return _getPageRoute(NewLiveScore(), settings);
+      return _getPageRoute(const NewLiveScore(), settings);
     case AppRoutes.p2pBettingHistory:
       return _getPageRoute(const P2PBettingHistoryScreen(), settings);
-    // case AppRoutes.p2pBetting:
-    //   return _getPageRoute(const P2PBettingScreen(), settings);
     case AppRoutes.p2pSuccess:
       return _getPageRoute(const P2PBettingCongratScreen(), settings);
     case AppRoutes.timeline:
-      return _getPageRoute(TimelineScreen(), settings);
-    case AppRoutes.updates:
-      return _getPageRoute(const LargeUdpateScreen(), settings);
+      return _getPageRoute(const TimelineScreen(), settings);
     case AppRoutes.referral:
-      return _getPageRoute(ReferralScreen(), settings);
-    case AppRoutes.base:
-      return _getPageRoute(const BaseScreen(), settings);
+      return _getPageRoute(const ReferralScreen(), settings);
     default:
-      return _getPageRoute(const LargeTimelineScreen(), settings);
+      debugPrint('Checking the route name: ${settings.name}');
+      return _getPageRoute(const NotFoundScreen(), settings);
   }
 }
 

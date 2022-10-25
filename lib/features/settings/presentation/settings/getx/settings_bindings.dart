@@ -29,8 +29,8 @@ import 'package:get/get.dart';
 
 class SettingsBindings {
   static void dependencies() {
-    Get.lazyPut(
-      () => SettingsController(
+    Get.put(
+      SettingsController(
         getIntroPrefs: GetIntroPrefs(
           settingsRepository: Get.find(),
         ),
@@ -44,6 +44,7 @@ class SettingsBindings {
           settingsRepository: Get.find(),
         ),
       ),
+      permanent: true,
     );
   }
 }

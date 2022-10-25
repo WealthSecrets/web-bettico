@@ -4,13 +4,7 @@ import 'package:get/get.dart';
 
 import '/core/core.dart';
 
-class PaymentsScreen extends KFDrawerContent {
-  PaymentsScreen({Key? key}) : super(key: key);
-  @override
-  State<PaymentsScreen> createState() => _PaymentsScreenState();
-}
-
-class _PaymentsScreenState extends State<PaymentsScreen> {
+class PaymentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +18,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
               Icons.menu,
               color: Colors.black,
             ),
-            onPressed: widget.onMenuPressed,
+            onPressed: () {},
           ),
           title: Text(
             'payments'.tr,

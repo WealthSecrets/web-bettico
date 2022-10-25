@@ -6,10 +6,9 @@ import 'package:betticos/features/settings/presentation/settings/getx/settings_c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:settings_ui/settings_ui.dart';
-import '/core/core.dart';
 
-class SettingsScreen extends KFDrawerContent {
-  SettingsScreen({Key? key}) : super(key: key);
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -45,7 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icons.menu,
                     color: Colors.black,
                   ),
-                  onPressed: widget.onMenuPressed,
+                  onPressed: () {},
                 )
               : null,
           title: Text(

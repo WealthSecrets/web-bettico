@@ -7,5 +7,5 @@ import '../routes/router.dart';
 Navigator webNavigator() => Navigator(
       key: navigationController.navigatorKey,
       onGenerateRoute: generateRoute,
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppRoutes.timeline,
     );

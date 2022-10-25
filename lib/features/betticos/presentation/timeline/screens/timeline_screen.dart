@@ -25,8 +25,8 @@ import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
 // ignore: must_be_immutable
-class TimelineScreen extends KFDrawerContent {
-  TimelineScreen({Key? key}) : super(key: key);
+class TimelineScreen extends StatefulWidget {
+  const TimelineScreen({Key? key}) : super(key: key);
   @override
   State<TimelineScreen> createState() => _TimelineScreenState();
 }
@@ -111,7 +111,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
-                    _buildSliverAppBar(),
                     SliverPersistentHeader(
                       delegate: SliverAppBarDelegate(
                         TabBar(
@@ -182,7 +181,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 Icons.menu,
                 color: Colors.black,
               ),
-              onPressed: widget.onMenuPressed,
+              onPressed: () {},
             )
           : null,
       actions: <Widget>[

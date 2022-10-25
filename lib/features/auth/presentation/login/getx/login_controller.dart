@@ -1,6 +1,5 @@
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +17,6 @@ import '/features/auth/domain/usecases/resend_email.dart';
 import '/features/auth/domain/usecases/send_sms.dart';
 import '/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class LoginController extends GetxController {
   LoginController({
@@ -92,13 +90,8 @@ class LoginController extends GetxController {
         arguments: UserArgument(user: user),
       );
     } else {
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        navigationController.navigateTo(AppRoutes.base);
-      } else {
-        Get.offAll<void>(const HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
-      }
+      Get.offAllNamed<void>(AppRoutes.home);
+      menuController.changeActiveItemTo(AppRoutes.timeline);
     }
   }
 

@@ -1,13 +1,9 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-// import 'package:betticos/features/responsiveness/side_menu.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
-// import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-// import 'package:get/get.dart';
-// import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
 import '../../core/presentation/routes/side_menu_routes.dart'
@@ -67,9 +63,7 @@ class LeftSideBar extends StatelessWidget {
                   onTap: () {
                     if (item.route == AppRoutes.logout) {
                       showLogoutDialog(context);
-                      // menuController.changeActiveItemTo(AppRoutes.timeline);
-                    }
-                    if (!menuController.isActive(item.route)) {
+                    } else if (!menuController.isActive(item.route)) {
                       menuController.changeActiveItemTo(item.route);
                       if (ResponsiveWidget.isSmallScreen(context)) {
                         Get.back<void>();
@@ -91,13 +85,6 @@ class LeftSideBar extends StatelessWidget {
       padding: AppPaddings.lH.add(AppPaddings.mV),
       decoration: BoxDecoration(
         color: Colors.white,
-        // boxShadow: const <BoxShadow>[
-        //   BoxShadow(
-        //     blurRadius: 5,
-        //     color: Colors.black12,
-        //     offset: Offset(0, 1),
-        //   )
-        // ],
         border: Border.all(
           color: context.colors.faintGrey,
           width: 1,
@@ -236,7 +223,7 @@ class LeftSideBar extends StatelessWidget {
             backgroundColor: context.colors.error,
             message: 'sure_logout'.tr,
             affirmButtonText: 'logout'.tr.toUpperCase(),
-            onPressed: () => baseScreenController.logOutTheUser(context),
+            onPressed: () => bController.logOutTheUser(context),
           ),
         ),
       ),

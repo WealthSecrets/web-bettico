@@ -272,7 +272,7 @@ class RegisterController extends GetxController {
       if (ResponsiveWidget.isSmallScreen(context)) {
         navigationController.navigateTo(AppRoutes.base);
       } else {
-        Get.offAll<void>(const HomeBaseScreen());
+        Get.offAll<void>(HomeBaseScreen());
         navigationController.navigateTo(AppRoutes.timeline);
         menuController.changeActiveItemTo(AppRoutes.timeline);
       }
@@ -320,7 +320,7 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
-        Get.offAll<void>(const HomeBaseScreen());
+        Get.offAll<void>(HomeBaseScreen());
         navigationController.navigateTo(AppRoutes.timeline);
         menuController.changeActiveItemTo(AppRoutes.timeline);
       },

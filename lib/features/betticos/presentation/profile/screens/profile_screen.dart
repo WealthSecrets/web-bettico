@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 import 'dart:io';
 
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/profile/screens/my_posts_screen.dart';
 import 'package:betticos/features/betticos/presentation/profile/screens/update_profile_screen.dart';
 import 'package:betticos/features/betticos/presentation/profile/widgets/circle_indicator.dart';
@@ -19,8 +19,8 @@ import '/features/betticos/presentation/profile/getx/profile_controller.dart';
 import '/features/betticos/presentation/profile/screens/user_list_screen.dart';
 import '../../timeline/widgets/modal_fit.dart';
 
-class ProfileScreen extends KFDrawerContent {
-  ProfileScreen(
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen(
       {Key? key, this.user, this.thePreviousUser, this.showBackButton})
       : super(key: key);
   final User? user;
@@ -131,39 +131,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   SliverAppBar _buildSliverAppBar() {
     return SliverAppBar(
-      expandedHeight: ResponsiveWidget.isLargeScreen(context) ||
-              ResponsiveWidget.isMediumScreen(context)
-          ? 320.0
-          : 300,
+      expandedHeight: 300,
       floating: false,
       pinned: true,
       backgroundColor: Colors.white,
-      title: Text(
-        widget.user == null ? 'my_profile'.tr : 'profile'.tr,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-        ),
-      ),
-      leading: ResponsiveWidget.isSmallScreen(context)
-          ? widget.showBackButton ?? false
-              ? IconButton(
-                  icon: const Icon(
-                    Ionicons.chevron_back,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop<User>(widget.thePreviousUser);
-                  },
-                )
-              : IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Colors.black,
-                  ),
-                  onPressed: widget.onMenuPressed,
-                )
-          : null,
       actions: <Widget>[
         if (widget.user != null && widget.user!.id != controller.user.value.id)
           GestureDetector(

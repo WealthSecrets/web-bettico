@@ -130,7 +130,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              Get.offAll<void>(const HomeBaseScreen());
+                              Get.offAll<void>(HomeBaseScreen());
                               navigationController
                                   .navigateTo(AppRoutes.timeline);
                               menuController

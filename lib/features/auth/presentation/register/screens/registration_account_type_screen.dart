@@ -1,5 +1,4 @@
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +10,8 @@ import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '../../../data/models/user/user.dart';
 
 class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
-  const RegistrationAccountTypeScreen({Key? key}) : super(key: key);
+  RegistrationAccountTypeScreen({Key? key}) : super(key: key);
+  final RegisterController registerController = Get.find<RegisterController>();
 
   @override
   Widget build(BuildContext context) {
