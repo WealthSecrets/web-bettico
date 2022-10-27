@@ -100,14 +100,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                         AppButton(
                           borderRadius: AppBorderRadius.largeAll,
                           backgroundColor: context.colors.primary,
-                          onPressed: () {
-                            // if (Ethereum.isSupported) {
-                            //   lController.initiateWalletConnect();
-                            // } else {
-                            //   lController.connectWC();
-                            // }
-                            fController.nextToRest(context);
-                          },
+                          onPressed: () => fController.nextToRest(context),
                           child: Text(
                             'next'.tr,
                             style: const TextStyle(

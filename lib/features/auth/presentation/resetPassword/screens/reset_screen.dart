@@ -1,6 +1,5 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,7 +47,7 @@ class ResetScreen extends GetWidget<ResetController> {
                         alignment: Alignment.center,
                         child: RichText(
                           text: TextSpan(
-                            text: 'Reset password ',
+                            text: 'Reset password',
                             style: TextStyle(
                               color: context.colors.black,
                               fontWeight: FontWeight.w400,
@@ -134,7 +133,7 @@ class ResetScreen extends GetWidget<ResetController> {
                       const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          navigationController.navigateTo(AppRoutes.forgot);
+                          Get.offNamed<void>(AppRoutes.forgot);
                         },
                         child: Center(
                           child: RichText(
@@ -146,7 +145,7 @@ class ResetScreen extends GetWidget<ResetController> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: 'Want to change email? ',
+                                  text: 'Want to change forgot email? ',
                                   style: TextStyle(
                                     color: context.colors.text,
                                   ),
@@ -155,8 +154,7 @@ class ResetScreen extends GetWidget<ResetController> {
                                   text: 'Tap here',
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      navigationController
-                                          .navigateTo(AppRoutes.forgot);
+                                      Get.offNamed<void>(AppRoutes.forgot);
                                     },
                                   style: TextStyle(
                                     color: context.colors.primary,

@@ -1,5 +1,4 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -106,7 +105,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                       const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          navigationController.navigateTo(AppRoutes.login);
+                          Get.offAllNamed<void>(AppRoutes.login);
                         },
                         child: Center(
                           child: RichText(
@@ -129,8 +128,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                                   text: 'sign_in'.tr,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      navigationController
-                                          .navigateTo(AppRoutes.login);
+                                      Get.offAllNamed<void>(AppRoutes.login);
                                     },
                                   style: TextStyle(
                                     color: context.colors.primary,

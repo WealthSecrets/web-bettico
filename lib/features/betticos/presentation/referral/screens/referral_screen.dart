@@ -39,6 +39,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  const AppSpacing(v: 30),
                   SvgPicture.asset(
                     AssetSVGs.referral.path,
                     height: 200,

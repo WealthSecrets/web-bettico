@@ -46,7 +46,6 @@ class _OddstersScreenState extends State<OddstersScreen> {
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
-                  SliverPadding(padding: AppPaddings.lT),
                   SliverPersistentHeader(
                     delegate: SliverAppBarDelegate(
                       TabBar(
@@ -64,7 +63,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
                           radius: 3,
                         ),
                         unselectedLabelColor: Colors.grey,
-                        padding: AppPaddings.lH,
+                        padding: AppPaddings.lH.add(AppPaddings.lB),
                         tabs: <Widget>[
                           Tab(text: 'explore'.tr),
                           Tab(text: 'following'.tr),

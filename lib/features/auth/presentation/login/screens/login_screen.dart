@@ -12,12 +12,9 @@ import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
-// import '../../../../../core/presentation/helpers/web_navigator.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
-
   final RegisterController rController = Get.find<RegisterController>();
 
   List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
@@ -242,7 +239,7 @@ class LoginScreen extends GetWidget<LoginController> {
                           text: 'forgot_pass'.tr,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              navigationController.navigateTo(AppRoutes.forgot);
+                              Get.toNamed<void>(AppRoutes.forgot);
                             },
                           style: TextStyle(
                             color: context.colors.error,
@@ -315,21 +312,12 @@ class LoginScreen extends GetWidget<LoginController> {
                             width: 40,
                           ),
                         ),
-                        // TextButton(
-                        //   onPressed: () {},
-                        //   child: Image.asset(
-                        //     'assets/images/twitter.png',
-                        //     height: 40,
-                        //     width: 40,
-                        //   ),
-                        // ),
                       ],
                     ),
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
-                        navigationController.navigateTo(AppRoutes.registration);
-                        // Get.offAll<void>(webNavigator());
+                        Get.toNamed<void>(AppRoutes.registration);
                       },
                       child: Center(
                         child: RichText(
@@ -348,9 +336,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 text: 'register_now'.tr,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    navigationController.navigateTo(
-                                      AppRoutes.registration,
-                                    );
+                                    Get.toNamed<void>(AppRoutes.registration);
                                   },
                                 style: TextStyle(
                                   color: context.colors.primary,
