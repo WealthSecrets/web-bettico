@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
 import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
@@ -52,10 +53,10 @@ class Pages {
     //     UpdateProfileScreen(user: user);
     //   },
     // ),
-    // GetPage<AppRoutes>(
-    //   name: AppRoutes.otpVerify,
-    //   page: () => OTPVerificationScreen(),
-    // ),
+    GetPage<AppRoutes>(
+      name: AppRoutes.otpVerify,
+      page: () => const OTPVerificationScreen(),
+    ),
     GetPage<AppRoutes>(
       name: AppRoutes.documentScreen,
       page: () => const RegistrationDocumentScreen(),

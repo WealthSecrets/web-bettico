@@ -1,28 +1,21 @@
 import 'dart:async';
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '/core/core.dart';
-import '/features/auth/domain/enums/otp_receiver_type.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
-import '../../../data/models/user/user.dart';
 import '../widgets/app_pincode_textfield.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({
     Key? key,
-    required this.otpReceiverType,
-    this.user,
   }) : super(key: key);
-
-  final OTPReceiverType otpReceiverType;
-  final User? user;
 
   @override
   _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
@@ -35,6 +28,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   int _counter = 59;
   late Timer _timer;
+
+  // get arguments
+  final OTPVerificationScreenArgument? args =
+      Get.arguments as OTPVerificationScreenArgument?;
+  final String? params = Get.parameters['type'];
 
   @override
   void initState() {
@@ -68,10 +66,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         loading: controller.isVerifyingOTP.value,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 0.5,
+            elevation: 0,
             backgroundColor: Colors.white,
             title: Text(
-              '${widget.otpReceiverType == OTPReceiverType.email ? 'email'.tr : 'phone'.tr} ${'verification'.tr}',
+              '${params != null && params!.toLowerCase() == 'email' ? 'email'.tr : 'phone'.tr} ${'verification'.tr}',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16,
@@ -97,13 +95,14 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       SizedBox(
                         width: 273.w,
                         child: Text(
-                          '${'otp_msg_1'.tr} ${widget.otpReceiverType == OTPReceiverType.email ? 'email'.tr.toLowerCase() : 'phone_number'.tr.toLowerCase()} ${'otp_msg_2'.tr}',
+                          '${'otp_msg_1'.tr} ${params != null && params!.toLowerCase() == 'email' ? 'email'.tr.toLowerCase() : 'phone_number'.tr.toLowerCase()} ${'otp_msg_2'.tr}',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             height: 1.22,
                             fontSize: 16,
-                            color: context.colors.hintLight,
+                            color: context.colors.textDark,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       const AppSpacing(v: 66),
@@ -117,24 +116,21 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       ),
                       const AppSpacing(v: 50),
                       AppButton(
-                        // enabled: cubit.state.otpCode.length == 6,
                         borderRadius: AppBorderRadius.largeAll,
-                        enabled: true,
+                        enabled: controller.otpCode.value.length == 6,
                         onPressed: () {
-                          // final OTPReceiverType? type = widget.otpReceiverType;
-                          // if (type != null) {
-                          if (widget.otpReceiverType == OTPReceiverType.email) {
+                          if (params != null &&
+                              params!.toLowerCase() == 'email') {
                             controller.verifyUserEmailAddress(
                               context,
-                              u: widget.user,
+                              u: args?.user,
                             );
                           } else {
                             controller.verifyUserPhoneNumber(
                               context,
-                              u: widget.user,
+                              u: args?.user,
                             );
                           }
-                          // }
                         },
                         child: Text(
                           'next'.tr.toUpperCase(),
@@ -146,20 +142,21 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         ),
                       ),
                       const AppSpacing(v: 22),
-                      if (widget.otpReceiverType == OTPReceiverType.phoneNumber)
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'didnt_receive'.tr,
-                            style:
-                                Theme.of(context).textTheme.headline6?.copyWith(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                            textAlign: TextAlign.center,
-                          ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'didnt_receive'.tr,
+                          style:
+                              Theme.of(context).textTheme.headline6?.copyWith(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                          textAlign: TextAlign.center,
                         ),
+                      ),
+                      const AppSpacing(v: 8),
                       _buildTimer(),
+                      const AppSpacing(v: 16),
                       Visibility(
                         visible: _showResendButton,
                         child: Align(
@@ -176,29 +173,32 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 _showResendButton = false;
                               });
                               _startTimer();
-                              if (widget.otpReceiverType ==
-                                  OTPReceiverType.email) {
+                              if (params != null &&
+                                  params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
-                                  widget.user != null
-                                      ? widget.user!.email
+                                  args != null && args!.user != null
+                                      ? args!.user!.email
                                       : controller.email.value,
                                 );
                               } else {
                                 lController.resendOTPSms(
                                   context,
-                                  widget.user != null
-                                      ? widget.user!.phone!
+                                  args != null && args!.user != null
+                                      ? args!.user!.phone!
                                       : controller.phone.value,
                                 );
                               }
                             },
-                            child: Text(
-                              'send_again'.tr,
-                              style: TextStyle(
-                                color: context.colors.primary,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'send_again'.tr,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
                               ),
                             ),
                           ),
@@ -208,18 +208,17 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       Center(
                         child: TextButton(
                           onPressed: () {
-                            if (widget.user != null) {
+                            if (args != null && args!.user != null) {
                               lController.reRouteOddster(
                                 context,
-                                widget.user!,
-                                isSkipEmail: widget.otpReceiverType ==
-                                    OTPReceiverType.email,
-                                isSkipPhone: widget.otpReceiverType !=
-                                    OTPReceiverType.email,
+                                args!.user!,
+                                isSkipEmail: params != null &&
+                                    params!.toLowerCase() == 'email',
+                                isSkipPhone: params != null &&
+                                    params!.toLowerCase() != 'email',
                               );
                             } else {
-                              navigationController
-                                  .navigateTo(AppRoutes.accountType);
+                              Get.toNamed<void>(AppRoutes.accountType);
                             }
                           },
                           child: Text(

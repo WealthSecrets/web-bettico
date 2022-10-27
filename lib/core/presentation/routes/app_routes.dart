@@ -6,12 +6,14 @@ class AppRoutes {
   static const String login = '/login';
   static const String logout = '/logout';
   static const String profile = '/profile';
-  static const String registration = '/register';
+  static const String registration = '/signup';
   static const String personalInformation = '/personal-details';
   static const String updateProfile = '/profile-update';
   static const String forgot = '/forgot-password';
   static const String reset = '/reset-password';
-  static const String otpVerify = '/verification';
+  static const String otpVerify = '/verify/:type';
+  static const String otpVerifyEmail = '/verify/email';
+  static const String otpVerifyPhone = '/verify/phone';
   static const String documentScreen = '/document-upload';
   static const String profilePhoto = '/upload-photo';
   static const String timelinePost = '/post';

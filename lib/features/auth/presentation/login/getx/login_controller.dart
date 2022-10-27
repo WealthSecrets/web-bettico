@@ -8,15 +8,14 @@ import 'package:validators/validators.dart' as validator;
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
 import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/enums/otp_receiver_type.dart';
 import '/features/auth/domain/requests/login_request/login_request.dart';
 import '/features/auth/domain/requests/resend_email/resend_email_request.dart';
 import '/features/auth/domain/requests/sms/send_sms_request.dart';
 import '/features/auth/domain/usecases/login_user.dart';
 import '/features/auth/domain/usecases/resend_email.dart';
 import '/features/auth/domain/usecases/send_sms.dart';
-import '/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import '../../register/arguments/otp_verification_screen_argument.dart';
 
 class LoginController extends GetxController {
   LoginController({
@@ -108,9 +107,8 @@ class LoginController extends GetxController {
     }, (User user) {
       isResendingEmail(false);
       navigationController.navigateTo(
-        AppRoutes.otpVerify,
-        arguments: OTPVerificationArgument(
-          otpReceiverType: OTPReceiverType.email,
+        AppRoutes.otpVerifyEmail,
+        arguments: OTPVerificationScreenArgument(
           user: user,
         ),
       );
@@ -130,9 +128,8 @@ class LoginController extends GetxController {
     }, (TwilioResponse value) {
       isSendingSms(false);
       navigationController.navigateTo(
-        AppRoutes.otpVerify,
-        arguments: OTPVerificationArgument(
-          otpReceiverType: OTPReceiverType.phoneNumber,
+        AppRoutes.otpVerifyPhone,
+        arguments: OTPVerificationScreenArgument(
           user: controller.user.value,
         ),
       );

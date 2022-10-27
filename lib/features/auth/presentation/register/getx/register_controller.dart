@@ -4,9 +4,9 @@ import 'package:betticos/features/auth/domain/requests/update_user_role/update_u
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
+import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,6 @@ import 'package:validators/validators.dart' as validator;
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
 import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/enums/otp_receiver_type.dart';
 import '/features/auth/domain/requests/identification/identification_request.dart';
 import '/features/auth/domain/requests/register_request/register_request.dart';
 import '/features/auth/domain/requests/sms/send_sms_request.dart';
@@ -32,9 +31,7 @@ import '/features/auth/domain/usecases/upload_identification.dart';
 import '/features/auth/domain/usecases/verify_email.dart';
 import '/features/auth/domain/usecases/verify_sms.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
-import '/features/auth/presentation/register/arguments/otp_verification_argument.dart';
 import '/features/betticos/domain/requests/update_request/update_request.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class RegisterController extends GetxController {
   RegisterController({
@@ -125,13 +122,11 @@ class RegisterController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
       AppSnacks.show(context, message: failure.message);
-      // navigationController.navigateTo(AppRoutes.otpVerify);
     }, (TwilioResponse value) {
       isSendingSms(false);
-      navigationController.navigateTo(
-        AppRoutes.otpVerify,
-        arguments: OTPVerificationArgument(
-          otpReceiverType: OTPReceiverType.phoneNumber,
+      Get.toNamed<void>(
+        AppRoutes.otpVerifyPhone,
+        arguments: OTPVerificationScreenArgument(
           user: u,
         ),
       );
@@ -147,16 +142,15 @@ class RegisterController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
-      Get.back<void>();
+      resetOtpCodeField();
       AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isVerifyingOTP(false);
-      otpCode('');
+      resetOtpCodeField();
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        navigationController.navigateTo(AppRoutes.documentScreen);
-        Get.offAll<void>(AppRoutes.documentScreen);
+        Get.offNamed<void>(AppRoutes.documentScreen);
       }
     });
   }
@@ -170,16 +164,22 @@ class RegisterController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
+      resetOtpCodeField();
       AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isVerifyingOTP(false);
       otpCode('');
+      resetOtpCodeField();
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        navigationController.navigateTo(AppRoutes.accountType);
+        Get.offNamed<void>(AppRoutes.accountType);
       }
     });
+  }
+
+  void resetOtpCodeField() {
+    otpCode('');
   }
 
   void uploadUserIdentification(BuildContext context) async {
@@ -204,7 +204,6 @@ class RegisterController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User u) {
       isAddingDocument(false);
-      // navigationController.navigateTo(AppRoutes.profilePhoto);
       lController.reRouteOddster(context, u);
     });
   }
@@ -269,13 +268,8 @@ class RegisterController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isAddingProfileImage(false);
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        navigationController.navigateTo(AppRoutes.base);
-      } else {
-        Get.offAll<void>(HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
-      }
+      Get.offAllNamed<void>(AppRoutes.home);
+      menuController.changeActiveItemTo(AppRoutes.timeline);
     });
   }
 
@@ -300,7 +294,10 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        Get.toNamed<void>(AppRoutes.personalInformation);
+        Get.toNamed<void>(
+          AppRoutes.otpVerifyEmail,
+          arguments: const OTPVerificationScreenArgument(),
+        );
       },
     );
   }
@@ -320,8 +317,7 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
-        Get.offAll<void>(HomeBaseScreen());
-        navigationController.navigateTo(AppRoutes.timeline);
+        Get.offAllNamed<void>(AppRoutes.home);
         menuController.changeActiveItemTo(AppRoutes.timeline);
       },
     );
@@ -346,7 +342,7 @@ class RegisterController extends GetxController {
       },
       (User us) {
         isAddingPersonalInformation(true);
-        navigationController.navigateTo(AppRoutes.addressConnect);
+        Get.toNamed<void>(AppRoutes.addressConnect);
       },
     );
   }
