@@ -8,36 +8,27 @@ AppBar topNavigationBar(
     BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
   return AppBar(
     elevation: 0,
-    leading: !ResponsiveWidget.isSmallScreen(context)
-        ? Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(left: 14),
-                child: Image.asset(
-                  'assets/images/timeline_bg.jpeg',
-                  width: 28,
-                ),
-              ),
-            ],
-          )
-        : IconButton(
+    leading: ResponsiveWidget.isSmallScreen(context)
+        ? IconButton(
             onPressed: () {
               scaffoldKey.currentState?.openDrawer();
             },
             icon: const Icon(
               Icons.menu,
             ),
-          ),
-    backgroundColor: Colors.transparent,
+          )
+        : null,
+    backgroundColor: Colors.white,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        CustomText(
-          text: 'Bettico',
-          color: context.colors.textDark,
-          size: 20,
-          weight: FontWeight.bold,
-        ),
+        if (ResponsiveWidget.isSmallScreen(context))
+          CustomText(
+            text: 'Bettico',
+            color: context.colors.textDark,
+            size: 20,
+            weight: FontWeight.bold,
+          ),
         Stack(
           children: <Widget>[
             Icon(

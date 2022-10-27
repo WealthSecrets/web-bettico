@@ -1,4 +1,3 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,13 +34,13 @@ class ForgotController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        navigationController.navigateTo(AppRoutes.walletConnect);
+        Get.toNamed<void>(AppRoutes.walletConnect);
       },
     );
   }
 
   void nextToRest(BuildContext context) {
-    navigationController.navigateTo(AppRoutes.reset);
+    Get.toNamed<void>(AppRoutes.reset);
   }
 
   void onEmailInputChanged(String value) {
@@ -61,5 +60,5 @@ class ForgotController extends GetxController {
     return errorMessage;
   }
 
-  bool get formIsValid => validateEmail(email.value) == '';
+  bool get formIsValid => validateEmail(email.value) == null;
 }

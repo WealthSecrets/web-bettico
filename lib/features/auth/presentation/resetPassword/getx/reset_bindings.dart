@@ -18,12 +18,13 @@ import 'reset_controller.dart';
 
 class ResetBindings {
   static void dependencies() {
-    Get.lazyPut<ResetController>(
-      () => ResetController(
+    Get.put<ResetController>(
+      ResetController(
         resetPassword: ResetPassword(
           authRepository: Get.find(),
         ),
       ),
+      permanent: true,
     );
   }
 }

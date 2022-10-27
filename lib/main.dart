@@ -29,7 +29,6 @@ import 'core/core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ClassBuilder.registerClasses();
 
   MainBindings.dependencies();
 

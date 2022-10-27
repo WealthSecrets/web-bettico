@@ -160,42 +160,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
     );
   }
 
-  SliverAppBar _buildSliverAppBar() {
-    return SliverAppBar(
-      backgroundColor: Colors.white,
-      floating: false,
-      pinned: true,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      title: const Text(
-        'Bettico',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-        ),
-      ),
-      centerTitle: ResponsiveWidget.isSmallScreen(context) ? true : false,
-      leading: ResponsiveWidget.isSmallScreen(context)
-          ? IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            )
-          : null,
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Ionicons.notifications_outline,
-            color: Colors.black,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildUpdatesTab() {
     final List<Post> topPosts = controller.getTopUsers();
     return topPosts.isEmpty

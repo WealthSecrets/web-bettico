@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,26 +29,6 @@ class _ReferralScreenState extends State<ReferralScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          'refer_earn'.tr,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-        ),
-        leading: ResponsiveWidget.isSmallScreen(context)
-            ? IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ),
-                onPressed: () {},
-              )
-            : null,
-      ),
       body: Obx(
         () => AppLoadingBox(
           loading: referralController.isLoading.value ||
@@ -60,6 +39,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  const AppSpacing(v: 30),
                   SvgPicture.asset(
                     AssetSVGs.referral.path,
                     height: 200,

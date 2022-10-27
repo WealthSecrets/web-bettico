@@ -300,7 +300,7 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        navigationController.navigateTo(AppRoutes.personalInformation);
+        Get.toNamed<void>(AppRoutes.personalInformation);
       },
     );
   }

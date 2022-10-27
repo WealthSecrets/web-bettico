@@ -15,9 +15,11 @@ class HomeBaseScreen extends StatelessWidget {
       key: scaffoldKey,
       extendBodyBehindAppBar: true,
       appBar: topNavigationBar(context, scaffoldKey),
-      drawer: Drawer(
-        child: LeftSideBar(),
-      ),
+      drawer: ResponsiveWidget.isSmallScreen(context)
+          ? Drawer(
+              child: LeftSideBar(),
+            )
+          : null,
       body: ResponsiveWidget(
         largeScreen: const LargeScreen(),
         smallScreen: webNavigator(),

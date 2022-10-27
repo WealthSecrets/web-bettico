@@ -15,8 +15,8 @@ import '../../../domain/usecases/bet/add_bet.dart';
 
 class P2PBetBindings {
   static void dependencies() {
-    Get.lazyPut(
-      () => P2PBetController(
+    Get.put(
+      P2PBetController(
         searchBets: SearchBets(
           p2pRepository: Get.find(),
         ),
@@ -51,6 +51,7 @@ class P2PBetBindings {
           p2prepository: Get.find(),
         ),
       ),
+      permanent: true,
     );
   }
 }

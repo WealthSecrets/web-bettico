@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -23,31 +22,13 @@ class SplashController extends GetxController {
   final ValidateSession validateSession;
   final IsAuthenticated isAuthenticated;
 
-  RxBool isLoggedIn = false.obs;
-
-  // Onboarding code commented for the web
-
-  // void validateOnBoard(BuildContext context) async {
-  //   await Get.updateLocale(const Locale('en', 'US'));
-  //   final Either<Failure, bool> failureOrOnboarded =
-  //       await getOnBoard(NoParams());
-  //   failureOrOnboarded.fold((Failure failure) {
-  //     debugPrint('Inside :validateOnBoard: method failed');
-  //     navigationController.navigateTo(AppRoutes.onboard);
-  //   }, (bool isOnboarded) {
-  //     debugPrint('Inside :validateOnBoard: method passed');
-  //     isUserAuthenticated(context);
-  //   });
-  // }
-
   void isUserAuthenticated(BuildContext context) async {
-    debugPrint('isUserAuthenticated called');
     final Either<Failure, bool> failureOrUser =
         await isAuthenticated(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      navigationController.navigateTo(AppRoutes.login);
-      Get.offAll<void>(webNavigator());
+      Get.offAllNamed<void>(AppRoutes.login);
+      menuController.changeActiveItemTo(AppRoutes.timeline);
     }, (bool respone) {
       if (respone) {
         validateUserSession(context);

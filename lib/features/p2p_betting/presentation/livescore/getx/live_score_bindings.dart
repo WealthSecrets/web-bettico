@@ -16,8 +16,8 @@ import '../../../domain/usecases/sportmonks/get_league.dart';
 
 class LiveScoreBindings {
   static void dependencies() {
-    Get.lazyPut(
-      () => LiveScoreController(
+    Get.put(
+      LiveScoreController(
         getLiveMatches: GetLiveMatches(
           p2pRepository: Get.find(),
         ),
@@ -55,6 +55,7 @@ class LiveScoreBindings {
           p2pRepository: Get.find(),
         ),
       ),
+      permanent: true,
     );
   }
 }

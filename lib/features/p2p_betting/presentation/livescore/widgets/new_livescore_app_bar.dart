@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,22 +38,6 @@ class NewLiveScoreAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                if (ResponsiveWidget.isSmallScreen(context))
-                  IconButton(
-                    icon: const Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                    ),
-                    onPressed: onMenuPressed,
-                  ),
-                if (!ResponsiveWidget.isSmallScreen(context))
-                  IconButton(
-                    icon: const Icon(
-                      Ionicons.chevron_back,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,

@@ -1057,6 +1057,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  video_js:
+    dependency: "direct main"
+    description:
+      name: video_js
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.3"
   watcher:
     dependency: transitive
     description:

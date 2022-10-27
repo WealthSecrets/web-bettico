@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fixture_card.dart';
@@ -49,11 +50,13 @@ class _NewLiveScoreState extends State<NewLiveScore> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          const AppSpacing(v: 30),
           Obx(
             () => NewLiveScoreAppBar(
               onMenuPressed: () {},
@@ -83,18 +86,17 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                   : Column(
                       children: <Widget>[
                         const SizedBox(height: 6),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const <Widget>[
-                            Text(
-                              'Leagues',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                        Padding(
+                          padding:
+                              isSmallScreen ? AppPaddings.lL : EdgeInsets.zero,
+                          child: const Text(
+                            'Leagues',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
-                          ],
+                          ),
                         ),
                         SizedBox(
                           height: 112,
@@ -131,14 +133,17 @@ class _NewLiveScoreState extends State<NewLiveScore> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Live Matches',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    child: Padding(
+                      padding: isSmallScreen ? AppPaddings.lL : EdgeInsets.zero,
+                      child: const Text(
+                        'Live Matches',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -171,14 +176,17 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Fixtures',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    child: Padding(
+                      padding: isSmallScreen ? AppPaddings.lL : EdgeInsets.zero,
+                      child: const Text(
+                        'Fixtures',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
