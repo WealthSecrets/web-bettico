@@ -1,4 +1,4 @@
-import 'dart:js' as js;
+// import 'dart:js' as js;
 
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
@@ -17,37 +17,37 @@ class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
   final RegisterController rController = Get.find<RegisterController>();
 
-  List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
-    <String, dynamic>{
-      'text': 'Certik',
-      'link':
-          'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
-    },
-    <String, dynamic>{
-      'text': 'Audit',
-      'link':
-          'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
-    },
-    <String, dynamic>{
-      'text': 'Whitepaper',
-      'link':
-          'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
-    },
-    <String, dynamic>{
-      'text': 'Buy WSC',
-      'link': 'https://staking.wealthsecrets.io/swap'
-    },
-    <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
-    // <String, dynamic>{
-    //   'text': 'Advertise',
-    //   'link': 'https://www.wealthsecrets.io/advertiseRequest'
-    // },
-    <String, dynamic>{
-      'text': 'Terms & Condition',
-      'link':
-          'https://docs.google.com/document/d/1Vn14jjtxqu9YIJTw8e0AQxpdFImu8zNL/edit?usp=sharing&ouid=110662449020690083700&rtpof=true&sd=true'
-    },
-  ];
+  // List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
+  //   <String, dynamic>{
+  //     'text': 'Certik',
+  //     'link':
+  //         'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
+  //   },
+  //   <String, dynamic>{
+  //     'text': 'Audit',
+  //     'link':
+  //         'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
+  //   },
+  //   <String, dynamic>{
+  //     'text': 'Whitepaper',
+  //     'link':
+  //         'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
+  //   },
+  //   <String, dynamic>{
+  //     'text': 'Buy WSC',
+  //     'link': 'https://staking.wealthsecrets.io/swap'
+  //   },
+  //   <String, dynamicå>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
+  //   // <String, dynamic>{
+  //   //   'text': 'Advertise',
+  //   //   'link': 'https://www.wealthsecrets.io/advertiseRequest'
+  //   // },
+  //   <String, dynamic>{
+  //     'text': 'Terms & Condition',
+  //     'link':
+  //         'https://docs.google.com/document/d/1Vn14jjtxqu9YIJTw8e0AQxpdFImu8zNL/edit?usp=sharing&ouid=110662449020690083700&rtpof=true&sd=true'
+  //   },
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -352,44 +352,19 @@ class LoginScreen extends GetWidget<LoginController> {
                     const AppSpacing(
                       v: 20,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                       width: double.infinity,
-                      child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                '18+',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            ...footerLinks
-                                .map(
-                                  (Map<String, dynamic> footerLink) =>
-                                      TextButton(
-                                    onPressed: () {
-                                      js.context.callMethod('open', <String>[
-                                        footerLink['link'] as String
-                                      ]);
-                                    },
-                                    child: Text(
-                                      footerLink['text'] as String,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ]),
+                      child: Center(
+                        child: Text(
+                          '18+',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

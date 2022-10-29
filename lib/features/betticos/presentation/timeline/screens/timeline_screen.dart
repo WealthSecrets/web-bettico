@@ -253,7 +253,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 items: const <Widget>[
                   Image(
                     image: NetworkImage(
-                        'https://www.wealthsecrets.io/public/images/slider/slider_1649078709.jpg'),
+                        'https://www.thebettingcoach.com/wp-content/uploads/2020/08/Melbet-banner-728x90-thebettingcoach-1.jpg'),
                     fit: BoxFit.contain,
                   ),
                   Image(
@@ -332,7 +332,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               borderRadius: BorderRadius.circular(10.0),
               image: const DecorationImage(
                 image: NetworkImage(
-                    'https://www.wealthsecrets.io/public/images/slider/slider_1649078036.jpg'),
+                    'https://melbet.com.gh/img/banners/main/home_page_main_section/202.jpg?v=1010022910'),
                 fit: BoxFit.cover,
               ),
             ),
