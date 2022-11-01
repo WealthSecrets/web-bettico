@@ -1,5 +1,7 @@
 import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
+import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
 import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
@@ -46,19 +48,13 @@ class Pages {
       name: AppRoutes.profilePhoto,
       page: () => const RegistrationUploadPhotoScreen(),
     ),
-    // GetPage<AppRoutes>(
-    //   name: AppRoutes.updateProfile,
-    //   page: () {
-    //     UpdateProfileScreen(user: user);
-    //   },
-    // ),
-    // GetPage<AppRoutes>(
-    //   name: AppRoutes.otpVerify,
-    //   page: () => OTPVerificationScreen(),
-    // ),
+    GetPage<AppRoutes>(
+      name: AppRoutes.otpVerify,
+      page: () => const OTPVerificationScreen(),
+    ),
     GetPage<AppRoutes>(
       name: AppRoutes.documentScreen,
-      page: () => const RegistrationDocumentScreen(),
+      page: () => RegistrationDocumentScreen(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.timelinePost,
@@ -75,6 +71,10 @@ class Pages {
     GetPage<AppRoutes>(
       name: AppRoutes.addressConnect,
       page: () => RegistrationWalletScreen(),
+    ),
+    GetPage<AppRoutes>(
+      name: AppRoutes.personalInformation,
+      page: () => const RegistrationPersonalInformationScreen(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.oddboxes,

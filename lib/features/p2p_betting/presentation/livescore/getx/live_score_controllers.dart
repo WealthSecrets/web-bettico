@@ -128,16 +128,14 @@ class LiveScoreController extends GetxController {
       if (accs.isNotEmpty) {
         walletAddress.value = accs.first;
         currentChain.value = await ethereum!.getChainId();
-        if (func != null) {
-          func();
-        }
+        func?.call();
       }
 
       update();
     }
   }
 
-  Future<void> connectWC() async {
+  Future<void> connectWC([Function()? func]) async {
     try {
       await wc.connect();
 
@@ -147,6 +145,8 @@ class LiveScoreController extends GetxController {
         web3wc = Web3Provider.fromWalletConnect(wc);
         wcConnected.value = true;
       }
+
+      func?.call();
     } catch (error) {
       debugPrint('An error has occurred: $error');
     }

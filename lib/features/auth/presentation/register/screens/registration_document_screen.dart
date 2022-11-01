@@ -1,5 +1,5 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/responsiveness/home_base_screen.dart';
+import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,11 @@ const List<String> documentTypes = <String>[
 ];
 
 class RegistrationDocumentScreen extends GetWidget<RegisterController> {
-  const RegistrationDocumentScreen({Key? key}) : super(key: key);
+  RegistrationDocumentScreen({Key? key}) : super(key: key);
+
+  // get arguments
+  final UserArgument? args = Get.arguments as UserArgument?;
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -130,11 +134,17 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              Get.offAll<void>(HomeBaseScreen());
-                              navigationController
-                                  .navigateTo(AppRoutes.timeline);
-                              menuController
-                                  .changeActiveItemTo(AppRoutes.timeline);
+                              if (args != null && args!.user != null) {
+                                if (!args!.user!.hasProfileImage) {
+                                  Get.toNamed<void>(AppRoutes.profilePhoto);
+                                } else {
+                                  Get.offAllNamed<void>(AppRoutes.home);
+                                  menuController
+                                      .changeActiveItemTo(AppRoutes.timeline);
+                                }
+                              } else {
+                                Get.toNamed<void>(AppRoutes.profilePhoto);
+                              }
                             },
                             child: Text(
                               'skip'.tr,

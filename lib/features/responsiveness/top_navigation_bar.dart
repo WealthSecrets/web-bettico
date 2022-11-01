@@ -18,7 +18,7 @@ AppBar topNavigationBar(
             ),
           )
         : null,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.transparent,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

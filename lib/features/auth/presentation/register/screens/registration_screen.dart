@@ -2,7 +2,6 @@ import 'package:betticos/features/auth/presentation/register/getx/register_contr
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,8 +14,13 @@ class RegistrationScreen extends StatelessWidget {
 
   final RegisterController registerController = Get.find<RegisterController>();
 
+  // get type of verification
+  final String? params = Get.parameters['type'];
+
   @override
   Widget build(BuildContext context) {
+    final bool isWalletConnect =
+        params != null && params!.toLowerCase() == 'walletconnect';
     return Obx(
       () => AppLoadingBox(
         loading: registerController.isRegisteringUser.value,
@@ -45,10 +49,12 @@ class RegistrationScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      SizedBox(
-                        width: 300.w,
+                      Align(
+                        alignment: Alignment.centerLeft,
                         child: Text(
-                          'create_account'.tr,
+                          isWalletConnect
+                              ? 'Sign up with WalletConnect'
+                              : 'create_account'.tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -57,34 +63,35 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                       ),
                       const AppSpacing(v: 30),
-                      SizedBox(
-                        width: 240.w,
-                        child: Text(
-                          'signup_info'.tr,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            height: 1.22,
-                            fontSize: 16,
-                          ),
+                      Text(
+                        isWalletConnect
+                            ? 'Create a password for your signup and click \'Next\''
+                            : 'signup_info'.tr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          height: 1.22,
+                          fontSize: 16,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       const AppSpacing(v: 30),
-                      AppTextInput(
-                        labelText: 'email_address'.tr.toUpperCase(),
-                        prefixIcon: Icon(
-                          Ionicons.mail_outline,
-                          color: context.colors.hintLight,
+                      if (!isWalletConnect)
+                        AppTextInput(
+                          labelText: 'email_address'.tr.toUpperCase(),
+                          prefixIcon: Icon(
+                            Ionicons.mail_outline,
+                            color: context.colors.hintLight,
+                          ),
+                          backgroundColor: context.colors.primary.shade100,
+                          lableStyle: TextStyle(
+                            color: context.colors.primary,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 10,
+                          ),
+                          validator: registerController.validateEmail,
+                          onChanged: registerController.onEmailInputChanged,
                         ),
-                        backgroundColor: context.colors.primary.shade100,
-                        lableStyle: TextStyle(
-                          color: context.colors.primary,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 10,
-                        ),
-                        validator: registerController.validateEmail,
-                        onChanged: registerController.onEmailInputChanged,
-                      ),
-                      const AppSpacing(v: 8),
+                      if (!isWalletConnect) const AppSpacing(v: 8),
                       AppTextInput(
                         obscureText: true,
                         labelText: 'password'.tr.toUpperCase(),
@@ -186,9 +193,15 @@ class RegistrationScreen extends StatelessWidget {
                       ),
                       const AppSpacing(v: 49),
                       AppButton(
-                        enabled: registerController.registrationFormIsValid,
+                        enabled: isWalletConnect
+                            ? registerController
+                                .walletConnectRegistrationFormIsValid
+                            : registerController.registrationFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
-                        onPressed: () => registerController.register(context),
+                        onPressed: () => registerController.register(
+                          context,
+                          isWalletConnect: isWalletConnect,
+                        ),
                         child: Text(
                           'next'.tr,
                           style: const TextStyle(
