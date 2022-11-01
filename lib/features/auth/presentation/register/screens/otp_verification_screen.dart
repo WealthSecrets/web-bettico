@@ -177,8 +177,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                   params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
-                                  args != null && args!.user != null
-                                      ? args!.user!.email
+                                  args != null &&
+                                          args!.user != null &&
+                                          args!.user!.email != null
+                                      ? args!.user!.email!
                                       : controller.email.value,
                                 );
                               } else {
@@ -215,10 +217,15 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 isSkipEmail: params != null &&
                                     params!.toLowerCase() == 'email',
                                 isSkipPhone: params != null &&
-                                    params!.toLowerCase() != 'email',
+                                    params!.toLowerCase() != 'phone',
                               );
                             } else {
-                              Get.toNamed<void>(AppRoutes.accountType);
+                              if (params != null &&
+                                  params!.toLowerCase() == 'email') {
+                                Get.toNamed<void>(AppRoutes.accountType);
+                              } else {
+                                Get.offAllNamed<void>(AppRoutes.home);
+                              }
                             }
                           },
                           child: Text(

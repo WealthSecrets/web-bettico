@@ -14,11 +14,11 @@ class User with _$User {
     String? firstName,
     String? lastName,
     String? username,
-    required String email,
+    String? email,
     @JsonKey(name: 'dob') DateTime? dateOfBirth,
     String? photo,
     String? phone,
-    required String role,
+    String? role,
     String? status,
     String? passwordResetToken,
     Identification? identification,
@@ -81,6 +81,19 @@ class User with _$User {
           phoneVerifiedAt != null &&
           identification != null &&
           photo != null);
+
+  bool get isPersonalInfoProvided =>
+      firstName != null &&
+      lastName != null &&
+      phone != null &&
+      username != null &&
+      dateOfBirth != null;
+
+  bool get hasRole => role != null;
+
+  bool get hasIdentification => identification != null;
+
+  bool get hasProfileImage => profileAt != null;
 }
 
 enum AccountType { personal, oddster }

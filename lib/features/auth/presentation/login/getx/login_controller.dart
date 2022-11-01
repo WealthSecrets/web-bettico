@@ -2,6 +2,7 @@ import 'package:betticos/features/auth/presentation/register/arguments/user_argu
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart' as validator;
 
@@ -33,6 +34,7 @@ class LoginController extends GetxController {
   RxString phone = ''.obs;
   RxString password = ''.obs;
   RxBool isLoggedIn = false.obs;
+  // RxString walletAddress = ''.obs;
 
   // loading state
   RxBool isLoading = false.obs;
@@ -40,6 +42,7 @@ class LoginController extends GetxController {
   RxBool isSendingSms = false.obs;
 
   final BaseScreenController controller = Get.find<BaseScreenController>();
+  final WalletConnectProvider wc = WalletConnectProvider.binance();
 
   void togglePasswordVisibility() {
     isObscured(!isObscured.value);
@@ -83,11 +86,29 @@ class LoginController extends GetxController {
 
   void reRouteOddster(BuildContext context, User user,
       {bool? isSkipEmail, bool? isSkipPhone}) {
-    if (user.username == null) {
-      navigationController.navigateTo(
-        AppRoutes.personalInformation,
-        arguments: UserArgument(user: user),
+    if (isSkipEmail ?? false) {
+      if (!user.hasRole) {
+        Get.toNamed<void>(AppRoutes.accountType);
+      } else if (!user.isPersonalInfoProvided) {
+        Get.offAllNamed<void>(AppRoutes.personalInformation);
+      } else {
+        subRerouting(user);
+      }
+    } else {
+      subRerouting(user);
+    }
+  }
+
+  void subRerouting(User user) {
+    if (user.role == 'oddster' && !user.hasIdentification) {
+      Get.offAllNamed<void>(
+        AppRoutes.documentScreen,
+        arguments: UserArgument(
+          user: user,
+        ),
       );
+    } else if (user.role == 'oddster' && !user.hasProfileImage) {
+      Get.offAllNamed<void>(AppRoutes.profilePhoto);
     } else {
       Get.offAllNamed<void>(AppRoutes.home);
       menuController.changeActiveItemTo(AppRoutes.timeline);

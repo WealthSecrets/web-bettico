@@ -5,6 +5,7 @@ import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_r
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
@@ -97,6 +98,8 @@ class RegisterController extends GetxController {
 
   // controllers
   final LoginController lController = Get.find<LoginController>();
+  final BaseScreenController baseScreenController =
+      Get.find<BaseScreenController>();
   final LiveScoreController wController = Get.find<LiveScoreController>();
 
   // social authentication
@@ -159,8 +162,11 @@ class RegisterController extends GetxController {
     isVerifyingOTP(true);
 
     final Either<Failure, User> fialureOrSuccess = await verifyEmail(
-        VerifyEmailRequest(
-            code: otpCode.value, email: u != null ? u.email : email.value));
+      VerifyEmailRequest(
+        code: otpCode.value,
+        email: u != null && u.email != null ? u.email! : email.value,
+      ),
+    );
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
@@ -273,17 +279,19 @@ class RegisterController extends GetxController {
     });
   }
 
-  void register(BuildContext context) async {
+  void register(BuildContext context, {bool isWalletConnect = false}) async {
     isRegisteringUser(true);
 
     final Either<Failure, User> failureOrUser = await registerUser(
       RegisterRequest(
         confirmPassword: confirmPassword.value,
         password: password.value,
-        email: email.value,
-        referralCode: referralCode.isNotEmpty ? referralCode.value : null,
-        role: accountType.value == AccountType.personal ? 'user' : 'oddster',
-        type: type.value.trim(),
+        wallet: wController.walletAddress.value.isNotEmpty
+            ? wController.walletAddress.value
+            : null,
+        email: email.value.isNotEmpty ? email.value : null,
+        referralCode: referralCode.value.isNotEmpty ? referralCode.value : null,
+        type: isWalletConnect ? 'wallet' : type.value.trim(),
       ),
     );
 
@@ -294,10 +302,14 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        Get.toNamed<void>(
-          AppRoutes.otpVerifyEmail,
-          arguments: const OTPVerificationScreenArgument(),
-        );
+        if (isWalletConnect) {
+          Get.toNamed<void>(AppRoutes.accountType);
+        } else {
+          Get.toNamed<void>(
+            AppRoutes.otpVerifyEmail,
+            arguments: const OTPVerificationScreenArgument(),
+          );
+        }
       },
     );
   }
@@ -316,14 +328,14 @@ class RegisterController extends GetxController {
         isUpdatingUserRole(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (User us) {
-        Get.offAllNamed<void>(AppRoutes.home);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+      (_) {
+        isUpdatingUserRole(false);
+        Get.toNamed<void>(AppRoutes.personalInformation);
       },
     );
   }
 
-  void updatePersonalInformation(BuildContext context, {User? u}) async {
+  void updatePersonalInformation(BuildContext context) async {
     isAddingPersonalInformation(true);
 
     final Either<Failure, User> failureOrUser = await updateProfile(
@@ -342,7 +354,11 @@ class RegisterController extends GetxController {
       },
       (User us) {
         isAddingPersonalInformation(true);
-        Get.toNamed<void>(AppRoutes.addressConnect);
+        baseScreenController.updateTheUser(us);
+        Get.toNamed<void>(
+          AppRoutes.otpVerifyPhone,
+          arguments: OTPVerificationScreenArgument(user: us),
+        );
       },
     );
   }
@@ -428,9 +444,9 @@ class RegisterController extends GetxController {
     return errorMessage;
   }
 
-  String? validatePhone(String? phone) {
+  String? validatePhone(String phone) {
     String? errorMessage;
-    if (phone!.isEmpty) {
+    if (phone.isEmpty) {
       errorMessage = 'Please enter your phone number.';
     }
     return errorMessage;
@@ -456,9 +472,7 @@ class RegisterController extends GetxController {
     String? errorMessage;
     if (email!.isEmpty) {
       errorMessage = 'Please enter email address';
-    }
-
-    if (!validator.isEmail(email.trim())) {
+    } else if (!validator.isEmail(email.trim())) {
       errorMessage = 'Invalid email';
     }
 
@@ -468,8 +482,10 @@ class RegisterController extends GetxController {
   String? validateReferralCode(String? referralCode) {
     String? errorMessage;
 
-    if (referralCode != null && referralCode.length != 7) {
-      errorMessage = 'Referral code should be 7 digits';
+    if (referralCode != null && referralCode.isNotEmpty) {
+      if (referralCode.length != 7) {
+        errorMessage = 'Referral code should be 7 digits';
+      }
     }
 
     return errorMessage;
@@ -479,6 +495,9 @@ class RegisterController extends GetxController {
     String? errorMessage;
     if (username!.isEmpty) {
       errorMessage = 'Please enter username';
+    }
+    if (username.length < 3) {
+      errorMessage = 'Username should be at least 3 characters';
     }
     return errorMessage;
   }
@@ -517,10 +536,8 @@ class RegisterController extends GetxController {
   String? validateConfrimPassword(String? confirm) {
     String? errorMessage;
     if (confirm!.isEmpty) {
-      errorMessage = 'Please enter password';
-    }
-
-    if (password.value != confirmPassword.value) {
+      errorMessage = 'Please confirm  password';
+    } else if (password.value != confirmPassword.value) {
       errorMessage = 'Passwords do not match.';
     }
 
@@ -529,6 +546,10 @@ class RegisterController extends GetxController {
 
   bool get registrationFormIsValid =>
       validateEmail(email.value) == null &&
+      validatePassword(password.value) == null &&
+      validateConfrimPassword(confirmPassword.value) == null;
+
+  bool get walletConnectRegistrationFormIsValid =>
       validatePassword(password.value) == null &&
       validateConfrimPassword(confirmPassword.value) == null;
 

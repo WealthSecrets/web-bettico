@@ -2,10 +2,12 @@ import 'dart:js' as js;
 
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -16,6 +18,7 @@ import '/features/auth/presentation/login/getx/login_controller.dart';
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
   final RegisterController rController = Get.find<RegisterController>();
+  final LiveScoreController lController = Get.find<LiveScoreController>();
 
   List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
@@ -298,18 +301,41 @@ class LoginScreen extends GetWidget<LoginController> {
                         TextButton(
                           onPressed: () {},
                           child: Image.asset(
-                            'assets/images/facebook.png',
+                            AssetImages.facebook,
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        TextButton(
+                          onPressed: () =>
+                              rController.registerWithGoogleAuth(context),
+                          child: Image.asset(
+                            AssetImages.google,
                             height: 40,
                             width: 40,
                           ),
                         ),
                         TextButton(
-                          onPressed: () =>
-                              rController.registerWithGoogleAuth(context),
+                          onPressed: () {
+                            if (Ethereum.isSupported) {
+                              lController.initiateWalletConnect(
+                                () => Get.toNamed<void>(
+                                  AppRoutes.walletConnectRegistration,
+                                ),
+                              );
+                            } else {
+                              lController.connectWC(
+                                () => Get.toNamed<void>(
+                                  AppRoutes.walletConnectRegistration,
+                                ),
+                              );
+                            }
+                          },
                           child: Image.asset(
-                            'assets/images/google.png',
-                            height: 40,
-                            width: 40,
+                            AssetImages.walletConnect,
+                            height: 65,
+                            width: 65,
                           ),
                         ),
                       ],
@@ -317,7 +343,7 @@ class LoginScreen extends GetWidget<LoginController> {
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
-                        Get.toNamed<void>(AppRoutes.registration);
+                        Get.toNamed<void>(AppRoutes.signup);
                       },
                       child: Center(
                         child: RichText(
@@ -336,7 +362,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 text: 'register_now'.tr,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.toNamed<void>(AppRoutes.registration);
+                                    Get.toNamed<void>(AppRoutes.signup);
                                   },
                                 style: TextStyle(
                                   color: context.colors.primary,

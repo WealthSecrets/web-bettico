@@ -6,7 +6,9 @@ class AppRoutes {
   static const String login = '/login';
   static const String logout = '/logout';
   static const String profile = '/profile';
-  static const String registration = '/signup';
+  static const String registration = '/signup/:type';
+  static const String signup = '/signup/email';
+  static const String walletConnectRegistration = '/signup/walletconnect';
   static const String personalInformation = '/personal-details';
   static const String updateProfile = '/profile-update';
   static const String forgot = '/forgot-password';

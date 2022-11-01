@@ -6,16 +6,10 @@ import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
-import '../../../data/models/user/user.dart';
 
 class RegistrationPersonalInformationScreen
     extends GetWidget<RegisterController> {
-  const RegistrationPersonalInformationScreen({
-    Key? key,
-    this.user,
-  }) : super(key: key);
-
-  final User? user;
+  const RegistrationPersonalInformationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -153,10 +147,8 @@ class RegistrationPersonalInformationScreen
                       AppButton(
                         enabled: controller.personalFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
-                        onPressed: () => controller.updatePersonalInformation(
-                          context,
-                          u: user,
-                        ),
+                        onPressed: () =>
+                            controller.updatePersonalInformation(context),
                         child: Text(
                           'next'.tr.toUpperCase(),
                           style: const TextStyle(

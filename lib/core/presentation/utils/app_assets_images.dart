@@ -15,4 +15,7 @@ class AssetImages {
   static String closeSmall = 'assets/images/close-small.png';
   static String caretDown = 'assets/images/caret-down.png';
   static String filter = 'assets/images/filter.png';
+  static String facebook = 'assets/images/facebook.png';
+  static String google = 'assets/images/google.png';
+  static String walletConnect = 'assets/images/walletconnect.png';
 }
