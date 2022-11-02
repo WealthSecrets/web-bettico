@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:betticos/features/betticos/domain/requests/post/delete_post_params.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/delete_post.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 // import 'package:bitmap/bitmap.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -662,9 +661,8 @@ class TimelineController extends GetxController {
     if (pstId == null) {
       postId('');
       isReply(false);
-      // final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
-      final dynamic post =
-          navigationController.navigateTo(AppRoutes.timelinePost);
+      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
+      print('checking the dynamic post: $post');
       if (post != null) {
         resetValues();
         getAllFollowingPosts();
@@ -683,11 +681,11 @@ class TimelineController extends GetxController {
     } else {
       isReply(true);
       postId(pstId);
-      // final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost,
-      //     arguments: AddPostCommentArgument(postId: pstId));
-      final dynamic post = await navigationController.navigateTo(
-          AppRoutes.timelinePost,
+      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost,
           arguments: AddPostCommentArgument(postId: pstId));
+      // final dynamic post = await navigationController.navigateTo(
+      //     AppRoutes.timelinePost,
+      //     arguments: AddPostCommentArgument(postId: pstId));
       if (post != null) {
         getPaginatedPosts(pageK.value);
         pagingController.value.refresh();
