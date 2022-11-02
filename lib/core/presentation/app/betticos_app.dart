@@ -10,17 +10,14 @@ class BetticosApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (BuildContext context, Widget? widget) => Padding(
-        padding: const EdgeInsets.only(top: 60),
-        child: GetMaterialApp(
-          initialRoute: AppRoutes.splash,
-          getPages: Pages.pages,
-          translations: AppStrings(),
-          locale: const Locale('en', 'US'),
-          fallbackLocale: const Locale('en', 'US'),
-          title: 'Bettico',
-          theme: AppTheme(AppLightTheme()).data,
-        ),
+      builder: (BuildContext context, Widget? widget) => GetMaterialApp(
+        initialRoute: AppRoutes.splash,
+        getPages: Pages.pages,
+        translations: AppStrings(),
+        locale: const Locale('en', 'US'),
+        fallbackLocale: const Locale('en', 'US'),
+        title: 'Bettico',
+        theme: AppTheme(AppLightTheme()).data,
       ),
     );
   }

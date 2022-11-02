@@ -14,7 +14,9 @@ class HomeBaseScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       extendBodyBehindAppBar: true,
-      appBar: topNavigationBar(context, scaffoldKey),
+      appBar: ResponsiveWidget.isSmallScreen(context)
+          ? topNavigationBar(context, scaffoldKey)
+          : null,
       drawer: ResponsiveWidget.isSmallScreen(context)
           ? Drawer(
               child: LeftSideBar(),
