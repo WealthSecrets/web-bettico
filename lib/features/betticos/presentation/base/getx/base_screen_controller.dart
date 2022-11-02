@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
@@ -12,8 +11,6 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/domain/usecases/load_user.dart';
-import '../../../../p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
-import '../../../../p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
 import '../../../domain/requests/follow/user_request.dart';
 import '../../../domain/usecases/follow/get_my_followers.dart';
 import '../../../domain/usecases/follow/get_my_followings.dart';
@@ -40,6 +37,7 @@ class BaseScreenController extends GetxController {
   RxBool isUpdatingUserBonus = false.obs;
   RxList<User> myFollowers = <User>[].obs;
   RxList<User> myFollowings = <User>[].obs;
+  RxBool isLoggingOut = false.obs;
 
   @override
   void onInit() {
@@ -111,14 +109,17 @@ class BaseScreenController extends GetxController {
   }
 
   void logOutTheUser(BuildContext context) async {
+    isLoggingOut.value = true;
     final Either<Failure, void> failureOrVoid = await logoutUser(NoParams());
     failureOrVoid.fold<void>(
-      (Failure failure) => AppSnacks.show(context, message: failure.message),
+      (Failure failure) {
+        isLoggingOut.value = false;
+        AppSnacks.show(context, message: failure.message);
+      },
       (void _) {
-        navigationController.navigateTo(AppRoutes.login);
-        Get.offAll<void>(webNavigator());
-        LiveScoreBindings.dependencies();
-        P2PBetBindings.dependencies();
+        isLoggingOut.value = false;
+        Get.offAllNamed<void>(AppRoutes.login);
+        menuController.changeActiveItemTo(AppRoutes.timeline);
       },
     );
   }
