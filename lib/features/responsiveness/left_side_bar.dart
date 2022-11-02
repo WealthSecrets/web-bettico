@@ -11,7 +11,6 @@ import '../../core/presentation/routes/side_menu_routes.dart'
 import '../../core/presentation/utils/app_endpoints.dart';
 import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import 'constants/web_controller.dart';
-import 'custom_text.dart';
 
 class LeftSideBar extends StatelessWidget {
   LeftSideBar({Key? key}) : super(key: key);
@@ -19,63 +18,115 @@ class LeftSideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width;
-    return ListView(
-      padding: AppPaddings.lA,
-      children: <Widget>[
-        if (!ResponsiveWidget.isSmallScreen(context))
-          _buildUserInfoContainer(context),
-        const SizedBox(height: 8),
-        if (ResponsiveWidget.isSmallScreen(context))
+    return Container(
+      decoration: ResponsiveWidget.isSmallScreen(context)
+          ? const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[
+                  Color.fromARGB(251, 167, 66, 41),
+                  Color(0xFFFDBE13)
+                ],
+                tileMode: TileMode.repeated,
+              ),
+            )
+          : null,
+      child: ListView(
+        padding: AppPaddings.lA,
+        children: <Widget>[
+          if (!ResponsiveWidget.isSmallScreen(context))
+            _buildUserInfoContainer(context),
+          const SizedBox(height: 8),
+          if (ResponsiveWidget.isSmallScreen(context))
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(height: 40),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            '${AppEndpoints.userImages}/${bController.user.value.photo}',
+                            headers: <String, String>{
+                              'Authorization':
+                                  'Bearer ${bController.userToken.value}',
+                            },
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              '${bController.user.value.firstName} ${bController.user.value.lastName}',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (bController.user.value.role == 'admin')
+                              Image.asset(
+                                AssetImages.verified,
+                                height: 14,
+                                width: 14,
+                              ),
+                          ],
+                        ),
+                        Text(
+                          '@${bController.user.value.username}',
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
+          Divider(color: context.colors.lightGrey.withOpacity(.1)),
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SizedBox(height: 40),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: _width / 48),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Image.asset(AssetImages.logo),
+            children: side_menu_routes.sideMenuItemRoutes
+                .map(
+                  (side_menu_routes.MenuItem item) => SideMenuItem(
+                    name: item.name,
+                    route: item.route,
+                    onTap: () {
+                      if (ResponsiveWidget.isSmallScreen(context)) {
+                        Navigator.of(context).pop();
+                      }
+                      if (item.route == AppRoutes.logout) {
+                        showLogoutDialog(context);
+                      } else if (!menuController.isActive(item.route)) {
+                        menuController.changeActiveItemTo(item.route);
+                        navigationController.navigateTo(item.route);
+                      }
+                    },
                   ),
-                  Flexible(
-                    child: CustomText(
-                      text: 'Betticos',
-                      size: 20,
-                      weight: FontWeight.bold,
-                      color: context.colors.primary,
-                    ),
-                  ),
-                  SizedBox(width: _width / 48),
-                ],
-              ),
-              const SizedBox(height: 30),
-            ],
-          ),
-        Divider(color: context.colors.lightGrey.withOpacity(.1)),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: side_menu_routes.sideMenuItemRoutes
-              .map(
-                (side_menu_routes.MenuItem item) => SideMenuItem(
-                  name: item.name,
-                  route: item.route,
-                  onTap: () {
-                    if (ResponsiveWidget.isSmallScreen(context)) {
-                      Navigator.of(context).pop();
-                    }
-                    if (item.route == AppRoutes.logout) {
-                      showLogoutDialog(context);
-                    } else if (!menuController.isActive(item.route)) {
-                      menuController.changeActiveItemTo(item.route);
-                      navigationController.navigateTo(item.route);
-                    }
-                  },
-                ),
-              )
-              .toList(),
-        )
-      ],
+                )
+                .toList(),
+          )
+        ],
+      ),
     );
   }
 
