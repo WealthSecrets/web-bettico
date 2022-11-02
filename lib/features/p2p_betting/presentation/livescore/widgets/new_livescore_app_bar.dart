@@ -1,6 +1,6 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/presentation/presentation.dart';
@@ -66,15 +66,13 @@ class NewLiveScoreAppBar extends StatelessWidget {
                 ),
                 IconButton(
                   icon: Image.asset(
-                    'assets/images/betting.png',
+                    AssetImages.betting,
                     color: Colors.black,
                     height: 24,
                     width: 24,
                   ),
-                  onPressed: () {
-                    navigationController
-                        .navigateTo(AppRoutes.p2pBettingHistory);
-                  },
+                  onPressed: () =>
+                      Get.toNamed<void>(AppRoutes.p2pBettingHistory),
                 ),
                 if (actions != null) ...actions!
               ],

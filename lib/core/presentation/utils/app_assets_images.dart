@@ -18,4 +18,5 @@ class AssetImages {
   static String facebook = 'assets/images/facebook.png';
   static String google = 'assets/images/google.png';
   static String walletConnect = 'assets/images/walletconnect.png';
+  static String betting = 'assets/images/betting.png';
 }
