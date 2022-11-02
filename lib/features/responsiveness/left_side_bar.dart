@@ -36,11 +36,11 @@ class LeftSideBar extends StatelessWidget {
                   SizedBox(width: _width / 48),
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: Image.asset('assets/images/logo.png'),
+                    child: Image.asset(AssetImages.logo),
                   ),
                   Flexible(
                     child: CustomText(
-                      text: 'Bettico',
+                      text: 'Betticos',
                       size: 20,
                       weight: FontWeight.bold,
                       color: context.colors.primary,
@@ -61,13 +61,13 @@ class LeftSideBar extends StatelessWidget {
                   name: item.name,
                   route: item.route,
                   onTap: () {
+                    if (ResponsiveWidget.isSmallScreen(context)) {
+                      Navigator.of(context).pop();
+                    }
                     if (item.route == AppRoutes.logout) {
                       showLogoutDialog(context);
                     } else if (!menuController.isActive(item.route)) {
                       menuController.changeActiveItemTo(item.route);
-                      if (ResponsiveWidget.isSmallScreen(context)) {
-                        Get.back<void>();
-                      }
                       navigationController.navigateTo(item.route);
                     }
                   },
@@ -223,7 +223,10 @@ class LeftSideBar extends StatelessWidget {
             backgroundColor: context.colors.error,
             message: 'sure_logout'.tr,
             affirmButtonText: 'logout'.tr.toUpperCase(),
-            onPressed: () => bController.logOutTheUser(context),
+            onPressed: () {
+              Navigator.of(context).pop();
+              bController.logOutTheUser(context);
+            },
           ),
         ),
       ),
