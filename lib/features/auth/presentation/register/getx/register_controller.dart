@@ -284,7 +284,7 @@ class RegisterController extends GetxController {
         wallet: wController.walletAddress.value.isNotEmpty
             ? wController.walletAddress.value
             : null,
-        email: email.value.isNotEmpty ? email.value : null,
+        email: !isWalletConnect ? email.value : null,
         referralCode: referralCode.value.isNotEmpty ? referralCode.value : null,
         type: isWalletConnect ? 'wallet' : type.value.trim(),
       ),

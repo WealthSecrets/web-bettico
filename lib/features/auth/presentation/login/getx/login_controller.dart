@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
-import 'package:validators/validators.dart' as validator;
 
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
@@ -172,13 +171,8 @@ class LoginController extends GetxController {
   String? validateEmail(String? email) {
     String? errorMessage;
     if (email!.isEmpty) {
-      errorMessage = 'Please enter email address';
+      errorMessage = 'Please enter email or username';
     }
-
-    if (!validator.isEmail(email.trim())) {
-      errorMessage = 'Invalid email';
-    }
-
     return errorMessage;
   }
 

@@ -5,7 +5,7 @@ class AppStrings extends Translations {
   Map<String, Map<String, String>> get keys => <String, Map<String, String>>{
         'en_US': <String, String>{
           'signin_to': 'Sign In to ',
-          'email_address': 'Email Address',
+          'email_address': 'Email/Username',
           'verify_email': 'Verify Email',
           'password': 'Password',
           'forgot_pass': 'Forgot Password?',
@@ -160,7 +160,7 @@ class AppStrings extends Translations {
         },
         'zh_CN': <String, String>{
           'signin_to': '登录到 ',
-          'email_address': '电子邮件地址',
+          'email_address': '电子邮件/用户名',
           'verify_email': '验证邮件',
           'password': '密码',
           'forgot_pass': '忘记密码？',
