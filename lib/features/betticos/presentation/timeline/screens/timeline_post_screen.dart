@@ -64,7 +64,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
   }
 
   Future<void> showTutorial() async {
-    if (sController.isIntro.value) {
+    if (sController.isPostIntro.value) {
       initTargets();
       tutorialCoachMark = TutorialCoachMark(
         context,
@@ -74,23 +74,15 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         paddingFocus: 10,
         opacityShadow: 0.8,
         onFinish: () {
-          sController.updateIntroductionPreference(false);
+          sController.updatePostIntroductionPreference(false);
         },
         onClickTarget: (TargetFocus target) {},
         onClickOverlay: (TargetFocus target) {},
         onSkip: () {
-          sController.updateIntroductionPreference(false);
+          sController.updatePostIntroductionPreference(false);
         },
       )..show();
     }
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    // notifier.dispose();
-    // likkController.dispose();
   }
 
   @override

@@ -3,7 +3,9 @@ import '/core/utils/utils.dart';
 
 abstract class SettingsLocalDataSource {
   Future<void> updateIntroPrefs(bool value);
+  Future<void> updatePostIntroPrefs(bool value);
   Future<bool?> getIntroPrefs();
+  Future<bool?> getPostIntroPrefs();
   Future<void> updateLanguagePrefs(String value);
   Future<String?> getLanguagePrefs();
 }
@@ -21,9 +23,24 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   }
 
   @override
+  Future<void> updatePostIntroPrefs(bool value) async {
+    await _preferencesWrapper.setBool(
+      SharedPrefsKeys.postIntro,
+      value,
+    );
+  }
+
+  @override
   Future<bool?> getIntroPrefs() async {
     final bool? value =
         await _preferencesWrapper.getBool(SharedPrefsKeys.intro);
+    return value;
+  }
+
+  @override
+  Future<bool?> getPostIntroPrefs() async {
+    final bool? value =
+        await _preferencesWrapper.getBool(SharedPrefsKeys.postIntro);
     return value;
   }
 

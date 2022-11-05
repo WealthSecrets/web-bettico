@@ -68,7 +68,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
         textSkip: 'SKIP',
         paddingFocus: 10,
         opacityShadow: 0.8,
-        onFinish: () {},
+        onFinish: () => sController.updateIntroductionPreference(false),
         onClickTarget: (TargetFocus target) {},
         onClickOverlay: (TargetFocus target) {},
         onSkip: () {
