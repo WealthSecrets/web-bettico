@@ -1,7 +1,9 @@
 import 'package:betticos/features/settings/domain/usecases/get_intro_prefs.dart';
 import 'package:betticos/features/settings/domain/usecases/get_language_prefs.dart';
+import 'package:betticos/features/settings/domain/usecases/get_post_intro_prefs.dart';
 import 'package:betticos/features/settings/domain/usecases/update_intro_prefs.dart';
 import 'package:betticos/features/settings/domain/usecases/update_language_prefs.dart';
+import 'package:betticos/features/settings/domain/usecases/update_post_intro_prefs.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +36,9 @@ class SettingsBindings {
         getIntroPrefs: GetIntroPrefs(
           settingsRepository: Get.find(),
         ),
+        getPostIntroPrefs: GetPostIntroPrefs(
+          settingsRepository: Get.find(),
+        ),
         updateIntroPrefs: UpdateIntroPrefs(
           settingsRepository: Get.find(),
         ),
@@ -41,6 +46,9 @@ class SettingsBindings {
           settingsRepository: Get.find(),
         ),
         getLanguagePrefs: GetLanguagePrefs(
+          settingsRepository: Get.find(),
+        ),
+        updatePostIntroPrefs: UpdatePostIntroPrefs(
           settingsRepository: Get.find(),
         ),
       ),

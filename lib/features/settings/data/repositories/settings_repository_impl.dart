@@ -19,9 +19,23 @@ class SettingsRepositoryImpl extends Repository implements SettingsRepository {
   }
 
   @override
+  Future<Either<Failure, void>> updatePostIntroPrefs(bool value) async {
+    final Either<Failure, void> result = await makeLocalRequest(
+        () => settingsLocalDataSource.updatePostIntroPrefs(value));
+    return result;
+  }
+
+  @override
   Future<Either<Failure, bool?>> getIntroPrefs() async {
     final Either<Failure, bool?> response =
         await makeLocalRequest(() => settingsLocalDataSource.getIntroPrefs());
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, bool?>> getPostIntroPrefs() async {
+    final Either<Failure, bool?> response = await makeLocalRequest(
+        () => settingsLocalDataSource.getPostIntroPrefs());
     return response;
   }
 
