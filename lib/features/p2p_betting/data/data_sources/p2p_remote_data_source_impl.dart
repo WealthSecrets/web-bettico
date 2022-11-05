@@ -306,7 +306,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
         to: to,
       ),
     );
-    print('the actual json received: $json');
+
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
       items.map<Bet>(

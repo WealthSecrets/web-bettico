@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final FilePickerResult? picked = await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
-      onFileLoading: (FilePickerStatus status) => print(status.name),
+      onFileLoading: (FilePickerStatus status) => debugPrint(status.name),
       allowedExtensions: <String>['png', 'jpg', 'jpeg'],
     );
 

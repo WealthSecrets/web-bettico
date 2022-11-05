@@ -661,7 +661,6 @@ class TimelineController extends GetxController {
       postId('');
       isReply(false);
       final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
-      print('checking the dynamic post: $post');
       if (post != null) {
         resetValues();
         getAllFollowingPosts();
