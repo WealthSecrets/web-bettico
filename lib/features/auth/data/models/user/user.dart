@@ -75,10 +75,9 @@ class User with _$User {
       );
 
   bool get isVerified => role == 'user'
-      ? profileAt != null
+      ? profileAt != null && emailVerifiedAt != null
       : (emailVerifiedAt != null &&
           profileAt != null &&
-          phoneVerifiedAt != null &&
           identification != null &&
           photo != null);
 
