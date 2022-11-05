@@ -12,121 +12,134 @@ import '../../core/presentation/utils/app_endpoints.dart';
 import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import 'constants/web_controller.dart';
 
-class LeftSideBar extends StatelessWidget {
-  LeftSideBar({Key? key}) : super(key: key);
+class LeftSideBar extends StatefulWidget {
+  const LeftSideBar({Key? key}) : super(key: key);
+
+  @override
+  State<LeftSideBar> createState() => _LeftSideBarState();
+}
+
+class _LeftSideBarState extends State<LeftSideBar> {
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: ResponsiveWidget.isSmallScreen(context)
-          ? const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-                  Color.fromARGB(251, 167, 66, 41),
-                  Color(0xFFFDBE13)
-                ],
-                tileMode: TileMode.repeated,
-              ),
-            )
-          : null,
-      child: ListView(
-        padding: AppPaddings.lA,
-        children: <Widget>[
-          if (!ResponsiveWidget.isSmallScreen(context))
-            _buildUserInfoContainer(context),
-          const SizedBox(height: 8),
-          if (ResponsiveWidget.isSmallScreen(context))
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const SizedBox(height: 40),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            '${AppEndpoints.userImages}/${bController.user.value.photo}',
-                            headers: <String, String>{
-                              'Authorization':
-                                  'Bearer ${bController.userToken.value}',
-                            },
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              '${bController.user.value.firstName} ${bController.user.value.lastName}',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            if (bController.user.value.role == 'admin')
-                              Image.asset(
-                                AssetImages.verified,
-                                height: 14,
-                                width: 14,
-                              ),
-                          ],
-                        ),
-                        Text(
-                          '@${bController.user.value.username}',
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-              ],
-            ),
-          Divider(color: context.colors.lightGrey.withOpacity(.1)),
+    return ListView(
+      padding: AppPaddings.lA,
+      children: <Widget>[
+        if (!ResponsiveWidget.isSmallScreen(context))
+          _buildUserInfoContainer(context),
+        const SizedBox(height: 8),
+        if (ResponsiveWidget.isSmallScreen(context))
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: side_menu_routes.sideMenuItemRoutes
-                .map(
-                  (side_menu_routes.MenuItem item) => SideMenuItem(
-                    name: item.name,
-                    route: item.route,
-                    onTap: () {
-                      if (ResponsiveWidget.isSmallScreen(context)) {
-                        Navigator.of(context).pop();
-                      }
-                      if (item.route == AppRoutes.logout) {
-                        showLogoutDialog(context);
-                      } else if (!menuController.isActive(item.route)) {
-                        menuController.changeActiveItemTo(item.route);
-                        navigationController.navigateTo(item.route);
-                      }
-                    },
+            children: <Widget>[
+              const SizedBox(height: 40),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(35),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              '${AppEndpoints.userImages}/${bController.user.value.photo}',
+                              headers: <String, String>{
+                                'Authorization':
+                                    'Bearer ${bController.userToken.value}',
+                              },
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          _buildUserColumnButton(
+                            'Following',
+                            '${bController.user.value.following}',
+                            () {},
+                          ),
+                          _buildUserColumnButton(
+                            'Followers',
+                            '${bController.user.value.followers}',
+                            () {},
+                          ),
+                        ],
+                      ))
+                    ],
                   ),
-                )
-                .toList(),
-          )
-        ],
-      ),
+                  const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            '${bController.user.value.firstName} ${bController.user.value.lastName}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (bController.user.value.isVerified)
+                            Image.asset(
+                              AssetImages.verified,
+                              height: 14,
+                              width: 14,
+                            ),
+                        ],
+                      ),
+                      Text(
+                        '@${bController.user.value.username}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: context.colors.text,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        Divider(color: context.colors.lightGrey.withOpacity(.1)),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: side_menu_routes.sideMenuItemRoutes
+              .map(
+                (side_menu_routes.MenuItem item) => SideMenuItem(
+                  name: item.name,
+                  route: item.route,
+                  onTap: () {
+                    if (ResponsiveWidget.isSmallScreen(context)) {
+                      Navigator.of(context).pop();
+                    }
+                    if (item.route == AppRoutes.logout) {
+                      showLogoutDialog(context);
+                    } else if (!menuController.isActive(item.route)) {
+                      menuController.changeActiveItemTo(item.route);
+                      navigationController.navigateTo(item.route);
+                    }
+                  },
+                ),
+              )
+              .toList(),
+        )
+      ],
     );
   }
 
@@ -250,6 +263,37 @@ class LeftSideBar extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserColumnButton(
+    String title,
+    String subtitle,
+    Function()? onPressed,
+  ) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+              color: context.colors.text,
+            ),
+          ),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: context.colors.textDark,
+            ),
+          )
         ],
       ),
     );
