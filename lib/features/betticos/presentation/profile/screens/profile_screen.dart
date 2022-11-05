@@ -36,11 +36,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController controller = Get.find<ProfileController>();
 
   void _onPickImage() async {
+    Navigator.pop(context);
     final FilePickerResult? picked = await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
       onFileLoading: (FilePickerStatus status) => debugPrint(status.name),
-      allowedExtensions: <String>['png', 'jpg', 'jpeg'],
     );
 
     if (picked != null) {
@@ -48,7 +48,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       controller.onProfileImageSelected(bytes);
       controller.updateTheUserProfilePhoto(context);
-      Navigator.pop(context);
     }
   }
 
@@ -135,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   SliverAppBar _buildSliverAppBar() {
     return SliverAppBar(
       toolbarHeight: 0,
-      expandedHeight: 200,
+      expandedHeight: 250,
       floating: false,
       pinned: true,
       backgroundColor: Colors.white,

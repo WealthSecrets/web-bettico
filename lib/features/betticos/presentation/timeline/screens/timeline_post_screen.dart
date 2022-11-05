@@ -139,7 +139,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                       children: <Widget>[
                         IconButton(
                           onPressed: () {
-                            print('button pressed');
                             if (ResponsiveWidget.isSmallScreen(context)) {
                               showModalBottomSheet<void>(
                                 context: context,
