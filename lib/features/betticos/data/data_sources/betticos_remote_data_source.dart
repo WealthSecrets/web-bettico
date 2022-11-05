@@ -1,8 +1,6 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
-
-import '/core/utils/http_client.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/data/models/feeling/feeling_model.dart';
 import '/features/betticos/data/models/follow/follow_model.dart';
@@ -27,7 +25,6 @@ abstract class BetticosRemoteDataSource {
   Future<List<Post>> fetchPostComments(String postId);
 
   Future<Post> addPost({
-    required List<FormUploadDocument> files,
     required PostRequest request,
     required Function(int count, int total) onSendProgress,
   });

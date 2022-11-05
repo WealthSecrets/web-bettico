@@ -5,9 +5,10 @@ import 'dart:io';
 import 'package:betticos/features/betticos/presentation/profile/screens/my_posts_screen.dart';
 import 'package:betticos/features/betticos/presentation/profile/screens/update_profile_screen.dart';
 import 'package:betticos/features/betticos/presentation/profile/widgets/circle_indicator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -34,19 +35,21 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController controller = Get.find<ProfileController>();
 
-  File? image;
-  Rx<File> profileImage = File('').obs;
+  void _onPickImage() async {
+    final FilePickerResult? picked = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+      onFileLoading: (FilePickerStatus status) => print(status.name),
+      allowedExtensions: <String>['png', 'jpg', 'jpeg'],
+    );
 
-  Future<void> takePhoto(ImageSource source, BuildContext context) async {
-    final XFile? image = await ImagePicker().pickImage(source: source);
-    if (image == null) {
-      return;
+    if (picked != null) {
+      final Uint8List? bytes = picked.files.first.bytes;
+
+      controller.onProfileImageSelected(bytes);
+      controller.updateTheUserProfilePhoto(context);
+      Navigator.pop(context);
     }
-
-    final File imageTemporary = File(image.path);
-    controller.onProfileImageSelected(imageTemporary);
-    controller.updateTheUserProfilePhoto(context);
-    Navigator.pop(context);
   }
 
   @override
@@ -471,7 +474,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildProfileImageStack() {
     return Stack(
       children: <Widget>[
-        if (image == null)
+        if (controller.profileImage.value.isEmpty)
           Container(
             height: 80,
             width: 80,
@@ -500,13 +503,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           )
         else
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50.0),
-            child: Image.file(
-              image!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
+          Container(
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50.0),
+              image: DecorationImage(
+                image: MemoryImage(controller.profileImage.value),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         if (widget.user == null)
@@ -572,17 +577,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: const Icon(
                 Ionicons.camera,
               ),
-              onPressed: () {
-                takePhoto(ImageSource.camera, context);
-              },
+              onPressed: _onPickImage,
             ),
             IconButton(
               icon: const Icon(
                 Ionicons.image,
               ),
-              onPressed: () {
-                takePhoto(ImageSource.gallery, context);
-              },
+              onPressed: _onPickImage,
             ),
           ])
         ],

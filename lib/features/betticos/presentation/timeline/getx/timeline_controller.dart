@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:betticos/features/betticos/domain/requests/post/delete_post_params.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/delete_post.dart';
 // import 'package:bitmap/bitmap.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
@@ -80,7 +79,7 @@ class TimelineController extends GetxController {
   Rx<Post> post = Post.empty().obs;
   RxString text = ''.obs;
   RxInt maxTextLength = 280.obs;
-  RxList<File> files = <File>[].obs;
+  RxList<Uint8List> files = <Uint8List>[].obs;
   RxDouble uploadPercentage = 0.0.obs;
   RxBool isCommentLoading = false.obs;
   RxBool isReply = false.obs;
@@ -346,7 +345,7 @@ class TimelineController extends GetxController {
     files.removeAt(index);
   }
 
-  void addImage(File file) {
+  void addImage(Uint8List file) {
     files.add(file);
   }
 
@@ -748,13 +747,13 @@ class TimelineController extends GetxController {
 
   void resetValues() {
     postComments(<Post>[]);
-    files(<File>[]);
+    files(<Uint8List>[]);
   }
 
   void resetValuesAfterPost() {
     text('');
     slipCode('');
-    files(<File>[]);
+    files(<Uint8List>[]);
     isOddbox(false);
   }
 
@@ -764,7 +763,7 @@ class TimelineController extends GetxController {
     }
   }
 
-  void onFileChanged(File value) {
+  void onFileChanged(Uint8List value) {
     files.add(value);
   }
 }

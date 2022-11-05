@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_params.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/dislike_post.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/like_post.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart' as validator;
 
@@ -79,8 +78,8 @@ class ProfileController extends GetxController {
   RxString identificationNumber = ''.obs;
   Rx<DateTime> expiryDate = DateTime.now().obs;
   RxDouble uploadPercentage = 0.0.obs;
-  Rx<File> docImage = File('').obs;
-  Rx<File> profileImage = File('').obs;
+  Rx<Uint8List> docImage = Uint8List.fromList(<int>[]).obs;
+  Rx<Uint8List> profileImage = Uint8List.fromList(<int>[]).obs;
   RxList<User> myFollowers = <User>[].obs;
   RxList<User> mySubscribers = <User>[].obs;
   RxList<User> myFollowings = <User>[].obs;
@@ -486,11 +485,11 @@ class ProfileController extends GetxController {
     expiryDate(value);
   }
 
-  void onFileSelected(File? file) {
+  void onFileSelected(Uint8List? file) {
     docImage(file);
   }
 
-  void onProfileImageSelected(File? file) {
+  void onProfileImageSelected(Uint8List? file) {
     profileImage(file);
   }
 

@@ -93,7 +93,7 @@ class User with _$User {
 
   bool get hasIdentification => identification != null;
 
-  bool get hasProfileImage => profileAt != null;
+  bool get hasProfileImage => photo != null;
 }
 
 enum AccountType { personal, oddster }

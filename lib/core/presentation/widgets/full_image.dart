@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FullImage extends StatelessWidget {
   const FullImage({Key? key, required this.image}) : super(key: key);
 
-  final File image;
+  final Uint8List image;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class FullImage extends StatelessWidget {
           child: Hero(
             tag: 'imageHero',
             child: Center(
-              child: Image.file(
+              child: Image.memory(
                 image,
                 fit: BoxFit.cover,
               ),

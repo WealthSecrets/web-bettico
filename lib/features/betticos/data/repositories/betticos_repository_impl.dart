@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 
 import '/core/core.dart';
 import '/features/auth/data/data_sources/auth_local_data_source.dart';
@@ -34,7 +33,7 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
 
   @override
   Future<Either<Failure, Post>> addPost({
-    List<File>? files,
+    List<Uint8List>? files,
     String? text,
     String? slipCode,
     bool? isOddbox,
@@ -44,20 +43,13 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   }) =>
       makeRequest(
         betticoslineRemoteDataSource.addPost(
-          files: files != null
-              ? List<FormUploadDocument>.from(
-                  files.map<FormUploadDocument>(
-                    (File file) =>
-                        FormUploadDocument(field: 'file', file: file),
-                  ),
-                )
-              : <FormUploadDocument>[],
           request: PostRequest(
             text: text,
             isOddbox: isOddbox,
             slipCode: slipCode,
             isReply: isReply,
             postId: postId,
+            files: files,
           ),
           onSendProgress: onSendProgress,
         ),

@@ -114,31 +114,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<User> updateUserIdentification({
-    required FormUploadDocument file,
     required IdentificationRequest request,
-    required Function(int count, int total) onSendProgress,
   }) async {
-    final Map<String, dynamic> json = await _client.upload(
+    final Map<String, dynamic> json = await _client.post(
       AuthEndpoints.identification,
-      files: <FormUploadDocument>[file],
       body: request.toJson(),
-      onReceiveProgress: (int count, int total) {},
-      onSendProgress: onSendProgress,
     );
     return User.fromJson(json['user'] as Map<String, dynamic>);
   }
 
   @override
-  Future<User> updateUserProfilePhoto({
-    required FormUploadDocument file,
-    required Function(int count, int total) onSendProgress,
-  }) async {
-    final Map<String, dynamic> json = await _client.upload(
+  Future<User> updateUserProfilePhoto({required List<int> file}) async {
+    final Map<String, dynamic> json = await _client.post(
       AuthEndpoints.updatePhoto,
-      files: <FormUploadDocument>[file],
-      body: <String, dynamic>{},
-      onReceiveProgress: (int count, int total) {},
-      onSendProgress: onSendProgress,
+      body: <String, dynamic>{'file': file},
     );
     return User.fromJson(json['user'] as Map<String, dynamic>);
   }

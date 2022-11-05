@@ -1,7 +1,6 @@
-import 'dart:io';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 
@@ -18,7 +17,7 @@ class UploadButton extends StatefulWidget {
     this.openFrontCamera = false,
   }) : super(key: key);
 
-  final Function(File?) onFileSelected;
+  final Function(Uint8List?) onFileSelected;
   final UploadButtonType type;
   final ButtonStyle? style;
   final String? buttonText;
@@ -30,45 +29,28 @@ class UploadButton extends StatefulWidget {
 }
 
 class _UploadButtonState extends State<UploadButton> {
-  File? selected;
+  Uint8List? selected;
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle _style = widget.style ??
+        TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: context.colors.primary.shade100, width: 1),
+            borderRadius: AppBorderRadius.smallAll,
+          ),
+          padding: selected != null
+              ? EdgeInsets.zero
+              : AppPaddings.lH.add(AppPaddings.homeV),
+          backgroundColor: context.colors.primary.shade100,
+        );
+
     return Column(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 0.9,
           child: TextButton(
-            style: widget.style ??
-                TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                        color: context.colors.primary.shade100, width: 1),
-                    borderRadius: AppBorderRadius.smallAll,
-                  ),
-                  padding: selected != null
-                      ? EdgeInsets.zero
-                      : AppPaddings.lH.add(AppPaddings.homeV),
-                  backgroundColor: context.colors.primary.shade100,
-                ),
-            onPressed: () async {
-              final ImagePicker _picker = ImagePicker();
-
-              final XFile? image = await _picker.pickImage(
-                // source: widget.type == UploadButtonType.files ? ImageSource.gallery : ImageSource.camera,
-                source: ImageSource.camera,
-                maxWidth: 1500,
-                maxHeight: 1500,
-                preferredCameraDevice: widget.openFrontCamera
-                    ? CameraDevice.front
-                    : CameraDevice.rear,
-              );
-              if (image != null) {
-                setState(() {
-                  selected = File(image.path);
-                });
-                widget.onFileSelected(File(image.path));
-              }
-            },
+            style: _style,
+            onPressed: _onPickFile,
             child: selected == null
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -97,9 +79,7 @@ class _UploadButtonState extends State<UploadButton> {
                       borderRadius: AppBorderRadius.smallAll,
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: FileImage(
-                          selected!,
-                        ),
+                        image: MemoryImage(selected!),
                       ),
                     ),
                   ),
@@ -131,5 +111,23 @@ class _UploadButtonState extends State<UploadButton> {
           )
       ],
     );
+  }
+
+  void _onPickFile() async {
+    final FilePickerResult? picked = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowMultiple: false,
+      onFileLoading: (FilePickerStatus status) => print(status.name),
+      allowedExtensions: <String>['png', 'jpg', 'jpeg', 'pdf', 'doc', 'docx'],
+    );
+
+    if (picked != null) {
+      final Uint8List? bytes = picked.files.first.bytes;
+
+      setState(() {
+        selected = bytes;
+      });
+      widget.onFileSelected(bytes);
+    }
   }
 }
