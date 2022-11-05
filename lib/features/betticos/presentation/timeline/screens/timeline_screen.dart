@@ -71,7 +71,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
         onFinish: () {},
         onClickTarget: (TargetFocus target) {},
         onClickOverlay: (TargetFocus target) {},
-        onSkip: () {},
+        onSkip: () {
+          sController.updateIntroductionPreference(false);
+        },
         textStyleSkip: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
