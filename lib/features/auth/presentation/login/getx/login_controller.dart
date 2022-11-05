@@ -2,6 +2,7 @@ import 'package:betticos/features/auth/domain/requests/login_wallet_request/logi
 import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
@@ -45,7 +46,14 @@ class LoginController extends GetxController {
   RxBool isSendingSms = false.obs;
 
   final BaseScreenController controller = Get.find<BaseScreenController>();
+  final SettingsController settingsController = Get.find<SettingsController>();
   final WalletConnectProvider wc = WalletConnectProvider.binance();
+
+  @override
+  void onInit() {
+    super.onInit();
+    settingsController.getLanguagePreference();
+  }
 
   void togglePasswordVisibility() {
     isObscured(!isObscured.value);

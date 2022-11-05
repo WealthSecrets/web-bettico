@@ -103,15 +103,12 @@ class SettingsController extends GetxController {
 
     failureOrLanguage.fold((Failure failure) {
       isLanguage('en');
+      Get.updateLocale(const Locale('en', 'US'));
     }, (String? value) {
       if (value != null) {
         isLanguage(value);
+        Get.updateLocale(Locale(value.toLowerCase(), 'CN'));
       }
     });
-    if (isLanguage.value == 'en') {
-      await Get.updateLocale(const Locale('en', 'US'));
-    } else {
-      await Get.updateLocale(const Locale('zh', 'CN'));
-    }
   }
 }
