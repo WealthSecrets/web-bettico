@@ -1,5 +1,6 @@
 class AuthEndpoints {
   static const String signin = 'users/login';
+  static const String signinWallet = 'users/login/wallet';
   static const String forgot = 'users/forgotPassword';
   static const String signup = 'users/signup';
   static const String sendSms = 'users/sendSms';

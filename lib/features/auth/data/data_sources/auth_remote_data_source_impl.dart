@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
 import 'package:betticos/features/auth/domain/requests/resend_email/resend_email_request.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
@@ -27,6 +28,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<AuthResponse> login(LoginRequest request) async {
     final Map<String, dynamic> json = await _client.post(
       AuthEndpoints.signin,
+      body: request.toJson(),
+    );
+    final AuthResponse authResponse = AuthResponse.fromJson(json);
+    return authResponse;
+  }
+
+  @override
+  Future<AuthResponse> loginWallet(LoginWalletRequest request) async {
+    final Map<String, dynamic> json = await _client.post(
+      AuthEndpoints.signinWallet,
       body: request.toJson(),
     );
     final AuthResponse authResponse = AuthResponse.fromJson(json);

@@ -1,3 +1,5 @@
+import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
+import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
@@ -20,10 +22,12 @@ import '../../register/arguments/otp_verification_screen_argument.dart';
 class LoginController extends GetxController {
   LoginController({
     required this.loginUser,
+    required this.loginUserWallet,
     required this.resendEmail,
     required this.sendSms,
   });
   final LoginUser loginUser;
+  final LoginUserWallet loginUserWallet;
   final ResendEmail resendEmail;
   final SendSms sendSms;
 
@@ -70,6 +74,32 @@ class LoginController extends GetxController {
       (Failure failure) {
         isLoading(false);
         AppSnacks.show(context, message: failure.message);
+      },
+      (User user) {
+        isLoading(false);
+        controller.user(user);
+        reRouteOddster(context, user);
+      },
+    );
+  }
+
+  void loginWallet(BuildContext context, String address) async {
+    // ignore: unawaited_futures
+    isLoading(true);
+
+    final Either<Failure, User> failureOrUser = await loginUserWallet(
+      LoginWalletRequest(
+        wallet: address,
+      ),
+    );
+
+    // ignore: unawaited_futures
+    failureOrUser.fold(
+      (Failure failure) {
+        isLoading(false);
+        Get.toNamed<void>(
+          AppRoutes.walletConnectRegistration,
+        );
       },
       (User user) {
         isLoading(false);

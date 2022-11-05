@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +19,7 @@ import '/features/betticos/domain/requests/update_request/update_request.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure, User>> login(LoginRequest request);
+  Future<Either<Failure, User>> loginWallet(LoginWalletRequest request);
   Future<Either<Failure, User>> verifyUser(VerifyUserRequest request);
   Future<Either<Failure, User>> forgotPassword(ForgotRequest request);
   Future<Either<Failure, User>> validateSession();

@@ -121,7 +121,7 @@ class _P2pBetTabState extends State<P2pBetTab> {
                               if (!lController.isConnected) {
                                 if (Ethereum.isSupported) {
                                   lController.initiateWalletConnect(
-                                    () => navigateToBetDetailsScreen(bet),
+                                    (_) => navigateToBetDetailsScreen(bet),
                                   );
                                 } else {
                                   lController.connectWC().then((_) {
