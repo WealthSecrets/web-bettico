@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
@@ -10,6 +8,7 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_s
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:validators/validators.dart' as validator;
@@ -21,7 +20,6 @@ import '/features/auth/domain/requests/identification/identification_request.dar
 import '/features/auth/domain/requests/register_request/register_request.dart';
 import '/features/auth/domain/requests/sms/send_sms_request.dart';
 import '/features/auth/domain/requests/update_photo_request.dart/update_photo_request.dart';
-import '/features/auth/domain/requests/upload_request.dart/upload_request.dart';
 import '/features/auth/domain/requests/verify_email/verify_email_request.dart';
 import '/features/auth/domain/requests/verify_sms/verify_sms_request.dart';
 import '/features/auth/domain/usecases/register_user.dart';
@@ -76,12 +74,12 @@ class RegisterController extends GetxController {
   RxString password = ''.obs;
   RxString confirmPassword = ''.obs;
   RxString otpCode = ''.obs;
-  RxString identificationType = ''.obs;
+  RxString identificationType = 'Passport'.obs;
   RxString identificationNumber = ''.obs;
   Rx<DateTime> expiryDate = DateTime.now().obs;
   RxDouble uploadPercentage = 0.0.obs;
-  Rx<File> docImage = File('').obs;
-  Rx<File> profileImage = File('').obs;
+  Rx<Uint8List> docImage = Uint8List.fromList(<int>[]).obs;
+  Rx<Uint8List> profileImage = Uint8List.fromList(<int>[]).obs;
 
   // loading values
   RxBool isRegisteringUser = false.obs;
@@ -192,16 +190,11 @@ class RegisterController extends GetxController {
     isAddingDocument(true);
 
     final Either<Failure, User> fialureOrSuccess = await uploadIdentifcation(
-      UploadRequest(
+      IdentificationRequest(
+        expiryDate: expiryDate.value,
+        identificationNumber: identificationNumber.value,
+        identificationType: identificationType.value,
         file: docImage.value,
-        onSendProgress: (int count, int total) {
-          uploadPercentage(count / total);
-        },
-        request: IdentificationRequest(
-          expiryDate: expiryDate.value,
-          identificationNumber: identificationNumber.value,
-          identificationType: identificationType.value,
-        ),
       ),
     );
 
@@ -210,6 +203,7 @@ class RegisterController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User u) {
       isAddingDocument(false);
+      baseScreenController.updateTheUser(u);
       lController.reRouteOddster(context, u);
     });
   }
@@ -274,6 +268,7 @@ class RegisterController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isAddingProfileImage(false);
+      baseScreenController.updateTheUser(value);
       Get.offAllNamed<void>(AppRoutes.home);
       menuController.changeActiveItemTo(AppRoutes.timeline);
     });
@@ -353,7 +348,7 @@ class RegisterController extends GetxController {
         AppSnacks.show(context, message: failure.message);
       },
       (User us) {
-        isAddingPersonalInformation(true);
+        isAddingPersonalInformation(false);
         baseScreenController.updateTheUser(us);
         Get.toNamed<void>(
           AppRoutes.otpVerifyPhone,
@@ -415,11 +410,11 @@ class RegisterController extends GetxController {
     expiryDate(value);
   }
 
-  void onFileSelected(File? file) {
+  void onFileSelected(Uint8List? file) {
     docImage(file);
   }
 
-  void onProfileImageSelected(File? file) {
+  void onProfileImageSelected(Uint8List? file) {
     profileImage(file);
   }
 
@@ -553,12 +548,12 @@ class RegisterController extends GetxController {
       validatePassword(password.value) == null &&
       validateConfrimPassword(confirmPassword.value) == null;
 
-  bool get profileFormIsValid => profileImage.value.path.isNotEmpty;
+  bool get profileFormIsValid => profileImage.value.isNotEmpty;
 
   bool get documentFormIsValid =>
       validateIdentificationNumber(identificationNumber.value) == null &&
       validateExpiryDate(expiryDate.value) == null &&
-      docImage.value.path.isNotEmpty;
+      docImage.value.isNotEmpty;
 
   bool get personalFormIsValid =>
       validateFirstName(firstName.value) == null &&

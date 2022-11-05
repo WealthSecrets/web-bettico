@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:dartz/dartz.dart';
@@ -156,17 +154,10 @@ class AuthRepositoryImpl extends Repository implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, User>> updateUserIdentification({
-    required File file,
-    required IdentificationRequest request,
-    required Function(int count, int total) onSendProgress,
-  }) async {
+  Future<Either<Failure, User>> updateUserIdentification(
+      {required IdentificationRequest request}) async {
     final Either<Failure, User> response = await makeRequest(
-      authRemoteDataSource.updateUserIdentification(
-        file: FormUploadDocument(field: 'file', file: file),
-        request: request,
-        onSendProgress: onSendProgress,
-      ),
+      authRemoteDataSource.updateUserIdentification(request: request),
     );
     return response.fold((Failure failure) => left(failure), (User user) async {
       await authLocalDataSource.persistUserData(user);
@@ -176,13 +167,12 @@ class AuthRepositoryImpl extends Repository implements AuthRepository {
 
   @override
   Future<Either<Failure, User>> updateUserProfilePhoto({
-    required File file,
+    required List<int> file,
     required Function(int count, int total) onSendProgress,
   }) async {
     final Either<Failure, User> response = await makeRequest(
       authRemoteDataSource.updateUserProfilePhoto(
-        file: FormUploadDocument(field: 'file', file: file),
-        onSendProgress: onSendProgress,
+        file: file,
       ),
     );
 

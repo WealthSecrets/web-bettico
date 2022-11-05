@@ -1,8 +1,6 @@
 import 'package:betticos/features/auth/domain/requests/resend_email/resend_email_request.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
-
-import '/core/utils/http_client.dart';
 import '/features/auth/data/models/responses/auth_response/auth_response.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
 import '/features/auth/data/models/user/user.dart';
@@ -29,14 +27,10 @@ abstract class AuthRemoteDataSource {
   Future<User> verifyEmail(VerifyEmailRequest request);
   Future<User> resendEmail(ResendEmailRequest request);
   Future<User> updateUserIdentification({
-    required FormUploadDocument file,
     required IdentificationRequest request,
-    required Function(int count, int total) onSendProgress,
   });
-  Future<User> updateUserProfilePhoto({
-    required FormUploadDocument file,
-    required Function(int count, int total) onSendProgress,
-  });
+  Future<User> updateUserProfilePhoto({required List<int> file});
+
   Future<void> logout();
   Future<User> validateSession();
 }

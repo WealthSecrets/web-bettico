@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 
 import '/core/errors/failure.dart';
 import '/features/auth/data/models/user/user.dart';
@@ -25,7 +24,7 @@ abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> fetchPostComments(String postId);
 
   Future<Either<Failure, Post>> addPost({
-    List<File>? files,
+    List<Uint8List>? files,
     String? text,
     String? slipCode,
     bool? isOddbox,

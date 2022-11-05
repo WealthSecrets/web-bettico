@@ -90,7 +90,7 @@ class LoginController extends GetxController {
       if (!user.hasRole) {
         Get.toNamed<void>(AppRoutes.accountType);
       } else if (!user.isPersonalInfoProvided) {
-        Get.offAllNamed<void>(AppRoutes.personalInformation);
+        Get.toNamed<void>(AppRoutes.personalInformation);
       } else {
         subRerouting(user);
       }
@@ -101,14 +101,14 @@ class LoginController extends GetxController {
 
   void subRerouting(User user) {
     if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.offAllNamed<void>(
+      Get.toNamed<void>(
         AppRoutes.documentScreen,
         arguments: UserArgument(
           user: user,
         ),
       );
     } else if (user.role == 'oddster' && !user.hasProfileImage) {
-      Get.offAllNamed<void>(AppRoutes.profilePhoto);
+      Get.toNamed<void>(AppRoutes.profilePhoto);
     } else {
       Get.offAllNamed<void>(AppRoutes.home);
       menuController.changeActiveItemTo(AppRoutes.timeline);

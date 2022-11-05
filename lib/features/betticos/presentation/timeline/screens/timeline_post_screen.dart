@@ -4,10 +4,10 @@ import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/arguments/add_post_comment_argument.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -40,21 +40,21 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
   GlobalKey slipBtn = GlobalKey();
   GlobalKey sendBtn = GlobalKey();
 
-  Future<void> takePhoto(ImageSource source, BuildContext context) async {
-    try {
-      final XFile? image = await ImagePicker().pickImage(source: source);
-      // ignore: always_put_control_body_on_new_line
-      if (image == null) return;
+  void _onPickImage() async {
+    final FilePickerResult? picked = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+      onFileLoading: (FilePickerStatus status) => print(status.name),
+      allowedExtensions: <String>['png', 'jpg', 'jpeg'],
+    );
 
-      final File imageTemporary = File(image.path);
-      // setState(() => files.add(imageTemporary));
-      timelineController.onFileChanged(imageTemporary);
-      if (ResponsiveWidget.isSmallScreen(context)) {
-        Navigator.pop(context);
+    if (picked != null) {
+      final Uint8List? bytes = picked.files.first.bytes;
+
+      if (bytes != null) {
+        timelineController.onFileChanged(bytes);
       }
-    } on PlatformException catch (e) {
-      // ignore: avoid_print
-      print('Failed : $e');
+      Navigator.pop(context);
     }
   }
 
@@ -147,7 +147,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                                     bottomSheet()),
                               );
                             } else {
-                              takePhoto(ImageSource.camera, context);
+                              _onPickImage();
                             }
                           },
                           icon: Icon(
@@ -297,13 +297,13 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        FullImage(
-                                          image:
-                                              timelineController.files[index],
-                                        )));
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => FullImage(
+                                  image: timelineController.files[index],
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             height: 170,
@@ -312,7 +312,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
-                                image: FileImage(
+                                image: MemoryImage(
                                   timelineController.files[index],
                                 ),
                                 fit: BoxFit.cover,
@@ -422,17 +422,13 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
               icon: const Icon(
                 Ionicons.camera,
               ),
-              onPressed: () {
-                takePhoto(ImageSource.camera, context);
-              },
+              onPressed: _onPickImage,
             ),
             IconButton(
               icon: const Icon(
                 Ionicons.image,
               ),
-              onPressed: () {
-                takePhoto(ImageSource.gallery, context);
-              },
+              onPressed: _onPickImage,
             ),
           ])
         ],

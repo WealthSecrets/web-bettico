@@ -65,7 +65,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                         const AppSpacing(v: 30),
                         AppSelectField<String>(
                           disabled: false,
-                          value: 'Passport',
+                          value: controller.identificationType.value,
                           labelText: 'iden_type'.tr.toUpperCase(),
                           validator: (String value) => null,
                           backgroundColor: context.colors.primary.shade100,

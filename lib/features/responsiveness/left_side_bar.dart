@@ -162,7 +162,7 @@ class LeftSideBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                   image: DecorationImage(
                     image: NetworkImage(
-                      '${AppEndpoints.userImages}/${bController.user.value.photo}',
+                      '${AppEndpoints.userImages}/${bController.user.value.photo ?? 'default.jpg'}',
                       headers: <String, String>{
                         'Authorization': 'Bearer ${bController.userToken.value}'
                       },

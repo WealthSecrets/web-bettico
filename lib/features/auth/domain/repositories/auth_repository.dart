@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
@@ -30,12 +30,10 @@ abstract class AuthRepository {
   Future<Either<Failure, User>> verifyEmail(VerifyEmailRequest request);
   Future<Either<Failure, User>> resendEmail(ResendEmailRequest request);
   Future<Either<Failure, User>> updateUserIdentification({
-    required File file,
     required IdentificationRequest request,
-    required Function(int count, int total) onSendProgress,
   });
   Future<Either<Failure, User>> updateUserProfilePhoto({
-    required File file,
+    required Uint8List file,
     required Function(int count, int total) onSendProgress,
   });
 

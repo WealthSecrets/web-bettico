@@ -1,5 +1,4 @@
 // ignore_for_file: invalid_annotation_target
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'identification_request.freezed.dart';
@@ -11,6 +10,7 @@ class IdentificationRequest with _$IdentificationRequest {
     required String identificationType,
     required String identificationNumber,
     required DateTime expiryDate,
+    required List<int> file,
   }) = _IdentificationRequest;
   factory IdentificationRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentificationRequestFromJson(json);

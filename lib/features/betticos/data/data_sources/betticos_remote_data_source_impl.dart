@@ -26,13 +26,11 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<Post> addPost({
-    required List<FormUploadDocument> files,
     required PostRequest request,
     required Function(int count, int total) onSendProgress,
   }) async {
-    final Map<String, dynamic> json = await _client.upload(
+    final Map<String, dynamic> json = await _client.post(
       BetticosEndpoints.posts,
-      files: files,
       body: request.toJson(),
       onReceiveProgress: (int count, int total) {},
       onSendProgress: onSendProgress,

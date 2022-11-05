@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/services.dart';
 
 class AddPostRequest {
   AddPostRequest({
@@ -10,7 +10,7 @@ class AddPostRequest {
     this.postId,
     this.isReply = false,
   });
-  final List<File> files;
+  final List<Uint8List> files;
   final bool? isOddbox;
   final String? slipCode;
   final String? text;
