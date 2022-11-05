@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
@@ -26,17 +25,15 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: ResponsiveWidget.isSmallScreen(context)
-            ? IconButton(
-                icon: const Icon(
-                  Ionicons.chevron_back,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Get.back<void>();
-                },
-              )
-            : null,
+        leading: IconButton(
+          icon: const Icon(
+            Ionicons.chevron_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'update_profile'.tr,
           style: const TextStyle(
