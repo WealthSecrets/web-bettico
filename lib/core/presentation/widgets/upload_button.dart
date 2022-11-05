@@ -117,7 +117,7 @@ class _UploadButtonState extends State<UploadButton> {
     final FilePickerResult? picked = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowMultiple: false,
-      onFileLoading: (FilePickerStatus status) => print(status.name),
+      onFileLoading: (FilePickerStatus status) => debugPrint(status.name),
       allowedExtensions: <String>['png', 'jpg', 'jpeg', 'pdf', 'doc', 'docx'],
     );
 

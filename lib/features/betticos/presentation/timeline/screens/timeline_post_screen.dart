@@ -42,9 +42,9 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
 
   void _onPickImage() async {
     final FilePickerResult? picked = await FilePicker.platform.pickFiles(
-      type: FileType.image,
+      type: FileType.custom,
       allowMultiple: false,
-      onFileLoading: (FilePickerStatus status) => print(status.name),
+      onFileLoading: (FilePickerStatus status) => debugPrint(status.name),
       allowedExtensions: <String>['png', 'jpg', 'jpeg'],
     );
 
@@ -54,7 +54,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
       if (bytes != null) {
         timelineController.onFileChanged(bytes);
       }
-      Navigator.pop(context);
     }
   }
 
@@ -140,6 +139,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                       children: <Widget>[
                         IconButton(
                           onPressed: () {
+                            print('button pressed');
                             if (ResponsiveWidget.isSmallScreen(context)) {
                               showModalBottomSheet<void>(
                                 context: context,
