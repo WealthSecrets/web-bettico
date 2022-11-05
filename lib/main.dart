@@ -34,6 +34,7 @@ void main() async {
 
   Get.put(NavigationController());
   Get.put(MenuController());
+  SettingsBindings.dependencies();
   SplashBindings.dependencies();
   LiveScoreBindings.dependencies();
   OnBoardBindings.dependencies();
@@ -46,7 +47,7 @@ void main() async {
   ForgotBindings.dependencies();
   ResetBindings.dependencies();
   P2PBetBindings.dependencies();
-  SettingsBindings.dependencies();
+
   TimelineBindings.dependencies();
 
   MembersBindings.dependencies();
