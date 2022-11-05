@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
 import 'package:betticos/features/auth/domain/usecases/resend_email.dart';
 import 'package:betticos/features/auth/domain/usecases/send_sms.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,9 @@ class LoginBindings {
     Get.put<LoginController>(
       LoginController(
         loginUser: LoginUser(
+          authRepository: Get.find(),
+        ),
+        loginUserWallet: LoginUserWallet(
           authRepository: Get.find(),
         ),
         resendEmail: ResendEmail(

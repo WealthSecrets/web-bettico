@@ -320,15 +320,13 @@ class LoginScreen extends GetWidget<LoginController> {
                           onPressed: () {
                             if (Ethereum.isSupported) {
                               lController.initiateWalletConnect(
-                                () => Get.toNamed<void>(
-                                  AppRoutes.walletConnectRegistration,
-                                ),
+                                (String wallet) =>
+                                    controller.loginWallet(context, wallet),
                               );
                             } else {
                               lController.connectWC(
-                                () => Get.toNamed<void>(
-                                  AppRoutes.walletConnectRegistration,
-                                ),
+                                (String wallet) =>
+                                    controller.loginWallet(context, wallet),
                               );
                             }
                           },
@@ -375,9 +373,7 @@ class LoginScreen extends GetWidget<LoginController> {
                         ),
                       ),
                     ),
-                    const AppSpacing(
-                      v: 20,
-                    ),
+                    const AppSpacing(v: 20),
                     const SizedBox(
                       height: 40,
                       width: double.infinity,
