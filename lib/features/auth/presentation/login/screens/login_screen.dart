@@ -6,7 +6,6 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_s
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -72,8 +71,6 @@ class LoginScreen extends GetWidget<LoginController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    if (ResponsiveWidget.isSmallScreen(context))
-                      const SizedBox(height: 20),
                     if (!ResponsiveWidget.isSmallScreen(context))
                       const SizedBox(height: 100),
                     Align(
@@ -99,13 +96,10 @@ class LoginScreen extends GetWidget<LoginController> {
                     if (ResponsiveWidget.isSmallScreen(context))
                       Align(
                         alignment: Alignment.topRight,
-                        child: SvgPicture.asset(
-                          AssetSVGs.logo.path,
-                          height: 80,
-                          color: context.colors.secondary,
-                        ),
+                        child: Image.asset(AssetImages.logo, height: 80),
                       ),
-                    const SizedBox(height: 10),
+                    if (ResponsiveWidget.isSmallScreen(context))
+                      const SizedBox(height: 40),
                     Align(
                       alignment: Alignment.center,
                       child: RichText(

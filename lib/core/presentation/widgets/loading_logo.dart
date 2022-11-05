@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '/core/core.dart';
 
 class LoadingLogo extends StatefulWidget {
@@ -63,10 +62,9 @@ class _LoadingLogoState extends State<LoadingLogo>
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              SvgPicture.asset(
-                AssetSVGs.logo.path,
+              Image.asset(
+                AssetImages.logo,
                 height: 15,
-                color: widget.color ?? context.colors.primary,
               ),
               FutureBuilder<bool>(
                   future: Future<bool>.delayed(
