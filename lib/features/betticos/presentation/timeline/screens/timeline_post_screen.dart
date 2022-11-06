@@ -67,7 +67,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
     if (sController.isPostIntro.value) {
       initTargets();
       tutorialCoachMark = TutorialCoachMark(
-        context,
         targets: targets,
         colorShadow: context.colors.primary,
         textSkip: 'SKIP',
@@ -81,7 +80,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         onSkip: () {
           sController.updatePostIntroductionPreference(false);
         },
-      )..show();
+      )..show(context: context);
     }
   }
 

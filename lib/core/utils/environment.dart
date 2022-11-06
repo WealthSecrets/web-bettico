@@ -47,7 +47,7 @@ extension EnvironmentX on Environment {
   String get url {
     return <Environment, String>{
       // Environment.development: 'https://api.wealthsecrets.io/api/v1/',
-      Environment.development: 'http://192.168.0.117:8000/api/v1/',
+      Environment.development: 'https://api.wealthsecrets.io/api/v1/',
       Environment.production: 'https://api.wealthsecrets.io/api/v1/',
     }[this]!;
   }
