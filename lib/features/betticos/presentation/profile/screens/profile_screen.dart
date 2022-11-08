@@ -483,7 +483,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 image: NetworkImage(
                   '${AppEndpoints.userImages}/${controller.user.value.photo}',
                   headers: <String, String>{
-                    'Authorization': 'Bearer ${controller.userToken.value}'
+                    'Authorization':
+                        'Bearer ${controller.baseScreenController.userToken}'
                   },
                 ),
                 fit: BoxFit.cover,

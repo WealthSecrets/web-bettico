@@ -54,7 +54,6 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   void startBroadcast(int fixtureId) async {
     _timer = Timer.periodic(const Duration(seconds: 10), (Timer timer) async {
       final LiveScore? sFixture = await lController.getMatchSFixture(fixtureId);
-
       _liveScoreStreamController.add(sFixture);
     });
   }
@@ -382,8 +381,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                   ),
                   const SizedBox(height: 16),
                   AppConstrainedButton(
-                    disabled: !bController.isYou(widget.bet.winner?.id) &&
-                        !(widget.bet.payout ?? false),
+                    disabled: false,
                     color: context.colors.success,
                     textColor: Colors.white,
                     selected: true,

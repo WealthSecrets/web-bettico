@@ -108,7 +108,8 @@ class ProfileController extends GetxController {
 
   // get the loggedInUser
   Rx<User> user = User.empty().obs;
-  Rx<String> userToken = Get.find<BaseScreenController>().userToken;
+  final BaseScreenController baseScreenController =
+      Get.find<BaseScreenController>();
 
   // no reactive variables
   BuildContext? context;
@@ -139,7 +140,7 @@ class ProfileController extends GetxController {
     }, (User value) {
       isLoading(false);
       user(value);
-      Get.offNamed<void>(AppRoutes.base);
+      baseScreenController.updateTheUser(value);
     });
   }
 

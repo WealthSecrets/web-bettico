@@ -100,7 +100,9 @@ class TimelineCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25),
                       image: DecorationImage(
                         image: NetworkImage(
-                          '${AppEndpoints.userImages}/${post.user.photo}',
+                          post.user.id == user.id
+                              ? '${AppEndpoints.userImages}/${bController.user.value.photo}'
+                              : '${AppEndpoints.userImages}/${post.user.photo}',
                           headers: <String, String>{
                             'Authorization':
                                 'Bearer ${bController.userToken.value}'
