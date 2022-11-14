@@ -63,9 +63,8 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                     controller: _controller,
                     children: <Widget>[
                       ...ongoingBets.map(
-                        (Bet b) => P2PBettingHistoryCard(
-                          bet: b,
-                        ),
+                        (Bet b) =>
+                            P2PBettingHistoryCard(betId: b.id, isMyBets: false),
                       ),
                     ],
                   ),

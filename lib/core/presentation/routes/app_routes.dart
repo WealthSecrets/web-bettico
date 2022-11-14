@@ -1,6 +1,6 @@
 class AppRoutes {
   static const String base = '/base';
-  static const String home = '/timeline';
+  static const String home = '/';
   static const String timeline = '/timeline';
   static const String mainWidget = '/mainWidget';
   static const String login = '/login';

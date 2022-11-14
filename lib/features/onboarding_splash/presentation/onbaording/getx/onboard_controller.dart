@@ -1,4 +1,4 @@
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+// import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
@@ -21,7 +21,7 @@ class OnboardController extends GetxController {
     final Either<Failure, void> failureOrIsDark = await saveOnBaord(NoParams());
     failureOrIsDark.fold((Failure failure) {}, (_) {
       navigationController.navigateTo(AppRoutes.login);
-      Get.offAll<void>(webNavigator());
+      // Get.offAll<void>(webNavigator());
     });
   }
 }

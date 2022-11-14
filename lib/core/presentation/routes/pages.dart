@@ -4,7 +4,6 @@ import 'package:betticos/features/auth/presentation/register/screens/registratio
 import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
 import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:get/get.dart';
@@ -14,8 +13,6 @@ import '/features/auth/presentation/register/screens/registration_document_scree
 import '/features/auth/presentation/register/screens/registration_screen.dart';
 import '/features/auth/presentation/register/screens/registration_upload_photo_screen.dart';
 import '/features/auth/presentation/resetPassword/screens/reset_screen.dart';
-import '/features/betticos/presentation/members/screens/members_screen.dart';
-import '/features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
 import '/features/betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import '/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
 import '/features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
@@ -61,10 +58,6 @@ class Pages {
       page: () => const TimelinePostScreen(),
     ),
     GetPage<AppRoutes>(
-      name: AppRoutes.members,
-      page: () => const MembersScreen(),
-    ),
-    GetPage<AppRoutes>(
       name: AppRoutes.walletConnect,
       page: () => ForgotWalletScreen(),
     ),
@@ -75,10 +68,6 @@ class Pages {
     GetPage<AppRoutes>(
       name: AppRoutes.personalInformation,
       page: () => const RegistrationPersonalInformationScreen(),
-    ),
-    GetPage<AppRoutes>(
-      name: AppRoutes.oddboxes,
-      page: () => const OddsboxScreen(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.onboard,
@@ -97,10 +86,6 @@ class Pages {
       page: () => const ReportScreen(),
     ),
     GetPage<AppRoutes>(
-      name: AppRoutes.livescore,
-      page: () => const LiveScoreScreen(),
-    ),
-    GetPage<AppRoutes>(
       name: AppRoutes.p2pBettingHistory,
       page: () => const P2PBettingHistoryScreen(),
     ),
@@ -110,3 +95,7 @@ class Pages {
     ),
   ];
 }
+
+
+// Get.toNamed<void>();
+// Navigator.of(context).pushNamed();
