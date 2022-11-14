@@ -1,5 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+// import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/left_side_bar.dart';
 import 'package:betticos/features/responsiveness/top_navigation_bar.dart';
@@ -25,7 +26,7 @@ class HomeBaseScreen extends StatelessWidget {
           ? topNavigationBar(context, scaffoldKey)
           : null,
       drawer: ResponsiveWidget.isSmallScreen(context)
-          ? Drawer(
+          ? const Drawer(
               child: LeftSideBar(),
             )
           : null,

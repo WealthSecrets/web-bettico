@@ -20,7 +20,8 @@ class P2pBetTab extends StatefulWidget {
   State<P2pBetTab> createState() => _P2pBetTabState();
 }
 
-class _P2pBetTabState extends State<P2pBetTab> {
+class _P2pBetTabState extends State<P2pBetTab>
+    with AutomaticKeepAliveClientMixin {
   // getx controllers
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
@@ -28,6 +29,9 @@ class _P2pBetTabState extends State<P2pBetTab> {
   final PublishSubject<String> subject = PublishSubject<String>();
 
   late final TextEditingController _controller;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -108,167 +112,44 @@ class _P2pBetTabState extends State<P2pBetTab> {
                       message: _p2pBetController.isFiltering
                           ? 'Sorry, we couldn’t find any results for this search.'
                           : 'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.')
-                  : ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        final Bet bet = _p2pBetController.bets[index];
-                        return P2PBettingHistoryCard(
-                          key: ObjectKey(
-                            bet.id,
-                          ),
-                          bet: bet,
-                          onPressed: () {
-                            if (bet.status == BetStatus.awaiting) {
-                              if (!lController.isConnected) {
-                                if (Ethereum.isSupported) {
-                                  lController.initiateWalletConnect(
-                                    (_) => navigateToBetDetailsScreen(bet),
-                                  );
+                  : SingleChildScrollView(
+                      child: Column(children: <Widget>[
+                        ..._p2pBetController.bets.map((Bet bet) {
+                          return P2PBettingHistoryCard(
+                            key: ObjectKey(
+                              bet.id,
+                            ),
+                            betId: bet.id,
+                            isMyBets: false,
+                            onPressed: () {
+                              if (bet.status == BetStatus.awaiting) {
+                                if (!lController.isConnected) {
+                                  if (Ethereum.isSupported) {
+                                    lController.initiateWalletConnect(
+                                      (_) => navigateToBetDetailsScreen(bet),
+                                    );
+                                  } else {
+                                    lController.connectWC().then((_) {
+                                      if (lController
+                                          .walletAddress.isNotEmpty) {
+                                        navigateToBetDetailsScreen(bet);
+                                      }
+                                    });
+                                  }
                                 } else {
-                                  lController.connectWC().then((_) {
-                                    if (lController.walletAddress.isNotEmpty) {
-                                      navigateToBetDetailsScreen(bet);
-                                    }
-                                  });
+                                  navigateToBetDetailsScreen(bet);
                                 }
                               } else {
-                                navigateToBetDetailsScreen(bet);
+                                showBetDetailsModalBottomSheet(bet);
                               }
-                            } else {
-                              showBetDetailsModalBottomSheet(bet);
-                            }
-                          },
-                        );
-                      },
-                      itemCount: _p2pBetController.bets.length,
+                            },
+                          );
+                        }).toList(),
+                      ]),
                     ),
             )
           ],
         ),
-        // child: CustomScrollView(
-        //   slivers: <Widget>[
-        //     if (_p2pBetController.bets.length + 2 > 2)
-        //       SliverPadding(
-        //         padding: AppPaddings.homeH,
-        //         sliver: SliverList(
-        //           delegate: SliverChildBuilderDelegate(
-        //             (_, int index) {
-        //               print('checking index: $index');
-
-        //               if (index == 0) {
-        //                 return Column(
-        //                   children: <Widget>[
-        //                     SearchField(
-        //                       onChanged: (String value) {
-        //                         if (_p2pBetController.title.value != value) {
-        //                           subject.add(value);
-        //                         }
-        //                       },
-        //                       showSortBy: true,
-        //                       isLoading: false,
-        //                       controller: _controller,
-        //                     ),
-        //                     const SizedBox(height: 16),
-        //                   ],
-        //                 );
-        //               }
-        //               if (index == 1) {
-        //                 return SizedBox(
-        //                   height: 30,
-        //                   child: Row(
-        //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //                     children: <Widget>[
-        //                       ..._p2pBetController.buttonTexts
-        //                           .map(
-        //                             (String text) => Obx(
-        //                               () => AppConstrainedButton(
-        //                                 text: StringUtils.capitalizeFirst(text),
-        //                                 borderRadius: AppBorderRadius.largeAll,
-        //                                 color: context.colors.primary,
-        //                                 textColor: Colors.white,
-        //                                 onPressed: () =>
-        //                                     _p2pBetController.setButtonSelected(
-        //                                         context, text.toLowerCase()),
-        //                                 selected: _p2pBetController
-        //                                         .selectedButton.value ==
-        //                                     text.toLowerCase(),
-        //                               ),
-        //                             ),
-        //                           )
-        //                           .toList()
-        //                     ],
-        //                   ),
-        //                 );
-        //               }
-
-        //               final Bet bet = _p2pBetController.bets[index - 2];
-        //               return P2PBettingHistoryCard(
-        //                 key: ObjectKey(
-        //                   bet.id,
-        //                 ),
-        //                 bet: bet,
-        //                 onPressed: () {
-        //                   if (bet.status == BetStatus.awaiting) {
-        //                     if (!lController.isConnected) {
-        //                       if (Ethereum.isSupported) {
-        //                         lController.initiateWalletConnect(
-        //                           () => navigateToBetDetailsScreen(bet),
-        //                         );
-        //                       } else {
-        //                         lController.connectWC().then((_) {
-        //                           if (lController.walletAddress.isNotEmpty) {
-        //                             navigateToBetDetailsScreen(bet);
-        //                           }
-        //                         });
-        //                       }
-        //                     } else {
-        //                       navigateToBetDetailsScreen(bet);
-        //                     }
-        //                   } else {
-        //                     showBetDetailsModalBottomSheet(bet);
-        //                   }
-        //                 },
-        //               );
-        //             },
-        //             childCount: _p2pBetController.bets.length + 2,
-        //           ),
-        //         ),
-        //       ),
-        //     if (_p2pBetController.bets.isEmpty)
-        //       SliverFillRemaining(
-        //         child: Padding(
-        //           padding: AppPaddings.bodyH,
-        //           child: AppAnimatedColumn(
-        //               crossAxisAlignment: CrossAxisAlignment.center,
-        //               children: <Widget>[
-        //                 const AppSpacing(v: 30),
-        //                 SvgPicture.asset(
-        //                   AssetSVGs.emptyState.path,
-        //                   height: 300,
-        //                 ),
-        //                 const AppSpacing(v: 10),
-        //                 Text(
-        //                   'Nothing to See Here',
-        //                   style: TextStyle(
-        //                     color: context.colors.textDark,
-        //                     fontWeight: FontWeight.w700,
-        //                     fontSize: 16,
-        //                   ),
-        //                 ),
-        //                 const AppSpacing(v: 10),
-        //                 Text(
-        //                   'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.',
-        //                   textAlign: TextAlign.center,
-        //                   style: TextStyle(
-        //                     color: context.colors.text,
-        //                     fontWeight: FontWeight.w400,
-        //                     fontSize: 12,
-        //                   ),
-        //                 ),
-        //               ]),
-        //         ),
-        //       ),
-        //   ],
-        // ),
       ),
     );
   }

@@ -11,7 +11,6 @@ import '../../../features/settings/presentation/settings/screens/settings_screen
 import 'app_routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
-  debugPrint('Checking the route name: ${settings.name}');
   switch (settings.name) {
     case AppRoutes.profile:
       return _getPageRoute(const ProfileScreen(), settings);

@@ -2,6 +2,7 @@ import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 // import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 // import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,11 +25,12 @@ class LiveScoreScreen extends StatefulWidget {
 class _LiveScoreScreenState extends State<LiveScoreScreen> {
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
+  final P2PBetController _p2pBetController = Get.find<P2PBetController>();
 
   @override
   void initState() {
     super.initState();
-
+    _p2pBetController.getMyBets();
     WidgetUtils.onWidgetDidBuild(() {
       lController.initiateWalletConnect();
       lController.getAllLiveMatches(context);

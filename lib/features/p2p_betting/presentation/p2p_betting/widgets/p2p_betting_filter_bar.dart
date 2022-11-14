@@ -2,7 +2,6 @@ import 'package:betticos/core/presentation/widgets/sliver_app_bar_deleagate.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';

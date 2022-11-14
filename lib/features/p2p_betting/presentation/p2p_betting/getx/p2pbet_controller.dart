@@ -161,6 +161,13 @@ class P2PBetController extends GetxController {
     return errorMessage;
   }
 
+  Bet getBetById(String betId, {bool isMyBets = false}) {
+    if (isMyBets) {
+      return myBets.firstWhere((Bet b) => b.id == betId);
+    }
+    return bets.firstWhere((Bet b) => b.id == betId);
+  }
+
   String? validateAmount(String stringAmount) {
     final double? amount = double.tryParse(stringAmount);
     if (amount == null) {
@@ -353,7 +360,7 @@ class P2PBetController extends GetxController {
     final Either<Failure, Bet> failureOrBet = await updateBetPayoutStatus(
       UpdateBetPayoutRequest(
         betId: betId,
-        payout: false,
+        payout: true,
         status: status,
       ),
     );

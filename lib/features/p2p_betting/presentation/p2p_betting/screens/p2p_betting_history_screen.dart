@@ -49,7 +49,7 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverPadding(
-                  padding: AppPaddings.homeH,
+                  padding: AppPaddings.lH,
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (_, int index) {
@@ -58,7 +58,8 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
                             key: ObjectKey(
                               _p2pBetController.myBets[index].id,
                             ),
-                            bet: _p2pBetController.myBets[index],
+                            betId: _p2pBetController.myBets[index].id,
+                            isMyBets: true,
                             onPressed: () async {
                               await showMaterialModalBottomSheet<bool?>(
                                 bounce: true,

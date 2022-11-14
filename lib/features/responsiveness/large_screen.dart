@@ -1,5 +1,6 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // import 'large_timeline_screen.dart';
 import 'left_side_bar.dart';
@@ -9,10 +10,11 @@ class LargeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Checking current route: ${Get.currentRoute}');
     return Row(
       children: <Widget>[
         const Expanded(flex: 1, child: SizedBox()),
-        Expanded(
+        const Expanded(
           flex: 5,
           child: LeftSideBar(),
         ),
@@ -30,4 +32,6 @@ class LargeScreen extends StatelessWidget {
       ],
     );
   }
+
+  // list of pages
 }
