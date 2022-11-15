@@ -46,6 +46,12 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   void initState() {
     super.initState();
     final Bet bet = p2pBetController.getBetById(widget.betId);
+    winner = bet.winner?.id;
+    if (bet.winner?.id == bet.creator.user.id) {
+      winnerWalletAddress = bet.creator.wallet;
+    } else if (bet.winner?.id == bet.opponent?.user.id) {
+      winnerWalletAddress = bet.opponent?.wallet;
+    }
     onOneTimeFetch(bet.competitionId);
     startBroadcast(bet.competitionId);
   }
@@ -74,6 +80,8 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
     return Obx(() {
       final Bet bet =
           p2pBetController.getBetById(widget.betId, isMyBets: widget.isMyBets);
+
+      print('Checking Bet: winner: ${bet.winner?.id}');
 
       // final Bet? bets = p2pBetController.bets.value
       //     .firstWhereOrNull((Bet b) => b.id == widget.betId);
@@ -119,6 +127,13 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                 winner = bet.opponent?.user.id;
                 winnerWalletAddress = bet.opponent?.wallet;
               }
+              p2pBetController.addStatusScoreToBet(
+                betId: bet.id,
+                score:
+                    '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+                status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
+                winner: winner,
+              );
             }
             p2pBetController.addStatusScoreToBet(
               betId: bet.id,
@@ -402,8 +417,8 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                     const SizedBox(height: 16),
                     if (bController.isYou(winner) && !(bet.payout ?? false))
                       AppConstrainedButton(
-                        disabled: !bController.isYou(winner) &&
-                            !(bet.payout ?? false),
+                        disabled:
+                            bController.isYou(winner) && (bet.payout ?? false),
                         color: context.colors.success,
                         textColor: Colors.white,
                         selected: true,
