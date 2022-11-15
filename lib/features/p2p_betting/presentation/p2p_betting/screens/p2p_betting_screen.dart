@@ -1,11 +1,11 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
+// import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
-import 'package:dartz/dartz.dart' as dartz;
+// import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -223,38 +223,33 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             (bController.user.value.bonus! >=
                                 controller.amount.value)) {
                           // deduct from the bonus
-                          final dartz.Either<Failure, User> failureOrUser =
-                              await bController.increaseDecreaseUserBonus(
-                                  'decrease', controller.amount.value);
+                          bController.increaseDecreaseUserBonus(
+                              context, 'decrease', controller.amount.value,
+                              failureCallback: () async {
+                            final String? actualHash =
+                                await lController.send(context);
 
-                          await failureOrUser.fold(
-                            (Failure failure) async {
-                              final String? actualHash =
-                                  await lController.send(context);
-
-                              if (actualHash != null) {
-                                controller.addNewBet(
-                                  context,
-                                  lController.walletAddress.value,
-                                  actualHash,
-                                );
-                              }
-                            },
-                            (User user) {
-                              AppSnacks.show(
+                            if (actualHash != null) {
+                              controller.addNewBet(
                                 context,
-                                message: 'Bet amount deducted from bonus.',
-                                leadingIcon: Icon(
-                                  Ionicons.checkmark_circle,
-                                  size: 24,
-                                  color: context.colors.success,
-                                ),
-                                backgroundColor: context.colors.success,
+                                lController.walletAddress.value,
+                                actualHash,
                               );
-                              controller.addNewBet(context,
-                                  lController.walletAddress.value, 'bonus');
-                            },
-                          );
+                            }
+                          }, successCallback: () {
+                            AppSnacks.show(
+                              context,
+                              message: 'Bet amount deducted from bonus.',
+                              leadingIcon: Icon(
+                                Ionicons.checkmark_circle,
+                                size: 24,
+                                color: context.colors.success,
+                              ),
+                              backgroundColor: context.colors.success,
+                            );
+                            controller.addNewBet(context,
+                                lController.walletAddress.value, 'bonus');
+                          });
                         } else {
                           final String? actualHash =
                               await lController.send(context);

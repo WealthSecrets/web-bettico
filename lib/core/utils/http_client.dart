@@ -152,17 +152,17 @@ class DioHTTPClient implements AppHTTPClient {
   }) async {
     try {
       dynamic data = body;
-      AppLog.i('==================== ENDPOINT $endpoint ==================');
+      // AppLog.i('==================== ENDPOINT $endpoint ==================');
       if (body != null) {
-        AppLog.i('==================== BODY SENT IS ==================');
-        AppLog.i(jsonEncode(body));
+        // AppLog.i('==================== BODY SENT IS ==================');
+        // AppLog.i(jsonEncode(body));
       }
       if (uploads != null && uploads.isNotEmpty) {
-        AppLog.i('==================== FILES SENT IS ==================');
-        AppLog.i(uploads
-            .map((FormUploadDocument uploadDocument) =>
-                uploadDocument.toString())
-            .join('\n'));
+        // AppLog.i('==================== FILES SENT IS ==================');
+        // AppLog.i(uploads
+        // .map((FormUploadDocument uploadDocument) =>
+        //     uploadDocument.toString())
+        // .join('\n'));
         data = FormData.fromMap(body ?? <String, dynamic>{})
           ..files.addAll(
             uploads.map(
@@ -186,7 +186,7 @@ class DioHTTPClient implements AppHTTPClient {
       );
 
       if (response.data != null) {
-        AppLog.i('==================== OBJECT RECEIVED  IS ==================');
+        // AppLog.i('==================== OBJECT RECEIVED  IS ==================');
         late Map<String, dynamic> data;
         if (response.data is Map) {
           data = response.data as Map<String, dynamic>;
@@ -197,7 +197,7 @@ class DioHTTPClient implements AppHTTPClient {
         if (response.data is String) {
           data = jsonDecode(response.data as String) as Map<String, dynamic>;
         }
-        AppLog.i(data.toString());
+        // AppLog.i(data.toString());
         if (data['data'] is Map<String, dynamic>) {
           return data['data'] as Map<String, dynamic>;
         }
@@ -222,8 +222,8 @@ class DioHTTPClient implements AppHTTPClient {
       }
       return <String, dynamic>{};
     } on DioError catch (error) {
-      AppLog.i('==================== ERROR THROWN IS ==================');
-      AppLog.i(jsonEncode(error.response?.data));
+      // AppLog.i('==================== ERROR THROWN IS ==================');
+      // AppLog.i(jsonEncode(error.response?.data));
 
       switch (error.type) {
         case DioErrorType.connectTimeout:
@@ -266,8 +266,8 @@ class DioHTTPClient implements AppHTTPClient {
                 await _authLocalDataSource.getAuthResponse();
             options.headers['Authorization'] =
                 'Bearer ${response?.token ?? ''}';
-            AppLog.i('==================== HEADER SENT IS ==================');
-            AppLog.i(options.headers);
+            // AppLog.i('==================== HEADER SENT IS ==================');
+            // AppLog.i(options.headers);
             handler.next(options);
             // _client.interceptors.requestLock.unlock();
           },

@@ -58,15 +58,29 @@ class BaseScreenController extends GetxController {
     );
   }
 
-  Future<Either<Failure, User>> increaseDecreaseUserBonus(
-      String type, double amount) async {
+  void increaseDecreaseUserBonus(
+    BuildContext context,
+    String type,
+    double amount, {
+    void Function()? failureCallback,
+    void Function()? successCallback,
+  }) async {
     isUpdatingUserBonus.value = true;
-    return updateUserBonus(
+    final Either<Failure, User> failureOrUser = await updateUserBonus(
       UserBonusRequest(
         type: type,
         amount: amount,
       ),
     );
+
+    failureOrUser.fold((Failure failure) {
+      isUpdatingUserBonus(false);
+      failureCallback?.call();
+    }, (User u) {
+      isUpdatingUserBonus(false);
+      user.value = u;
+      successCallback?.call();
+    });
   }
 
   void changeLanguage(Locale locale) {
