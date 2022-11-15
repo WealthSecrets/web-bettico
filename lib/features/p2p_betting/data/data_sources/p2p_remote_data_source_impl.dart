@@ -92,8 +92,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
       P2pEndpoints.userBonus,
       body: request.toJson(),
     );
-
-    return User.fromJson(json);
+    return User.fromJson(json['user'] as Map<String, dynamic>);
   }
 
   @override

@@ -8,10 +8,10 @@ part 'identification.g.dart';
 @freezed
 class Identification with _$Identification {
   const factory Identification({
-    required String identificationType,
-    required String identificationNumber,
-    required DateTime expiryDate,
-    required String url,
+    String? identificationType,
+    String? identificationNumber,
+    DateTime? expiryDate,
+    String? url,
   }) = _Identification;
 
   const Identification._();
