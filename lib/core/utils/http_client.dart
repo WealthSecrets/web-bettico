@@ -152,7 +152,7 @@ class DioHTTPClient implements AppHTTPClient {
   }) async {
     try {
       dynamic data = body;
-      // AppLog.i('==================== ENDPOINT $endpoint ==================');
+      AppLog.i('==================== ENDPOINT $endpoint ==================');
       if (body != null) {
         AppLog.i('==================== BODY SENT IS ==================');
         AppLog.i(jsonEncode(body));
