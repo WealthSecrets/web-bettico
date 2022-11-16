@@ -38,4 +38,5 @@ class AppRoutes {
   static const String testPage = '/testPage';
   static const String updates = '/updates';
   static const String oddsters = '/oddsters';
+  static const String convertCrypto = '/convert-crypto';
 }
