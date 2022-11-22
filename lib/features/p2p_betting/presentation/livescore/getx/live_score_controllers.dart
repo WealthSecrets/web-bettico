@@ -20,10 +20,10 @@ import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sli
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/services.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
-// import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
@@ -105,23 +105,6 @@ class LiveScoreController extends GetxController {
   RxBool isFetchingLiveScores = false.obs;
   RxBool isFetchingFixtures = false.obs;
 
-  // Rx<PagingController<int, LiveScore>> pagingController =
-  //     PagingController<int, LiveScore>(firstPageKey: 1).obs;
-
-  // Rx<PagingController<int, LiveScore>> fixturePagingController =
-  //     PagingController<int, LiveScore>(firstPageKey: 1).obs;
-
-  // @override
-  // void onInit() {
-  // pagingController.value.addPageRequestListener((int pageKey) {
-  //   getAllLiveScores(pageKey, selectedLeague.value.id);
-  // });
-  // fixturePagingController.value.addPageRequestListener((int pageKey) {
-  //   getAllSFixtures(pageKey, selectedLeague.value.id);
-  // });
-  //   super.onInit();
-  // }
-
   void connectProvider([Function(String wallet)? func]) async {
     if (Ethereum.isSupported) {
       final List<String> accs = await ethereum!.requestAccount();
@@ -181,13 +164,19 @@ class LiveScoreController extends GetxController {
 
   Future<String?> send(BuildContext context) async {
     showLoadingLogo.value = true;
-    const String contractAddress = '0xB7DAcf54a54bFea818F21472d3E71a89287841A7';
 
     final double amount = convertedAmount * 1000000000 * 1000000000;
 
     try {
+      final String jsonText =
+          await rootBundle.loadString('assets/keys/keys.json');
+      final dynamic value = json.decode(jsonText);
+
+      final String tokenAddress = value['token'] as String;
+      final String depositAddress = value['depositAddress'] as String;
+
       final ContractERC20 token =
-          ContractERC20(contractAddress, web3wc!.getSigner());
+          ContractERC20(tokenAddress, web3wc!.getSigner());
       // ignore: unawaited_futures
       AppSnacks.show(
         context,
@@ -200,8 +189,9 @@ class LiveScoreController extends GetxController {
           color: Colors.white,
         ),
       );
+
       final TransactionResponse tx = await token.transfer(
-        '0x71628f69Efa6549A26c30bc1BD1709809f384876',
+        depositAddress,
         BigInt.from(amount.round()),
       );
 
@@ -222,62 +212,38 @@ class LiveScoreController extends GetxController {
   ) async {
     showLoadingLogo.value = true;
 
-    const String contractAddess = '0x6C9AECa89a93b5df6b23DEbA8dC87D95C07E98fc';
+    final double amount = convertedAmount * 1000000000 * 1000000000;
 
-    const String tokenAddress = '0xB7DAcf54a54bFea818F21472d3E71a89287841A7';
+    final String jsonText =
+        await rootBundle.loadString('assets/keys/keys.json');
+    final dynamic value = json.decode(jsonText);
 
-    final double amount = payoutAmount * 1000000000 * 1000000000;
+    final String tokenAddress = value['token'] as String;
+    final String mnemonic = value['phrase'] as String;
 
-    const String jsonAbi = '''
-        [
-          {
-            "inputs": [
-              {
-                "internalType": "contract IERC20",
-                "name": "token",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-              },
-              {
-                "internalType": "address payable",
-                "name": "to",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-              }
-            ],
-            "name": "transferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-          }
-        ]
-    ''';
+    final Wallet wallet = Wallet.fromMnemonic(mnemonic);
+
+    final JsonRpcProvider jsonRpcProvider =
+        JsonRpcProvider('https://bsc-dataseed.binance.org/');
+    final Wallet walletProvider = wallet.connect(jsonRpcProvider);
+
+    final ContractERC20 token = ContractERC20(tokenAddress, walletProvider);
 
     try {
-      final Contract wscPayout = Contract(
-        contractAddess,
-        Interface(jsonAbi),
-        web3wc?.getSigner(),
+      final TransactionResponse tx = await token.transfer(
+        winningAddress,
+        BigInt.from(amount.round()),
       );
-
-      final dynamic value = await wscPayout.call<dynamic>('transferFrom',
-          <dynamic>[tokenAddress, contractAddess, winningAddress, amount]);
 
       showLoadingLogo.value = false;
       await AppSnacks.show(context,
-          message: 'Value: $value', backgroundColor: context.colors.success);
-      return '0xsiwowh19029198';
+          message: 'Cashout successful. Txt Hash: ${tx.hash}',
+          backgroundColor: context.colors.success);
+
+      return tx.hash;
     } catch (e) {
       showLoadingLogo.value = false;
-      await AppSnacks.show(context, message: '$e');
+      await AppSnacks.show(context, message: 'Sorry, cashout failed');
       return null;
     }
   }
@@ -325,93 +291,6 @@ class LiveScoreController extends GetxController {
       },
     );
   }
-
-  // void getAllLiveScores(int pageKey, int leagueId) async {
-  //   pageK(pageKey);
-  //   isLoading(true);
-  //   final Either<Failure, ListPage<LiveScore>> failureOrLiveScores =
-  //       await fetchPaginatedLiveScore(
-  //     PageParmas(
-  //       page: pageK.value,
-  //       size: 100,
-  //       leagueId: leagueId,
-  //     ),
-  //   );
-
-  //   failureOrLiveScores.fold(
-  //     (Failure failure) {
-  //       isLoading(false);
-  //       pagingController.value.error = failure;
-  //     },
-  //     (ListPage<LiveScore> newPage) {
-  //       isLoading(false);
-  //       final int previouslyFetchedItemsCount =
-  //           pagingController.value.itemList?.length ?? 0;
-
-  //       final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-  //       final List<LiveScore> newItems = newPage.itemList;
-
-  //       if (isLastPage) {
-  //         pagingController.value.appendLastPage(newItems);
-  //         if (!isCompleted.value) {
-  //           liveScores.addAll(newItems);
-  //         }
-  //         isCompleted(true);
-  //       } else {
-  //         final int nextPageKey = pageKey + 1;
-  //         pagingController.value.appendPage(newItems, nextPageKey);
-  //         if (!isCompleted.value) {
-  //           liveScores.addAll(newItems);
-  //         }
-  //       }
-  //       liveScoresL(newPage);
-  //     },
-  //   );
-  // }
-
-  // void getAllSFixtures(int pageKey, int leagueId) async {
-  //   pageK(pageKey);
-  //   isFetchingFixtures(true);
-  //   final Either<Failure, ListPage<LiveScore>> failureOrFixtures =
-  //       await fetchPaginatedFixtures(
-  //     PageParmas(
-  //       page: pageK.value,
-  //       size: 100,
-  //       leagueId: leagueId,
-  //     ),
-  //   );
-
-  //   failureOrFixtures.fold(
-  //     (Failure failure) {
-  //       isFetchingFixtures(false);
-  //       fixturePagingController.value.error = failure;
-  //     },
-  //     (ListPage<LiveScore> newPage) {
-  //       final int previouslyFetchedItemsCount =
-  //           fixturePagingController.value.itemList?.length ?? 0;
-
-  //       final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-  //       final List<LiveScore> newItems = newPage.itemList;
-
-  //       if (isLastPage) {
-  //         fixturePagingController.value.appendLastPage(newItems);
-  //         // if (!isCompleted.value) {
-  //         // sFixtures.addAll(newItems);
-  //         // }
-  //         isCompleted(true);
-  //       } else {
-  //         final int nextPageKey = pageKey + 1;
-  //         fixturePagingController.value.appendPage(newItems, nextPageKey);
-  //         // if (!isCompleted.value) {
-  //         // sFixtures.addAll(newItems);
-  //         // }
-  //       }
-  //       sFixtures.value = newItems;
-  //       sFixturesL(newPage);
-  //       isFetchingFixtures(false);
-  //     },
-  //   );
-  // }
 
   void getAllLeagues() async {
     isFetchingLeagues(true);
@@ -550,7 +429,12 @@ class LiveScoreController extends GetxController {
   }
 
   void convertAmount(
-      BuildContext context, String currency, double amount) async {
+    BuildContext context,
+    String currency,
+    double amount, {
+    void Function()? failureCallback,
+    void Function(double amount)? successCallback,
+  }) async {
     isLoading(true);
 
     final Either<Failure, Volume> failureOrVolume =
@@ -561,10 +445,12 @@ class LiveScoreController extends GetxController {
       (Failure failure) {
         isLoading(false);
         AppSnacks.show(context, message: failure.message);
+        failureCallback?.call();
       },
       (Volume vol) {
         isLoading(false);
         convertedAmount.value = vol.convertedAmount;
+        successCallback?.call(vol.convertedAmount);
       },
     );
   }

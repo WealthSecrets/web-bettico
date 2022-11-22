@@ -65,9 +65,11 @@ class _P2pBetTabState extends State<P2pBetTab>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Obx(
       () => AppLoadingBox(
-        loading: _p2pBetController.isFetchingBets.value,
+        loading: _p2pBetController.isFetchingBets.value ||
+            _p2pBetController.isClosingPayout.value,
         child: Column(
           children: <Widget>[
             SearchField(

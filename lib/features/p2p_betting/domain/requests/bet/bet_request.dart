@@ -16,7 +16,6 @@ class BetRequest with _$BetRequest {
     BettorRequest? opponent,
     required TeamRequest awayTeam,
     required TeamRequest homeTeam,
-    required String txthash,
     String? status,
     String? date,
     String? time,

@@ -12,7 +12,6 @@ class AddBet implements UseCase<Bet, BetRequest> {
   @override
   Future<Either<Failure, Bet>> call(BetRequest params) {
     return p2prepository.addBet(
-      txthash: params.txthash,
       amount: params.amount,
       competitionId: params.competitionId,
       creator: params.creator,
