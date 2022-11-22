@@ -89,6 +89,7 @@ class LiveScoreController extends GetxController {
   RxBool isCompleted = false.obs;
   RxString selectedCurrency = 'wsc'.obs;
   RxBool showLoadingLogo = false.obs;
+  RxList<String> closingBetID = <String>[].obs;
 
   static const int operatingChain = 56;
 
@@ -209,8 +210,10 @@ class LiveScoreController extends GetxController {
     BuildContext context,
     String winningAddress,
     double payoutAmount,
+    String betId,
   ) async {
     showLoadingLogo.value = true;
+    closingBetID.add(betId);
 
     final double amount = convertedAmount * 1000000000 * 1000000000;
 
@@ -235,11 +238,8 @@ class LiveScoreController extends GetxController {
         BigInt.from(amount.round()),
       );
 
+      closingBetID.remove(betId);
       showLoadingLogo.value = false;
-      await AppSnacks.show(context,
-          message: 'Cashout successful. Txt Hash: ${tx.hash}',
-          backgroundColor: context.colors.success);
-
       return tx.hash;
     } catch (e) {
       showLoadingLogo.value = false;

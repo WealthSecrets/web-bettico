@@ -139,326 +139,341 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
               );
             }
           }
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.symmetric(vertical: 4).add(
-              const EdgeInsets.only(top: 4),
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: context.colors.cardColor,
-                width: 1,
+          return AppLoadingBox(
+            loading: lController.showLoadingLogo.value &&
+                lController.closingBetID.contains(bet.id),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(vertical: 4).add(
+                const EdgeInsets.only(top: 4),
               ),
-              borderRadius: AppBorderRadius.smallAll,
-            ),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: context.colors.cardColor,
+                  width: 1,
+                ),
+                borderRadius: AppBorderRadius.smallAll,
               ),
-              onPressed: widget.onPressed,
-              child: Padding(
-                padding: ResponsiveWidget.isSmallScreen(context)
-                    ? const EdgeInsets.symmetric(horizontal: 16)
-                    : const EdgeInsets.symmetric(vertical: 16).add(
-                        const EdgeInsets.symmetric(horizontal: 38),
-                      ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        if (bet.date != null &&
-                            (liveScoreData != null &&
-                                liveScoreData.time.status?.toLowerCase() ==
-                                    'ns'))
-                          TimeCard(dateTime: DateTime.parse(bet.date!)),
-                        if (liveScoreData != null &&
-                            liveScoreData.time.status?.toLowerCase() == 'live')
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: 8,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: widget.onPressed,
+                child: Padding(
+                  padding: ResponsiveWidget.isSmallScreen(context)
+                      ? const EdgeInsets.symmetric(horizontal: 16)
+                      : const EdgeInsets.symmetric(vertical: 16).add(
+                          const EdgeInsets.symmetric(horizontal: 38),
+                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          if (bet.date != null &&
+                              (liveScoreData != null &&
+                                  liveScoreData.time.status?.toLowerCase() ==
+                                      'ns'))
+                            TimeCard(dateTime: DateTime.parse(bet.date!)),
+                          if (liveScoreData != null &&
+                              liveScoreData.time.status?.toLowerCase() ==
+                                  'live')
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: context.colors.primary.withOpacity(.2),
+                                border: Border.all(
+                                  color: context.colors.primary,
+                                  width: 1,
+                                  style: BorderStyle.solid,
+                                ),
+                              ),
+                              child: Text(
+                                liveScoreData.time.status?.toLowerCase() == 'ns'
+                                    ? 'NS'
+                                    : liveScoreData.time.status
+                                                ?.toLowerCase() ==
+                                            'live'
+                                        ? '${liveScoreData.time.minute}\''
+                                        : '${liveScoreData.time.status}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: context.colors.primary,
+                                ),
+                              ),
                             ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8)
+                                .add(const EdgeInsets.symmetric(vertical: 4)),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: context.colors.primary.withOpacity(.2),
+                              borderRadius: AppBorderRadius.largeAll,
+                              color: bet.status.color(context).withOpacity(.3),
                               border: Border.all(
-                                color: context.colors.primary,
+                                color: bet.status.color(context),
                                 width: 1,
-                                style: BorderStyle.solid,
                               ),
                             ),
                             child: Text(
-                              liveScoreData.time.status?.toLowerCase() == 'ns'
-                                  ? 'NS'
-                                  : liveScoreData.time.status?.toLowerCase() ==
-                                          'live'
-                                      ? '${liveScoreData.time.minute}\''
-                                      : '${liveScoreData.time.status}',
+                              bet.status.stringValue.toUpperCase(),
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: context.colors.primary,
+                                fontSize:
+                                    ResponsiveWidget.isSmallScreen(context)
+                                        ? 8
+                                        : 10,
+                                // fontWeight: FontWeight.w700,
+                                fontWeight:
+                                    ResponsiveWidget.isSmallScreen(context)
+                                        ? FontWeight.w700
+                                        : FontWeight.normal,
+                                color: bet.status.color(context),
                               ),
                             ),
                           ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8)
-                              .add(const EdgeInsets.symmetric(vertical: 4)),
-                          decoration: BoxDecoration(
-                            borderRadius: AppBorderRadius.largeAll,
-                            color: bet.status.color(context).withOpacity(.3),
-                            border: Border.all(
-                              color: bet.status.color(context),
-                              width: 1,
-                            ),
-                          ),
-                          child: Text(
-                            bet.status.stringValue.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: ResponsiveWidget.isSmallScreen(context)
-                                  ? 8
-                                  : 10,
-                              // fontWeight: FontWeight.w700,
-                              fontWeight:
-                                  ResponsiveWidget.isSmallScreen(context)
-                                      ? FontWeight.w700
-                                      : FontWeight.normal,
-                              color: bet.status.color(context),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 130,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              if (bet.homeTeam.logo != null)
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  padding: AppPaddings.lA,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: bet.creator.teamId ==
-                                              bet.homeTeam.teamId
-                                          ? bet.creator.choice.color(context)
-                                          : bet.opponent != null
-                                              ? bet.opponent!.teamId ==
-                                                      bet.homeTeam.teamId
-                                                  ? bet.opponent!.choice
-                                                      .color(context)
-                                                  : context.colors.text
-                                              : context.colors.text,
-                                      width: 2,
-                                      style: BorderStyle.solid,
-                                    ),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        bet.homeTeam.logo!,
+                        ],
+                      ),
+                      SizedBox(
+                        height:
+                            ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                if (bet.homeTeam.logo != null)
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+                                    padding: AppPaddings.lA,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: bet.creator.teamId ==
+                                                bet.homeTeam.teamId
+                                            ? bet.creator.choice.color(context)
+                                            : bet.opponent != null
+                                                ? bet.opponent!.teamId ==
+                                                        bet.homeTeam.teamId
+                                                    ? bet.opponent!.choice
+                                                        .color(context)
+                                                    : context.colors.text
+                                                : context.colors.text,
+                                        width: 2,
+                                        style: BorderStyle.solid,
                                       ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                    borderRadius: BorderRadius.circular(40),
-                                  ),
-                                ),
-                              SizedBox(
-                                height: ResponsiveWidget.isSmallScreen(context)
-                                    ? 8
-                                    : 12,
-                              ),
-                              Text(
-                                bet.homeTeam.name,
-                                style: TextStyle(
-                                  color: context.colors.black,
-                                  fontSize:
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? 12
-                                          : 14,
-                                  fontWeight:
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 60,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                snapshot.hasData && snapshot.data != null
-                                    ? '${snapshot.data!.scores?.localTeamScore} - ${snapshot.data!.scores?.visitorTeamScore}'
-                                    : bet.score ?? '? - ?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: context.colors.text,
-                                  fontSize: 24,
-                                ),
-                              ),
-                              SizedBox(
-                                height: ResponsiveWidget.isSmallScreen(context)
-                                    ? 8
-                                    : 12,
-                              ),
-                              Container(
-                                padding: ResponsiveWidget.isSmallScreen(context)
-                                    ? const EdgeInsets.symmetric(vertical: 4)
-                                        .add(const EdgeInsets.symmetric(
-                                            horizontal: 8))
-                                    : const EdgeInsets.symmetric(vertical: 4)
-                                        .add(const EdgeInsets.symmetric(
-                                            horizontal: 16)),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: bet.status.color(context),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    bet.status.stringAmount(bet.amount),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight:
-                                          ResponsiveWidget.isSmallScreen(
-                                                  context)
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                      decoration:
-                                          bet.status == BetStatus.cancelled
-                                              ? TextDecoration.lineThrough
-                                              : null,
-                                      fontSize: ResponsiveWidget.isSmallScreen(
-                                              context)
-                                          ? 12
-                                          : 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 130,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              if (bet.awayTeam.logo != null)
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  padding: AppPaddings.lA,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: bet.creator.teamId ==
-                                              bet.awayTeam.teamId
-                                          ? bet.creator.choice.color(context)
-                                          : bet.opponent != null
-                                              ? bet.opponent!.teamId ==
-                                                      bet.awayTeam.teamId
-                                                  ? bet.opponent!.choice
-                                                      .color(context)
-                                                  : context.colors.text
-                                              : context.colors.text,
-                                      width: 2,
-                                      style: BorderStyle.solid,
-                                    ),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        bet.awayTeam.logo!,
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          bet.homeTeam.logo!,
+                                        ),
+                                        fit: BoxFit.contain,
                                       ),
-                                      fit: BoxFit.contain,
+                                      borderRadius: BorderRadius.circular(40),
                                     ),
-                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                SizedBox(
+                                  height:
+                                      ResponsiveWidget.isSmallScreen(context)
+                                          ? 8
+                                          : 12,
+                                ),
+                                Text(
+                                  bet.homeTeam.name,
+                                  style: TextStyle(
+                                    color: context.colors.black,
+                                    fontSize:
+                                        ResponsiveWidget.isSmallScreen(context)
+                                            ? 12
+                                            : 14,
+                                    fontWeight:
+                                        ResponsiveWidget.isSmallScreen(context)
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            width: 60,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  snapshot.hasData && snapshot.data != null
+                                      ? '${snapshot.data!.scores?.localTeamScore} - ${snapshot.data!.scores?.visitorTeamScore}'
+                                      : bet.score ?? '? - ?',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colors.text,
+                                    fontSize: 24,
                                   ),
                                 ),
-                              SizedBox(
-                                height: ResponsiveWidget.isSmallScreen(context)
-                                    ? 8
-                                    : 12,
-                              ),
-                              Text(
-                                bet.awayTeam.name,
-                                style: TextStyle(
-                                  color: context.colors.black,
-                                  fontWeight:
+                                SizedBox(
+                                  height:
                                       ResponsiveWidget.isSmallScreen(context)
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                  fontSize:
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? 12
-                                          : 14,
+                                          ? 8
+                                          : 12,
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  padding: ResponsiveWidget.isSmallScreen(
+                                          context)
+                                      ? const EdgeInsets.symmetric(vertical: 4)
+                                          .add(const EdgeInsets.symmetric(
+                                              horizontal: 8))
+                                      : const EdgeInsets.symmetric(vertical: 4)
+                                          .add(const EdgeInsets.symmetric(
+                                              horizontal: 16)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: bet.status.color(context),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      bet.status.stringAmount(bet.amount),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight:
+                                            ResponsiveWidget.isSmallScreen(
+                                                    context)
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                        decoration:
+                                            bet.status == BetStatus.cancelled
+                                                ? TextDecoration.lineThrough
+                                                : null,
+                                        fontSize:
+                                            ResponsiveWidget.isSmallScreen(
+                                                    context)
+                                                ? 12
+                                                : 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    if ((bet.status == BetStatus.completed ||
-                            liveScoreData?.time.status?.toLowerCase() ==
-                                'ft') &&
-                        bController.isYou(winner) &&
-                        !(bet.payout ?? false))
-                      AppConstrainedButton(
-                        disabled: (bController.isYou(winner) &&
-                                (bet.payout ?? false)) ||
-                            p2pBetController.isClosingPayout.value,
-                        color: context.colors.success,
-                        textColor: Colors.white,
-                        selected: true,
-                        text: 'Cashout',
-                        onPressed: () async {
-                          if (!lController.isConnected) {
-                            if (Ethereum.isSupported) {
-                              lController.initiateWalletConnect(
-                                (String wallet) => cashout(
-                                  context,
-                                  winnerWalletAddress,
-                                  bet,
-                                  lController,
-                                  p2pBetController,
+                          const Spacer(),
+                          SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                if (bet.awayTeam.logo != null)
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+                                    padding: AppPaddings.lA,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: bet.creator.teamId ==
+                                                bet.awayTeam.teamId
+                                            ? bet.creator.choice.color(context)
+                                            : bet.opponent != null
+                                                ? bet.opponent!.teamId ==
+                                                        bet.awayTeam.teamId
+                                                    ? bet.opponent!.choice
+                                                        .color(context)
+                                                    : context.colors.text
+                                                : context.colors.text,
+                                        width: 2,
+                                        style: BorderStyle.solid,
+                                      ),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          bet.awayTeam.logo!,
+                                        ),
+                                        fit: BoxFit.contain,
+                                      ),
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                  ),
+                                SizedBox(
+                                  height:
+                                      ResponsiveWidget.isSmallScreen(context)
+                                          ? 8
+                                          : 12,
                                 ),
-                              );
+                                Text(
+                                  bet.awayTeam.name,
+                                  style: TextStyle(
+                                    color: context.colors.black,
+                                    fontWeight:
+                                        ResponsiveWidget.isSmallScreen(context)
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                    fontSize:
+                                        ResponsiveWidget.isSmallScreen(context)
+                                            ? 12
+                                            : 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      if ((bet.status == BetStatus.completed ||
+                              liveScoreData?.time.status?.toLowerCase() ==
+                                  'ft') &&
+                          bController.isYou(winner) &&
+                          !(bet.payout ?? false))
+                        AppConstrainedButton(
+                          disabled: (bController.isYou(winner) &&
+                                  (bet.payout ?? false)) ||
+                              (lController.showLoadingLogo.value &&
+                                  lController.closingBetID.contains(bet.id)) ||
+                              p2pBetController.isClosingPayout.value,
+                          color: context.colors.success,
+                          textColor: Colors.white,
+                          selected: true,
+                          text: 'Cashout',
+                          onPressed: () async {
+                            if (!lController.isConnected) {
+                              if (Ethereum.isSupported) {
+                                lController.initiateWalletConnect(
+                                  (String wallet) => cashout(
+                                    context,
+                                    winnerWalletAddress,
+                                    bet,
+                                    lController,
+                                    p2pBetController,
+                                  ),
+                                );
+                              } else {
+                                await lController.connectWC(
+                                  (_) => cashout(
+                                    context,
+                                    winnerWalletAddress,
+                                    bet,
+                                    lController,
+                                    p2pBetController,
+                                  ),
+                                );
+                              }
                             } else {
-                              await lController.connectWC(
-                                (_) => cashout(
-                                  context,
-                                  winnerWalletAddress,
-                                  bet,
-                                  lController,
-                                  p2pBetController,
-                                ),
+                              cashout(
+                                context,
+                                winnerWalletAddress,
+                                bet,
+                                lController,
+                                p2pBetController,
                               );
                             }
-                          } else {
-                            cashout(
-                              context,
-                              winnerWalletAddress,
-                              bet,
-                              lController,
-                              p2pBetController,
-                            );
-                          }
-                        },
-                      ),
-                  ],
+                          },
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -485,9 +500,16 @@ void cashout(BuildContext context, String? walletAddress, Bet bet,
           context,
           walletAddress,
           lController.convertedAmount.value,
+          bet.id,
         );
 
         if (txthash != null) {
+          await AppSnacks.show(
+            context,
+            message: 'Cashout successful. Txn Hash: $txthash',
+            backgroundColor: context.colors.success,
+          );
+
           p2pBetController.closePayout(
             betId: bet.id,
             txthash: txthash,
