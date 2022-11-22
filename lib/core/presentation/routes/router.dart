@@ -1,4 +1,3 @@
-import 'package:betticos/features/betticos/presentation/crypto/convert_crypto_screen.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
@@ -25,8 +24,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const SettingsScreen(), settings);
     case AppRoutes.livescore:
       return _getPageRoute(const NewLiveScore(), settings);
-    case AppRoutes.convertCrypto:
-      return _getPageRoute(const ConvertCryptoScreen(), settings);
     case AppRoutes.timeline:
       return _getPageRoute(const TimelineScreen(), settings);
     case AppRoutes.referral:
