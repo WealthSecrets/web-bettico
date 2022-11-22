@@ -6,6 +6,7 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_s
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 import '../widgets/p2p_betting_card.dart';
@@ -69,8 +70,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isUpdatingBet.value ||
-                lController.showLoadingLogo.value,
+            loading: controller.isUpdatingBet.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
@@ -207,18 +207,52 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                       onPressed: () async {
                         if (widget.bet.creator.user.id !=
                             bController.user.value.id) {
-                          final String? actualHash =
-                              await lController.send(context);
-                          if (actualHash != null) {
-                            controller.addOpponentToBet(
-                              context,
-                              widget.bet,
-                              lController.walletAddress.value,
-                            );
+                          if (bController.user.value.bonus != null &&
+                              (bController.user.value.bonus! >=
+                                  controller.amount.value)) {
+                            // deduct from the bonus
+                            bController.increaseDecreaseUserBonus(
+                                context, 'decrease', controller.amount.value,
+                                failureCallback: () async {
+                              final String? actualHash =
+                                  await lController.send(context);
+                              if (actualHash != null) {
+                                controller.addOpponentToBet(
+                                  context,
+                                  widget.bet,
+                                  lController.walletAddress.value,
+                                  actualHash,
+                                );
+                              }
+                            }, successCallback: () {
+                              AppSnacks.show(
+                                context,
+                                message: 'Bet amount deducted from bonus.',
+                                leadingIcon: Icon(
+                                  Ionicons.checkmark_circle,
+                                  size: 24,
+                                  color: context.colors.success,
+                                ),
+                                backgroundColor: context.colors.success,
+                              );
+                              controller.addNewBet(context,
+                                  lController.walletAddress.value, 'bonus');
+                            });
+                          } else {
+                            final String? actualHash =
+                                await lController.send(context);
+                            if (actualHash != null) {
+                              controller.addOpponentToBet(
+                                context,
+                                widget.bet,
+                                lController.walletAddress.value,
+                                actualHash,
+                              );
+                            }
                           }
                         } else {
                           await AppSnacks.show(context,
-                              message: 'You cannot accept bets you created');
+                              message: 'You cannot accept bets you created.');
                         }
                       },
                       enabled: controller.isDetailsValid,

@@ -84,7 +84,6 @@ abstract class P2pRepository {
     BettorRequest? opponent,
     required TeamRequest awayTeam,
     required TeamRequest homeTeam,
-    required String txthash,
     String? date,
     String? time,
     String? score,
@@ -107,6 +106,7 @@ abstract class P2pRepository {
     required String betId,
     required String status,
     required bool payout,
+    required String txthash,
   });
 
   Future<Either<Failure, User>> updateUserBonus({

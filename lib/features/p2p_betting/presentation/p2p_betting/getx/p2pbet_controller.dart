@@ -79,6 +79,7 @@ class P2PBetController extends GetxController {
   // loading states
   RxBool isAddingBet = false.obs;
   RxBool isUpdatingBet = false.obs;
+  RxBool isClosingPayout = false.obs;
   RxBool isFetchingBets = false.obs;
   RxBool isFilteringBets = false.obs;
   RxBool isFetchingMyBets = false.obs;
@@ -203,6 +204,7 @@ class P2PBetController extends GetxController {
           teamId: teamId.value,
           user: bController.user.value.id,
           wallet: wallet,
+          txthash: txthash,
         ),
         awayTeam: TeamRequest(
           name: liveScore.value.visitorTeam.data.name,
@@ -214,7 +216,6 @@ class P2PBetController extends GetxController {
           teamId: liveScore.value.localTeam.data.id,
           logo_path: liveScore.value.localTeam.data.logo,
         ),
-        txthash: txthash,
         status: status.value,
         time: liveScore.value.time.startingAt.time,
         date: liveScore.value.time.startingAt.date,
@@ -244,6 +245,7 @@ class P2PBetController extends GetxController {
     BuildContext context,
     Bet b,
     String wallet,
+    String txthash,
   ) async {
     isUpdatingBet(true);
     final Either<Failure, Bet> failureOrBet = await updateBet(
@@ -255,6 +257,7 @@ class P2PBetController extends GetxController {
           teamId: teamId.value,
           user: bController.user.value.id,
           wallet: wallet,
+          txthash: txthash,
         ),
         status: 'ongoing',
       ),
@@ -325,7 +328,8 @@ class P2PBetController extends GetxController {
         status.toLowerCase() == 'ht' ||
         status.toLowerCase() == 'h2') {
       st = 'ongoing';
-    } else if (status.toLowerCase() == 'ft') {
+    } else if (status.toLowerCase() == 'ft' ||
+        status.toLowerCase() == 'completed') {
       st = 'completed';
     }
 
@@ -352,8 +356,8 @@ class P2PBetController extends GetxController {
     );
   }
 
-  void closePayout({required String betId}) async {
-    isUpdatingBet(true);
+  void closePayout({required String betId, required String txthash}) async {
+    isClosingPayout(true);
 
     const String status = 'completed';
 
@@ -362,16 +366,20 @@ class P2PBetController extends GetxController {
         betId: betId,
         payout: true,
         status: status,
+        txthash: txthash,
       ),
     );
 
     failureOrBet.fold<void>(
       (Failure failure) {
-        isUpdatingBet(false);
+        isClosingPayout(false);
       },
       (Bet value) {
-        isUpdatingBet(false);
-        bet(value);
+        isClosingPayout(false);
+        final List<Bet> betCopy = List<Bet>.from(bets);
+        final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
+        betCopy[valueIndex] = value;
+        bets(betCopy);
       },
     );
   }

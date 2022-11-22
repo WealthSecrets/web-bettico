@@ -81,11 +81,6 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
       final Bet bet =
           p2pBetController.getBetById(widget.betId, isMyBets: widget.isMyBets);
 
-      print('Checking Bet: winner: ${bet.winner?.id}');
-
-      // final Bet? bets = p2pBetController.bets.value
-      //     .firstWhereOrNull((Bet b) => b.id == widget.betId);
-
       return StreamBuilder<LiveScore?>(
         stream: _liveScoreStreamController.stream,
         builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
@@ -131,17 +126,18 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                 betId: bet.id,
                 score:
                     '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+                status: 'completed',
+                winner: winner,
+              );
+            } else {
+              p2pBetController.addStatusScoreToBet(
+                betId: bet.id,
+                score:
+                    '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
                 status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
                 winner: winner,
               );
             }
-            p2pBetController.addStatusScoreToBet(
-              betId: bet.id,
-              score:
-                  '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
-              status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
-              winner: winner,
-            );
           }
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -415,10 +411,15 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    if (bController.isYou(winner) && !(bet.payout ?? false))
+                    if ((bet.status == BetStatus.completed ||
+                            liveScoreData?.time.status?.toLowerCase() ==
+                                'ft') &&
+                        bController.isYou(winner) &&
+                        !(bet.payout ?? false))
                       AppConstrainedButton(
-                        disabled:
-                            bController.isYou(winner) && (bet.payout ?? false),
+                        disabled: (bController.isYou(winner) &&
+                                (bet.payout ?? false)) ||
+                            p2pBetController.isClosingPayout.value,
                         color: context.colors.success,
                         textColor: Colors.white,
                         selected: true,
@@ -471,23 +472,37 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
 void cashout(BuildContext context, String? walletAddress, Bet bet,
     LiveScoreController lController, P2PBetController p2pBetController) async {
   if (walletAddress != null && !(bet.payout ?? false)) {
-    lController.convertAmount(context, 'wsc', bet.amount * 2);
-
-    final String? feedback = await lController.payout(
-      context,
-      walletAddress,
-      lController.convertedAmount.value,
-    );
-
-    if (feedback != null) {
-      p2pBetController.closePayout(
-        betId: bet.id,
-      );
+    double theAmount = bet.amount;
+    if (bet.opponent != null) {
+      theAmount = bet.amount * 2;
     }
+    lController.convertAmount(
+      context,
+      'wsc',
+      theAmount,
+      successCallback: (double amount) async {
+        final String? txthash = await lController.payout(
+          context,
+          walletAddress,
+          lController.convertedAmount.value,
+        );
+
+        if (txthash != null) {
+          p2pBetController.closePayout(
+            betId: bet.id,
+            txthash: txthash,
+          );
+        }
+      },
+      failureCallback: () => AppSnacks.show(
+        context,
+        message: 'Failed to cashout, try again later.',
+      ),
+    );
   } else {
     await AppSnacks.show(
       context,
-      message: 'Cashout not allowed',
+      message: 'Cashout not allowed!',
     );
   }
 }

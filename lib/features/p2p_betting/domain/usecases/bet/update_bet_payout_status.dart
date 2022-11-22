@@ -15,6 +15,7 @@ class UpdateBetPayoutStatus implements UseCase<Bet, UpdateBetPayoutRequest> {
       betId: params.betId,
       payout: params.payout,
       status: params.status,
+      txthash: params.txthash,
     );
   }
 }

@@ -260,7 +260,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                               lController.walletAddress.value,
                               actualHash,
                             );
-                          } else {}
+                          }
                         }
                       },
                       enabled:
