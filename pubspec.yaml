@@ -31,6 +31,7 @@ dependencies:
   flutter_spinkit: ^5.1.0 #web
   flutter_svg: ^0.23.0+1 #web
   flutter_web3: ^2.1.9
+  footer: ^0.0.4
   freezed_annotation: ^1.1.0 #web
   get: ^4.6.1 #web
   google_sign_in: ^5.3.0 #web
