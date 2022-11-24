@@ -1,4 +1,6 @@
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
+import 'package:betticos/core/presentation/widgets/payment_button.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
@@ -35,6 +37,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final User user = bController.user.value;
     return SizedBox(
       child: Scaffold(
         appBar: AppBar(
@@ -111,6 +114,47 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   ),
                   const AppSpacing(v: 30),
                   Text(
+                    'Choose your bet',
+                    style: TextStyle(
+                      color: context.colors.textDark,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                    ),
+                  ),
+                  const AppSpacing(v: 8),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        AppConstrainedButton(
+                          text: 'Win',
+                          borderRadius: AppBorderRadius.mediumAll,
+                          color: context.colors.success,
+                          textColor: Colors.white,
+                          onPressed: () => controller.selectChoice('win'),
+                          selected: controller.choice.value == 'win',
+                        ),
+                        AppConstrainedButton(
+                          text: 'Draw',
+                          borderRadius: AppBorderRadius.mediumAll,
+                          color: context.colors.primary,
+                          textColor: Colors.white,
+                          onPressed: () => controller.selectChoice('draw'),
+                          selected: controller.choice.value == 'draw',
+                        ),
+                        AppConstrainedButton(
+                          text: 'Loss',
+                          borderRadius: AppBorderRadius.mediumAll,
+                          color: context.colors.error,
+                          textColor: Colors.white,
+                          onPressed: () => controller.selectChoice('loss'),
+                          selected: controller.choice.value == 'loss',
+                        )
+                      ],
+                    ),
+                  ),
+                  const AppSpacing(v: 30),
+                  Text(
                     'Creator of Bet',
                     style: TextStyle(
                       color: context.colors.textDark,
@@ -160,9 +204,31 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                       ),
                     ],
                   ),
-                  const AppSpacing(v: 30),
+                  const AppSpacing(v: 16),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'Bet\'s Amount:',
+                        style: TextStyle(
+                          color: context.colors.textDark,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        '\$${widget.bet.amount}',
+                        style: TextStyle(
+                          color: context.colors.success,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const AppSpacing(v: 16),
                   Text(
-                    'Choose your bet',
+                    'Payment Type',
                     style: TextStyle(
                       color: context.colors.textDark,
                       fontWeight: FontWeight.w700,
@@ -170,46 +236,36 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                     ),
                   ),
                   const AppSpacing(v: 8),
-                  Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        AppConstrainedButton(
-                          text: 'Win',
-                          borderRadius: AppBorderRadius.mediumAll,
-                          color: context.colors.success,
-                          textColor: Colors.white,
-                          onPressed: () => controller.selectChoice('win'),
-                          selected: controller.choice.value == 'win',
-                        ),
-                        AppConstrainedButton(
-                          text: 'Draw',
-                          borderRadius: AppBorderRadius.mediumAll,
-                          color: context.colors.primary,
-                          textColor: Colors.white,
-                          onPressed: () => controller.selectChoice('draw'),
-                          selected: controller.choice.value == 'draw',
-                        ),
-                        AppConstrainedButton(
-                          text: 'Loss',
-                          borderRadius: AppBorderRadius.mediumAll,
-                          color: context.colors.error,
-                          textColor: Colors.white,
-                          onPressed: () => controller.selectChoice('loss'),
-                          selected: controller.choice.value == 'loss',
-                        )
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      PaymentButton(
+                        text: 'Bonus',
+                        selected: controller.paymentType.value == 'bonus',
+                        onPressed: () {
+                          controller.paymentType.value = 'bonus';
+                        },
+                        tagValue: '\$${user.bonus}',
+                      ),
+                      PaymentButton(
+                        text: 'Wallet',
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 32),
+                        selected: controller.paymentType.value == 'wallet',
+                        onPressed: () {
+                          controller.paymentType.value = 'wallet';
+                        },
+                      ),
+                    ],
                   ),
                   const AppSpacing(v: 70),
                   Obx(
                     () => AppButton(
                       onPressed: () async {
-                        if (widget.bet.creator.user.id !=
-                            bController.user.value.id) {
-                          if (bController.user.value.bonus != null &&
-                              (bController.user.value.bonus! >=
-                                  controller.amount.value)) {
+                        if (widget.bet.creator.user.id != user.id) {
+                          if (controller.paymentType.value == 'bonus' &&
+                              user.bonus != null &&
+                              (user.bonus! >= controller.amount.value)) {
                             // deduct from the bonus
                             bController.increaseDecreaseUserBonus(
                                 context, 'decrease', controller.amount.value,
@@ -235,10 +291,14 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                 ),
                                 backgroundColor: context.colors.success,
                               );
-                              controller.addNewBet(context,
-                                  lController.walletAddress.value, 'bonus');
+                              controller.addOpponentToBet(
+                                context,
+                                widget.bet,
+                                lController.walletAddress.value,
+                                'bonus',
+                              );
                             });
-                          } else {
+                          } else if (controller.paymentType.value == 'wallet') {
                             final String? actualHash =
                                 await lController.send(context);
                             if (actualHash != null) {
@@ -249,6 +309,17 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                 actualHash,
                               );
                             }
+                          } else {
+                            await AppSnacks.show(
+                              context,
+                              message: 'Payment type not selected',
+                              leadingIcon: Icon(
+                                Ionicons.checkmark_circle,
+                                size: 24,
+                                color: context.colors.success,
+                              ),
+                              backgroundColor: context.colors.success,
+                            );
                           }
                         } else {
                           await AppSnacks.show(context,
