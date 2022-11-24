@@ -286,9 +286,23 @@ class _NewLiveScoreState extends State<NewLiveScore> {
     } else {
       if (!lController.isConnected) {
         if (Ethereum.isSupported) {
-          lController.initiateWalletConnect();
+          lController.initiateWalletConnect(
+              (_) async => Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => P2PBettingScreen(
+                        liveScore: liveScore,
+                      ),
+                    ),
+                  ));
         } else {
-          await lController.connectWC();
+          await lController
+              .connectWC((_) async => Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => P2PBettingScreen(
+                        liveScore: liveScore,
+                      ),
+                    ),
+                  ));
         }
       } else {
         await Navigator.of(context).push<void>(
