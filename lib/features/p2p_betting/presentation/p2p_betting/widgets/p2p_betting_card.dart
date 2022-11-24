@@ -72,28 +72,28 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                if (widget.awayDisabled ?? false)
+                if (widget.homeDisabled ?? false)
                   MatchAvatar(
-                    logo: widget.awayTeam.logo,
-                    selected: widget.awayDisabled ??
+                    logo: widget.homeTeam.logo,
+                    selected: widget.homeDisabled ??
                         p2pBetController.teamSelected.value ==
-                            widget.awayTeam.name,
-                    disabled: widget.awayDisabled,
-                    onPressed: widget.onAwayPressed,
+                            widget.homeTeam.name,
+                    disabled: widget.homeDisabled,
+                    onPressed: widget.onHomePressed,
                   )
                 else
                   Obx(
                     () => MatchAvatar(
-                      logo: widget.awayTeam.logo,
+                      logo: widget.homeTeam.logo,
                       selected: p2pBetController.teamSelected.value ==
-                          widget.awayTeam.name,
-                      disabled: widget.awayDisabled,
-                      onPressed: widget.onAwayPressed,
+                          widget.homeTeam.name,
+                      disabled: widget.homeDisabled,
+                      onPressed: widget.onHomePressed,
                     ),
                   ),
                 const AppSpacing(v: 8),
                 Text(
-                  widget.awayTeam.name,
+                  widget.homeTeam.name,
                   style: TextStyle(
                     color: context.colors.black,
                     fontSize: 10,
@@ -172,28 +172,28 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                if (widget.homeDisabled ?? false)
+                if (widget.awayDisabled ?? false)
                   MatchAvatar(
-                    logo: widget.homeTeam.name,
-                    selected: widget.homeDisabled ??
+                    logo: widget.awayTeam.name,
+                    selected: widget.awayDisabled ??
                         p2pBetController.teamSelected.value ==
-                            widget.homeTeam.name,
-                    disabled: widget.homeDisabled,
-                    onPressed: widget.onHomePressed,
+                            widget.awayTeam.name,
+                    disabled: widget.awayDisabled,
+                    onPressed: widget.onAwayPressed,
                   )
                 else
                   Obx(
                     () => MatchAvatar(
-                      logo: widget.homeTeam.logo,
+                      logo: widget.awayTeam.logo,
                       selected: p2pBetController.teamSelected.value ==
-                          widget.homeTeam.name,
-                      disabled: widget.homeDisabled,
-                      onPressed: widget.onHomePressed,
+                          widget.awayTeam.name,
+                      disabled: widget.awayDisabled,
+                      onPressed: widget.onAwayPressed,
                     ),
                   ),
                 const AppSpacing(v: 8),
                 Text(
-                  widget.homeTeam.name,
+                  widget.awayTeam.name,
                   style: TextStyle(
                     color: context.colors.black,
                     fontSize: 12,

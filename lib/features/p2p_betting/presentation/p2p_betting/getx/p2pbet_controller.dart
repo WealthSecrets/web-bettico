@@ -79,6 +79,7 @@ class P2PBetController extends GetxController {
   // loading states
   RxBool isAddingBet = false.obs;
   RxBool isUpdatingBet = false.obs;
+  RxBool isAddingStatusToBet = false.obs;
   RxBool isClosingPayout = false.obs;
   RxBool isFetchingBets = false.obs;
   RxBool isFilteringBets = false.obs;
@@ -101,6 +102,7 @@ class P2PBetController extends GetxController {
   // for filtering bets
   RxString title = ''.obs;
   RxString searchStatus = ''.obs;
+  RxString paymentType = ''.obs;
   RxString from = ''.obs;
   RxString to = ''.obs;
 
@@ -114,6 +116,7 @@ class P2PBetController extends GetxController {
     teamId(-1);
     choice('');
     amount(0.0);
+    paymentType('');
     competitionId(-1);
   }
 
@@ -187,10 +190,14 @@ class P2PBetController extends GetxController {
       teamId.value != -1 &&
       teamSelected.isNotEmpty &&
       choice.isNotEmpty &&
+      paymentType.value.isNotEmpty &&
       validateAmount(amount.value.toString()) == null;
 
   bool get isDetailsValid =>
-      choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty;
+      choice.isNotEmpty &&
+      teamId.value != -1 &&
+      teamSelected.isNotEmpty &&
+      paymentType.value.isNotEmpty;
 
   void addNewBet(BuildContext context, String wallet, String txthash) async {
     isAddingBet(true);
@@ -231,6 +238,7 @@ class P2PBetController extends GetxController {
       },
       (Bet value) {
         isAddingBet(false);
+        resetValues();
         bet(value);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute<void>(
@@ -319,7 +327,7 @@ class P2PBetController extends GetxController {
     required String status,
     String? winner,
   }) async {
-    isUpdatingBet(true);
+    isAddingStatusToBet(true);
 
     String st = 'awaiting';
 
@@ -344,10 +352,10 @@ class P2PBetController extends GetxController {
 
     failureOrBet.fold<void>(
       (Failure failure) {
-        isUpdatingBet(false);
+        isAddingStatusToBet(false);
       },
       (Bet value) {
-        isUpdatingBet(false);
+        isAddingStatusToBet(false);
         final List<Bet> betCopy = List<Bet>.from(bets);
         final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
         betCopy[valueIndex] = value;

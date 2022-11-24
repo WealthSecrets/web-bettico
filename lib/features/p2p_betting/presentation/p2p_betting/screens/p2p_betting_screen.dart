@@ -1,4 +1,7 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/payment_button.dart';
+// import 'package:betticos/core/presentation/widgets/selectable_button.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
 // import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
@@ -50,6 +53,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final User user = bController.user.value;
     return SizedBox(
       child: Scaffold(
         appBar: AppBar(
@@ -133,52 +137,6 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                     ),
                     const AppSpacing(v: 30),
                     Text(
-                      'How much do you want to bet?',
-                      style: TextStyle(
-                        color: context.colors.textDark,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                    const AppSpacing(v: 8),
-                    AppTextInput(
-                      labelText: 'AMOUNT (USD)',
-                      textInputType: TextInputType.number,
-                      onChanged: (String value) {
-                        final double? amount = double.tryParse(value);
-                        if (amount != null) {
-                          controller.onAmountInputChanged(amount);
-                          lController.convertAmount(context,
-                              lController.selectedCurrency.value, amount);
-                        }
-                      },
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly,
-                        FilteringTextInputFormatter.deny(' '),
-                      ],
-                      backgroundColor: context.colors.primary.shade50,
-                      validator: controller.validateAmount,
-                    ),
-                    const AppSpacing(v: 4),
-                    Obx(
-                      () => lController.isLoading.value
-                          ? const SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: CircularProgressIndicator(strokeWidth: 1),
-                            )
-                          : Text(
-                              'USD coverted to  ${lController.selectedCurrency.toUpperCase()}: ${lController.convertedAmount}',
-                              style: TextStyle(
-                                color: context.colors.text,
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 12,
-                              ),
-                            ),
-                    ),
-                    const AppSpacing(v: 30),
-                    Text(
                       'Choose your bet',
                       style: TextStyle(
                         color: context.colors.textDark,
@@ -216,13 +174,99 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         )
                       ],
                     ),
+                    const AppSpacing(v: 30),
+                    Text(
+                      'How much do you want to bet?',
+                      style: TextStyle(
+                        color: context.colors.textDark,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const AppSpacing(v: 8),
+                    AppTextInput(
+                      labelText: 'AMOUNT (USD)',
+                      textInputType: TextInputType.number,
+                      onChanged: (String value) {
+                        final double? amount = double.tryParse(value);
+                        if (amount != null) {
+                          controller.onAmountInputChanged(amount);
+                          lController.convertAmount(context,
+                              lController.selectedCurrency.value, amount);
+                        }
+                      },
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                        FilteringTextInputFormatter.deny(' '),
+                      ],
+                      backgroundColor: context.colors.primary.shade50,
+                      validator: controller.validateAmount,
+                    ),
+                    const AppSpacing(v: 4),
+                    Obx(
+                      () => lController.isLoading.value
+                          ? const SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator(strokeWidth: 1),
+                            )
+                          : Text(
+                              lController.convertedAmount.value == 0
+                                  ? 'No USD to convert'
+                                  : 'USD coverted to  ${lController.selectedCurrency.toUpperCase()}: ${lController.convertedAmount}',
+                              style: TextStyle(
+                                color: lController.convertedAmount.value > 0
+                                    ? context.colors.success
+                                    : context.colors.text,
+                                fontWeight:
+                                    lController.convertedAmount.value > 0
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                fontStyle: lController.convertedAmount.value > 0
+                                    ? FontStyle.normal
+                                    : FontStyle.italic,
+                                fontSize: 12,
+                              ),
+                            ),
+                    ),
+                    const AppSpacing(v: 30),
+                    Text(
+                      'Payment Type',
+                      style: TextStyle(
+                        color: context.colors.textDark,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const AppSpacing(v: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        PaymentButton(
+                          text: 'Bonus',
+                          selected: controller.paymentType.value == 'bonus',
+                          onPressed: () {
+                            controller.paymentType.value = 'bonus';
+                          },
+                          tagValue: '\$${user.bonus}',
+                        ),
+                        PaymentButton(
+                          text: 'Wallet',
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 32),
+                          selected: controller.paymentType.value == 'wallet',
+                          onPressed: () {
+                            controller.paymentType.value = 'wallet';
+                          },
+                        ),
+                      ],
+                    ),
                     const AppSpacing(v: 70),
                     AppButton(
                       onPressed: () async {
-                        if (bController.user.value.bonus != null &&
-                            (bController.user.value.bonus! >=
-                                controller.amount.value)) {
-                          // deduct from the bonus
+                        if (controller.paymentType.value == 'bonus' &&
+                            user.bonus != null &&
+                            (user.bonus! >= controller.amount.value)) {
                           bController.increaseDecreaseUserBonus(
                               context, 'decrease', controller.amount.value,
                               failureCallback: () async {
@@ -250,7 +294,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             controller.addNewBet(context,
                                 lController.walletAddress.value, 'bonus');
                           });
-                        } else {
+                        } else if (controller.paymentType.value == 'wallet') {
                           final String? actualHash =
                               await lController.send(context);
 
@@ -261,6 +305,11 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                               actualHash,
                             );
                           }
+                        } else {
+                          await AppSnacks.show(
+                            context,
+                            message: 'Payment type not selected.',
+                          );
                         }
                       },
                       enabled:
