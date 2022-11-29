@@ -14,18 +14,6 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final SettingsController controller = Get.find<SettingsController>();
-  // late bool intro = false;
-
-  // Future<void> showTutorial() async {
-  //   final SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   intro = preferences.getBool('intro') ?? false;
-  // }
-
-  // void updatePref(bool value) async {
-  //   final SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   await preferences.setBool('intro', value);
-  //   intro = preferences.getBool('intro') ?? false;
-  // }
 
   @override
   Widget build(BuildContext context) {

@@ -434,8 +434,12 @@ class LiveScoreController extends GetxController {
     double amount, {
     void Function()? failureCallback,
     void Function(double amount)? successCallback,
+    String? betId,
   }) async {
     isLoading(true);
+    if (betId != null) {
+      closingBetID.add(betId);
+    }
 
     final Either<Failure, Volume> failureOrVolume =
         await convertAmountToCurrency(
@@ -444,11 +448,17 @@ class LiveScoreController extends GetxController {
     failureOrVolume.fold<void>(
       (Failure failure) {
         isLoading(false);
+        if (betId != null) {
+          closingBetID.remove(betId);
+        }
         AppSnacks.show(context, message: failure.message);
         failureCallback?.call();
       },
       (Volume vol) {
         isLoading(false);
+        if (betId != null) {
+          closingBetID.remove(betId);
+        }
         convertedAmount.value = vol.convertedAmount;
         successCallback?.call(vol.convertedAmount);
       },

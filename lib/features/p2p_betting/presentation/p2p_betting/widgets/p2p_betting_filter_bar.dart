@@ -1,18 +1,27 @@
 import 'package:betticos/core/presentation/widgets/sliver_app_bar_deleagate.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 
 class P2PBettingFilterBar extends StatelessWidget {
-  const P2PBettingFilterBar({
+  P2PBettingFilterBar({
     Key? key,
   }) : super(key: key);
 
-  // fake data
-  final List<String> filter = const <String>['wins', 'losts'];
+  final P2PBetController _p2pBetController = Get.find<P2PBetController>();
+
+  final List<String> options = const <String>[
+    'wins',
+    'losts',
+    'awaiting',
+    'ongoing',
+    'completed'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +50,10 @@ class P2PBettingFilterBar extends StatelessWidget {
                     ),
                     const Spacer(),
                     AppSelectField<String>(
-                      onChanged: (String value) {},
-                      options: filter,
-                      value: filter[0].toUpperCase(),
+                      onChanged: (String value) => _p2pBetController
+                          .changeFilterStatus(value.toLowerCase()),
+                      options: options,
+                      value: options[0].toUpperCase(),
                       customChildBuilder:
                           (BuildContext context, String? item) => Row(
                         children: <Widget>[
@@ -68,7 +78,7 @@ class P2PBettingFilterBar extends StatelessWidget {
                             )
                           else
                             Text(
-                              item,
+                              item.toUpperCase(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.text,

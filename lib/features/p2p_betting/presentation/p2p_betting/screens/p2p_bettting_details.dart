@@ -281,16 +281,6 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                 );
                               }
                             }, successCallback: () {
-                              AppSnacks.show(
-                                context,
-                                message: 'Bet amount deducted from bonus.',
-                                leadingIcon: Icon(
-                                  Ionicons.checkmark_circle,
-                                  size: 24,
-                                  color: context.colors.success,
-                                ),
-                                backgroundColor: context.colors.success,
-                              );
                               controller.addOpponentToBet(
                                 context,
                                 widget.bet,

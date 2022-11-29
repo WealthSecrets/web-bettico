@@ -30,7 +30,7 @@ class _LiveScoreScreenState extends State<LiveScoreScreen> {
   @override
   void initState() {
     super.initState();
-    _p2pBetController.getMyBets();
+    _p2pBetController.getMyBets(_p2pBetController.filterStatus.value);
     WidgetUtils.onWidgetDidBuild(() {
       lController.initiateWalletConnect();
       lController.getAllLiveMatches(context);

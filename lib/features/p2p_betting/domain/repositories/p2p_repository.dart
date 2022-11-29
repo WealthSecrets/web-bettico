@@ -127,5 +127,5 @@ abstract class P2pRepository {
 
   Future<Either<Failure, List<Bet>>> fetchStatusBets(String status);
 
-  Future<Either<Failure, List<Bet>>> fetchMyBets();
+  Future<Either<Failure, List<Bet>>> fetchMyBets(String status);
 }
