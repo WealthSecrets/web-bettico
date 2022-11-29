@@ -120,7 +120,7 @@ class _P2pBetTabState extends State<P2pBetTab>
                             key: ObjectKey(
                               bet.id,
                             ),
-                            betId: bet.id,
+                            bet: bet,
                             isMyBets: false,
                             onPressed: () {
                               if (bet.status == BetStatus.awaiting) {

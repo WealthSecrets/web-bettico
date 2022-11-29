@@ -191,8 +191,8 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       makeRequest(p2pRemoteDataSource.fetchStatusBets(status));
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchMyBets() =>
-      makeRequest(p2pRemoteDataSource.fetchMyBets());
+  Future<Either<Failure, List<Bet>>> fetchMyBets(String status) =>
+      makeRequest(p2pRemoteDataSource.fetchMyBets(status));
 
   @override
   Future<Either<Failure, List<Network>>> fetchCryptoNetworks() =>

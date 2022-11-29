@@ -18,7 +18,7 @@ class P2pEndpoints {
   static String updateBet(String betId) => 'bets/$betId';
   static String statusBets(String status) => 'bets/status/$status';
   static const String ongoingBets = 'bets/ongoing';
-  static const String myBets = 'bets/mybets';
+  static String myBets(String status) => 'bets/mybets/$status';
   static const String networks = 'networks';
   static String paginateLiveScore({
     required int page,

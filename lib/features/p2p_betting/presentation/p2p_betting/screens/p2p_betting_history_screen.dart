@@ -9,7 +9,6 @@ import '../widgets/betting_modal.dart';
 import '../widgets/p2p_betting_app_bar.dart';
 import '../widgets/p2p_betting_filter_bar.dart';
 import '../widgets/p2p_betting_history_card.dart';
-// import '../widgets/p2p_betting_swiper.dart';
 
 class P2PBettingHistoryScreen extends StatefulWidget {
   const P2PBettingHistoryScreen({Key? key}) : super(key: key);
@@ -21,12 +20,11 @@ class P2PBettingHistoryScreen extends StatefulWidget {
 }
 
 class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
-  // getx controllers
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
 
   @override
   void initState() {
-    _p2pBetController.getMyBets();
+    _p2pBetController.getMyBets(_p2pBetController.filterStatus.value);
     super.initState();
   }
 
@@ -38,9 +36,7 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
         headerSliverBuilder: (_, __) {
           return <Widget>[
             const P2PBettingAppBar(),
-            // const SliverToBoxAdapter(child: AppSpacing(v: 10)),
-            // const P2PBettingSwiper(),
-            const P2PBettingFilterBar(),
+            P2PBettingFilterBar(),
           ];
         },
         body: Obx(
@@ -58,7 +54,7 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
                             key: ObjectKey(
                               _p2pBetController.myBets[index].id,
                             ),
-                            betId: _p2pBetController.myBets[index].id,
+                            bet: _p2pBetController.myBets[index],
                             isMyBets: true,
                             onPressed: () async {
                               await showMaterialModalBottomSheet<bool?>(

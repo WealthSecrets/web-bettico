@@ -49,7 +49,7 @@ abstract class P2pRemoteDataSource {
 
   Future<List<Bet>> fetchStatusBets(String status);
 
-  Future<List<Bet>> fetchMyBets();
+  Future<List<Bet>> fetchMyBets(String status);
 
   Future<SoccerMatch?> getFixture(
     String apiKey,

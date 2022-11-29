@@ -24,7 +24,7 @@ class OTPVerificationScreen extends StatefulWidget {
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final RegisterController controller = Get.find<RegisterController>();
   final LoginController lController = Get.find<LoginController>();
-  bool _showResendButton = false;
+  final bool _showResendButton = false;
 
   // int _counter = 59;
   // late Timer _timer;

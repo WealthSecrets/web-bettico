@@ -67,6 +67,7 @@ class P2PBetController extends GetxController {
   Rx<Bet> bet = Bet.empty().obs;
   RxList<Bet> bets = <Bet>[].obs;
   RxList<Bet> myBets = <Bet>[].obs;
+  RxString filterStatus = 'wins'.obs;
   // RxList<Bet> awaitingBets = <Bet>[].obs;
   // RxList<Bet> ongoingBets = <Bet>[].obs;
   // RxList<Bet> filteredBets = <Bet>[].obs;
@@ -74,6 +75,7 @@ class P2PBetController extends GetxController {
   Rx<SoccerMatch> match = SoccerMatch.empty().obs;
   Rx<Fixture> fixture = Fixture.empty().obs;
   Rx<LiveScore> liveScore = LiveScore.empty().obs;
+  RxList<String> closingBetID = <String>[].obs;
   // RxList<SoccerMatch> competitionMatches = <SoccerMatch>[].obs;
 
   // loading states
@@ -297,9 +299,10 @@ class P2PBetController extends GetxController {
                         color: context.colors.success,
                         size: 60,
                       ),
-                      description: 'You have successfully accepted this bet.',
+                      description:
+                          'You have successfully accepted this ${txthash == 'bonus' ? 'bet using your bonus.' : 'bet.'}',
                       title: Text(
-                        'Challenge Accepted',
+                        'Bet Accepted',
                         style: TextStyle(
                           color: context.colors.success,
                           fontSize: 20,
@@ -364,8 +367,11 @@ class P2PBetController extends GetxController {
     );
   }
 
-  void closePayout({required String betId, required String txthash}) async {
+  void closePayout(
+      {required String betId, required String txthash, bool? isMyBets}) async {
     isClosingPayout(true);
+
+    closingBetID.add(betId);
 
     const String status = 'completed';
 
@@ -381,31 +387,28 @@ class P2PBetController extends GetxController {
     failureOrBet.fold<void>(
       (Failure failure) {
         isClosingPayout(false);
+        closingBetID.remove(betId);
       },
       (Bet value) {
         isClosingPayout(false);
-        final List<Bet> betCopy = List<Bet>.from(bets);
-        final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
-        betCopy[valueIndex] = value;
-        bets(betCopy);
+        closingBetID.remove(betId);
+        if (isMyBets ?? false) {
+          final List<Bet> betCopy = List<Bet>.from(myBets);
+          final int valueIndex =
+              betCopy.indexWhere((Bet b) => b.id == value.id);
+          betCopy[valueIndex] = value;
+          myBets.value = betCopy;
+        } else {
+          final List<Bet> betCopy = List<Bet>.from(bets);
+          final int valueIndex =
+              betCopy.indexWhere((Bet b) => b.id == value.id);
+          betCopy[valueIndex] = value;
+          bets.value = betCopy;
+        }
+        getMyBets(filterStatus.value);
       },
     );
   }
-
-  // void rebuildBets(List<Bet> bs) {
-  //   final List<Bet> aBets = bs
-  //       .where((Bet b) => b.status.stringValue.toLowerCase() == 'awaiting')
-  //       .toList();
-  //   awaitingBets(aBets);
-  //   final List<Bet> oBets = bs
-  //       .where((Bet b) => b.status.stringValue.toLowerCase() == 'ongoing')
-  //       .toList();
-  //   ongoingBets(oBets);
-  //   final List<Bet> cBets = bs
-  //       .where((Bet b) => b.status.stringValue.toLowerCase() == 'completed')
-  //       .toList();
-  //   completedBets(cBets);
-  // }
 
   Future<SoccerMatch?> getLiveCompetitionMatch(
     BuildContext context,
@@ -617,23 +620,21 @@ class P2PBetController extends GetxController {
       },
       (List<Bet> value) {
         isFetchingBets(false);
-        // if (status.toLowerCase() == 'awaiting') {
-        //   awaitingBets(value);
-        // } else if (status.toLowerCase() == 'ongoing') {
-        //   ongoingBets(value);
-        // } else {
-        //   completedBets(value);
-        // }
         bets(value);
       },
     );
   }
 
-  void getMyBets() async {
+  void changeFilterStatus(String status) {
+    filterStatus.value = status;
+    getMyBets(status);
+  }
+
+  void getMyBets(String status) async {
     isFetchingMyBets(true);
 
     final Either<Failure, List<Bet>> failureOrBets =
-        await fetchMyBets(NoParams());
+        await fetchMyBets(StatusBetsRequests(status: status));
 
     failureOrBets.fold<void>(
       (Failure failure) {
@@ -641,7 +642,7 @@ class P2PBetController extends GetxController {
       },
       (List<Bet> value) {
         isFetchingMyBets(false);
-        myBets(value);
+        myBets.value = value;
       },
     );
   }

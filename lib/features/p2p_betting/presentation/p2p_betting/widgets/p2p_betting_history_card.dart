@@ -11,18 +11,19 @@ import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/t
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 
 class P2PBettingHistoryCard extends StatefulWidget {
   const P2PBettingHistoryCard({
     Key? key,
-    required this.betId,
+    required this.bet,
     required this.isMyBets,
     this.onPressed,
   }) : super(key: key);
 
-  final String betId;
+  final Bet bet;
   final bool isMyBets;
   final Function()? onPressed;
 
@@ -38,6 +39,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   Timer? _timer;
   String? winner;
   String? winnerWalletAddress;
+  Bet bet = Bet.empty();
 
   final StreamController<LiveScore?> _liveScoreStreamController =
       StreamController<LiveScore?>.broadcast();
@@ -45,7 +47,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   @override
   void initState() {
     super.initState();
-    final Bet bet = p2pBetController.getBetById(widget.betId);
+    bet = widget.bet;
     winner = bet.winner?.id;
     if (bet.winner?.id == bet.creator.user.id) {
       winnerWalletAddress = bet.creator.wallet;
@@ -77,71 +79,72 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      final Bet bet =
-          p2pBetController.getBetById(widget.betId, isMyBets: widget.isMyBets);
-
-      return StreamBuilder<LiveScore?>(
-        stream: _liveScoreStreamController.stream,
-        builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
-          final LiveScore? liveScoreData = snapshot.data;
-          if (liveScoreData != null) {
-            if (liveScoreData.time.status?.toLowerCase() == 'ft') {
-              if ((bet.creator.teamId == liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore >
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  bet.creator.choice == BettorChoice.win) {
-                winner = bet.creator.user.id;
-                winnerWalletAddress = bet.creator.wallet;
-              } else if ((bet.creator.teamId == liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore <
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  bet.creator.choice == BettorChoice.loss) {
-                winner = bet.creator.user.id;
-                winnerWalletAddress = bet.creator.wallet;
-              } else if ((bet.opponent?.teamId == liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore <
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  bet.opponent?.choice == BettorChoice.loss) {
-                winner = bet.opponent?.user.id;
-                winnerWalletAddress = bet.opponent?.wallet;
-              } else if ((bet.opponent?.teamId == liveScoreData.localTeamId) &&
-                  (liveScoreData.scores!.localTeamScore >
-                      liveScoreData.scores!.visitorTeamScore) &&
-                  bet.opponent?.choice == BettorChoice.win) {
-                winner = bet.opponent?.user.id;
-                winnerWalletAddress = bet.opponent?.wallet;
-              } else if (bet.creator.choice == BettorChoice.draw &&
-                  (liveScoreData.scores!.localTeamScore ==
-                      liveScoreData.scores!.visitorTeamScore)) {
-                winner = bet.creator.user.id;
-                winnerWalletAddress = bet.creator.wallet;
-              } else if (bet.opponent?.choice == BettorChoice.draw &&
-                  (liveScoreData.scores!.localTeamScore ==
-                      liveScoreData.scores!.visitorTeamScore)) {
-                winner = bet.opponent?.user.id;
-                winnerWalletAddress = bet.opponent?.wallet;
-              }
-              p2pBetController.addStatusScoreToBet(
-                betId: bet.id,
-                score:
-                    '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
-                status: 'completed',
-                winner: winner,
-              );
-            } else {
-              p2pBetController.addStatusScoreToBet(
-                betId: bet.id,
-                score:
-                    '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
-                status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
-                winner: winner,
-              );
+    return StreamBuilder<LiveScore?>(
+      stream: _liveScoreStreamController.stream,
+      builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
+        final LiveScore? liveScoreData = snapshot.data;
+        if (liveScoreData != null) {
+          if (liveScoreData.time.status?.toLowerCase() == 'ft') {
+            if ((bet.creator.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore >
+                    liveScoreData.scores!.visitorTeamScore) &&
+                bet.creator.choice == BettorChoice.win) {
+              winner = bet.creator.user.id;
+              winnerWalletAddress = bet.creator.wallet;
+            } else if ((bet.creator.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore <
+                    liveScoreData.scores!.visitorTeamScore) &&
+                bet.creator.choice == BettorChoice.loss) {
+              winner = bet.creator.user.id;
+              winnerWalletAddress = bet.creator.wallet;
+            } else if ((bet.opponent?.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore <
+                    liveScoreData.scores!.visitorTeamScore) &&
+                bet.opponent?.choice == BettorChoice.loss) {
+              winner = bet.opponent?.user.id;
+              winnerWalletAddress = bet.opponent?.wallet;
+            } else if ((bet.opponent?.teamId == liveScoreData.localTeamId) &&
+                (liveScoreData.scores!.localTeamScore >
+                    liveScoreData.scores!.visitorTeamScore) &&
+                bet.opponent?.choice == BettorChoice.win) {
+              winner = bet.opponent?.user.id;
+              winnerWalletAddress = bet.opponent?.wallet;
+            } else if (bet.creator.choice == BettorChoice.draw &&
+                (liveScoreData.scores!.localTeamScore ==
+                    liveScoreData.scores!.visitorTeamScore)) {
+              winner = bet.creator.user.id;
+              winnerWalletAddress = bet.creator.wallet;
+            } else if (bet.opponent?.choice == BettorChoice.draw &&
+                (liveScoreData.scores!.localTeamScore ==
+                    liveScoreData.scores!.visitorTeamScore)) {
+              winner = bet.opponent?.user.id;
+              winnerWalletAddress = bet.opponent?.wallet;
             }
+            p2pBetController.addStatusScoreToBet(
+              betId: bet.id,
+              score:
+                  '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+              status: 'completed',
+              winner: winner,
+            );
+          } else {
+            p2pBetController.addStatusScoreToBet(
+              betId: bet.id,
+              score:
+                  '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+              status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
+              winner: winner,
+            );
           }
-          return AppLoadingBox(
-            loading: lController.showLoadingLogo.value &&
-                lController.closingBetID.contains(bet.id),
+        }
+        return Obx(
+          () => AppLoadingBox(
+            loading: (lController.isLoading.value &&
+                    lController.closingBetID.contains(bet.id)) ||
+                (lController.showLoadingLogo.value &&
+                    lController.closingBetID.contains(bet.id)) ||
+                (p2pBetController.isClosingPayout.value &&
+                    p2pBetController.closingBetID.contains(bet.id)),
             child: Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(vertical: 4).add(
@@ -448,6 +451,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                     bet,
                                     lController,
                                     p2pBetController,
+                                    widget.isMyBets,
                                   ),
                                 );
                               } else {
@@ -458,6 +462,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                     bet,
                                     lController,
                                     p2pBetController,
+                                    widget.isMyBets,
                                   ),
                                 );
                               }
@@ -468,6 +473,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                 bet,
                                 lController,
                                 p2pBetController,
+                                widget.isMyBets,
                               );
                             }
                           },
@@ -477,16 +483,31 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                 ),
               ),
             ),
-          );
-        },
-      );
-    });
+          ),
+        );
+      },
+    );
   }
 }
 
-void cashout(BuildContext context, String? walletAddress, Bet bet,
-    LiveScoreController lController, P2PBetController p2pBetController) async {
+void cashout(
+    BuildContext context,
+    String? walletAddress,
+    Bet bet,
+    LiveScoreController lController,
+    P2PBetController p2pBetController,
+    bool isMyBet) async {
   if (walletAddress != null && !(bet.payout ?? false)) {
+    await AppSnacks.show(
+      context,
+      message: 'Cashout initiated, please wait...',
+      duration: const Duration(milliseconds: 700),
+      backgroundColor: context.colors.success,
+      leadingIcon: const Icon(
+        Ionicons.checkmark_done_sharp,
+        color: Colors.white,
+      ),
+    );
     double theAmount = bet.amount;
     if (bet.opponent != null) {
       theAmount = bet.amount * 2;
@@ -495,6 +516,7 @@ void cashout(BuildContext context, String? walletAddress, Bet bet,
       context,
       'wsc',
       theAmount,
+      betId: bet.id,
       successCallback: (double amount) async {
         final String? txthash = await lController.payout(
           context,
@@ -506,14 +528,12 @@ void cashout(BuildContext context, String? walletAddress, Bet bet,
         if (txthash != null) {
           await AppSnacks.show(
             context,
-            message: 'Cashout successful. Txn Hash: $txthash',
+            message: 'Cashout successful.',
             backgroundColor: context.colors.success,
           );
 
           p2pBetController.closePayout(
-            betId: bet.id,
-            txthash: txthash,
-          );
+              betId: bet.id, txthash: txthash, isMyBets: isMyBet);
         }
       },
       failureCallback: () => AppSnacks.show(
