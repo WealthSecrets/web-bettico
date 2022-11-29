@@ -13,6 +13,7 @@ import 'package:footer/footer_view.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../responsiveness/constants/web_controller.dart';
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
@@ -67,120 +68,160 @@ class LoginScreen extends GetWidget<LoginController> {
               footer: Footer(
                 backgroundColor: Colors.grey.shade100,
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                const Text(
-                                  'ABOUT',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 12.0,
-                                      color: Color(0xFF162A49)),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    js.context.callMethod('open', <String>[
-                                      'https://www.wealthsecrets.io/'
-                                    ]);
-                                  },
-                                  child: const Text(
-                                    'About us',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://www.wealthsecrets.io/'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      'About us',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    js.context.callMethod('open', <String>[
-                                      'https://www.wealthsecrets.io/'
-                                    ]);
-                                  },
-                                  child: const Text(
-                                    'FAQs',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://www.wealthsecrets.io/'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      'FAQs',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                const Text(
-                                  'INFO',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 12.0,
-                                      color: Color(0xFF162A49)),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    js.context.callMethod('open', <String>[
-                                      'https://docs.google.com/document/d/1Vn14jjtxqu9YIJTw8e0AQxpdFImu8zNL/edit?usp=sharing&ouid=110662449020690083700&rtpof=true&sd=true'
-                                    ]);
-                                  },
-                                  child: const Text(
-                                    'Terms & conditions',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://drive.google.com/file/d/155bueJQq6C47kYlvfDso5ufGVK9rM9g0/view?usp=sharing'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      'Terms & conditions',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 5),
-                                const Text(
-                                  '18+',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.0,
-                                      color: Color(0xFF162A49)),
-                                ),
-                                const SizedBox(height: 5),
-                              ],
-                            ),
-                            Column(
-                              children: const <Widget>[
-                                Text(
-                                  'GAMES',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 12.0,
-                                      color: Color(0xFF162A49)),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  'Create P2P Bets',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://drive.google.com/file/d/1FPK_-ptXwR3c4T8V3sSO4EI7xX2x5-dH/view?usp=sharing'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      'Privacy Policy',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Live Games',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://drive.google.com/file/d/1Wo5WX4sHvsjsdpYUM3jWmc6CijUKSb9-/view?usp=sharing'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      'Gaming Policy',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 5),
-                              ],
-                            ),
-                          ],
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://drive.google.com/file/d/1Wo5WX4sHvsjsdpYUM3jWmc6CijUKSb9-/view?usp=sharing'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      '18+',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      // MaterialPageRoute<void>(
+                                      //   builder: (BuildContext context) =>
+                                      //       const LiveScoreScreen(),
+                                      // );
+                                      navigationController.navigateTo(
+                                        AppRoutes.livescore,
+                                      );
+                                      Get.toNamed<void>(AppRoutes.livescore);
+                                      menuController.changeActiveItemTo(
+                                          AppRoutes.livescore);
+                                    },
+                                    child: const Text(
+                                      'Live Games',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      js.context.callMethod('open', <String>[
+                                        'https://drive.google.com/file/d/1Wo5WX4sHvsjsdpYUM3jWmc6CijUKSb9-/view?usp=sharing'
+                                      ]);
+                                    },
+                                    child: const Text(
+                                      'P2P Betting',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ]),
@@ -237,7 +278,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 text: 'signin_to'.tr,
                                 style: TextStyle(
                                   color: context.colors.black,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 18,
                                 ),
                                 children: <TextSpan>[

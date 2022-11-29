@@ -4,6 +4,7 @@ import 'package:betticos/features/auth/presentation/register/screens/registratio
 import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
 import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:get/get.dart';
@@ -60,6 +61,10 @@ class Pages {
     GetPage<AppRoutes>(
       name: AppRoutes.walletConnect,
       page: () => ForgotWalletScreen(),
+    ),
+    GetPage<AppRoutes>(
+      name: AppRoutes.livescore,
+      page: () => const LiveScoreScreen(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.addressConnect,
