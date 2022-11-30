@@ -4,10 +4,10 @@ import 'package:betticos/features/auth/presentation/register/screens/registratio
 import 'package:betticos/features/auth/presentation/register/screens/registration_personal_information_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_wallet_screen.dart';
 import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/screens/livescore_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:get/get.dart';
+
 import '/core/presentation/routes/app_routes.dart';
 import '/features/auth/presentation/login/screens/login_screen.dart';
 import '/features/auth/presentation/register/screens/registration_document_screen.dart';
@@ -18,6 +18,7 @@ import '/features/betticos/presentation/timeline/screens/timeline_post_screen.da
 import '/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
 import '/features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
 import '../../../features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
+import '../../../features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import '../../../features/responsiveness/home_base_screen.dart';
 
 class Pages {
@@ -64,7 +65,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.livescore,
-      page: () => const LiveScoreScreen(),
+      page: () => const NewLiveScore(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.addressConnect,

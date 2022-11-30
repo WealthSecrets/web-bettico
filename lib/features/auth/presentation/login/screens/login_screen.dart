@@ -187,9 +187,6 @@ class LoginScreen extends GetWidget<LoginController> {
                                       //   builder: (BuildContext context) =>
                                       //       const LiveScoreScreen(),
                                       // );
-                                      navigationController.navigateTo(
-                                        AppRoutes.livescore,
-                                      );
                                       Get.toNamed<void>(AppRoutes.livescore);
                                       menuController.changeActiveItemTo(
                                           AppRoutes.livescore);
