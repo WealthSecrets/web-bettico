@@ -205,9 +205,16 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      js.context.callMethod('open', <String>[
-                                        'https://drive.google.com/file/d/1Wo5WX4sHvsjsdpYUM3jWmc6CijUKSb9-/view?usp=sharing'
-                                      ]);
+                                      // MaterialPageRoute<void>(
+                                      //   builder: (BuildContext context) =>
+                                      //       const LiveScoreScreen(),
+                                      // );
+                                      navigationController.navigateTo(
+                                        AppRoutes.livescore,
+                                      );
+                                      Get.toNamed<void>(AppRoutes.livescore);
+                                      menuController.changeActiveItemTo(
+                                          AppRoutes.livescore);
                                     },
                                     child: const Text(
                                       'P2P Betting',
