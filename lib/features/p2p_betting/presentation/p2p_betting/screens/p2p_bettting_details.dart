@@ -73,7 +73,8 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isUpdatingBet.value,
+            loading: controller.isUpdatingBet.value ||
+                bController.isUpdatingUserBonus.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
@@ -262,32 +263,40 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   Obx(
                     () => AppButton(
                       onPressed: () async {
+                        print(
+                            'Checking payment type: ${controller.paymentType.value}');
                         if (widget.bet.creator.user.id != user.id) {
                           if (controller.paymentType.value == 'bonus' &&
                               user.bonus != null &&
-                              (user.bonus! >= controller.amount.value)) {
-                            // deduct from the bonus
+                              (user.bonus! >= widget.bet.amount)) {
+                            // TODO(blankson): Consider adding opponent to bet when bonus is deducted.
+                            print('Deducting from bonus...');
                             bController.increaseDecreaseUserBonus(
-                                context, 'decrease', controller.amount.value,
-                                failureCallback: () async {
-                              final String? actualHash =
-                                  await lController.send(context);
-                              if (actualHash != null) {
+                              context,
+                              'decrease',
+                              controller.amount.value,
+                              failureCallback: () async {
+                                // TODO(blankson): Consider using .then() on futures (send)
+                                final String? actualHash =
+                                    await lController.send(context);
+                                if (actualHash != null) {
+                                  controller.addOpponentToBet(
+                                    context,
+                                    widget.bet,
+                                    lController.walletAddress.value,
+                                    actualHash,
+                                  );
+                                }
+                              },
+                              successCallback: () {
                                 controller.addOpponentToBet(
                                   context,
                                   widget.bet,
                                   lController.walletAddress.value,
-                                  actualHash,
+                                  'bonus',
                                 );
-                              }
-                            }, successCallback: () {
-                              controller.addOpponentToBet(
-                                context,
-                                widget.bet,
-                                lController.walletAddress.value,
-                                'bonus',
-                              );
-                            });
+                              },
+                            );
                           } else if (controller.paymentType.value == 'wallet') {
                             final String? actualHash =
                                 await lController.send(context);

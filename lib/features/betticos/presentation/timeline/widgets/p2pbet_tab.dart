@@ -123,7 +123,8 @@ class _P2pBetTabState extends State<P2pBetTab>
                             bet: bet,
                             isMyBets: false,
                             onPressed: () {
-                              if (bet.status == BetStatus.awaiting) {
+                              if (bet.status == BetStatus.awaiting ||
+                                  bet.opponent != null) {
                                 if (!lController.isConnected) {
                                   if (Ethereum.isSupported) {
                                     lController.initiateWalletConnect(
