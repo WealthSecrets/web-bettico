@@ -165,11 +165,11 @@ class LoginScreen extends GetWidget<LoginController> {
                                   TextButton(
                                     onPressed: () {
                                       js.context.callMethod('open', <String>[
-                                        'https://drive.google.com/file/d/1Wo5WX4sHvsjsdpYUM3jWmc6CijUKSb9-/view?usp=sharing'
+                                        'https://drive.google.com/file/d/1fegkWTvJJS7pjU9cbKCXWYgAEPixlLg5/view?usp=sharing'
                                       ]);
                                     },
                                     child: const Text(
-                                      '18+',
+                                      'AML/KYC Policy',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
@@ -183,10 +183,6 @@ class LoginScreen extends GetWidget<LoginController> {
                                 children: <Widget>[
                                   TextButton(
                                     onPressed: () {
-                                      // MaterialPageRoute<void>(
-                                      //   builder: (BuildContext context) =>
-                                      //       const LiveScoreScreen(),
-                                      // );
                                       Get.toNamed<void>(AppRoutes.livescore);
                                       menuController.changeActiveItemTo(
                                           AppRoutes.livescore);
@@ -202,19 +198,12 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      // MaterialPageRoute<void>(
-                                      //   builder: (BuildContext context) =>
-                                      //       const LiveScoreScreen(),
-                                      // );
-                                      navigationController.navigateTo(
-                                        AppRoutes.livescore,
-                                      );
-                                      Get.toNamed<void>(AppRoutes.livescore);
-                                      menuController.changeActiveItemTo(
-                                          AppRoutes.livescore);
+                                      js.context.callMethod('open', <String>[
+                                        'https://drive.google.com/file/d/1Wo5WX4sHvsjsdpYUM3jWmc6CijUKSb9-/view?usp=sharing'
+                                      ]);
                                     },
                                     child: const Text(
-                                      'P2P Betting',
+                                      '18+',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
