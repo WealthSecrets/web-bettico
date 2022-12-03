@@ -65,6 +65,7 @@ class BaseScreenController extends GetxController {
     void Function()? failureCallback,
     void Function()? successCallback,
   }) async {
+    print('Is updating user bonus.....');
     isUpdatingUserBonus.value = true;
     final Either<Failure, User> failureOrUser = await updateUserBonus(
       UserBonusRequest(
@@ -75,7 +76,8 @@ class BaseScreenController extends GetxController {
 
     failureOrUser.fold((Failure failure) {
       isUpdatingUserBonus(false);
-      failureCallback?.call();
+      // failureCallback?.call() Do not call failure call back since user can choose from option
+      AppSnacks.show(context, message: failure.message);
     }, (User u) {
       isUpdatingUserBonus(false);
       user.value = u;
