@@ -274,7 +274,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             bController.increaseDecreaseUserBonus(
                               context,
                               'decrease',
-                              controller.amount.value,
+                              widget.bet.amount,
                               failureCallback: () async {
                                 // TODO(blankson): Consider using .then() on futures (send)
                                 final String? actualHash =
