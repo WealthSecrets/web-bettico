@@ -263,14 +263,11 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                   Obx(
                     () => AppButton(
                       onPressed: () async {
-                        print(
-                            'Checking payment type: ${controller.paymentType.value}');
                         if (widget.bet.creator.user.id != user.id) {
                           if (controller.paymentType.value == 'bonus' &&
                               user.bonus != null &&
                               (user.bonus! >= widget.bet.amount)) {
                             // TODO(blankson): Consider adding opponent to bet when bonus is deducted.
-                            print('Deducting from bonus...');
                             bController.increaseDecreaseUserBonus(
                               context,
                               'decrease',
