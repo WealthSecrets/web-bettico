@@ -1,6 +1,6 @@
 # web_bettico
 
-A new Flutter project.
+Socialize to Earn made easy with Betticos. Increase Your Earning Seamlessly. Stop the loosing streak and treat yourself to endless earning and with fun.
 
 ## Getting Started
 
