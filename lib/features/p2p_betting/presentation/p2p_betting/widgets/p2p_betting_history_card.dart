@@ -54,8 +54,8 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
     } else if (bet.winner?.id == bet.opponent?.user.id) {
       winnerWalletAddress = bet.opponent?.wallet;
     }
-    // onOneTimeFetch(bet.competitionId);
-    // startBroadcast(bet.competitionId);
+    onOneTimeFetch(bet.competitionId);
+    startBroadcast(bet.competitionId);
   }
 
   @override
