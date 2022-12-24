@@ -1,6 +1,7 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
+import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
 
 import '/core/utils/http_client.dart';
 import '/features/auth/data/models/user/user.dart';
@@ -179,6 +180,15 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
       body: request.toJson(),
     );
     return Follow.fromJson(json);
+  }
+
+  @override
+  Future<User> updateUserDevice(UserDeviceRequest request) async {
+    final Map<String, dynamic> json = await _client.post(
+      BetticosEndpoints.device,
+      body: request.toJson(),
+    );
+    return User.fromJson(json['user'] as Map<String, dynamic>);
   }
 
   @override

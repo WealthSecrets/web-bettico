@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/getx/forgot_bindings.dart';
@@ -20,6 +19,7 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_s
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_bindings.dart';
 import 'package:betticos/main_bindings.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -29,6 +29,16 @@ import 'core/core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: 'AIzaSyAzvRUUfl7-8tObQkzgtqPp7a870EJ_I_U',
+        authDomain: 'betticos.firebaseapp.com',
+        projectId: 'betticos',
+        storageBucket: 'betticos.appspot.com',
+        messagingSenderId: '356955805793',
+        appId: '1:356955805793:web:56a09c92dac8827a32f220'),
+  );
 
   MainBindings.dependencies();
 
