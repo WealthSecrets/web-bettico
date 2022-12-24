@@ -22,6 +22,8 @@ class SplashController extends GetxController {
   final ValidateSession validateSession;
   final IsAuthenticated isAuthenticated;
 
+  RxString device = ''.obs;
+
   void isUserAuthenticated(BuildContext context) async {
     final Either<Failure, bool> failureOrUser =
         await isAuthenticated(NoParams());

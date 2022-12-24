@@ -8,6 +8,7 @@ class BetticosEndpoints {
   static const String follow = 'follow';
   static const String reports = 'reports';
   static const String options = 'options';
+  static const String device = 'users/device';
   static const String oddsters = 'users?role=oddster';
   static String paginatedPosts(int page, int limit) =>
       'follow/followingPosts?page=$page&limit=$limit';

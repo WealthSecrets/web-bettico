@@ -1,6 +1,7 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
+import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 
@@ -158,6 +159,14 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
             text: text,
             commentId: commentId,
           ),
+        ),
+      );
+
+  @override
+  Future<Either<Failure, User>> updateUserDevice({required String device}) =>
+      makeRequest(
+        betticoslineRemoteDataSource.updateUserDevice(
+          UserDeviceRequest(device: device),
         ),
       );
 

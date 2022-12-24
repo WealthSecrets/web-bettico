@@ -1,5 +1,6 @@
 import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
+import 'package:betticos/features/betticos/domain/usecases/update_user_device.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/requests/user/user_device_request.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/domain/usecases/load_user.dart';
@@ -22,6 +24,7 @@ class BaseScreenController extends GetxController {
     required this.logoutUser,
     required this.getMyFollowers,
     required this.updateUserBonus,
+    required this.updateUserDevice,
     required this.getMyFollowings,
   });
   final LoadUser loadUser;
@@ -29,6 +32,7 @@ class BaseScreenController extends GetxController {
   final LogoutUser logoutUser;
   final UpdateUserBonus updateUserBonus;
   final GetMyFollowers getMyFollowers;
+  final UpdateUserDevice updateUserDevice;
   final GetMyFollowings getMyFollowings;
 
   Rx<User> user = User.empty().obs;
@@ -38,6 +42,7 @@ class BaseScreenController extends GetxController {
   RxList<User> myFollowers = <User>[].obs;
   RxList<User> myFollowings = <User>[].obs;
   RxBool isLoggingOut = false.obs;
+  RxString device = ''.obs;
 
   @override
   void onInit() {
@@ -138,5 +143,17 @@ class BaseScreenController extends GetxController {
         menuController.changeActiveItemTo(AppRoutes.timeline);
       },
     );
+  }
+
+  void updateUserDeviceInfo(String? dvic) async {
+    if (dvic != null) {
+      final Either<Failure, User> failureOrUser =
+          await updateUserDevice(UserDeviceRequest(device: dvic));
+      failureOrUser.fold((_) {}, (User user) {
+        if (user.device != null) {
+          device.value = user.device!;
+        }
+      });
+    }
   }
 }

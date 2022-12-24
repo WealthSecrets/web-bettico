@@ -102,6 +102,8 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, User>> getReferralCode();
 
+  Future<Either<Failure, User>> updateUserDevice({required String device});
+
   Future<Either<Failure, void>> referUser({
     required String email,
   });
