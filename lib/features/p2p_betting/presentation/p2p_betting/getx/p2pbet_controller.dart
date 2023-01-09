@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:betticos/features/betticos/domain/requests/follow/user_request.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
+import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/search_bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/status_bets_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
@@ -11,6 +13,8 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_sta
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/fixture_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_competition_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_team_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_status_bets.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dart';
@@ -20,6 +24,9 @@ import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_sco
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_competition_match.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_team_match.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/transaction/add_transaction.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/transaction/get_user_transactions.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/transaction/update_transaction.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +47,9 @@ import '/features/p2p_betting/domain/usecases/bet/fetch_bets.dart';
 class P2PBetController extends GetxController {
   P2PBetController({
     required this.addBet,
+    required this.addTransaction,
+    required this.updateTransaction,
+    required this.getUserTransactions,
     required this.updateBet,
     required this.updateBetStatusScore,
     required this.updateBetPayoutStatus,
@@ -53,6 +63,9 @@ class P2PBetController extends GetxController {
   });
 
   final AddBet addBet;
+  final AddTransaction addTransaction;
+  final UpdateTransaction updateTransaction;
+  final GetUserTransactions getUserTransactions;
   final UpdateBet updateBet;
   final UpdateBetStatusScore updateBetStatusScore;
   final SearchBets searchBets;
@@ -67,25 +80,23 @@ class P2PBetController extends GetxController {
   Rx<Bet> bet = Bet.empty().obs;
   RxList<Bet> bets = <Bet>[].obs;
   RxList<Bet> myBets = <Bet>[].obs;
+  RxList<Transaction> myTransactions = <Transaction>[].obs;
   RxString filterStatus = 'wins'.obs;
-  // RxList<Bet> awaitingBets = <Bet>[].obs;
-  // RxList<Bet> ongoingBets = <Bet>[].obs;
-  // RxList<Bet> filteredBets = <Bet>[].obs;
-  // RxList<Bet> completedBets = <Bet>[].obs;
   Rx<SoccerMatch> match = SoccerMatch.empty().obs;
   Rx<Fixture> fixture = Fixture.empty().obs;
   Rx<LiveScore> liveScore = LiveScore.empty().obs;
   RxList<String> closingBetID = <String>[].obs;
-  // RxList<SoccerMatch> competitionMatches = <SoccerMatch>[].obs;
 
   // loading states
   RxBool isAddingBet = false.obs;
+  RxBool isAddingTransaction = false.obs;
   RxBool isUpdatingBet = false.obs;
   RxBool isAddingStatusToBet = false.obs;
   RxBool isClosingPayout = false.obs;
   RxBool isFetchingBets = false.obs;
   RxBool isFilteringBets = false.obs;
   RxBool isFetchingMyBets = false.obs;
+  RxBool isFetchingTransactions = false.obs;
   RxBool isFetchingCompetitionMatches = false.obs;
   RxBool isFetchingLiveTeamMatch = false.obs;
 
@@ -240,13 +251,82 @@ class P2PBetController extends GetxController {
       },
       (Bet value) {
         isAddingBet(false);
+        updateBetTransaction(context, betId: value.id, hash: txthash);
         resetValues();
         bet(value);
+        // TODO:(blankson123) when successful, update transaction via transaction hash
         Navigator.of(context).pushReplacement(
           MaterialPageRoute<void>(
             builder: (BuildContext context) => const P2PBettingCongratScreen(),
           ),
         );
+      },
+    );
+  }
+
+  void createBetTransaction(
+    BuildContext context, {
+    String? betId,
+    required double convertedAmount,
+    required String wallet,
+    required String txthash,
+    required String convertedToken,
+    DateTime? time,
+    String? provider,
+    double? gas,
+    Function()? callback,
+  }) async {
+    isAddingTransaction(true);
+
+    final Either<Failure, Transaction> failureOrTransaction =
+        await addTransaction(
+      TransactionRequest(
+        betId: betId,
+        userId: bController.user.value.id,
+        amount: amount.value,
+        status: 'successful',
+        description: 'Bet Creation',
+        transactionHash: txthash,
+        walletAddress: wallet,
+        type: 'deposit',
+        provider: provider,
+        time: time,
+        convertedAmount: convertedAmount,
+        convertedToken: convertedToken,
+        token: 'usd',
+        gas: gas,
+      ),
+    );
+
+    failureOrTransaction.fold<void>(
+      (Failure failure) {
+        isAddingTransaction(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (Transaction transaction) {
+        isAddingTransaction(false);
+        callback?.call();
+      },
+    );
+  }
+
+  void updateBetTransaction(BuildContext context,
+      {required String betId, required String hash}) async {
+    isAddingTransaction(true);
+
+    final Either<Failure, Transaction> failureOrTransaction =
+        await updateTransaction(
+      TransactionUpdateRequest(betId: betId, hash: hash),
+    );
+
+    failureOrTransaction.fold<void>(
+      (Failure failure) {
+        isAddingTransaction(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (Transaction transaction) {
+        isAddingTransaction(false);
+        //TODO:(blankson123) think of what to implement here.
       },
     );
   }
@@ -643,6 +723,24 @@ class P2PBetController extends GetxController {
       (List<Bet> value) {
         isFetchingMyBets(false);
         myBets.value = value;
+      },
+    );
+  }
+
+  void getMyTransactions() async {
+    isFetchingTransactions(true);
+
+    final Either<Failure, List<Transaction>> failureOrTransactions =
+        await getUserTransactions(
+            UserRequest(userId: bController.user.value.id));
+
+    failureOrTransactions.fold<void>(
+      (Failure failure) {
+        isFetchingTransactions(false);
+      },
+      (List<Transaction> value) {
+        isFetchingTransactions(false);
+        myTransactions.value = value;
       },
     );
   }

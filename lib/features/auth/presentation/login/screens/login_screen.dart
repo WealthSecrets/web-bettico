@@ -13,10 +13,10 @@ import 'package:footer/footer_view.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../responsiveness/constants/web_controller.dart';
 import '/core/core.dart';
 import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/login/getx/login_controller.dart';
+import '../../../../responsiveness/constants/web_controller.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends GetWidget<LoginController> {

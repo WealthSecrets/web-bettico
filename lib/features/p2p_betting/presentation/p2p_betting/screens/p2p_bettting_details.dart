@@ -7,6 +7,7 @@ import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -274,14 +275,25 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                               widget.bet.amount,
                               failureCallback: () async {
                                 // TODO(blankson): Consider using .then() on futures (send)
-                                final String? actualHash =
+                                final TransactionResponse? response =
                                     await lController.send(context);
-                                if (actualHash != null) {
-                                  controller.addOpponentToBet(
+                                if (response != null) {
+                                  controller.createBetTransaction(
                                     context,
-                                    widget.bet,
-                                    lController.walletAddress.value,
-                                    actualHash,
+                                    betId: widget.bet.id,
+                                    convertedAmount:
+                                        lController.convertedAmount.value,
+                                    wallet: lController.walletAddress.value,
+                                    txthash: response.hash,
+                                    convertedToken:
+                                        lController.selectedCurrency.value,
+                                    time: response.timestamp,
+                                    callback: () => controller.addOpponentToBet(
+                                      context,
+                                      widget.bet,
+                                      lController.walletAddress.value,
+                                      response.hash,
+                                    ),
                                   );
                                 }
                               },
@@ -295,14 +307,14 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                               },
                             );
                           } else if (controller.paymentType.value == 'wallet') {
-                            final String? actualHash =
+                            final TransactionResponse? response =
                                 await lController.send(context);
-                            if (actualHash != null) {
+                            if (response != null) {
                               controller.addOpponentToBet(
                                 context,
                                 widget.bet,
                                 lController.walletAddress.value,
-                                actualHash,
+                                response.hash,
                               );
                             }
                           } else {

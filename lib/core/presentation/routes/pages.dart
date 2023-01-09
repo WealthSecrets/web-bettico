@@ -6,6 +6,7 @@ import 'package:betticos/features/auth/presentation/register/screens/registratio
 import 'package:betticos/features/betticos/presentation/report/screens/report_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_betting_history_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_transaction_history_screen.dart';
 import 'package:get/get.dart';
 
 import '/core/presentation/routes/app_routes.dart';
@@ -85,7 +86,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.home,
-      page: () => HomeBaseScreen(),
+      page: () => const HomeBaseScreen(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.report,
@@ -94,6 +95,10 @@ class Pages {
     GetPage<AppRoutes>(
       name: AppRoutes.p2pBettingHistory,
       page: () => const P2PBettingHistoryScreen(),
+    ),
+    GetPage<AppRoutes>(
+      name: AppRoutes.transactions,
+      page: () => const TransactionHistoryScreen(),
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.p2pSuccess,

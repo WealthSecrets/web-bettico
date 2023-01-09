@@ -12,6 +12,7 @@ import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -184,6 +185,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                       ),
                     ),
                     const AppSpacing(v: 8),
+                    // TODO:(blankson) add debounce to await user typing before you convert
                     AppTextInput(
                       labelText: 'AMOUNT (USD)',
                       textInputType: TextInputType.number,
@@ -268,41 +270,55 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             user.bonus != null &&
                             (user.bonus! >= controller.amount.value)) {
                           bController.increaseDecreaseUserBonus(
-                              context, 'decrease', controller.amount.value,
-                              failureCallback: () async {
-                            final String? actualHash =
-                                await lController.send(context);
+                            context,
+                            'decrease',
+                            controller.amount.value,
+                            failureCallback: () async {
+                              // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
+                              final TransactionResponse? response =
+                                  await lController.send(context);
 
-                            if (actualHash != null) {
-                              controller.addNewBet(
+                              if (response != null) {
+                                controller.addNewBet(
+                                  context,
+                                  lController.walletAddress.value,
+                                  response.hash,
+                                );
+                              }
+                            },
+                            successCallback: () {
+                              AppSnacks.show(
+                                context,
+                                message: 'Bet amount deducted from bonus.',
+                                leadingIcon: Icon(
+                                  Ionicons.checkmark_circle,
+                                  size: 24,
+                                  color: context.colors.success,
+                                ),
+                                backgroundColor: context.colors.success,
+                              );
+                              controller.addNewBet(context,
+                                  lController.walletAddress.value, 'bonus');
+                            },
+                          );
+                        } else if (controller.paymentType.value == 'wallet') {
+                          final TransactionResponse? response =
+                              await lController.send(context);
+                          if (response != null) {
+                            controller.createBetTransaction(
+                              context,
+                              convertedAmount:
+                                  lController.convertedAmount.value,
+                              wallet: lController.walletAddress.value,
+                              txthash: response.hash,
+                              convertedToken:
+                                  lController.selectedCurrency.value,
+                              time: response.timestamp,
+                              callback: () => controller.addNewBet(
                                 context,
                                 lController.walletAddress.value,
-                                actualHash,
-                              );
-                            }
-                          }, successCallback: () {
-                            AppSnacks.show(
-                              context,
-                              message: 'Bet amount deducted from bonus.',
-                              leadingIcon: Icon(
-                                Ionicons.checkmark_circle,
-                                size: 24,
-                                color: context.colors.success,
+                                response.hash,
                               ),
-                              backgroundColor: context.colors.success,
-                            );
-                            controller.addNewBet(context,
-                                lController.walletAddress.value, 'bonus');
-                          });
-                        } else if (controller.paymentType.value == 'wallet') {
-                          final String? actualHash =
-                              await lController.send(context);
-
-                          if (actualHash != null) {
-                            controller.addNewBet(
-                              context,
-                              lController.walletAddress.value,
-                              actualHash,
                             );
                           }
                         } else {

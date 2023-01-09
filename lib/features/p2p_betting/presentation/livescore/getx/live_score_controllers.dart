@@ -163,7 +163,7 @@ class LiveScoreController extends GetxController {
     update();
   }
 
-  Future<String?> send(BuildContext context) async {
+  Future<TransactionResponse?> send(BuildContext context) async {
     showLoadingLogo.value = true;
 
     final double amount = convertedAmount * 1000000000 * 1000000000;
@@ -178,6 +178,8 @@ class LiveScoreController extends GetxController {
 
       final ContractERC20 token =
           ContractERC20(tokenAddress, web3wc!.getSigner());
+
+      // TODO(blankson123): find a better way to handle callbacks for payments
       // ignore: unawaited_futures
       AppSnacks.show(
         context,
@@ -191,13 +193,13 @@ class LiveScoreController extends GetxController {
         ),
       );
 
-      final TransactionResponse tx = await token.transfer(
+      final TransactionResponse response = await token.transfer(
         depositAddress,
         BigInt.from(amount.round()),
       );
 
       showLoadingLogo.value = false;
-      return tx.hash;
+      return response;
     } catch (e) {
       showLoadingLogo.value = false;
       await AppSnacks.show(context,
