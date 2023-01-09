@@ -9,11 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../domain/requests/user/user_device_request.dart';
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/domain/usecases/load_user.dart';
 import '../../../domain/requests/follow/user_request.dart';
+import '../../../domain/requests/user/user_device_request.dart';
 import '../../../domain/usecases/follow/get_my_followers.dart';
 import '../../../domain/usecases/follow/get_my_followings.dart';
 
@@ -70,7 +70,6 @@ class BaseScreenController extends GetxController {
     void Function()? failureCallback,
     void Function()? successCallback,
   }) async {
-    print('Is updating user bonus.....');
     isUpdatingUserBonus.value = true;
     final Either<Failure, User> failureOrUser = await updateUserBonus(
       UserBonusRequest(

@@ -5,9 +5,12 @@ import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_ma
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
+import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
 
 import '../../../betticos/data/models/listpage/listpage.dart';
 import '../../domain/requests/bet/update_bet_payout_request.dart';
@@ -32,8 +35,13 @@ abstract class P2pRemoteDataSource {
 
   Future<Bet> addBet({required BetRequest request});
 
+  Future<Transaction> addTransaction({required TransactionRequest request});
+
   Future<Bet> updateBet(
       {required BetUpdateRequest request, required String betId});
+
+  Future<Transaction> updateTransaction(
+      {required TransactionUpdateRequest request, required String hash});
 
   Future<Bet> updateBetStatusScore({
     required UpdateBetStatusScoreRequest request,
@@ -50,6 +58,12 @@ abstract class P2pRemoteDataSource {
   Future<List<Bet>> fetchStatusBets(String status);
 
   Future<List<Bet>> fetchMyBets(String status);
+
+  Future<List<Transaction>> fetchMyTransactions(String userId);
+
+  Future<List<Transaction>> fetchMyDeposits(String userId);
+
+  Future<List<Transaction>> fetchMyWithdrawals(String userId);
 
   Future<SoccerMatch?> getFixture(
     String apiKey,

@@ -1,8 +1,12 @@
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/p2p_betting/data/endpoints/transaction_endpoints.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
+import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
 
 import '/core/utils/http_client.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
@@ -180,6 +184,16 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
+  Future<Transaction> addTransaction(
+      {required TransactionRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(
+      P2pEndpoints.transactions,
+      body: request.toJson(),
+    );
+    return Transaction.fromJson(json);
+  }
+
+  @override
   Future<Bet> updateBet(
       {required BetUpdateRequest request, required String betId}) async {
     final Map<String, dynamic> json = await _client.patch(
@@ -187,6 +201,16 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
       body: request.toJson(),
     );
     return Bet.fromJson(json['data'] as Map<String, dynamic>);
+  }
+
+  @override
+  Future<Transaction> updateTransaction(
+      {required TransactionUpdateRequest request, required String hash}) async {
+    final Map<String, dynamic> json = await _client.patch(
+      P2pEndpoints.updateTransaction(hash),
+      body: request.toJson(),
+    );
+    return Transaction.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
@@ -264,6 +288,39 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
       items.map<Bet>(
         (dynamic json) => Bet.fromJson(json as Map<String, dynamic>),
       ),
+    );
+  }
+
+  @override
+  Future<List<Transaction>> fetchMyTransactions(String userId) async {
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userTransactions(userId));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Transaction>.from(
+      items.map<Transaction>(
+          (dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
+    );
+  }
+
+  @override
+  Future<List<Transaction>> fetchMyWithdrawals(String userId) async {
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userWithdrawals(userId));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Transaction>.from(
+      items.map<Transaction>(
+          (dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
+    );
+  }
+
+  @override
+  Future<List<Transaction>> fetchMyDeposits(String userId) async {
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userDeposits(userId));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Transaction>.from(
+      items.map<Transaction>(
+          (dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
     );
   }
 

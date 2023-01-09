@@ -73,6 +73,17 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                   }
                 }
               },
+              actions: <Widget>[
+                IconButton(
+                  icon: Image.asset(
+                    AssetImages.transactionHisotry,
+                    color: Colors.black,
+                    height: 24,
+                    width: 24,
+                  ),
+                  onPressed: () => Get.toNamed<void>(AppRoutes.transactions),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),

@@ -5,6 +5,7 @@ import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_ma
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
+import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bettor_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:dartz/dartz.dart';
@@ -90,10 +91,32 @@ abstract class P2pRepository {
     bool? isFixture,
   });
 
+  Future<Either<Failure, Transaction>> addTransaction({
+    String? betId,
+    required String userId,
+    required String type,
+    required double amount,
+    required double convertedAmount,
+    required String transactionHash,
+    required String walletAddress,
+    required String description,
+    required String status,
+    required String token,
+    required String convertedToken,
+    DateTime? time,
+    String? provider,
+    double? gas,
+  });
+
   Future<Either<Failure, Bet>> updateBet({
     required String betId,
     required String status,
     required BettorRequest opponent,
+  });
+
+  Future<Either<Failure, Transaction>> updateTransaction({
+    required String hash,
+    required String betId,
   });
 
   Future<Either<Failure, Bet>> updateBetStatusScore({
@@ -128,4 +151,6 @@ abstract class P2pRepository {
   Future<Either<Failure, List<Bet>>> fetchStatusBets(String status);
 
   Future<Either<Failure, List<Bet>>> fetchMyBets(String status);
+
+  Future<Either<Failure, List<Transaction>>> fetchMyTransactions(String userId);
 }

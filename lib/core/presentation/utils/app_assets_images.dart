@@ -19,4 +19,7 @@ class AssetImages {
   static String google = 'assets/images/google.png';
   static String walletConnect = 'assets/images/walletconnect.png';
   static String betting = 'assets/images/betting.png';
+  static String transactionHisotry = 'assets/images/transaction_history.png';
+  static String deposit = 'assets/images/deposit.png';
+  static String withdrawal = 'assets/images/withdrawal.png';
 }

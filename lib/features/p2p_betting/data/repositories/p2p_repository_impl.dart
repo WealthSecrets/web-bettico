@@ -5,12 +5,15 @@ import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
+import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/bet_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_status_score_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
@@ -130,6 +133,44 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       );
 
   @override
+  Future<Either<Failure, Transaction>> addTransaction({
+    String? betId,
+    required String userId,
+    required String type,
+    required double amount,
+    required double convertedAmount,
+    required String transactionHash,
+    required String walletAddress,
+    required String description,
+    required String status,
+    required String token,
+    required String convertedToken,
+    DateTime? time,
+    String? provider,
+    double? gas,
+  }) =>
+      makeRequest(
+        p2pRemoteDataSource.addTransaction(
+          request: TransactionRequest(
+            amount: amount,
+            betId: betId,
+            userId: userId,
+            type: type,
+            description: description,
+            transactionHash: transactionHash,
+            walletAddress: walletAddress,
+            status: status,
+            provider: provider,
+            convertedAmount: convertedAmount,
+            convertedToken: convertedToken,
+            token: token,
+            gas: gas,
+            time: time,
+          ),
+        ),
+      );
+
+  @override
   Future<Either<Failure, Bet>> updateBet({
     required String betId,
     required String status,
@@ -139,6 +180,18 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
         p2pRemoteDataSource.updateBet(
           request: BetUpdateRequest(opponent: opponent, status: status),
           betId: betId,
+        ),
+      );
+
+  @override
+  Future<Either<Failure, Transaction>> updateTransaction({
+    required String hash,
+    required String betId,
+  }) =>
+      makeRequest(
+        p2pRemoteDataSource.updateTransaction(
+          request: TransactionUpdateRequest(betId: betId),
+          hash: hash,
         ),
       );
 
@@ -193,6 +246,11 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, List<Bet>>> fetchMyBets(String status) =>
       makeRequest(p2pRemoteDataSource.fetchMyBets(status));
+
+  @override
+  Future<Either<Failure, List<Transaction>>> fetchMyTransactions(
+          String userId) =>
+      makeRequest(p2pRemoteDataSource.fetchMyTransactions(userId));
 
   @override
   Future<Either<Failure, List<Network>>> fetchCryptoNetworks() =>

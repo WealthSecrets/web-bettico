@@ -33,6 +33,7 @@ class AppRoutes {
   static const String livescore = '/livescore';
   static const String p2pBetting = '/p2pBetting';
   static const String p2pBettingHistory = '/bets';
+  static const String transactions = '/transactions';
   static const String p2pSuccess = '/success';
   static const String p2pBetDetails = '/p2pBetDetails';
   static const String testPage = '/testPage';
