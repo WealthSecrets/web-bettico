@@ -13,11 +13,8 @@ import '../../livescore/widgets/chip.dart';
 class P2PBettingCard extends StatefulWidget {
   const P2PBettingCard({
     Key? key,
-    // this.match,
-    // this.fixture,
     required this.awayTeam,
     required this.homeTeam,
-    // required this.score,
     required this.localTeamScore,
     required this.visitorTeamScore,
     this.time,
@@ -27,11 +24,8 @@ class P2PBettingCard extends StatefulWidget {
     this.onHomePressed,
   }) : super(key: key);
 
-  // final SoccerMatch? match;
-  // final Fixture? fixture;
   final Team awayTeam;
   final Team homeTeam;
-  // final String score;
   final int localTeamScore;
   final int visitorTeamScore;
   final Time? time;
@@ -47,12 +41,8 @@ class P2PBettingCard extends StatefulWidget {
 class _P2PBettingCardState extends State<P2PBettingCard> {
   final P2PBetController p2pBetController = Get.find<P2PBetController>();
 
-  // List<String> score = <String>[];
-
   @override
   Widget build(BuildContext context) {
-    // score = widget.score.split(' ');
-
     return Container(
       padding: AppPaddings.lV.add(AppPaddings.sH),
       width: MediaQuery.of(context).size.width,

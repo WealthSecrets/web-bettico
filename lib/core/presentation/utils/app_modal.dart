@@ -1,7 +1,11 @@
+import 'package:betticos/core/presentation/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+
 import '/core/core.dart';
+import '../../../features/p2p_betting/data/models/transaction/transaction.dart';
 
 Future<T?> showAppModal<T>({
   required BuildContext context,
@@ -449,6 +453,193 @@ class AppTextDailogModal extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class AppTransactionDailog extends StatelessWidget {
+  const AppTransactionDailog({
+    Key? key,
+    required this.transaction,
+    this.onPressed,
+  }) : super(key: key);
+
+  final Transaction transaction;
+  final Function()? onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: AppBorderRadius.largeAll,
+      child: Container(
+        margin: AppPaddings.lA,
+        decoration: BoxDecoration(
+          color: context.colors.background,
+          borderRadius: AppBorderRadius.largeAll,
+        ),
+        padding: AppPaddings.lA,
+        child: AppAnimatedColumn(
+          delay: const Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 1000),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    transaction.description,
+                    style: TextStyle(
+                      color: context.colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(
+                    Ionicons.close_sharp,
+                    size: 20,
+                    color: context.colors.error,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Divider(color: context.colors.faintGrey),
+            const SizedBox(height: 4),
+            FieldDisplay(
+              leadingTitle: 'Status',
+              trailingTitle: 'Date',
+              leadingSubtitle:
+                  StringUtils.capitalizeFirst(transaction.status.stringValue),
+              trailingSubtitle: DateFormat('d MMM, yy at hh:mm aaa')
+                  .format(transaction.createdAt),
+              leadingColor: transaction.status.color(context),
+            ),
+            const SizedBox(height: 4),
+            Divider(color: context.colors.faintGrey),
+            const SizedBox(height: 4),
+            FieldDisplay(
+              leadingTitle: 'Amount',
+              trailingTitle: 'Converted Amount',
+              leadingSubtitle:
+                  '${transaction.amount.toString()} ${transaction.token.toUpperCase()}',
+              trailingSubtitle:
+                  '${transaction.convertedAmount.toString()} ${transaction.convertedToken.toUpperCase()}',
+            ),
+            const SizedBox(height: 4),
+            Divider(color: context.colors.faintGrey),
+            const SizedBox(height: 4),
+            FieldDisplay(
+              leadingTitle: 'Wallet Address',
+              leadingSubtitle: transaction.walletAddress,
+            ),
+            const SizedBox(height: 4),
+            Divider(color: context.colors.faintGrey),
+            const SizedBox(height: 4),
+            FieldDisplay(
+              leadingTitle: 'Txn Hash',
+              leadingSubtitle: transaction.transactionHash,
+            ),
+            const SizedBox(height: 30),
+            AppButton(
+              onPressed: () {
+                onPressed?.call();
+              },
+              child: const Text(
+                'View on Bscscan',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FieldDisplay extends StatelessWidget {
+  const FieldDisplay({
+    Key? key,
+    required this.leadingTitle,
+    this.leadingColor,
+    this.trailingTitle,
+    required this.leadingSubtitle,
+    this.trailingSubtitle,
+  }) : super(key: key);
+
+  final String leadingTitle;
+  final Color? leadingColor;
+  final String? trailingTitle;
+  final String leadingSubtitle;
+  final String? trailingSubtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: SizedBox(
+            height: 40,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  leadingTitle,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: context.colors.text,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  leadingSubtitle,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: leadingColor ?? context.colors.text,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (trailingTitle != null && trailingSubtitle != null)
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    trailingTitle!,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: context.colors.text,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    trailingSubtitle!,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: context.colors.text,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+      ],
     );
   }
 }
