@@ -267,10 +267,13 @@ class P2PBetController extends GetxController {
   void createBetTransaction(
     BuildContext context, {
     String? betId,
+    required double amount,
     required double convertedAmount,
     required String wallet,
     required String txthash,
     required String convertedToken,
+    required String type,
+    required String description,
     DateTime? time,
     String? provider,
     double? gas,
@@ -283,12 +286,12 @@ class P2PBetController extends GetxController {
       TransactionRequest(
         betId: betId,
         userId: bController.user.value.id,
-        amount: amount.value,
+        amount: amount,
         status: 'successful',
-        description: 'Bet Creation',
+        description: description,
         transactionHash: txthash,
         walletAddress: wallet,
-        type: 'deposit',
+        type: type,
         provider: provider,
         time: time,
         convertedAmount: convertedAmount,
@@ -447,8 +450,12 @@ class P2PBetController extends GetxController {
     );
   }
 
-  void closePayout(
-      {required String betId, required String txthash, bool? isMyBets}) async {
+  void closePayout({
+    required String betId,
+    required String txthash,
+    bool? isMyBets,
+    Function()? callback,
+  }) async {
     isClosingPayout(true);
 
     closingBetID.add(betId);
@@ -472,6 +479,7 @@ class P2PBetController extends GetxController {
       (Bet value) {
         isClosingPayout(false);
         closingBetID.remove(betId);
+        callback?.call();
         if (isMyBets ?? false) {
           final List<Bet> betCopy = List<Bet>.from(myBets);
           final int valueIndex =

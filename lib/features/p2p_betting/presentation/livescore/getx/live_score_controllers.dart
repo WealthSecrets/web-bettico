@@ -208,7 +208,7 @@ class LiveScoreController extends GetxController {
     }
   }
 
-  Future<String?> payout(
+  Future<TransactionResponse?> payout(
     BuildContext context,
     String winningAddress,
     double payoutAmount,
@@ -235,14 +235,14 @@ class LiveScoreController extends GetxController {
     final ContractERC20 token = ContractERC20(tokenAddress, walletProvider);
 
     try {
-      final TransactionResponse tx = await token.transfer(
+      final TransactionResponse response = await token.transfer(
         winningAddress,
         BigInt.from(amount.round()),
       );
 
       closingBetID.remove(betId);
       showLoadingLogo.value = false;
-      return tx.hash;
+      return response;
     } catch (e) {
       showLoadingLogo.value = false;
       await AppSnacks.show(context, message: 'Sorry, cashout failed');
@@ -442,6 +442,8 @@ class LiveScoreController extends GetxController {
     if (betId != null) {
       closingBetID.add(betId);
     }
+
+    setSelectedCurrency(currency);
 
     final Either<Failure, Volume> failureOrVolume =
         await convertAmountToCurrency(

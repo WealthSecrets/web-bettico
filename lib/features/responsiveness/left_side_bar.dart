@@ -310,7 +310,6 @@ class _LeftSideBarState extends State<LeftSideBar> {
       builder: (BuildContext context) => Center(
         child: SizedBox(
           width: 500,
-          height: 400,
           child: AppOptionDialogueModal(
             modalContext: context,
             title: 'logout'.tr,

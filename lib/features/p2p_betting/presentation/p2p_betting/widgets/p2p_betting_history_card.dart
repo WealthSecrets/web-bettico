@@ -501,7 +501,7 @@ void cashout(
     await AppSnacks.show(
       context,
       message: 'Cashout initiated, please wait...',
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 500),
       backgroundColor: context.colors.success,
       leadingIcon: const Icon(
         Ionicons.checkmark_done_sharp,
@@ -518,22 +518,37 @@ void cashout(
       theAmount,
       betId: bet.id,
       successCallback: (double amount) async {
-        final String? txthash = await lController.payout(
+        final TransactionResponse? response = await lController.payout(
           context,
           walletAddress,
           lController.convertedAmount.value,
           bet.id,
         );
-
-        if (txthash != null) {
-          await AppSnacks.show(
-            context,
-            message: 'Cashout successful.',
-            backgroundColor: context.colors.success,
-          );
-
+        if (response != null) {
           p2pBetController.closePayout(
-              betId: bet.id, txthash: txthash, isMyBets: isMyBet);
+            betId: bet.id,
+            txthash: response.hash,
+            isMyBets: isMyBet,
+            callback: () {
+              p2pBetController.createBetTransaction(
+                context,
+                convertedAmount: amount,
+                description: 'Bet Cashout',
+                type: 'withdrawal',
+                betId: bet.id,
+                amount: bet.amount,
+                wallet: lController.walletAddress.value,
+                txthash: response.hash,
+                convertedToken: lController.selectedCurrency.value,
+                time: response.timestamp,
+                callback: () => AppSnacks.show(
+                  context,
+                  message: 'Cashout successful.',
+                  backgroundColor: context.colors.success,
+                ),
+              );
+            },
+          );
         }
       },
       failureCallback: () => AppSnacks.show(

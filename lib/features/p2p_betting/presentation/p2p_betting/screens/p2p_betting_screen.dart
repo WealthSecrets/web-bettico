@@ -297,8 +297,11 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                                 ),
                                 backgroundColor: context.colors.success,
                               );
-                              controller.addNewBet(context,
-                                  lController.walletAddress.value, 'bonus');
+                              controller.addNewBet(
+                                context,
+                                lController.walletAddress.value,
+                                'bonus',
+                              );
                             },
                           );
                         } else if (controller.paymentType.value == 'wallet') {
@@ -309,6 +312,9 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                               context,
                               convertedAmount:
                                   lController.convertedAmount.value,
+                              amount: controller.amount.value,
+                              description: 'Bet Creation',
+                              type: 'deposit',
                               wallet: lController.walletAddress.value,
                               txthash: response.hash,
                               convertedToken:

@@ -281,6 +281,9 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                   controller.createBetTransaction(
                                     context,
                                     betId: widget.bet.id,
+                                    amount: widget.bet.amount,
+                                    description: 'Bet Acceptance',
+                                    type: 'deposit',
                                     convertedAmount:
                                         lController.convertedAmount.value,
                                     wallet: lController.walletAddress.value,
