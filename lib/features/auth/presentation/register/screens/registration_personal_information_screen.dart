@@ -16,7 +16,8 @@ class RegistrationPersonalInformationScreen
     return Obx(
       () => AppLoadingBox(
         loading: controller.isAddingPersonalInformation.value ||
-            controller.isSendingSms.value,
+            controller.isSendingSms.value ||
+            controller.isCreatingOkxAccount.value,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,

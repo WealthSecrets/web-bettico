@@ -4,6 +4,9 @@ import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
+import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
@@ -41,6 +44,7 @@ class RegisterController extends GetxController {
     required this.updateProfile,
     required this.sendSms,
     required this.uploadIdentifcation,
+    required this.createSubAccount,
     required this.updateUserProfilePhoto,
     required this.updateUserRole,
   });
@@ -52,6 +56,7 @@ class RegisterController extends GetxController {
   final SendSms sendSms;
   final UploadIdentifcation uploadIdentifcation;
   final UpdateUserProfilePhoto updateUserProfilePhoto;
+  final CreateSubAccount createSubAccount;
   final UpdateUserRole updateUserRole;
   final VerifyUser verifyUser;
 
@@ -76,10 +81,12 @@ class RegisterController extends GetxController {
   RxString otpCode = ''.obs;
   RxString identificationType = 'Passport'.obs;
   RxString identificationNumber = ''.obs;
+  RxString okxUsername = ''.obs;
   Rx<DateTime> expiryDate = DateTime.now().obs;
   RxDouble uploadPercentage = 0.0.obs;
   Rx<Uint8List> docImage = Uint8List.fromList(<int>[]).obs;
   Rx<Uint8List> profileImage = Uint8List.fromList(<int>[]).obs;
+  RxBool useUsername = false.obs;
 
   // loading values
   RxBool isRegisteringUser = false.obs;
@@ -90,6 +97,7 @@ class RegisterController extends GetxController {
   RxBool isAddingProfileImage = false.obs;
   RxBool isUpdatingUserRole = false.obs;
   RxBool isCheckingUserExistence = false.obs;
+  RxBool isCreatingOkxAccount = false.obs;
 
   // enums reactive variables
   Rx<AccountType> accountType = AccountType.personal.obs;
@@ -151,7 +159,7 @@ class RegisterController extends GetxController {
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        Get.offNamed<void>(AppRoutes.documentScreen);
+        Get.offNamed<void>(AppRoutes.home);
       }
     });
   }
@@ -251,6 +259,10 @@ class RegisterController extends GetxController {
     }
   }
 
+  void toggleOkxUsername(bool checked) {
+    useUsername(checked);
+  }
+
   void updateTheUserProfilePhoto(BuildContext context) async {
     isAddingProfileImage(true);
 
@@ -309,6 +321,27 @@ class RegisterController extends GetxController {
     );
   }
 
+  void createOkxAccount(BuildContext context, String? uname) async {
+    isCreatingOkxAccount(true);
+
+    final Either<Failure, OkxAccount> failureOrUser = await createSubAccount(
+        CreateSubAccountRequest(subAccount: uname ?? username.value));
+
+    failureOrUser.fold(
+      (Failure failure) {
+        isCreatingOkxAccount(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (OkxAccount _) {
+        isCreatingOkxAccount(false);
+        Get.toNamed<void>(
+          AppRoutes.otpVerifyPhone,
+          arguments: OTPVerificationScreenArgument(user: _.user),
+        );
+      },
+    );
+  }
+
   void updateRole(BuildContext context) async {
     isUpdatingUserRole(true);
 
@@ -350,10 +383,8 @@ class RegisterController extends GetxController {
       (User us) {
         isAddingPersonalInformation(false);
         baseScreenController.updateTheUser(us);
-        Get.toNamed<void>(
-          AppRoutes.otpVerifyPhone,
-          arguments: OTPVerificationScreenArgument(user: us),
-        );
+
+        createOkxAccount(context, us.username);
       },
     );
   }
@@ -376,6 +407,10 @@ class RegisterController extends GetxController {
 
   void onLastNameInputChanged(String value) {
     lastName(value.trim());
+  }
+
+  void onOkxUsernameInputChanged(String value) {
+    okxUsername(value.trim());
   }
 
   void onDateOfBirthInputChanged(DateTime value) {
@@ -493,6 +528,17 @@ class RegisterController extends GetxController {
     }
     if (username.length < 3) {
       errorMessage = 'Username should be at least 3 characters';
+    }
+    return errorMessage;
+  }
+
+  String? validateOkxUsername(String? username) {
+    String? errorMessage;
+    if (username!.isEmpty) {
+      errorMessage = 'Please enter username';
+    }
+    if (username.length < 6) {
+      errorMessage = 'Username should be at least 6 characters';
     }
     return errorMessage;
   }

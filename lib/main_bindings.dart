@@ -5,6 +5,10 @@ import 'package:betticos/features/betticos/data/data_sources/betticos_remote_dat
 import 'package:betticos/features/betticos/data/repositories/betticos_repository_impl.dart';
 import 'package:betticos/features/betticos/domain/repositories/betticos_repository.dart';
 import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_bindings.dart';
+import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
+import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources_impl.dart';
+import 'package:betticos/features/okx_swap/data/repositories/okx_repository_impl.dart';
+import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
 import 'package:betticos/features/onboarding_splash/data/data_sources/onboard_local_data_source.dart';
 import 'package:betticos/features/onboarding_splash/data/repositories/onboard_repository_impl.dart';
 import 'package:betticos/features/onboarding_splash/domain/repositories/onboard_repository.dart';
@@ -184,6 +188,11 @@ class MainBindings {
       permanent: true,
     );
 
+    Get.put<OkxRemoteDataSources>(
+      OkxRemoteDataSourcesImpl(client: Get.find()),
+      permanent: true,
+    );
+
     Get.put<OnBoardRepository>(
       OnBoardRepositoryImpl(
         onBoardLocalDataSource: Get.find(),
@@ -217,6 +226,13 @@ class MainBindings {
     Get.put<P2pRepository>(
       P2pRepositoryImpl(
         p2pRemoteDataSource: Get.find(),
+      ),
+      permanent: true,
+    );
+
+    Get.put<OkxRepository>(
+      OkxRepositoryImpl(
+        okxRemoteDataSources: Get.find(),
       ),
       permanent: true,
     );

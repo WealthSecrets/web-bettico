@@ -2,6 +2,7 @@
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -225,6 +226,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 Get.toNamed<void>(AppRoutes.accountType);
                               } else {
                                 Get.offAllNamed<void>(AppRoutes.home);
+                                menuController
+                                    .changeActiveItemTo(AppRoutes.home);
                               }
                             }
                           },
