@@ -1,4 +1,5 @@
 import 'package:betticos/features/okx_swap/data/endpoints/okx_endpoints.dart';
+import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
 
@@ -18,5 +19,34 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
       body: request.toJson(),
     );
     return OkxAccount.fromJson(json);
+  }
+
+  @override
+  Future<OkxAccount> getOkxAccount() async {
+    final Map<String, dynamic> json =
+        await _client.get(OkxEndpoints.okxAccount);
+    return OkxAccount.fromJson(json);
+  }
+
+  @override
+  Future<List<Currency>> fetchAssetCurrencies() async {
+    final Map<String, dynamic> json =
+        await _client.get(OkxEndpoints.assetCurrencies);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Currency>.from(
+      items.map<Currency>(
+          (dynamic json) => Currency.fromJson(json as Map<String, dynamic>)),
+    );
+  }
+
+  @override
+  Future<List<Currency>> fetchConvertCurrencies() async {
+    final Map<String, dynamic> json =
+        await _client.get(OkxEndpoints.currencies);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Currency>.from(
+      items.map<Currency>(
+          (dynamic json) => Currency.fromJson(json as Map<String, dynamic>)),
+    );
   }
 }

@@ -14,4 +14,5 @@ class OkxEndpoints {
   static const String convertTrade = 'okx/asset/convert/trade';
   static const String convertHistory = 'okx/asset/convert/history';
   static const String assetCurrencies = 'okx/asset/currencies';
+  static const String okxAccount = 'okx/user';
 }

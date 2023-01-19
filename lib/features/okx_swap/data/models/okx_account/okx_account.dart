@@ -16,7 +16,7 @@ class OkxAccount with _$OkxAccount {
       String? secretkey,
       String? apiKey,
       @JsonKey(name: 'label') String? label,
-      @JsonKey(name: 'addresses') List<OkxAddress>? addresses,
+      @JsonKey(name: 'addresses') required List<OkxAddress> addresses,
       @JsonKey(name: 'subAcct') required String subAccount,
       @JsonKey(name: 'uid') String? uniqueID,
       @JsonKey(name: 'ts') String? timeStamp}) = _OkxAccount;
@@ -27,8 +27,16 @@ class OkxAccount with _$OkxAccount {
       _$OkxAccountFromJson(json);
 
   factory OkxAccount.mock() => OkxAccount(
-      accountLevel: '1', subAccount: 'brokerTest5', user: User.mock());
+        accountLevel: '1',
+        subAccount: 'brokerTest5',
+        user: User.mock(),
+        addresses: <OkxAddress>[],
+      );
 
-  factory OkxAccount.empty() =>
-      OkxAccount(accountLevel: '', subAccount: '', user: User.empty());
+  factory OkxAccount.empty() => OkxAccount(
+        accountLevel: '',
+        subAccount: '',
+        user: User.empty(),
+        addresses: <OkxAddress>[],
+      );
 }

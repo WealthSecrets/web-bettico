@@ -22,4 +22,10 @@ class AssetImages {
   static String transactionHisotry = 'assets/images/transaction_history.png';
   static String deposit = 'assets/images/deposit.png';
   static String withdrawal = 'assets/images/withdrawal.png';
+  static String tansactionHistory = 'assets/images/trans-history.png';
+  static String convert = 'assets/images/convert.png';
+  static String bitcoinWallet = 'assets/images/bitcoin-wallet.png';
+  static String wallet = 'assets/images/wallet.png';
+  static String upDown = 'assets/images/up-down.png';
+  static String copyFile = 'assets/images/copy.png';
 }

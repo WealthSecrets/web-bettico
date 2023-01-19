@@ -1,4 +1,5 @@
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
+import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
 import 'package:dartz/dartz.dart';
@@ -26,4 +27,16 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
           ),
         ),
       );
+
+  @override
+  Future<Either<Failure, OkxAccount>> getOkxAccount() =>
+      makeRequest(okxRemoteDataSources.getOkxAccount());
+
+  @override
+  Future<Either<Failure, List<Currency>>> fetchAssetCurrencies() =>
+      makeRequest(okxRemoteDataSources.fetchAssetCurrencies());
+
+  @override
+  Future<Either<Failure, List<Currency>>> fetchConvertCurrencies() =>
+      makeRequest(okxRemoteDataSources.fetchAssetCurrencies());
 }

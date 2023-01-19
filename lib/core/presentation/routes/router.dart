@@ -2,6 +2,9 @@ import 'package:betticos/features/betticos/presentation/members/screens/members_
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +31,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const TimelineScreen(), settings);
     case AppRoutes.referral:
       return _getPageRoute(const ReferralScreen(), settings);
+    case AppRoutes.convertCrypto:
+      return _getPageRoute(const ConvertCryptoScreen(), settings);
+    case AppRoutes.okxOptions:
+      return _getPageRoute(const OkxOptionsScreen(), settings);
+    case AppRoutes.walletAddresses:
+      return _getPageRoute(const AddressesScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
