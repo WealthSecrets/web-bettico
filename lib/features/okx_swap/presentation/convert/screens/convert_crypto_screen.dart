@@ -19,7 +19,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
   late final TextEditingController toController;
 
   final OkxController controller = Get.find<OkxController>();
-  List<Currency> options = [];
+  List<Currency> options = <Currency>[];
 
   @override
   void initState() {

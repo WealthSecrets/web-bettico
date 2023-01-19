@@ -4,7 +4,9 @@ import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.d
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/option_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class AddressesScreen extends StatefulWidget {
   const AddressesScreen({
@@ -56,7 +58,20 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                   subtitle: address.address,
                   backgroundColor: const Color(0xFFAA7503).withOpacity(.2),
                   onPressed: () {},
-                  onCopy: () {},
+                  onCopy: () {
+                    Clipboard.setData(ClipboardData(text: address.address));
+
+                    AppSnacks.show(
+                      context,
+                      message: 'Address copied to clipboard',
+                      backgroundColor: context.colors.success,
+                      leadingIcon: const Icon(
+                        Ionicons.checkmark_circle_sharp,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    );
+                  },
                 );
               },
               itemCount: addresses.length,
