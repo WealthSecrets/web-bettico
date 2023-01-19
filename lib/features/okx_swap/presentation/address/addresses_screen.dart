@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddressesScreen extends StatefulWidget {
   const AddressesScreen({
@@ -57,7 +58,34 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                   title: address.currency,
                   subtitle: address.address,
                   backgroundColor: const Color(0xFFAA7503).withOpacity(.2),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await showMaterialModalBottomSheet<void>(
+                      bounce: true,
+                      animationCurve: Curves.fastLinearToSlowEaseIn,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          topLeft: Radius.circular(30),
+                        ),
+                      ),
+                      builder: (BuildContext context) {
+                        return ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: MediaQuery.of(context).size.height * .4,
+                            minHeight: MediaQuery.of(context).size.height * .3,
+                          ),
+                          child: const ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                            ),
+                            child: _AddressDetails(),
+                          ),
+                        );
+                      },
+                      context: context,
+                    );
+                  },
                   onCopy: () {
                     Clipboard.setData(ClipboardData(text: address.address));
 
@@ -80,5 +108,14 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
         );
       }),
     );
+  }
+}
+
+class _AddressDetails extends StatelessWidget {
+  const _AddressDetails({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
