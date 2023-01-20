@@ -102,6 +102,15 @@ class _ShareQRViewState extends State<AddressDetails> {
                 ),
               ],
             ),
+          const SizedBox(height: 16),
+          AppTextInput(
+            labelText: 'AMOUNT (${widget.address.currency})',
+            textInputType: const TextInputType.numberWithOptions(decimal: true),
+            onChanged: (String stringAmount) {},
+            validator: (String? amount) {
+              return null;
+            },
+          ),
           const Spacer(),
           Row(
             children: <Widget>[

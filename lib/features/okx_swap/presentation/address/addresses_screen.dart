@@ -73,8 +73,8 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                       builder: (BuildContext context) {
                         return ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxHeight: MediaQuery.of(context).size.height * .65,
-                            minHeight: MediaQuery.of(context).size.height * .5,
+                            maxHeight: MediaQuery.of(context).size.height * .8,
+                            minHeight: MediaQuery.of(context).size.height * .7,
                           ),
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
