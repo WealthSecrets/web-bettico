@@ -27,6 +27,7 @@ class OkxController extends GetxController {
   RxList<Currency> convertCurrencies = <Currency>[].obs;
   RxList<Currency> options = <Currency>[].obs;
   Rx<OkxAccount> myOkxAccount = OkxAccount.empty().obs;
+  RxDouble amount = 0.0.obs;
 
   // loading state
   RxBool isFetchingAssetCurrencies = false.obs;
@@ -121,6 +122,13 @@ class OkxController extends GetxController {
       return false;
     }
     return true;
+  }
+
+  void onAmountChanged(String? value) {
+    if (value != null && value.isNotEmpty) {
+      final double amt = double.parse(value);
+      amount.value = amt;
+    }
   }
 
   void swapCurrencies() {

@@ -1,9 +1,11 @@
 import 'package:barcode/barcode.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.dart';
+import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddressDetails extends StatefulWidget {
@@ -17,6 +19,8 @@ class AddressDetails extends StatefulWidget {
 
 class _ShareQRViewState extends State<AddressDetails> {
   static const double _boxHeight = 200;
+
+  final OkxController controller = Get.find<OkxController>();
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +110,8 @@ class _ShareQRViewState extends State<AddressDetails> {
           AppTextInput(
             labelText: 'AMOUNT (${widget.address.currency})',
             textInputType: const TextInputType.numberWithOptions(decimal: true),
-            onChanged: (String stringAmount) {},
-            validator: (String? amount) {
-              return null;
-            },
+            onChanged: controller.onAmountChanged,
+            validator: (_) => null,
           ),
           const Spacer(),
           Row(
@@ -117,6 +119,7 @@ class _ShareQRViewState extends State<AddressDetails> {
               Expanded(
                 flex: 1,
                 child: AppButton(
+                  enabled: controller.amount.value > 0,
                   padding: EdgeInsets.zero,
                   borderRadius: AppBorderRadius.largeAll,
                   backgroundColor: context.colors.grey,
@@ -135,6 +138,7 @@ class _ShareQRViewState extends State<AddressDetails> {
               Expanded(
                 flex: 1,
                 child: AppButton(
+                  enabled: controller.amount.value > 0,
                   padding: EdgeInsets.zero,
                   borderRadius: AppBorderRadius.largeAll,
                   backgroundColor: context.colors.primary,
