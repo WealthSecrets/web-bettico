@@ -178,10 +178,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                   params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
-                                  args != null &&
-                                          args!.user != null &&
-                                          args!.user!.email != null
-                                      ? args!.user!.email!
+                                  args != null && args!.user != null
+                                      ? args!.user!.email
                                       : controller.email.value,
                                 );
                               } else {

@@ -7,6 +7,7 @@ import '/core/errors/failure.dart';
 abstract class OkxRepository {
   Future<Either<Failure, OkxAccount>> createSubAccount({
     required String subAccount,
+    required String passPhrase,
     String? label,
   });
   Future<Either<Failure, OkxAccount>> getOkxAccount();

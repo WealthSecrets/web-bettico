@@ -17,12 +17,14 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
   @override
   Future<Either<Failure, OkxAccount>> createSubAccount({
     required String subAccount,
+    required String passPhrase,
     String? label,
   }) =>
       makeRequest(
         okxRemoteDataSources.createSubAccount(
           request: CreateSubAccountRequest(
             subAccount: subAccount,
+            passPhrase: passPhrase,
             label: label,
           ),
         ),

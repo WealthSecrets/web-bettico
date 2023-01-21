@@ -170,7 +170,7 @@ class RegisterController extends GetxController {
     final Either<Failure, User> fialureOrSuccess = await verifyEmail(
       VerifyEmailRequest(
         code: otpCode.value,
-        email: u != null && u.email != null ? u.email! : email.value,
+        email: u != null ? u.email : email.value,
       ),
     );
 
@@ -309,6 +309,7 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
+        createOkxAccount(context, _.email.split('@').first, password.value);
         if (isWalletConnect) {
           Get.toNamed<void>(AppRoutes.accountType);
         } else {
@@ -321,11 +322,12 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccount(BuildContext context, String? uname) async {
+  void createOkxAccount(
+      BuildContext context, String username, String passphrase) async {
     isCreatingOkxAccount(true);
 
     final Either<Failure, OkxAccount> failureOrUser = await createSubAccount(
-        CreateSubAccountRequest(subAccount: uname ?? username.value));
+        CreateSubAccountRequest(subAccount: username, passPhrase: passphrase));
 
     failureOrUser.fold(
       (Failure failure) {
@@ -383,8 +385,6 @@ class RegisterController extends GetxController {
       (User us) {
         isAddingPersonalInformation(false);
         baseScreenController.updateTheUser(us);
-
-        createOkxAccount(context, us.username);
       },
     );
   }

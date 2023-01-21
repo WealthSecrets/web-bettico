@@ -13,6 +13,7 @@ class CreateSubAccount implements UseCase<OkxAccount, CreateSubAccountRequest> {
   Future<Either<Failure, OkxAccount>> call(CreateSubAccountRequest params) {
     return okxRepository.createSubAccount(
       subAccount: params.subAccount,
+      passPhrase: params.passPhrase,
       label: params.label,
     );
   }

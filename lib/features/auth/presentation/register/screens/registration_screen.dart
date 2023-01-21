@@ -23,7 +23,8 @@ class RegistrationScreen extends StatelessWidget {
         params != null && params!.toLowerCase() == 'walletconnect';
     return Obx(
       () => AppLoadingBox(
-        loading: registerController.isRegisteringUser.value,
+        loading: registerController.isRegisteringUser.value ||
+            registerController.isCreatingOkxAccount.value,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
