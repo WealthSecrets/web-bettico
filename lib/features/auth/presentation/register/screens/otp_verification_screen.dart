@@ -147,11 +147,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         alignment: Alignment.center,
                         child: Text(
                           'didnt_receive'.tr,
-                          style:
-                              Theme.of(context).textTheme.headline6?.copyWith(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
+                          style: context.h6.copyWith(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ),

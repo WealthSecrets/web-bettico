@@ -138,12 +138,8 @@ class LoginController extends GetxController {
 
   void subRerouting(User user) {
     if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.toNamed<void>(
-        AppRoutes.documentScreen,
-        arguments: UserArgument(
-          user: user,
-        ),
-      );
+      Get.toNamed<void>(AppRoutes.documentScreen,
+          arguments: UserArgument(user: user));
     } else if (user.role == 'oddster' && !user.hasProfileImage) {
       Get.toNamed<void>(AppRoutes.profilePhoto);
     } else {

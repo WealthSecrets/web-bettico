@@ -80,7 +80,9 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                   subtitle: 'Send money into your deposit address',
                   backgroundColor: const Color(0xFF1896A5).withOpacity(.2),
                   iconColor: const Color(0xFF1896A5),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await navigationController.navigateTo(AppRoutes.currencies);
+                  },
                 ),
                 OptionCard(
                   imagePath: AssetImages.withdrawal,

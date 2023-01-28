@@ -1,8 +1,14 @@
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
+import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_request.dart';
+import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_response.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/create_deposit_address.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_asset_currencies.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_convert_currencies.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_okx_account.dart';
+import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,18 +20,21 @@ class OkxController extends GetxController {
     required this.getAssetCurrencies,
     required this.getConvertCurrencies,
     required this.getOkxAccount,
+    required this.createDepositAddress,
   });
 
   //
   final GetAssetCurrencies getAssetCurrencies;
   final GetConvertCurrencies getConvertCurrencies;
   final GetOkxAccount getOkxAccount;
+  final CreateDepositAddress createDepositAddress;
 
   final Rx<Currency> fromCurrency = Currency.mock().obs;
   Rx<Currency> toCurrency = Currency.mock().obs;
   RxList<Currency> assetCurrencies = <Currency>[].obs;
   RxList<Currency> convertCurrencies = <Currency>[].obs;
   RxList<Currency> options = <Currency>[].obs;
+  RxString selectedChain = ''.obs;
   Rx<OkxAccount> myOkxAccount = OkxAccount.empty().obs;
   RxDouble amount = 0.0.obs;
 
@@ -33,7 +42,11 @@ class OkxController extends GetxController {
   RxBool isFetchingAssetCurrencies = false.obs;
   RxBool isFetchingConvertCurrencies = false.obs;
   RxBool isGettingOkxAccount = false.obs;
+  RxBool isCreatingDepositAddress = false.obs;
   RxBool isFilterred = false.obs;
+
+  final BaseScreenController baseScreenController =
+      Get.find<BaseScreenController>();
 
   void fetchAssetCurrencies(BuildContext context) async {
     isFetchingAssetCurrencies(true);
@@ -44,13 +57,43 @@ class OkxController extends GetxController {
     failureOrCurrencies.fold<void>(
       (Failure failure) {
         isFetchingAssetCurrencies(false);
-        AppSnacks.show(context, message: 'Failed to load tokens');
+        AppSnacks.show(context, message: failure.message);
       },
       (List<Currency> value) {
         isFetchingAssetCurrencies(false);
         assetCurrencies.value = value;
       },
     );
+  }
+
+  void createOkxDepositAddress(
+      BuildContext context, String currency, String chain) async {
+    isCreatingDepositAddress(true);
+    selectedChain.value = chain;
+
+    final Either<Failure, CreateDepositAddressResponse> failureOrOkxAccount =
+        await createDepositAddress(
+            CreateDepositAddressRequest(currency: currency, chain: chain));
+
+    failureOrOkxAccount.fold(
+      (Failure failure) {
+        isCreatingDepositAddress(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (CreateDepositAddressResponse response) {
+        isCreatingDepositAddress(false);
+        baseScreenController.user.value = response.account.user;
+        navigationController.navigateTo(
+          AppRoutes.addressDetails,
+          arguments:
+              AddressDetailsScreenRouteArgument(address: response.address),
+        );
+      },
+    );
+  }
+
+  void setSelectedCurrency(String chain) {
+    selectedChain.value = chain;
   }
 
   void fetchConvertCurrencies(BuildContext context) async {
@@ -62,7 +105,7 @@ class OkxController extends GetxController {
     failureOrCurrencies.fold<void>(
       (Failure failure) {
         isFetchingConvertCurrencies(false);
-        AppSnacks.show(context, message: 'Failed to load tokens');
+        AppSnacks.show(context, message: failure.message);
       },
       (List<Currency> value) {
         isFetchingConvertCurrencies(false);
@@ -93,7 +136,9 @@ class OkxController extends GetxController {
       !isFetchingAssetCurrencies.value && !isFetchingConvertCurrencies.value;
 
   void filterCurrencies() {
-    if (doneLoading) {
+    if (doneLoading &&
+        convertCurrencies.isNotEmpty &&
+        assetCurrencies.isNotEmpty) {
       final List<Currency> tempOptions = <Currency>[];
       for (int i = 0; i < convertCurrencies.length; i++) {
         for (int j = 0; j < assetCurrencies.length; j++) {
@@ -113,6 +158,12 @@ class OkxController extends GetxController {
       toCurrency.value = tempOptions.last;
       isFilterred.value = true;
     }
+  }
+
+  List<Currency> getTokens(String ccy) {
+    return assetCurrencies
+        .where((Currency currency) => currency.currency == ccy)
+        .toList();
   }
 
   bool currenciesContain(List<Currency> currencies, String ccy) {

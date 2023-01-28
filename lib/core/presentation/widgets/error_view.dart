@@ -11,12 +11,12 @@ class ErrorView extends StatelessWidget {
         children: <TextSpan>[
           TextSpan(
             text: 'You are viewing an error.',
-            style: theme.headline6!.copyWith(height: 1.5),
+            style: theme.titleLarge!.copyWith(height: 1.5),
           ),
-          TextSpan(text: '  —  ', style: theme.subtitle1),
+          TextSpan(text: '  —  ', style: theme.titleMedium),
           TextSpan(
             text: 'Peace Out!',
-            style: theme.subtitle1!.copyWith(
+            style: theme.titleMedium!.copyWith(
               fontStyle: FontStyle.italic,
             ),
           ),

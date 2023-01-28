@@ -9,9 +9,11 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddressDetails extends StatefulWidget {
-  const AddressDetails({Key? key, required this.address}) : super(key: key);
+  const AddressDetails({Key? key, required this.address, this.isScreen = false})
+      : super(key: key);
 
   final OkxAddress address;
+  final bool? isScreen;
 
   @override
   State<AddressDetails> createState() => _ShareQRViewState();
@@ -34,18 +36,45 @@ class _ShareQRViewState extends State<AddressDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: InkWell(
-              onTap: () => Navigator.of(context).pop(),
-              child: Icon(
-                Ionicons.close_sharp,
-                size: 24,
-                color: context.colors.error,
+          if (widget.isScreen == false) ...<Widget>[
+            Align(
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(
+                  Ionicons.close_sharp,
+                  size: 24,
+                  color: context.colors.error,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 30),
+            const SizedBox(height: 32),
+          ],
+          if (widget.isScreen == true) ...<Widget>[
+            const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: const Icon(
+                    Ionicons.close_sharp,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  'Deposit ${widget.address.currency.toUpperCase()}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+          ],
           Align(
             alignment: Alignment.center,
             child: FutureBuilder<String>(
@@ -83,78 +112,43 @@ class _ShareQRViewState extends State<AddressDetails> {
           const SizedBox(height: 32),
           _WalletAddressRow(address: widget.address),
           const SizedBox(height: 16),
-          if (widget.address.chain != null)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  'Chain (Network)',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: context.colors.text,
-                    fontSize: 14,
+          if (widget.address.chain != null && widget.isScreen == true)
+            InkWell(
+              onTap: () {
+                controller.setSelectedCurrency(widget.address.chain!);
+                WidgetUtils.showChainModal(
+                  context,
+                  controller.getTokens(widget.address.currency),
+                  controller,
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: context.colors.lightGrey,
+                    width: 1,
+                    style: BorderStyle.solid,
                   ),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                Text(
-                  widget.address.chain!,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: context.colors.textDark,
-                  ),
-                ),
-              ],
-            ),
-          const SizedBox(height: 16),
-          AppTextInput(
-            labelText: 'AMOUNT (${widget.address.currency})',
-            textInputType: const TextInputType.numberWithOptions(decimal: true),
-            onChanged: controller.onAmountChanged,
-            validator: (_) => null,
-          ),
-          const Spacer(),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: AppButton(
-                  enabled: controller.amount.value > 0,
-                  padding: EdgeInsets.zero,
-                  borderRadius: AppBorderRadius.largeAll,
-                  backgroundColor: context.colors.grey,
-                  onPressed: () {},
-                  child: const Text(
-                    'WITHDRAW',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: _ChainWidget(chain: widget.address.chain!),
                     ),
-                  ),
+                    const SizedBox(width: 16),
+                    Icon(
+                      Ionicons.arrow_forward_sharp,
+                      size: 30,
+                      color: context.colors.lightGrey,
+                    )
+                  ],
                 ),
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                flex: 1,
-                child: AppButton(
-                  enabled: controller.amount.value > 0,
-                  padding: EdgeInsets.zero,
-                  borderRadius: AppBorderRadius.largeAll,
-                  backgroundColor: context.colors.primary,
-                  onPressed: () {},
-                  child: const Text(
-                    'DEPOSIT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            )
+          else
+            _ChainWidget(chain: widget.address.chain!),
         ],
       ),
     );
@@ -164,6 +158,37 @@ class _ShareQRViewState extends State<AddressDetails> {
     const double size = _ShareQRViewState._boxHeight * 2;
     return Barcode.qrCode()
         .toSvg(data, width: size, height: size, color: 0x1F1056);
+  }
+}
+
+class _ChainWidget extends StatelessWidget {
+  const _ChainWidget({Key? key, required this.chain}) : super(key: key);
+  final String chain;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(
+          'Chain (Network)',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: context.colors.text,
+            fontSize: 14,
+          ),
+        ),
+        Text(
+          chain,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: context.colors.textDark,
+          ),
+        ),
+      ],
+    );
   }
 }
 

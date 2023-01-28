@@ -2,7 +2,9 @@ import 'package:betticos/features/betticos/presentation/members/screens/members_
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
@@ -37,19 +39,23 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const OkxOptionsScreen(), settings);
     case AppRoutes.walletAddresses:
       return _getPageRoute(const AddressesScreen(), settings);
+    case AppRoutes.currencies:
+      return _getPageRoute(const AssetCurrenciesScreen(), settings);
+    case AppRoutes.addressDetails:
+      return _getPageRoute(const AddressDetailsScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
 }
 
 PageRoute<Widget> _getPageRoute(Widget child, RouteSettings settings) {
-  return _FadeRoute(child: child, routeName: settings.name);
+  return _FadeRoute(child: child, settings: settings);
 }
 
 class _FadeRoute extends PageRouteBuilder<Widget> {
-  _FadeRoute({required this.child, this.routeName})
+  _FadeRoute({required this.child, required this.settings})
       : super(
-          settings: RouteSettings(name: routeName),
+          settings: settings,
           pageBuilder: (
             BuildContext context,
             Animation<double> animation,
@@ -68,5 +74,6 @@ class _FadeRoute extends PageRouteBuilder<Widget> {
           ),
         );
   final Widget child;
-  final String? routeName;
+  @override
+  final RouteSettings settings;
 }

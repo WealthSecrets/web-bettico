@@ -42,4 +42,6 @@ class AppRoutes {
   static const String convertCrypto = '/convert-crypto';
   static const String okxOptions = '/okx-options';
   static const String walletAddresses = '/wallet-addresses';
+  static const String currencies = '/currencies';
+  static const String addressDetails = '/address-details';
 }

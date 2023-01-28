@@ -1,5 +1,9 @@
 // import 'package:auto_size_text/auto_size_text.dart';
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/option_card.dart';
@@ -22,6 +26,7 @@ class AddressesScreen extends StatefulWidget {
 
 class _OkxOptionsScreenState extends State<AddressesScreen> {
   final OkxController controller = Get.find<OkxController>();
+  final RegisterController registerController = Get.find<RegisterController>();
 
   @override
   void initState() {
@@ -47,66 +52,91 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
         ),
       ),
       body: Obx(() {
-        final List<OkxAddress> addresses =
+        final User user = Get.find<BaseScreenController>().user.value;
+        final List<OkxAddress>? addresses =
             controller.myOkxAccount.value.addresses;
         return AppLoadingBox(
-          loading: controller.isGettingOkxAccount.value,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                final OkxAddress address = addresses[index];
-                return OptionCard(
-                  title: address.currency,
-                  subtitle: address.address,
-                  backgroundColor: const Color(0xFFAA7503).withOpacity(.2),
-                  onPressed: () async {
-                    await showMaterialModalBottomSheet<void>(
-                      bounce: true,
-                      animationCurve: Curves.fastLinearToSlowEaseIn,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30),
-                          topLeft: Radius.circular(30),
-                        ),
-                      ),
-                      builder: (BuildContext context) {
-                        return ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight: MediaQuery.of(context).size.height * .8,
-                            minHeight: MediaQuery.of(context).size.height * .7,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(30),
-                              topLeft: Radius.circular(30),
-                            ),
-                            child: AddressDetails(address: address),
-                          ),
-                        );
-                      },
-                      context: context,
-                    );
-                  },
-                  onCopy: () {
-                    Clipboard.setData(ClipboardData(text: address.address));
+          loading: controller.isGettingOkxAccount.value ||
+              registerController.isCreatingOkxAccount.value,
+          child: user.okx != null
+              ? addresses != null && addresses.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: ListView.builder(
+                        itemBuilder: (BuildContext context, int index) {
+                          final OkxAddress address = addresses[index];
+                          return OptionCard(
+                            title: address.currency,
+                            subtitle: address.address,
+                            backgroundColor:
+                                const Color(0xFFAA7503).withOpacity(.2),
+                            onPressed: () async {
+                              controller.setSelectedCurrency(address.currency);
+                              await showMaterialModalBottomSheet<void>(
+                                bounce: true,
+                                animationCurve: Curves.fastLinearToSlowEaseIn,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    topLeft: Radius.circular(30),
+                                  ),
+                                ),
+                                builder: (BuildContext context) {
+                                  return ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxHeight:
+                                          MediaQuery.of(context).size.height *
+                                              .6,
+                                      minHeight:
+                                          MediaQuery.of(context).size.height *
+                                              .5,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(30),
+                                        topLeft: Radius.circular(30),
+                                      ),
+                                      child: AddressDetails(address: address),
+                                    ),
+                                  );
+                                },
+                                context: context,
+                              );
+                            },
+                            onCopy: () {
+                              Clipboard.setData(
+                                  ClipboardData(text: address.address));
 
-                    AppSnacks.show(
-                      context,
-                      message: 'Address copied to clipboard',
-                      backgroundColor: context.colors.success,
-                      leadingIcon: const Icon(
-                        Ionicons.checkmark_circle_sharp,
-                        size: 20,
-                        color: Colors.white,
+                              AppSnacks.show(
+                                context,
+                                message: 'Address copied to clipboard',
+                                backgroundColor: context.colors.success,
+                                leadingIcon: const Icon(
+                                  Ionicons.checkmark_circle_sharp,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        itemCount: addresses.length,
                       ),
-                    );
-                  },
-                );
-              },
-              itemCount: addresses.length,
-            ),
-          ),
+                    )
+                  : AppEmptyScreen(
+                      message: 'You do not have any deposit address yet.',
+                      onBottonPressed: () {},
+                      btnText: 'new address',
+                    )
+              : AppEmptyScreen(
+                  title: 'OKX REQUIRED',
+                  message: 'Your account do not have trading support yet.',
+                  onBottonPressed: () => registerController.createOkxAccount(
+                    context,
+                    user.username ?? user.email.split('@').first,
+                  ),
+                  btnText: 'connect okx',
+                ),
         );
       }),
     );

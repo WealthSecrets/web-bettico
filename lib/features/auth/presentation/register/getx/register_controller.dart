@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:validators/validators.dart' as validator;
 
 import '/core/core.dart';
@@ -309,7 +310,7 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        createOkxAccount(context, _.email.split('@').first, password.value);
+        createOkxAccount(context, _.email.split('@').first);
         if (isWalletConnect) {
           Get.toNamed<void>(AppRoutes.accountType);
         } else {
@@ -322,23 +323,29 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccount(
-      BuildContext context, String username, String passphrase) async {
+  void createOkxAccount(BuildContext context, String username) async {
     isCreatingOkxAccount(true);
 
-    final Either<Failure, OkxAccount> failureOrUser = await createSubAccount(
-        CreateSubAccountRequest(subAccount: username, passPhrase: passphrase));
+    final Either<Failure, OkxAccount> failureOrUser =
+        await createSubAccount(CreateSubAccountRequest(subAccount: username));
 
     failureOrUser.fold(
       (Failure failure) {
         isCreatingOkxAccount(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (OkxAccount _) {
+      (OkxAccount okx) {
         isCreatingOkxAccount(false);
-        Get.toNamed<void>(
-          AppRoutes.otpVerifyPhone,
-          arguments: OTPVerificationScreenArgument(user: _.user),
+        baseScreenController.user.value = okx.user;
+        AppSnacks.show(
+          context,
+          message: 'Successfully connected to okx.',
+          backgroundColor: context.colors.success,
+          leadingIcon: const Icon(
+            Ionicons.information_sharp,
+            size: 24,
+            color: Colors.white,
+          ),
         );
       },
     );
