@@ -3,6 +3,7 @@ import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +41,17 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
         ),
         centerTitle: true,
         elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () =>
+                navigationController.navigateTo(AppRoutes.depositHistory),
+            icon: Image.asset(
+              AssetImages.tansactionHistory,
+              height: 24,
+              width: 24,
+            ),
+          ),
+        ],
       ),
       body: Obx(
         () {

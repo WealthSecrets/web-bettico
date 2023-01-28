@@ -1,5 +1,6 @@
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
+import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_request.dart';
 import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_response.dart';
@@ -42,6 +43,10 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
   @override
   Future<Either<Failure, List<Currency>>> fetchAssetCurrencies() =>
       makeRequest(okxRemoteDataSources.fetchAssetCurrencies());
+
+  @override
+  Future<Either<Failure, List<Deposit>>> fetchDepositHistory() =>
+      makeRequest(okxRemoteDataSources.fetchDepositHistory());
 
   @override
   Future<Either<Failure, List<Currency>>> fetchConvertCurrencies() =>

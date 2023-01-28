@@ -1,9 +1,11 @@
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
+import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_request.dart';
 import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_response.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/create_deposit_address.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/fetch_deposit_history.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_asset_currencies.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_convert_currencies.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_okx_account.dart';
@@ -21,6 +23,7 @@ class OkxController extends GetxController {
     required this.getConvertCurrencies,
     required this.getOkxAccount,
     required this.createDepositAddress,
+    required this.fetchDepositHistory,
   });
 
   //
@@ -28,10 +31,12 @@ class OkxController extends GetxController {
   final GetConvertCurrencies getConvertCurrencies;
   final GetOkxAccount getOkxAccount;
   final CreateDepositAddress createDepositAddress;
+  final FetchDepositHistory fetchDepositHistory;
 
   final Rx<Currency> fromCurrency = Currency.mock().obs;
   Rx<Currency> toCurrency = Currency.mock().obs;
   RxList<Currency> assetCurrencies = <Currency>[].obs;
+  RxList<Deposit> deposits = <Deposit>[].obs;
   RxList<Currency> convertCurrencies = <Currency>[].obs;
   RxList<Currency> options = <Currency>[].obs;
   RxString selectedChain = ''.obs;
@@ -40,6 +45,7 @@ class OkxController extends GetxController {
 
   // loading state
   RxBool isFetchingAssetCurrencies = false.obs;
+  RxBool isFetchingDepositHistory = false.obs;
   RxBool isFetchingConvertCurrencies = false.obs;
   RxBool isGettingOkxAccount = false.obs;
   RxBool isCreatingDepositAddress = false.obs;
@@ -114,6 +120,25 @@ class OkxController extends GetxController {
     );
   }
 
+  void getDepositHistory(BuildContext context) async {
+    isFetchingDepositHistory(true);
+
+    final Either<Failure, List<Deposit>> failureOrDeposits =
+        await fetchDepositHistory(NoParams());
+
+    failureOrDeposits.fold<void>(
+      (Failure failure) {
+        isFetchingDepositHistory(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (List<Deposit> value) {
+        print('Finally: $value');
+        isFetchingDepositHistory(false);
+        deposits.value = value;
+      },
+    );
+  }
+
   void getUserOkxAccount(BuildContext context) async {
     isGettingOkxAccount(true);
 
@@ -181,6 +206,9 @@ class OkxController extends GetxController {
       amount.value = amt;
     }
   }
+
+  Currency? getCurrency(String chain) => assetCurrencies
+      .firstWhereOrNull((Currency currency) => currency.chain == chain);
 
   void swapCurrencies() {
     final Currency tempCurrency = fromCurrency.value;

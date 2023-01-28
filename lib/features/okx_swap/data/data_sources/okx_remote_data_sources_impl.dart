@@ -1,5 +1,6 @@
 import 'package:betticos/features/okx_swap/data/endpoints/okx_endpoints.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
+import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_request.dart';
 import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_response.dart';
@@ -48,6 +49,17 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
     return List<Currency>.from(
       items.map<Currency>(
           (dynamic json) => Currency.fromJson(json as Map<String, dynamic>)),
+    );
+  }
+
+  @override
+  Future<List<Deposit>> fetchDepositHistory() async {
+    final Map<String, dynamic> json =
+        await _client.get(OkxEndpoints.depositHistory);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Deposit>.from(
+      items.map<Deposit>(
+          (dynamic json) => Deposit.fromJson(json as Map<String, dynamic>)),
     );
   }
 

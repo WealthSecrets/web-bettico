@@ -44,4 +44,5 @@ class AppRoutes {
   static const String walletAddresses = '/wallet-addresses';
   static const String currencies = '/currencies';
   static const String addressDetails = '/address-details';
+  static const String depositHistory = '/deposit-history';
 }

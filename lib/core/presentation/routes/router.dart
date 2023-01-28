@@ -6,6 +6,7 @@ import 'package:betticos/features/okx_swap/presentation/address/address_details_
 import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
@@ -43,6 +44,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const AssetCurrenciesScreen(), settings);
     case AppRoutes.addressDetails:
       return _getPageRoute(const AddressDetailsScreen(), settings);
+    case AppRoutes.depositHistory:
+      return _getPageRoute(DepositHistoryScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

@@ -111,14 +111,6 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                     }
                   },
                 ),
-                OptionCard(
-                  imagePath: AssetImages.transactionHisotry,
-                  title: 'History',
-                  subtitle: 'View all deposit and withdrawal transactions',
-                  backgroundColor: const Color(0xFF1896A5).withOpacity(.2),
-                  iconColor: const Color(0xFF1896A5),
-                  onPressed: () {},
-                ),
                 const Spacer(),
                 Obx(
                   () => AppButton(

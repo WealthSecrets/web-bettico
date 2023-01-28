@@ -1,4 +1,5 @@
 import 'package:betticos/features/okx_swap/domain/usecases/create_deposit_address.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/fetch_deposit_history.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_asset_currencies.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_convert_currencies.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/get_okx_account.dart';
@@ -19,6 +20,9 @@ class OkxBindigns {
           okxRepository: Get.find(),
         ),
         createDepositAddress: CreateDepositAddress(
+          okxRepository: Get.find(),
+        ),
+        fetchDepositHistory: FetchDepositHistory(
           okxRepository: Get.find(),
         ),
       ),
