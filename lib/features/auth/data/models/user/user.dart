@@ -14,7 +14,7 @@ class User with _$User {
     String? firstName,
     String? lastName,
     String? username,
-    String? email,
+    required String email,
     @JsonKey(name: 'dob') DateTime? dateOfBirth,
     String? photo,
     String? phone,
@@ -25,6 +25,7 @@ class User with _$User {
     DateTime? phoneVerifiedAt,
     DateTime? emailVerifiedAt,
     DateTime? profileAt,
+    String? okx,
     String? code,
     String? walletAddress,
     String? referralCode,
@@ -90,6 +91,8 @@ class User with _$User {
       dateOfBirth != null;
 
   bool get hasRole => role != null;
+
+  bool get hasOkx => okx != null;
 
   bool get hasIdentification => identification != null;
 

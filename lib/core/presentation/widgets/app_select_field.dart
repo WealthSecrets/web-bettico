@@ -97,26 +97,26 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                 animationCurve: Curves.fastLinearToSlowEaseIn,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(70),
-                    topLeft: Radius.circular(70),
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
                   ),
                 ),
                 builder: (BuildContext context) {
                   return ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * .4,
-                      minHeight: MediaQuery.of(context).size.height * .3,
+                      maxHeight: MediaQuery.of(context).size.height * .7,
+                      minHeight: MediaQuery.of(context).size.height * .6,
                     ),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(70),
-                        topLeft: Radius.circular(70),
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30),
                       ),
                       child: ListView.separated(
                         shrinkWrap: true,
                         controller: ModalScrollController.of(context),
                         itemCount: widget.options.length,
-                        separatorBuilder: (_, __) => const Divider(height: 0),
+                        separatorBuilder: (_, __) => const SizedBox(),
                         itemBuilder: (BuildContext context, int index) {
                           final T item = widget.options[index];
                           final bool selected = item == _selectedItem.value;
@@ -135,7 +135,7 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                               Navigator.of(context).pop();
                             },
                             child: Padding(
-                              padding: AppPaddings.bodyH.add(AppPaddings.mV),
+                              padding: AppPaddings.mH.add(AppPaddings.mV),
                               child: widget.customTitleBuilder != null
                                   ? widget.customTitleBuilder!(
                                       context, item, selected)

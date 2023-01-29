@@ -89,6 +89,7 @@ class LiveScoreController extends GetxController {
   RxBool isCompleted = false.obs;
   RxString selectedCurrency = 'wsc'.obs;
   RxBool showLoadingLogo = false.obs;
+  RxBool isConnectingWallet = false.obs;
   RxList<String> closingBetID = <String>[].obs;
 
   static const int operatingChain = 56;
@@ -106,7 +107,7 @@ class LiveScoreController extends GetxController {
   RxBool isFetchingLiveScores = false.obs;
   RxBool isFetchingFixtures = false.obs;
 
-  void connectProvider([Function(String wallet)? func]) async {
+  Future<void> connectProvider([Function(String wallet)? func]) async {
     if (Ethereum.isSupported) {
       final List<String> accs = await ethereum!.requestAccount();
       if (accs.isNotEmpty) {
@@ -120,6 +121,7 @@ class LiveScoreController extends GetxController {
   }
 
   Future<void> connectWC([Function(String wallet)? func]) async {
+    isConnectingWallet.value = true;
     try {
       await wc.connect();
 
@@ -131,15 +133,18 @@ class LiveScoreController extends GetxController {
       }
 
       func?.call(wc.accounts.first);
+      isConnectingWallet.value = false;
     } catch (error) {
       debugPrint('An error has occurred: $error');
+      isConnectingWallet.value = false;
     }
     update();
   }
 
-  void initiateWalletConnect([Function(String wallet)? func]) {
+  void initiateWalletConnect([Function(String wallet)? func]) async {
+    isConnectingWallet.value = true;
     if (Ethereum.isSupported) {
-      connectProvider(func);
+      await connectProvider(func);
 
       ethereum!.onAccountsChanged((List<String> accs) {
         disconnect();
@@ -148,8 +153,10 @@ class LiveScoreController extends GetxController {
       ethereum!.onChainChanged((int chain) {
         disconnect();
       });
+      isConnectingWallet.value = false;
     } else {
-      connectWC();
+      await connectWC();
+      isConnectingWallet.value = false;
     }
   }
 

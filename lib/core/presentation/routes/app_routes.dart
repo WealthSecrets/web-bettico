@@ -40,4 +40,11 @@ class AppRoutes {
   static const String updates = '/updates';
   static const String oddsters = '/oddsters';
   static const String convertCrypto = '/convert-crypto';
+  static const String okxOptions = '/okx-options';
+  static const String walletAddresses = '/wallet-addresses';
+  static const String currencies = '/currencies';
+  static const String addressDetails = '/address-details';
+  static const String depositHistory = '/deposit-history';
+  static const String conversionSuccess = '/conversion-success';
+  static const String conversionHistory = '/conversion-history';
 }

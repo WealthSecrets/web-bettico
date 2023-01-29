@@ -2,6 +2,14 @@ import 'package:betticos/features/betticos/presentation/members/screens/members_
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/convert/screens/conversion_success_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/history/conversion_history_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
 import 'package:flutter/material.dart';
@@ -28,19 +36,35 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const TimelineScreen(), settings);
     case AppRoutes.referral:
       return _getPageRoute(const ReferralScreen(), settings);
+    case AppRoutes.convertCrypto:
+      return _getPageRoute(const ConvertCryptoScreen(), settings);
+    case AppRoutes.okxOptions:
+      return _getPageRoute(const OkxOptionsScreen(), settings);
+    case AppRoutes.walletAddresses:
+      return _getPageRoute(const AddressesScreen(), settings);
+    case AppRoutes.currencies:
+      return _getPageRoute(const AssetCurrenciesScreen(), settings);
+    case AppRoutes.addressDetails:
+      return _getPageRoute(const AddressDetailsScreen(), settings);
+    case AppRoutes.depositHistory:
+      return _getPageRoute(const DepositHistoryScreen(), settings);
+    case AppRoutes.conversionSuccess:
+      return _getPageRoute(ConversionSuccessScreen(), settings);
+    case AppRoutes.conversionHistory:
+      return _getPageRoute(const CovnersionHistoryScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
 }
 
 PageRoute<Widget> _getPageRoute(Widget child, RouteSettings settings) {
-  return _FadeRoute(child: child, routeName: settings.name);
+  return _FadeRoute(child: child, settings: settings);
 }
 
 class _FadeRoute extends PageRouteBuilder<Widget> {
-  _FadeRoute({required this.child, this.routeName})
+  _FadeRoute({required this.child, required this.settings})
       : super(
-          settings: RouteSettings(name: routeName),
+          settings: settings,
           pageBuilder: (
             BuildContext context,
             Animation<double> animation,
@@ -59,5 +83,6 @@ class _FadeRoute extends PageRouteBuilder<Widget> {
           ),
         );
   final Widget child;
-  final String? routeName;
+  @override
+  final RouteSettings settings;
 }

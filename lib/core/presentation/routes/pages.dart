@@ -106,7 +106,3 @@ class Pages {
     ),
   ];
 }
-
-
-// Get.toNamed<void>();
-// Navigator.of(context).pushNamed();

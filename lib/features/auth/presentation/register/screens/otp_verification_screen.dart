@@ -2,6 +2,7 @@
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -146,11 +147,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         alignment: Alignment.center,
                         child: Text(
                           'didnt_receive'.tr,
-                          style:
-                              Theme.of(context).textTheme.headline6?.copyWith(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
+                          style: context.h6.copyWith(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -177,10 +177,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                   params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
-                                  args != null &&
-                                          args!.user != null &&
-                                          args!.user!.email != null
-                                      ? args!.user!.email!
+                                  args != null && args!.user != null
+                                      ? args!.user!.email
                                       : controller.email.value,
                                 );
                               } else {
@@ -225,6 +223,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 Get.toNamed<void>(AppRoutes.accountType);
                               } else {
                                 Get.offAllNamed<void>(AppRoutes.home);
+                                menuController
+                                    .changeActiveItemTo(AppRoutes.home);
                               }
                             }
                           },

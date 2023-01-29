@@ -241,7 +241,7 @@ class AppOptionDialogueModal extends StatelessWidget {
   const AppOptionDialogueModal({
     Key? key,
     required this.modalContext,
-    this.onPressed,
+    required this.onPressed,
     required this.title,
     required this.message,
     required this.affirmButtonText,
@@ -250,7 +250,7 @@ class AppOptionDialogueModal extends StatelessWidget {
   }) : super(key: key);
 
   final BuildContext modalContext;
-  final Function()? onPressed;
+  final void Function() onPressed;
   final String title;
   final String message;
   final String affirmButtonText;
@@ -259,93 +259,102 @@ class AppOptionDialogueModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        const Spacer(),
-        Container(
-          margin: AppPaddings.lA,
-          decoration: BoxDecoration(
-            color: context.colors.background,
-            borderRadius: AppBorderRadius.largeAll,
-          ),
-          padding: AppPaddings.lA,
-          child: AppAnimatedColumn(
-            delay: const Duration(milliseconds: 100),
-            duration: const Duration(milliseconds: 1000),
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const AppSpacing(v: 10),
-              Container(
-                padding: AppPaddings.lA,
-                decoration: BoxDecoration(
-                  color: backgroundColor ?? context.colors.primary,
-                  shape: BoxShape.circle,
+    return Material(
+      borderRadius: AppBorderRadius.largeAll,
+      child: Column(
+        children: <Widget>[
+          const Spacer(),
+          Container(
+            margin: AppPaddings.lA,
+            decoration: BoxDecoration(
+              color: context.colors.background,
+              borderRadius: AppBorderRadius.largeAll,
+            ),
+            padding: AppPaddings.lA,
+            child: AppAnimatedColumn(
+              delay: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 1000),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const AppSpacing(v: 10),
+                Container(
+                  padding: AppPaddings.lA,
+                  decoration: BoxDecoration(
+                    color: backgroundColor ?? context.colors.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    iconData ?? Ionicons.trash_outline,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
-                child: Icon(
-                  iconData ?? Ionicons.trash_outline,
-                  color: Colors.white,
-                  size: 20,
+                const AppSpacing(v: 20),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              const AppSpacing(v: 20),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
+                const AppSpacing(v: 20),
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-              const AppSpacing(v: 20),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                ),
-              ),
-              const AppSpacing(v: 20),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(modalContext).pop(false);
-                      },
-                      child: Text(
-                        'cancel'.tr.toUpperCase(),
-                        style: TextStyle(
-                          color: context.colors.text,
-                          fontSize: 14,
+                const AppSpacing(v: 20),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: AppButton(
+                        padding: EdgeInsets.zero,
+                        borderRadius: AppBorderRadius.largeAll,
+                        backgroundColor: context.colors.text,
+                        onPressed: () {
+                          Navigator.of(modalContext).pop(false);
+                        },
+                        child: const Text(
+                          'CANCEL',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const AppSpacing(h: 20),
-                  Expanded(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        minimumSize: const Size.fromHeight(55),
+                    const AppSpacing(h: 20),
+                    Expanded(
+                      flex: 1,
+                      child: AppButton(
+                        padding: EdgeInsets.zero,
+                        borderRadius: AppBorderRadius.largeAll,
                         backgroundColor:
                             backgroundColor ?? context.colors.primary,
-                      ),
-                      onPressed: onPressed,
-                      child: Text(
-                        affirmButtonText,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+                        onPressed: onPressed,
+                        child: Text(
+                          affirmButtonText.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
-              )
-            ],
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-        const Spacer(),
-      ],
+          const Spacer(),
+        ],
+      ),
     );
   }
 }

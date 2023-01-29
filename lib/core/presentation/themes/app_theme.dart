@@ -12,8 +12,6 @@ class AppTheme {
         primaryColorLight: colors.primary,
         primarySwatch: colors.primary,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        backgroundColor: colors.background,
-        errorColor: colors.error,
         primaryIconTheme: IconThemeData(color: colors.primary),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: colors.primary,
@@ -60,17 +58,17 @@ class AppTheme {
           },
         ),
         textTheme: TextTheme(
-          headline3: h3,
-          headline4: h4,
-          headline5: h5,
-          headline6: h6,
-          bodyText1: body1,
-          bodyText2: body2,
-          subtitle1: sub1,
-          subtitle2: sub2,
-          overline: overline,
-          caption: caption,
-          button: button,
+          displaySmall: h3,
+          headlineMedium: h4,
+          headlineSmall: h5,
+          titleLarge: h6,
+          bodyLarge: body1,
+          bodyMedium: body2,
+          titleMedium: sub1,
+          titleSmall: sub2,
+          labelSmall: overline,
+          bodySmall: caption,
+          labelLarge: button,
         ),
         appBarTheme: AppBarTheme(
           centerTitle: true,
@@ -95,7 +93,7 @@ class AppTheme {
           height: 42,
         ),
         indicatorColor: colors.primary,
-        toggleableActiveColor: colors.text,
+        // toggleableActiveColor: colors.text,
         canvasColor: colors.background,
         inputDecorationTheme: InputDecorationTheme(
           focusColor: colors.text,
@@ -256,28 +254,28 @@ extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => Theme.of(this).textTheme;
   ThemeColor get colors => AppLightTheme();
-  TextStyle get h3 => theme.textTheme.headline3!;
-  TextStyle get h4 => theme.textTheme.headline4!;
-  TextStyle get h5 => theme.textTheme.headline5!;
-  TextStyle get h6 => theme.textTheme.headline6!;
-  TextStyle get sub1 => theme.textTheme.subtitle1!;
-  TextStyle get sub2 => theme.textTheme.subtitle2!;
-  TextStyle get body1 => theme.textTheme.bodyText1!;
-  TextStyle get body2 => theme.textTheme.bodyText2!;
+  TextStyle get h3 => theme.textTheme.displaySmall!;
+  TextStyle get h4 => theme.textTheme.headlineMedium!;
+  TextStyle get h5 => theme.textTheme.headlineSmall!;
+  TextStyle get h6 => theme.textTheme.titleLarge!;
+  TextStyle get sub1 => theme.textTheme.titleMedium!;
+  TextStyle get sub2 => theme.textTheme.titleSmall!;
+  TextStyle get body1 => theme.textTheme.bodyLarge!;
+  TextStyle get body2 => theme.textTheme.bodyMedium!;
   TextStyle get body2Bold =>
-      theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w800);
-  TextStyle get bodyError =>
-      theme.textTheme.bodyText2!.copyWith(color: Theme.of(this).errorColor);
-  TextStyle get caption => theme.textTheme.caption!;
+      theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w800);
+  TextStyle get bodyError => theme.textTheme.bodyMedium!
+      .copyWith(color: Theme.of(this).colorScheme.error);
+  TextStyle get caption => theme.textTheme.bodySmall!;
   TextStyle get smallest =>
-      theme.textTheme.bodyText2!.copyWith(fontSize: AppFontSizes.smallest);
-  TextStyle get captionError =>
-      theme.textTheme.caption!.copyWith(color: Theme.of(this).errorColor);
-  TextStyle get button => theme.textTheme.button!;
+      theme.textTheme.bodyMedium!.copyWith(fontSize: AppFontSizes.smallest);
+  TextStyle get captionError => theme.textTheme.bodySmall!
+      .copyWith(color: Theme.of(this).colorScheme.error);
+  TextStyle get button => theme.textTheme.labelLarge!;
   TextStyle get buttonSmall =>
-      theme.textTheme.button!.copyWith(fontSize: AppFontSizes.caption);
-  TextStyle get overline => theme.textTheme.overline!;
-  TextStyle get appBarTitle => theme.textTheme.bodyText1!.copyWith(
+      theme.textTheme.labelLarge!.copyWith(fontSize: AppFontSizes.caption);
+  TextStyle get overline => theme.textTheme.labelSmall!;
+  TextStyle get appBarTitle => theme.textTheme.bodyLarge!.copyWith(
         fontSize: AppFontSizes.h6,
         fontWeight: FontWeight.w600,
         fontFamily: AppFonts.base,

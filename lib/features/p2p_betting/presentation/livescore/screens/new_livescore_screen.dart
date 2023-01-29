@@ -64,7 +64,13 @@ class _NewLiveScoreState extends State<NewLiveScore> {
               walletAddress: lController.walletAddress.value,
               onPressed: () async {
                 if (lController.walletAddress.isNotEmpty) {
-                  showDeleteConnectionDialogue(context);
+                  WidgetUtils.showDeleteConnectionDialogue(
+                    context,
+                    onPressed: () async {
+                      lController.disconnect();
+                      Get.back<void>();
+                    },
+                  );
                 } else {
                   if (Ethereum.isSupported) {
                     lController.initiateWalletConnect();
@@ -232,29 +238,6 @@ class _NewLiveScoreState extends State<NewLiveScore> {
             ),
           )
         ],
-      ),
-    );
-  }
-
-  void showDeleteConnectionDialogue(
-    BuildContext context, {
-    String? title,
-    Icon? icon,
-  }) {
-    showAppModal<void>(
-      context: context,
-      alignment: Alignment.center,
-      builder: (BuildContext context) => AppOptionDialogueModal(
-        modalContext: context,
-        title: 'Disconnect Wallet',
-        backgroundColor: context.colors.error,
-        message:
-            'This will disconnect your wallet address from Bettico. Are you sure you want to disconnect wallet?',
-        affirmButtonText: 'Disconnect'.toUpperCase(),
-        onPressed: () async {
-          lController.disconnect();
-          Get.back<void>();
-        },
       ),
     );
   }
