@@ -7,6 +7,7 @@ import 'package:betticos/features/betticos/presentation/base/getx/base_screen_co
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount_apikey.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
@@ -46,6 +47,7 @@ class RegisterController extends GetxController {
     required this.sendSms,
     required this.uploadIdentifcation,
     required this.createSubAccount,
+    required this.createSubAccountApiKey,
     required this.updateUserProfilePhoto,
     required this.updateUserRole,
   });
@@ -58,6 +60,7 @@ class RegisterController extends GetxController {
   final UploadIdentifcation uploadIdentifcation;
   final UpdateUserProfilePhoto updateUserProfilePhoto;
   final CreateSubAccount createSubAccount;
+  final CreateSubAccountApiKey createSubAccountApiKey;
   final UpdateUserRole updateUserRole;
   final VerifyUser verifyUser;
 
@@ -99,6 +102,7 @@ class RegisterController extends GetxController {
   RxBool isUpdatingUserRole = false.obs;
   RxBool isCheckingUserExistence = false.obs;
   RxBool isCreatingOkxAccount = false.obs;
+  RxBool isCreatingAccountApiKey = false.obs;
 
   // enums reactive variables
   Rx<AccountType> accountType = AccountType.personal.obs;
@@ -323,7 +327,8 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccount(BuildContext context, String username) async {
+  void createOkxAccount(BuildContext context, String username,
+      [Function()? callback]) async {
     isCreatingOkxAccount(true);
 
     final Either<Failure, OkxAccount> failureOrUser =
@@ -336,10 +341,30 @@ class RegisterController extends GetxController {
       },
       (OkxAccount okx) {
         isCreatingOkxAccount(false);
+        createOkxAccountApiKey(context, callback);
+      },
+    );
+  }
+
+  void createOkxAccountApiKey(BuildContext context,
+      [Function()? callback]) async {
+    isCreatingAccountApiKey(true);
+
+    final Either<Failure, OkxAccount> failureOrOkx =
+        await createSubAccountApiKey(NoParams());
+
+    failureOrOkx.fold(
+      (Failure failure) {
+        isCreatingAccountApiKey(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (OkxAccount okx) {
+        isCreatingAccountApiKey(false);
         baseScreenController.user.value = okx.user;
+        callback?.call();
         AppSnacks.show(
           context,
-          message: 'Successfully connected to okx.',
+          message: 'Successfully created a trading account.',
           backgroundColor: context.colors.success,
           leadingIcon: const Icon(
             Ionicons.information_sharp,

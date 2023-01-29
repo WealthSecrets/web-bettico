@@ -14,6 +14,8 @@ abstract class OkxRepository {
   Future<Either<Failure, OkxAccount>> createSubAccount(
       {required String subAccount});
 
+  Future<Either<Failure, OkxAccount>> createSubAccountApiKey();
+
   Future<Either<Failure, CurrencyPair>> fetchCurrencyPair(
       {required String fromCurrency, required String toCurrency});
 

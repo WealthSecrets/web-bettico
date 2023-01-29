@@ -34,6 +34,11 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       );
 
   @override
+  Future<Either<Failure, OkxAccount>> createSubAccountApiKey() => makeRequest(
+        okxRemoteDataSources.createSubAccountApiKey(),
+      );
+
+  @override
   Future<Either<Failure, CurrencyPair>> fetchCurrencyPair(
           {required String fromCurrency, required String toCurrency}) =>
       makeRequest(

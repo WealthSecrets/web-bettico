@@ -15,6 +15,7 @@ import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_su
 abstract class OkxRemoteDataSources {
   Future<OkxAccount> createSubAccount(
       {required CreateSubAccountRequest request});
+  Future<OkxAccount> createSubAccountApiKey();
   Future<CurrencyPair> fetchCurrencyPair(
       {required CurrencyPairRequest request});
   Future<OkxQuote> estimateConversionQuote({required QuoteRequest request});

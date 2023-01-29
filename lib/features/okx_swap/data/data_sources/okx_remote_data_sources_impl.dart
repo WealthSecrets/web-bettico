@@ -32,6 +32,15 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
   }
 
   @override
+  Future<OkxAccount> createSubAccountApiKey() async {
+    final Map<String, dynamic> json = await _client.post(
+      OkxEndpoints.subAccountApiKey,
+      body: <String, dynamic>{},
+    );
+    return OkxAccount.fromJson(json);
+  }
+
+  @override
   Future<CurrencyPair> fetchCurrencyPair(
       {required CurrencyPairRequest request}) async {
     final Map<String, dynamic> json = await _client.get(

@@ -1,6 +1,7 @@
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
 import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount_apikey.dart';
 import 'package:get/get.dart';
 
 import '/features/auth/domain/usecases/register_user.dart';
@@ -44,6 +45,9 @@ class RegisterBindings {
           authRepository: Get.find(),
         ),
         createSubAccount: CreateSubAccount(
+          okxRepository: Get.find(),
+        ),
+        createSubAccountApiKey: CreateSubAccountApiKey(
           okxRepository: Get.find(),
         ),
       ),

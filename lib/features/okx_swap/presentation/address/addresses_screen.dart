@@ -7,12 +7,14 @@ import 'package:betticos/features/betticos/presentation/base/getx/base_screen_co
 import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/option_card.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../okx_options/widgets/no_trading_account.dart';
 import 'widgets/address_details.dart';
 
 class AddressesScreen extends StatefulWidget {
@@ -57,7 +59,8 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
             controller.myOkxAccount.value.addresses;
         return AppLoadingBox(
           loading: controller.isGettingOkxAccount.value ||
-              registerController.isCreatingOkxAccount.value,
+              registerController.isCreatingOkxAccount.value ||
+              registerController.isCreatingAccountApiKey.value,
           child: user.okx != null
               ? addresses != null && addresses.isNotEmpty
                   ? Padding(
@@ -125,18 +128,11 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                     )
                   : AppEmptyScreen(
                       message: 'You do not have any deposit address yet.',
-                      onBottonPressed: () {},
+                      onBottonPressed: () =>
+                          navigationController.navigateTo(AppRoutes.currencies),
                       btnText: 'new address',
                     )
-              : AppEmptyScreen(
-                  title: 'OKX REQUIRED',
-                  message: 'Your account do not have trading support yet.',
-                  onBottonPressed: () => registerController.createOkxAccount(
-                    context,
-                    user.username ?? user.email.split('@').first,
-                  ),
-                  btnText: 'connect okx',
-                ),
+              : NoTradignAccount(user: user),
         );
       }),
     );

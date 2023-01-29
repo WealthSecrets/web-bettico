@@ -161,7 +161,7 @@ class _OverlapImages extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: <Widget>[
-        for (int i = 0; i < currencies.length; i++) ...[
+        for (int i = 0; i < currencies.length; i++) ...<Widget>[
           if (i == 0)
             SizedBox(
               width: 40,
