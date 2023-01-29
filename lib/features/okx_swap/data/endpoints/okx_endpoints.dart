@@ -9,7 +9,8 @@ class OkxEndpoints {
   static const String withdrawalHistory =
       'okx/broker/subaccount-withdrawal-history';
   static const String currencies = 'okx/asset/convert/currencies';
-  static const String currencyPair = 'okx/asset/convert/currency-pair';
+  static String currencyPair(String fromCcy, String toCcy) =>
+      'okx/asset/convert/currency-pair?fromCcy=$fromCcy&toCcy=$toCcy';
   static const String estimateQuote = 'okx/asset/convert/estimate-quote';
   static const String convertTrade = 'okx/asset/convert/trade';
   static const String convertHistory = 'okx/asset/convert/history';

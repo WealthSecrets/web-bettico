@@ -5,7 +5,9 @@ import 'package:betticos/features/betticos/presentation/timeline/screens/timelin
 import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/convert/screens/conversion_success_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/history/conversion_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
@@ -45,7 +47,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.addressDetails:
       return _getPageRoute(const AddressDetailsScreen(), settings);
     case AppRoutes.depositHistory:
-      return _getPageRoute(DepositHistoryScreen(), settings);
+      return _getPageRoute(const DepositHistoryScreen(), settings);
+    case AppRoutes.conversionSuccess:
+      return _getPageRoute(ConversionSuccessScreen(), settings);
+    case AppRoutes.conversionHistory:
+      return _getPageRoute(const CovnersionHistoryScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

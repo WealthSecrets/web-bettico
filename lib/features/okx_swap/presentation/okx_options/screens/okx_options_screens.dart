@@ -62,16 +62,8 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                   backgroundColor: const Color(0xFFAA7503).withOpacity(.2),
                   iconColor: const Color(0xFFAA7503),
                   onPressed: () async {
-                    if (lController.walletAddress.isEmpty) {
-                      if (Ethereum.isSupported) {
-                        lController.initiateWalletConnect();
-                      } else {
-                        await lController.connectWC();
-                      }
-                    } else {
-                      await navigationController
-                          .navigateTo(AppRoutes.convertCrypto);
-                    }
+                    await navigationController
+                        .navigateTo(AppRoutes.convertCrypto);
                   },
                 ),
                 OptionCard(
@@ -99,16 +91,8 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                   backgroundColor: const Color(0xFF7C8B96).withOpacity(.2),
                   iconColor: const Color(0xFF7C8B96),
                   onPressed: () async {
-                    if (lController.walletAddress.isEmpty) {
-                      if (Ethereum.isSupported) {
-                        lController.initiateWalletConnect();
-                      } else {
-                        await lController.connectWC();
-                      }
-                    } else {
-                      await navigationController
-                          .navigateTo(AppRoutes.walletAddresses);
-                    }
+                    await navigationController
+                        .navigateTo(AppRoutes.walletAddresses);
                   },
                 ),
                 const Spacer(),

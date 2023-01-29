@@ -28,4 +28,5 @@ class AssetImages {
   static String wallet = 'assets/images/wallet.png';
   static String upDown = 'assets/images/up-down.png';
   static String copyFile = 'assets/images/copy.png';
+  static String checkedColor = 'assets/images/checked-color.png';
 }

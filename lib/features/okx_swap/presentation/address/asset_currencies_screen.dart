@@ -56,7 +56,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
       body: Obx(
         () {
           if (!controller.isFilterred.value) {
-            controller.filterCurrencies();
+            controller.filterCurrencies(context);
           }
 
           return AppLoadingBox(

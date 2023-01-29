@@ -6,19 +6,23 @@ class CryptoConverterInput extends StatelessWidget {
   const CryptoConverterInput({
     Key? key,
     required this.onCurrencyChanged,
-    required this.onAmountChanged,
     required this.controller,
     required this.options,
     this.selectedCurrency,
     this.disableAmountInput = false,
+    this.hintText,
+    required this.validator,
+    required this.onChanged,
   }) : super(key: key);
 
   final Currency? selectedCurrency;
   final Function(Currency currency) onCurrencyChanged;
-  final Function(double amount) onAmountChanged;
   final TextEditingController controller;
+  final String? hintText;
   final bool disableAmountInput;
   final List<Currency> options;
+  final String? Function(String) validator;
+  final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,31 +32,11 @@ class CryptoConverterInput extends StatelessWidget {
           disabled: disableAmountInput,
           controller: controller,
           prefixIcon: const SizedBox(width: 102),
-          hintText: 'Enter Amount',
+          hintText: hintText,
+          hintColor: context.colors.text,
           textInputType: const TextInputType.numberWithOptions(decimal: true),
-          validator: (String amountInString) {
-            final double? amount = double.tryParse(amountInString);
-            if (amount == null) {
-              return 'Invalid input';
-            }
-            return null;
-          },
-          onChanged: (String amountInString) {
-            if (amountInString.isEmpty) {
-              onAmountChanged(0.0);
-            } else {
-              final bool isDot =
-                  amountInString.split('')[amountInString.length - 1] == '.';
-              if (!isDot) {
-                final double? amount = double.tryParse(amountInString);
-                if (amount != null) {
-                  if (amount > 0) {
-                    onAmountChanged(amount);
-                  }
-                }
-              }
-            }
-          },
+          validator: validator,
+          onChanged: onChanged,
         ),
         Positioned.fill(
           right: null,
