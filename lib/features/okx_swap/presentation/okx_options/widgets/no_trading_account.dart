@@ -1,3 +1,4 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
@@ -22,15 +23,19 @@ class NoTradignAccount extends StatelessWidget {
       title: 'ENABLE TRADE',
       message: 'Your account do not have trading support yet.',
       onBottonPressed: () {
-        registerController.createOkxAccount(
-          context,
-          user.email.split('@').first,
-          () {
-            okxController.fetchAssetCurrencies(context);
-            okxController.fetchConvertCurrencies(context);
-            okxController.getCurrencyPair(context);
-          },
-        );
+        if (user.email != null) {
+          registerController.createOkxAccount(
+            context,
+            user.email!.split('@').first,
+            () {
+              okxController.fetchAssetCurrencies(context);
+              okxController.fetchConvertCurrencies(context);
+              okxController.getCurrencyPair(context);
+            },
+          );
+        } else {
+          AppSnacks.show(context, message: 'Oops! Something went wrong.');
+        }
       },
       btnText: 'get started',
     );
