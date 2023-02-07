@@ -43,6 +43,8 @@ class MenuController extends GetxController {
         return _customIcon(Ionicons.share_social, itemName);
       case AppRoutes.settings:
         return _customIcon(Ionicons.settings, itemName);
+      case AppRoutes.okxOptions:
+        return _customIcon(Ionicons.swap_horizontal_sharp, itemName);
       default:
         return _customIcon(Icons.exit_to_app, itemName);
     }
