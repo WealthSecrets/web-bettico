@@ -175,7 +175,7 @@ class RegisterController extends GetxController {
     final Either<Failure, User> fialureOrSuccess = await verifyEmail(
       VerifyEmailRequest(
         code: otpCode.value,
-        email: u != null ? u.email : email.value,
+        email: u != null && u.email != null ? u.email! : email.value,
       ),
     );
 
@@ -314,7 +314,10 @@ class RegisterController extends GetxController {
       },
       (User _) {
         isRegisteringUser(false);
-        createOkxAccount(context, _.email.split('@').first);
+        if (_.email != null) {
+          createOkxAccount(context, _.email!.split('@').first);
+        }
+
         if (isWalletConnect) {
           Get.toNamed<void>(AppRoutes.accountType);
         } else {

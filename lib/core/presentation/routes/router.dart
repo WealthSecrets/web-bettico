@@ -9,6 +9,7 @@ import 'package:betticos/features/okx_swap/presentation/convert/screens/conversi
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/conversion_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/more/more_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
@@ -52,6 +53,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ConversionSuccessScreen(), settings);
     case AppRoutes.conversionHistory:
       return _getPageRoute(const CovnersionHistoryScreen(), settings);
+    case AppRoutes.moreScreen:
+      return _getPageRoute(const MoreScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

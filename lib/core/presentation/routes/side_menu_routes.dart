@@ -15,6 +15,5 @@ List<MenuItem> sideMenuItemRoutes = <MenuItem>[
   const MenuItem('P2P Betting', AppRoutes.livescore),
   const MenuItem('Refer A Friend', AppRoutes.referral),
   const MenuItem('Settings', AppRoutes.settings),
-  const MenuItem('Trade', AppRoutes.okxOptions),
   const MenuItem('Logout', AppRoutes.logout),
 ];
