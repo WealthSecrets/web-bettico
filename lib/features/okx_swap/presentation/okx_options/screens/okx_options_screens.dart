@@ -3,7 +3,6 @@ import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/opti
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
 class OkxOptionsScreen extends StatefulWidget {
@@ -32,27 +31,13 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
             loading: lController.isConnectingWallet.value,
             child: Column(
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Trade Cryptocurrencies',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: context.colors.textDark,
-                      ),
-                    ),
-                    Obx(
-                      () => Image.asset(
-                        AssetImages.wallet,
-                        height: 24,
-                        color: lController.walletAddress.isEmpty
-                            ? Colors.grey
-                            : context.colors.success,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Trade Cryptocurrencies',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: context.colors.textDark,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 OptionCard(
@@ -95,44 +80,6 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                         .navigateTo(AppRoutes.walletAddresses);
                   },
                 ),
-                const Spacer(),
-                Obx(
-                  () => AppButton(
-                    padding: EdgeInsets.zero,
-                    borderRadius: AppBorderRadius.largeAll,
-                    backgroundColor: lController.walletAddress.value.isEmpty
-                        ? context.colors.success
-                        : context.colors.error,
-                    onPressed: () async {
-                      if (lController.walletAddress.isNotEmpty) {
-                        WidgetUtils.showDeleteConnectionDialogue(
-                          context,
-                          onPressed: () async {
-                            lController.disconnect();
-                            Get.back<void>();
-                          },
-                        );
-                      } else {
-                        if (Ethereum.isSupported) {
-                          lController.initiateWalletConnect();
-                        } else {
-                          await lController.connectWC();
-                        }
-                      }
-                    },
-                    child: Text(
-                      lController.walletAddress.isEmpty
-                          ? 'CONNECT WALLET'
-                          : 'DISCONNECT WALLET',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 32),
               ],
             ),
           ),

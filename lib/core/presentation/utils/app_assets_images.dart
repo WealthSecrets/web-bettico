@@ -29,4 +29,14 @@ class AssetImages {
   static String upDown = 'assets/images/up-down.png';
   static String copyFile = 'assets/images/copy.png';
   static String checkedColor = 'assets/images/checked-color.png';
+  static String homeOutline = 'assets/images/home-outline.png';
+  static String homeSolid = 'assets/images/home-solid.png';
+  static String searchOutline = 'assets/images/search-outline.png';
+  static String searchSolid = 'assets/images/search-solid.png';
+  static String convertOutline = 'assets/images/convert-outline.png';
+  static String convertSolid = 'assets/images/convert-solid.png';
+  static String notificationOutline = 'assets/images/notification-outline.png';
+  static String notificationSolid = 'assets/images/notification-solid.png';
+  static String moreOutline = 'assets/images/more-outline.png';
+  static String moreSolid = 'assets/images/more-solid.png';
 }

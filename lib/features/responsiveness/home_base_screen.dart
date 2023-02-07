@@ -1,6 +1,8 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/responsiveness/left_side_bar.dart';
 import 'package:betticos/features/responsiveness/top_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -23,6 +25,36 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
 
   final BaseScreenController baseScreenController =
       Get.find<BaseScreenController>();
+
+  int _bottomNavIndex = 0;
+
+  List<Map<String, dynamic>> bottomNavIcons = <Map<String, dynamic>>[
+    <String, dynamic>{
+      'outline': AssetImages.homeOutline,
+      'solid': AssetImages.homeSolid,
+      'text': 'Home',
+    },
+    <String, dynamic>{
+      'outline': AssetImages.searchOutline,
+      'solid': AssetImages.searchSolid,
+      'text': 'Search',
+    },
+    <String, dynamic>{
+      'outline': AssetImages.convertOutline,
+      'solid': AssetImages.convertSolid,
+      'text': 'Trade',
+    },
+    <String, dynamic>{
+      'outline': AssetImages.notificationOutline,
+      'solid': AssetImages.notificationSolid,
+      'text': 'Notification',
+    },
+    <String, dynamic>{
+      'outline': AssetImages.moreOutline,
+      'solid': AssetImages.moreSolid,
+      'text': 'More',
+    }
+  ];
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -70,6 +102,47 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
               child: LeftSideBar(),
             )
           : null,
+      bottomNavigationBar: ResponsiveWidget.isSmallScreen(context)
+          ? AnimatedBottomNavigationBar.builder(
+              activeIndex: _bottomNavIndex,
+              itemCount: bottomNavIcons.length,
+              tabBuilder: (int index, bool isActive) {
+                final String image = isActive
+                    ? bottomNavIcons[index]['solid'] as String
+                    : bottomNavIcons[index]['outline'] as String;
+
+                final Color color =
+                    isActive ? context.colors.primary : context.colors.grey;
+
+                final String text = bottomNavIcons[index]['text'] as String;
+
+                final FontWeight fontWeight =
+                    isActive ? FontWeight.bold : FontWeight.normal;
+
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(image, height: 24, width: 24, color: color),
+                    const SizedBox(height: 3),
+                    Text(
+                      text,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: fontWeight,
+                        color: color,
+                      ),
+                    ),
+                  ],
+                );
+              },
+              gapLocation: GapLocation.none,
+              notchSmoothness: NotchSmoothness.defaultEdge,
+              onTap: (int index) {
+                setState(() => _bottomNavIndex = index);
+                switchScreen(index);
+              },
+            )
+          : null,
       body: AppLoadingBox(
         loading: baseScreenController.isLoggingOut.value,
         child: ResponsiveWidget(
@@ -78,5 +151,27 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         ),
       ),
     );
+  }
+
+  void switchScreen(int index) {
+    switch (index) {
+      case 0:
+        navigationController.navigateTo(AppRoutes.timeline);
+        return;
+      case 1:
+        navigationController.navigateTo(AppRoutes.oddsters);
+        return;
+      case 2:
+        navigationController.navigateTo(AppRoutes.okxOptions);
+        return;
+      case 3:
+        navigationController.navigateTo(AppRoutes.members);
+        return;
+      case 4:
+        navigationController.navigateTo(AppRoutes.profile);
+        return;
+      default:
+        navigationController.navigateTo(AppRoutes.timeline);
+    }
   }
 }
