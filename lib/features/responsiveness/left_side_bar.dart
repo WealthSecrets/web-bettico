@@ -24,6 +24,10 @@ class _LeftSideBarState extends State<LeftSideBar> {
 
   @override
   Widget build(BuildContext context) {
+    final List<side_menu_routes.MenuItem> sideMenuItems =
+        ResponsiveWidget.isSmallScreen(context)
+            ? side_menu_routes.smallScreenMenuItems
+            : side_menu_routes.sideMenuItemRoutes;
     return ListView(
       padding: AppPaddings.lA,
       children: <Widget>[
@@ -119,7 +123,7 @@ class _LeftSideBarState extends State<LeftSideBar> {
         Divider(color: context.colors.lightGrey.withOpacity(.1)),
         Column(
           mainAxisSize: MainAxisSize.min,
-          children: side_menu_routes.sideMenuItemRoutes
+          children: sideMenuItems
               .map(
                 (side_menu_routes.MenuItem item) => SideMenuItem(
                   name: item.name,
