@@ -168,7 +168,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         navigationController.navigateTo(AppRoutes.members);
         return;
       case 4:
-        navigationController.navigateTo(AppRoutes.profile);
+        navigationController.navigateTo(AppRoutes.moreScreen);
         return;
       default:
         navigationController.navigateTo(AppRoutes.timeline);

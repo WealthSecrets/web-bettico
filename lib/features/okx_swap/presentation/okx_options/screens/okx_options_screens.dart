@@ -29,7 +29,8 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
         child: Obx(
           () => AppLoadingBox(
             loading: lController.isConnectingWallet.value,
-            child: Column(
+            child: AppAnimatedColumn(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
                   'Trade Cryptocurrencies',
@@ -38,6 +39,7 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                     fontWeight: FontWeight.bold,
                     color: context.colors.textDark,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
                 OptionCard(

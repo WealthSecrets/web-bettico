@@ -47,4 +47,6 @@ class AppRoutes {
   static const String depositHistory = '/deposit-history';
   static const String conversionSuccess = '/conversion-success';
   static const String conversionHistory = '/conversion-history';
+  static const String privateSales = '/private-sales';
+  static const String moreScreen = '/more';
 }
