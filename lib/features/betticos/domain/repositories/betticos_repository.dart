@@ -1,4 +1,5 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 
@@ -32,6 +33,8 @@ abstract class BetticosRepository {
     String? postId,
     required Function(int count, int total) onSendProgress,
   });
+
+  Future<Either<Failure, Setup>> getSetup();
 
   Future<Either<Failure, Post>> updatePost({
     required String postId,

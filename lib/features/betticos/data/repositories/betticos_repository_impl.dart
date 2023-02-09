@@ -1,4 +1,5 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
@@ -211,6 +212,10 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
           ),
         ),
       );
+
+  @override
+  Future<Either<Failure, Setup>> getSetup() =>
+      makeRequest(betticoslineRemoteDataSource.getSetup());
 
   @override
   Future<Either<Failure, User>> blockUser({required String userId}) =>

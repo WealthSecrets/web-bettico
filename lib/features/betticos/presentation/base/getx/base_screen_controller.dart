@@ -1,5 +1,7 @@
 import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
+import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
+import 'package:betticos/features/betticos/domain/usecases/setup/get_setup.dart';
 import 'package:betticos/features/betticos/domain/usecases/update_user_device.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
@@ -26,6 +28,7 @@ class BaseScreenController extends GetxController {
     required this.updateUserBonus,
     required this.updateUserDevice,
     required this.getMyFollowings,
+    required this.getSetup,
   });
   final LoadUser loadUser;
   final LoadToken loadToken;
@@ -34,20 +37,24 @@ class BaseScreenController extends GetxController {
   final GetMyFollowers getMyFollowers;
   final UpdateUserDevice updateUserDevice;
   final GetMyFollowings getMyFollowings;
+  final GetSetup getSetup;
 
   Rx<User> user = User.empty().obs;
   Rx<String> userToken = ''.obs;
+  Rx<Setup> setup = Setup.empty().obs;
   RxBool isLoading = false.obs;
   RxBool isUpdatingUserBonus = false.obs;
   RxList<User> myFollowers = <User>[].obs;
   RxList<User> myFollowings = <User>[].obs;
   RxBool isLoggingOut = false.obs;
+  RxBool isGettingSetup = false.obs;
   RxString device = ''.obs;
 
   @override
   void onInit() {
     loadUserFromToken();
     loadUserToken();
+    fetchSetup();
     super.onInit();
   }
 
@@ -98,6 +105,20 @@ class BaseScreenController extends GetxController {
     failureOrUser.fold<void>(
       (Failure failure) {},
       (String token) => userToken(token),
+    );
+  }
+
+  void fetchSetup() async {
+    isGettingSetup(true);
+    final Either<Failure, Setup> failureOrSetup = await getSetup(NoParams());
+    failureOrSetup.fold<void>(
+      (Failure failure) {
+        isGettingSetup(false);
+      },
+      (Setup set) {
+        isGettingSetup(false);
+        setup(set);
+      },
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
+import 'package:betticos/features/betticos/presentation/private_sales/private_sales_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
@@ -55,6 +56,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const CovnersionHistoryScreen(), settings);
     case AppRoutes.moreScreen:
       return _getPageRoute(const MoreScreen(), settings);
+    case AppRoutes.privateSales:
+      return _getPageRoute(const PrivateSale(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

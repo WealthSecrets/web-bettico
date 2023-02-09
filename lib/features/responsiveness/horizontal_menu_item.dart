@@ -19,7 +19,6 @@ class HorizontalMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double _width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onTap,
       onHover: (bool value) {
@@ -39,24 +38,10 @@ class HorizontalMenuItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // Visibility(
-              //   visible: menuController.isHovering(route) ||
-              //       menuController.isActive(route),
-              //   maintainSize: true,
-              //   maintainState: true,
-              //   maintainAnimation: true,
-              //   child: Container(
-              //     width: 6,
-              //     height: 40,
-              //     color: context.colors.textDark,
-              //   ),
-              // ),
-              // SizedBox(width: _width / 80),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: menuController.returnIconFor(route),
               ),
-              // if (!menuController.isActive(route))
               Flexible(
                 child: CustomText(
                   text: name,
@@ -67,15 +52,6 @@ class HorizontalMenuItem extends StatelessWidget {
                       : FontWeight.bold,
                 ),
               )
-              // else
-              //   Flexible(
-              //     child: CustomText(
-              //       text: name,
-              //       color: context.colors.textDark,
-              //       size: 19,
-              //       weight: FontWeight.bold,
-              //     ),
-              //   ),
             ],
           ),
         ),

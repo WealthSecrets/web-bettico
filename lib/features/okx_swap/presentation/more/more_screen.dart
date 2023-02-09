@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -36,7 +37,8 @@ class _MoreScreenState extends State<MoreScreen> {
             const SizedBox(height: 10),
             CustomTile(
               icon: Ionicons.pricetag_outline,
-              onPressed: () {},
+              onPressed: () =>
+                  navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
             ),
           ],
