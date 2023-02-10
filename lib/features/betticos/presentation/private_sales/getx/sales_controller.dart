@@ -1,10 +1,38 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/auth/data/models/user/user_stats.dart';
+import 'package:betticos/features/p2p_betting/domain/usecases/transaction/get_user_stats.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SalesController extends GetxController {
-  SalesController();
+  SalesController({
+    required this.getUserStats,
+  });
+
+  final GetUserStats getUserStats;
 
   RxDouble amount = 0.0.obs;
   RxDouble convertedAmount = 0.0.obs;
+  Rx<UserStats> stats = UserStats.empty().obs;
+  RxBool isGettingStats = false.obs;
+
+  void fetchUserStats(BuildContext context) async {
+    isGettingStats(true);
+    final Either<Failure, UserStats> failureOrUserStats =
+        await getUserStats(NoParams());
+
+    failureOrUserStats.fold<void>(
+      (Failure failure) {
+        isGettingStats(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (UserStats userStats) {
+        isGettingStats(false);
+        stats(userStats);
+      },
+    );
+  }
 
   void onAmountInputChanged(double value) {
     amount(value);

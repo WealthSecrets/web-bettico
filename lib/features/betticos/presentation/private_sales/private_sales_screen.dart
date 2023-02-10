@@ -28,7 +28,10 @@ class _PrivateSaleState extends State<PrivateSale> {
   @override
   void initState() {
     super.initState();
-    bController.fetchSetup();
+    WidgetUtils.onWidgetDidBuild(() {
+      bController.fetchSetup();
+      controller.fetchUserStats(context);
+    });
   }
 
   @override
@@ -40,6 +43,7 @@ class _PrivateSaleState extends State<PrivateSale> {
         () {
           final bool hasAmount = controller.convertedAmount.value > 0;
           final String walletAddress = lController.walletAddress.value;
+          final double totalAmount = controller.stats.value.totalAmount;
           return AppLoadingBox(
             loading: bController.isGettingSetup.value ||
                 lController.isMakingPayment.value,
@@ -83,6 +87,26 @@ class _PrivateSaleState extends State<PrivateSale> {
                           },
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Your Total Purchase',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        color: context.colors.text,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      r'$' + totalAmount.toStringAsFixed(2),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: context.colors.primary,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 24),
                     const Notice(
