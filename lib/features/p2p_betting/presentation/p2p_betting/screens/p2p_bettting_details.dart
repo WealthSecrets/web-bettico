@@ -276,7 +276,8 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                               failureCallback: () async {
                                 // TODO(blankson): Consider using .then() on futures (send)
                                 final TransactionResponse? response =
-                                    await lController.send(context);
+                                    await lController.sendWsc(context,
+                                        lController.convertedAmount.value);
                                 if (response != null) {
                                   controller.createBetTransaction(
                                     context,
@@ -311,7 +312,8 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             );
                           } else if (controller.paymentType.value == 'wallet') {
                             final TransactionResponse? response =
-                                await lController.send(context);
+                                await lController.sendWsc(
+                                    context, lController.convertedAmount.value);
                             if (response != null) {
                               controller.addOpponentToBet(
                                 context,

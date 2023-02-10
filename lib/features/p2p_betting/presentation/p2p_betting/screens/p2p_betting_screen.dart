@@ -273,7 +273,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             failureCallback: () async {
                               // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
                               final TransactionResponse? response =
-                                  await lController.send(context);
+                                  await lController.sendWsc(context,
+                                      lController.convertedAmount.value);
 
                               if (response != null) {
                                 controller.addNewBet(
@@ -303,7 +304,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         } else if (controller.paymentType.value == 'wallet') {
                           final TransactionResponse? response =
-                              await lController.send(context);
+                              await lController.sendWsc(
+                                  context, lController.convertedAmount.value);
                           if (response != null) {
                             controller.createBetTransaction(
                               context,

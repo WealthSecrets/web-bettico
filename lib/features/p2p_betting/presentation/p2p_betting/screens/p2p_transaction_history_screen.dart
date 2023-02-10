@@ -8,6 +8,13 @@ import 'package:betticos/features/p2p_betting/data/models/transaction/transactio
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
+
+class TransactionHistoryScreenRouteArgument {
+  const TransactionHistoryScreenRouteArgument({this.isSale});
+
+  final bool? isSale;
+}
 
 class TransactionHistoryScreen extends StatefulWidget {
   const TransactionHistoryScreen({Key? key}) : super(key: key);
@@ -28,69 +35,101 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final TransactionHistoryScreenRouteArgument? args = ModalRoute.of(context)!
+        .settings
+        .arguments as TransactionHistoryScreenRouteArgument?;
     return Obx(
-      () => AppLoadingBox(
-        loading: controller.isFetchingTransactions.value,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: true,
-            title: Text(
-              'Transaction History',
-              style: TextStyle(
-                color: context.colors.textDark,
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
+      () {
+        final List<Transaction> transactions =
+            controller.getBetTransactions(args?.isSale);
+        return AppLoadingBox(
+          loading: controller.isFetchingTransactions.value,
+          child: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+                right: 16.0,
+                left: 16.0,
+              ),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Ionicons.arrow_back_sharp,
+                            size: 24, color: Colors.black),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Transactions History',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: context.colors.textDark,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: transactions.isEmpty
+                        ? const AppEmptyScreen(
+                            message: 'No transactions were found.')
+                        : ListView.separated(
+                            separatorBuilder:
+                                (BuildContext context, int index) => Divider(
+                              color: context.colors.faintGrey,
+                            ),
+                            padding: EdgeInsets.zero,
+                            itemCount: transactions.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final Transaction transaction =
+                                  transactions[index];
+                              return ListTile(
+                                onTap: () => showTransactionDetails(
+                                    context, transaction),
+                                leading: Image.asset(
+                                  transaction.type.transactionAsset(),
+                                  width: 24,
+                                  height: 24,
+                                ),
+                                title: Text(
+                                  transaction.description,
+                                  style: TextStyle(
+                                    color: context.colors.textDark,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  StringUtils.capitalizeFirst(
+                                      transaction.status.stringValue),
+                                  style: TextStyle(
+                                    color: transaction.status.color(context),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  '${transaction.convertedAmount.toStringAsFixed(2)} ${transaction.convertedToken.toUpperCase()}',
+                                  style: TextStyle(
+                                    color: context.colors.text,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
               ),
             ),
-            centerTitle: true,
-            iconTheme: IconThemeData(color: context.colors.black),
           ),
-          body: controller.myTransactions.isEmpty
-              ? const AppEmptyScreen(message: 'No transactions were found.')
-              : ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(
-                    color: context.colors.faintGrey,
-                  ),
-                  itemCount: controller.myTransactions.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Transaction transaction =
-                        controller.myTransactions[index];
-                    return ListTile(
-                      onTap: () => showTransactionDetails(context, transaction),
-                      leading: Image.asset(
-                        transaction.type.transactionAsset(),
-                        width: 24,
-                        height: 24,
-                      ),
-                      title: Text(
-                        transaction.description,
-                        style: TextStyle(
-                          color: context.colors.textDark,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      subtitle: Text(
-                        StringUtils.capitalizeFirst(
-                            transaction.status.stringValue),
-                        style: TextStyle(
-                          color: transaction.status.color(context),
-                          fontSize: 12,
-                        ),
-                      ),
-                      trailing: Text(
-                        '${transaction.convertedAmount.toStringAsFixed(2)} ${transaction.convertedToken.toUpperCase()}',
-                        style: TextStyle(
-                          color: context.colors.text,
-                          fontSize: 12,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-        ),
-      ),
+        );
+      },
     );
   }
 

@@ -8,6 +8,7 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fix
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_card.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/new_livescore_app_bar.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/vertical_league_card.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
@@ -87,7 +88,8 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     height: 24,
                     width: 24,
                   ),
-                  onPressed: () => Get.toNamed<void>(AppRoutes.transactions),
+                  onPressed: () =>
+                      navigationController.navigateTo(AppRoutes.transactions),
                 ),
               ],
             ),
@@ -289,14 +291,15 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     ),
                   ));
         } else {
-          await lController
-              .connectWC((_) async => Navigator.of(context).push<void>(
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => P2PBettingScreen(
-                        liveScore: liveScore,
-                      ),
-                    ),
-                  ));
+          await lController.connectWC(
+            (_) async => Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => P2PBettingScreen(
+                  liveScore: liveScore,
+                ),
+              ),
+            ),
+          );
         }
       } else {
         await Navigator.of(context).push<void>(

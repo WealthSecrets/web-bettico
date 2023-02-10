@@ -90,6 +90,7 @@ class LiveScoreController extends GetxController {
   RxString selectedCurrency = 'wsc'.obs;
   RxBool showLoadingLogo = false.obs;
   RxBool isConnectingWallet = false.obs;
+  RxBool isMakingPayment = false.obs;
   RxList<String> closingBetID = <String>[].obs;
 
   static const int operatingChain = 56;
@@ -170,25 +171,18 @@ class LiveScoreController extends GetxController {
     update();
   }
 
-  Future<TransactionResponse?> send(BuildContext context) async {
+  Future<TransactionResponse?> send(
+    BuildContext context, {
+    required double amt,
+    required String depositAddress,
+    required ContractERC20 token,
+  }) async {
     showLoadingLogo.value = true;
 
-    final double amount = convertedAmount * 1000000000 * 1000000000;
+    final double amount = amt * 1000000000 * 1000000000;
 
     try {
-      final String jsonText =
-          await rootBundle.loadString('assets/keys/keys.json');
-      final dynamic value = json.decode(jsonText);
-
-      final String tokenAddress = value['token'] as String;
-      final String depositAddress = value['depositAddress'] as String;
-
-      final ContractERC20 token =
-          ContractERC20(tokenAddress, web3wc!.getSigner());
-
-      // TODO(blankson123): find a better way to handle callbacks for payments
-      // ignore: unawaited_futures
-      AppSnacks.show(
+      await AppSnacks.show(
         context,
         message: 'Please check you wallet app to confirm payment',
         backgroundColor: context.colors.success,
@@ -211,6 +205,52 @@ class LiveScoreController extends GetxController {
       showLoadingLogo.value = false;
       await AppSnacks.show(context,
           message: 'Couldn\'t make payment, please check your wallet balance');
+      return null;
+    }
+  }
+
+  Future<TransactionResponse?> sendWsc(
+      BuildContext context, double amount) async {
+    try {
+      final String jsonText =
+          await rootBundle.loadString('assets/keys/keys.json');
+      final dynamic value = json.decode(jsonText);
+
+      final String wscAddress = value['token'] as String;
+      final String depositAddress = value['depositAddress'] as String;
+
+      final ContractERC20 token =
+          ContractERC20(wscAddress, web3wc!.getSigner());
+
+      final TransactionResponse? response = await send(context,
+          amt: amount, token: token, depositAddress: depositAddress);
+      return response;
+    } catch (e) {
+      await AppSnacks.show(context, message: 'Something went wrong!');
+      return null;
+    }
+  }
+
+  Future<TransactionResponse?> sendUsdt(
+      BuildContext context, double amount, String depositAddress) async {
+    isMakingPayment(true);
+    try {
+      final String jsonText =
+          await rootBundle.loadString('assets/keys/keys.json');
+      final dynamic value = json.decode(jsonText);
+
+      final String usdtAddress = value['usdt'] as String;
+
+      final ContractERC20 token =
+          ContractERC20(usdtAddress, web3wc!.getSigner());
+
+      final TransactionResponse? response = await send(context,
+          amt: amount, token: token, depositAddress: depositAddress);
+      isMakingPayment(false);
+      return response;
+    } catch (e) {
+      isMakingPayment(false);
+      await AppSnacks.show(context, message: '$e');
       return null;
     }
   }

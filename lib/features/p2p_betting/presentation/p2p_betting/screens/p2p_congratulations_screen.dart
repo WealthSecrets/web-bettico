@@ -2,9 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-// import 'package:lottie/lottie.dart';
 
 class P2PBettingCongratScreen extends StatefulWidget {
   const P2PBettingCongratScreen({
@@ -18,7 +16,6 @@ class P2PBettingCongratScreen extends StatefulWidget {
 class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
   final P2PBetController p2pBetController = Get.find<P2PBetController>();
 
-  // final P2PCongratsArgument? args = Get.arguments as P2PCongratsArgument?;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -28,11 +25,6 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // SizedBox(
-            //   height: 100,
-            //   child: Lottie.asset('assets/json/checked.json'),
-            // ),
-            // const AppSpacing(v: 40),
             Text(
               'Congratulation! 🎉',
               style: TextStyle(

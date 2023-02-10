@@ -9,6 +9,8 @@ class Setup with _$Setup {
   const factory Setup({
     @JsonKey(name: '_id') required String id,
     @JsonKey(name: 'xRate') required double xviralRate,
+    @JsonKey(name: 'xTarget') required double xviralTarget,
+    @JsonKey(name: 'xDepositAddress') required String xviralDepositAddress,
   }) = _Setup;
 
   const Setup._();
@@ -18,5 +20,7 @@ class Setup with _$Setup {
   factory Setup.empty() => const Setup(
         id: '',
         xviralRate: 0.0,
+        xviralTarget: 0.0,
+        xviralDepositAddress: '',
       );
 }
