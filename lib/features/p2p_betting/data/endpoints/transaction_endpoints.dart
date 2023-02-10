@@ -6,4 +6,5 @@ class TransactionEndpoints {
       'transactions/user/$userId/deposits';
   static String userWithdrawals(String userId) =>
       'transactions/user/$userId/withdrawals';
+  static const String userStats = 'transactions/user/stats';
 }

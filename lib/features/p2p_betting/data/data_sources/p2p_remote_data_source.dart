@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/auth/data/models/user/user_stats.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
@@ -47,6 +48,8 @@ abstract class P2pRemoteDataSource {
     required UpdateBetStatusScoreRequest request,
     required String betId,
   });
+
+  Future<UserStats> getUserStats();
 
   Future<Bet> updateBetPayoutStatus({
     required UpdateBetPayoutRequest request,

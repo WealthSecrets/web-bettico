@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/auth/data/models/user/user_stats.dart';
 import 'package:betticos/features/p2p_betting/data/endpoints/transaction_endpoints.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
@@ -187,7 +188,7 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   Future<Transaction> addTransaction(
       {required TransactionRequest request}) async {
     final Map<String, dynamic> json = await _client.post(
-      P2pEndpoints.transactions,
+      TransactionEndpoints.transactions,
       body: request.toJson(),
     );
     return Transaction.fromJson(json);
@@ -204,10 +205,17 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
+  Future<UserStats> getUserStats() async {
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userStats);
+    return UserStats.fromJson(json);
+  }
+
+  @override
   Future<Transaction> updateTransaction(
       {required TransactionUpdateRequest request, required String hash}) async {
     final Map<String, dynamic> json = await _client.patch(
-      P2pEndpoints.updateTransaction(hash),
+      TransactionEndpoints.updateTransaction(hash),
       body: request.toJson(),
     );
     return Transaction.fromJson(json['data'] as Map<String, dynamic>);

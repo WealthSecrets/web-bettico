@@ -1,4 +1,5 @@
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/auth/data/models/user/user_stats.dart';
 import 'package:betticos/features/betticos/data/models/listpage/listpage.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
@@ -234,6 +235,10 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   @override
   Future<Either<Failure, List<Bet>>> fetchBets() =>
       makeRequest(p2pRemoteDataSource.fetchBets());
+
+  @override
+  Future<Either<Failure, UserStats>> getUserStats() =>
+      makeRequest(p2pRemoteDataSource.getUserStats());
 
   @override
   Future<Either<Failure, List<SLeague>>> fetchLeagues() =>
