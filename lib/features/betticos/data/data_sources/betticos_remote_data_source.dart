@@ -1,4 +1,5 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
@@ -29,6 +30,8 @@ abstract class BetticosRemoteDataSource {
     required PostRequest request,
     required Function(int count, int total) onSendProgress,
   });
+
+  Future<Setup> getSetup();
 
   Future<Post> updatePost({
     required String postId,

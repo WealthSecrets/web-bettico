@@ -38,4 +38,5 @@ class BetticosEndpoints {
   static String unfollowUser(String userId) => 'follow/$userId';
   static String blockUser(String userId) => 'users/$userId/block';
   static String optionsByType(String type) => 'options/$type/type';
+  static const String setup = 'setup';
 }

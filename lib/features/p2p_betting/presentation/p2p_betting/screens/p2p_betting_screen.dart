@@ -1,14 +1,11 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/payment_button.dart';
-// import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-// import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
-// import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -276,7 +273,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             failureCallback: () async {
                               // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
                               final TransactionResponse? response =
-                                  await lController.send(context);
+                                  await lController.sendWsc(context,
+                                      lController.convertedAmount.value);
 
                               if (response != null) {
                                 controller.addNewBet(
@@ -306,7 +304,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         } else if (controller.paymentType.value == 'wallet') {
                           final TransactionResponse? response =
-                              await lController.send(context);
+                              await lController.sendWsc(
+                                  context, lController.convertedAmount.value);
                           if (response != null) {
                             controller.createBetTransaction(
                               context,

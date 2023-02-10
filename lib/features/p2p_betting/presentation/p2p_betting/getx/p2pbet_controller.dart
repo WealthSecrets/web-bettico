@@ -752,4 +752,10 @@ class P2PBetController extends GetxController {
       },
     );
   }
+
+  List<Transaction> getBetTransactions(bool? isSale) => myTransactions
+      .where((Transaction trans) => trans.description
+          .toLowerCase()
+          .contains(isSale == true ? 'xviral' : 'bet'))
+      .toList();
 }

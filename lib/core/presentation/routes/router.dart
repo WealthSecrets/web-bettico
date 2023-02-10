@@ -1,5 +1,7 @@
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
+import 'package:betticos/features/betticos/presentation/private_sales/private_sale_congratulation_screen.dart';
+import 'package:betticos/features/betticos/presentation/private_sales/private_sales_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
@@ -12,6 +14,7 @@ import 'package:betticos/features/okx_swap/presentation/history/deposit_history_
 import 'package:betticos/features/okx_swap/presentation/more/more_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_transaction_history_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
@@ -55,6 +58,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const CovnersionHistoryScreen(), settings);
     case AppRoutes.moreScreen:
       return _getPageRoute(const MoreScreen(), settings);
+    case AppRoutes.privateSales:
+      return _getPageRoute(const PrivateSale(), settings);
+    case AppRoutes.saleSuccess:
+      return _getPageRoute(PrivateSaleCongratulationScreen(), settings);
+    case AppRoutes.transactions:
+      return _getPageRoute(const TransactionHistoryScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

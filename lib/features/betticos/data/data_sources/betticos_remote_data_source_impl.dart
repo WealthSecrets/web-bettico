@@ -1,4 +1,5 @@
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
@@ -231,6 +232,17 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
       return Follow.empty();
     }
     return Follow.fromJson(json);
+  }
+
+  @override
+  Future<Setup> getSetup() async {
+    final Map<String, dynamic> json = await _client.get(
+      BetticosEndpoints.setup,
+    );
+    if (json.isEmpty) {
+      return Setup.empty();
+    }
+    return Setup.fromJson(json);
   }
 
   @override

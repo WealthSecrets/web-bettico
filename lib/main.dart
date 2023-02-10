@@ -8,6 +8,7 @@ import 'package:betticos/features/auth/presentation/resetPassword/getx/reset_bin
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_bindings.dart';
 import 'package:betticos/features/betticos/presentation/members/getx/members_bindings.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/getx/oddsters_bindings.dart';
+import 'package:betticos/features/betticos/presentation/private_sales/getx/sales_bindings.dart';
 import 'package:betticos/features/betticos/presentation/profile/getx/profile_bindings.dart';
 import 'package:betticos/features/betticos/presentation/referral/getx/referral_bindings.dart';
 import 'package:betticos/features/betticos/presentation/report/getx/report_bindings.dart';
@@ -50,6 +51,7 @@ void main() async {
   LiveScoreBindings.dependencies();
   OnBoardBindings.dependencies();
   BaseBindings.dependencies();
+  SalesBindings.dependencies();
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
   OkxBindigns.dependencies();
