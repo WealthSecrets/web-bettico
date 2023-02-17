@@ -36,6 +36,7 @@ class User with _$User {
     DateTime? updatedAt,
     int? referrals,
     String? device,
+    String? apiKey,
     @JsonKey(name: 'bonus') double? bonus,
   }) = _User;
 
@@ -93,6 +94,8 @@ class User with _$User {
   bool get hasRole => role != null;
 
   bool get hasOkx => okx != null;
+
+  bool get hasApiKey => apiKey != null;
 
   bool get hasIdentification => identification != null;
 

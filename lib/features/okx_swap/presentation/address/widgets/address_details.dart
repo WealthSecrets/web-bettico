@@ -1,5 +1,6 @@
 import 'package:barcode/barcode.dart';
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:flutter/material.dart';
@@ -117,9 +118,17 @@ class _ShareQRViewState extends State<AddressDetails> {
               onTap: () {
                 controller.setSelectedCurrency(widget.address.chain!);
                 WidgetUtils.showChainModal(
-                  context,
-                  controller.getTokens(widget.address.currency),
-                  controller,
+                  context: context,
+                  currencies: controller.getTokens(widget.address.currency),
+                  controller: controller,
+                  onTap: (Currency item) {
+                    Navigator.of(context).pop();
+                    controller.createOkxDepositAddress(
+                      context,
+                      item.currency,
+                      item.chain!,
+                    );
+                  },
                 );
               },
               child: Container(

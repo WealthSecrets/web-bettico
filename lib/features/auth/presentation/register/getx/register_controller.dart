@@ -344,6 +344,7 @@ class RegisterController extends GetxController {
       },
       (OkxAccount okx) {
         isCreatingOkxAccount(false);
+        baseScreenController.user.value = okx.user;
         createOkxAccountApiKey(context, callback);
       },
     );

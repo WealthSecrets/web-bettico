@@ -11,8 +11,11 @@ import 'package:betticos/features/okx_swap/presentation/convert/screens/conversi
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/conversion_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/history/withdrawal_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/more/more_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
+import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_congratulations_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_transaction_history_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
@@ -64,6 +67,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(PrivateSaleCongratulationScreen(), settings);
     case AppRoutes.transactions:
       return _getPageRoute(const TransactionHistoryScreen(), settings);
+    case AppRoutes.withdrawal:
+      return _getPageRoute(const WithdrawalScreen(), settings);
+    case AppRoutes.withdrawalHistory:
+      return _getPageRoute(const WithdrawalHistoryScreen(), settings);
+    case AppRoutes.withdrawalSuccess:
+      return _getPageRoute(WithdrawalCongratulationsScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

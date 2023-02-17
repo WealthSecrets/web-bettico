@@ -49,8 +49,12 @@ class WidgetUtils {
     );
   }
 
-  static void showChainModal(BuildContext context, List<Currency> currencies,
-      OkxController controller) async {
+  static void showChainModal({
+    required BuildContext context,
+    required List<Currency> currencies,
+    required OkxController controller,
+    Function(Currency currency)? onTap,
+  }) async {
     await showMaterialModalBottomSheet<void>(
       bounce: true,
       animationCurve: Curves.fastLinearToSlowEaseIn,
@@ -124,9 +128,7 @@ class WidgetUtils {
                             selected: item.chain == selectedChain,
                             enabled: true,
                             onTap: () {
-                              Navigator.of(context).pop();
-                              controller.createOkxDepositAddress(
-                                  context, item.currency, item.chain!);
+                              onTap?.call(item);
                             },
                             title: Text(
                               item.chain?.toUpperCase() ?? '',

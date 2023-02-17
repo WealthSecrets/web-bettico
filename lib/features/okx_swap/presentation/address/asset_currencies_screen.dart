@@ -6,11 +6,18 @@ import 'package:betticos/features/auth/presentation/register/getx/register_contr
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
+import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../okx_options/widgets/no_trading_account.dart';
+
+class AssetCurrenciesScreenRouteArgument {
+  const AssetCurrenciesScreenRouteArgument({this.isWithdrawal = false});
+
+  final bool? isWithdrawal;
+}
 
 class AssetCurrenciesScreen extends StatefulWidget {
   const AssetCurrenciesScreen({Key? key}) : super(key: key);
@@ -22,6 +29,9 @@ class AssetCurrenciesScreen extends StatefulWidget {
 class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
   final OkxController controller = Get.find<OkxController>();
   final RegisterController registerController = Get.find<RegisterController>();
+  final WithdrawalController wController = Get.find<WithdrawalController>();
+
+  List<Currency> currencies = <Currency>[];
 
   @override
   void initState() {
@@ -34,6 +44,9 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final AssetCurrenciesScreenRouteArgument? args = ModalRoute.of(context)!
+        .settings
+        .arguments as AssetCurrenciesScreenRouteArgument?;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -67,6 +80,14 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
 
           final User user = Get.find<BaseScreenController>().user.value;
 
+          final bool isKeywordEmpty = controller.keyword.value.isEmpty;
+
+          if (!isKeywordEmpty) {
+            currencies = controller.searchCurrencies;
+          } else {
+            currencies = controller.options;
+          }
+
           return AppLoadingBox(
             loading: controller.isFetchingAssetCurrencies.value ||
                 controller.isFetchingConvertCurrencies.value ||
@@ -78,23 +99,27 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
               children: <Widget>[
                 Padding(
                   padding: AppPaddings.bodyH,
-                  child: const SearchField(),
+                  child: SearchField(
+                    onChanged: (String? value) {
+                      if (value != null && value.isNotEmpty) {
+                        controller.searchCurrencyOptions(value);
+                      } else {
+                        controller.resetSearch();
+                      }
+                    },
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
                   child: user.okx != null
-                      ? controller.options.isNotEmpty
+                      ? currencies.isNotEmpty
                           ? ListView.separated(
                               padding: EdgeInsets.zero,
                               itemBuilder: (BuildContext context, int index) {
-                                final Currency currency =
-                                    controller.options[index];
+                                final Currency currency = currencies[index];
                                 return ListTile(
-                                  onTap: () => WidgetUtils.showChainModal(
-                                    context,
-                                    controller.getTokens(currency.currency),
-                                    controller,
-                                  ),
+                                  onTap: () => _handleOnTap(
+                                      currency, args?.isWithdrawal),
                                   leading: currency.logoLink != null
                                       ? SizedBox(
                                           width: 40,
@@ -127,17 +152,21 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                                   (BuildContext context, int index) => Divider(
                                 color: context.colors.faintGrey,
                               ),
-                              itemCount: controller.options.length,
+                              itemCount: currencies.length,
                             )
                           : AppEmptyScreen(
                               title: 'Nothing Found',
-                              message:
-                                  'Failed to load tokens or no tokens were found.',
-                              btnText: 'Retry',
-                              onBottonPressed: () {
-                                controller.fetchAssetCurrencies(context);
-                                controller.fetchConvertCurrencies(context);
-                              },
+                              message: isKeywordEmpty
+                                  ? 'No currencies were loaded. Please retry.'
+                                  : 'Your search didn\'t return any results.',
+                              btnText: isKeywordEmpty ? 'Retry' : null,
+                              onBottonPressed: isKeywordEmpty
+                                  ? () {
+                                      controller.fetchAssetCurrencies(context);
+                                      controller
+                                          .fetchConvertCurrencies(context);
+                                    }
+                                  : null,
                             )
                       : NoTradignAccount(user: user),
                 ),
@@ -146,6 +175,27 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
           );
         },
       ),
+    );
+  }
+
+  void _handleOnTap(Currency currency, bool? isWithdrawal) {
+    WidgetUtils.showChainModal(
+      context: context,
+      currencies: controller.getTokens(currency.currency),
+      controller: controller,
+      onTap: (Currency item) {
+        Navigator.of(context).pop();
+        if (isWithdrawal == true) {
+          wController.setCurrency(item);
+          navigationController.navigateTo(AppRoutes.withdrawal);
+        } else {
+          controller.createOkxDepositAddress(
+            context,
+            item.currency,
+            item.chain!,
+          );
+        }
+      },
     );
   }
 }

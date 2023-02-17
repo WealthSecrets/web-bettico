@@ -164,12 +164,16 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
-  Future<Either<Failure, User>> updateUserDevice({required String device}) =>
-      makeRequest(
-        betticoslineRemoteDataSource.updateUserDevice(
-          UserDeviceRequest(device: device),
-        ),
-      );
+  Future<Either<Failure, User>> updateUserDevice(
+      {required String device}) async {
+    final Either<Failure, User> response = await makeRequest(
+        betticoslineRemoteDataSource
+            .updateUserDevice(UserDeviceRequest(device: device)));
+    return response.fold((Failure failure) => left(failure), (User user) async {
+      await authLocalDataSource.persistUserData(user);
+      return right(user);
+    });
+  }
 
   @override
   Future<Either<Failure, Feeling>> addFeeling({
@@ -218,10 +222,15 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(betticoslineRemoteDataSource.getSetup());
 
   @override
-  Future<Either<Failure, User>> blockUser({required String userId}) =>
-      makeRequest(
-        betticoslineRemoteDataSource.blockUser(userId: userId),
-      );
+  Future<Either<Failure, User>> blockUser({required String userId}) async {
+    final Either<Failure, User> response = await makeRequest(
+      betticoslineRemoteDataSource.blockUser(userId: userId),
+    );
+    return response.fold((Failure failure) => left(failure), (User user) async {
+      await authLocalDataSource.persistUserData(user);
+      return right(user);
+    });
+  }
 
   @override
   Future<Either<Failure, Subscription>> subscribeToUser(

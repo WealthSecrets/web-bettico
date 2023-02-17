@@ -1,6 +1,7 @@
 import 'package:betticos/features/okx_swap/domain/usecases/convert_trade.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/create_deposit_address.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/estimate_conversion_quote.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/fetch_balances.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/fetch_conversion_history.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/fetch_currency_pair.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/fetch_deposit_history.dart';
@@ -39,6 +40,9 @@ class OkxBindigns {
           okxRepository: Get.find(),
         ),
         fetchCurrencyPair: FetchCurrencyPair(
+          okxRepository: Get.find(),
+        ),
+        fetchBalances: FetchBalances(
           okxRepository: Get.find(),
         ),
       ),
