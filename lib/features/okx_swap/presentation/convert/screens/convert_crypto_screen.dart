@@ -2,6 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/icon_card.dart';
@@ -75,6 +76,9 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
 
           final User user = Get.find<BaseScreenController>().user.value;
 
+          final BalanceResponse? fromBalance = controller
+              .getCurrencyBalance(controller.fromCurrency.value.currency);
+
           return AppLoadingBox(
             loading: controller.isFetchingAssetCurrencies.value ||
                 controller.isFetchingConvertCurrencies.value ||
@@ -110,6 +114,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                             validator: controller.onFromCurrencyValidator,
                             onChanged: controller.onFromCurrencyInputChanged,
                             options: controller.options,
+                            underLabel: fromBalance?.availableBalance,
                           ),
                         ),
                         const AppSpacing(v: 16),
@@ -200,7 +205,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                         const AppSpacing(v: 32),
                       ],
                     )
-                  : NoTradignAccount(user: user, isConversionScreen: true),
+                  : NoTradignAccount(user: user),
             ),
           );
         },

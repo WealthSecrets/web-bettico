@@ -11,6 +11,8 @@ class Currency with _$Currency {
     @JsonKey(name: 'ccy') required String currency,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'logoLink') String? logoLink,
+    @JsonKey(name: 'minFee') String? minFee,
+    @JsonKey(name: 'maxFee') String? maxFee,
   }) = _Currency;
 
   const Currency._();

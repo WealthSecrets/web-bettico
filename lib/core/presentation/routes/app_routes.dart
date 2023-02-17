@@ -50,4 +50,7 @@ class AppRoutes {
   static const String privateSales = '/private-sales';
   static const String saleSuccess = '/private-sales/congratulations';
   static const String moreScreen = '/more';
+  static const String withdrawal = '/withdrawal';
+  static const String withdrawalHistory = '/withdrawal-history';
+  static const String withdrawalSuccess = '/withdrawal-success';
 }

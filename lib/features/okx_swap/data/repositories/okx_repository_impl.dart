@@ -1,4 +1,6 @@
+import 'package:betticos/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
+import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/okx_conversion.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
@@ -6,6 +8,9 @@ import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency_pair.dart';
 import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
+import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
+import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_request.dart';
+import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_response.dart';
 import 'package:betticos/features/okx_swap/domain/requests/conversion/conversion_request.dart';
 import 'package:betticos/features/okx_swap/domain/requests/conversion/currency_pair_request.dart';
 import 'package:betticos/features/okx_swap/domain/requests/conversion/quote_request.dart';
@@ -20,23 +25,38 @@ import '../../domain/repositories/okx_repository.dart';
 class OkxRepositoryImpl extends Repository implements OkxRepository {
   OkxRepositoryImpl({
     required this.okxRemoteDataSources,
+    required this.authLocalDataSource,
   });
 
   final OkxRemoteDataSources okxRemoteDataSources;
+  final AuthLocalDataSource authLocalDataSource;
 
   @override
   Future<Either<Failure, OkxAccount>> createSubAccount(
-          {required String subAccount}) =>
-      makeRequest(
-        okxRemoteDataSources.createSubAccount(
-          request: CreateSubAccountRequest(subAccount: subAccount),
-        ),
-      );
+      {required String subAccount}) async {
+    final Either<Failure, OkxAccount> response = await makeRequest(
+      okxRemoteDataSources.createSubAccount(
+        request: CreateSubAccountRequest(subAccount: subAccount),
+      ),
+    );
+
+    return response.fold((Failure failure) => left(failure),
+        (OkxAccount account) async {
+      await authLocalDataSource.persistUserData(account.user);
+      return right(account);
+    });
+  }
 
   @override
-  Future<Either<Failure, OkxAccount>> createSubAccountApiKey() => makeRequest(
-        okxRemoteDataSources.createSubAccountApiKey(),
-      );
+  Future<Either<Failure, OkxAccount>> createSubAccountApiKey() async {
+    final Either<Failure, OkxAccount> response =
+        await makeRequest(okxRemoteDataSources.createSubAccountApiKey());
+    return response.fold((Failure failure) => left(failure),
+        (OkxAccount account) async {
+      await authLocalDataSource.persistUserData(account.user);
+      return right(account);
+    });
+  }
 
   @override
   Future<Either<Failure, CurrencyPair>> fetchCurrencyPair(
@@ -95,6 +115,32 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       );
 
   @override
+  Future<Either<Failure, WithdrawalResponse>> withdraw({
+    required String fee,
+    required String amount,
+    required String currency,
+    required String chain,
+    required String toAddress,
+    required String method,
+  }) =>
+      makeRequest(
+        okxRemoteDataSources.withdraw(
+          request: WithdrawalRequest(
+            fee: fee,
+            amount: amount,
+            currency: currency,
+            chain: chain,
+            toAddress: toAddress,
+            method: method,
+          ),
+        ),
+      );
+
+  @override
+  Future<Either<Failure, List<WithdrawalHistory>>> fetchWithdrawalHistory() =>
+      makeRequest(okxRemoteDataSources.fetchWithdrawalHistory());
+
+  @override
   Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress(
           {required String currency, String? chain}) =>
       makeRequest(
@@ -105,12 +151,23 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       );
 
   @override
-  Future<Either<Failure, OkxAccount>> getOkxAccount() =>
-      makeRequest(okxRemoteDataSources.getOkxAccount());
+  Future<Either<Failure, OkxAccount>> getOkxAccount() async {
+    final Either<Failure, OkxAccount> response =
+        await makeRequest(okxRemoteDataSources.getOkxAccount());
+    return response.fold((Failure failure) => left(failure),
+        (OkxAccount account) async {
+      await authLocalDataSource.persistUserData(account.user);
+      return right(account);
+    });
+  }
 
   @override
   Future<Either<Failure, List<Currency>>> fetchAssetCurrencies() =>
       makeRequest(okxRemoteDataSources.fetchAssetCurrencies());
+
+  @override
+  Future<Either<Failure, List<BalanceResponse>>> fetchBalances() =>
+      makeRequest(okxRemoteDataSources.fetchBalances());
 
   @override
   Future<Either<Failure, List<Deposit>>> fetchDepositHistory() =>

@@ -7,12 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NoTradignAccount extends StatelessWidget {
-  NoTradignAccount(
-      {Key? key, required this.user, this.isConversionScreen = false})
-      : super(key: key);
+  NoTradignAccount({Key? key, required this.user}) : super(key: key);
 
   final User user;
-  final bool? isConversionScreen;
 
   final RegisterController registerController = Get.find<RegisterController>();
   final OkxController okxController = Get.find<OkxController>();
@@ -23,19 +20,21 @@ class NoTradignAccount extends StatelessWidget {
       title: 'ENABLE TRADE',
       message: 'Your account do not have trading support yet.',
       onBottonPressed: () {
-        if (user.email != null) {
-          registerController.createOkxAccount(
-            context,
-            user.email!.split('@').first,
-            () {
-              okxController.fetchAssetCurrencies(context);
-              okxController.fetchConvertCurrencies(context);
-              okxController.getCurrencyPair(context);
-            },
-          );
-        } else {
+        if (user.email == null &&
+            user.firstName == null &&
+            user.username == null) {
           AppSnacks.show(context, message: 'Oops! Something went wrong.');
+          return;
         }
+        registerController.createOkxAccount(
+          context,
+          user.email?.split('@').first ?? user.firstName ?? user.username ?? '',
+          () {
+            okxController.fetchAssetCurrencies(context);
+            okxController.fetchConvertCurrencies(context);
+            okxController.getCurrencyPair(context);
+          },
+        );
       },
       btnText: 'get started',
     );

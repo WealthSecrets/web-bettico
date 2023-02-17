@@ -15,6 +15,7 @@ import 'package:betticos/features/betticos/presentation/report/getx/report_bindi
 import 'package:betticos/features/betticos/presentation/timeline/getx/card_bindings.dart';
 import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_bindings.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_bindings.dart';
+import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_bindings.dart';
 import 'package:betticos/features/onboarding_splash/presentation/onbaording/getx/onboard_bindings.dart';
 import 'package:betticos/features/onboarding_splash/presentation/splash/getx/splash_bindings.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
@@ -55,6 +56,7 @@ void main() async {
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
   OkxBindigns.dependencies();
+  WithdrawalBindings.dependencies();
 
   ProfileBindings.dependencies();
 

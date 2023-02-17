@@ -12,6 +12,7 @@ class AppTextInput extends StatefulWidget {
     Key? key,
     this.inputFormatters,
     this.labelText,
+    this.underLabelText,
     this.hintText,
     this.errorStyle,
     this.initialValue,
@@ -45,6 +46,7 @@ class AppTextInput extends StatefulWidget {
 
   final String? hintText;
   final String? labelText;
+  final String? underLabelText;
   final int maxLines;
   final int? maxLength;
   final int? minLines;
@@ -164,47 +166,67 @@ class _AppTextInputState extends State<AppTextInput>
                       valueListenable: obscureTextValueListenable,
                       builder: (BuildContext context, bool obscuringText,
                           Widget? child) {
-                        return TextFormField(
-                          focusNode: focusNode,
-                          autovalidateMode:
-                              focusNode!.hasFocus && dirtyValueListenable.value
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            TextFormField(
+                              focusNode: focusNode,
+                              autovalidateMode: focusNode!.hasFocus &&
+                                      dirtyValueListenable.value
                                   ? AutovalidateMode.always
                                   : AutovalidateMode.onUserInteraction,
-                          obscuringCharacter: '*',
-                          obscureText: obscuringText,
-                          controller: controller,
-                          cursorColor: widget.textColor,
-                          textInputAction: widget.textInputAction,
-                          maxLength: widget.maxLength,
-                          maxLines: widget.maxLines,
-                          autofocus: widget.autoFocus,
-                          textAlignVertical: widget.textAlignVertical,
-                          minLines: widget.minLines,
-                          keyboardType: widget.textInputType,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: widget.textColor ?? context.colors.textDark,
-                            fontSize: 14,
-                          ),
-                          onChanged: widget.onChanged,
-                          textAlign: widget.textAlign ?? TextAlign.start,
-                          inputFormatters: widget.inputFormatters,
-                          onFieldSubmitted: widget.onFieldSubmitted,
-                          decoration: InputDecoration(
-                            contentPadding:
-                                widget.padding ?? const EdgeInsets.all(5),
-                            fillColor: context.colors.background,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            prefixIcon: widget.prefixIcon,
-                            suffixIcon: widget.suffixIcon,
-                            hintStyle: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: widget.hintColor ?? context.colors.hint,
-                              height: 1.4,
-                              fontSize: 14,
+                              obscuringCharacter: '*',
+                              obscureText: obscuringText,
+                              controller: controller,
+                              cursorColor: widget.textColor,
+                              textInputAction: widget.textInputAction,
+                              maxLength: widget.maxLength,
+                              maxLines: widget.maxLines,
+                              autofocus: widget.autoFocus,
+                              textAlignVertical: widget.textAlignVertical,
+                              minLines: widget.minLines,
+                              keyboardType: widget.textInputType,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    widget.textColor ?? context.colors.textDark,
+                                fontSize: 14,
+                              ),
+                              onChanged: widget.onChanged,
+                              textAlign: widget.textAlign ?? TextAlign.start,
+                              inputFormatters: widget.inputFormatters,
+                              onFieldSubmitted: widget.onFieldSubmitted,
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    widget.padding ?? const EdgeInsets.all(5),
+                                fillColor: context.colors.background,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                prefixIcon: widget.prefixIcon,
+                                suffixIcon: widget.suffixIcon,
+                                hintStyle: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color:
+                                      widget.hintColor ?? context.colors.hint,
+                                  height: 1.4,
+                                  fontSize: 14,
+                                ),
+                                hintText: widget.hintText,
+                              ),
                             ),
-                            hintText: widget.hintText,
-                          ),
+                            const SizedBox(height: 3),
+                            if (widget.underLabelText != null)
+                              Text(
+                                widget.underLabelText!,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                  color: context.colors.text,
+                                ),
+                              ),
+                          ],
                         );
                       },
                     ),

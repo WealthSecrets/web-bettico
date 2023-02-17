@@ -1,4 +1,5 @@
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/okx_conversion.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
@@ -14,6 +15,7 @@ import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposi
 import 'package:betticos/features/okx_swap/domain/usecases/convert_trade.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/create_deposit_address.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/estimate_conversion_quote.dart';
+import 'package:betticos/features/okx_swap/domain/usecases/fetch_balances.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/fetch_conversion_history.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/fetch_currency_pair.dart';
 import 'package:betticos/features/okx_swap/domain/usecases/fetch_deposit_history.dart';
@@ -39,6 +41,7 @@ class OkxController extends GetxController {
     required this.convertTrade,
     required this.estimateConversionQuote,
     required this.fetchCurrencyPair,
+    required this.fetchBalances,
   });
 
   //
@@ -51,6 +54,7 @@ class OkxController extends GetxController {
   final ConvertTrade convertTrade;
   final EstimateConversionQuote estimateConversionQuote;
   final FetchCurrencyPair fetchCurrencyPair;
+  final FetchBalances fetchBalances;
 
   Rx<Currency> fromCurrency = Currency.mock().obs;
   Rx<Currency> toCurrency = Currency.mock().obs;
@@ -70,14 +74,19 @@ class OkxController extends GetxController {
   RxList<OkxConversion> conversions = <OkxConversion>[].obs;
   RxList<Currency> convertCurrencies = <Currency>[].obs;
   RxList<Currency> options = <Currency>[].obs;
+  RxList<BalanceResponse> myBalances = <BalanceResponse>[].obs;
   RxString selectedChain = ''.obs;
   Rx<OkxAccount> myOkxAccount = OkxAccount.empty().obs;
   RxDouble amount = 0.0.obs;
   RxString isSwap = '0'.obs;
 
+  RxString keyword = ''.obs;
+  RxList<Currency> searchCurrencies = <Currency>[].obs;
+
   // loading state
   RxBool isFetchingAssetCurrencies = false.obs;
   RxBool isFetchingDepositHistory = false.obs;
+  RxBool isFetchingBalances = false.obs;
   RxBool isFetchingCurrencyPair = false.obs;
   RxBool isEstimatingConversion = false.obs;
   RxBool isConvertingCrypto = false.obs;
@@ -201,6 +210,28 @@ class OkxController extends GetxController {
       },
     );
   }
+
+  void getBalances(BuildContext context) async {
+    isFetchingBalances(true);
+
+    final Either<Failure, List<BalanceResponse>> failureOrResponse =
+        await fetchBalances(NoParams());
+
+    failureOrResponse.fold<void>(
+      (Failure failure) {
+        isFetchingBalances(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (List<BalanceResponse> value) {
+        isFetchingBalances(false);
+        myBalances.value = value;
+      },
+    );
+  }
+
+  BalanceResponse? getCurrencyBalance(String ccy) =>
+      myBalances.firstWhereOrNull((BalanceResponse el) =>
+          el.currency.toLowerCase() == ccy.toLowerCase());
 
   void getUserOkxAccount(BuildContext context) async {
     isGettingOkxAccount(true);
@@ -340,6 +371,22 @@ class OkxController extends GetxController {
       isFilterred.value = true;
       getCurrencyPair(context);
     }
+  }
+
+  void searchCurrencyOptions(String value) {
+    keyword(value);
+    final List<Currency> values = options
+        .where((Currency p0) =>
+            p0.currency.toLowerCase().contains(keyword.value.toLowerCase()) ||
+            p0.chain != null &&
+                p0.chain!.toLowerCase().contains(keyword.value.toLowerCase()))
+        .toList();
+    searchCurrencies(values);
+  }
+
+  void resetSearch() {
+    keyword('');
+    searchCurrencies(<Currency>[]);
   }
 
   List<Currency> getTokens(String ccy) {

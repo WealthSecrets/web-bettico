@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/data/models/user/user_stats.dart';
 import 'package:betticos/features/betticos/data/models/listpage/listpage.dart';
@@ -28,9 +29,11 @@ import '../models/crypto/volume.dart';
 class P2pRepositoryImpl extends Repository implements P2pRepository {
   P2pRepositoryImpl({
     required this.p2pRemoteDataSource,
+    required this.authLocalDataSource,
   });
 
   final P2pRemoteDataSource p2pRemoteDataSource;
+  final AuthLocalDataSource authLocalDataSource;
 
   @override
   Future<Either<Failure, List<SoccerMatch>>> getLiveMatches(
@@ -297,15 +300,21 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
 
   @override
   Future<Either<Failure, User>> updateUserBonus(
-          {required String type, required double amount}) =>
-      makeRequest(
-        p2pRemoteDataSource.updateBonus(
-          UserBonusRequest(
-            type: type,
-            amount: amount,
-          ),
+      {required String type, required double amount}) async {
+    final Either<Failure, User> response = await makeRequest(
+      p2pRemoteDataSource.updateBonus(
+        UserBonusRequest(
+          type: type,
+          amount: amount,
         ),
-      );
+      ),
+    );
+
+    return response.fold((Failure failure) => left(failure), (User user) async {
+      await authLocalDataSource.persistUserData(user);
+      return right(user);
+    });
+  }
 
   @override
   Future<Either<Failure, List<Bet>>> getFilteredBets({
