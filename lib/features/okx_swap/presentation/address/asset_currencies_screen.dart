@@ -6,6 +6,7 @@ import 'package:betticos/features/auth/presentation/register/getx/register_contr
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
+import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_api_key.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
@@ -111,64 +112,69 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: user.okx != null
-                      ? currencies.isNotEmpty
-                          ? ListView.separated(
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (BuildContext context, int index) {
-                                final Currency currency = currencies[index];
-                                return ListTile(
-                                  onTap: () => _handleOnTap(
-                                      currency, args?.isWithdrawal),
-                                  leading: currency.logoLink != null
-                                      ? SizedBox(
-                                          width: 40,
-                                          child: Image.network(
-                                            currency.logoLink!,
-                                            height: 40,
-                                            width: 40,
-                                          ),
-                                        )
+                  child: user.okx == null
+                      ? NoTradignAccount(user: user)
+                      : user.apiKey == null
+                          ? NoTradingApiKey()
+                          : currencies.isNotEmpty
+                              ? ListView.separated(
+                                  padding: EdgeInsets.zero,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final Currency currency = currencies[index];
+                                    return ListTile(
+                                      onTap: () => _handleOnTap(
+                                          currency, args?.isWithdrawal),
+                                      leading: currency.logoLink != null
+                                          ? SizedBox(
+                                              width: 40,
+                                              child: Image.network(
+                                                currency.logoLink!,
+                                                height: 40,
+                                                width: 40,
+                                              ),
+                                            )
+                                          : null,
+                                      title: Text(
+                                        currency.currency,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: context.colors.textDark,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        currency.name ?? '',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                          color: context.colors.text,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          Divider(
+                                    color: context.colors.faintGrey,
+                                  ),
+                                  itemCount: currencies.length,
+                                )
+                              : AppEmptyScreen(
+                                  title: 'Nothing Found',
+                                  message: isKeywordEmpty
+                                      ? 'No currencies were loaded. Please retry.'
+                                      : 'Your search didn\'t return any results.',
+                                  btnText: isKeywordEmpty ? 'Retry' : null,
+                                  onBottonPressed: isKeywordEmpty
+                                      ? () {
+                                          controller
+                                              .fetchAssetCurrencies(context);
+                                          controller
+                                              .fetchConvertCurrencies(context);
+                                        }
                                       : null,
-                                  title: Text(
-                                    currency.currency,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: context.colors.textDark,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    currency.name ?? '',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                      color: context.colors.text,
-                                    ),
-                                  ),
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) => Divider(
-                                color: context.colors.faintGrey,
-                              ),
-                              itemCount: currencies.length,
-                            )
-                          : AppEmptyScreen(
-                              title: 'Nothing Found',
-                              message: isKeywordEmpty
-                                  ? 'No currencies were loaded. Please retry.'
-                                  : 'Your search didn\'t return any results.',
-                              btnText: isKeywordEmpty ? 'Retry' : null,
-                              onBottonPressed: isKeywordEmpty
-                                  ? () {
-                                      controller.fetchAssetCurrencies(context);
-                                      controller
-                                          .fetchConvertCurrencies(context);
-                                    }
-                                  : null,
-                            )
-                      : NoTradignAccount(user: user),
+                                ),
                 ),
               ],
             ),
