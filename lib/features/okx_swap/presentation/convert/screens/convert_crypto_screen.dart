@@ -81,19 +81,57 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
               .getCurrencyBalance(controller.fromCurrency.value.currency);
 
           return AppLoadingBox(
-            loading: controller.isFetchingAssetCurrencies.value ||
-                controller.isFetchingConvertCurrencies.value ||
-                controller.isFetchingCurrencyPair.value ||
-                registerController.isCreatingAccountApiKey.value ||
-                registerController.isCreatingOkxAccount.value,
+            loading: controller.isConvertScreenLoading ||
+                registerController.isLoading,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
               child: user.okx == null
                   ? NoTradignAccount(user: user)
                   : user.apiKey == null
                       ? NoTradingApiKey()
                       : Column(
                           children: <Widget>[
+                            if (!(controller.isConvertScreenLoading ||
+                                registerController.isLoading)) ...<Widget>[
+                              if (fromBalance != null) ...<Widget>[
+                                Text(
+                                  'From Balance',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: context.colors.text,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${double.parse(fromBalance.availableBalance).toStringAsFixed(2)} ${fromBalance.currency.toUpperCase()}',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colors.primary,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                              if (fromBalance == null)
+                                Text(
+                                  'You have insufficient balance in ${controller.fromCurrency.value.currency.toUpperCase()}.',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    color: context.colors.error,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              const SizedBox(height: 24),
+                            ],
+                            if (controller.isConvertScreenLoading ||
+                                registerController.isLoading)
+                              const Align(
+                                alignment: Alignment.center,
+                                child: LoadingLogo(height: 14, width: 14),
+                              ),
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -119,7 +157,6 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                                 onChanged:
                                     controller.onFromCurrencyInputChanged,
                                 options: controller.options,
-                                underLabel: fromBalance?.availableBalance,
                               ),
                             ),
                             const AppSpacing(v: 16),
@@ -144,6 +181,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                             const AppSpacing(v: 5),
                             Obx(
                               () => CryptoConverterInput(
+                                disableAmountInput: true,
                                 controller: controller.toController,
                                 selectedCurrency: controller.toCurrency.value,
                                 hintText: controller.toCurrencyHint.value,
@@ -181,11 +219,11 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                                           maxHeight: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              .5,
+                                              .53,
                                           minHeight: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              .4,
+                                              .43,
                                         ),
                                         child: const ClipRRect(
                                           borderRadius: BorderRadius.only(

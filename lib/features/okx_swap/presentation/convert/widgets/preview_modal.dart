@@ -154,7 +154,7 @@ class _PreviewModalState extends State<PreviewModal> {
                 ),
                 textAlign: TextAlign.justify,
               ),
-              const Spacer(),
+              const SizedBox(height: 12),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -194,6 +194,7 @@ class _PreviewModalState extends State<PreviewModal> {
                   ),
                 ],
               ),
+              const Spacer(),
             ],
           ),
         ),

@@ -14,7 +14,6 @@ class CryptoConverterInput extends StatelessWidget {
     required this.validator,
     required this.onChanged,
     this.label,
-    this.underLabel,
   }) : super(key: key);
 
   final Currency? selectedCurrency;
@@ -26,7 +25,6 @@ class CryptoConverterInput extends StatelessWidget {
   final String? Function(String) validator;
   final Function(String) onChanged;
   final String? label;
-  final String? underLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,6 @@ class CryptoConverterInput extends StatelessWidget {
           disabled: disableAmountInput,
           controller: controller,
           labelText: label,
-          underLabelText: underLabel,
           prefixIcon: const SizedBox(width: 102),
           hintText: hintText,
           hintColor: context.colors.text,

@@ -46,14 +46,14 @@ class ConversionSuccessScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 ListTileColumn(
-                  title: 'From',
+                  title: controller.isSwap.value == '0' ? 'From' : 'To',
                   amount: response.filledQuoteAmount,
                   quoteCurrency: response.quoteCurrency,
                   currency: quoteCurrency,
                 ),
                 Divider(color: context.colors.lightGrey),
                 ListTileColumn(
-                  title: 'To',
+                  title: controller.isSwap.value != '0' ? 'From' : 'To',
                   amount: response.baseFilledAmount,
                   quoteCurrency: response.baseCurrency,
                   currency: baseCurrency,

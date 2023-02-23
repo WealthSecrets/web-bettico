@@ -109,6 +109,12 @@ class OkxController extends GetxController {
     toController.dispose();
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    resetSearch();
+  }
+
   void fetchAssetCurrencies(BuildContext context) async {
     isFetchingAssetCurrencies(true);
 
@@ -174,6 +180,11 @@ class OkxController extends GetxController {
       },
     );
   }
+
+  bool get isConvertScreenLoading =>
+      isFetchingAssetCurrencies.value ||
+      isFetchingConvertCurrencies.value ||
+      isFetchingCurrencyPair.value;
 
   void getDepositHistory(BuildContext context) async {
     isFetchingDepositHistory(true);
@@ -379,14 +390,18 @@ class OkxController extends GetxController {
   }
 
   void searchCurrencyOptions(String value) {
-    keyword(value);
-    final List<Currency> values = options
-        .where((Currency p0) =>
-            p0.currency.toLowerCase().contains(keyword.value.toLowerCase()) ||
-            p0.chain != null &&
-                p0.chain!.toLowerCase().contains(keyword.value.toLowerCase()))
-        .toList();
-    searchCurrencies(values);
+    if (value.isEmpty) {
+      resetSearch();
+    } else {
+      keyword(value);
+      final List<Currency> values = options
+          .where((Currency p0) =>
+              p0.currency.toLowerCase().contains(keyword.value.toLowerCase()) ||
+              p0.chain != null &&
+                  p0.chain!.toLowerCase().contains(keyword.value.toLowerCase()))
+          .toList();
+      searchCurrencies(values);
+    }
   }
 
   void resetSearch() {

@@ -169,6 +169,9 @@ class RegisterController extends GetxController {
     });
   }
 
+  bool get isLoading =>
+      isCreatingAccountApiKey.value || isCreatingOkxAccount.value;
+
   void verifyUserEmailAddress(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
 
