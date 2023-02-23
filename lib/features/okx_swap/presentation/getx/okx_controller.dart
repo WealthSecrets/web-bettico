@@ -297,7 +297,7 @@ class OkxController extends GetxController {
         quoteCurrency: currentCurrencyPair.value.quoteCurrency,
         realAmount: quoteAmount.value,
         realAmountCurrency: selectedCurrency.value.currency,
-        side: 'buy',
+        side: getSide(currentCurrencyPair.value.baseCurrency),
       ),
     );
 
@@ -314,6 +314,11 @@ class OkxController extends GetxController {
     );
   }
 
+  String getSide(String baseCurrency) =>
+      baseCurrency.toUpperCase() == fromCurrency.value.currency.toUpperCase()
+          ? 'sell'
+          : 'buy';
+
   void convertCrypto(BuildContext context) async {
     isConvertingCrypto(true);
 
@@ -324,7 +329,7 @@ class OkxController extends GetxController {
         quoteCurrency: currentQuote.value.quoteCurrency,
         realAmount: quoteAmount.value,
         realAmountCurrency: selectedCurrency.value.currency,
-        side: 'buy',
+        side: getSide(currentQuote.value.baseCurrency),
         quoteId: currentQuote.value.quoteId,
         clientOrderId: currentQuote.value.clientOrderId,
       ),
@@ -502,5 +507,6 @@ class OkxController extends GetxController {
       fromController.text = '';
       selectedCurrency.value = toCurrency.value;
     }
+    getCurrencyPair(context);
   }
 }
