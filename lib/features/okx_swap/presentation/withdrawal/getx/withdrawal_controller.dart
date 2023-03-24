@@ -1,4 +1,6 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/success_screen.dart';
+import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
 import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_request.dart';
@@ -24,6 +26,7 @@ class WithdrawalController extends GetxController {
   Rx<Currency> currency = Currency.empty().obs;
   RxList<WithdrawalHistory> withdrawals = <WithdrawalHistory>[].obs;
   Rx<WithdrawalResponse> currentWithdrawal = WithdrawalResponse.empty().obs;
+  Rx<Balance> balance = Balance.empty().obs;
 
   // loading variables
   RxBool isFetchingWithdrawalHistory = false.obs;
@@ -47,7 +50,7 @@ class WithdrawalController extends GetxController {
     );
   }
 
-  void makeWithdrawal(BuildContext context) async {
+  void makeWithdrawal(BuildContext context, {VoidCallback? onSuccess}) async {
     isMakingWithdrawal(true);
 
     final Either<Failure, WithdrawalResponse> failureOrResponse =
@@ -56,7 +59,7 @@ class WithdrawalController extends GetxController {
         currency: currency.value.currency,
         chain: currency.value.chain!,
         amount: amount.value.toString(),
-        fee: currency.value.maxFee ?? '0.000',
+        fee: currency.value.minFee ?? '0.000',
         toAddress: recipientAddress.value,
         method: '4',
       ),
@@ -69,15 +72,27 @@ class WithdrawalController extends GetxController {
       },
       (WithdrawalResponse response) {
         isMakingWithdrawal(false);
+        onSuccess?.call();
         currentWithdrawal(response);
-        navigationController.navigateTo(AppRoutes.withdrawalSuccess);
+        navigationController.navigateTo(
+          AppRoutes.success,
+          arguments: SucessScreenRouteArgument(
+            title: 'Withdrawal Successful',
+            message:
+                'You have successfully withdrawn ${currentWithdrawal.value.amount} ${currentWithdrawal.value.currency.toUpperCase()}',
+            onPressed: () {
+              Navigator.of(context).pop();
+              navigationController.navigateTo(AppRoutes.withdrawalHistory);
+            },
+          ),
+        );
       },
     );
   }
 
-  void setCurrency(Currency ccy) {
-    currency(ccy);
-  }
+  void setCurrency(Currency ccy) => currency(ccy);
+
+  void setBalance(Balance? bal) => balance(bal ?? Balance.empty());
 
   void reset() {
     amount(0.0);

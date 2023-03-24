@@ -77,7 +77,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
 
           final User user = Get.find<BaseScreenController>().user.value;
 
-          final BalanceResponse? fromBalance = controller
+          final Balance? fromBalance = controller
               .getCurrencyBalance(controller.fromCurrency.value.currency);
 
           return AppLoadingBox(
@@ -219,11 +219,11 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                                           maxHeight: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              .53,
+                                              .55,
                                           minHeight: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              .43,
+                                              .45,
                                         ),
                                         child: const ClipRRect(
                                           borderRadius: BorderRadius.only(

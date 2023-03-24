@@ -5,6 +5,7 @@ import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
+import 'package:betticos/features/okx_swap/presentation/funds/getx/funds_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_api_key.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_controller.dart';
@@ -15,9 +16,11 @@ import 'package:get/get.dart';
 import '../okx_options/widgets/no_trading_account.dart';
 
 class AssetCurrenciesScreenRouteArgument {
-  const AssetCurrenciesScreenRouteArgument({this.isWithdrawal = false});
+  const AssetCurrenciesScreenRouteArgument(
+      {this.isWithdrawal = false, this.isTransfer = false});
 
   final bool? isWithdrawal;
+  final bool? isTransfer;
 }
 
 class AssetCurrenciesScreen extends StatefulWidget {
@@ -31,6 +34,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
   final OkxController controller = Get.find<OkxController>();
   final RegisterController registerController = Get.find<RegisterController>();
   final WithdrawalController wController = Get.find<WithdrawalController>();
+  final FundsController fController = Get.find<FundsController>();
 
   List<Currency> currencies = <Currency>[];
 
@@ -61,17 +65,19 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
         ),
         centerTitle: true,
         elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            onPressed: () =>
-                navigationController.navigateTo(AppRoutes.depositHistory),
-            icon: Image.asset(
-              AssetImages.tansactionHistory,
-              height: 24,
-              width: 24,
-            ),
-          ),
-        ],
+        actions: args?.isTransfer == null && args?.isWithdrawal == null
+            ? <Widget>[
+                IconButton(
+                  onPressed: () =>
+                      navigationController.navigateTo(AppRoutes.depositHistory),
+                  icon: Image.asset(
+                    AssetImages.tansactionHistory,
+                    height: 24,
+                    width: 24,
+                  ),
+                ),
+              ]
+            : null,
       ),
       body: Obx(
         () {
@@ -123,8 +129,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                                       (BuildContext context, int index) {
                                     final Currency currency = currencies[index];
                                     return ListTile(
-                                      onTap: () => _handleOnTap(
-                                          currency, args?.isWithdrawal),
+                                      onTap: () => _handleOnTap(currency, args),
                                       leading: currency.logoLink != null
                                           ? SizedBox(
                                               width: 40,
@@ -184,16 +189,20 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
     );
   }
 
-  void _handleOnTap(Currency currency, bool? isWithdrawal) {
+  void _handleOnTap(
+      Currency currency, AssetCurrenciesScreenRouteArgument? args) {
     WidgetUtils.showChainModal(
       context: context,
       currencies: controller.getTokens(currency.currency),
       controller: controller,
       onTap: (Currency item) {
         Navigator.of(context).pop();
-        if (isWithdrawal == true) {
+        if (args?.isWithdrawal == true) {
           wController.setCurrency(item);
           navigationController.navigateTo(AppRoutes.withdrawal);
+        } else if (args?.isTransfer == true) {
+          fController.setCurrency(item);
+          navigationController.navigateTo(AppRoutes.transferFunds);
         } else {
           controller.createOkxDepositAddress(
             context,

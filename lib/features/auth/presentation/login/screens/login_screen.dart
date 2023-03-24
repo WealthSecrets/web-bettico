@@ -276,7 +276,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'Bettico',
+                                    text: 'Xviral',
                                     style: TextStyle(
                                       color: context.colors.primary.shade700,
                                       fontWeight: FontWeight.bold,

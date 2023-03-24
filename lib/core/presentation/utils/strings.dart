@@ -111,7 +111,7 @@ class AppStrings extends Translations {
           'no_oddboxes': 'No odd boxes were found.',
           'no_posts': 'No posts were found.',
           'enjoy_exclusive_1':
-              'Enjoy exclusive offers on odds by signing up with Bettico.',
+              'Enjoy exclusive offers on odds by signing up with Xviral.',
           'enjoy_exclusive_2':
               'Download the app here: https://play.google.com/store/apps/details?id=com.betticos.mobile',
           'slip_code': 'Slip Code',
@@ -257,7 +257,7 @@ class AppStrings extends Translations {
           'no_posts': '没有找到帖子',
           'choose_profile_photo': '选择个人资料照片',
           'update_profile': '更新个人信息',
-          'enjoy_exclusive_1': '注册 Bettico 即可享受独家赔率优惠。',
+          'enjoy_exclusive_1': '注册 Xviral 即可享受独家赔率优惠。',
           'enjoy_exclusive_2':
               '在此处下载应用程序：https://play.google.com/store/apps/details?id=com.betticos.mobile',
           'copied': '复制到剪贴板',

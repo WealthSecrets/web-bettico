@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class PrivateSale extends StatefulWidget {
@@ -60,6 +61,14 @@ class _PrivateSaleState extends State<PrivateSale> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
+                        IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: const Icon(
+                            Ionicons.close_sharp,
+                            size: 24,
+                            color: Colors.black,
+                          ),
+                        ),
                         Text(
                           'Private Sales',
                           style: TextStyle(

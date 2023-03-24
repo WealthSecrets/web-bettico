@@ -1,3 +1,4 @@
+import 'package:betticos/core/presentation/widgets/success_screen.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/private_sales/private_sale_congratulation_screen.dart';
@@ -9,11 +10,15 @@ import 'package:betticos/features/okx_swap/presentation/address/addresses_screen
 import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/conversion_success_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/crypto/buy_sell_crypto_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/crypto/crypto_front_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/crypto/send_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/funds/screens/transfer_funds.dart';
+import 'package:betticos/features/okx_swap/presentation/funds/screens/transfer_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/conversion_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/withdrawal_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/more/more_screen.dart';
-import 'package:betticos/features/okx_swap/presentation/okx_options/screens/okx_options_screens.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_congratulations_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
@@ -46,7 +51,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.convertCrypto:
       return _getPageRoute(const ConvertCryptoScreen(), settings);
     case AppRoutes.okxOptions:
-      return _getPageRoute(const OkxOptionsScreen(), settings);
+      return _getPageRoute(const CryptoFrontScreen(), settings);
+    case AppRoutes.buySellCrypto:
+      return _getPageRoute(const BuySellCryptoScreen(), settings);
     case AppRoutes.walletAddresses:
       return _getPageRoute(const AddressesScreen(), settings);
     case AppRoutes.currencies:
@@ -73,6 +80,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const WithdrawalHistoryScreen(), settings);
     case AppRoutes.withdrawalSuccess:
       return _getPageRoute(WithdrawalCongratulationsScreen(), settings);
+    case AppRoutes.transferFunds:
+      return _getPageRoute(const TransferFundsScreen(), settings);
+    case AppRoutes.success:
+      return _getPageRoute(const SucessScreen(), settings);
+    case AppRoutes.transferHistory:
+      return _getPageRoute(const TransferHistoryScreen(), settings);
+    case AppRoutes.send:
+      return _getPageRoute(const SendScreen(), settings);
+
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

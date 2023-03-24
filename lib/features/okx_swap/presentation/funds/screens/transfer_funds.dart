@@ -2,23 +2,24 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
+import 'package:betticos/features/okx_swap/presentation/funds/getx/funds_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_account.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_api_key.dart';
-import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WithdrawalScreen extends StatefulWidget {
-  const WithdrawalScreen({Key? key}) : super(key: key);
+class TransferFundsScreen extends StatefulWidget {
+  const TransferFundsScreen({Key? key}) : super(key: key);
 
   @override
-  State<WithdrawalScreen> createState() => _WithdrawalScreenState();
+  State<TransferFundsScreen> createState() => _WithdrawalScreenState();
 }
 
-class _WithdrawalScreenState extends State<WithdrawalScreen> {
-  final WithdrawalController controller = Get.find<WithdrawalController>();
+class _WithdrawalScreenState extends State<TransferFundsScreen> {
+  final FundsController controller = Get.find<FundsController>();
+
   final OkxController okxController = Get.find<OkxController>();
 
   @override
@@ -43,7 +44,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
         backgroundColor: Colors.transparent,
         leading: const AppBackButton(color: Colors.black),
         title: const Text(
-          'Withdrawal',
+          'Transfer Funds',
           style: TextStyle(
             fontSize: 14,
             color: Colors.black,
@@ -54,7 +55,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () =>
-                navigationController.navigateTo(AppRoutes.withdrawalHistory),
+                navigationController.navigateTo(AppRoutes.transferHistory),
             icon: Image.asset(
               AssetImages.tansactionHistory,
               height: 24,
@@ -70,7 +71,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
           controller
               .setBalance(okxController.getCurrencyBalance(currency.currency));
           return AppLoadingBox(
-            loading: controller.isMakingWithdrawal.value,
+            loading: controller.isTransferring.value,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
               child: user.okx == null
@@ -104,8 +105,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                                 ),
                                 const SizedBox(height: 32),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -130,44 +130,16 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    if (currency.maxFee != null &&
-                                        currency.minFee != null)
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          Text(
-                                            'Transaction Fee',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: context.colors.textDark,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            '${currency.minFee} ${currency.currency}',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                              color: context.colors.text,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    )
                                   ],
                                 ),
                                 const SizedBox(height: 24),
                                 AppTextInput(
-                                  labelText: 'RECIPIENT ADDRESS',
+                                  labelText: 'TRADING USERNAME',
                                   backgroundColor:
                                       context.colors.primary.shade100,
-                                  validator:
-                                      controller.onRecipientAddressValidator,
-                                  onChanged:
-                                      controller.onRecipientAddressChanged,
+                                  validator: controller.onSubAccountValidator,
+                                  onChanged: controller.onSubAccountChanged,
                                 ),
                                 const SizedBox(height: 16),
                                 AppTextInput(
@@ -187,17 +159,20 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                               padding: EdgeInsets.zero,
                               borderRadius: AppBorderRadius.largeAll,
                               backgroundColor: context.colors.primary,
-                              onPressed: () => controller.makeWithdrawal(
+                              onPressed: () =>
+                                  controller.transferFundsToSubAccount(
                                 context,
-                                onSuccess: () => _getUserBalances(
-                                  onSuccess: () => controller.setBalance(
-                                    okxController
-                                        .getCurrencyBalance(currency.currency),
-                                  ),
-                                ),
+                                onSuccess: () {
+                                  _getUserBalances(
+                                    onSuccess: () => controller.setBalance(
+                                      okxController.getCurrencyBalance(
+                                          currency.currency),
+                                    ),
+                                  );
+                                },
                               ),
                               child: const Text(
-                                'WITHDRAW',
+                                'SEND',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
