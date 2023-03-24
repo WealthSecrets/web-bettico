@@ -14,6 +14,7 @@ import 'package:betticos/features/betticos/presentation/referral/getx/referral_b
 import 'package:betticos/features/betticos/presentation/report/getx/report_bindings.dart';
 import 'package:betticos/features/betticos/presentation/timeline/getx/card_bindings.dart';
 import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_bindings.dart';
+import 'package:betticos/features/okx_swap/presentation/funds/getx/funds_bindings.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_bindings.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_bindings.dart';
 import 'package:betticos/features/onboarding_splash/presentation/onbaording/getx/onboard_bindings.dart';
@@ -57,6 +58,7 @@ void main() async {
   RegisterBindings.dependencies();
   OkxBindigns.dependencies();
   WithdrawalBindings.dependencies();
+  FundsBindings.dependencies();
 
   ProfileBindings.dependencies();
 

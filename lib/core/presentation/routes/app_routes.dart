@@ -53,4 +53,10 @@ class AppRoutes {
   static const String withdrawal = '/withdrawal';
   static const String withdrawalHistory = '/withdrawal-history';
   static const String withdrawalSuccess = '/withdrawal-success';
+  static const String transferFunds = '/transfer-funds';
+  static const String success = '/success';
+  static const String transferSuccess = '/transfer-success';
+  static const String transferHistory = '/transfer-history';
+  static const String buySellCrypto = '/buyorsell-crypto';
+  static const String send = '/send';
 }

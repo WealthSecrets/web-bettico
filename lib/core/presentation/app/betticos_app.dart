@@ -16,7 +16,7 @@ class BetticosApp extends StatelessWidget {
         translations: AppStrings(),
         locale: const Locale('en', 'US'),
         fallbackLocale: const Locale('en', 'US'),
-        title: 'Betticos',
+        title: 'Xviral',
         theme: AppTheme(AppLightTheme()).data,
       ),
     );

@@ -39,4 +39,8 @@ class AssetImages {
   static String notificationSolid = 'assets/images/notification-solid.png';
   static String moreOutline = 'assets/images/more-outline.png';
   static String moreSolid = 'assets/images/more-solid.png';
+  static String crypto = 'assets/images/crypto.png';
+  static String tether = 'assets/images/tether.png';
+  static String internal = 'assets/images/internal.png';
+  static String external = 'assets/images/external.png';
 }

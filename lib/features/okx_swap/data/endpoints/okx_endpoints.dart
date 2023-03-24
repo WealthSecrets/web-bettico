@@ -16,6 +16,8 @@ class OkxEndpoints {
   static const String convertHistory = 'okx/asset/convert/history';
   static const String assetCurrencies = 'okx/asset/currencies';
   static const String withdrawal = 'okx/asset/withdraw';
+  static const String transferFunds = 'okx/asset/transfer';
+  static const String transferHistory = 'okx/asset/subaccount/bills';
   static const String okxAccount = 'okx/user';
   static const String balances = 'okx/asset/balances';
 }

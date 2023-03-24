@@ -19,43 +19,14 @@ AppBar topNavigationBar(
           )
         : null,
     backgroundColor: Colors.transparent,
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        if (ResponsiveWidget.isSmallScreen(context))
-          CustomText(
-            text: 'Bettico',
+    title: ResponsiveWidget.isSmallScreen(context)
+        ? CustomText(
+            text: 'Xviral',
             color: context.colors.textDark,
-            size: 20,
+            size: 14,
             weight: FontWeight.bold,
-          ),
-        Stack(
-          children: <Widget>[
-            Icon(
-              Icons.notifications,
-              color: context.colors.textDark.withOpacity(.7),
-            ),
-            Positioned(
-              top: 7,
-              right: 7,
-              child: Container(
-                width: 12,
-                height: 12,
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: context.colors.lightGrey,
-                    width: 2,
-                  ),
-                  color: context.colors.primary,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
+          )
+        : null,
     iconTheme: IconThemeData(color: context.colors.textDark),
   );
 }

@@ -74,7 +74,8 @@ class OkxController extends GetxController {
   RxList<OkxConversion> conversions = <OkxConversion>[].obs;
   RxList<Currency> convertCurrencies = <Currency>[].obs;
   RxList<Currency> options = <Currency>[].obs;
-  RxList<BalanceResponse> myBalances = <BalanceResponse>[].obs;
+  RxList<Balance> myBalances = <Balance>[].obs;
+  RxString totalBalance = ''.obs;
   RxString selectedChain = ''.obs;
   Rx<OkxAccount> myOkxAccount = OkxAccount.empty().obs;
   RxDouble amount = 0.0.obs;
@@ -222,10 +223,10 @@ class OkxController extends GetxController {
     );
   }
 
-  void getBalances(BuildContext context) async {
+  void getBalances(BuildContext context, {VoidCallback? onSuccess}) async {
     isFetchingBalances(true);
 
-    final Either<Failure, List<BalanceResponse>> failureOrResponse =
+    final Either<Failure, BalanceResponse> failureOrResponse =
         await fetchBalances(NoParams());
 
     failureOrResponse.fold<void>(
@@ -233,16 +234,17 @@ class OkxController extends GetxController {
         isFetchingBalances(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (List<BalanceResponse> value) {
+      (BalanceResponse value) {
         isFetchingBalances(false);
-        myBalances.value = value;
+        onSuccess?.call();
+        myBalances.value = value.balances;
+        totalBalance.value = value.total;
       },
     );
   }
 
-  BalanceResponse? getCurrencyBalance(String ccy) =>
-      myBalances.firstWhereOrNull((BalanceResponse el) =>
-          el.currency.toLowerCase() == ccy.toLowerCase());
+  Balance? getCurrencyBalance(String ccy) => myBalances.firstWhereOrNull(
+      (Balance el) => el.currency.toLowerCase() == ccy.toLowerCase());
 
   void getUserOkxAccount(BuildContext context) async {
     isGettingOkxAccount(true);

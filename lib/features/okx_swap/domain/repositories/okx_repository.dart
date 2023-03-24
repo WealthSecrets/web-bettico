@@ -5,6 +5,8 @@ import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency_pair.dart';
 import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
+import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_response.dart';
+import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
 import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_response.dart';
@@ -49,7 +51,17 @@ abstract class OkxRepository {
     required String method,
   });
 
+  Future<Either<Failure, SubAccountFundsResponse>> transferFundToSubAccount({
+    required String from,
+    required String amount,
+    required String currency,
+    required String to,
+    required String subAccount,
+  });
+
   Future<Either<Failure, List<WithdrawalHistory>>> fetchWithdrawalHistory();
+
+  Future<Either<Failure, List<TransferHistory>>> fetchTransferHistory();
 
   Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress(
       {required String currency, String? chain});
@@ -58,7 +70,7 @@ abstract class OkxRepository {
 
   Future<Either<Failure, List<Currency>>> fetchAssetCurrencies();
 
-  Future<Either<Failure, List<BalanceResponse>>> fetchBalances();
+  Future<Either<Failure, BalanceResponse>> fetchBalances();
 
   Future<Either<Failure, List<Deposit>>> fetchDepositHistory();
 

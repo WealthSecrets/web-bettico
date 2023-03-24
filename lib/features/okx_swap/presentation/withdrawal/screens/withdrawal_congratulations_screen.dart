@@ -36,7 +36,7 @@ class WithdrawalCongratulationsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  'You have successfully withdrew ${controller.currentWithdrawal.value.amount} ${controller.currentWithdrawal.value.currency.toUpperCase()}.',
+                  'You have successfully withdrawn ${controller.currentWithdrawal.value.amount} ${controller.currentWithdrawal.value.currency.toUpperCase()}.',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.normal,

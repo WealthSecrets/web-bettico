@@ -7,6 +7,9 @@ import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency_pair.dart';
 import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
+import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_request.dart';
+import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_response.dart';
+import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
 import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
 import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_request.dart';
@@ -137,8 +140,32 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       );
 
   @override
+  Future<Either<Failure, SubAccountFundsResponse>> transferFundToSubAccount({
+    required String from,
+    required String amount,
+    required String currency,
+    required String to,
+    required String subAccount,
+  }) =>
+      makeRequest(
+        okxRemoteDataSources.transferFundToSubAccount(
+          request: SubAccountFundsRequest(
+            amount: amount,
+            from: from,
+            to: to,
+            currency: currency,
+            subAccount: subAccount,
+          ),
+        ),
+      );
+
+  @override
   Future<Either<Failure, List<WithdrawalHistory>>> fetchWithdrawalHistory() =>
       makeRequest(okxRemoteDataSources.fetchWithdrawalHistory());
+
+  @override
+  Future<Either<Failure, List<TransferHistory>>> fetchTransferHistory() =>
+      makeRequest(okxRemoteDataSources.fetchTransferHistory());
 
   @override
   Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress(
@@ -166,7 +193,7 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       makeRequest(okxRemoteDataSources.fetchAssetCurrencies());
 
   @override
-  Future<Either<Failure, List<BalanceResponse>>> fetchBalances() =>
+  Future<Either<Failure, BalanceResponse>> fetchBalances() =>
       makeRequest(okxRemoteDataSources.fetchBalances());
 
   @override
