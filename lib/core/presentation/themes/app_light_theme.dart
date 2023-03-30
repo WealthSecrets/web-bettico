@@ -28,7 +28,7 @@ class AppLightTheme implements ThemeColor {
   Color background40 = const Color(0xFFF4F5F7);
 
   @override
-  Color hintLight = const Color(0xFFCA842A);
+  Color hintLight = const Color(0xFFf2059f);
 
   @override
   Color text = const Color(0xFFADADAD);

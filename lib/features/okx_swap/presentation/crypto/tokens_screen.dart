@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import '../../data/models/currency/currency.dart';
 
 class TokenScreen extends StatefulWidget {
-  TokenScreen({Key? key}) : super(key: key);
+  const TokenScreen({Key? key}) : super(key: key);
 
   @override
   State<TokenScreen> createState() => _TokenScreenState();

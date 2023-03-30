@@ -78,11 +78,11 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
               ),
             ];
           },
-          body: TabBarView(
+          body: const TabBarView(
             children: <Widget>[
               TokenScreen(),
-              const Center(child: Text('Xviral Pay')),
-              const Center(child: Text('NFTs')),
+              Center(child: Text('Xviral Pay')),
+              Center(child: Text('NFTs')),
             ],
           ),
         ),
