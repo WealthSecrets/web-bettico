@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/timeline_tab.dart';
 import 'package:betticos/features/betticos/presentation/timeline/widgets/p2pbet_tab.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
@@ -8,7 +9,6 @@ import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,8 +20,6 @@ import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
-import '/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
-import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
 // ignore: must_be_immutable
@@ -145,7 +143,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               },
               body: TabBarView(
                 children: <Widget>[
-                  _buildTimelineTab(),
+                  TimelineTab(),
                   _buildUpdatesTab(),
                   const P2pBetTab(),
                   _buildPromoTab(),
@@ -171,62 +169,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
           );
-  }
-
-  Widget _buildTimelineTab() {
-    return RefreshIndicator(
-      onRefresh: () => Future<void>.sync(
-        () => controller.pagingController.value.refresh(),
-      ),
-      child: Obx(
-        () => PagedListView<int, Post>.separated(
-          pagingController: controller.pagingController.value,
-          builderDelegate: PagedChildBuilderDelegate<Post>(
-            itemBuilder: (BuildContext context, Post post, int index) {
-              return Obx(
-                () => TimelineCard(
-                  post: post,
-                  onTap: () {
-                    Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => PostDetailsScreen(
-                          post: post,
-                        ),
-                      ),
-                    );
-                  },
-                  onCommentTap: () => controller.navigateToAddPost(
-                    context,
-                    pstId: post.id,
-                  ),
-                  onLikeTap: () => controller.likeThePost(context, post.id),
-                  onDislikeTap: () =>
-                      controller.dislikeThePost(context, post.id),
-                ),
-              );
-            },
-            firstPageErrorIndicatorBuilder: (BuildContext context) =>
-                ErrorIndicator(
-              error: controller.pagingController.value.error as Failure,
-              onTryAgain: () => controller.pagingController.value.refresh(),
-            ),
-            noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                const EmptyListIndicator(),
-            newPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
-              child: LoadingLogo(),
-            ),
-            firstPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
-              child: LoadingLogo(),
-            ),
-            // padding: AppPaddings.homeA,
-          ),
-          separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox.shrink(),
-        ),
-      ),
-    );
   }
 
   void _launchURL(String url) async {
