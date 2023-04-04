@@ -15,7 +15,6 @@ import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
-// ignore: must_be_immutable
 class TimelineScreen extends StatefulWidget {
   const TimelineScreen({Key? key}) : super(key: key);
   @override

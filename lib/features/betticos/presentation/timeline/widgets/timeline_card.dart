@@ -343,8 +343,9 @@ class TimelineCard extends StatelessWidget {
   }
 
   void _launchURL(String url) async {
-    if (!await canLaunchUrl(Uri.parse(url))) {
-      throw 'Could not launch $url';
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $uri');
     }
   }
 
