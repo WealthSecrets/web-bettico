@@ -1,5 +1,6 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/timeline_tab.dart';
+import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/updates_tab.dart';
 import 'package:betticos/features/betticos/presentation/timeline/widgets/p2pbet_tab.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
@@ -13,12 +14,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '/core/core.dart';
-import '/core/presentation/utils/app_endpoints.dart';
-import '/core/presentation/widgets/app_empty_screen.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
@@ -144,7 +140,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               body: TabBarView(
                 children: <Widget>[
                   TimelineTab(),
-                  _buildUpdatesTab(),
+                  UpdatesTab(),
                   const P2pBetTab(),
                   _buildPromoTab(),
                 ],
@@ -154,21 +150,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
         ),
       ),
     );
-  }
-
-  Widget _buildUpdatesTab() {
-    final List<Post> topPosts = controller.getTopUsers();
-    return topPosts.isEmpty
-        ? AppEmptyScreen(message: 'no_records'.tr)
-        : ListView.separated(
-            padding: AppPaddings.lA,
-            itemCount: topPosts.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _buildListUserRow(topPosts[index].user);
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
-          );
   }
 
   void _launchURL(String url) async {
@@ -387,110 +368,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
         ),
       )
     ]);
-  }
-
-  Widget _buildListUserRow(User user) {
-    final double averageUserPosts = controller.getUserPercentage(user.id);
-    return Row(
-      children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => ProfileScreen(user: user),
-              ),
-            );
-          },
-          child: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${AppEndpoints.userImages}/${user.photo}',
-                  headers: <String, String>{
-                    'Authorization':
-                        'Bearer ${baseScreenController.userToken.value}'
-                  },
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-        const AppSpacing(h: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '${user.firstName} ${user.lastName}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
-              ),
-              Text(
-                '@${user.username}',
-                style: TextStyle(
-                  color: context.colors.grey,
-                  fontSize: 10,
-                ),
-              ),
-              const AppSpacing(v: 5),
-            ],
-          ),
-        ),
-        Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(
-                  controller.getUsersTotalWins(user.id).toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: context.colors.text,
-                  ),
-                ),
-                Icon(
-                  Ionicons.caret_up_sharp,
-                  size: 24,
-                  color: context.colors.success,
-                ),
-              ],
-            ),
-            Text(
-              '${averageUserPosts.toStringAsFixed(2)}%',
-              style: TextStyle(
-                color: averageUserPosts >= 50
-                    ? context.colors.success
-                    : context.colors.error,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-                  controller.getUserTotalLosses(user.id).toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: context.colors.text,
-                  ),
-                ),
-                Icon(
-                  Ionicons.caret_down_sharp,
-                  size: 24,
-                  color: context.colors.error,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
   }
 
   void initTargets() {
