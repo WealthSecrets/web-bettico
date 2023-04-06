@@ -229,12 +229,12 @@ class P2PBetController extends GetxController {
         awayTeam: TeamRequest(
           name: liveScore.value.visitorTeam.data.name,
           teamId: liveScore.value.visitorTeam.data.id,
-          logo_path: liveScore.value.visitorTeam.data.logo,
+          logoPath: liveScore.value.visitorTeam.data.logo,
         ),
         homeTeam: TeamRequest(
           name: liveScore.value.localTeam.data.name,
           teamId: liveScore.value.localTeam.data.id,
-          logo_path: liveScore.value.localTeam.data.logo,
+          logoPath: liveScore.value.localTeam.data.logo,
         ),
         status: status.value,
         time: liveScore.value.time.startingAt.time,
