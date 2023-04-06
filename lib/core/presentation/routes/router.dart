@@ -93,7 +93,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.appwebview:
       return _getPageRoute(const AppWebView(), settings);
     case AppRoutes.explore:
-      return _getPageRoute(const ExploreScreen(), settings);
+      return _getPageRoute(ExploreScreen(), settings);
 
     default:
       return _getPageRoute(const NotFoundScreen(), settings);

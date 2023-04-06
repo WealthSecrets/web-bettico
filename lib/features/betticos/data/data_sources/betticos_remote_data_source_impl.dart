@@ -127,6 +127,22 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
+  Future<ListPage<Post>> explorePosts(int page, int limit) async {
+    final Map<String, dynamic> json =
+        await _client.get(BetticosEndpoints.paginatedPosts(page, limit));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    final List<Post> posts = List<Post>.from(
+      items.map<Post>(
+        (dynamic json) => Post.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return ListPage<Post>(
+      grandTotalCount: json['results'] as int,
+      itemList: posts,
+    );
+  }
+
+  @override
   Future<List<Post>> fetchFollowingPosts() async {
     final Map<String, dynamic> json =
         await _client.get(BetticosEndpoints.followingPosts);

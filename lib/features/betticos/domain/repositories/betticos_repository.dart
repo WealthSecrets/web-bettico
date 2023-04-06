@@ -15,6 +15,8 @@ import '/features/betticos/data/models/subscription/subscription_model.dart';
 abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> fetchPosts();
 
+  Future<Either<Failure, ListPage<Post>>> explorePosts(int page, int limit);
+
   Future<Either<Failure, List<Post>>> fetchFollowingPosts();
 
   Future<Either<Failure, ListPage<Post>>> fetchPaginatedPosts(

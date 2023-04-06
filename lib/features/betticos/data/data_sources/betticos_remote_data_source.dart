@@ -20,6 +20,8 @@ import '../../domain/requests/referral/referral_request.dart';
 abstract class BetticosRemoteDataSource {
   Future<List<Post>> fetchPosts();
 
+  Future<ListPage<Post>> explorePosts(int page, int limit);
+
   Future<List<Post>> fetchFollowingPosts();
 
   Future<ListPage<Post>> fetchPaginatedPosts(int page, int limit);

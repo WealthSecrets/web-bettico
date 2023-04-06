@@ -111,6 +111,12 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
+  Future<Either<Failure, ListPage<Post>>> explorePosts(int page, int limit) =>
+      makeRequest(
+        betticoslineRemoteDataSource.explorePosts(page, limit),
+      );
+
+  @override
   Future<Either<Failure, List<Post>>> fetchFollowingPosts() => makeRequest(
         betticoslineRemoteDataSource.fetchFollowingPosts(),
       );
