@@ -59,4 +59,5 @@ class AppRoutes {
   static const String transferHistory = '/transfer-history';
   static const String buySellCrypto = '/buyorsell-crypto';
   static const String send = '/send';
+  static const String appwebview = '/appwebview';
 }
