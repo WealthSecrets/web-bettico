@@ -8,6 +8,7 @@ class MenuItem {
 
 List<MenuItem> sideMenuItemRoutes = <MenuItem>[
   const MenuItem('Timeline', AppRoutes.timeline),
+  const MenuItem('Explore', AppRoutes.explore),
   const MenuItem('Profile', AppRoutes.profile),
   const MenuItem('Odds Box', AppRoutes.oddboxes),
   const MenuItem('Members', AppRoutes.members),

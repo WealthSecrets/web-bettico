@@ -159,7 +159,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         navigationController.navigateTo(AppRoutes.timeline);
         return;
       case 1:
-        navigationController.navigateTo(AppRoutes.oddsters);
+        navigationController.navigateTo(AppRoutes.explore);
         return;
       case 2:
         navigationController.navigateTo(AppRoutes.okxOptions);
