@@ -91,6 +91,9 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String initialRoute = baseScreenController.userToken.value.isNotEmpty
+        ? AppRoutes.timeline
+        : AppRoutes.explore;
     return Scaffold(
       key: scaffoldKey,
       extendBodyBehindAppBar: true,
@@ -146,8 +149,8 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       body: AppLoadingBox(
         loading: baseScreenController.isLoggingOut.value,
         child: ResponsiveWidget(
-          largeScreen: const LargeScreen(),
-          smallScreen: webNavigator(),
+          largeScreen: LargeScreen(initialRoute: initialRoute),
+          smallScreen: webNavigator(initialRoute),
         ),
       ),
     );
@@ -159,7 +162,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         navigationController.navigateTo(AppRoutes.timeline);
         return;
       case 1:
-        navigationController.navigateTo(AppRoutes.oddsters);
+        navigationController.navigateTo(AppRoutes.explore);
         return;
       case 2:
         navigationController.navigateTo(AppRoutes.okxOptions);

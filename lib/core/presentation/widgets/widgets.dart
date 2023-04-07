@@ -17,4 +17,5 @@ export 'loading_logo.dart';
 export 'loading_spinner.dart';
 export 'page_view_indicators.dart';
 export 'sliver_delegate.dart';
+export 'tap_outside_unfocus.dart';
 export 'upload_button.dart';

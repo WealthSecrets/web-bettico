@@ -10,7 +10,7 @@ class TeamRequest with _$TeamRequest {
   const factory TeamRequest({
     required String name,
     required int teamId,
-    required String logo_path,
+    @JsonKey(name: 'logo_path') required String logoPath,
   }) = _TeamRequest;
   factory TeamRequest.fromJson(Map<String, dynamic> json) =>
       _$TeamRequestFromJson(json);

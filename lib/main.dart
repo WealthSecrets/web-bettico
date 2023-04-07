@@ -6,6 +6,7 @@ import 'package:betticos/features/auth/presentation/login/getx/login_bindings.da
 import 'package:betticos/features/auth/presentation/register/getx/register_bindings.dart';
 import 'package:betticos/features/auth/presentation/resetPassword/getx/reset_bindings.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_bindings.dart';
+import 'package:betticos/features/betticos/presentation/explore/getx/explore_bindings.dart';
 import 'package:betticos/features/betticos/presentation/members/getx/members_bindings.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/getx/oddsters_bindings.dart';
 import 'package:betticos/features/betticos/presentation/private_sales/getx/sales_bindings.dart';
@@ -67,6 +68,7 @@ void main() async {
   P2PBetBindings.dependencies();
 
   TimelineBindings.dependencies();
+  ExploreBindings.dependencies();
 
   MembersBindings.dependencies();
   OddstersBindings.dependencies();

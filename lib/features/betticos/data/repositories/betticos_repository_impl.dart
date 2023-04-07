@@ -1,3 +1,4 @@
+import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
@@ -108,6 +109,13 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   @override
   Future<Either<Failure, List<Post>>> fetchPosts() => makeRequest(
         betticoslineRemoteDataSource.fetchPosts(),
+      );
+
+  @override
+  Future<Either<Failure, PaginatedResponseData<Post>>> explorePosts(
+          int page, int limit) =>
+      makeRequest(
+        betticoslineRemoteDataSource.explorePosts(page, limit),
       );
 
   @override

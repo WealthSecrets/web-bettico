@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     sController.getLanguagePreference();
     Future<void>.delayed(const Duration(seconds: 1), () {
-      controller.isUserAuthenticated(context);
+      Get.offAllNamed<void>(AppRoutes.home);
+      menuController.changeActiveItemTo(AppRoutes.explore);
     });
     super.initState();
   }
@@ -34,9 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ? CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 50,
-                child: Image.asset(
-                  AssetImages.logo,
-                ),
+                child: Image.asset(AssetImages.logo),
               )
             : const LoadingLogo(),
       ),

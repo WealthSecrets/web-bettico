@@ -1,11 +1,11 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:flutter/material.dart';
 
-// import 'large_timeline_screen.dart';
 import 'left_side_bar.dart';
 
 class LargeScreen extends StatelessWidget {
-  const LargeScreen({Key? key}) : super(key: key);
+  const LargeScreen({Key? key, required this.initialRoute}) : super(key: key);
+  final String initialRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +13,15 @@ class LargeScreen extends StatelessWidget {
       children: <Widget>[
         const Expanded(flex: 1, child: SizedBox()),
         const Expanded(
-          flex: 5,
+          flex: 3,
           child: LeftSideBar(),
         ),
         Expanded(
           flex: 8,
-          child: webNavigator(),
+          child: webNavigator(initialRoute),
         ),
         Expanded(
-          flex: 3,
+          flex: 5,
           child: Container(
             color: Colors.white,
           ),

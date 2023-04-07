@@ -1,4 +1,6 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/core/presentation/widgets/app_web_view.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:webviewx/webviewx.dart';
 
 import '/core/core.dart';
 import '/core/presentation/utils/app_endpoints.dart';
@@ -225,7 +227,16 @@ class TimelineCard extends StatelessWidget {
                   } else if (tappedText.startsWith('@')) {
                     debugPrint('DetectableText >>>>>>> @');
                   } else if (tappedText.startsWith('http')) {
-                    _launchURL(tappedText);
+                    await navigationController.navigateTo(
+                      AppRoutes.appwebview,
+                      arguments: AppWebViewRouteArgument(
+                        title: 'Xviral Webview',
+                        url: tappedText,
+                        navigationDelegate:
+                            (NavigationRequest navigation) async =>
+                                NavigationDecision.navigate,
+                      ),
+                    );
                   }
                 },
                 basicStyle: largeFonts
@@ -340,12 +351,6 @@ class TimelineCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _launchURL(String url) async {
-    if (!await canLaunchUrl(Uri.parse(url))) {
-      throw 'Could not launch $url';
-    }
   }
 
   Widget _buildAnimatedButton(BuildContext context, int count, bool isLiked,

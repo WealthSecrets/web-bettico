@@ -1,3 +1,4 @@
+import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_request.dart';
@@ -19,6 +20,8 @@ import '../../domain/requests/referral/referral_request.dart';
 
 abstract class BetticosRemoteDataSource {
   Future<List<Post>> fetchPosts();
+
+  Future<PaginatedResponseData<Post>> explorePosts(int page, int limit);
 
   Future<List<Post>> fetchFollowingPosts();
 
