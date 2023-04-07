@@ -39,5 +39,6 @@ class BetticosEndpoints {
   static String blockUser(String userId) => 'users/$userId/block';
   static String optionsByType(String type) => 'options/$type/type';
   static const String setup = 'setup';
-  static const String explore = 'explore';
+  static String explore(int page, int limit) =>
+      'posts/explore?page=$page&limit=$limit';
 }

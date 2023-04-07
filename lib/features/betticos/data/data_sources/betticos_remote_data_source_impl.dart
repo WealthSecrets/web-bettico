@@ -1,3 +1,4 @@
+import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
@@ -127,19 +128,14 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<ListPage<Post>> explorePosts(int page, int limit) async {
+  Future<PaginatedResponseData<Post>> explorePosts(int page, int limit) async {
     final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.paginatedPosts(page, limit));
-    final List<dynamic> items = json['items'] as List<dynamic>;
-    final List<Post> posts = List<Post>.from(
-      items.map<Post>(
-        (dynamic json) => Post.fromJson(json as Map<String, dynamic>),
-      ),
-    );
-    return ListPage<Post>(
-      grandTotalCount: json['results'] as int,
-      itemList: posts,
-    );
+        await _client.get(BetticosEndpoints.explore(page, limit));
+    return PaginatedResponseData<Post>.fromJson(
+        json,
+        (Object? j) => j == null
+            ? Post.empty()
+            : Post.fromJson(j as Map<String, dynamic>));
   }
 
   @override

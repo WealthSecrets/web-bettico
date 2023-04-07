@@ -1,3 +1,4 @@
+import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:dartz/dartz.dart';
@@ -15,7 +16,8 @@ import '/features/betticos/data/models/subscription/subscription_model.dart';
 abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> fetchPosts();
 
-  Future<Either<Failure, ListPage<Post>>> explorePosts(int page, int limit);
+  Future<Either<Failure, PaginatedResponseData<Post>>> explorePosts(
+      int page, int limit);
 
   Future<Either<Failure, List<Post>>> fetchFollowingPosts();
 

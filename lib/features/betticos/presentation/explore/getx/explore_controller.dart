@@ -1,3 +1,4 @@
+import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/explore_posts.dart';
 import 'package:dartz/dartz.dart';
@@ -20,12 +21,12 @@ class ExploreController extends GetxController {
 
   RxInt pageK = 1.obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
-  Rx<PagingController<int, Post>> pagingController =
-      PagingController<int, Post>(firstPageKey: 1).obs;
+  PagingController<int, Post> pagingController =
+      PagingController<int, Post>(firstPageKey: 1);
 
   @override
   void onInit() {
-    pagingController.value.addPageRequestListener((int pageKey) {
+    pagingController.addPageRequestListener((int pageKey) {
       getExplorePosts(pageKey);
     });
     super.onInit();
@@ -34,40 +35,26 @@ class ExploreController extends GetxController {
   void getExplorePosts(int pageKey) async {
     pageK(pageKey);
     isLoading(true);
-    final Either<Failure, ListPage<Post>> failureOrResult = await explorePosts(
+    final Either<Failure, PaginatedResponseData<Post>> failureOrResult =
+        await explorePosts(
       PageParmas(
         page: pageK.value,
-        size: 100,
+        size: 2,
         leagueId: 1,
       ),
     );
     failureOrResult.fold<void>(
       (Failure failure) {
         isLoading(false);
-        pagingController.value.error = failure;
+        pagingController.error = failure;
       },
-      (ListPage<Post> newPage) {
+      (PaginatedResponseData<Post> response) {
         isLoading(false);
-        final int previouslyFetchedItemsCount =
-            pagingController.value.itemList?.length ?? 0;
-
-        final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-        final List<Post> newItems = newPage.itemList;
-
-        if (isLastPage) {
-          pagingController.value.appendLastPage(newItems);
-          if (!isCompleted.value) {
-            posts.addAll(newItems);
-          }
-          isCompleted(true);
+        if (response.isLastPage) {
+          pagingController.appendLastPage(response.data);
         } else {
-          final int nextPageKey = pageKey + 1;
-          pagingController.value.appendPage(newItems, nextPageKey);
-          if (!isCompleted.value) {
-            posts.addAll(newItems);
-          }
+          pagingController.appendPage(response.data, response.nextPage);
         }
-        postsL(newPage);
       },
     );
   }

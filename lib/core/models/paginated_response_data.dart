@@ -29,7 +29,7 @@ class PaginatedResponseData<T> {
   ) =>
       _$PaginatedResponseDataToJson(this, toJsonT);
 
-  @JsonKey(name: 'current_page')
+  @JsonKey(name: 'currentPage')
   final int currentPage;
 
   @JsonKey(name: 'data')
