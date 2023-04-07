@@ -13,7 +13,7 @@ class LargeScreen extends StatelessWidget {
       children: <Widget>[
         const Expanded(flex: 1, child: SizedBox()),
         const Expanded(
-          flex: 5,
+          flex: 3,
           child: LeftSideBar(),
         ),
         Expanded(
@@ -21,7 +21,7 @@ class LargeScreen extends StatelessWidget {
           child: webNavigator(initialRoute),
         ),
         Expanded(
-          flex: 3,
+          flex: 5,
           child: Container(
             color: Colors.white,
           ),
