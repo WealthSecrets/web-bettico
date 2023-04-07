@@ -1,38 +1,38 @@
 import 'package:betticos/core/core.dart';
 
-class MenuItem {
-  const MenuItem(this.name, this.route);
+class SideMenuItem {
+  const SideMenuItem(this.name, this.route);
   final String name;
   final String route;
 }
 
-List<MenuItem> sideMenuItemRoutes = <MenuItem>[
-  const MenuItem('Timeline', AppRoutes.timeline),
-  const MenuItem('Explore', AppRoutes.explore),
-  const MenuItem('Profile', AppRoutes.profile),
-  const MenuItem('Odds Box', AppRoutes.oddboxes),
-  const MenuItem('Members', AppRoutes.members),
-  const MenuItem('Oddsters', AppRoutes.oddsters),
-  const MenuItem('P2P Betting', AppRoutes.livescore),
-  const MenuItem('Refer A Friend', AppRoutes.referral),
-  const MenuItem('Settings', AppRoutes.settings),
-  const MenuItem('Trade', AppRoutes.okxOptions),
-  const MenuItem('Logout', AppRoutes.logout),
+List<SideMenuItem> sideMenuItemRoutes = <SideMenuItem>[
+  const SideMenuItem('Timeline', AppRoutes.timeline),
+  const SideMenuItem('Explore', AppRoutes.explore),
+  const SideMenuItem('Profile', AppRoutes.profile),
+  const SideMenuItem('Odds Box', AppRoutes.oddboxes),
+  const SideMenuItem('Members', AppRoutes.members),
+  const SideMenuItem('Oddsters', AppRoutes.oddsters),
+  const SideMenuItem('P2P Betting', AppRoutes.livescore),
+  const SideMenuItem('Refer A Friend', AppRoutes.referral),
+  const SideMenuItem('Settings', AppRoutes.settings),
+  const SideMenuItem('Trade', AppRoutes.okxOptions),
+  const SideMenuItem('Logout', AppRoutes.logout),
 ];
 
-List<MenuItem> smallScreenMenuItems = <MenuItem>[
-  const MenuItem('Timeline', AppRoutes.timeline),
-  const MenuItem('Profile', AppRoutes.profile),
-  const MenuItem('Odds Box', AppRoutes.oddboxes),
-  const MenuItem('Members', AppRoutes.members),
-  const MenuItem('Oddsters', AppRoutes.oddsters),
-  const MenuItem('P2P Betting', AppRoutes.livescore),
-  const MenuItem('Refer A Friend', AppRoutes.referral),
-  const MenuItem('Settings', AppRoutes.settings),
-  const MenuItem('Logout', AppRoutes.logout),
+List<SideMenuItem> smallScreenMenuItems = <SideMenuItem>[
+  const SideMenuItem('Timeline', AppRoutes.timeline),
+  const SideMenuItem('Profile', AppRoutes.profile),
+  const SideMenuItem('Odds Box', AppRoutes.oddboxes),
+  const SideMenuItem('Members', AppRoutes.members),
+  const SideMenuItem('Oddsters', AppRoutes.oddsters),
+  const SideMenuItem('P2P Betting', AppRoutes.livescore),
+  const SideMenuItem('Refer A Friend', AppRoutes.referral),
+  const SideMenuItem('Settings', AppRoutes.settings),
+  const SideMenuItem('Logout', AppRoutes.logout),
 ];
 
-List<MenuItem> notLoggedInMenuItems = <MenuItem>[
-  const MenuItem('Explore', AppRoutes.explore),
-  const MenuItem('Settings', AppRoutes.settings)
+List<SideMenuItem> notLoggedInMenuItems = <SideMenuItem>[
+  const SideMenuItem('Explore', AppRoutes.explore),
+  const SideMenuItem('Settings', AppRoutes.settings)
 ];
