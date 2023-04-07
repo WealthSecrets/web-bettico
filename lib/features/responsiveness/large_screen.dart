@@ -1,21 +1,32 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'left_side_bar.dart';
 
 class LargeScreen extends StatelessWidget {
-  const LargeScreen({Key? key, required this.initialRoute}) : super(key: key);
+  const LargeScreen({
+    Key? key,
+    required this.initialRoute,
+    required this.userToken,
+    required this.user,
+  }) : super(key: key);
   final String initialRoute;
+  final String userToken;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         const Expanded(flex: 1, child: SizedBox()),
-        const Expanded(
+        Expanded(
           flex: 3,
-          child: LeftSideBar(),
+          child: LeftSideBar(
+            user: user,
+            userToken: userToken,
+          ),
         ),
         Expanded(
           flex: 8,
