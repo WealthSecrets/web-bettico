@@ -26,13 +26,24 @@ class _LeftSideBarState extends State<LeftSideBar> {
   Widget build(BuildContext context) {
     final List<SideMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
     return ListView(
-      padding: AppPaddings.lA,
+      padding: AppPaddings.lV,
       children: <Widget>[
         if (!isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
           const SizedBox(height: 8),
         ],
-        if (isSmallScreen && widget.userToken.isNotEmpty)
+        if (!isSmallScreen && widget.userToken.isEmpty) ...<Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(width: 16),
+              Image.asset(AssetImages.logo, height: 30, width: 30),
+            ],
+          ),
+          const SizedBox(height: 16),
+        ],
+        if (isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
           Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -117,7 +128,8 @@ class _LeftSideBarState extends State<LeftSideBar> {
               const SizedBox(height: 30),
             ],
           ),
-        Divider(color: context.colors.lightGrey.withOpacity(.1)),
+          Divider(color: context.colors.lightGrey.withOpacity(.1)),
+        ],
         Column(
           mainAxisSize: MainAxisSize.min,
           children: sideMenuItems
