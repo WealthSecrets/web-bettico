@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'left_side_bar.dart';
@@ -22,14 +23,10 @@ class LargeScreen extends StatelessWidget {
         ),
         Expanded(
           flex: 5,
-          child: Container(
-            color: Colors.white,
-          ),
+          child: LoginScreen(),
         ),
         const Expanded(flex: 1, child: SizedBox()),
       ],
     );
   }
-
-  // list of pages
 }
