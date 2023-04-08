@@ -76,16 +76,16 @@ class _LeftSideBarState extends State<LeftSideBar> {
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          _buildUserColumnButton(
-                            'Following',
-                            '${widget.user.following}',
-                            () {},
-                          ),
-                          _buildUserColumnButton(
-                            'Followers',
-                            '${widget.user.followers}',
-                            () {},
-                          ),
+                          _UserColumnButton(
+                              context: context,
+                              title: 'Following',
+                              subtitle: '${widget.user.following}',
+                              onPressed: () {}),
+                          _UserColumnButton(
+                              context: context,
+                              title: 'Followers',
+                              subtitle: '${widget.user.followers}',
+                              onPressed: () {}),
                         ],
                       ))
                     ],
@@ -156,37 +156,6 @@ class _LeftSideBarState extends State<LeftSideBar> {
     );
   }
 
-  Widget _buildUserColumnButton(
-    String title,
-    String subtitle,
-    Function()? onPressed,
-  ) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              color: context.colors.text,
-            ),
-          ),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: context.colors.textDark,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 
   List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
@@ -219,6 +188,49 @@ class _LeftSideBarState extends State<LeftSideBar> {
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _UserColumnButton extends StatelessWidget {
+  const _UserColumnButton({
+    Key? key,
+    required this.context,
+    required this.title,
+    required this.subtitle,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final String title;
+  final String subtitle;
+  final Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+              color: context.colors.text,
+            ),
+          ),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: context.colors.textDark,
+            ),
+          )
+        ],
       ),
     );
   }
