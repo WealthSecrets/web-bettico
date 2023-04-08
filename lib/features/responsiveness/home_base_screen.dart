@@ -100,10 +100,8 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       return Scaffold(
         key: scaffoldKey,
         extendBodyBehindAppBar: true,
-        appBar: ResponsiveWidget.isSmallScreen(context)
-            ? topNavigationBar(context, scaffoldKey)
-            : null,
-        drawer: ResponsiveWidget.isSmallScreen(context)
+        appBar: isSmallScreen ? topNavigationBar(context, scaffoldKey) : null,
+        drawer: isSmallScreen
             ? Drawer(
                 child: LeftSideBar(
                   user: user,
@@ -111,7 +109,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
                 ),
               )
             : null,
-        bottomNavigationBar: ResponsiveWidget.isSmallScreen(context)
+        bottomNavigationBar: isSmallScreen && userToken.isNotEmpty
             ? AnimatedBottomNavigationBar.builder(
                 activeIndex: _bottomNavIndex,
                 itemCount: bottomNavIcons.length,
@@ -166,6 +164,8 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       );
     });
   }
+
+  bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 
   void switchScreen(int index) {
     switch (index) {
