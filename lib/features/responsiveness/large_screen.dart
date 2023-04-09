@@ -38,7 +38,8 @@ class LargeScreen extends StatelessWidget {
           flex: 4,
           child: Column(
             children: const <Widget>[
-              SearchField(),
+              SizedBox(height: 24),
+              SearchField(hintText: 'Search Xviral'),
               SizedBox(height: 24),
               TrendsForYouScreen(),
             ],

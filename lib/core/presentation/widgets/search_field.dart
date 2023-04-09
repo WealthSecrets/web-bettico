@@ -10,6 +10,7 @@ class SearchField extends StatelessWidget {
     this.isLoading,
     this.controller,
     this.initialValue,
+    this.hintText,
   }) : super(key: key);
 
   final Function(String text)? onChanged;
@@ -17,6 +18,7 @@ class SearchField extends StatelessWidget {
   final bool? isLoading;
   final TextEditingController? controller;
   final String? initialValue;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +26,23 @@ class SearchField extends StatelessWidget {
       validator: (String? validator) => null,
       controller: controller,
       initialValue: initialValue,
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: context.colors.textDark,
+      ),
       decoration: InputDecoration(
-        hintText: 'Search crypto',
+        hintText: hintText ?? 'Search crypto',
         prefixIconConstraints: const BoxConstraints(maxHeight: 30),
         prefixIcon: isLoading ?? false
             ? Container(
                 height: 25,
                 width: 25,
-                margin: AppPaddings.mH,
+                margin: const EdgeInsets.symmetric(horizontal: 8),
                 child: const LoadingLogo(),
               )
             : Padding(
-                padding: AppPaddings.mH,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   Ionicons.search_sharp,
                   color: context.colors.text,
@@ -46,20 +53,21 @@ class SearchField extends StatelessWidget {
         suffixIconConstraints: showSortBy ?? false
             ? const BoxConstraints(maxHeight: 20, maxWidth: 36)
             : null,
-        contentPadding: AppPaddings.mH.add(AppPaddings.sV),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8)
+            .add(const EdgeInsets.symmetric(vertical: 4)),
         enabledBorder: OutlineInputBorder(
-          borderRadius: AppBorderRadius.smallAll,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(
             width: .4,
             color: context.colors.primary.shade100,
           ),
         ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: AppBorderRadius.smallAll,
-          borderSide: const BorderSide(width: .4),
+        disabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderSide: BorderSide(width: .4),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: AppBorderRadius.smallAll,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(
             color: context.colors.primary,
             width: .4,
@@ -67,8 +75,8 @@ class SearchField extends StatelessWidget {
         ),
         hintStyle: TextStyle(
           color: context.colors.text,
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
+          fontWeight: FontWeight.normal,
+          fontSize: 12,
         ),
         filled: true,
         fillColor: Colors.white,
