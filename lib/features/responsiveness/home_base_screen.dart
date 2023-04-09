@@ -5,6 +5,7 @@ import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/responsiveness/left_side_bar.dart';
+import 'package:betticos/features/responsiveness/medium_screen.dart';
 import 'package:betticos/features/responsiveness/top_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -154,6 +155,11 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
           loading: baseScreenController.isLoggingOut.value,
           child: ResponsiveWidget(
             largeScreen: LargeScreen(
+              initialRoute: initialRoute,
+              user: user,
+              userToken: userToken,
+            ),
+            mediumScreen: MediumScreen(
               initialRoute: initialRoute,
               user: user,
               userToken: userToken,
