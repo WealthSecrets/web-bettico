@@ -9,28 +9,37 @@ class TrendsForYouScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height / 1.5,
-      child: const AppAnimatedColumn(children: <Widget>[
-        _TrendCard(
+      child: AppAnimatedColumn(children: <Widget>[
+        Text(
+          'Trends for you',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: context.colors.black,
+          ),
+        ),
+        const SizedBox(height: 16),
+        const _TrendCard(
           title: 'Tredning in Ghana',
           hashtag: 'Asake',
           count: '1234',
         ),
-        _TrendCard(
+        const _TrendCard(
           title: 'Tredning in Ghana',
           hashtag: 'Asake',
           count: '1234',
         ),
-        _TrendCard(
+        const _TrendCard(
           title: 'Tredning in Ghana',
           hashtag: 'Asake',
           count: '1234',
         ),
-        _TrendCard(
+        const _TrendCard(
           title: 'Tredning in Ghana',
           hashtag: 'Asake',
           count: '1234',
         ),
-        _TrendCard(
+        const _TrendCard(
           title: 'Tredning in Ghana',
           hashtag: 'Asake',
           count: '1234',
