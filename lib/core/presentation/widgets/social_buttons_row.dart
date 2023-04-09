@@ -7,8 +7,10 @@ import 'package:flutter_web3/ethereum.dart';
 import 'package:get/get.dart';
 
 class SocialButtonsRow extends StatelessWidget {
-  SocialButtonsRow({Key? key, this.mainAxisAlignment}) : super(key: key);
+  SocialButtonsRow({Key? key, this.mainAxisAlignment, this.size})
+      : super(key: key);
   final MainAxisAlignment? mainAxisAlignment;
+  final double? size;
 
   final RegisterController rController = Get.find<RegisterController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
@@ -23,8 +25,8 @@ class SocialButtonsRow extends StatelessWidget {
           onPressed: () {},
           child: Image.asset(
             AssetImages.facebook,
-            height: 40,
-            width: 40,
+            height: size ?? 40,
+            width: size ?? 40,
           ),
         ),
         const SizedBox(width: 15),
@@ -32,8 +34,8 @@ class SocialButtonsRow extends StatelessWidget {
           onPressed: () => rController.registerWithGoogleAuth(context),
           child: Image.asset(
             AssetImages.google,
-            height: 40,
-            width: 40,
+            height: size ?? 40,
+            width: size ?? 40,
           ),
         ),
         TextButton(
@@ -50,8 +52,8 @@ class SocialButtonsRow extends StatelessWidget {
           },
           child: Image.asset(
             AssetImages.walletConnect,
-            height: 65,
-            width: 65,
+            height: size != null ? size! + 25 : 65,
+            width: size != null ? size! + 25 : 65,
           ),
         ),
       ],
