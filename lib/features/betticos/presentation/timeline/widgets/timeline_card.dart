@@ -50,10 +50,7 @@ class TimelineCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        margin: ResponsiveWidget.isLargeScreen(context) ||
-                ResponsiveWidget.isMediumScreen(context)
-            ? AppPaddings.lB.add(AppPaddings.lH)
-            : AppPaddings.lB,
+        margin: AppPaddings.lB,
         padding: AppPaddings.lH.add(AppPaddings.lT),
         decoration: BoxDecoration(
           color: Colors.white,

@@ -2,12 +2,12 @@
 import 'dart:js' as js;
 
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/core/presentation/widgets/social_buttons_row.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_web3/flutter_web3.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 import 'package:get/get.dart';
@@ -429,75 +429,7 @@ class LoginScreen extends GetWidget<LoginController> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            children: <Widget>[
-                              const SizedBox(width: 50),
-                              Expanded(
-                                child: Divider(
-                                  color: context.colors.dividerColor,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              const Text(
-                                'OR',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Divider(
-                                  color: context.colors.dividerColor,
-                                ),
-                              ),
-                              const SizedBox(width: 50),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              TextButton(
-                                onPressed: () {},
-                                child: Image.asset(
-                                  AssetImages.facebook,
-                                  height: 40,
-                                  width: 40,
-                                ),
-                              ),
-                              const SizedBox(width: 15),
-                              TextButton(
-                                onPressed: () =>
-                                    rController.registerWithGoogleAuth(context),
-                                child: Image.asset(
-                                  AssetImages.google,
-                                  height: 40,
-                                  width: 40,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  if (Ethereum.isSupported) {
-                                    lController.initiateWalletConnect(
-                                      (String wallet) => controller.loginWallet(
-                                          context, wallet),
-                                    );
-                                  } else {
-                                    lController.connectWC(
-                                      (String wallet) => controller.loginWallet(
-                                          context, wallet),
-                                    );
-                                  }
-                                },
-                                child: Image.asset(
-                                  AssetImages.walletConnect,
-                                  height: 65,
-                                  width: 65,
-                                ),
-                              ),
-                            ],
-                          ),
+                          SocialButtonsRow(),
                           const SizedBox(height: 16),
                           TextButton(
                             onPressed: () {
@@ -533,21 +465,6 @@ class LoginScreen extends GetWidget<LoginController> {
                               ),
                             ),
                           ),
-                          // const AppSpacing(v: 20),
-                          // const SizedBox(
-                          //   height: 40,
-                          //   width: double.infinity,
-                          //   child: Center(
-                          //     child: Text(
-                          //       '18+',
-                          //       style: TextStyle(
-                          //         color: Colors.black,
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 12,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
