@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/trends/screens/trends_for_you_screens.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,15 @@ class LargeScreen extends StatelessWidget {
           flex: 8,
           child: webNavigator(initialRoute),
         ),
-        const Expanded(
+        Expanded(
           flex: 4,
-          child: TrendsForYouScreen(),
+          child: Column(
+            children: const <Widget>[
+              SearchField(),
+              SizedBox(height: 24),
+              TrendsForYouScreen(),
+            ],
+          ),
         ),
         const Expanded(flex: 1, child: SizedBox()),
       ],
