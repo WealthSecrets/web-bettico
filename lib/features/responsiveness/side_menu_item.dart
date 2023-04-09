@@ -14,7 +14,8 @@ class SideMenu extends StatelessWidget {
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
-    if (ResponsiveWidget.isMediumScreen(context)) {
+    if (ResponsiveWidget.isMediumScreen(context) ||
+        ResponsiveWidget.isCustomSize(context)) {
       return VerticalMenuItem(name: name, route: route, onTap: onTap);
     }
 
