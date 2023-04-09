@@ -18,23 +18,29 @@ class VerticalMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double _width = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: onTap,
-      onHover: (bool value) {
-        value
-            ? menuController.onHover(route)
-            : menuController.onHover('not hovering');
-      },
-      child: Obx(
-        () => Container(
-          decoration: BoxDecoration(
-            color: menuController.isHovering(route)
-                ? context.colors.lightGrey
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(50),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: InkWell(
+        onTap: onTap,
+        onHover: (bool value) {
+          value
+              ? menuController.onHover(route)
+              : menuController.onHover('not hovering');
+        },
+        borderRadius: BorderRadius.circular(40),
+        child: Obx(
+          () => Container(
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: menuController.isHovering(route) ||
+                      menuController.isActive(route)
+                  ? context.colors.lightGrey
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: menuController.returnIconFor(route),
           ),
-          child: menuController.returnIconFor(route),
         ),
       ),
     );
