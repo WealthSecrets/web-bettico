@@ -1,5 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
@@ -20,21 +21,44 @@ class ExploreScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          const SizedBox(height: 24),
-          if (!ResponsiveWidget.isSmallScreen(context))
+          if (ResponsiveWidget.isSmallScreen(context))
+            const SizedBox(height: 56),
+          if (!ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                SelectableButton(
-                  text: 'Posts',
-                  onPressed: () {},
-                  selected: true,
-                ),
-                SelectableButton(text: 'Sports', onPressed: () {}),
-                SelectableButton(text: 'Bets', onPressed: () {}),
-                SelectableButton(text: 'Market Rates', onPressed: () {}),
-              ],
+              children: _selectableButtons,
             ),
+          ],
+          if (ResponsiveWidget.isSmallScreen(context))
+            SizedBox(
+              height: 30,
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, int index) {
+                  if (index == 0 || index == _selectableButtons.length + 1) {
+                    return const SizedBox(width: 16);
+                  }
+                  return Container(
+                    margin: const EdgeInsets.only(right: 12),
+                    child: _selectableButtons[index - 1],
+                  );
+                },
+                itemCount: _selectableButtons.length + 2,
+              ),
+            ),
+          if (ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
+            const SizedBox(height: 8),
+            Padding(
+              padding: AppPaddings.lH,
+              child: searchField,
+            ),
+          ],
+          if (ResponsiveWidget.isCustomSize(context)) ...<Widget>[
+            const SizedBox(height: 8),
+            searchField,
+          ],
           const SizedBox(height: 16),
           Expanded(
             child: RefreshIndicator(
@@ -88,4 +112,19 @@ class ExploreScreen extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget> get _selectableButtons => <Widget>[
+        SelectableButton(
+          text: 'Posts',
+          onPressed: () {},
+          selected: true,
+        ),
+        SelectableButton(text: 'Sports', onPressed: () {}),
+        SelectableButton(text: 'Bets', onPressed: () {}),
+        SelectableButton(text: 'Market Rates', onPressed: () {}),
+      ];
+
+  SearchField get searchField => const SearchField(
+        hintText: 'Search Xviral',
+      );
 }
