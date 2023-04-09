@@ -24,14 +24,14 @@ class LargeScreen extends StatelessWidget {
       children: <Widget>[
         const Expanded(flex: 1, child: SizedBox()),
         Expanded(
-          flex: 4,
+          flex: 3,
           child: LeftSideBar(
             user: user,
             userToken: userToken,
           ),
         ),
         Expanded(
-          flex: 8,
+          flex: 6,
           child: webNavigator(initialRoute),
         ),
         Expanded(

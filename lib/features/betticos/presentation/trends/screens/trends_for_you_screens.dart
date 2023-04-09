@@ -8,7 +8,7 @@ class TrendsForYouScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 1.5,
+      height: 380,
       child: AppAnimatedColumn(children: <Widget>[
         Text(
           'Trends for you',
