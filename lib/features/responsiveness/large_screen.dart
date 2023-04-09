@@ -1,7 +1,7 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/trends/screens/trends_for_you_screens.dart';
+import 'package:betticos/features/betticos/presentation/right_side_bar/screens/trends_for_you_screens.dart';
 import 'package:flutter/material.dart';
 
 import 'left_side_bar.dart';
