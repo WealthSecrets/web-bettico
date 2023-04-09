@@ -33,7 +33,7 @@ class SelectableButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 14),
           backgroundColor: color ??
               (selected ?? false
-                  ? const Color(0xFFFCAF0E)
+                  ? context.colors.primary
                   : const Color(0xFFD7D7D7)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
