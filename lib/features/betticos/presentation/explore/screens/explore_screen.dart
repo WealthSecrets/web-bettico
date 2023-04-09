@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
@@ -20,19 +21,20 @@ class ExploreScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SelectableButton(
-                text: 'Posts',
-                onPressed: () {},
-                selected: true,
-              ),
-              SelectableButton(text: 'Sports', onPressed: () {}),
-              SelectableButton(text: 'Bets', onPressed: () {}),
-              SelectableButton(text: 'Market Rates', onPressed: () {}),
-            ],
-          ),
+          if (!ResponsiveWidget.isSmallScreen(context))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                SelectableButton(
+                  text: 'Posts',
+                  onPressed: () {},
+                  selected: true,
+                ),
+                SelectableButton(text: 'Sports', onPressed: () {}),
+                SelectableButton(text: 'Bets', onPressed: () {}),
+                SelectableButton(text: 'Market Rates', onPressed: () {}),
+              ],
+            ),
           const SizedBox(height: 16),
           Expanded(
             child: RefreshIndicator(
