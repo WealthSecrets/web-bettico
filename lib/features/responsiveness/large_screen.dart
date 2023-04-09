@@ -1,6 +1,7 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/betticos/presentation/right_side_bar/screens/right_login_container.dart';
 import 'package:betticos/features/betticos/presentation/right_side_bar/screens/trends_for_you_screens.dart';
 import 'package:flutter/material.dart';
 
@@ -42,6 +43,8 @@ class LargeScreen extends StatelessWidget {
               SearchField(hintText: 'Search Xviral'),
               SizedBox(height: 24),
               TrendsForYouScreen(),
+              SizedBox(height: 24),
+              RightLoginContainer(),
             ],
           ),
         ),

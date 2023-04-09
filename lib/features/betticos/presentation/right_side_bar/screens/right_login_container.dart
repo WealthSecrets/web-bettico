@@ -8,16 +8,9 @@ class RightLoginContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: const <BoxShadow>[
-          BoxShadow(
-            blurRadius: 5,
-            color: Colors.black12,
-            offset: Offset(0, 1),
-          ),
-        ],
         borderRadius: AppBorderRadius.smallAll,
         border: Border.all(
           color: context.colors.faintGrey,
@@ -26,17 +19,43 @@ class RightLoginContainer extends StatelessWidget {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             'Don\'t have an account?',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: context.colors.black,
+              color: context.colors.textDark,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Sign up now to know what\'s happening on Xviral.',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.normal,
+              color: context.colors.text,
             ),
           ),
           const SizedBox(height: 16),
           SocialButtonsRow(),
+          const SizedBox(height: 16),
+          AppButton(
+            enabled: true,
+            padding: EdgeInsets.zero,
+            borderRadius: AppBorderRadius.largeAll,
+            backgroundColor: context.colors.primary,
+            onPressed: () {},
+            child: const Text(
+              'Create account',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+          ),
         ],
       ),
     );

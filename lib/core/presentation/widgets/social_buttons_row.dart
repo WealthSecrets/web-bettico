@@ -7,7 +7,9 @@ import 'package:flutter_web3/ethereum.dart';
 import 'package:get/get.dart';
 
 class SocialButtonsRow extends StatelessWidget {
-  SocialButtonsRow({Key? key}) : super(key: key);
+  SocialButtonsRow({Key? key, this.mainAxisAlignment}) : super(key: key);
+  final MainAxisAlignment? mainAxisAlignment;
+
   final RegisterController rController = Get.find<RegisterController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final LoginController controller = Get.find<LoginController>();
@@ -15,7 +17,7 @@ class SocialButtonsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
       children: <Widget>[
         TextButton(
           onPressed: () {},
