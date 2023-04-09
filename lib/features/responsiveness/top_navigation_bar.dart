@@ -2,7 +2,6 @@ import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
-import 'custom_text.dart';
 
 AppBar topNavigationBar(
     BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
@@ -18,13 +17,12 @@ AppBar topNavigationBar(
             ),
           )
         : null,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.white,
     title: ResponsiveWidget.isSmallScreen(context)
-        ? CustomText(
-            text: 'Xviral',
-            color: context.colors.textDark,
-            size: 14,
-            weight: FontWeight.bold,
+        ? Image.asset(
+            AssetImages.logo,
+            height: 25,
+            width: 25,
           )
         : null,
     iconTheme: IconThemeData(color: context.colors.textDark),

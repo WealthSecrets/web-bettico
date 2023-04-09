@@ -39,7 +39,7 @@ class ExploreController extends GetxController {
         await explorePosts(
       PageParmas(
         page: pageK.value,
-        size: 2,
+        size: 100,
         leagueId: 1,
       ),
     );

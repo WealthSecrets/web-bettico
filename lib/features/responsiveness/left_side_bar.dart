@@ -1,5 +1,5 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
 import 'package:betticos/features/responsiveness/user_info_container.dart';
 import 'package:flutter/material.dart';
@@ -7,36 +7,43 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
-import '../../core/presentation/routes/side_menu_routes.dart'
-    as side_menu_routes;
+import '../../core/presentation/routes/side_menu_routes.dart';
 import '../../core/presentation/utils/app_endpoints.dart';
 import 'constants/web_controller.dart';
 
 class LeftSideBar extends StatefulWidget {
-  const LeftSideBar({Key? key}) : super(key: key);
+  const LeftSideBar({Key? key, required this.userToken, required this.user})
+      : super(key: key);
+  final String userToken;
+  final User user;
 
   @override
   State<LeftSideBar> createState() => _LeftSideBarState();
 }
 
 class _LeftSideBarState extends State<LeftSideBar> {
-  final BaseScreenController bController = Get.find<BaseScreenController>();
-
   @override
   Widget build(BuildContext context) {
-    final String userToken = bController.userToken.value;
-    final List<side_menu_routes.MenuItem> sideMenuItems = userToken.isEmpty
-        ? side_menu_routes.notLoggedInMenuItems
-        : ResponsiveWidget.isSmallScreen(context)
-            ? side_menu_routes.smallScreenMenuItems
-            : side_menu_routes.sideMenuItemRoutes;
+    final List<SideMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
     return ListView(
-      padding: AppPaddings.lA,
+      padding: AppPaddings.lV,
       children: <Widget>[
-        if (!ResponsiveWidget.isSmallScreen(context) && userToken.isNotEmpty)
+        if (!isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
-        const SizedBox(height: 8),
-        if (ResponsiveWidget.isSmallScreen(context))
+          const SizedBox(height: 8),
+        ],
+        if (!isSmallScreen && widget.userToken.isEmpty) ...<Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(width: 16),
+              Image.asset(AssetImages.logo, height: 30, width: 30),
+            ],
+          ),
+          const SizedBox(height: 16),
+        ],
+        if (isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
           Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -55,10 +62,9 @@ class _LeftSideBarState extends State<LeftSideBar> {
                           borderRadius: BorderRadius.circular(35),
                           image: DecorationImage(
                             image: NetworkImage(
-                              '${AppEndpoints.userImages}/${bController.user.value.photo}',
+                              '${AppEndpoints.userImages}/${widget.user.photo}',
                               headers: <String, String>{
-                                'Authorization':
-                                    'Bearer ${bController.userToken.value}',
+                                'Authorization': 'Bearer ${widget.userToken}',
                               },
                             ),
                             fit: BoxFit.cover,
@@ -70,16 +76,16 @@ class _LeftSideBarState extends State<LeftSideBar> {
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          _buildUserColumnButton(
-                            'Following',
-                            '${bController.user.value.following}',
-                            () {},
-                          ),
-                          _buildUserColumnButton(
-                            'Followers',
-                            '${bController.user.value.followers}',
-                            () {},
-                          ),
+                          _UserColumnButton(
+                              context: context,
+                              title: 'Following',
+                              subtitle: '${widget.user.following}',
+                              onPressed: () {}),
+                          _UserColumnButton(
+                              context: context,
+                              title: 'Followers',
+                              subtitle: '${widget.user.followers}',
+                              onPressed: () {}),
                         ],
                       ))
                     ],
@@ -91,14 +97,14 @@ class _LeftSideBarState extends State<LeftSideBar> {
                       Row(
                         children: <Widget>[
                           Text(
-                            '${bController.user.value.firstName} ${bController.user.value.lastName}',
+                            '${widget.user.firstName} ${widget.user.lastName}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          if (bController.user.value.isVerified)
+                          if (widget.user.isVerified)
                             Image.asset(
                               AssetImages.verified,
                               height: 14,
@@ -107,7 +113,7 @@ class _LeftSideBarState extends State<LeftSideBar> {
                         ],
                       ),
                       Text(
-                        '@${bController.user.value.username}',
+                        '@${widget.user.username}',
                         style: TextStyle(
                           fontSize: 12,
                           color: context.colors.text,
@@ -122,16 +128,17 @@ class _LeftSideBarState extends State<LeftSideBar> {
               const SizedBox(height: 30),
             ],
           ),
-        Divider(color: context.colors.lightGrey.withOpacity(.1)),
+          Divider(color: context.colors.lightGrey.withOpacity(.1)),
+        ],
         Column(
           mainAxisSize: MainAxisSize.min,
           children: sideMenuItems
               .map(
-                (side_menu_routes.MenuItem item) => SideMenuItem(
+                (SideMenuItem item) => SideMenu(
                   name: item.name,
                   route: item.route,
                   onTap: () {
-                    if (ResponsiveWidget.isSmallScreen(context)) {
+                    if (isSmallScreen) {
                       Navigator.of(context).pop();
                     }
                     if (item.route == AppRoutes.logout) {
@@ -149,11 +156,59 @@ class _LeftSideBarState extends State<LeftSideBar> {
     );
   }
 
-  Widget _buildUserColumnButton(
-    String title,
-    String subtitle,
-    Function()? onPressed,
-  ) {
+  bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
+
+  List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
+      ? notLoggedInMenuItems
+      : isSmallScreen
+          ? smallScreenMenuItems
+          : sideMenuItemRoutes;
+
+  void showLogoutDialog(
+    BuildContext context, {
+    String? title,
+    Icon? icon,
+  }) {
+    showAppModal<void>(
+      context: context,
+      alignment: Alignment.center,
+      builder: (BuildContext context) => Center(
+        child: SizedBox(
+          width: 500,
+          child: AppOptionDialogueModal(
+            modalContext: context,
+            title: 'logout'.tr,
+            iconData: Ionicons.log_out_outline,
+            backgroundColor: context.colors.error,
+            message: 'sure_logout'.tr,
+            affirmButtonText: 'logout'.tr.toUpperCase(),
+            onPressed: () {
+              // Navigator.of(context).pop();
+              // bController.logOutTheUser(context);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _UserColumnButton extends StatelessWidget {
+  const _UserColumnButton({
+    Key? key,
+    required this.context,
+    required this.title,
+    required this.subtitle,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final String title;
+  final String subtitle;
+  final Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Column(
@@ -176,34 +231,6 @@ class _LeftSideBarState extends State<LeftSideBar> {
             ),
           )
         ],
-      ),
-    );
-  }
-
-  void showLogoutDialog(
-    BuildContext context, {
-    String? title,
-    Icon? icon,
-  }) {
-    showAppModal<void>(
-      context: context,
-      alignment: Alignment.center,
-      builder: (BuildContext context) => Center(
-        child: SizedBox(
-          width: 500,
-          child: AppOptionDialogueModal(
-            modalContext: context,
-            title: 'logout'.tr,
-            iconData: Ionicons.log_out_outline,
-            backgroundColor: context.colors.error,
-            message: 'sure_logout'.tr,
-            affirmButtonText: 'logout'.tr.toUpperCase(),
-            onPressed: () {
-              Navigator.of(context).pop();
-              bController.logOutTheUser(context);
-            },
-          ),
-        ),
       ),
     );
   }

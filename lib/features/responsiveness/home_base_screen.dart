@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/responsiveness/left_side_bar.dart';
@@ -91,70 +92,80 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String initialRoute = baseScreenController.userToken.value.isNotEmpty
-        ? AppRoutes.timeline
-        : AppRoutes.explore;
-    return Scaffold(
-      key: scaffoldKey,
-      extendBodyBehindAppBar: true,
-      appBar: ResponsiveWidget.isSmallScreen(context)
-          ? topNavigationBar(context, scaffoldKey)
-          : null,
-      drawer: ResponsiveWidget.isSmallScreen(context)
-          ? const Drawer(
-              child: LeftSideBar(),
-            )
-          : null,
-      bottomNavigationBar: ResponsiveWidget.isSmallScreen(context)
-          ? AnimatedBottomNavigationBar.builder(
-              activeIndex: _bottomNavIndex,
-              itemCount: bottomNavIcons.length,
-              tabBuilder: (int index, bool isActive) {
-                final String image = isActive
-                    ? bottomNavIcons[index]['solid'] as String
-                    : bottomNavIcons[index]['outline'] as String;
+    return Obx(() {
+      final String userToken = baseScreenController.userToken.value;
+      final User user = baseScreenController.user.value;
+      final String initialRoute =
+          userToken.isNotEmpty ? AppRoutes.timeline : AppRoutes.explore;
+      return Scaffold(
+        key: scaffoldKey,
+        extendBodyBehindAppBar: true,
+        appBar: isSmallScreen ? topNavigationBar(context, scaffoldKey) : null,
+        drawer: isSmallScreen
+            ? Drawer(
+                child: LeftSideBar(
+                  user: user,
+                  userToken: userToken,
+                ),
+              )
+            : null,
+        bottomNavigationBar: isSmallScreen && userToken.isNotEmpty
+            ? AnimatedBottomNavigationBar.builder(
+                activeIndex: _bottomNavIndex,
+                itemCount: bottomNavIcons.length,
+                tabBuilder: (int index, bool isActive) {
+                  final String image = isActive
+                      ? bottomNavIcons[index]['solid'] as String
+                      : bottomNavIcons[index]['outline'] as String;
 
-                final Color color =
-                    isActive ? context.colors.primary : context.colors.grey;
+                  final Color color =
+                      isActive ? context.colors.primary : context.colors.grey;
 
-                final String text = bottomNavIcons[index]['text'] as String;
+                  final String text = bottomNavIcons[index]['text'] as String;
 
-                final FontWeight fontWeight =
-                    isActive ? FontWeight.bold : FontWeight.normal;
+                  final FontWeight fontWeight =
+                      isActive ? FontWeight.bold : FontWeight.normal;
 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image.asset(image, height: 24, width: 24, color: color),
-                    const SizedBox(height: 3),
-                    Text(
-                      text,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: fontWeight,
-                        color: color,
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(image, height: 24, width: 24, color: color),
+                      const SizedBox(height: 3),
+                      Text(
+                        text,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: fontWeight,
+                          color: color,
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
-              gapLocation: GapLocation.none,
-              notchSmoothness: NotchSmoothness.defaultEdge,
-              onTap: (int index) {
-                setState(() => _bottomNavIndex = index);
-                switchScreen(index);
-              },
-            )
-          : null,
-      body: AppLoadingBox(
-        loading: baseScreenController.isLoggingOut.value,
-        child: ResponsiveWidget(
-          largeScreen: LargeScreen(initialRoute: initialRoute),
-          smallScreen: webNavigator(initialRoute),
+                    ],
+                  );
+                },
+                gapLocation: GapLocation.none,
+                notchSmoothness: NotchSmoothness.defaultEdge,
+                onTap: (int index) {
+                  setState(() => _bottomNavIndex = index);
+                  switchScreen(index);
+                },
+              )
+            : null,
+        body: AppLoadingBox(
+          loading: baseScreenController.isLoggingOut.value,
+          child: ResponsiveWidget(
+            largeScreen: LargeScreen(
+              initialRoute: initialRoute,
+              user: user,
+              userToken: userToken,
+            ),
+            smallScreen: webNavigator(initialRoute),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
+
+  bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 
   void switchScreen(int index) {
     switch (index) {
