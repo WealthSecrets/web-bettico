@@ -1,6 +1,6 @@
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';
+import 'package:betticos/features/betticos/presentation/trends/screens/trends_for_you_screens.dart';
 import 'package:flutter/material.dart';
 
 import 'left_side_bar.dart';
@@ -19,10 +19,11 @@ class LargeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Expanded(flex: 1, child: SizedBox()),
         Expanded(
-          flex: 3,
+          flex: 4,
           child: LeftSideBar(
             user: user,
             userToken: userToken,
@@ -32,9 +33,9 @@ class LargeScreen extends StatelessWidget {
           flex: 8,
           child: webNavigator(initialRoute),
         ),
-        Expanded(
-          flex: 5,
-          child: LoginScreen(),
+        const Expanded(
+          flex: 4,
+          child: TrendsForYouScreen(),
         ),
         const Expanded(flex: 1, child: SizedBox()),
       ],
