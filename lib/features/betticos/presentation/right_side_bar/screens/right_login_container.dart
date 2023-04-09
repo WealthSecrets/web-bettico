@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/social_buttons_row.dart';
 import 'package:flutter/material.dart';
 
 class RightLoginContainer extends StatelessWidget {
@@ -35,9 +36,7 @@ class RightLoginContainer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [],
-          ),
+          SocialButtonsRow(),
         ],
       ),
     );
