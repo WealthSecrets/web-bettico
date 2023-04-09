@@ -533,21 +533,6 @@ class LoginScreen extends GetWidget<LoginController> {
                               ),
                             ),
                           ),
-                          // const AppSpacing(v: 20),
-                          // const SizedBox(
-                          //   height: 40,
-                          //   width: double.infinity,
-                          //   child: Center(
-                          //     child: Text(
-                          //       '18+',
-                          //       style: TextStyle(
-                          //         color: Colors.black,
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 12,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
