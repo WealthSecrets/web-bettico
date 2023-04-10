@@ -58,6 +58,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
     return GestureDetector(
       onTap: widget.onTap,
       child: StreamBuilder<LiveScore?>(
+        stream: _liveScoreStreamController.stream,
         builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
           final LiveScore? liveScore = snapshot.data;
           return Container(
