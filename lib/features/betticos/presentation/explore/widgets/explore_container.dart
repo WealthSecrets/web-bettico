@@ -16,22 +16,18 @@ class ExploreContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          if (ResponsiveWidget.isSmallScreen(context))
-            const SizedBox(height: 56),
-          if (!ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
-            const SizedBox(height: 24),
-            Obx(
-              () => Row(
+      body: Obx(
+        () => Column(
+          children: <Widget>[
+            if (!ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
+              const SizedBox(height: 24),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: _selectableButtons,
               ),
-            ),
-          ],
-          if (ResponsiveWidget.isSmallScreen(context))
-            Obx(
-              () => SizedBox(
+            ],
+            if (ResponsiveWidget.isSmallScreen(context))
+              SizedBox(
                 height: 30,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
@@ -48,37 +44,38 @@ class ExploreContainer extends StatelessWidget {
                   itemCount: _selectableButtons.length + 2,
                 ),
               ),
-            ),
-          if (ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
-            const SizedBox(height: 8),
-            Padding(
-              padding: AppPaddings.lH,
-              child: searchField,
+            if (ResponsiveWidget.isSmallScreen(context) &&
+                controller.selectedOption.value == Options.posts) ...<Widget>[
+              const SizedBox(height: 8),
+              Padding(
+                padding: AppPaddings.lH,
+                child: searchField,
+              ),
+            ],
+            if (ResponsiveWidget.isCustomSize(context) &&
+                controller.selectedOption.value == Options.posts) ...<Widget>[
+              const SizedBox(height: 8),
+              searchField,
+            ],
+            Expanded(
+              child: Obx(
+                () {
+                  final Options option = controller.selectedOption.value;
+                  switch (option) {
+                    case Options.posts:
+                      return const ExploreScreen();
+                    case Options.sports:
+                      return const SportsContainer();
+                    case Options.bets:
+                      return const ExploreScreen();
+                    case Options.rates:
+                      return const ExploreScreen();
+                  }
+                },
+              ),
             ),
           ],
-          if (ResponsiveWidget.isCustomSize(context)) ...<Widget>[
-            const SizedBox(height: 8),
-            searchField,
-          ],
-          const SizedBox(height: 16),
-          Expanded(
-            child: Obx(
-              () {
-                final Options option = controller.selectedOption.value;
-                switch (option) {
-                  case Options.posts:
-                    return const ExploreScreen();
-                  case Options.sports:
-                    return const SportsContainer();
-                  case Options.bets:
-                    return const ExploreScreen();
-                  case Options.rates:
-                    return const ExploreScreen();
-                }
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
