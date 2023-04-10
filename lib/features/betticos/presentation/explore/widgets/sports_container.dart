@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/explore/screens/sports_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../profile/widgets/circle_indicator.dart';
@@ -41,7 +42,7 @@ class SportsContainer extends StatelessWidget {
         ),
         body: const TabBarView(
           children: <Widget>[
-            Icon(Icons.flight, size: 350),
+            SportsScreen(),
             Icon(Icons.directions_transit, size: 350),
             Icon(Icons.directions_car, size: 350),
           ],
