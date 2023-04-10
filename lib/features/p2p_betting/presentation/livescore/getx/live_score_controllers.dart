@@ -6,6 +6,7 @@ import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sle
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/s_league_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/s_team_request.dart';
+import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/nullable_livescore_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/s_fixture_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/s_live_score_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixtures.dart';
@@ -364,7 +365,7 @@ class LiveScoreController extends GetxController {
     isFetchingLiveScores(true);
     final Either<Failure, List<LiveScore>> failureOrLiveScores =
         await fetchLiveScores(
-            SLiveScoreRequest(leagueId: selectedLeague.value.id));
+            NullLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrLiveScores.fold<void>(
       (Failure failure) {
         isFetchingLiveScores(false);
