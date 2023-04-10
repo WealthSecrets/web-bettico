@@ -333,9 +333,9 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<List<LiveScore>> fetchLiveScores(int leagueId) async {
+  Future<List<LiveScore>> fetchLiveScores({int? leagueId}) async {
     final Map<String, dynamic> json =
-        await _client.get(P2pEndpoints.liveScore(leagueId: leagueId));
+        await _client.get(P2pEndpoints.liveScores(leagueId: leagueId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<LiveScore>.from(
       items.map<LiveScore>(
