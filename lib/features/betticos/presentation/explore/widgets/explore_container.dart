@@ -6,14 +6,20 @@ import 'package:betticos/features/betticos/presentation/explore/getx/explore_con
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ExploreScreen extends StatelessWidget {
-  ExploreScreen({Key? key, required this.child}) : super(key: key);
+class ExploreContainerArgument {
+  const ExploreContainerArgument({required this.child});
   final Widget child;
+}
+
+class ExploreContainer extends StatelessWidget {
+  ExploreContainer({Key? key}) : super(key: key);
 
   final ExploreController controller = Get.find<ExploreController>();
 
   @override
   Widget build(BuildContext context) {
+    final ExploreContainerArgument args =
+        ModalRoute.of(context)!.settings.arguments! as ExploreContainerArgument;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -57,7 +63,7 @@ class ExploreScreen extends StatelessWidget {
           ],
           const SizedBox(height: 16),
           Expanded(
-            child: child,
+            child: args.child,
           ),
         ],
       ),
