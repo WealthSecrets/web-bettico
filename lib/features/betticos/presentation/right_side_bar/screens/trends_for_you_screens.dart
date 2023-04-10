@@ -11,7 +11,7 @@ class TrendsForYouScreen extends StatelessWidget {
       height: 380,
       child: AppAnimatedColumn(children: <Widget>[
         Text(
-          'Trends for you',
+          'Viralz',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

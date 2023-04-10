@@ -25,8 +25,11 @@ class _LeftSideBarState extends State<LeftSideBar> {
   @override
   Widget build(BuildContext context) {
     final List<SideMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
+    final EdgeInsetsGeometry padding = isLargeScreen
+        ? const EdgeInsets.symmetric(vertical: 24, horizontal: 16)
+        : const EdgeInsets.symmetric(vertical: 24);
     return ListView(
-      padding: AppPaddings.lV,
+      padding: padding,
       children: <Widget>[
         if (!isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
@@ -157,6 +160,8 @@ class _LeftSideBarState extends State<LeftSideBar> {
   }
 
   bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
+
+  bool get isLargeScreen => ResponsiveWidget.isLargeScreen(context);
 
   List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
       ? notLoggedInMenuItems

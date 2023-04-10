@@ -7,6 +7,8 @@ class RightLoginContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final bool needSmallFonts = width > 1009 && width <= 1185;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
@@ -24,7 +26,7 @@ class RightLoginContainer extends StatelessWidget {
           Text(
             'Don\'t have an account?',
             style: TextStyle(
-              fontSize: 22,
+              fontSize: needSmallFonts ? 18 : 22,
               fontWeight: FontWeight.bold,
               color: context.colors.textDark,
             ),
@@ -33,13 +35,13 @@ class RightLoginContainer extends StatelessWidget {
           Text(
             'Sign up now to know what\'s happening on Xviral.',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: needSmallFonts ? 12 : 14,
               fontWeight: FontWeight.normal,
               color: context.colors.text,
             ),
           ),
           const SizedBox(height: 16),
-          SocialButtonsRow(),
+          SocialButtonsRow(size: 30),
           const SizedBox(height: 16),
           AppButton(
             enabled: true,
