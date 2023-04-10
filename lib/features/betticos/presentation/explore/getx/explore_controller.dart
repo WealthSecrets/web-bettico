@@ -8,6 +8,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '/core/core.dart';
 import '../../../data/models/listpage/listpage.dart';
 
+enum Options { posts, sports, bets, rates }
+
 class ExploreController extends GetxController {
   ExploreController({
     required this.explorePosts,
@@ -18,6 +20,7 @@ class ExploreController extends GetxController {
   RxList<Post> posts = <Post>[].obs;
   RxBool isLoading = false.obs;
   RxBool isCompleted = false.obs;
+  Rx<Options> selectedOption = Options.values.first.obs;
 
   RxInt pageK = 1.obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
@@ -57,5 +60,10 @@ class ExploreController extends GetxController {
         }
       },
     );
+  }
+
+  void refreshPosts() {
+    pagingController.refresh();
+    selectedOption(Options.posts);
   }
 }

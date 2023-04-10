@@ -106,7 +106,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       return Scaffold(
         key: scaffoldKey,
         extendBodyBehindAppBar: true,
-        appBar: isSmallScreen ? topNavigationBar(context, scaffoldKey) : null,
+        // appBar: isSmallScreen ? topNavigationBar(context, scaffoldKey) : null,
         drawer: isSmallScreen
             ? Drawer(
                 child: LeftSideBar(
@@ -181,7 +181,12 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
               user: user,
               userToken: userToken,
             ),
-            smallScreen: webNavigator(initialRoute),
+            smallScreen: Column(
+              children: <Widget>[
+                topNavigationBar(context, scaffoldKey),
+                Expanded(child: webNavigator(initialRoute)),
+              ],
+            ),
           ),
         ),
       );

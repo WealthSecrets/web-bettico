@@ -33,7 +33,7 @@ abstract class P2pRepository {
     int leagueId,
   );
 
-  Future<Either<Failure, List<LiveScore>>> fetchLiveScores(int leagueId);
+  Future<Either<Failure, List<LiveScore>>> fetchLiveScores({int? leagueId});
 
   Future<Either<Failure, List<LiveScore>>> fetchFixtures(int leagueId);
 
