@@ -3,6 +3,7 @@ import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
+import 'package:betticos/features/betticos/presentation/explore/screens/explore_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,8 +19,8 @@ class ExploreContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ExploreContainerArgument args =
-        ModalRoute.of(context)!.settings.arguments! as ExploreContainerArgument;
+    final ExploreContainerArgument? args =
+        ModalRoute.of(context)?.settings.arguments as ExploreContainerArgument?;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -63,7 +64,7 @@ class ExploreContainer extends StatelessWidget {
           ],
           const SizedBox(height: 16),
           Expanded(
-            child: args.child,
+            child: args != null ? args.child : const ExploreScreen(),
           ),
         ],
       ),

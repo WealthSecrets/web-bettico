@@ -8,10 +8,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../data/models/post/post_model.dart';
 import '../../timeline/widgets/timeline_card.dart';
 
-class ExploreScreen extends StatelessWidget {
-  ExploreScreen({Key? key}) : super(key: key);
-
-  final ExploreController controller = Get.find<ExploreController>();
+class ExploreScreen extends GetWidget<ExploreController> {
+  const ExploreScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
