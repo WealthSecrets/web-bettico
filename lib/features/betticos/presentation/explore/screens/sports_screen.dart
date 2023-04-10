@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/sports/sports_controlller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -13,12 +14,20 @@ class SportsScreen extends GetWidget<SportsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => ListView.builder(
-        itemBuilder: (BuildContext context, int index) => _LiveScoreCard(
-          livescore: controller.livescores[index],
-        ),
-        itemCount: controller.livescores.length,
-      ),
+      () {
+        return AppLoadingBox(
+          child: controller.livescores.isEmpty
+              ? const AppEmptyScreen(
+                  message: 'Oops! No live matches are available.')
+              : ListView.builder(
+                  itemBuilder: (BuildContext context, int index) =>
+                      _LiveScoreCard(
+                    livescore: controller.livescores[index],
+                  ),
+                  itemCount: controller.livescores.length,
+                ),
+        );
+      },
     );
   }
 }
