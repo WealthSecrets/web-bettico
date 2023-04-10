@@ -58,21 +58,7 @@ class ExploreContainer extends StatelessWidget {
               searchField,
             ],
             Expanded(
-              child: Obx(
-                () {
-                  final Options option = controller.selectedOption.value;
-                  switch (option) {
-                    case Options.posts:
-                      return const ExploreScreen();
-                    case Options.sports:
-                      return const SportsContainer();
-                    case Options.bets:
-                      return const ExploreScreen();
-                    case Options.rates:
-                      return const ExploreScreen();
-                  }
-                },
-              ),
+              child: child(),
             ),
           ],
         ),
@@ -80,10 +66,24 @@ class ExploreContainer extends StatelessWidget {
     );
   }
 
+  Widget child() {
+    final Options option = controller.selectedOption.value;
+    switch (option) {
+      case Options.posts:
+        return const ExploreScreen();
+      case Options.sports:
+        return const SportsContainer();
+      case Options.bets:
+        return const ExploreScreen();
+      case Options.rates:
+        return const ExploreScreen();
+    }
+  }
+
   List<Widget> get _selectableButtons => <Widget>[
         SelectableButton(
           text: 'Posts',
-          onPressed: controller.refreshPosts,
+          onPressed: () => controller.refreshPosts(),
           selected: controller.selectedOption.value == Options.posts,
         ),
         SelectableButton(

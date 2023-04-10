@@ -16,12 +16,6 @@ class SportsController extends GetxController {
   RxBool isFetchingLiveScores = false.obs;
   RxList<LiveScore> livescores = <LiveScore>[].obs;
 
-  @override
-  void onInit() {
-    getLiveScores();
-    super.onInit();
-  }
-
   void getLiveScores() async {
     isFetchingLiveScores(true);
     final Either<Failure, List<LiveScore>> failureOrLiveScores =

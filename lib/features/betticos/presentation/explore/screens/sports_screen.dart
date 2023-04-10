@@ -8,14 +8,28 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_s
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SportsScreen extends GetWidget<SportsController> {
+class SportsScreen extends StatefulWidget {
   const SportsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SportsScreen> createState() => _SportsScreenState();
+}
+
+class _SportsScreenState extends State<SportsScreen> {
+  final SportsController controller = Get.find<SportsController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getLiveScores();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
         return AppLoadingBox(
+          loading: controller.isFetchingLiveScores.value,
           child: controller.livescores.isEmpty
               ? const AppEmptyScreen(
                   message: 'Oops! No live matches are available.')
