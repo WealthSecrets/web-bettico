@@ -5,8 +5,11 @@ import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/responsiveness/custom_screen.dart';
+import 'package:betticos/features/responsiveness/large_unauthorized_bottom_navbar.dart';
 import 'package:betticos/features/responsiveness/left_side_bar.dart';
 import 'package:betticos/features/responsiveness/medium_screen.dart';
+import 'package:betticos/features/responsiveness/medium_unauthorized_bottom_navbar.dart';
+import 'package:betticos/features/responsiveness/small_unathorized_bottom_navbar.dart';
 import 'package:betticos/features/responsiveness/top_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
+import 'custom_unathorized_bottom_navbar.dart';
 import 'large_screen.dart';
 
 class HomeBaseScreen extends StatefulWidget {
@@ -151,7 +155,14 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
                   switchScreen(index);
                 },
               )
-            : null,
+            : !isLargeScreen
+                ? const ResponsiveWidget(
+                    largeScreen: LargeUnAthenticatedBottomNavbar(),
+                    mediumScreen: MediumUnAthenticatedBottomNavbar(),
+                    customScreen: CustomUnAthenticatedBottomNavbar(),
+                    smallScreen: SmallUnAthenticatedBottomNavbar(),
+                  )
+                : null,
         body: AppLoadingBox(
           loading: baseScreenController.isLoggingOut.value,
           child: ResponsiveWidget(
@@ -178,6 +189,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
   }
 
   bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
+
+  bool get isLargeScreen => ResponsiveWidget.isLargeScreen(context);
+
+  double get screenWidth => MediaQuery.of(context).size.width;
 
   void switchScreen(int index) {
     switch (index) {
