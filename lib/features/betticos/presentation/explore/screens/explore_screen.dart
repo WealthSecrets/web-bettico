@@ -117,11 +117,23 @@ class ExploreScreen extends StatelessWidget {
         SelectableButton(
           text: 'Posts',
           onPressed: () {},
-          selected: true,
+          selected: controller.selectedOption.value == Options.posts,
         ),
-        SelectableButton(text: 'Sports', onPressed: () {}),
-        SelectableButton(text: 'Bets', onPressed: () {}),
-        SelectableButton(text: 'Market Rates', onPressed: () {}),
+        SelectableButton(
+          text: 'Sports',
+          onPressed: () {},
+          selected: controller.selectedOption.value == Options.sports,
+        ),
+        SelectableButton(
+          text: 'Bets',
+          onPressed: () {},
+          selected: controller.selectedOption.value == Options.bets,
+        ),
+        SelectableButton(
+          text: 'Market Rates',
+          onPressed: () {},
+          selected: controller.selectedOption.value == Options.posts,
+        ),
       ];
 
   SearchField get searchField => const SearchField(
