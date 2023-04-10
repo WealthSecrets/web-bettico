@@ -27,7 +27,7 @@ class P2pEndpoints {
   }) =>
       'sportmonks/livescores?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
 
-  static String liveScore({required int leagueId}) =>
+  static String liveScore({int? leagueId}) =>
       'sportmonks/livescores?leagues=$leagueId&include=localTeam,visitorTeam';
 
   static String spaginateFixtures({
