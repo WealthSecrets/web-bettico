@@ -4,7 +4,7 @@ import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/explore_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/sports_screen.dart';
+import 'package:betticos/features/betticos/presentation/explore/widgets/sports_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,7 +69,7 @@ class ExploreContainer extends StatelessWidget {
                   case Options.posts:
                     return const ExploreScreen();
                   case Options.sports:
-                    return const SportsScreen();
+                    return const SportsContainer();
                   case Options.bets:
                     return const ExploreScreen();
                   case Options.rates:
