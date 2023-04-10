@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/sports/sports_controlller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
@@ -34,6 +35,9 @@ class _SportsScreenState extends State<SportsScreen> {
               ? const AppEmptyScreen(
                   message: 'Oops! No live matches are available.')
               : ListView.builder(
+                  padding: isSmallScreen
+                      ? const EdgeInsets.symmetric(horizontal: 16)
+                      : EdgeInsets.zero,
                   itemBuilder: (BuildContext context, int index) =>
                       _LiveScoreCard(
                     livescore: controller.livescores[index],
@@ -44,6 +48,8 @@ class _SportsScreenState extends State<SportsScreen> {
       },
     );
   }
+
+  bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 }
 
 class _LiveScoreCard extends StatefulWidget {
@@ -132,7 +138,7 @@ class _LiveScoreCardState extends State<_LiveScoreCard> {
                               : livescore.time.status?.toLowerCase() == 'live'
                                   ? '${livescore.time.minute}\''
                                   : '${livescore.time.status}'
-                          : 'NS',
+                          : 'FT',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,

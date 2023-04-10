@@ -26,10 +26,10 @@ class SportsController extends GetxController {
       },
       (List<LiveScore> value) {
         isFetchingLiveScores(false);
-        final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
-        copyLiveScores
-            .removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
-        livescores.value = copyLiveScores;
+        // final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
+        // copyLiveScores
+        //     .removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
+        livescores.value = value;
       },
     );
   }
