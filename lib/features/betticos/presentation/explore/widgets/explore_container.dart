@@ -4,13 +4,9 @@ import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/explore_screen.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-class ExploreContainerArgument {
-  const ExploreContainerArgument({required this.child});
-  final Widget child;
-}
 
 class ExploreContainer extends StatelessWidget {
   ExploreContainer({Key? key}) : super(key: key);
@@ -19,8 +15,6 @@ class ExploreContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ExploreContainerArgument? args =
-        ModalRoute.of(context)?.settings.arguments as ExploreContainerArgument?;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -28,27 +22,31 @@ class ExploreContainer extends StatelessWidget {
             const SizedBox(height: 56),
           if (!ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
             const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _selectableButtons,
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: _selectableButtons,
+              ),
             ),
           ],
           if (ResponsiveWidget.isSmallScreen(context))
-            SizedBox(
-              height: 30,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, int index) {
-                  if (index == 0 || index == _selectableButtons.length + 1) {
-                    return const SizedBox(width: 16);
-                  }
-                  return Container(
-                    margin: const EdgeInsets.only(right: 12),
-                    child: _selectableButtons[index - 1],
-                  );
-                },
-                itemCount: _selectableButtons.length + 2,
+            Obx(
+              () => SizedBox(
+                height: 30,
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, int index) {
+                    if (index == 0 || index == _selectableButtons.length + 1) {
+                      return const SizedBox(width: 16);
+                    }
+                    return Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      child: _selectableButtons[index - 1],
+                    );
+                  },
+                  itemCount: _selectableButtons.length + 2,
+                ),
               ),
             ),
           if (ResponsiveWidget.isSmallScreen(context)) ...<Widget>[
@@ -64,7 +62,21 @@ class ExploreContainer extends StatelessWidget {
           ],
           const SizedBox(height: 16),
           Expanded(
-            child: args != null ? args.child : const ExploreScreen(),
+            child: Obx(
+              () {
+                final Options option = controller.selectedOption.value;
+                switch (option) {
+                  case Options.posts:
+                    return const ExploreScreen();
+                  case Options.sports:
+                    return const NewLiveScore();
+                  case Options.bets:
+                    return const ExploreScreen();
+                  case Options.rates:
+                    return const ExploreScreen();
+                }
+              },
+            ),
           ),
         ],
       ),
@@ -74,23 +86,29 @@ class ExploreContainer extends StatelessWidget {
   List<Widget> get _selectableButtons => <Widget>[
         SelectableButton(
           text: 'Posts',
-          onPressed: () {},
+          onPressed: controller.refreshPosts,
           selected: controller.selectedOption.value == Options.posts,
         ),
         SelectableButton(
           text: 'Sports',
-          onPressed: () {},
+          onPressed: () {
+            controller.selectedOption.value = Options.sports;
+          },
           selected: controller.selectedOption.value == Options.sports,
         ),
         SelectableButton(
           text: 'Bets',
-          onPressed: () {},
+          onPressed: () {
+            controller.selectedOption.value = Options.bets;
+          },
           selected: controller.selectedOption.value == Options.bets,
         ),
         SelectableButton(
           text: 'Market Rates',
-          onPressed: () {},
-          selected: controller.selectedOption.value == Options.posts,
+          onPressed: () {
+            controller.selectedOption.value = Options.rates;
+          },
+          selected: controller.selectedOption.value == Options.rates,
         ),
       ];
 
