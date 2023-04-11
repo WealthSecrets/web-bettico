@@ -1,27 +1,40 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-class FixtureCard extends StatelessWidget {
-  FixtureCard({
+class FixtureCard extends StatefulWidget {
+  const FixtureCard({
     Key? key,
     required this.sFixture,
     required this.onTap,
   }) : super(key: key);
 
-  final LiveScoreController liveScoreController =
-      Get.find<LiveScoreController>();
-
   final LiveScore sFixture;
   final Function() onTap;
 
   @override
+  State<FixtureCard> createState() => _FixtureCardState();
+}
+
+class _FixtureCardState extends State<FixtureCard> {
+  final LiveScoreController liveScoreController =
+      Get.find<LiveScoreController>();
+
+  @override
   Widget build(BuildContext context) {
+    final double fontSize = isSmallScreen
+        ? 12
+        : isCustomScreen
+            ? 14
+            : isMediumScreen
+                ? 16
+                : 18;
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: MediaQuery.of(context).size.width,
         margin: const EdgeInsets.only(
@@ -29,14 +42,19 @@ class FixtureCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
           boxShadow: const <BoxShadow>[
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 20,
-              color: Color.fromRGBO(69, 52, 127, 0.3),
-            ),
+              blurRadius: 5,
+              color: Colors.black12,
+              offset: Offset(0, 1),
+            )
           ],
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: context.colors.faintGrey,
+            width: 1,
+            style: BorderStyle.solid,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -48,7 +66,7 @@ class FixtureCard extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TimeCard(
                   dateTime: DateTime.parse(
-                    sFixture.time.startingAt.dateTime,
+                    widget.sFixture.time.startingAt.dateTime,
                   ),
                 ),
               ),
@@ -58,27 +76,39 @@ class FixtureCard extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: _buildLeftFixtureCard(
-                      imagePath: sFixture.localTeam.data.logo,
-                      name: sFixture.localTeam.data.name,
+                    child: _LeftFixtureCard(
+                      imagePath: widget.sFixture.localTeam.data.logo,
+                      text: _FixtureText(
+                        isSmallScreen: isSmallScreen,
+                        isMediumScreen: isMediumScreen,
+                        isCustomScreen: isCustomScreen,
+                        name: StringUtils.capitalizeFirst(
+                          widget.sFixture.localTeam.data.name,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    '${sFixture.scores?.localTeamScore ?? 0} - ${sFixture.scores?.visitorTeamScore ?? 0}',
-                    style: const TextStyle(
-                      fontSize: 12,
+                    'Vs',
+                    style: TextStyle(
+                      fontSize: fontSize,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: context.colors.primary,
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     flex: 1,
-                    child: _buildRightFixtureCard(
-                      imagePath: sFixture.visitorTeam.data.logo,
-                      name: StringUtils.capitalizeFirst(
-                        sFixture.visitorTeam.data.name,
+                    child: _RightFixtureCard(
+                      imagePath: widget.sFixture.visitorTeam.data.logo,
+                      text: _FixtureText(
+                        isSmallScreen: isSmallScreen,
+                        isMediumScreen: isMediumScreen,
+                        isCustomScreen: isCustomScreen,
+                        name: StringUtils.capitalizeFirst(
+                          widget.sFixture.visitorTeam.data.name,
+                        ),
                       ),
                     ),
                   ),
@@ -91,22 +121,58 @@ class FixtureCard extends StatelessWidget {
     );
   }
 
-  Widget _buildRightFixtureCard({
-    required String imagePath,
-    required String name,
-  }) {
+  bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
+  bool get isCustomScreen => ResponsiveWidget.isCustomSize(context);
+  bool get isMediumScreen => ResponsiveWidget.isMediumScreen(context);
+}
+
+class _LeftFixtureCard extends StatelessWidget {
+  const _LeftFixtureCard({
+    Key? key,
+    required this.imagePath,
+    required this.text,
+  }) : super(key: key);
+
+  final String imagePath;
+  final _FixtureText text;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: Text(
-            name,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
+        SizedBox(
+          height: 40,
+          width: 40,
+          child: Image.network(
+            imagePath,
+            height: 40,
+            width: 40,
           ),
         ),
+        const SizedBox(width: 8),
+        text,
+      ],
+    );
+  }
+}
+
+class _RightFixtureCard extends StatelessWidget {
+  const _RightFixtureCard({
+    Key? key,
+    required this.imagePath,
+    required this.text,
+  }) : super(key: key);
+
+  final String imagePath;
+  final _FixtureText text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        text,
         const SizedBox(width: 8),
         SizedBox(
           height: 40,
@@ -120,34 +186,39 @@ class FixtureCard extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _buildLeftFixtureCard({
-    required String imagePath,
-    required String name,
-  }) {
-    return Row(
-      children: <Widget>[
-        SizedBox(
-          height: 40,
-          width: 40,
-          child: Image.network(
-            imagePath,
-            height: 40,
-            width: 40,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            name,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
+class _FixtureText extends StatelessWidget {
+  const _FixtureText({
+    Key? key,
+    required this.name,
+    required this.isSmallScreen,
+    required this.isMediumScreen,
+    required this.isCustomScreen,
+  }) : super(key: key);
+
+  final String name;
+
+  final bool isSmallScreen;
+  final bool isMediumScreen;
+  final bool isCustomScreen;
+
+  @override
+  Widget build(BuildContext context) {
+    final double fontSize = isSmallScreen
+        ? 12
+        : isCustomScreen
+            ? 14
+            : isMediumScreen
+                ? 16
+                : 18;
+    return Text(
+      name,
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 }

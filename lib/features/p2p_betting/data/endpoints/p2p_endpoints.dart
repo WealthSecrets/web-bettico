@@ -37,8 +37,8 @@ class P2pEndpoints {
   }) =>
       'sportmonks/fixtures?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
 
-  static String sFixtures({required int leagueId}) =>
-      'sportmonks/fixtures?leagues=$leagueId&include=localTeam,visitorTeam';
+  static String sFixtures({int? leagueId}) =>
+      'sportmonks/fixtures${leagueId != null ? '?leagues=$leagueId' : ''}';
 
   static const String leagues = 'sportmonks/leagues';
   static const String userBonus = 'users/bonus';

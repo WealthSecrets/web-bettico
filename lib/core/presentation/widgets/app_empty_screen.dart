@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,12 +9,14 @@ class AppEmptyScreen extends StatelessWidget {
   const AppEmptyScreen({
     Key? key,
     this.title,
+    this.image,
     required this.message,
     this.onBottonPressed,
     this.btnText,
   }) : super(key: key);
 
   final String? title;
+  final String? image;
   final String message;
   final Function? onBottonPressed;
   final String? btnText;
@@ -26,11 +29,13 @@ class AppEmptyScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          // SvgPicture.asset(
-          //   AssetSVGs.emptyState.path,
-          //   height: 300,
-          // ),
-          // const AppSpacing(v: 10),
+          if (image != null) ...<Widget>[
+            SvgPicture.asset(
+              image!,
+              height: 300,
+            ),
+            const AppSpacing(v: 10),
+          ],
           Text(
             title ?? 'nothing_to_see'.tr,
             textAlign: TextAlign.center,

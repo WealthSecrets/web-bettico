@@ -282,8 +282,8 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       makeRequest(p2pRemoteDataSource.fetchLiveScores(leagueId: leagueId));
 
   @override
-  Future<Either<Failure, List<LiveScore>>> fetchFixtures(int leagueId) =>
-      makeRequest(p2pRemoteDataSource.fetchFixtures(leagueId));
+  Future<Either<Failure, List<LiveScore>>> fetchFixtures({int? leagueId}) =>
+      makeRequest(p2pRemoteDataSource.fetchFixtures(leagueId: leagueId));
 
   @override
   Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedFixtures(
