@@ -22,7 +22,7 @@ class LiveScore with _$LiveScore {
     @JsonKey(name: 'localteam_id') required int localTeamId,
     @JsonKey(name: 'visitorteam_id') required int visitorTeamId,
     @JsonKey(name: 'winner_team_id') int? winnerTeamId,
-    @JsonKey(name: 'commentaries') required bool commentaries,
+    @JsonKey(name: 'commentaries') bool? commentaries,
     @JsonKey(name: 'neutral_venue') bool? neutralVenue,
     @JsonKey(name: 'localTeam') required Steam localTeam,
     @JsonKey(name: 'visitorTeam') required Steam visitorTeam,

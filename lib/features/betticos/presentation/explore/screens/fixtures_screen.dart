@@ -27,27 +27,26 @@ class _FixturesScreenState extends State<FixturesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-        () => lController.sFixtures.isEmpty
-            ? const AppEmptyScreen(message: 'Oops! No fixtures are available.')
-            : lController.isFetchingFixtures.value
-                ? const Center(child: LoadingLogo())
-                : Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-                    child: ListView(
-                      padding: isSmallScreen
-                          ? const EdgeInsets.symmetric(horizontal: 16)
-                          : EdgeInsets.zero,
-                      children: lController.sFixtures
-                          .map(
-                            (LiveScore liveScore) => FixtureCard(
-                              sFixture: liveScore,
-                              onTap: () {},
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
+        () => AppLoadingBox(
+          loading: lController.isFetchingFixtures.value,
+          child: lController.sFixtures.isEmpty &&
+                  !lController.isFetchingFixtures.value
+              ? const AppEmptyScreen(
+                  message: 'Oops! No fixtures are available.')
+              : ListView(
+                  padding: isSmallScreen
+                      ? const EdgeInsets.symmetric(horizontal: 16)
+                      : EdgeInsets.zero,
+                  children: lController.sFixtures
+                      .map(
+                        (LiveScore liveScore) => FixtureCard(
+                          sFixture: liveScore,
+                          onTap: () {},
+                        ),
+                      )
+                      .toList(),
+                ),
+        ),
       ),
     );
   }

@@ -57,7 +57,7 @@ class SportsController extends GetxController {
           );
           return lDateTime.isBefore(today);
         });
-        sFixtures.value = copyLiveScores;
+        sFixtures.value = value;
       },
     );
   }

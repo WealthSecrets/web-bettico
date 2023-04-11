@@ -29,14 +29,19 @@ class FixtureCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
           boxShadow: const <BoxShadow>[
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 20,
-              color: Color.fromRGBO(69, 52, 127, 0.3),
-            ),
+              blurRadius: 5,
+              color: Colors.black12,
+              offset: Offset(0, 1),
+            )
           ],
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: context.colors.faintGrey,
+            width: 1,
+            style: BorderStyle.solid,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(24),
