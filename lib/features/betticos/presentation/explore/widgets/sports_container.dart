@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/sports_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,10 @@ class SportsContainer extends StatelessWidget {
           children: <Widget>[
             SportsScreen(),
             Icon(Icons.directions_transit, size: 350),
-            Icon(Icons.directions_car, size: 350),
+            AppEmptyScreen(
+              title: 'Coming soon!',
+              message: 'We are working so hard to bring you the best news.',
+            ),
           ],
         ),
       ),
