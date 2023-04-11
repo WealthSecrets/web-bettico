@@ -16,6 +16,8 @@ class SportsController extends GetxController {
   RxBool isFetchingLiveScores = false.obs;
   RxList<LiveScore> livescores = <LiveScore>[].obs;
 
+  RxBool isFetchingFixtures = false.obs;
+
   void getLiveScores() async {
     isFetchingLiveScores(true);
     final Either<Failure, List<LiveScore>> failureOrLiveScores =
@@ -30,6 +32,32 @@ class SportsController extends GetxController {
         // copyLiveScores
         //     .removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
         livescores.value = value;
+      },
+    );
+  }
+
+  void getSFixtures() async {
+    isFetchingFixtures(true);
+    final Either<Failure, List<LiveScore>> failureOrSFixtures =
+        await fetchFixtures(
+            SLiveScoreRequest(leagueId: selectedLeague.value.id));
+    failureOrSFixtures.fold<void>(
+      (Failure failure) {
+        isFetchingFixtures(false);
+      },
+      (List<LiveScore> value) {
+        isFetchingFixtures(false);
+        final DateTime now = DateTime.now();
+        final DateTime today = DateTime(now.year, now.month, now.day);
+
+        final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
+        copyLiveScores.removeWhere((LiveScore l) {
+          final DateTime lDateTime = DateTime.parse(
+            l.time.startingAt.dateTime,
+          );
+          return lDateTime.isBefore(today);
+        });
+        sFixtures.value = copyLiveScores;
       },
     );
   }

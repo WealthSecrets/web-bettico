@@ -4,6 +4,7 @@ import 'package:betticos/features/betticos/presentation/explore/screens/sports_s
 import 'package:flutter/material.dart';
 
 import '../../profile/widgets/circle_indicator.dart';
+import '../screens/fixtures_screen.dart';
 
 class SportsContainer extends StatelessWidget {
   const SportsContainer({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class SportsContainer extends StatelessWidget {
         body: const TabBarView(
           children: <Widget>[
             SportsScreen(),
-            Icon(Icons.directions_transit, size: 350),
+            FixturesScreen(),
             AppEmptyScreen(
               title: 'Coming soon!',
               message: 'We are working so hard to bring you the best news.',
