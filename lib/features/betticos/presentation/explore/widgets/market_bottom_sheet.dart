@@ -18,6 +18,9 @@ class MarketBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double percentChange1h = listing.quote.usd.percentChange1h;
+    final Color color =
+        percentChange1h < 0 ? context.colors.error : context.colors.success;
     return Stack(
       children: <Widget>[
         Container(
@@ -45,9 +48,10 @@ class MarketBottomSheet extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       listing.name,
-                      style: context.sub1.copyWith(
+                      style: TextStyle(
                         color: context.colors.textDark,
                         fontWeight: FontWeight.w700,
+                        fontSize: 14,
                       ),
                     ),
                     const AppSpacing(v: 20),
@@ -61,16 +65,18 @@ class MarketBottomSheet extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   'PRICE',
-                                  style: context.overline.copyWith(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: context.colors.text,
+                                    fontSize: 10,
                                   ),
                                 ),
                                 Text(
                                   '\$${listing.quote.usd.price.toStringAsFixed(2)}',
-                                  style: context.body2.copyWith(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: context.colors.text,
+                                    fontSize: 10,
                                   ),
                                 ),
                               ]),
@@ -82,17 +88,18 @@ class MarketBottomSheet extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'CHANGE',
-                                style: context.overline.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 12,
                                 ),
                               ),
-                              const AppSpacing(v: 10),
                               Text(
-                                '${listing.quote.usd.volumeChange24h.toStringAsFixed(2)}%',
-                                style: context.body2.copyWith(
+                                '${percentChange1h.toStringAsFixed(2)}%',
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
-                                  color: context.colors.success,
+                                  color: color,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -111,14 +118,15 @@ class MarketBottomSheet extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'PRICE CHART',
-                                style: context.overline.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 10,
                                 ),
                               ),
                               LineChart(
-                                width: 50, // Width size of chart
-                                height: 20, // Height size of chart
+                                width: 50,
+                                height: 20,
                                 data: List<LineChartModel>.generate(
                                   6,
                                   (_) => LineChartModel(
@@ -128,8 +136,7 @@ class MarketBottomSheet extends StatelessWidget {
                                 linePaint: Paint()
                                   ..strokeWidth = 2.5
                                   ..style = PaintingStyle.stroke
-                                  ..color = context.colors
-                                      .success, // Custom paint for the line
+                                  ..color = color, // Custom paint for the line
                               ),
                             ],
                           ),
@@ -141,17 +148,18 @@ class MarketBottomSheet extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'VOLUME',
-                                style: context.overline.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 10,
                                 ),
                               ),
-                              const AppSpacing(v: 10),
                               Text(
-                                '%${listing.quote.usd.volume24h.toStringAsFixed(2)}',
-                                style: context.body2.copyWith(
+                                listing.quote.usd.volume24h.toStringAsFixed(2),
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -171,16 +179,18 @@ class MarketBottomSheet extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'MARKET CAP',
-                                style: context.overline.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 10,
                                 ),
                               ),
                               Text(
                                 listing.quote.usd.marketCap.toStringAsFixed(2),
-                                style: context.body2.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -192,18 +202,19 @@ class MarketBottomSheet extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'DILUTED MARKET CAP',
-                                style: context.overline.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 10,
                                 ),
                               ),
-                              const AppSpacing(v: 10),
                               Text(
                                 listing.quote.usd.fullyDilutedMarketCap!
                                     .toStringAsFixed(2),
-                                style: context.body2.copyWith(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: context.colors.text,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
