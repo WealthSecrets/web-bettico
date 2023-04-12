@@ -20,6 +20,7 @@ import '/features/betticos/domain/requests/post/post_request.dart';
 import '/features/betticos/domain/requests/reply/reply_request.dart';
 import '/features/betticos/domain/requests/subscrbe/subscribe_request.dart';
 import '../../domain/requests/follow/user_request.dart';
+import '../models/listing/listing_model.dart';
 import 'betticos_remote_data_source.dart';
 
 class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
@@ -396,6 +397,18 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
     return ListPage<Post>(
       grandTotalCount: json['results'] as int,
       itemList: posts,
+    );
+  }
+
+  @override
+  Future<List<Listing>> fetchListings() async {
+    final Map<String, dynamic> json =
+        await _client.get(BetticosEndpoints.listings);
+    final List<dynamic> items = json['data'] as List<dynamic>;
+    return List<Listing>.from(
+      items.map<Listing>(
+        (dynamic json) => Listing.fromJson(json as Map<String, dynamic>),
+      ),
     );
   }
 }

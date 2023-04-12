@@ -17,6 +17,7 @@ import '/features/betticos/domain/requests/reply/reply_request.dart';
 import '/features/betticos/domain/requests/subscrbe/subscribe_request.dart';
 import '../../domain/requests/follow/user_request.dart';
 import '../../domain/requests/referral/referral_request.dart';
+import '../models/listing/listing_model.dart';
 
 abstract class BetticosRemoteDataSource {
   Future<List<Post>> fetchPosts();
@@ -110,4 +111,6 @@ abstract class BetticosRemoteDataSource {
   Future<List<User>> searchAllUsers(String query);
 
   Future<List<ReportOption>> getReportOptions(String type);
+
+  Future<List<Listing>> fetchListings();
 }
