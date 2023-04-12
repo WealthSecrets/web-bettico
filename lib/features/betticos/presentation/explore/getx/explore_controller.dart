@@ -8,7 +8,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '/core/core.dart';
 import '../../../data/models/listpage/listpage.dart';
 
-enum Options { posts, sports, bets, rates }
+enum Options { posts, sports, rates }
 
 class ExploreController extends GetxController {
   ExploreController({

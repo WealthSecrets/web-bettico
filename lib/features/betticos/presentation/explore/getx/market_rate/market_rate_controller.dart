@@ -15,6 +15,12 @@ class MarketRateController extends GetxController {
   RxBool isFetchingListings = false.obs;
   RxList<Listing> listings = <Listing>[].obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    getAllListings();
+  }
+
   void getAllListings() async {
     isFetchingListings(true);
 

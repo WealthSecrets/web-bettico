@@ -11,6 +11,7 @@ class Listing with _$Listing {
     required int id,
     required String name,
     required String symbol,
+    required String logo,
     String? slug,
     @JsonKey(name: 'num_market_pairs') int? numberMarketPairs,
     @JsonKey(name: 'circulating_supply') double? circulatingSupply,
@@ -31,5 +32,6 @@ class Listing with _$Listing {
         name: '',
         symbol: '',
         quote: CoinQuote.empty(),
+        logo: '',
       );
 }
