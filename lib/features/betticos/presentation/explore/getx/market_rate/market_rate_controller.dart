@@ -37,4 +37,22 @@ class MarketRateController extends GetxController {
       },
     );
   }
+
+  Future<List<Listing>> getListings() async {
+    isFetchingListings(true);
+
+    final Either<Failure, List<Listing>> failureOrListings =
+        await fetchListings(NoParams());
+
+    return failureOrListings.fold<List<Listing>>(
+      (Failure failure) {
+        isFetchingListings(false);
+        return <Listing>[];
+      },
+      (List<Listing> value) {
+        isFetchingListings(false);
+        return value;
+      },
+    );
+  }
 }

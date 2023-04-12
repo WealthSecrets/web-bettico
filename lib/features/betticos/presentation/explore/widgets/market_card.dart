@@ -1,12 +1,12 @@
 import 'dart:math';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/data/models/listing/listing_model.dart';
 import 'package:flutter/material.dart';
 import 'package:line_chart/charts/line-chart.widget.dart';
 import 'package:line_chart/model/line-chart.model.dart';
 
-import '../../../../../core/core.dart';
-
-class MarketCard extends StatelessWidget {
+class MarketCard extends StatefulWidget {
   const MarketCard({
     Key? key,
     required this.listing,
@@ -15,7 +15,13 @@ class MarketCard extends StatelessWidget {
   final Listing listing;
 
   @override
+  State<MarketCard> createState() => _MarketCardState();
+}
+
+class _MarketCardState extends State<MarketCard> {
+  @override
   Widget build(BuildContext context) {
+    final double size = isSmallScreen ? 30 : 40;
     return Container(
       width: double.infinity,
       margin: AppPaddings.mB.add(AppPaddings.sH),
@@ -40,7 +46,7 @@ class MarketCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Image.network(listing.logo, height: 45, width: 45),
+          Image.network(widget.listing.logo, height: size, width: size),
           const SizedBox(width: 10),
           Expanded(
             flex: 2,
@@ -50,7 +56,7 @@ class MarketCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  listing.symbol,
+                  widget.listing.symbol,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -58,7 +64,7 @@ class MarketCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  listing.name,
+                  widget.listing.name,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
@@ -74,16 +80,16 @@ class MarketCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '${listing.quote.usd.volumeChange24h.toStringAsFixed(2)}%',
+                  '${widget.listing.quote.usd.volumeChange24h.toStringAsFixed(2)}%',
                   style: TextStyle(
-                    color: context.colors.success,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    color: context.colors.primary,
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
                 const SizedBox(height: 5),
                 LineChart(
-                  width: 50, // Width size of chart
+                  width: 80, // Width size of chart
                   height: 20, // Height size of chart
                   data: List<LineChartModel>.generate(
                     6,
@@ -94,7 +100,7 @@ class MarketCard extends StatelessWidget {
                     ..strokeWidth = 2.5
                     ..style = PaintingStyle.stroke
                     ..color =
-                        context.colors.success, // Custom paint for the line
+                        context.colors.primary, // Custom paint for the line
                 ),
               ],
             ),
@@ -107,7 +113,7 @@ class MarketCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  '\$${listing.quote.usd.price.toStringAsFixed(2)}',
+                  '\$${widget.listing.quote.usd.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -115,7 +121,7 @@ class MarketCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '1 ${listing.symbol.toUpperCase()}',
+                  '1 ${widget.listing.symbol.toUpperCase()}',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
@@ -129,4 +135,6 @@ class MarketCard extends StatelessWidget {
       ),
     );
   }
+
+  bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 }
