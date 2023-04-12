@@ -26,6 +26,7 @@ class _MarketRateScreenState extends State<MarketRateScreen> {
 
   @override
   void initState() {
+    initialFetch();
     startBroadcast();
     super.initState();
   }
@@ -42,6 +43,11 @@ class _MarketRateScreenState extends State<MarketRateScreen> {
       final List<Listing> listings = await controller.getListings();
       _listingsStreamController.add(listings);
     });
+  }
+
+  void initialFetch() async {
+    final List<Listing> listings = await controller.getListings();
+    _listingsStreamController.add(listings);
   }
 
   @override

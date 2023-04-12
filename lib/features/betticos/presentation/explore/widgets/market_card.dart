@@ -46,7 +46,11 @@ class _MarketCardState extends State<MarketCard> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Image.network(widget.listing.logo, height: size, width: size),
+          Image.network(
+            'https://s2.coinmarketcap.com/static/img/coins/64x64/${widget.listing.id}.png',
+            height: size,
+            width: size,
+          ),
           const SizedBox(width: 10),
           Expanded(
             flex: 2,
