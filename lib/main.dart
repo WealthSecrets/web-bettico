@@ -7,6 +7,7 @@ import 'package:betticos/features/auth/presentation/register/getx/register_bindi
 import 'package:betticos/features/auth/presentation/resetPassword/getx/reset_bindings.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_bindings.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_bindings.dart';
+import 'package:betticos/features/betticos/presentation/explore/getx/market_rate/market_rate_bindings.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/sports/sports_bindings.dart';
 import 'package:betticos/features/betticos/presentation/members/getx/members_bindings.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/getx/oddsters_bindings.dart';
@@ -71,6 +72,7 @@ void main() async {
   TimelineBindings.dependencies();
   ExploreBindings.dependencies();
   SportsBindings.dependencies();
+  MarketRateBindings.dependencies();
 
   MembersBindings.dependencies();
   OddstersBindings.dependencies();

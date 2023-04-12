@@ -26,13 +26,11 @@ class _FixtureCardState extends State<FixtureCard> {
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = isSmallScreen
+    final double fontSize = isSmallScreen || isCustomScreen
         ? 12
-        : isCustomScreen
+        : isMediumScreen
             ? 14
-            : isMediumScreen
-                ? 16
-                : 18;
+            : 16;
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
@@ -79,9 +77,7 @@ class _FixtureCardState extends State<FixtureCard> {
                     child: _LeftFixtureCard(
                       imagePath: widget.sFixture.localTeam.data.logo,
                       text: _FixtureText(
-                        isSmallScreen: isSmallScreen,
-                        isMediumScreen: isMediumScreen,
-                        isCustomScreen: isCustomScreen,
+                        fontSize: fontSize,
                         name: StringUtils.capitalizeFirst(
                           widget.sFixture.localTeam.data.name,
                         ),
@@ -103,9 +99,7 @@ class _FixtureCardState extends State<FixtureCard> {
                     child: _RightFixtureCard(
                       imagePath: widget.sFixture.visitorTeam.data.logo,
                       text: _FixtureText(
-                        isSmallScreen: isSmallScreen,
-                        isMediumScreen: isMediumScreen,
-                        isCustomScreen: isCustomScreen,
+                        fontSize: fontSize,
                         name: StringUtils.capitalizeFirst(
                           widget.sFixture.visitorTeam.data.name,
                         ),
@@ -192,31 +186,20 @@ class _FixtureText extends StatelessWidget {
   const _FixtureText({
     Key? key,
     required this.name,
-    required this.isSmallScreen,
-    required this.isMediumScreen,
-    required this.isCustomScreen,
+    required this.fontSize,
   }) : super(key: key);
 
   final String name;
-
-  final bool isSmallScreen;
-  final bool isMediumScreen;
-  final bool isCustomScreen;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = isSmallScreen
-        ? 12
-        : isCustomScreen
-            ? 14
-            : isMediumScreen
-                ? 16
-                : 18;
     return Text(
       name,
       style: TextStyle(
         fontSize: fontSize,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.normal,
+        color: context.colors.textDark,
       ),
       textAlign: TextAlign.center,
     );

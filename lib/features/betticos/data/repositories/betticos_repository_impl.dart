@@ -24,6 +24,7 @@ import '/features/betticos/domain/requests/post/post_request.dart';
 import '/features/betticos/domain/requests/reply/reply_request.dart';
 import '/features/betticos/domain/requests/subscrbe/subscribe_request.dart';
 import '../../domain/requests/follow/user_request.dart';
+import '../models/listing/listing_model.dart';
 
 class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   BetticosRepositoryImpl({
@@ -314,4 +315,15 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
           int page, int limit) =>
       makeRequest(
           betticoslineRemoteDataSource.fetchPaginatedPosts(page, limit));
+
+  @override
+  Future<Either<Failure, List<Listing>>> fetchListings() => makeRequest(
+        betticoslineRemoteDataSource.fetchListings(),
+      );
+
+  @override
+  Future<Either<Failure, Listing>> getListing({required String symbol}) =>
+      makeRequest(
+        betticoslineRemoteDataSource.getListing(symbol: symbol),
+      );
 }
