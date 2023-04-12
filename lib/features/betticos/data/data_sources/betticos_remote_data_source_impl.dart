@@ -411,4 +411,11 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
       ),
     );
   }
+
+  @override
+  Future<Listing> getListing({required String symbol}) async {
+    final Map<String, dynamic> json =
+        await _client.get(BetticosEndpoints.listing(symbol));
+    return Listing.fromJson(json['data'] as Map<String, dynamic>);
+  }
 }

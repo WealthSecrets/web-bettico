@@ -113,4 +113,6 @@ abstract class BetticosRemoteDataSource {
   Future<List<ReportOption>> getReportOptions(String type);
 
   Future<List<Listing>> fetchListings();
+
+  Future<Listing> getListing({required String symbol});
 }
