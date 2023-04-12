@@ -12,6 +12,7 @@ import '/features/betticos/data/models/listpage/listpage.dart';
 import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/data/models/reply/reply_model.dart';
 import '/features/betticos/data/models/subscription/subscription_model.dart';
+import '../../data/models/listing/listing_model.dart';
 
 abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> fetchPosts();
@@ -130,4 +131,6 @@ abstract class BetticosRepository {
   Future<Either<Failure, List<User>>> searchAllUsers(String query);
 
   Future<Either<Failure, List<ReportOption>>> getReportOptions(String type);
+
+  Future<Either<Failure, List<Listing>>> fetchListings();
 }
