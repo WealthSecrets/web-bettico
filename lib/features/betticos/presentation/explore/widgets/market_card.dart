@@ -107,7 +107,7 @@ class MarketCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  '\$${listing.quote.usd.price}',
+                  '\$${listing.quote.usd.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
