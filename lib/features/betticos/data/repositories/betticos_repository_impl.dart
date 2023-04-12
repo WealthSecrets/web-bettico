@@ -320,4 +320,10 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   Future<Either<Failure, List<Listing>>> fetchListings() => makeRequest(
         betticoslineRemoteDataSource.fetchListings(),
       );
+
+  @override
+  Future<Either<Failure, Listing>> getListing({required String symbol}) =>
+      makeRequest(
+        betticoslineRemoteDataSource.getListing(symbol: symbol),
+      );
 }

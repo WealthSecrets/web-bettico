@@ -133,4 +133,6 @@ abstract class BetticosRepository {
   Future<Either<Failure, List<ReportOption>>> getReportOptions(String type);
 
   Future<Either<Failure, List<Listing>>> fetchListings();
+
+  Future<Either<Failure, Listing>> getListing({required String symbol});
 }
