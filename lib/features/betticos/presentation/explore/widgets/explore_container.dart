@@ -1,10 +1,10 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/explore_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/market_rate_screen.dart';
+import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/sports_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,13 +33,13 @@ class ExploreContainer extends StatelessWidget {
               const SizedBox(height: 8),
               Padding(
                 padding: AppPaddings.lH,
-                child: searchField,
+                child: const SearchFieldContainer(),
               ),
             ],
             if (ResponsiveWidget.isCustomSize(context) &&
                 controller.selectedOption.value == Options.posts) ...<Widget>[
               const SizedBox(height: 8),
-              searchField,
+              const SearchFieldContainer(),
             ],
             Expanded(
               child: child(),
@@ -83,8 +83,4 @@ class ExploreContainer extends StatelessWidget {
           selected: controller.selectedOption.value == Options.rates,
         ),
       ];
-
-  SearchField get searchField => const SearchField(
-        hintText: 'Search Xviral',
-      );
 }
