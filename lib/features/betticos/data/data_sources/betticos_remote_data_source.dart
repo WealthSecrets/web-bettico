@@ -118,4 +118,7 @@ abstract class BetticosRemoteDataSource {
   Future<Listing> getListing({required String symbol});
 
   Future<List<Hashtag>> fetchHashtags();
+
+  Future<PaginatedResponseData<Post>> searchPosts(
+      String keyword, int page, int limit);
 }
