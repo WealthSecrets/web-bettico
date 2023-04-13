@@ -36,6 +36,9 @@ class ExploreController extends GetxController {
   PagingController<int, Post> pagingController =
       PagingController<int, Post>(firstPageKey: 1);
 
+  PagingController<int, Post> searchPagingController =
+      PagingController<int, Post>(firstPageKey: 1);
+
   RxString selectedHashtag = ''.obs;
 
   @override
@@ -87,14 +90,14 @@ class ExploreController extends GetxController {
     failureOrResult.fold<void>(
       (Failure failure) {
         isLoading(false);
-        pagingController.error = failure;
+        searchPagingController.error = failure;
       },
       (PaginatedResponseData<Post> response) {
         isLoading(false);
         if (response.isLastPage) {
-          pagingController.appendLastPage(response.data);
+          searchPagingController.appendLastPage(response.data);
         } else {
-          pagingController.appendPage(response.data, response.nextPage);
+          searchPagingController.appendPage(response.data, response.nextPage);
         }
       },
     );
