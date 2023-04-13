@@ -1,9 +1,11 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/images_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/latest_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/top_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/users_screen.dart';
+import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -17,6 +19,8 @@ class SearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
+    final bool isCustomScreen = ResponsiveWidget.isCustomSize(context);
     return WillPopScope(
       onWillPop: () {
         controller.isOnSearchPage.value = false;
@@ -27,11 +31,23 @@ class SearchContainer extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            leading: AppBackButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                controller.isOnSearchPage.value = false;
-              },
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    controller.isOnSearchPage.value = false;
+                  },
+                  child: Icon(Ionicons.chevron_back_sharp,
+                      color: context.colors.textDark, size: 24),
+                ),
+                if (isSmallScreen || isCustomScreen) ...<Widget>[
+                  const SizedBox(width: 8),
+                  const Expanded(child: SearchFieldContainer()),
+                ],
+              ],
             ),
             bottom: TabBar(
               indicatorColor: context.colors.primary,
