@@ -36,9 +36,12 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return SearchField(
-      hintText: 'Search Xviral',
-      onChanged: _subject.add,
+    return Obx(
+      () => SearchField(
+        initialValue: controller.selectedHashtag.value,
+        hintText: 'Search Xviral',
+        onChanged: _subject.add,
+      ),
     );
   }
 }
