@@ -2,6 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -46,24 +47,26 @@ class _TrendsForYouScreenState extends State<TrendsForYouScreen> {
                   Expanded(
                     child: hashtags.isNotEmpty
                         ? ListView(
-                            children: hashtags
-                                .take(5)
-                                .map(
-                                  (Hashtag hashtag) => _TrendCard(
-                                    title: 'Tredning in Ghana',
-                                    hashtag: StringUtils.capitalizeFirst(
-                                        hashtag.name.replaceAll('#', '')),
-                                    count: '${hashtag.count}',
-                                    isSelected:
-                                        controller.selectedHashtag.value ==
-                                            hashtag.name,
-                                    onPressed: () {
-                                      controller
-                                          .setSelectedHashtag(hashtag.name);
-                                    },
-                                  ),
-                                )
-                                .toList(),
+                            children: hashtags.take(5).map(
+                              (Hashtag hashtag) {
+                                return _TrendCard(
+                                  title: 'Tredning in Ghana',
+                                  hashtag: StringUtils.capitalizeFirst(
+                                      hashtag.name.replaceAll('#', '')),
+                                  count: '${hashtag.count}',
+                                  isSelected:
+                                      controller.selectedHashtag.value ==
+                                          hashtag.name.replaceAll('#', ''),
+                                  onPressed: () {
+                                    controller.setSelectedHashtag(
+                                        hashtag.name.replaceAll('#', ''));
+                                    navigationController
+                                        .navigateTo(AppRoutes.search);
+                                    controller.getFilteredPosts(1);
+                                  },
+                                );
+                              },
+                            ).toList(),
                           )
                         : const AppEmptyScreen(
                             message: 'No popular hashtags were found.'),
