@@ -138,4 +138,7 @@ abstract class BetticosRepository {
   Future<Either<Failure, Listing>> getListing({required String symbol});
 
   Future<Either<Failure, List<Hashtag>>> fetchHashtags();
+
+  Future<Either<Failure, PaginatedResponseData<Post>>> searchPosts(
+      String keyword, int page, int limit);
 }

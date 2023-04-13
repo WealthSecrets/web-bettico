@@ -332,4 +332,10 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   Future<Either<Failure, List<Hashtag>>> fetchHashtags() => makeRequest(
         betticoslineRemoteDataSource.fetchHashtags(),
       );
+
+  @override
+  Future<Either<Failure, PaginatedResponseData<Post>>> searchPosts(
+          String keyword, int page, int limit) =>
+      makeRequest(
+          betticoslineRemoteDataSource.searchPosts(keyword, page, limit));
 }
