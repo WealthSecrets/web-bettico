@@ -1,13 +1,12 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/explore/screens/top_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../profile/widgets/circle_indicator.dart';
 
 class SearchContainer extends StatelessWidget {
-  const SearchContainer({Key? key, required this.searchBar}) : super(key: key);
-
-  final Widget searchBar;
+  const SearchContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,6 @@ class SearchContainer extends StatelessWidget {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: searchBar,
           bottom: TabBar(
             indicatorColor: context.colors.primary,
             labelColor: Colors.black,
@@ -39,13 +37,13 @@ class SearchContainer extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
-            Center(child: Icon(Ionicons.train)),
-            Center(child: Icon(Ionicons.send)),
-            Center(child: Icon(Ionicons.mail)),
-            Center(child: Icon(Ionicons.accessibility)),
-            Center(child: Icon(Ionicons.add)),
+            TopScreen(),
+            const Center(child: Icon(Ionicons.send)),
+            const Center(child: Icon(Ionicons.mail)),
+            const Center(child: Icon(Ionicons.accessibility)),
+            const Center(child: Icon(Ionicons.add)),
           ],
         ),
       ),
