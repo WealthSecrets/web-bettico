@@ -5,6 +5,7 @@ import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
+import 'package:betticos/features/betticos/domain/response/search_response.dart';
 
 import '/core/utils/http_client.dart';
 import '/features/auth/data/models/user/user.dart';
@@ -433,14 +434,10 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<PaginatedResponseData<Post>> searchPosts(
+  Future<SearchResponse> searchPosts(
       String keyword, int page, int limit) async {
     final Map<String, dynamic> json =
         await _client.get(BetticosEndpoints.searchPosts(keyword, page, limit));
-    return PaginatedResponseData<Post>.fromJson(
-        json,
-        (Object? j) => j == null
-            ? Post.empty()
-            : Post.fromJson(j as Map<String, dynamic>));
+    return SearchResponse.fromJson(json['data'] as Map<String, dynamic>);
   }
 }
