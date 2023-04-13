@@ -1,6 +1,8 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/explore_posts.dart';
+import 'package:betticos/features/betticos/domain/usecases/post/fetch_hashtags.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -13,11 +15,14 @@ enum Options { posts, sports, rates }
 class ExploreController extends GetxController {
   ExploreController({
     required this.explorePosts,
+    required this.fetchHashtags,
   });
 
   final ExplorePosts explorePosts;
+  final FetchHashtags fetchHashtags;
 
   RxList<Post> posts = <Post>[].obs;
+  RxList<Hashtag> hashtags = <Hashtag>[].obs;
   RxBool isLoading = false.obs;
   RxBool isCompleted = false.obs;
   Rx<Options> selectedOption = Options.values.first.obs;
@@ -58,6 +63,21 @@ class ExploreController extends GetxController {
         } else {
           pagingController.appendPage(response.data, response.nextPage);
         }
+      },
+    );
+  }
+
+  void getAllHashtags(int pageKey) async {
+    final Either<Failure, List<Hashtag>> failureOrResult = await fetchHashtags(
+      NoParams(),
+    );
+    failureOrResult.fold<void>(
+      (Failure failure) {
+        isLoading(false);
+      },
+      (List<Hashtag> response) {
+        isLoading(false);
+        hashtags.value = response;
       },
     );
   }
