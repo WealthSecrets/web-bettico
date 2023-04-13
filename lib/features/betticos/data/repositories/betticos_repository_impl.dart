@@ -1,5 +1,6 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
@@ -325,5 +326,10 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   Future<Either<Failure, Listing>> getListing({required String symbol}) =>
       makeRequest(
         betticoslineRemoteDataSource.getListing(symbol: symbol),
+      );
+
+  @override
+  Future<Either<Failure, List<Hashtag>>> fetchHashtags() => makeRequest(
+        betticoslineRemoteDataSource.fetchHashtags(),
       );
 }
