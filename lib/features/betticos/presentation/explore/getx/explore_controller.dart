@@ -1,6 +1,8 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
+import 'package:betticos/features/betticos/domain/response/search_response.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/explore_posts.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/fetch_hashtags.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/search_posts.dart';
@@ -36,10 +38,14 @@ class ExploreController extends GetxController {
   PagingController<int, Post> pagingController =
       PagingController<int, Post>(firstPageKey: 1);
 
-  PagingController<int, Post> searchPagingController =
-      PagingController<int, Post>(firstPageKey: 1);
-
   RxString selectedHashtag = ''.obs;
+
+  // Search variables
+  RxList<Post> top = <Post>[].obs;
+  RxList<Post> latest = <Post>[].obs;
+  RxList<Post> images = <Post>[].obs;
+  RxList<User> users = <User>[].obs;
+  RxList<String> filteredHashtags = <String>[].obs;
 
   @override
   void onInit() {
@@ -79,8 +85,7 @@ class ExploreController extends GetxController {
   void getFilteredPosts(int pageKey) async {
     pageK(pageKey);
     isLoading(true);
-    final Either<Failure, PaginatedResponseData<Post>> failureOrResult =
-        await searchPosts(
+    final Either<Failure, SearchResponse> failureOrResult = await searchPosts(
       SearchPageParams(
         keyword: selectedHashtag.value,
         page: pageK.value,
@@ -90,15 +95,14 @@ class ExploreController extends GetxController {
     failureOrResult.fold<void>(
       (Failure failure) {
         isLoading(false);
-        searchPagingController.error = failure;
       },
-      (PaginatedResponseData<Post> response) {
+      (SearchResponse response) {
         isLoading(false);
-        if (response.isLastPage) {
-          searchPagingController.appendLastPage(response.data);
-        } else {
-          searchPagingController.appendPage(response.data, response.nextPage);
-        }
+        top.value = response.top;
+        latest.value = response.latest;
+        images.value = response.images;
+        users.value = response.users;
+        filteredHashtags.value = response.hashtags;
       },
     );
   }
