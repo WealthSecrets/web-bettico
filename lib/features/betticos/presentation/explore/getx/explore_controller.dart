@@ -33,6 +33,8 @@ class ExploreController extends GetxController {
   PagingController<int, Post> pagingController =
       PagingController<int, Post>(firstPageKey: 1);
 
+  RxString selectedHashtag = ''.obs;
+
   @override
   void onInit() {
     pagingController.addPageRequestListener((int pageKey) {
@@ -69,7 +71,6 @@ class ExploreController extends GetxController {
   }
 
   void getAllHashtags() async {
-    print('the hastag method is called');
     final Either<Failure, List<Hashtag>> failureOrResult = await fetchHashtags(
       NoParams(),
     );
@@ -87,5 +88,13 @@ class ExploreController extends GetxController {
   void refreshPosts() {
     pagingController.refresh();
     selectedOption(Options.posts);
+  }
+
+  void setSelectedHashtag(String hashtag) {
+    if (selectedHashtag.value != hashtag) {
+      selectedHashtag.value = hashtag;
+    } else {
+      selectedHashtag.value = '';
+    }
   }
 }
