@@ -16,36 +16,43 @@ class ExploreContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
+    final bool isCustomScreen = ResponsiveWidget.isCustomSize(context);
+
     return Scaffold(
       body: Obx(
-        () => Column(
-          children: <Widget>[
-            if (!ResponsiveWidget.isSmallScreen(context))
-              const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _selectableButtons,
-            ),
-            if (controller.selectedOption.value == Options.rates)
-              const SizedBox(height: 16),
-            if (ResponsiveWidget.isSmallScreen(context) &&
-                controller.selectedOption.value == Options.posts) ...<Widget>[
-              const SizedBox(height: 8),
-              Padding(
-                padding: AppPaddings.lH,
-                child: const SearchFieldContainer(),
+        () {
+          final bool isPostsSelected =
+              controller.selectedOption.value == Options.posts;
+
+          return Column(
+            children: <Widget>[
+              if (!isSmallScreen) const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: _selectableButtons,
+              ),
+              if (controller.selectedOption.value == Options.rates)
+                const SizedBox(height: 16),
+              if (isSmallScreen && isPostsSelected) ...<Widget>[
+                const SizedBox(height: 8),
+                Padding(
+                  padding: AppPaddings.lH,
+                  child: const SearchFieldContainer(),
+                ),
+                const SizedBox(height: 8),
+              ],
+              if (isCustomScreen && isPostsSelected) ...<Widget>[
+                const SizedBox(height: 8),
+                const SearchFieldContainer(),
+                const SizedBox(height: 8),
+              ],
+              Expanded(
+                child: child(),
               ),
             ],
-            if (ResponsiveWidget.isCustomSize(context) &&
-                controller.selectedOption.value == Options.posts) ...<Widget>[
-              const SizedBox(height: 8),
-              const SearchFieldContainer(),
-            ],
-            Expanded(
-              child: child(),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
