@@ -46,6 +46,7 @@ class ExploreController extends GetxController {
   RxList<Post> images = <Post>[].obs;
   RxList<User> users = <User>[].obs;
   RxList<String> filteredHashtags = <String>[].obs;
+  RxBool isSearching = false.obs;
 
   @override
   void onInit() {
@@ -84,7 +85,7 @@ class ExploreController extends GetxController {
 
   void getFilteredPosts(int pageKey) async {
     pageK(pageKey);
-    isLoading(true);
+    isSearching(true);
     final Either<Failure, SearchResponse> failureOrResult = await searchPosts(
       SearchPageParams(
         keyword: selectedHashtag.value,
@@ -94,10 +95,10 @@ class ExploreController extends GetxController {
     );
     failureOrResult.fold<void>(
       (Failure failure) {
-        isLoading(false);
+        isSearching(false);
       },
       (SearchResponse response) {
-        isLoading(false);
+        isSearching(false);
         top.value = response.top;
         latest.value = response.latest;
         images.value = response.images;
