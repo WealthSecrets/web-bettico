@@ -1,7 +1,7 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
-import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
 import 'package:betticos/features/betticos/presentation/right_side_bar/screens/right_login_container.dart';
 import 'package:betticos/features/betticos/presentation/right_side_bar/screens/trends_for_you_screens.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class MediumScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 24),
-                const SearchField(hintText: 'Search Xviral'),
+                const SearchFieldContainer(),
                 const SizedBox(height: 24),
                 const TrendsForYouScreen(),
                 const SizedBox(height: 24),

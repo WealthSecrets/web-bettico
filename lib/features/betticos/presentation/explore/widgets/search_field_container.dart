@@ -35,13 +35,22 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _subject.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(
-      () => SearchField(
-        initialValue: controller.selectedHashtag.value,
-        hintText: 'Search Xviral',
-        onChanged: _subject.add,
-      ),
+      () {
+        final String term = controller.selectedHashtag.value;
+        return SearchField(
+          initialValue: term,
+          hintText: 'Search Xviral',
+          onChanged: _subject.add,
+        );
+      },
     );
   }
 }
