@@ -22,7 +22,9 @@ class LatestScreen extends StatelessWidget {
         () => AppLoadingBox(
           loading: controller.isSearching.value,
           child: controller.latest.isEmpty && !controller.isSearching.value
-              ? const AppEmptyScreen(message: 'Oops! No results for keyword.')
+              ? AppEmptyScreen(
+                  message:
+                      'Oops! No results found for ${controller.selectedHashtag.value}')
               : ListView.builder(
                   padding: isSmallScreen
                       ? const EdgeInsets.symmetric(horizontal: 16)
