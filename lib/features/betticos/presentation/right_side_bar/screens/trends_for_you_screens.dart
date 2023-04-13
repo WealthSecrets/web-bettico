@@ -49,7 +49,8 @@ class _TrendsForYouScreenState extends State<TrendsForYouScreen> {
                             .map(
                               (Hashtag hashtag) => _TrendCard(
                                 title: 'Tredning in Ghana',
-                                hashtag: hashtag.name.replaceAll('#', ''),
+                                hashtag: StringUtils.capitalizeFirst(
+                                    hashtag.name.replaceAll('#', '')),
                                 count: '${hashtag.count}',
                               ),
                             )
