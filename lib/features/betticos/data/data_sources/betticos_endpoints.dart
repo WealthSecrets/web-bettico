@@ -43,5 +43,5 @@ class BetticosEndpoints {
       'posts/explore?page=$page&limit=$limit';
   static const String listings = 'networks/listings';
   static String listing(String sybmol) => 'networks/listings/$sybmol';
-  static const String hashtags = '/hashtags';
+  static const String hashtags = 'posts/hashtags';
 }

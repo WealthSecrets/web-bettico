@@ -24,6 +24,7 @@ class ExploreController extends GetxController {
   RxList<Post> posts = <Post>[].obs;
   RxList<Hashtag> hashtags = <Hashtag>[].obs;
   RxBool isLoading = false.obs;
+  RxBool isLoadingHashtags = false.obs;
   RxBool isCompleted = false.obs;
   Rx<Options> selectedOption = Options.values.first.obs;
 
@@ -67,16 +68,17 @@ class ExploreController extends GetxController {
     );
   }
 
-  void getAllHashtags(int pageKey) async {
+  void getAllHashtags() async {
+    print('the hastag method is called');
     final Either<Failure, List<Hashtag>> failureOrResult = await fetchHashtags(
       NoParams(),
     );
     failureOrResult.fold<void>(
       (Failure failure) {
-        isLoading(false);
+        isLoadingHashtags(false);
       },
       (List<Hashtag> response) {
-        isLoading(false);
+        isLoadingHashtags(false);
         hashtags.value = response;
       },
     );

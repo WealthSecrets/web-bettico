@@ -1,50 +1,67 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
+import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-class TrendsForYouScreen extends StatelessWidget {
+class TrendsForYouScreen extends StatefulWidget {
   const TrendsForYouScreen({Key? key}) : super(key: key);
 
   @override
+  State<TrendsForYouScreen> createState() => _TrendsForYouScreenState();
+}
+
+class _TrendsForYouScreenState extends State<TrendsForYouScreen> {
+  final ExploreController controller = Get.find<ExploreController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getAllHashtags();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 380,
-      child: AppAnimatedColumn(children: <Widget>[
-        Text(
-          'Viralz',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: context.colors.black,
+    return Obx(
+      () {
+        final List<Hashtag> hashtags = controller.hashtags;
+        return AppLoadingBox(
+          loading: controller.isLoadingHashtags.value,
+          child: SizedBox(
+            height: 380,
+            child: Column(children: <Widget>[
+              Text(
+                'Viralz',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: context.colors.black,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: hashtags.isNotEmpty
+                    ? ListView(
+                        children: hashtags
+                            .take(5)
+                            .map(
+                              (Hashtag hashtag) => _TrendCard(
+                                title: 'Tredning in Ghana',
+                                hashtag: hashtag.name.replaceAll('#', ''),
+                                count: '${hashtag.count}',
+                              ),
+                            )
+                            .toList(),
+                      )
+                    : const AppEmptyScreen(
+                        message: 'No popular hashtags were found.'),
+              ),
+            ]),
           ),
-        ),
-        const SizedBox(height: 16),
-        const _TrendCard(
-          title: 'Tredning in Ghana',
-          hashtag: 'Asake',
-          count: '1234',
-        ),
-        const _TrendCard(
-          title: 'Tredning in Ghana',
-          hashtag: 'Asake',
-          count: '1234',
-        ),
-        const _TrendCard(
-          title: 'Tredning in Ghana',
-          hashtag: 'Asake',
-          count: '1234',
-        ),
-        const _TrendCard(
-          title: 'Tredning in Ghana',
-          hashtag: 'Asake',
-          count: '1234',
-        ),
-        const _TrendCard(
-          title: 'Tredning in Ghana',
-          hashtag: 'Asake',
-          count: '1234',
-        ),
-      ]),
+        );
+      },
     );
   }
 }
