@@ -1,5 +1,8 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/explore/screens/images_screen.dart';
+import 'package:betticos/features/betticos/presentation/explore/screens/latest_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/top_screen.dart';
+import 'package:betticos/features/betticos/presentation/explore/screens/users_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -40,9 +43,9 @@ class SearchContainer extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             TopScreen(),
-            const Center(child: Icon(Ionicons.send)),
-            const Center(child: Icon(Ionicons.mail)),
-            const Center(child: Icon(Ionicons.accessibility)),
+            LatestScreen(),
+            UsersScreen(),
+            ImagesScreen(),
             const Center(child: Icon(Ionicons.add)),
           ],
         ),
