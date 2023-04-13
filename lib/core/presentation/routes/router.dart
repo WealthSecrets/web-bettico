@@ -96,7 +96,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.explore:
       return _getPageRoute(ExploreContainer(), settings);
     case AppRoutes.search:
-      return _getPageRoute(const SearchContainer(), settings);
+      return _getPageRoute(SearchContainer(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

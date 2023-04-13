@@ -6,6 +6,7 @@ import 'package:betticos/features/betticos/domain/response/search_response.dart'
 import 'package:betticos/features/betticos/domain/usecases/post/explore_posts.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/fetch_hashtags.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/search_posts.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -47,6 +48,8 @@ class ExploreController extends GetxController {
   RxList<User> users = <User>[].obs;
   RxList<String> filteredHashtags = <String>[].obs;
   RxBool isSearching = false.obs;
+
+  RxBool isOnSearchPage = false.obs;
 
   @override
   void onInit() {
@@ -133,6 +136,13 @@ class ExploreController extends GetxController {
       selectedHashtag.value = hashtag;
     } else {
       selectedHashtag.value = '';
+    }
+  }
+
+  void navigateToSearchPage() {
+    if (!isOnSearchPage.value) {
+      isOnSearchPage.value = true;
+      navigationController.navigateTo(AppRoutes.search);
     }
   }
 }

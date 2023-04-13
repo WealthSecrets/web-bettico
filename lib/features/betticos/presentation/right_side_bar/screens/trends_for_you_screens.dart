@@ -2,7 +2,6 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -60,8 +59,7 @@ class _TrendsForYouScreenState extends State<TrendsForYouScreen> {
                                   onPressed: () {
                                     controller.setSelectedHashtag(
                                         hashtag.name.replaceAll('#', ''));
-                                    navigationController
-                                        .navigateTo(AppRoutes.search);
+                                    controller.navigateToSearchPage();
                                     controller.getFilteredPosts(1);
                                   },
                                 );

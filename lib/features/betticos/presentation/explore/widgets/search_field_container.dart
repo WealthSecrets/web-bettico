@@ -1,6 +1,4 @@
-import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/search_field.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
@@ -23,14 +21,14 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
   void initState() {
     super.initState();
     _subject
-        .debounceTime(const Duration(milliseconds: 1500))
+        .debounceTime(const Duration(milliseconds: 500))
         .distinctUnique()
         .listen(
       (String term) {
         if (term.isNotEmpty) {
           controller.setSelectedHashtag(term);
+          controller.navigateToSearchPage();
           controller.getFilteredPosts(1);
-          navigationController.navigateTo(AppRoutes.search);
         }
       },
     );
