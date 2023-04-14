@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/errors/failure.dart';
-import '/core/presentation/routes/app_routes.dart';
+import '../../../../../core/navigation/app_routes.dart';
 import '/core/usecase/usecase.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/auth/domain/usecases/is_authenticated.dart';

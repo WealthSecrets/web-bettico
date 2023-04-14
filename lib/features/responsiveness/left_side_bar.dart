@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
-import '../../core/presentation/routes/side_menu_routes.dart';
 import '../../core/presentation/utils/app_endpoints.dart';
 import 'constants/web_controller.dart';
 
@@ -24,7 +23,7 @@ class LeftSideBar extends StatefulWidget {
 class _LeftSideBarState extends State<LeftSideBar> {
   @override
   Widget build(BuildContext context) {
-    final List<SideMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
+    final List<AppMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
     final EdgeInsetsGeometry padding = isLargeScreen
         ? const EdgeInsets.symmetric(vertical: 24, horizontal: 16)
         : const EdgeInsets.symmetric(vertical: 24);
@@ -137,7 +136,7 @@ class _LeftSideBarState extends State<LeftSideBar> {
           mainAxisSize: MainAxisSize.min,
           children: sideMenuItems
               .map(
-                (SideMenuItem item) => SideMenu(
+                (AppMenuItem item) => SideMenu(
                   name: item.name,
                   route: item.route,
                   onTap: () {
@@ -163,11 +162,11 @@ class _LeftSideBarState extends State<LeftSideBar> {
 
   bool get isLargeScreen => ResponsiveWidget.isLargeScreen(context);
 
-  List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
-      ? notLoggedInMenuItems
+  List<AppMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
+      ? unAuthMenuItems
       : isSmallScreen
           ? smallScreenMenuItems
-          : sideMenuItemRoutes;
+          : largeScreenMenuItems;
 
   void showLogoutDialog(
     BuildContext context, {

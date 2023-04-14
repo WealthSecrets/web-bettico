@@ -1,9 +1,8 @@
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/presentation/presentation.dart';
 
 class NewLiveScoreAppBar extends StatelessWidget {
   const NewLiveScoreAppBar({
