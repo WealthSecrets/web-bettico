@@ -27,71 +27,70 @@ class SearchContainer extends StatelessWidget {
         controller.isOnSearchPage.value = false;
         return Future<bool>.value(true);
       },
-      child: DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    controller.isOnSearchPage.value = false;
-                  },
-                  child: Icon(Ionicons.chevron_back_sharp,
-                      color: context.colors.textDark, size: 24),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: isSmallScreen || isCustomScreen
-                      ? const SearchFieldContainer()
-                      : const Text(
-                          'Search Results',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                ),
-              ],
-            ),
-            bottom: TabBar(
-              indicatorColor: context.colors.primary,
-              labelColor: Colors.black,
-              labelStyle: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-              unselectedLabelStyle: const TextStyle(fontSize: 14),
-              padding: AppPaddings.lH,
-              unselectedLabelColor: Colors.grey,
-              indicator: CircleTabIndicator(
-                color: context.colors.primary,
-                radius: 3,
-              ),
-              tabs: const <Tab>[
-                Tab(text: 'Top'),
-                Tab(text: 'Latests'),
-                Tab(text: 'Users'),
-                Tab(text: 'Images'),
-                Tab(text: 'Hashtags'),
-              ],
-            ),
-          ),
-          body: TabBarView(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              TopScreen(),
-              LatestScreen(),
-              UsersScreen(),
-              ImagesScreen(),
-              HashtagsScreen(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  controller.isOnSearchPage.value = false;
+                },
+                child: Icon(Ionicons.chevron_back_sharp,
+                    color: context.colors.textDark, size: 24),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: isSmallScreen || isCustomScreen
+                    ? const SearchFieldContainer()
+                    : const Text(
+                        'Search Results',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+              ),
             ],
           ),
+          bottom: TabBar(
+            controller: controller.tabController,
+            indicatorColor: context.colors.primary,
+            labelColor: Colors.black,
+            labelStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+            unselectedLabelStyle: const TextStyle(fontSize: 14),
+            padding: AppPaddings.lH,
+            unselectedLabelColor: Colors.grey,
+            indicator: CircleTabIndicator(
+              color: context.colors.primary,
+              radius: 3,
+            ),
+            tabs: const <Tab>[
+              Tab(text: 'Top'),
+              Tab(text: 'Latests'),
+              Tab(text: 'Users'),
+              Tab(text: 'Images'),
+              Tab(text: 'Hashtags'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          controller: controller.tabController,
+          children: <Widget>[
+            TopScreen(),
+            LatestScreen(),
+            UsersScreen(),
+            ImagesScreen(),
+            HashtagsScreen(),
+          ],
         ),
       ),
     );

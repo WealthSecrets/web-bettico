@@ -6,8 +6,6 @@ import 'package:betticos/features/betticos/presentation/explore/getx/explore_con
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/trend_card.dart';
-
 class HashtagsScreen extends StatelessWidget {
   HashtagsScreen({Key? key}) : super(key: key);
 
@@ -21,7 +19,8 @@ class HashtagsScreen extends StatelessWidget {
       body: Obx(
         () => AppLoadingBox(
           loading: controller.isSearching.value,
-          child: controller.hashtags.isEmpty && !controller.isSearching.value
+          child: controller.filteredHashtags.isEmpty &&
+                  !controller.isSearching.value
               ? AppEmptyScreen(
                   message:
                       'Oops! No results found for ${controller.selectedHashtag.value}')
@@ -29,22 +28,57 @@ class HashtagsScreen extends StatelessWidget {
                   padding: isSmallScreen
                       ? const EdgeInsets.symmetric(horizontal: 16)
                       : EdgeInsets.zero,
-                  itemCount: controller.hashtags.length,
+                  itemCount: controller.filteredHashtags.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final Hashtag hashtag = controller.hashtags[index];
-                    return TrendCard(
-                      title: 'Tredning in Ghana',
-                      hashtag: StringUtils.capitalizeFirst(
-                          hashtag.name.replaceAll('#', '')),
-                      count: '${hashtag.count}',
-                      isSelected: controller.selectedHashtag.value ==
-                          hashtag.name.replaceAll('#', ''),
-                      onPressed: () {
-                        controller.setSelectedHashtag(
-                            hashtag.name.replaceAll('#', ''));
+                    final Hashtag hashtag = controller.filteredHashtags[index];
+                    final String name = hashtag.name.replaceAll('#', '');
+                    return ListTile(
+                      onTap: () {
+                        controller.tabController.animateTo(0);
+                        controller.textEditingController.value.text = name;
+                        controller.setSelectedHashtag(name);
                         controller.navigateToSearchPage();
                         controller.getFilteredPosts(1);
                       },
+                      leading: Container(
+                        height: 35,
+                        width: 35,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                            color: context.colors.lightGrey,
+                            width: 1,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '#',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: context.colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: context.colors.black,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '${hashtag.count} Posts',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: context.colors.text,
+                        ),
+                      ),
                     );
                   },
                 ),
