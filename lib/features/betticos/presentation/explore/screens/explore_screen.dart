@@ -1,5 +1,7 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
+import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +11,10 @@ import '../../../data/models/post/post_model.dart';
 import '../../timeline/widgets/timeline_card.dart';
 
 class ExploreScreen extends GetWidget<ExploreController> {
-  const ExploreScreen({Key? key}) : super(key: key);
+  ExploreScreen({Key? key}) : super(key: key);
+
+  final BaseScreenController bController = Get.find<BaseScreenController>();
+  final TimelineController tController = Get.find<TimelineController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +28,38 @@ class ExploreScreen extends GetWidget<ExploreController> {
         builderDelegate: PagedChildBuilderDelegate<Post>(
           itemBuilder: (BuildContext context, Post post, int index) {
             return Obx(
-              () => TimelineCard(
-                post: post,
-                onTap: () {
-                  Navigator.of(context).push<void>(
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          PostDetailsScreen(post: post),
-                    ),
-                  );
-                },
-                onCommentTap: () {},
-                onLikeTap: () {},
-                onDislikeTap: () {},
-              ),
+              () {
+                return TimelineCard(
+                  post: post,
+                  onTap: () {
+                    if (bController.isLoggedIn) {
+                      Navigator.of(context).push<void>(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              PostDetailsScreen(post: post),
+                        ),
+                      );
+                    } else {
+                      WidgetUtils.showUnAuthorizedLoginContainer(context,
+                          onPressed: () {});
+                    }
+                  },
+                  onCommentTap: () => tController.navigateToAddPost(
+                    context,
+                    pstId: post.id,
+                  ),
+                  onLikeTap: () {
+                    if (bController.isLoggedIn) {
+                      tController.likeThePost(context, post.id);
+                    }
+                  },
+                  onDislikeTap: () {
+                    if (bController.isLoggedIn) {
+                      tController.dislikeThePost(context, post.id);
+                    }
+                  },
+                );
+              },
             );
           },
           firstPageErrorIndicatorBuilder: (BuildContext context) =>

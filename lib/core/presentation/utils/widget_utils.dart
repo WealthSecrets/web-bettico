@@ -1,6 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/notice.dart';
+import 'package:betticos/features/auth/presentation/modal_auth/widgets/unauth_login_container.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
 import 'package:flutter/material.dart';
@@ -152,6 +153,29 @@ class WidgetUtils {
         );
       },
       context: context,
+    );
+  }
+
+  static void showUnAuthorizedLoginContainer(
+    BuildContext context, {
+    String? title,
+    Icon? icon,
+    required Function() onPressed,
+  }) {
+    showAppModal<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: SizedBox(
+            width: 600,
+            height: 500,
+            child: ClipRRect(
+              borderRadius: AppBorderRadius.mediumAll,
+              child: UnAuthLoginController(),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -12,7 +12,6 @@ export 'app_text_input.dart';
 export 'bottom_info.dart';
 export 'error_view.dart';
 export 'exception_indicators/exception_indicators.dart';
-// export 'kf_drawer.dart';
 export 'loading_logo.dart';
 export 'loading_spinner.dart';
 export 'page_view_indicators.dart';
