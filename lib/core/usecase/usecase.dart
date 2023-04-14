@@ -17,3 +17,15 @@ class PageParmas {
   final int size;
   final int leagueId;
 }
+
+class SearchPageParams {
+  const SearchPageParams({
+    required this.keyword,
+    required this.page,
+    required this.size,
+  });
+
+  final String keyword;
+  final int page;
+  final int size;
+}

@@ -1,6 +1,7 @@
 import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/core/presentation/widgets/success_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/explore_container.dart';
+import 'package:betticos/features/betticos/presentation/explore/widgets/search_container.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/private_sales/private_sale_congratulation_screen.dart';
@@ -94,7 +95,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const AppWebView(), settings);
     case AppRoutes.explore:
       return _getPageRoute(ExploreContainer(), settings);
-
+    case AppRoutes.search:
+      return _getPageRoute(SearchContainer(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

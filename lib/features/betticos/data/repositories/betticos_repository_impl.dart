@@ -1,9 +1,11 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
+import 'package:betticos/features/betticos/domain/response/search_response.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 
@@ -326,4 +328,15 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(
         betticoslineRemoteDataSource.getListing(symbol: symbol),
       );
+
+  @override
+  Future<Either<Failure, List<Hashtag>>> fetchHashtags() => makeRequest(
+        betticoslineRemoteDataSource.fetchHashtags(),
+      );
+
+  @override
+  Future<Either<Failure, SearchResponse>> searchPosts(
+          String keyword, int page, int limit) =>
+      makeRequest(
+          betticoslineRemoteDataSource.searchPosts(keyword, page, limit));
 }

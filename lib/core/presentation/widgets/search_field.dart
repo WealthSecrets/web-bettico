@@ -11,6 +11,7 @@ class SearchField extends StatelessWidget {
     this.controller,
     this.initialValue,
     this.hintText,
+    this.suffixIcon,
   }) : super(key: key);
 
   final Function(String text)? onChanged;
@@ -19,6 +20,7 @@ class SearchField extends StatelessWidget {
   final TextEditingController? controller;
   final String? initialValue;
   final String? hintText;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class SearchField extends StatelessWidget {
                   size: 20,
                 ),
               ),
-        suffixIcon: null,
+        suffixIcon: suffixIcon,
         suffixIconConstraints: showSortBy ?? false
             ? const BoxConstraints(maxHeight: 20, maxWidth: 36)
             : null,

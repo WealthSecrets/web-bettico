@@ -1,9 +1,11 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
+import 'package:betticos/features/betticos/domain/response/search_response.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/data/models/feeling/feeling_model.dart';
 import '/features/betticos/data/models/follow/follow_model.dart';
@@ -115,4 +117,8 @@ abstract class BetticosRemoteDataSource {
   Future<List<Listing>> fetchListings();
 
   Future<Listing> getListing({required String symbol});
+
+  Future<List<Hashtag>> fetchHashtags();
+
+  Future<SearchResponse> searchPosts(String keyword, int page, int limit);
 }

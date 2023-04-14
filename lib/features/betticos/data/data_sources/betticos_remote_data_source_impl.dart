@@ -1,9 +1,11 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
 import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
 import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
+import 'package:betticos/features/betticos/domain/response/search_response.dart';
 
 import '/core/utils/http_client.dart';
 import '/features/auth/data/models/user/user.dart';
@@ -417,5 +419,25 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
     final Map<String, dynamic> json =
         await _client.get(BetticosEndpoints.listing(symbol));
     return Listing.fromJson(json['data'] as Map<String, dynamic>);
+  }
+
+  @override
+  Future<List<Hashtag>> fetchHashtags() async {
+    final Map<String, dynamic> json =
+        await _client.get(BetticosEndpoints.hashtags);
+    final List<dynamic> items = json['data'] as List<dynamic>;
+    return List<Hashtag>.from(
+      items.map<Hashtag>(
+        (dynamic json) => Hashtag.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+  }
+
+  @override
+  Future<SearchResponse> searchPosts(
+      String keyword, int page, int limit) async {
+    final Map<String, dynamic> json =
+        await _client.get(BetticosEndpoints.searchPosts(keyword, page, limit));
+    return SearchResponse.fromJson(json['data'] as Map<String, dynamic>);
   }
 }

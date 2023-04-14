@@ -1,6 +1,8 @@
 import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
+import 'package:betticos/features/betticos/domain/response/search_response.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 
@@ -135,4 +137,9 @@ abstract class BetticosRepository {
   Future<Either<Failure, List<Listing>>> fetchListings();
 
   Future<Either<Failure, Listing>> getListing({required String symbol});
+
+  Future<Either<Failure, List<Hashtag>>> fetchHashtags();
+
+  Future<Either<Failure, SearchResponse>> searchPosts(
+      String keyword, int page, int limit);
 }
