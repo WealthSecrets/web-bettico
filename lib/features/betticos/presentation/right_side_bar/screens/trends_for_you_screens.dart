@@ -58,6 +58,9 @@ class _TrendsForYouScreenState extends State<TrendsForYouScreen> {
                                       controller.selectedHashtag.value ==
                                           hashtag.name.replaceAll('#', ''),
                                   onPressed: () {
+                                    controller
+                                            .textEditingController.value.text =
+                                        hashtag.name.replaceAll('#', '');
                                     controller.setSelectedHashtag(
                                         hashtag.name.replaceAll('#', ''));
                                     controller.navigateToSearchPage();

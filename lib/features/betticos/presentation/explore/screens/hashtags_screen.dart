@@ -13,7 +13,26 @@ class HashtagsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double size = 40;
+    double titleFontSize = 18;
+    double subtitleFontSize = 14;
     final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
+    final bool isCustomScreen = ResponsiveWidget.isCustomSize(context);
+    final bool isMediumScreen = ResponsiveWidget.isMediumScreen(context);
+
+    if (isSmallScreen) {
+      size = 30;
+      titleFontSize = 12;
+      subtitleFontSize = 10;
+    } else if (isCustomScreen) {
+      size = 30;
+      titleFontSize = 14;
+      subtitleFontSize = 12;
+    } else if (isMediumScreen) {
+      size = 35;
+      titleFontSize = 16;
+      subtitleFontSize = 14;
+    }
 
     return Scaffold(
       body: Obx(
@@ -24,25 +43,26 @@ class HashtagsScreen extends StatelessWidget {
               ? AppEmptyScreen(
                   message:
                       'Oops! No results found for ${controller.selectedHashtag.value}')
-              : ListView.builder(
+              : ListView.separated(
                   padding: isSmallScreen
                       ? const EdgeInsets.symmetric(horizontal: 16)
                       : EdgeInsets.zero,
                   itemCount: controller.filteredHashtags.length,
+                  separatorBuilder: (_, int index) =>
+                      Divider(color: context.colors.lightGrey),
                   itemBuilder: (BuildContext context, int index) {
                     final Hashtag hashtag = controller.filteredHashtags[index];
                     final String name = hashtag.name.replaceAll('#', '');
                     return ListTile(
                       onTap: () {
                         controller.tabController.animateTo(0);
-                        controller.textEditingController.value.text = name;
                         controller.setSelectedHashtag(name);
                         controller.navigateToSearchPage();
                         controller.getFilteredPosts(1);
                       },
                       leading: Container(
-                        height: 35,
-                        width: 35,
+                        height: size,
+                        width: size,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30),
@@ -56,7 +76,7 @@ class HashtagsScreen extends StatelessWidget {
                           child: Text(
                             '#',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: size - 18,
                               fontWeight: FontWeight.bold,
                               color: context.colors.black,
                             ),
@@ -66,7 +86,7 @@ class HashtagsScreen extends StatelessWidget {
                       title: Text(
                         name,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: titleFontSize,
                           fontWeight: FontWeight.w600,
                           color: context.colors.black,
                         ),
@@ -74,7 +94,7 @@ class HashtagsScreen extends StatelessWidget {
                       subtitle: Text(
                         '${hashtag.count} Posts',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: subtitleFontSize,
                           fontWeight: FontWeight.normal,
                           color: context.colors.text,
                         ),
