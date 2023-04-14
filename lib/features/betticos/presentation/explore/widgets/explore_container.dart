@@ -18,6 +18,8 @@ class ExploreContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     final bool isCustomScreen = ResponsiveWidget.isCustomSize(context);
+    final bool isLargeScreen = ResponsiveWidget.isLargeScreen(context);
+    final bool isMediumScreen = ResponsiveWidget.isMediumScreen(context);
 
     return Scaffold(
       body: Obx(
@@ -32,6 +34,7 @@ class ExploreContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: _selectableButtons,
               ),
+              if (isLargeScreen || isMediumScreen) const SizedBox(height: 8),
               if (controller.selectedOption.value == Options.rates)
                 const SizedBox(height: 16),
               if (isSmallScreen && isPostsSelected) ...<Widget>[

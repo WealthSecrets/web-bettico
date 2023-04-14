@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,7 +14,7 @@ class SearchResponse with _$SearchResponse {
     @JsonKey(name: 'users') required List<User> users,
     @JsonKey(name: 'latest') required List<Post> latest,
     @JsonKey(name: 'images') required List<Post> images,
-    @JsonKey(name: 'hashtags') required List<String> hashtags,
+    @JsonKey(name: 'hashtags') required List<Hashtag> hashtags,
   }) = _SearchResponse;
   factory SearchResponse.fromJson(Map<String, dynamic> json) =>
       _$SearchResponseFromJson(json);

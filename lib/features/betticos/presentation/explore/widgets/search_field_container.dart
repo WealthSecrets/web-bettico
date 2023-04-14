@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/widgets/search_field.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -21,10 +22,7 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
   @override
   void initState() {
     super.initState();
-    _subject
-        .debounceTime(const Duration(milliseconds: 500))
-        .distinctUnique()
-        .listen(
+    _subject.debounceTime(const Duration(milliseconds: 500)).listen(
       (String term) {
         controller.textEditingController.value.text = term;
         if (term.isNotEmpty) {
@@ -52,11 +50,11 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
           onChanged: _subject.add,
           suffixIcon: IconButton(
             onPressed: () {
+              controller.textEditingController.value.text = '';
               if (controller.isOnSearchPage.value) {
                 controller.selectedHashtag.value = '';
-                controller.textEditingController.value.text = '';
                 controller.isOnSearchPage.value = false;
-                Navigator.of(context).pop();
+                navigationController.goBack();
               }
             },
             icon: const Icon(

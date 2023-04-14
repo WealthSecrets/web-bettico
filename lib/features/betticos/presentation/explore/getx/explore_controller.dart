@@ -17,7 +17,8 @@ import '../../../data/models/listpage/listpage.dart';
 
 enum Options { posts, sports, rates }
 
-class ExploreController extends GetxController {
+class ExploreController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   ExploreController({
     required this.explorePosts,
     required this.fetchHashtags,
@@ -45,22 +46,31 @@ class ExploreController extends GetxController {
   Rx<TextEditingController> textEditingController =
       TextEditingController(text: '').obs;
 
+  late TabController tabController;
+
   // Search variables
   RxList<Post> top = <Post>[].obs;
   RxList<Post> latest = <Post>[].obs;
   RxList<Post> images = <Post>[].obs;
   RxList<User> users = <User>[].obs;
-  RxList<String> filteredHashtags = <String>[].obs;
+  RxList<Hashtag> filteredHashtags = <Hashtag>[].obs;
   RxBool isSearching = false.obs;
 
   RxBool isOnSearchPage = false.obs;
 
   @override
   void onInit() {
+    tabController = TabController(length: 5, vsync: this);
     pagingController.addPageRequestListener((int pageKey) {
       getExplorePosts(pageKey);
     });
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    textEditingController.close();
   }
 
   void getExplorePosts(int pageKey) async {
@@ -138,8 +148,6 @@ class ExploreController extends GetxController {
   void setSelectedHashtag(String hashtag) {
     if (selectedHashtag.value != hashtag) {
       selectedHashtag.value = hashtag;
-    } else {
-      selectedHashtag.value = '';
     }
   }
 
