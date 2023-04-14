@@ -176,4 +176,6 @@ class BaseScreenController extends GetxController {
       });
     }
   }
+
+  bool get isLoggedIn => userToken.value.isNotEmpty;
 }

@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ import '../../../data/models/post/post_model.dart';
 import '../../timeline/widgets/timeline_card.dart';
 
 class ExploreScreen extends GetWidget<ExploreController> {
-  const ExploreScreen({Key? key}) : super(key: key);
+  ExploreScreen({Key? key}) : super(key: key);
+
+  final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +26,18 @@ class ExploreScreen extends GetWidget<ExploreController> {
         builderDelegate: PagedChildBuilderDelegate<Post>(
           itemBuilder: (BuildContext context, Post post, int index) {
             return Obx(
-              () => TimelineCard(
-                post: post,
-                onTap: () {
-                  Navigator.of(context).push<void>(
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          PostDetailsScreen(post: post),
-                    ),
-                  );
-                },
-                onCommentTap: () {},
-                onLikeTap: () {},
-                onDislikeTap: () {},
-              ),
+              () {
+                final String userToken = bController.userToken.value;
+                return TimelineCard(
+                  post: post,
+                  onTap: () {
+                    if(user.)
+                  },
+                  onCommentTap: () {},
+                  onLikeTap: () {},
+                  onDislikeTap: () {},
+                );
+              },
             );
           },
           firstPageErrorIndicatorBuilder: (BuildContext context) =>
