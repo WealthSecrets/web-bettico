@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../profile/widgets/circle_indicator.dart';
+import '../screens/hashtags_screen.dart';
 
 class SearchContainer extends StatelessWidget {
   SearchContainer({Key? key}) : super(key: key);
@@ -88,7 +89,7 @@ class SearchContainer extends StatelessWidget {
               LatestScreen(),
               UsersScreen(),
               ImagesScreen(),
-              const Center(child: Icon(Ionicons.add)),
+              HashtagsScreen(),
             ],
           ),
         ),

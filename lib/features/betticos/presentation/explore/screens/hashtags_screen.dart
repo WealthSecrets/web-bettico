@@ -2,15 +2,14 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
-import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
-import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ImagesScreen extends StatelessWidget {
-  ImagesScreen({Key? key}) : super(key: key);
+import '../widgets/trend_card.dart';
+
+class HashtagsScreen extends StatelessWidget {
+  HashtagsScreen({Key? key}) : super(key: key);
 
   final ExploreController controller = Get.find();
 
@@ -33,19 +32,19 @@ class ImagesScreen extends StatelessWidget {
                   itemCount: controller.hashtags.length,
                   itemBuilder: (BuildContext context, int index) {
                     final Hashtag hashtag = controller.hashtags[index];
-                    return TimelineCard(
-                      post: post,
-                      onTap: () {
-                        Navigator.of(context).push<void>(
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                PostDetailsScreen(post: post),
-                          ),
-                        );
+                    return TrendCard(
+                      title: 'Tredning in Ghana',
+                      hashtag: StringUtils.capitalizeFirst(
+                          hashtag.name.replaceAll('#', '')),
+                      count: '${hashtag.count}',
+                      isSelected: controller.selectedHashtag.value ==
+                          hashtag.name.replaceAll('#', ''),
+                      onPressed: () {
+                        controller.setSelectedHashtag(
+                            hashtag.name.replaceAll('#', ''));
+                        controller.navigateToSearchPage();
+                        controller.getFilteredPosts(1);
                       },
-                      onCommentTap: () {},
-                      onLikeTap: () {},
-                      onDislikeTap: () {},
                     );
                   },
                 ),
