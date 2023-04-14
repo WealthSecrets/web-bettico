@@ -49,13 +49,14 @@ class HashtagsScreen extends StatelessWidget {
                       : EdgeInsets.zero,
                   itemCount: controller.filteredHashtags.length,
                   separatorBuilder: (_, int index) =>
-                      Divider(color: context.colors.lightGrey),
+                      Divider(color: context.colors.text),
                   itemBuilder: (BuildContext context, int index) {
                     final Hashtag hashtag = controller.filteredHashtags[index];
                     final String name = hashtag.name.replaceAll('#', '');
                     return ListTile(
                       onTap: () {
                         controller.tabController.animateTo(0);
+                        controller.textEditingController.value.text = name;
                         controller.setSelectedHashtag(name);
                         controller.navigateToSearchPage();
                         controller.getFilteredPosts(1);

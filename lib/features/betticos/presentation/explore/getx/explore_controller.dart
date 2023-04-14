@@ -148,8 +148,6 @@ class ExploreController extends GetxController
   void setSelectedHashtag(String hashtag) {
     if (selectedHashtag.value != hashtag) {
       selectedHashtag.value = hashtag;
-    } else {
-      selectedHashtag.value = '';
     }
   }
 

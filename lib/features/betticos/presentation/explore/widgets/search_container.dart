@@ -24,7 +24,7 @@ class SearchContainer extends StatelessWidget {
     final bool isCustomScreen = ResponsiveWidget.isCustomSize(context);
     return WillPopScope(
       onWillPop: () {
-        controller.isOnSearchPage.value = false;
+        resetValues();
         return Future<bool>.value(true);
       },
       child: Scaffold(
@@ -36,8 +36,8 @@ class SearchContainer extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
+                  resetValues();
                   Navigator.of(context).pop();
-                  controller.isOnSearchPage.value = false;
                 },
                 child: Icon(Ionicons.chevron_back_sharp,
                     color: context.colors.textDark, size: 24),
@@ -66,6 +66,7 @@ class SearchContainer extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
+            isScrollable: true,
             unselectedLabelStyle: const TextStyle(fontSize: 14),
             padding: AppPaddings.lH,
             unselectedLabelColor: Colors.grey,
@@ -94,5 +95,11 @@ class SearchContainer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void resetValues() {
+    controller.isOnSearchPage.value = false;
+    controller.textEditingController.value.text = '';
+    controller.selectedHashtag.value = '';
   }
 }

@@ -50,9 +50,9 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
           onChanged: _subject.add,
           suffixIcon: IconButton(
             onPressed: () {
+              controller.textEditingController.value.text = '';
               if (controller.isOnSearchPage.value) {
                 controller.selectedHashtag.value = '';
-                controller.textEditingController.value.text = '';
                 controller.isOnSearchPage.value = false;
                 navigationController.goBack();
               }

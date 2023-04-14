@@ -1,5 +1,6 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/app_web_view.dart';
+import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
@@ -42,6 +43,7 @@ class TimelineCard extends StatelessWidget {
 
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final ProfileController pController = Get.find<ProfileController>();
+  final ExploreController exploreController = Get.find<ExploreController>();
   final User user = Get.find<BaseScreenController>().user.value;
 
   @override
@@ -220,9 +222,12 @@ class TimelineCard extends StatelessWidget {
                 },
                 onTap: (String tappedText) async {
                   if (tappedText.startsWith('#')) {
-                    debugPrint('DetectableText >>>>>>> #');
+                    final String name = tappedText.replaceAll('#', '');
+                    exploreController.textEditingController.value.text = name;
+                    exploreController.setSelectedHashtag(name);
+                    exploreController.navigateToSearchPage();
+                    exploreController.getFilteredPosts(1);
                   } else if (tappedText.startsWith('@')) {
-                    debugPrint('DetectableText >>>>>>> @');
                   } else if (tappedText.startsWith('http')) {
                     await navigationController.navigateTo(
                       AppRoutes.appwebview,
