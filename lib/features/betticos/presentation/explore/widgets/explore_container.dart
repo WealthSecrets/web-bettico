@@ -64,7 +64,7 @@ class ExploreContainer extends StatelessWidget {
     final Options option = controller.selectedOption.value;
     switch (option) {
       case Options.posts:
-        return const ExploreScreen();
+        return ExploreScreen();
       case Options.sports:
         return const SportsContainer();
       case Options.rates:

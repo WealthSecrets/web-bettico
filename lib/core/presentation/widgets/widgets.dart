@@ -18,5 +18,6 @@ export 'loading_spinner.dart';
 export 'page_view_indicators.dart';
 export 'sliver_delegate.dart';
 export 'tap_outside_unfocus.dart';
+export 'unauth_login_container.dart';
 export 'upload_button.dart';
 export 'user_card.dart';

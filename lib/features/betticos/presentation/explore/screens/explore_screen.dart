@@ -1,6 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
+import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class ExploreScreen extends GetWidget<ExploreController> {
   ExploreScreen({Key? key}) : super(key: key);
 
   final BaseScreenController bController = Get.find<BaseScreenController>();
+  final TimelineController tController = Get.find<TimelineController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +29,35 @@ class ExploreScreen extends GetWidget<ExploreController> {
           itemBuilder: (BuildContext context, Post post, int index) {
             return Obx(
               () {
-                final String userToken = bController.userToken.value;
                 return TimelineCard(
                   post: post,
                   onTap: () {
-                    if(user.)
+                    if (bController.isLoggedIn) {
+                      Navigator.of(context).push<void>(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              PostDetailsScreen(post: post),
+                        ),
+                      );
+                    } else {
+                      WidgetUtils.showUnAuthorizedLoginContainer(context,
+                          onPressed: () {});
+                    }
                   },
-                  onCommentTap: () {},
-                  onLikeTap: () {},
-                  onDislikeTap: () {},
+                  onCommentTap: () => tController.navigateToAddPost(
+                    context,
+                    pstId: post.id,
+                  ),
+                  onLikeTap: () {
+                    if (bController.isLoggedIn) {
+                      tController.likeThePost(context, post.id);
+                    }
+                  },
+                  onDislikeTap: () {
+                    if (bController.isLoggedIn) {
+                      tController.dislikeThePost(context, post.id);
+                    }
+                  },
                 );
               },
             );

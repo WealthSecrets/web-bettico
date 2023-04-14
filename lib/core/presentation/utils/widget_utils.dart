@@ -154,4 +154,27 @@ class WidgetUtils {
       context: context,
     );
   }
+
+  static void showUnAuthorizedLoginContainer(
+    BuildContext context, {
+    String? title,
+    Icon? icon,
+    required Function() onPressed,
+  }) {
+    showAppModal<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: SizedBox(
+            width: 600,
+            height: 500,
+            child: ClipRRect(
+              borderRadius: AppBorderRadius.mediumAll,
+              child: UnAuthLoginController(),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
