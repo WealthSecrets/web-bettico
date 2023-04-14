@@ -43,10 +43,20 @@ class SearchContainer extends StatelessWidget {
                   child: Icon(Ionicons.chevron_back_sharp,
                       color: context.colors.textDark, size: 24),
                 ),
-                if (isSmallScreen || isCustomScreen) ...<Widget>[
-                  const SizedBox(width: 8),
-                  const Expanded(child: SearchFieldContainer()),
-                ],
+                const SizedBox(width: 8),
+                Expanded(
+                  child: isSmallScreen || isCustomScreen
+                      ? const SearchFieldContainer()
+                      : const Text(
+                          'Search Results',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                ),
               ],
             ),
             bottom: TabBar(
