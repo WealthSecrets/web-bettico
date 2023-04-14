@@ -50,7 +50,7 @@ class ExploreController extends GetxController {
   RxList<Post> latest = <Post>[].obs;
   RxList<Post> images = <Post>[].obs;
   RxList<User> users = <User>[].obs;
-  RxList<String> filteredHashtags = <String>[].obs;
+  RxList<Hashtag> filteredHashtags = <Hashtag>[].obs;
   RxBool isSearching = false.obs;
 
   RxBool isOnSearchPage = false.obs;
