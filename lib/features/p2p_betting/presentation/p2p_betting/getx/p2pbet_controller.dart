@@ -505,7 +505,7 @@ class P2PBetController extends GetxController {
   ) async {
     isFetchingCompetitionMatches(true);
     SoccerMatch? teamMatch;
-    final String response = await rootBundle.loadString(AppAssetJson.liveScore);
+    final String response = await rootBundle.loadString(AppAssetKeys.liveScore);
     final Map<String, dynamic> liveScoreKeys =
         await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
@@ -543,7 +543,7 @@ class P2PBetController extends GetxController {
   ) async {
     isFetchingCompetitionMatches(true);
     SoccerMatch? teamMatch;
-    final String response = await rootBundle.loadString(AppAssetJson.liveScore);
+    final String response = await rootBundle.loadString(AppAssetKeys.liveScore);
     final Map<String, dynamic> liveScoreKeys =
         await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
@@ -582,7 +582,7 @@ class P2PBetController extends GetxController {
   }) async {
     SoccerMatch? teamMatch;
     isFetchingLiveTeamMatch(true);
-    final String response = await rootBundle.loadString(AppAssetJson.liveScore);
+    final String response = await rootBundle.loadString(AppAssetKeys.liveScore);
     final Map<String, dynamic> liveScoreKeys =
         await json.decode(response) as Map<String, dynamic>;
     final String apiKey = liveScoreKeys['api_key'] as String;
