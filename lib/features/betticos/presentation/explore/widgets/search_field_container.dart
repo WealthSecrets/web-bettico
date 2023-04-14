@@ -1,6 +1,7 @@
 import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../getx/explore_controller.dart';
@@ -25,6 +26,7 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
         .distinctUnique()
         .listen(
       (String term) {
+        controller.textEditingController.value.text = term;
         if (term.isNotEmpty) {
           controller.setSelectedHashtag(term);
           controller.navigateToSearchPage();
@@ -44,11 +46,24 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        final String term = controller.selectedHashtag.value;
         return SearchField(
-          initialValue: term,
+          controller: controller.textEditingController.value,
           hintText: 'Search Xviral',
           onChanged: _subject.add,
+          suffixIcon: IconButton(
+            onPressed: () {
+              if (controller.isOnSearchPage.value) {
+                controller.selectedHashtag.value = '';
+                controller.textEditingController.value.text = '';
+                controller.isOnSearchPage.value = false;
+                Navigator.of(context).pop();
+              }
+            },
+            icon: const Icon(
+              Ionicons.close_circle_sharp,
+              size: 20,
+            ),
+          ),
         );
       },
     );

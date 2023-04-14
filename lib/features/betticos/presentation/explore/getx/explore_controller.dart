@@ -8,6 +8,7 @@ import 'package:betticos/features/betticos/domain/usecases/post/fetch_hashtags.d
 import 'package:betticos/features/betticos/domain/usecases/post/search_posts.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -40,6 +41,9 @@ class ExploreController extends GetxController {
       PagingController<int, Post>(firstPageKey: 1);
 
   RxString selectedHashtag = ''.obs;
+
+  Rx<TextEditingController> textEditingController =
+      TextEditingController(text: '').obs;
 
   // Search variables
   RxList<Post> top = <Post>[].obs;
