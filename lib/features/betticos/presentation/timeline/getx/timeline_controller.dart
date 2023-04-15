@@ -276,7 +276,6 @@ class TimelineController extends GetxController {
     failureOrOddboxes.fold<void>(
       (Failure failure) {
         isOddboxLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<Post> value) {
         isOddboxLoading(false);
@@ -482,10 +481,7 @@ class TimelineController extends GetxController {
             message: 'Only four images are allowed.',
           );
         } else {
-          AppSnacks.show(
-            context,
-            message: failure.message,
-          );
+// AppSnacks.show(context, message: failure.message);
         }
       },
       (Post pt) {
@@ -555,10 +551,7 @@ class TimelineController extends GetxController {
       failureOrPost.fold(
         (Failure failure) {
           isLikingPost(false);
-          AppSnacks.show(
-            context,
-            message: failure.message,
-          );
+// AppSnacks.show(context, message: failure.message);
         },
         (Post pst) {
           isLikingPost(false);
@@ -618,10 +611,7 @@ class TimelineController extends GetxController {
       failureOrPost.fold(
         (Failure failure) {
           isLikingPost(false);
-          AppSnacks.show(
-            context,
-            message: failure.message,
-          );
+// AppSnacks.show(context, message: failure.message);
         },
         (Post pst) {
           isLikingPost(false);
@@ -660,7 +650,7 @@ class TimelineController extends GetxController {
     if (pstId == null) {
       postId('');
       isReply(false);
-      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
+      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.home);
       if (post != null) {
         resetValues();
         getAllFollowingPosts();
@@ -679,10 +669,10 @@ class TimelineController extends GetxController {
     } else {
       isReply(true);
       postId(pstId);
-      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost,
+      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.home,
           arguments: AddPostCommentArgument(postId: pstId));
       // final dynamic post = await navigationController.navigateTo(
-      //     AppRoutes.timelinePost,
+      //     AppRoutes.homePost,
       //     arguments: AddPostCommentArgument(postId: pstId));
       if (post != null) {
         getPaginatedPosts(pageK.value);
@@ -714,7 +704,6 @@ class TimelineController extends GetxController {
     failureOrUser.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         isLoading(false);

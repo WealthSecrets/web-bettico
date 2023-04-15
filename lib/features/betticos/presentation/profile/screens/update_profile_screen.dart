@@ -177,7 +177,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
 
                             failurOrUser.fold((Failure failure) {
                               controller.setUpdatingUserProfile(false);
-                              AppSnacks.show(context, message: failure.message);
                             }, (User user) {
                               controller.setUpdatingUserProfile(false);
                               bController.updateTheUser(user);

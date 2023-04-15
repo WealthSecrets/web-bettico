@@ -89,7 +89,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     width: 24,
                   ),
                   onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.transactions),
+                      navigationController.navigateTo('/transactions'),
                 ),
               ],
             ),

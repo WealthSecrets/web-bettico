@@ -80,7 +80,7 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                                   const Color(0xFFAA7503).withOpacity(.2),
                               iconColor: const Color(0xFFAA7503),
                               onPressed: () => navigationController
-                                  .navigateTo(AppRoutes.convertCrypto),
+                                  .navigateTo('/convert_crypto'),
                             ),
                             OptionCard(
                               imagePath: AssetImages.deposit,
@@ -90,7 +90,7 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                                   const Color(0xFF1896A5).withOpacity(.2),
                               iconColor: const Color(0xFF1896A5),
                               onPressed: () => navigationController
-                                  .navigateTo(AppRoutes.currencies),
+                                  .navigateTo('/currencies'),
                             ),
                             OptionCard(
                               imagePath: AssetImages.withdrawal,
@@ -101,7 +101,7 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                                   const Color(0xFF1896A5).withOpacity(.2),
                               iconColor: const Color(0xFF1896A5),
                               onPressed: () => navigationController.navigateTo(
-                                AppRoutes.currencies,
+                                '/currencies',
                                 arguments:
                                     const AssetCurrenciesScreenRouteArgument(
                                   isWithdrawal: true,
@@ -117,7 +117,7 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                                   const Color(0xFF7C8B96).withOpacity(.2),
                               iconColor: const Color(0xFF7C8B96),
                               onPressed: () => navigationController
-                                  .navigateTo(AppRoutes.walletAddresses),
+                                  .navigateTo('/wallet_addresses'),
                             ),
                           ],
                         ),

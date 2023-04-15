@@ -1,4 +1,4 @@
-import 'package:betticos/core/core.dart';
+// import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
@@ -23,7 +23,7 @@ class NoTradignAccount extends StatelessWidget {
         if (user.email == null &&
             user.firstName == null &&
             user.username == null) {
-          AppSnacks.show(context, message: 'Oops! Something went wrong.');
+          // AppSnacks.show(context, message: 'Oops! Something went wrong.');
           return;
         }
         registerController.createOkxAccount(

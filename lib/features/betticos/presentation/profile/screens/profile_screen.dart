@@ -22,11 +22,16 @@ import '../../timeline/widgets/modal_fit.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen(
-      {Key? key, this.user, this.thePreviousUser, this.showBackButton})
+      {Key? key,
+      this.user,
+      this.thePreviousUser,
+      this.showBackButton,
+      this.username})
       : super(key: key);
   final User? user;
   final User? thePreviousUser;
   final bool? showBackButton;
+  final String? username;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();

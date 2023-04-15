@@ -105,7 +105,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                       const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          Get.offAllNamed<void>(AppRoutes.login);
+                          Get.offAllNamed<void>('/login');
                         },
                         child: Center(
                           child: RichText(
@@ -128,7 +128,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                                   text: 'sign_in'.tr,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Get.offAllNamed<void>(AppRoutes.login);
+                                      Get.offAllNamed<void>('/login');
                                     },
                                   style: TextStyle(
                                     color: context.colors.primary,

@@ -55,7 +55,7 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () =>
-                navigationController.navigateTo(AppRoutes.transferHistory),
+                navigationController.navigateTo('/transfer_history'),
             icon: Image.asset(
               AssetImages.tansactionHistory,
               height: 24,

@@ -88,7 +88,6 @@ class BaseScreenController extends GetxController {
     failureOrUser.fold((Failure failure) {
       isUpdatingUserBonus(false);
       // failureCallback?.call() Do not call failure call back since user can choose from option
-      AppSnacks.show(context, message: failure.message);
     }, (User u) {
       isUpdatingUserBonus(false);
       user.value = u;
@@ -155,12 +154,11 @@ class BaseScreenController extends GetxController {
     failureOrVoid.fold<void>(
       (Failure failure) {
         isLoggingOut.value = false;
-        AppSnacks.show(context, message: failure.message);
       },
       (void _) {
         isLoggingOut.value = false;
-        Get.offAllNamed<void>(AppRoutes.login);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+        Get.offAllNamed<void>('/login');
+        menuController.changeActiveItemTo(AppRoutes.home);
       },
     );
   }

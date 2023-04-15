@@ -230,7 +230,7 @@ class TimelineCard extends StatelessWidget {
                   } else if (tappedText.startsWith('@')) {
                   } else if (tappedText.startsWith('http')) {
                     await navigationController.navigateTo(
-                      AppRoutes.appwebview,
+                      '/appview',
                       arguments: AppWebViewRouteArgument(
                         title: 'Xviral Webview',
                         url: tappedText,

@@ -95,14 +95,14 @@ class LivescoreSearchDelegate extends SearchDelegate<String> {
           } else {
             if (lController.sMatches.isNotEmpty) {
               Get.toNamed<void>(
-                AppRoutes.p2pBetting,
+                '/p2p_betting',
                 arguments: LiveScoreArguments(
                   match: match as SoccerMatch,
                 ),
               );
             } else {
               Get.toNamed<void>(
-                AppRoutes.p2pBetting,
+                '/p2p_betting',
                 arguments: LiveScoreArguments(
                   fixture: match as Fixture,
                 ),

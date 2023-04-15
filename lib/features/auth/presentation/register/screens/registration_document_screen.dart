@@ -136,14 +136,13 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             onPressed: () {
                               if (args != null && args!.user != null) {
                                 if (!args!.user!.hasProfileImage) {
-                                  Get.toNamed<void>(AppRoutes.profilePhoto);
+                                  Get.toNamed<void>(AuthRoutes.uploadPhoto);
                                 } else {
-                                  Get.offAllNamed<void>(AppRoutes.home);
-                                  menuController
-                                      .changeActiveItemTo(AppRoutes.timeline);
+                                  Get.offAllNamed<void>('/');
+                                  menuController.changeActiveItemTo('/home');
                                 }
                               } else {
-                                Get.toNamed<void>(AppRoutes.profilePhoto);
+                                Get.toNamed<void>(AuthRoutes.uploadPhoto);
                               }
                             },
                             child: Text(

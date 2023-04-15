@@ -35,7 +35,6 @@ class OddstersController extends GetxController {
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<User> value) {
         isLoading(false);
@@ -51,7 +50,6 @@ class OddstersController extends GetxController {
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isSearchOddsters(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<User> value) {
         isSearchOddsters(false);

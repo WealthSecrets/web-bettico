@@ -25,7 +25,6 @@ class SalesController extends GetxController {
     failureOrUserStats.fold<void>(
       (Failure failure) {
         isGettingStats(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (UserStats userStats) {
         isGettingStats(false);

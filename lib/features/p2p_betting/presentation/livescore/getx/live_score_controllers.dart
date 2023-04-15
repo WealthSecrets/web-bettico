@@ -226,7 +226,7 @@ class LiveScoreController extends GetxController {
           amt: amount, token: token, depositAddress: depositAddress);
       return response;
     } catch (e) {
-      await AppSnacks.show(context, message: 'Something went wrong!');
+      // await AppSnacks.show(context, message: 'Something went wrong!');
       return null;
     }
   }
@@ -250,7 +250,7 @@ class LiveScoreController extends GetxController {
       return response;
     } catch (e) {
       isMakingPayment(false);
-      await AppSnacks.show(context, message: '$e');
+      // await AppSnacks.show(context, message: '$e');
       return null;
     }
   }
@@ -292,7 +292,7 @@ class LiveScoreController extends GetxController {
       return response;
     } catch (e) {
       showLoadingLogo.value = false;
-      await AppSnacks.show(context, message: 'Sorry, cashout failed');
+      // await AppSnacks.show(context, message: 'Sorry, cashout failed');
       return null;
     }
   }
@@ -327,7 +327,6 @@ class LiveScoreController extends GetxController {
     failureOrMatches.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<SoccerMatch> value) {
         isLoading(false);
@@ -502,7 +501,7 @@ class LiveScoreController extends GetxController {
         if (betId != null) {
           closingBetID.remove(betId);
         }
-        AppSnacks.show(context, message: failure.message);
+
         failureCallback?.call();
       },
       (Volume vol) {
@@ -536,7 +535,6 @@ class LiveScoreController extends GetxController {
     failureOrFixtures.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<Fixture> value) {
         isLoading(false);

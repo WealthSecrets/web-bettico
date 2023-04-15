@@ -38,7 +38,7 @@ class _MoreScreenState extends State<MoreScreen> {
             CustomTile(
               icon: Ionicons.pricetag_outline,
               onPressed: () =>
-                  navigationController.navigateTo(AppRoutes.privateSales),
+                  navigationController.navigateTo('/private_sales'),
               text: 'Private Sales',
             ),
           ],

@@ -183,9 +183,9 @@ class LoginScreen extends GetWidget<LoginController> {
                                 children: <Widget>[
                                   TextButton(
                                     onPressed: () {
-                                      Get.toNamed<void>(AppRoutes.livescore);
-                                      menuController.changeActiveItemTo(
-                                          AppRoutes.livescore);
+                                      Get.toNamed<void>('/livescore');
+                                      menuController
+                                          .changeActiveItemTo('/livescore');
                                     },
                                     child: const Text(
                                       'Live Games',
@@ -402,7 +402,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 text: 'forgot_pass'.tr,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.toNamed<void>(AppRoutes.forgot);
+                                    Get.toNamed<void>('/forgot_password');
                                   },
                                 style: TextStyle(
                                   color: context.colors.error,
@@ -433,7 +433,7 @@ class LoginScreen extends GetWidget<LoginController> {
                           const SizedBox(height: 16),
                           TextButton(
                             onPressed: () {
-                              Get.toNamed<void>(AppRoutes.signup);
+                              Get.toNamed<void>('/signup');
                             },
                             child: Center(
                               child: RichText(
@@ -452,7 +452,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                       text: 'register_now'.tr,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          Get.toNamed<void>(AppRoutes.signup);
+                                          Get.toNamed<void>('/signup');
                                         },
                                       style: TextStyle(
                                         color: context.colors.primary,

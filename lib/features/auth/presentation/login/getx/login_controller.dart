@@ -81,7 +81,6 @@ class LoginController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (User user) {
         isLoading(false);
@@ -106,7 +105,7 @@ class LoginController extends GetxController {
       (Failure failure) {
         isLoading(false);
         Get.toNamed<void>(
-          AppRoutes.walletConnectRegistration,
+          AuthRoutes.walletConnectRegistration,
         );
       },
       (User user) {
@@ -125,9 +124,9 @@ class LoginController extends GetxController {
       {bool? isSkipEmail, bool? isSkipPhone}) {
     if (isSkipEmail ?? false) {
       if (!user.hasRole) {
-        Get.toNamed<void>(AppRoutes.accountType);
+        Get.toNamed<void>(AuthRoutes.accountType);
       } else if (!user.isPersonalInfoProvided) {
-        Get.toNamed<void>(AppRoutes.personalInformation);
+        Get.toNamed<void>(AuthRoutes.personalInformation);
       } else {
         subRerouting(user);
       }
@@ -138,13 +137,13 @@ class LoginController extends GetxController {
 
   void subRerouting(User user) {
     if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.toNamed<void>(AppRoutes.documentScreen,
+      Get.toNamed<void>(AuthRoutes.documentScreen,
           arguments: UserArgument(user: user));
     } else if (user.role == 'oddster' && !user.hasProfileImage) {
-      Get.toNamed<void>(AppRoutes.profilePhoto);
+      Get.toNamed<void>(AuthRoutes.uploadPhoto);
     } else {
-      Get.offAllNamed<void>(AppRoutes.home);
-      menuController.changeActiveItemTo(AppRoutes.timeline);
+      Get.offAllNamed<void>('/');
+      menuController.changeActiveItemTo('/');
     }
   }
 
@@ -157,11 +156,10 @@ class LoginController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isResendingEmail(false);
-      AppSnacks.show(context, message: failure.message);
     }, (User user) {
       isResendingEmail(false);
       navigationController.navigateTo(
-        AppRoutes.otpVerifyEmail,
+        '/otp_verify_email',
         arguments: OTPVerificationScreenArgument(
           user: user,
         ),
@@ -177,12 +175,12 @@ class LoginController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
-      navigationController.navigateTo(AppRoutes.otpVerify);
-      Get.offAll<void>(AppRoutes.otpVerify);
+      navigationController.navigateTo('/otp_verify');
+      Get.offAll<void>('/otp_verify');
     }, (TwilioResponse value) {
       isSendingSms(false);
       navigationController.navigateTo(
-        AppRoutes.otpVerifyPhone,
+        '/otp_verify_phone',
         arguments: OTPVerificationScreenArgument(
           user: controller.user.value,
         ),

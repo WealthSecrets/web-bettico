@@ -1,12 +1,12 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
+// import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
-import 'constants/web_controller.dart';
+// import 'constants/web_controller.dart';
 
 class UserInfoContainer extends StatelessWidget {
   UserInfoContainer({Key? key}) : super(key: key);
@@ -32,11 +32,11 @@ class UserInfoContainer extends StatelessWidget {
           Obx(
             () => GestureDetector(
               onTap: () {
-                menuController.changeActiveItemTo(AppRoutes.profile);
-                if (ResponsiveWidget.isSmallScreen(context)) {
-                  Get.back<void>();
-                }
-                navigationController.navigateTo(AppRoutes.profile);
+                // menuController.changeActiveItemTo('/profile');
+                // if (ResponsiveWidget.isSmallScreen(context)) {
+                //   Get.back<void>();
+                // }
+                // navigationController.navigateTo('/profile');
               },
               child: Container(
                 height: 40,

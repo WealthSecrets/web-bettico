@@ -30,17 +30,16 @@ class ForgotController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (User user) {
         isLoading(false);
-        Get.toNamed<void>(AppRoutes.walletConnect);
+        Get.toNamed<void>('/wallet_connect');
       },
     );
   }
 
   void nextToRest(BuildContext context) {
-    Get.toNamed<void>(AppRoutes.reset);
+    Get.toNamed<void>('/reset_password');
   }
 
   void onEmailInputChanged(String value) {

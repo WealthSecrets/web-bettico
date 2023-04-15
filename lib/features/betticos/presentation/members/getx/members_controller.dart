@@ -24,7 +24,6 @@ class MembersController extends GetxController {
     failureOrMembers.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<User> value) {
         isLoading(false);

@@ -120,7 +120,7 @@ class ResetScreen extends GetWidget<ResetController> {
                         backgroundColor: context.colors.primary,
                         onPressed: () =>
                             controller.reset(context, fController.email.value),
-                        // onPressed: () => Get.toNamed<void>(AppRoutes.reset),
+                        // onPressed: () => Get.toNamed<void>('/reset_password'),
                         child: Text(
                           'reset password'.toUpperCase(),
                           style: const TextStyle(
@@ -133,7 +133,7 @@ class ResetScreen extends GetWidget<ResetController> {
                       const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          Get.offNamed<void>(AppRoutes.forgot);
+                          Get.offNamed<void>('/forgot_password');
                         },
                         child: Center(
                           child: RichText(
@@ -154,7 +154,7 @@ class ResetScreen extends GetWidget<ResetController> {
                                   text: 'Tap here',
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Get.offNamed<void>(AppRoutes.forgot);
+                                      Get.offNamed<void>('/forgot_password');
                                     },
                                   style: TextStyle(
                                     color: context.colors.primary,

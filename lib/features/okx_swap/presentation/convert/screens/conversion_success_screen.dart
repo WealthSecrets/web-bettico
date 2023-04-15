@@ -86,7 +86,7 @@ class ConversionSuccessScreen extends StatelessWidget {
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.primary,
                         onPressed: () => navigationController
-                            .navigateTo(AppRoutes.conversionHistory),
+                            .navigateTo('/conversion_history'),
                         child: const Text(
                           'VIEW HISTORY',
                           style: TextStyle(

@@ -54,7 +54,7 @@ class SendScreen extends StatelessWidget {
                   subtitle: 'Send funds to other users on the platform.',
                   imagePath: AssetImages.internal,
                   onPressed: () => navigationController.navigateTo(
-                    AppRoutes.currencies,
+                    '/currencies',
                     arguments: const AssetCurrenciesScreenRouteArgument(
                       isTransfer: true,
                     ),
@@ -65,7 +65,7 @@ class SendScreen extends StatelessWidget {
                   subtitle: 'Withdraw or send funds to any address.',
                   imagePath: AssetImages.external,
                   onPressed: () => navigationController.navigateTo(
-                    AppRoutes.currencies,
+                    '/currencies',
                     arguments: const AssetCurrenciesScreenRouteArgument(
                       isWithdrawal: true,
                     ),

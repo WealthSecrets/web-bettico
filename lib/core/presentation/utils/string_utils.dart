@@ -44,4 +44,9 @@ class StringUtils {
   static String getInitials(String name) => name.isNotEmpty
       ? name.trim().split(RegExp(' +')).map((String s) => s[0]).take(2).join()
       : '';
+
+  static bool checkSpecialChar(String str) {
+    final RegExp pattern = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+    return pattern.hasMatch(str);
+  }
 }

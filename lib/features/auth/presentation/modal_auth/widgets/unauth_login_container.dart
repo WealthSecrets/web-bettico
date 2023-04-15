@@ -145,7 +145,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                   text: 'forgot_pass'.tr,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Get.toNamed<void>(AppRoutes.forgot);
+                      Get.toNamed<void>('/forgot_password');
                     },
                   style: TextStyle(
                     color: context.colors.error,
@@ -174,7 +174,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
             const SizedBox(height: 8),
             TextButton(
               onPressed: () {
-                Get.toNamed<void>(AppRoutes.signup);
+                Get.toNamed<void>('/signup');
               },
               child: Center(
                 child: RichText(
@@ -193,7 +193,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                         text: 'register_now'.tr,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.toNamed<void>(AppRoutes.signup);
+                            Get.toNamed<void>('/signup');
                           },
                         style: TextStyle(
                           color: context.colors.primary,

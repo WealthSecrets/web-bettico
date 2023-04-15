@@ -33,7 +33,6 @@ class ReportController extends GetxController {
     failureOrOptions.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<ReportOption> options) {
         isLoading(false);
@@ -46,7 +45,7 @@ class ReportController extends GetxController {
       {String? postId, String? userId}) async {
     Get.back<void>();
     final dynamic value = await Get.toNamed<dynamic>(
-      AppRoutes.report,
+      '/report',
       arguments: ReportArgument(
         type: type,
         postId: postId,
@@ -81,7 +80,6 @@ class ReportController extends GetxController {
     failureOrReport.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         isLoading(false);

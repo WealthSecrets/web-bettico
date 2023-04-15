@@ -247,7 +247,6 @@ class P2PBetController extends GetxController {
     failureOrBet.fold<void>(
       (Failure failure) {
         isAddingBet(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (Bet value) {
         isAddingBet(false);
@@ -304,7 +303,6 @@ class P2PBetController extends GetxController {
     failureOrTransaction.fold<void>(
       (Failure failure) {
         isAddingTransaction(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (Transaction transaction) {
         isAddingTransaction(false);
@@ -325,7 +323,6 @@ class P2PBetController extends GetxController {
     failureOrTransaction.fold<void>(
       (Failure failure) {
         isAddingTransaction(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (Transaction transaction) {
         isAddingTransaction(false);
@@ -359,7 +356,6 @@ class P2PBetController extends GetxController {
     failureOrBet.fold<void>(
       (Failure failure) {
         isUpdatingBet(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (Bet value) {
         isUpdatingBet(false);
@@ -524,7 +520,6 @@ class P2PBetController extends GetxController {
     failureOrMatches.fold<void>(
       (Failure failure) {
         isFetchingCompetitionMatches(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (SoccerMatch? value) {
         isFetchingCompetitionMatches(false);
@@ -562,7 +557,6 @@ class P2PBetController extends GetxController {
     failureOrMatches.fold<void>(
       (Failure failure) {
         isFetchingCompetitionMatches(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (SoccerMatch? value) {
         isFetchingCompetitionMatches(false);
@@ -611,7 +605,6 @@ class P2PBetController extends GetxController {
       failureOrMatche.fold<void>(
         (Failure failure) {
           isFetchingLiveTeamMatch(false);
-          AppSnacks.show(context, message: failure.message);
         },
         (SoccerMatch? value) async {
           isFetchingLiveTeamMatch(false);
@@ -704,7 +697,6 @@ class P2PBetController extends GetxController {
     failureOrBets.fold<void>(
       (Failure failure) {
         isFetchingBets(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<Bet> value) {
         isFetchingBets(false);

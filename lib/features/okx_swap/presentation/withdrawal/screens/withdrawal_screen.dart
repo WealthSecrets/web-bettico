@@ -54,7 +54,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () =>
-                navigationController.navigateTo(AppRoutes.withdrawalHistory),
+                navigationController.navigateTo('/withdrawal_history'),
             icon: Image.asset(
               AssetImages.tansactionHistory,
               height: 24,

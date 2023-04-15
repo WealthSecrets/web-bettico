@@ -39,11 +39,10 @@ class ResetController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (User user) {
         isLoading(false);
-        Get.offAllNamed<void>(AppRoutes.login);
+        Get.offAllNamed<void>('/login');
         AppSnacks.show(context,
             message: 'Password reset successfully. Please login again.');
       },

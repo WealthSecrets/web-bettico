@@ -41,7 +41,6 @@ class WithdrawalController extends GetxController {
     failureOrDeposits.fold<void>(
       (Failure failure) {
         isFetchingWithdrawalHistory(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<WithdrawalHistory> value) {
         isFetchingWithdrawalHistory(false);
@@ -68,21 +67,20 @@ class WithdrawalController extends GetxController {
     failureOrResponse.fold<void>(
       (Failure failure) {
         isMakingWithdrawal(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (WithdrawalResponse response) {
         isMakingWithdrawal(false);
         onSuccess?.call();
         currentWithdrawal(response);
         navigationController.navigateTo(
-          AppRoutes.success,
+          '/success',
           arguments: SucessScreenRouteArgument(
             title: 'Withdrawal Successful',
             message:
                 'You have successfully withdrawn ${currentWithdrawal.value.amount} ${currentWithdrawal.value.currency.toUpperCase()}',
             onPressed: () {
               Navigator.of(context).pop();
-              navigationController.navigateTo(AppRoutes.withdrawalHistory);
+              navigationController.navigateTo('/withdrawal_history');
             },
           ),
         );

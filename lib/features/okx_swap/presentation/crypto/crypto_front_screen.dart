@@ -183,25 +183,24 @@ class _FlexibleSpaceBar extends StatelessWidget {
                   iconData: Ionicons.swap_horizontal_sharp,
                   title: 'Swap',
                   onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.convertCrypto),
+                      navigationController.navigateTo('/convert_crypto'),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.cash_sharp,
                   title: 'Buy/Sell',
                   onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.buySellCrypto),
+                      navigationController.navigateTo('/buy_sell_crypto'),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.qr_code_sharp,
                   title: 'Receive',
                   onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.currencies),
+                      navigationController.navigateTo('/currencies'),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.send_sharp,
                   title: 'Send',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.send),
+                  onPressed: () => navigationController.navigateTo('/send'),
                 ),
               ],
             ),

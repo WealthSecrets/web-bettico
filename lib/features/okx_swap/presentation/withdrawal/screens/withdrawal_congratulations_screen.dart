@@ -74,7 +74,7 @@ class WithdrawalCongratulationsScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop();
                           navigationController
-                              .navigateTo(AppRoutes.withdrawalHistory);
+                              .navigateTo('/withdrawal_history');
                         },
                         child: const Text(
                           'VIEW HISTORY',

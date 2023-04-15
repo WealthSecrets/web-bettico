@@ -125,7 +125,6 @@ class OkxController extends GetxController {
     failureOrCurrencies.fold<void>(
       (Failure failure) {
         isFetchingAssetCurrencies(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<Currency> value) {
         isFetchingAssetCurrencies(false);
@@ -146,13 +145,12 @@ class OkxController extends GetxController {
     failureOrOkxAccount.fold(
       (Failure failure) {
         isCreatingDepositAddress(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (CreateDepositAddressResponse response) {
         isCreatingDepositAddress(false);
         baseScreenController.user.value = response.account.user;
         navigationController.navigateTo(
-          AppRoutes.addressDetails,
+          '/address_details',
           arguments:
               AddressDetailsScreenRouteArgument(address: response.address),
         );
@@ -173,7 +171,6 @@ class OkxController extends GetxController {
     failureOrCurrencies.fold<void>(
       (Failure failure) {
         isFetchingConvertCurrencies(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<Currency> value) {
         isFetchingConvertCurrencies(false);
@@ -196,7 +193,6 @@ class OkxController extends GetxController {
     failureOrDeposits.fold<void>(
       (Failure failure) {
         isFetchingDepositHistory(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<Deposit> value) {
         isFetchingDepositHistory(false);
@@ -214,7 +210,6 @@ class OkxController extends GetxController {
     failureOrConversion.fold<void>(
       (Failure failure) {
         isFetchingConversionHistory(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<OkxConversion> value) {
         isFetchingConversionHistory(false);
@@ -232,7 +227,6 @@ class OkxController extends GetxController {
     failureOrResponse.fold<void>(
       (Failure failure) {
         isFetchingBalances(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (BalanceResponse value) {
         isFetchingBalances(false);
@@ -255,7 +249,6 @@ class OkxController extends GetxController {
     failureOrAccount.fold<void>(
       (Failure failure) {
         isGettingOkxAccount(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (OkxAccount account) {
         isGettingOkxAccount(false);
@@ -278,7 +271,6 @@ class OkxController extends GetxController {
     failureOrCurrencyPair.fold<void>(
       (Failure failure) {
         isFetchingCurrencyPair(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (CurrencyPair currencyPair) {
         isFetchingCurrencyPair(false);
@@ -317,7 +309,6 @@ class OkxController extends GetxController {
     failureOrQuote.fold<void>(
       (Failure failure) {
         isEstimatingConversion(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (OkxQuote quote) {
         isEstimatingConversion(false);
@@ -351,13 +342,12 @@ class OkxController extends GetxController {
     failureOrConversionResponse.fold<void>(
       (Failure failure) {
         isConvertingCrypto(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (ConversionResponse response) {
         isConvertingCrypto(false);
         currentConversion.value = response;
         Navigator.of(context).pop();
-        navigationController.navigateTo(AppRoutes.conversionSuccess);
+        navigationController.navigateTo('/conversion_success');
       },
     );
   }

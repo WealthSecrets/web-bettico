@@ -135,11 +135,10 @@ class RegisterController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isSendingSms(false);
-      AppSnacks.show(context, message: failure.message);
     }, (TwilioResponse value) {
       isSendingSms(false);
       Get.toNamed<void>(
-        AppRoutes.otpVerifyPhone,
+        '/otp_verify_phone',
         arguments: OTPVerificationScreenArgument(
           user: u,
         ),
@@ -157,14 +156,13 @@ class RegisterController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
       resetOtpCodeField();
-      AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isVerifyingOTP(false);
       resetOtpCodeField();
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        Get.offNamed<void>(AppRoutes.home);
+        Get.offNamed<void>('/');
       }
     });
   }
@@ -185,7 +183,6 @@ class RegisterController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
       resetOtpCodeField();
-      AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isVerifyingOTP(false);
       otpCode('');
@@ -193,7 +190,7 @@ class RegisterController extends GetxController {
       if (u != null) {
         lController.reRouteOddster(context, value);
       } else {
-        Get.offNamed<void>(AppRoutes.accountType);
+        Get.offNamed<void>('/account_type');
       }
     });
   }
@@ -216,7 +213,6 @@ class RegisterController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isAddingDocument(false);
-      AppSnacks.show(context, message: failure.message);
     }, (User u) {
       isAddingDocument(false);
       baseScreenController.updateTheUser(u);
@@ -285,12 +281,11 @@ class RegisterController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isAddingProfileImage(false);
-      AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isAddingProfileImage(false);
       baseScreenController.updateTheUser(value);
-      Get.offAllNamed<void>(AppRoutes.home);
-      menuController.changeActiveItemTo(AppRoutes.timeline);
+      Get.offAllNamed<void>('/');
+      menuController.changeActiveItemTo(AppRoutes.home);
     });
   }
 
@@ -313,7 +308,6 @@ class RegisterController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isRegisteringUser(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (User _) {
         isRegisteringUser(false);
@@ -322,10 +316,10 @@ class RegisterController extends GetxController {
         }
 
         if (isWalletConnect) {
-          Get.toNamed<void>(AppRoutes.accountType);
+          Get.toNamed<void>('/account_type');
         } else {
           Get.toNamed<void>(
-            AppRoutes.otpVerifyEmail,
+            '/otp_verify_email',
             arguments: const OTPVerificationScreenArgument(),
           );
         }
@@ -343,7 +337,6 @@ class RegisterController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isCreatingOkxAccount(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (OkxAccount okx) {
         isCreatingOkxAccount(false);
@@ -363,7 +356,6 @@ class RegisterController extends GetxController {
     failureOrOkx.fold(
       (Failure failure) {
         isCreatingAccountApiKey(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (OkxAccount okx) {
         isCreatingAccountApiKey(false);
@@ -395,11 +387,10 @@ class RegisterController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isUpdatingUserRole(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         isUpdatingUserRole(false);
-        Get.toNamed<void>(AppRoutes.personalInformation);
+        Get.toNamed<void>('/personal_information');
       },
     );
   }
@@ -419,7 +410,6 @@ class RegisterController extends GetxController {
     failureOrUser.fold(
       (Failure failure) {
         isAddingPersonalInformation(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (User us) {
         isAddingPersonalInformation(false);

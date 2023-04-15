@@ -20,14 +20,24 @@ import '../../core/presentation/helpers/responsiveness.dart';
 import 'custom_unathorized_bottom_navbar.dart';
 import 'large_screen.dart';
 
-class HomeBaseScreen extends StatefulWidget {
-  const HomeBaseScreen({Key? key}) : super(key: key);
+class AppBaseScreenArguments {
+  AppBaseScreenArguments({this.postId});
 
-  @override
-  State<HomeBaseScreen> createState() => _HomeBaseScreenState();
+  final String? postId;
 }
 
-class _HomeBaseScreenState extends State<HomeBaseScreen> {
+class AppBaseScreen extends StatefulWidget {
+  const AppBaseScreen({Key? key, required this.initialScreen, this.arguments})
+      : super(key: key);
+
+  final String initialScreen;
+  final AppBaseScreenArguments? arguments;
+
+  @override
+  State<AppBaseScreen> createState() => _AppBaseScreen();
+}
+
+class _AppBaseScreen extends State<AppBaseScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   final BaseScreenController baseScreenController =
@@ -75,6 +85,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
   @override
   void initState() {
     super.initState();
+    if (!baseScreenController.isLoggedIn) {
+      Get.toNamed<void>(AppRoutes.explore);
+    }
+    // move firebase code from here
     _firebaseMessaging.getToken().then(setToken);
     _tokenStream = FirebaseMessaging.instance.onTokenRefresh;
     _tokenStream.listen(setToken);
@@ -102,7 +116,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       final String userToken = baseScreenController.userToken.value;
       final User user = baseScreenController.user.value;
       final String initialRoute =
-          userToken.isNotEmpty ? AppRoutes.timeline : AppRoutes.explore;
+          userToken.isNotEmpty ? AppRoutes.home : AppRoutes.explore;
       return Scaffold(
         key: scaffoldKey,
         extendBodyBehindAppBar: true,
@@ -167,9 +181,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
           loading: baseScreenController.isLoggingOut.value,
           child: ResponsiveWidget(
             largeScreen: LargeScreen(
-              initialRoute: initialRoute,
+              initialRoute: widget.initialScreen,
               user: user,
               userToken: userToken,
+              arguments: widget.arguments,
             ),
             mediumScreen: MediumScreen(
               initialRoute: initialRoute,
@@ -202,22 +217,22 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
   void switchScreen(int index) {
     switch (index) {
       case 0:
-        navigationController.navigateTo(AppRoutes.timeline);
+        navigationController.navigateTo(AppRoutes.home);
         return;
       case 1:
         navigationController.navigateTo(AppRoutes.explore);
         return;
       case 2:
-        navigationController.navigateTo(AppRoutes.okxOptions);
+        navigationController.navigateTo('/okx');
         return;
       case 3:
-        navigationController.navigateTo(AppRoutes.members);
+        navigationController.navigateTo('members');
         return;
       case 4:
-        navigationController.navigateTo(AppRoutes.moreScreen);
+        navigationController.navigateTo('/more');
         return;
       default:
-        navigationController.navigateTo(AppRoutes.timeline);
+        navigationController.navigateTo('/home');
     }
   }
 }

@@ -24,7 +24,7 @@
 //     failureOrOddboxes.fold<void>(
 //       (Failure failure) {
 //         isLoading(false);
-//         AppSnacks.show(context, message: failure.message);
+//         
 //       },
 //       (List<Post> value) {
 //         isLoading(false);

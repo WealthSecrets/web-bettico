@@ -1,5 +1,4 @@
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 import '/features/onboarding_splash/presentation/splash/getx/splash_controller.dart';
 
-// ignore: must_be_immutable
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
   @override
@@ -21,9 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     sController.getLanguagePreference();
-    Future<void>.delayed(const Duration(seconds: 1), () {
-      Get.offAllNamed<void>(AppRoutes.home);
-      menuController.changeActiveItemTo(AppRoutes.explore);
+    Future<void>.delayed(const Duration(seconds: 3), () {
+      Get.toNamed<void>(BaseRoutes.initial);
     });
     super.initState();
   }

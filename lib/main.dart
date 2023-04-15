@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:betticos/core/navigation/controllers/app_navigation_controller.dart';
+import 'package:betticos/core/navigation/controllers/auth_navigation_controller.dart';
+import 'package:betticos/core/navigation/controllers/home_navigation_controller.dart';
 import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/getx/forgot_bindings.dart';
@@ -50,6 +53,10 @@ void main() async {
   MainBindings.dependencies();
 
   Get.put(NavigationController());
+  Get.put(AppNavigationController());
+  Get.put(AuthNavigationController());
+  Get.put(HomeNavigationController());
+
   Get.put(MenuController());
   SettingsBindings.dependencies();
   SplashBindings.dependencies();

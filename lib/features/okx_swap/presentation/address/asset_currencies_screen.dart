@@ -69,7 +69,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
             ? <Widget>[
                 IconButton(
                   onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.depositHistory),
+                      navigationController.navigateTo('/deposit_history'),
                   icon: Image.asset(
                     AssetImages.tansactionHistory,
                     height: 24,
@@ -199,10 +199,10 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
         Navigator.of(context).pop();
         if (args?.isWithdrawal == true) {
           wController.setCurrency(item);
-          navigationController.navigateTo(AppRoutes.withdrawal);
+          navigationController.navigateTo('/withdrawal');
         } else if (args?.isTransfer == true) {
           fController.setCurrency(item);
-          navigationController.navigateTo(AppRoutes.transferFunds);
+          navigationController.navigateTo('/transfer_funds');
         } else {
           controller.createOkxDepositAddress(
             context,

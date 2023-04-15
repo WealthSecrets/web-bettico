@@ -87,7 +87,7 @@ class _PrivateSaleState extends State<PrivateSale> {
                           ),
                           onTap: () {
                             navigationController.navigateTo(
-                              AppRoutes.transactions,
+                              '/transactions',
                               arguments:
                                   const TransactionHistoryScreenRouteArgument(
                                 isSale: true,
@@ -243,8 +243,7 @@ class _PrivateSaleState extends State<PrivateSale> {
           txthash: response.hash,
           convertedToken: 'xvl',
           time: response.timestamp,
-          callback: () =>
-              navigationController.navigateTo(AppRoutes.saleSuccess),
+          callback: () => navigationController.navigateTo('/sales_success'),
         );
       }
     }

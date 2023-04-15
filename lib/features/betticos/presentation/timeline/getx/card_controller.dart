@@ -37,7 +37,6 @@ class CardController extends GetxController {
     failureOrUser.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         isLoading(false);
@@ -53,7 +52,6 @@ class CardController extends GetxController {
     failureOrUser.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         profileController.removePostFromMyPosts(postId);

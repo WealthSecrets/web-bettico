@@ -57,7 +57,7 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                         onConfirm: (bool value) async {
                           if (value) {
                             await navigationController
-                                .navigateTo(AppRoutes.accountType);
+                                .navigateTo('/account_type');
                           } else {
                             sController.create();
                           }

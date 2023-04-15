@@ -154,7 +154,7 @@ class ExploreController extends GetxController
   void navigateToSearchPage() {
     if (!isOnSearchPage.value) {
       isOnSearchPage.value = true;
-      navigationController.navigateTo(AppRoutes.search);
+      navigationController.navigateTo('/search');
     }
   }
 }

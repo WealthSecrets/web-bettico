@@ -220,7 +220,7 @@
 //     //             size: 20,
 //     //           ),
 //     //           onPressed: () {
-//     //             Get.toNamed<void>(AppRoutes.login);
+//     //             Get.toNamed<void>('/login');
 //     //           },
 //     //         ),
 //     //       KFDrawerItem(

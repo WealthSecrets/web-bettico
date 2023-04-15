@@ -60,7 +60,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () =>
-                navigationController.navigateTo(AppRoutes.conversionHistory),
+                navigationController.navigateTo('/conversion_history'),
             icon: Image.asset(
               AssetImages.tansactionHistory,
               height: 24,

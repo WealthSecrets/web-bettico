@@ -6,7 +6,7 @@ import 'package:ionicons/ionicons.dart';
 class MenuController extends GetxController {
   static MenuController instance = Get.find();
 
-  RxString activeitem = AppRoutes.timeline.obs;
+  RxString activeitem = AppRoutes.home.obs;
   RxString hoverItem = ''.obs;
 
   void changeActiveItemTo(String itemName) {
@@ -25,25 +25,25 @@ class MenuController extends GetxController {
 
   Widget returnIconFor(String itemName) {
     switch (itemName) {
-      case AppRoutes.timeline:
+      case AppRoutes.home:
         return _customIcon(Ionicons.home_sharp, itemName);
-      case AppRoutes.profile:
+      case '/profile':
         return _customIcon(Ionicons.person_circle_sharp, itemName);
-      case AppRoutes.livescore:
+      case '/livescore':
         return _customIcon(Ionicons.football_sharp, itemName);
-      case AppRoutes.oddboxes:
+      case '/oddboxes':
         return _customIcon(Ionicons.gift_sharp, itemName);
-      case AppRoutes.members:
+      case '/members':
         return _customIcon(Ionicons.people_circle_sharp, itemName);
-      case AppRoutes.oddsters:
+      case '/oddsters':
         return _customIcon(Ionicons.trending_up_sharp, itemName);
-      case AppRoutes.p2pBetting:
+      case '/p2p_betting':
         return _customIcon(Ionicons.baseball_sharp, itemName);
-      case AppRoutes.referral:
+      case '/referral':
         return _customIcon(Ionicons.share_social_sharp, itemName);
-      case AppRoutes.settings:
+      case '/settings':
         return _customIcon(Ionicons.settings_sharp, itemName);
-      case AppRoutes.okxOptions:
+      case '/okx':
         return _customIcon(Ionicons.swap_horizontal_sharp, itemName);
       case AppRoutes.explore:
         return _customIcon(Ionicons.search_sharp, itemName);

@@ -135,11 +135,10 @@ class ProfileController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isLoading(false);
-      AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isLoading(false);
       user(value);
-      Get.offNamed<void>(AppRoutes.base);
+      Get.offNamed<void>('/base');
     });
   }
 
@@ -187,7 +186,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isFollowingUser(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (Follow _) {
       isFollowingUser(false);
@@ -209,7 +208,6 @@ class ProfileController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isSubscribingToUser(false);
-      AppSnacks.show(context, message: failure.message);
     }, (Subscription subscription) {
       isSubscribingToUser(false);
       if (subscription.userId.isEmpty || subscription.subscriberId.isEmpty) {
@@ -231,7 +229,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isCheckingSubscription(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (Subscription subscription) {
       isCheckingSubscription(false);
@@ -253,7 +251,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isCheckingFollowing(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (Follow follow) {
       isCheckingFollowing(false);
@@ -290,7 +288,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isUnfollowingUser(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (void _) {
       isUnfollowingUser(false);
@@ -318,7 +316,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isLoadingFollowers(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (List<User> followers) {
       isLoadingFollowers(false);
@@ -336,7 +334,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isLoadingFollowings(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (List<User> followers) {
       isLoadingFollowings(false);
@@ -354,7 +352,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isLoadingMyPosts(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (List<Post> posts) {
       isLoadingMyPosts(false);
@@ -372,7 +370,7 @@ class ProfileController extends GetxController {
     fialureOrSuccess.fold((Failure failure) {
       isLoadingMyOddboxes(false);
       if (context != null) {
-        AppSnacks.show(context!, message: failure.message);
+        // AppSnacks.show(context!, message: failure.message);
       }
     }, (List<Post> oddboxes) {
       isLoadingMyOddboxes(false);
@@ -414,9 +412,9 @@ class ProfileController extends GetxController {
 
   void navigateToHomeOrOTP() {
     if (isSignUpAsOddster.value) {
-      Get.toNamed<void>(AppRoutes.otpVerify);
+      Get.toNamed<void>('/otp_verify');
     } else {
-      Get.toNamed<void>(AppRoutes.mainWidget);
+      Get.toNamed<void>('/main');
     }
   }
 
@@ -601,10 +599,7 @@ class ProfileController extends GetxController {
       failureOrPost.fold(
         (Failure failure) {
           isLikingPost(false);
-          AppSnacks.show(
-            context,
-            message: failure.message,
-          );
+// AppSnacks.show(context, message: failure.message);
         },
         (Post pst) {
           isLikingPost(false);
@@ -650,10 +645,7 @@ class ProfileController extends GetxController {
       failureOrPost.fold(
         (Failure failure) {
           isLikingPost(false);
-          AppSnacks.show(
-            context,
-            message: failure.message,
-          );
+// AppSnacks.show(context, message: failure.message);
         },
         (Post pst) {
           isLikingPost(false);

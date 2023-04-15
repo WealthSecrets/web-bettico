@@ -8,7 +8,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../core/presentation/helpers/responsiveness.dart';
 import '../../core/presentation/utils/app_endpoints.dart';
-import 'constants/web_controller.dart';
+// import 'constants/web_controller.dart';
 
 class LeftSideBar extends StatefulWidget {
   const LeftSideBar({Key? key, required this.userToken, required this.user})
@@ -143,12 +143,15 @@ class _LeftSideBarState extends State<LeftSideBar> {
                     if (isSmallScreen) {
                       Navigator.of(context).pop();
                     }
-                    if (item.route == AppRoutes.logout) {
-                      showLogoutDialog(context);
-                    } else if (!menuController.isActive(item.route)) {
-                      menuController.changeActiveItemTo(item.route);
-                      navigationController.navigateTo(item.route);
-                    }
+                    // if (item.route == AppRoutes.logout) {
+                    //   showLogoutDialog(context);
+                    // } else
+
+                    // if (!menuController.isActive(item.route)) {
+                    //   menuController.changeActiveItemTo(item.route);
+                    //   navigationController.navigateTo(item.route);
+                    // }
+                    Get.toNamed<void>('/search?q=xviral');
                   },
                 ),
               )

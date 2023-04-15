@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/errors/failure.dart';
-import '../../../../../core/navigation/app_routes.dart';
 import '/core/usecase/usecase.dart';
 import '/features/auth/data/models/user/user.dart';
 import '/features/auth/domain/usecases/is_authenticated.dart';
@@ -29,14 +28,14 @@ class SplashController extends GetxController {
         await isAuthenticated(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      Get.offAllNamed<void>(AppRoutes.login);
-      menuController.changeActiveItemTo(AppRoutes.timeline);
+      Get.offAllNamed<void>('/login');
+      menuController.changeActiveItemTo('/');
     }, (bool respone) {
       if (respone) {
         validateUserSession(context);
       } else {
-        Get.offAllNamed<void>(AppRoutes.login);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+        Get.offAllNamed<void>('/login');
+        menuController.changeActiveItemTo('/');
       }
     });
   }
@@ -46,11 +45,11 @@ class SplashController extends GetxController {
         await validateSession(NoParams());
 
     failureOrUser.fold((Failure failure) {
-      Get.offAllNamed<void>(AppRoutes.login);
-      menuController.changeActiveItemTo(AppRoutes.timeline);
+      Get.offAllNamed<void>('/login');
+      menuController.changeActiveItemTo('/');
     }, (User user) {
-      Get.offAllNamed<void>(AppRoutes.home);
-      menuController.changeActiveItemTo(AppRoutes.timeline);
+      Get.offAllNamed<void>('/');
+      menuController.changeActiveItemTo('/');
     });
   }
 }

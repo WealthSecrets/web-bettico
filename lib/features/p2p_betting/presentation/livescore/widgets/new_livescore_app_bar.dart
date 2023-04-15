@@ -70,8 +70,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  onPressed: () =>
-                      Get.toNamed<void>(AppRoutes.p2pBettingHistory),
+                  onPressed: () => Get.toNamed<void>('/p2p_betting_history'),
                 ),
                 if (actions != null) ...actions!
               ],

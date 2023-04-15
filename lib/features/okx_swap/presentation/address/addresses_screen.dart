@@ -129,7 +129,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                   : AppEmptyScreen(
                       message: 'You do not have any deposit address yet.',
                       onBottonPressed: () =>
-                          navigationController.navigateTo(AppRoutes.currencies),
+                          navigationController.navigateTo('/currencies'),
                       btnText: 'new address',
                     )
               : NoTradignAccount(user: user),

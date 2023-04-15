@@ -222,11 +222,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             } else {
                               if (params != null &&
                                   params!.toLowerCase() == 'email') {
-                                Get.toNamed<void>(AppRoutes.accountType);
+                                Get.toNamed<void>('/account_type');
                               } else {
-                                Get.offAllNamed<void>(AppRoutes.home);
-                                menuController
-                                    .changeActiveItemTo(AppRoutes.home);
+                                Get.offAllNamed<void>('/');
+                                menuController.changeActiveItemTo('/');
                               }
                             }
                           },

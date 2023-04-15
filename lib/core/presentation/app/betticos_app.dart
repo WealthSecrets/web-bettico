@@ -11,8 +11,8 @@ class BetticosApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? widget) => GetMaterialApp(
-        initialRoute: AppRoutes.splash,
-        getPages: Pages.pages,
+        initialRoute: BaseRoutes.splash,
+        onGenerateRoute: BaseRouter.router,
         translations: AppStrings(),
         locale: const Locale('en', 'US'),
         fallbackLocale: const Locale('en', 'US'),

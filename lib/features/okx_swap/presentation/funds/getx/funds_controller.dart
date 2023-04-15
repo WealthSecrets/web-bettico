@@ -42,7 +42,6 @@ class FundsController extends GetxController {
     failureOrDeposits.fold<void>(
       (Failure failure) {
         isFetchingTransferHistory(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (List<TransferHistory> value) {
         isFetchingTransferHistory(false);
@@ -69,21 +68,20 @@ class FundsController extends GetxController {
     failureOrResponse.fold<void>(
       (Failure failure) {
         isTransferring(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (SubAccountFundsResponse response) {
         isTransferring(false);
         currentTransfer(response);
         onSuccess?.call();
         navigationController.navigateTo(
-          AppRoutes.success,
+          '/success',
           arguments: SucessScreenRouteArgument(
             title: 'Funds Transfer Successful',
             message:
                 'You have successfully transferred ${currentTransfer.value.amount} ${currentTransfer.value.currency.toUpperCase()} to ${subAccount.value}',
             onPressed: () {
               Navigator.of(context).pop();
-              navigationController.navigateTo(AppRoutes.transferHistory);
+              navigationController.navigateTo('/transfer_history');
             },
           ),
         );

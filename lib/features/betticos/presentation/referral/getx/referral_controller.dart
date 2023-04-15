@@ -30,7 +30,6 @@ class ReferralController extends GetxController {
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (User u) {
         isLoading(false);
@@ -48,7 +47,6 @@ class ReferralController extends GetxController {
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isReferringUser(false);
-        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         isReferringUser(false);
