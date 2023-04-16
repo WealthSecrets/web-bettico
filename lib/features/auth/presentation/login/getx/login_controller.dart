@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/models/responses/auth_response/auth_response.dart';
 import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
 import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
@@ -68,7 +69,7 @@ class LoginController extends GetxController {
   void login(BuildContext context) async {
     isLoading(true);
 
-    final Either<Failure, User> failureOrUser = await loginUser(
+    final Either<Failure, AuthResponse> failureOrUser = await loginUser(
       LoginRequest(
         email: email.value,
         phone: phone.value,
@@ -81,10 +82,10 @@ class LoginController extends GetxController {
         isLoading(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (User user) {
+      (AuthResponse response) {
         isLoading(false);
-        controller.user(user);
-
+        controller.user(response.user);
+        controller.userToken(response.token);
         // reRouteOddster(context, user);
         Navigator.of(context).pop();
       },
