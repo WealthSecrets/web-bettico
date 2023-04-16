@@ -66,7 +66,6 @@ class LoginController extends GetxController {
   }
 
   void login(BuildContext context) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
     final Either<Failure, User> failureOrUser = await loginUser(
@@ -77,7 +76,6 @@ class LoginController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
@@ -92,7 +90,6 @@ class LoginController extends GetxController {
   }
 
   void loginWallet(BuildContext context, String address) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
     final Either<Failure, User> failureOrUser = await loginUserWallet(
@@ -101,7 +98,6 @@ class LoginController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
