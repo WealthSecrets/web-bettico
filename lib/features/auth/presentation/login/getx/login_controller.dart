@@ -84,7 +84,9 @@ class LoginController extends GetxController {
       (User user) {
         isLoading(false);
         controller.user(user);
-        reRouteOddster(context, user);
+
+        // reRouteOddster(context, user);
+        Navigator.of(context).pop();
       },
     );
   }
