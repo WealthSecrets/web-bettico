@@ -32,7 +32,7 @@ class _LeftSideBarState extends State<LeftSideBar> {
     return ListView(
       padding: padding,
       children: <Widget>[
-        if (!isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
+        if (isLargeScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
           const SizedBox(height: 8),
         ],
