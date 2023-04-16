@@ -5,7 +5,6 @@ import 'package:betticos/features/betticos/domain/usecases/setup/get_setup.dart'
 import 'package:betticos/features/betticos/domain/usecases/update_user_device.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +161,6 @@ class BaseScreenController extends GetxController {
         userToken.value = '';
         user.value = User.empty();
         Get.back<void>();
-        menuController.changeActiveItemTo(AppRoutes.explore);
       },
     );
   }
