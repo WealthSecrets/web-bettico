@@ -47,7 +47,7 @@ class SmallUnAthenticatedBottomNavbar extends StatelessWidget {
             )),
             const SizedBox(width: 24),
             InkWell(
-              onTap: () {},
+              onTap: () => WidgetUtils.showUnAuthorizedLoginContainer(context),
               borderRadius: BorderRadius.circular(40),
               child: Container(
                 height: 40,
@@ -59,7 +59,7 @@ class SmallUnAthenticatedBottomNavbar extends StatelessWidget {
                 child: Icon(
                   Ionicons.log_in_sharp,
                   size: 24,
-                  color: context.colors.black,
+                  color: context.colors.primary,
                 ),
               ),
             ),
