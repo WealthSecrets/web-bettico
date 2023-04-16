@@ -47,7 +47,8 @@ class LargeScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 const TrendsForYouScreen(),
                 const SizedBox(height: 24),
-                if (isLargeScreen(context)) const RightLoginContainer(),
+                if (isLargeScreen(context) && userToken.isEmpty)
+                  const RightLoginContainer(),
               ],
             ),
           ),

@@ -40,8 +40,7 @@ class ExploreScreen extends GetWidget<ExploreController> {
                         ),
                       );
                     } else {
-                      WidgetUtils.showUnAuthorizedLoginContainer(context,
-                          onPressed: () {});
+                      WidgetUtils.showUnAuthorizedLoginContainer(context);
                     }
                   },
                   onCommentTap: () => tController.navigateToAddPost(

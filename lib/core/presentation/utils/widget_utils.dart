@@ -160,7 +160,6 @@ class WidgetUtils {
     BuildContext context, {
     String? title,
     Icon? icon,
-    required Function() onPressed,
   }) {
     showAppModal<void>(
       context: context,

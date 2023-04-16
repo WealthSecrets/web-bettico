@@ -1,5 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
 import 'package:betticos/features/responsiveness/user_info_container.dart';
 import 'package:flutter/material.dart';
@@ -174,23 +175,27 @@ class _LeftSideBarState extends State<LeftSideBar> {
     String? title,
     Icon? icon,
   }) {
+    final BaseScreenController controller = Get.find<BaseScreenController>();
     showAppModal<void>(
       context: context,
       alignment: Alignment.center,
-      builder: (BuildContext context) => Center(
-        child: SizedBox(
-          width: 500,
-          child: AppOptionDialogueModal(
-            modalContext: context,
-            title: 'logout'.tr,
-            iconData: Ionicons.log_out_outline,
-            backgroundColor: context.colors.error,
-            message: 'sure_logout'.tr,
-            affirmButtonText: 'logout'.tr.toUpperCase(),
-            onPressed: () {
-              // Navigator.of(context).pop();
-              // bController.logOutTheUser(context);
-            },
+      builder: (BuildContext context) => Obx(
+        () => AppLoadingBox(
+          loading: controller.isLoggingOut.value,
+          child: SizedBox(
+            width: 500,
+            height: 300,
+            child: Center(
+              child: AppOptionDialogueModal(
+                modalContext: context,
+                title: 'logout'.tr,
+                iconData: Ionicons.log_out_outline,
+                backgroundColor: context.colors.error,
+                message: 'sure_logout'.tr,
+                affirmButtonText: 'logout'.tr.toUpperCase(),
+                onPressed: () => controller.logOutTheUser(context),
+              ),
+            ),
           ),
         ),
       ),

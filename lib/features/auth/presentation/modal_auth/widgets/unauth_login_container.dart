@@ -199,7 +199,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                             text: 'register_now'.tr,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Get.toNamed<void>(AppRoutes.signup);
+                                Get.offNamed<void>(AppRoutes.signup);
                               },
                             style: TextStyle(
                               color: context.colors.primary,
