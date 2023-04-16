@@ -155,7 +155,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
                   switchScreen(index);
                 },
               )
-            : !isLargeScreen
+            : !isLargeScreen && !baseScreenController.isLoggedIn
                 ? const ResponsiveWidget(
                     largeScreen: LargeUnAthenticatedBottomNavbar(),
                     mediumScreen: MediumUnAthenticatedBottomNavbar(),
