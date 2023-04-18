@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/models/responses/auth_response/auth_response.dart';
 import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
 import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
@@ -66,10 +67,9 @@ class LoginController extends GetxController {
   }
 
   void login(BuildContext context) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
-    final Either<Failure, User> failureOrUser = await loginUser(
+    final Either<Failure, AuthResponse> failureOrUser = await loginUser(
       LoginRequest(
         email: email.value,
         phone: phone.value,
@@ -77,22 +77,22 @@ class LoginController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (User user) {
+      (AuthResponse response) {
         isLoading(false);
-        controller.user(user);
-        reRouteOddster(context, user);
+        controller.user(response.user);
+        controller.userToken(response.token);
+        // reRouteOddster(context, user);
+        Navigator.of(context).pop();
       },
     );
   }
 
   void loginWallet(BuildContext context, String address) async {
-    // ignore: unawaited_futures
     isLoading(true);
 
     final Either<Failure, User> failureOrUser = await loginUserWallet(
@@ -101,7 +101,6 @@ class LoginController extends GetxController {
       ),
     );
 
-    // ignore: unawaited_futures
     failureOrUser.fold(
       (Failure failure) {
         isLoading(false);

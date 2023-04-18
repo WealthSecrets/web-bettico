@@ -48,7 +48,8 @@ class RightLoginContainer extends StatelessWidget {
             padding: EdgeInsets.zero,
             borderRadius: AppBorderRadius.largeAll,
             backgroundColor: context.colors.primary,
-            onPressed: () {},
+            onPressed: () =>
+                WidgetUtils.showUnAuthorizedLoginContainer(context),
             child: const Text(
               'Create account',
               style: TextStyle(

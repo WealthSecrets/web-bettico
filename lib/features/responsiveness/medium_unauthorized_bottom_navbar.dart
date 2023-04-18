@@ -1,6 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MediumUnAthenticatedBottomNavbar extends StatelessWidget {
   const MediumUnAthenticatedBottomNavbar({
@@ -58,7 +59,8 @@ class MediumUnAthenticatedBottomNavbar extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       textColor: context.colors.primary,
-                      onPressed: () {},
+                      onPressed: () =>
+                          WidgetUtils.showUnAuthorizedLoginContainer(context),
                     ),
                     const SizedBox(width: 8),
                     SelectableButton(
@@ -66,7 +68,7 @@ class MediumUnAthenticatedBottomNavbar extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       textColor: context.colors.primary,
-                      onPressed: () {},
+                      onPressed: () => Get.toNamed<void>(AppRoutes.signup),
                     ),
                   ],
                 ),

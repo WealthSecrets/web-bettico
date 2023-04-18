@@ -159,8 +159,11 @@ class BaseScreenController extends GetxController {
       },
       (void _) {
         isLoggingOut.value = false;
-        Get.offAllNamed<void>(AppRoutes.login);
-        menuController.changeActiveItemTo(AppRoutes.timeline);
+        userToken.value = '';
+        user.value = User.empty();
+        Get.back<void>();
+        menuController.changeActiveItemTo(AppRoutes.explore);
+        navigationController.navigateTo(AppRoutes.explore);
       },
     );
   }

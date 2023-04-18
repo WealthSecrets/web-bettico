@@ -31,14 +31,14 @@ class AuthRepositoryImpl extends Repository implements AuthRepository {
   final AuthLocalDataSource authLocalDataSource;
 
   @override
-  Future<Either<Failure, User>> login(LoginRequest request) async {
+  Future<Either<Failure, AuthResponse>> login(LoginRequest request) async {
     final Either<Failure, AuthResponse> response =
         await makeRequest(authRemoteDataSource.login(request));
     return response.fold((Failure failure) => left(failure),
         (AuthResponse response) async {
       await authLocalDataSource.persistAuthResponse(response);
       await authLocalDataSource.persistUserData(response.user);
-      return right(response.user);
+      return right(response);
     });
   }
 

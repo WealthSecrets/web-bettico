@@ -1,5 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
 import 'package:betticos/features/responsiveness/user_info_container.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _LeftSideBarState extends State<LeftSideBar> {
     return ListView(
       padding: padding,
       children: <Widget>[
-        if (!isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
+        if (isLargeScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
           const SizedBox(height: 8),
         ],
@@ -161,6 +162,10 @@ class _LeftSideBarState extends State<LeftSideBar> {
 
   bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 
+  bool get isCustomScreen => ResponsiveWidget.isCustomSize(context);
+
+  bool get isMediumScreen => ResponsiveWidget.isMediumScreen(context);
+
   bool get isLargeScreen => ResponsiveWidget.isLargeScreen(context);
 
   List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
@@ -169,28 +174,36 @@ class _LeftSideBarState extends State<LeftSideBar> {
           ? smallScreenMenuItems
           : sideMenuItemRoutes;
 
+  EdgeInsetsGeometry get padding => isLargeScreen
+      ? const EdgeInsets.symmetric(vertical: 24, horizontal: 16)
+      : const EdgeInsets.symmetric(vertical: 24, horizontal: 8);
+
   void showLogoutDialog(
     BuildContext context, {
     String? title,
     Icon? icon,
   }) {
+    final BaseScreenController controller = Get.find<BaseScreenController>();
     showAppModal<void>(
       context: context,
       alignment: Alignment.center,
-      builder: (BuildContext context) => Center(
-        child: SizedBox(
-          width: 500,
-          child: AppOptionDialogueModal(
-            modalContext: context,
-            title: 'logout'.tr,
-            iconData: Ionicons.log_out_outline,
-            backgroundColor: context.colors.error,
-            message: 'sure_logout'.tr,
-            affirmButtonText: 'logout'.tr.toUpperCase(),
-            onPressed: () {
-              // Navigator.of(context).pop();
-              // bController.logOutTheUser(context);
-            },
+      builder: (BuildContext context) => Obx(
+        () => AppLoadingBox(
+          loading: controller.isLoggingOut.value,
+          child: SizedBox(
+            width: 500,
+            height: 300,
+            child: Center(
+              child: AppOptionDialogueModal(
+                modalContext: context,
+                title: 'logout'.tr,
+                iconData: Ionicons.log_out_outline,
+                backgroundColor: context.colors.error,
+                message: 'sure_logout'.tr,
+                affirmButtonText: 'logout'.tr.toUpperCase(),
+                onPressed: () => controller.logOutTheUser(context),
+              ),
+            ),
           ),
         ),
       ),
