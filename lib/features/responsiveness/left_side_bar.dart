@@ -162,6 +162,10 @@ class _LeftSideBarState extends State<LeftSideBar> {
 
   bool get isSmallScreen => ResponsiveWidget.isSmallScreen(context);
 
+  bool get isCustomScreen => ResponsiveWidget.isCustomSize(context);
+
+  bool get isMediumScreen => ResponsiveWidget.isMediumScreen(context);
+
   bool get isLargeScreen => ResponsiveWidget.isLargeScreen(context);
 
   List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
@@ -169,6 +173,10 @@ class _LeftSideBarState extends State<LeftSideBar> {
       : isSmallScreen
           ? smallScreenMenuItems
           : sideMenuItemRoutes;
+
+  EdgeInsetsGeometry get padding => isLargeScreen
+      ? const EdgeInsets.symmetric(vertical: 24, horizontal: 16)
+      : const EdgeInsets.symmetric(vertical: 24, horizontal: 8);
 
   void showLogoutDialog(
     BuildContext context, {
