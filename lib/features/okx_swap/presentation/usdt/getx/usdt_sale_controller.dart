@@ -44,6 +44,12 @@ class UsdtSaleController extends GetxController {
     return errorMessage;
   }
 
+  void reset() {
+    fiatAmount.value = '';
+    walletAddress.value = '';
+    quantity.value = 0.0;
+  }
+
   bool get formIsValid =>
       validateAmount(fiatAmount.value) == null &&
       validateAddress(walletAddress.value) == null;
