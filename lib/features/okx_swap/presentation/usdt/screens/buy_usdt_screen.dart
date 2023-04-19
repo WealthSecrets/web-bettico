@@ -30,7 +30,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
             child: AppAnimatedColumn(
               children: <Widget>[
                 Text(
-                  'Price: GH\u{20B5} 12.11',
+                  'Price: GH\u{20B5}${controller.price.value}',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -57,15 +57,16 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
+                  children: <Widget>[
                     _FooterText(
                       title: 'Quantity',
-                      subtitle: '41.02 USDT',
+                      subtitle:
+                          '${controller.quantity.value.toStringAsFixed(2)} USDT',
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _FooterText(
                       title: 'Amount',
-                      subtitle: '500 GHS',
+                      subtitle: '${controller.fiatAmount.value} GHS',
                     ),
                   ],
                 ),

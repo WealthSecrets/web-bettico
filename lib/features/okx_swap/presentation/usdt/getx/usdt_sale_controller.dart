@@ -5,9 +5,17 @@ class UsdtSaleController extends GetxController {
 
   RxString fiatAmount = ''.obs;
   RxString walletAddress = ''.obs;
+  RxDouble price = 12.11.obs;
+  RxDouble quantity = 0.0.obs;
 
   void onAmountInputChanged(String value) {
     fiatAmount(value);
+    final double? amount = double.tryParse(value);
+    if (amount != null) {
+      quantity.value = amount / price.value;
+    } else {
+      quantity.value = 0.0;
+    }
   }
 
   void onWalletAddressChanged(String value) {
@@ -37,6 +45,6 @@ class UsdtSaleController extends GetxController {
   }
 
   bool get formIsValid =>
-      validateAmount(fiatAmount.value) == null ||
+      validateAmount(fiatAmount.value) == null &&
       validateAddress(walletAddress.value) == null;
 }
