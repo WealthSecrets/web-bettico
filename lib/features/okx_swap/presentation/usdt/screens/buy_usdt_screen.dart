@@ -47,20 +47,22 @@ class BuyUsdtScreen extends StatelessWidget {
               validator: (String value) => null,
               onChanged: (String value) {},
             ),
-            AppTextInput(
-              labelText: 'EMAIL ADDRESS',
-              backgroundColor: context.colors.primary.shade100,
-              lableStyle: TextStyle(
-                color: context.colors.primary,
-                fontWeight: FontWeight.w700,
-                fontSize: 10,
-              ),
-              errorStyle: TextStyle(
-                color: context.colors.error,
-                fontSize: 12,
-              ),
-              validator: (String value) => null,
-              onChanged: (String value) {},
+            const SizedBox(height: 30),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                _FooterText(
+                  title: 'Quantity',
+                  subtitle: '41.02 USDT',
+                ),
+                SizedBox(height: 16),
+                _FooterText(
+                  title: 'Amount',
+                  subtitle: '500 GHS',
+                ),
+              ],
             ),
             const SizedBox(height: 100),
             AppButton(
@@ -81,6 +83,43 @@ class BuyUsdtScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FooterText extends StatelessWidget {
+  const _FooterText({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+  }) : super(key: key);
+
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: context.colors.text,
+          ),
+        ),
+        Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: context.colors.black,
+          ),
+        )
+      ],
     );
   }
 }
