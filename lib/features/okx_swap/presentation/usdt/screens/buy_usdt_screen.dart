@@ -1,7 +1,9 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/okx_swap/presentation/usdt/getx/usdt_sale_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class BuyUsdtScreen extends StatelessWidget {
+class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
   const BuyUsdtScreen({Key? key}) : super(key: key);
 
   @override
@@ -36,16 +38,16 @@ class BuyUsdtScreen extends StatelessWidget {
             AppTextInput(
               labelText: 'FIAT AMOUNT (GH\u{20B5})',
               textInputType: TextInputType.number,
-              onChanged: (String value) {},
+              onChanged: controller.onAmountInputChanged,
               backgroundColor: context.colors.primary.shade100,
-              validator: (String value) => null,
+              validator: controller.validateAmount,
             ),
             const SizedBox(height: 16),
             AppTextInput(
               labelText: 'ADDRESS',
               backgroundColor: context.colors.primary.shade100,
-              validator: (String value) => null,
-              onChanged: (String value) {},
+              validator: controller.validateAddress,
+              onChanged: controller.onWalletAddressChanged,
             ),
             const SizedBox(height: 30),
             Column(
@@ -66,7 +68,7 @@ class BuyUsdtScreen extends StatelessWidget {
             ),
             const SizedBox(height: 100),
             AppButton(
-              enabled: true,
+              enabled: controller.formIsValid,
               padding: EdgeInsets.zero,
               borderRadius: AppBorderRadius.largeAll,
               backgroundColor: context.colors.primary,
