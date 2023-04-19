@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:betticos/core/core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
 class UsdtSaleController extends GetxController {
@@ -7,6 +13,43 @@ class UsdtSaleController extends GetxController {
   RxString walletAddress = ''.obs;
   RxDouble price = 12.11.obs;
   RxDouble quantity = 0.0.obs;
+
+  RxBool isTransferringFunds = false.obs;
+
+  Future<TransactionResponse?> transferUSDT(BuildContext context) async {
+    isTransferringFunds.value = true;
+    final double amount = quantity.value * 1000000000 * 1000000000;
+    final String jsonText =
+        await rootBundle.loadString('assets/keys/keys.json');
+
+    final dynamic value = json.decode(jsonText);
+
+    final String tokenAddress = value['token'] as String;
+    final String mnemonic = value['phrase'] as String;
+
+    final Wallet wallet = Wallet.fromMnemonic(mnemonic);
+
+    final JsonRpcProvider jsonRpcProvider =
+        JsonRpcProvider('https://bsc-dataseed.binance.org/');
+
+    final Wallet walletProvider = wallet.connect(jsonRpcProvider);
+
+    final ContractERC20 token = ContractERC20(tokenAddress, walletProvider);
+
+    try {
+      final TransactionResponse response = await token.transfer(
+        walletAddress.value,
+        BigInt.from(amount.round()),
+      );
+      isTransferringFunds.value = false;
+      return response;
+    } catch (e) {
+      isTransferringFunds.value = false;
+      await AppSnacks.show(context,
+          message: 'Sorry, failed to transfer funds.');
+      return null;
+    }
+  }
 
   void onAmountInputChanged(String value) {
     fiatAmount(value);

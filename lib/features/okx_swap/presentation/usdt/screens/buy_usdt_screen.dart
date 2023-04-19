@@ -2,7 +2,6 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/usdt/getx/usdt_sale_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_plus/flutter_paystack_plus.dart';
 import 'package:flutter_web3/flutter_web3.dart';
@@ -12,7 +11,6 @@ import 'package:ionicons/ionicons.dart';
 class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
   BuyUsdtScreen({Key? key}) : super(key: key);
 
-  final LiveScoreController lController = Get.find<LiveScoreController>();
   final User user = Get.find<BaseScreenController>().user.value;
 
   @override
@@ -98,10 +96,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                     },
                     onSuccess: () async {
                       final TransactionResponse? result =
-                          await lController.sendUsdt(
-                              context,
-                              controller.quantity.value,
-                              controller.walletAddress.value);
+                          await controller.transferUSDT(context);
                       if (result != null && result.hash.isNotEmpty) {
                         await showAppModal<void>(
                           barrierDismissible: false,
