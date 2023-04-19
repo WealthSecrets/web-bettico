@@ -22,6 +22,7 @@ import 'package:betticos/features/okx_swap/presentation/history/conversion_histo
 import 'package:betticos/features/okx_swap/presentation/history/deposit_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/history/withdrawal_history_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/more/more_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/usdt/screens/buy_usdt_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_congratulations_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
@@ -97,6 +98,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ExploreContainer(), settings);
     case AppRoutes.search:
       return _getPageRoute(SearchContainer(), settings);
+    case AppRoutes.buyUsdt:
+      return _getPageRoute(const BuyUsdtScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
