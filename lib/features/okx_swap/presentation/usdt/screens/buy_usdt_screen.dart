@@ -8,81 +8,86 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: const AppBackButton(color: Colors.black),
-        title: const Text(
-          'Purchase USDT',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        child: AppAnimatedColumn(
-          children: <Widget>[
-            Text(
-              'Price: GH\u{20B5} 12.11',
+    return Obx(
+      () => AppLoadingBox(
+        loading: false,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            leading: const AppBackButton(color: Colors.black),
+            title: const Text(
+              'Purchase USDT',
               style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: context.colors.black,
+                fontSize: 14,
+                color: Colors.black,
               ),
             ),
-            const SizedBox(height: 16),
-            AppTextInput(
-              labelText: 'FIAT AMOUNT (GH\u{20B5})',
-              textInputType: TextInputType.number,
-              onChanged: controller.onAmountInputChanged,
-              backgroundColor: context.colors.primary.shade100,
-              validator: controller.validateAmount,
-            ),
-            const SizedBox(height: 16),
-            AppTextInput(
-              labelText: 'ADDRESS',
-              backgroundColor: context.colors.primary.shade100,
-              validator: controller.validateAddress,
-              onChanged: controller.onWalletAddressChanged,
-            ),
-            const SizedBox(height: 30),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                _FooterText(
-                  title: 'Quantity',
-                  subtitle: '41.02 USDT',
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: AppAnimatedColumn(
+              children: <Widget>[
+                Text(
+                  'Price: GH\u{20B5} 12.11',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: context.colors.black,
+                  ),
                 ),
-                SizedBox(height: 16),
-                _FooterText(
-                  title: 'Amount',
-                  subtitle: '500 GHS',
+                const SizedBox(height: 16),
+                AppTextInput(
+                  labelText: 'FIAT AMOUNT (GH\u{20B5})',
+                  textInputType: TextInputType.number,
+                  onChanged: controller.onAmountInputChanged,
+                  backgroundColor: context.colors.primary.shade100,
+                  validator: controller.validateAmount,
+                ),
+                const SizedBox(height: 16),
+                AppTextInput(
+                  labelText: 'ADDRESS',
+                  backgroundColor: context.colors.primary.shade100,
+                  validator: controller.validateAddress,
+                  onChanged: controller.onWalletAddressChanged,
+                ),
+                const SizedBox(height: 30),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    _FooterText(
+                      title: 'Quantity',
+                      subtitle: '41.02 USDT',
+                    ),
+                    SizedBox(height: 16),
+                    _FooterText(
+                      title: 'Amount',
+                      subtitle: '500 GHS',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 100),
+                AppButton(
+                  enabled: controller.formIsValid,
+                  padding: EdgeInsets.zero,
+                  borderRadius: AppBorderRadius.largeAll,
+                  backgroundColor: context.colors.primary,
+                  onPressed: () {},
+                  child: const Text(
+                    'PURCHASE',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 100),
-            AppButton(
-              enabled: controller.formIsValid,
-              padding: EdgeInsets.zero,
-              borderRadius: AppBorderRadius.largeAll,
-              backgroundColor: context.colors.primary,
-              onPressed: () {},
-              child: const Text(
-                'PURCHASE',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
