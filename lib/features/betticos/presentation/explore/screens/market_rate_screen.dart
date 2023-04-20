@@ -21,8 +21,7 @@ class _MarketRateScreenState extends State<MarketRateScreen> {
 
   Timer? _timer;
 
-  final StreamController<List<Listing>> _listingsStreamController =
-      StreamController<List<Listing>>.broadcast();
+  final StreamController<List<Listing>> _listingsStreamController = StreamController<List<Listing>>.broadcast();
 
   @override
   void initState() {
@@ -59,8 +58,7 @@ class _MarketRateScreenState extends State<MarketRateScreen> {
           final List<Listing>? listings = snapshot.data;
           if (listings != null) {
             return listings.isEmpty && !controller.isFetchingListings.value
-                ? const AppEmptyScreen(
-                    message: 'Oops! No market rates are available.')
+                ? const AppEmptyScreen(message: 'Oops! No market rates are available.')
                 : ListView.builder(
                     padding: ResponsiveWidget.isSmallScreen(context)
                         ? const EdgeInsets.symmetric(horizontal: 16)

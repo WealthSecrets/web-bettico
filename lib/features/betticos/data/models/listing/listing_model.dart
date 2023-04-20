@@ -23,8 +23,7 @@ class Listing with _$Listing {
 
   const Listing._();
 
-  factory Listing.fromJson(Map<String, dynamic> json) =>
-      _$ListingFromJson(json);
+  factory Listing.fromJson(Map<String, dynamic> json) => _$ListingFromJson(json);
 
   factory Listing.empty() => Listing(
         id: 0,

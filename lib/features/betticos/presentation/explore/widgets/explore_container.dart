@@ -24,8 +24,7 @@ class ExploreContainer extends StatelessWidget {
     return Scaffold(
       body: Obx(
         () {
-          final bool isPostsSelected =
-              controller.selectedOption.value == Options.posts;
+          final bool isPostsSelected = controller.selectedOption.value == Options.posts;
 
           return Column(
             children: <Widget>[
@@ -35,8 +34,7 @@ class ExploreContainer extends StatelessWidget {
                 children: _selectableButtons,
               ),
               if (isLargeScreen || isMediumScreen) const SizedBox(height: 8),
-              if (controller.selectedOption.value == Options.rates)
-                const SizedBox(height: 16),
+              if (controller.selectedOption.value == Options.rates) const SizedBox(height: 16),
               if (isSmallScreen && isPostsSelected) ...<Widget>[
                 const SizedBox(height: 8),
                 Padding(

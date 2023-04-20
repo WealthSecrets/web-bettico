@@ -14,6 +14,5 @@ class FixtureRequest with _$FixtureRequest {
     required int teamId,
     required String date,
   }) = _FixtureRequest;
-  factory FixtureRequest.fromJson(Map<String, dynamic> json) =>
-      _$FixtureRequestFromJson(json);
+  factory FixtureRequest.fromJson(Map<String, dynamic> json) => _$FixtureRequestFromJson(json);
 }

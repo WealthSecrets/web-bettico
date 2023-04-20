@@ -23,9 +23,7 @@ class VerticalMenuItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         onHover: (bool value) {
-          value
-              ? menuController.onHover(route)
-              : menuController.onHover('not hovering');
+          value ? menuController.onHover(route) : menuController.onHover('not hovering');
         },
         borderRadius: BorderRadius.circular(40),
         child: Obx(
@@ -33,8 +31,7 @@ class VerticalMenuItem extends StatelessWidget {
             height: 40,
             width: 40,
             decoration: BoxDecoration(
-              color: menuController.isHovering(route) ||
-                      menuController.isActive(route)
+              color: menuController.isHovering(route) || menuController.isActive(route)
                   ? context.colors.lightGrey
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(40),

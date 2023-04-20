@@ -27,9 +27,7 @@ class WidgetUtils {
       alignment: Alignment.center,
       builder: (BuildContext context) {
         final bool _isSmallScreen = ResponsiveWidget.isSmallScreen(context);
-        final double width = ResponsiveWidget.isSmallScreen(context)
-            ? MediaQuery.of(context).size.width
-            : 370;
+        final double width = ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width : 370;
         return Center(
           child: Container(
             width: width,
@@ -68,10 +66,8 @@ class WidgetUtils {
       builder: (BuildContext context) {
         return ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height *
-                ((currencies.length * .05) + .2),
-            minHeight: MediaQuery.of(context).size.height *
-                ((currencies.length * 0.05) + .15),
+            maxHeight: MediaQuery.of(context).size.height * ((currencies.length * .05) + .2),
+            minHeight: MediaQuery.of(context).size.height * ((currencies.length * 0.05) + .15),
           ),
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -136,9 +132,7 @@ class WidgetUtils {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: item.chain == selectedChain
-                                    ? context.colors.primary
-                                    : Colors.black,
+                                color: item.chain == selectedChain ? context.colors.primary : Colors.black,
                               ),
                             ),
                           );

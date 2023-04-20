@@ -12,6 +12,5 @@ class SearchBetRequest with _$SearchBetRequest {
     String? from,
     String? to,
   }) = _SearchBetRequest;
-  factory SearchBetRequest.fromJson(Map<String, dynamic> json) =>
-      _$SearchBetRequestFromJson(json);
+  factory SearchBetRequest.fromJson(Map<String, dynamic> json) => _$SearchBetRequestFromJson(json);
 }

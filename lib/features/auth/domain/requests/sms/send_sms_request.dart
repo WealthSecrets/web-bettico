@@ -8,6 +8,5 @@ class SendSmsRequest with _$SendSmsRequest {
   const factory SendSmsRequest({
     required String phone,
   }) = _SendSmsRequest;
-  factory SendSmsRequest.fromJson(Map<String, dynamic> json) =>
-      _$SendSmsRequestFromJson(json);
+  factory SendSmsRequest.fromJson(Map<String, dynamic> json) => _$SendSmsRequestFromJson(json);
 }

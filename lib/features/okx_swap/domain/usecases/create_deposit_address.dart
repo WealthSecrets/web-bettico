@@ -5,15 +5,12 @@ import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
 
-class CreateDepositAddress
-    implements
-        UseCase<CreateDepositAddressResponse, CreateDepositAddressRequest> {
+class CreateDepositAddress implements UseCase<CreateDepositAddressResponse, CreateDepositAddressRequest> {
   CreateDepositAddress({required this.okxRepository});
   final OkxRepository okxRepository;
 
   @override
-  Future<Either<Failure, CreateDepositAddressResponse>> call(
-      CreateDepositAddressRequest params) {
+  Future<Either<Failure, CreateDepositAddressResponse>> call(CreateDepositAddressRequest params) {
     return okxRepository.createDepositAddress(
       currency: params.currency,
       chain: params.chain,

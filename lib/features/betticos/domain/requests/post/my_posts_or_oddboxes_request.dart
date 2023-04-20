@@ -10,6 +10,5 @@ class MyPostsOrOddboxesRequest with _$MyPostsOrOddboxesRequest {
   const factory MyPostsOrOddboxesRequest({
     required String userId,
   }) = _MyPostsOrOddboxesRequest;
-  factory MyPostsOrOddboxesRequest.fromJson(Map<String, dynamic> json) =>
-      _$MyPostsOrOddboxesRequestFromJson(json);
+  factory MyPostsOrOddboxesRequest.fromJson(Map<String, dynamic> json) => _$MyPostsOrOddboxesRequestFromJson(json);
 }

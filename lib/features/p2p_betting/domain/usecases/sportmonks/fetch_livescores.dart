@@ -5,8 +5,7 @@ import 'package:dartz/dartz.dart';
 import '/core/core.dart';
 import '/features/p2p_betting/domain/repositories/p2p_repository.dart';
 
-class FetchLiveScores
-    implements UseCase<List<LiveScore>, NullLiveScoreRequest> {
+class FetchLiveScores implements UseCase<List<LiveScore>, NullLiveScoreRequest> {
   FetchLiveScores({required this.p2pRepository});
   final P2pRepository p2pRepository;
 

@@ -5,14 +5,12 @@ import 'package:dartz/dartz.dart';
 import '/core/core.dart';
 import '/features/betticos/domain/repositories/betticos_repository.dart';
 
-class GetReportOptions
-    implements UseCase<List<ReportOption>, GetReportOptionsRequest> {
+class GetReportOptions implements UseCase<List<ReportOption>, GetReportOptionsRequest> {
   GetReportOptions({required this.betticosRepository});
   final BetticosRepository betticosRepository;
 
   @override
-  Future<Either<Failure, List<ReportOption>>> call(
-      GetReportOptionsRequest params) {
+  Future<Either<Failure, List<ReportOption>>> call(GetReportOptionsRequest params) {
     return betticosRepository.getReportOptions(params.type);
   }
 }

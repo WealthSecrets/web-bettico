@@ -1,8 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
-Widget topNavigationBar(
-    BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
+Widget topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
   return Container(
     height: 56,
     width: MediaQuery.of(context).size.width,

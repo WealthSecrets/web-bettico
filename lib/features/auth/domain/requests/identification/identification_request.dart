@@ -12,6 +12,5 @@ class IdentificationRequest with _$IdentificationRequest {
     required DateTime expiryDate,
     required List<int> file,
   }) = _IdentificationRequest;
-  factory IdentificationRequest.fromJson(Map<String, dynamic> json) =>
-      _$IdentificationRequestFromJson(json);
+  factory IdentificationRequest.fromJson(Map<String, dynamic> json) => _$IdentificationRequestFromJson(json);
 }

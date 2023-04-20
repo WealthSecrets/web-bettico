@@ -6,9 +6,7 @@ import 'package:ionicons/ionicons.dart';
 // import 'package:ionicons/ionicons.dart';
 
 class TimeCard extends StatelessWidget {
-  const TimeCard(
-      {Key? key, required this.dateTime, this.showOnlyDate, this.showOnlyTime})
-      : super(key: key);
+  const TimeCard({Key? key, required this.dateTime, this.showOnlyDate, this.showOnlyTime}) : super(key: key);
 
   final DateTime dateTime;
   final bool? showOnlyDate;

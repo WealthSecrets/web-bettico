@@ -18,8 +18,7 @@ class OnBoardLocalDataSourceImpl extends OnBoardLocalDataSource {
 
   @override
   Future<bool?> getOnBoard() async {
-    final bool? onboard =
-        await _preferencesWrapper.getBool(SharedPrefsKeys.onBoard);
+    final bool? onboard = await _preferencesWrapper.getBool(SharedPrefsKeys.onBoard);
     if (onboard != null) {
       return onboard;
     }

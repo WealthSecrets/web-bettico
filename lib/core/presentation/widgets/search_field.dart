@@ -52,11 +52,8 @@ class SearchField extends StatelessWidget {
                 ),
               ),
         suffixIcon: suffixIcon,
-        suffixIconConstraints: showSortBy ?? false
-            ? const BoxConstraints(maxHeight: 20, maxWidth: 36)
-            : null,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8)
-            .add(const EdgeInsets.symmetric(vertical: 4)),
+        suffixIconConstraints: showSortBy ?? false ? const BoxConstraints(maxHeight: 20, maxWidth: 36) : null,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8).add(const EdgeInsets.symmetric(vertical: 4)),
         enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(

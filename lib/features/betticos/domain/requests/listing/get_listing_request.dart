@@ -10,6 +10,5 @@ class GetListingRequest with _$GetListingRequest {
   const factory GetListingRequest({
     required String symbol,
   }) = _GetListingRequest;
-  factory GetListingRequest.fromJson(Map<String, dynamic> json) =>
-      _$GetListingRequestFromJson(json);
+  factory GetListingRequest.fromJson(Map<String, dynamic> json) => _$GetListingRequestFromJson(json);
 }

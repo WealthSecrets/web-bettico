@@ -10,7 +10,6 @@ class SearchPosts implements UseCase<SearchResponse, SearchPageParams> {
 
   @override
   Future<Either<Failure, SearchResponse>> call(SearchPageParams params) {
-    return betticosRepository.searchPosts(
-        params.keyword, params.page, params.size);
+    return betticosRepository.searchPosts(params.keyword, params.page, params.size);
   }
 }

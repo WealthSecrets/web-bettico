@@ -58,15 +58,13 @@ class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
                           child: AppDatePicker(
                             showIcon: true,
                             labelText: 'From Date',
-                            initialDate: controller.from.value.isNotEmpty
-                                ? DateTime.parse(controller.from.value)
-                                : null,
+                            initialDate:
+                                controller.from.value.isNotEmpty ? DateTime.parse(controller.from.value) : null,
                             validator: (DateTime? from) {
                               return null;
                             },
                             onDateTimeChanged: (DateTime from) {
-                              final DateFormat formatter =
-                                  DateFormat('yyyy-MM-dd');
+                              final DateFormat formatter = DateFormat('yyyy-MM-dd');
                               final String formatted = formatter.format(from);
                               controller.from.value = formatted;
                             },
@@ -77,15 +75,12 @@ class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
                           child: AppDatePicker(
                             showIcon: true,
                             labelText: 'To Date',
-                            initialDate: controller.to.value.isNotEmpty
-                                ? DateTime.parse(controller.to.value)
-                                : null,
+                            initialDate: controller.to.value.isNotEmpty ? DateTime.parse(controller.to.value) : null,
                             validator: (DateTime? from) {
                               return null;
                             },
                             onDateTimeChanged: (DateTime to) {
-                              final DateFormat formatter =
-                                  DateFormat('yyyy-MM-dd');
+                              final DateFormat formatter = DateFormat('yyyy-MM-dd');
                               final String formatted = formatter.format(to);
                               controller.to.value = formatted;
                             },
@@ -123,8 +118,7 @@ class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
                         ),
                         SelectableButton(
                           text: 'Completed',
-                          selected:
-                              controller.searchStatus.value == 'completed',
+                          selected: controller.searchStatus.value == 'completed',
                           onPressed: () {
                             controller.searchStatus.value = 'completed';
                             controller.selectedButton.value = 'completed';

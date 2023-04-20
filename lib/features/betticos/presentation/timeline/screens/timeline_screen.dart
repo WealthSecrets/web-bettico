@@ -25,8 +25,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = <TargetFocus>[];
   final TimelineController controller = Get.find<TimelineController>();
-  final BaseScreenController baseScreenController =
-      Get.find<BaseScreenController>();
+  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final SettingsController sController = Get.find<SettingsController>();
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
@@ -97,8 +96,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               return true;
             },
             child: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverPersistentHeader(
                     delegate: SliverAppBarDelegate(
@@ -158,18 +156,14 @@ class _TimelineScreenState extends State<TimelineScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.bottom,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'view_posts_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -187,8 +181,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,18 +210,14 @@ class _TimelineScreenState extends State<TimelineScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.bottom,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'update_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -245,18 +234,14 @@ class _TimelineScreenState extends State<TimelineScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.bottom,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'promo_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );

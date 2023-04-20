@@ -80,8 +80,7 @@ class TrendCard extends StatelessWidget {
               onTap: () {},
               child: Icon(
                 Ionicons.ellipsis_vertical_sharp,
-                color:
-                    isSelected ? context.colors.faintGrey : context.colors.text,
+                color: isSelected ? context.colors.faintGrey : context.colors.text,
                 size: 20,
               ),
             )

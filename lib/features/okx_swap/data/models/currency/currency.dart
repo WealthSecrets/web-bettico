@@ -17,14 +17,12 @@ class Currency with _$Currency {
 
   const Currency._();
 
-  factory Currency.fromJson(Map<String, dynamic> json) =>
-      _$CurrencyFromJson(json);
+  factory Currency.fromJson(Map<String, dynamic> json) => _$CurrencyFromJson(json);
 
   factory Currency.mock() => const Currency(
         currency: 'BTC',
         name: 'Bitcoin',
-        logoLink:
-            'https://static.coinall.ltd/cdn/assets/imgs/221/5F74EB20302D7761.png',
+        logoLink: 'https://static.coinall.ltd/cdn/assets/imgs/221/5F74EB20302D7761.png',
       );
 
   factory Currency.empty() => const Currency(currency: '', logoLink: '');

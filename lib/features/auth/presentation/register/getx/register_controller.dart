@@ -109,8 +109,7 @@ class RegisterController extends GetxController {
 
   // controllers
   final LoginController lController = Get.find<LoginController>();
-  final BaseScreenController baseScreenController =
-      Get.find<BaseScreenController>();
+  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
   final LiveScoreController wController = Get.find<LiveScoreController>();
 
   // social authentication
@@ -150,9 +149,8 @@ class RegisterController extends GetxController {
   void verifyUserPhoneNumber(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
 
-    final Either<Failure, User> fialureOrSuccess = await verifySms(
-        VerifySmsRequest(
-            code: otpCode.value, phone: u != null ? u.phone! : phone.value));
+    final Either<Failure, User> fialureOrSuccess =
+        await verifySms(VerifySmsRequest(code: otpCode.value, phone: u != null ? u.phone! : phone.value));
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
@@ -169,8 +167,7 @@ class RegisterController extends GetxController {
     });
   }
 
-  bool get isLoading =>
-      isCreatingAccountApiKey.value || isCreatingOkxAccount.value;
+  bool get isLoading => isCreatingAccountApiKey.value || isCreatingOkxAccount.value;
 
   void verifyUserEmailAddress(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
@@ -224,19 +221,16 @@ class RegisterController extends GetxController {
     });
   }
 
-  void registerWithGoogleAuth(BuildContext context,
-      {bool isRequestFromLogin = false}) async {
+  void registerWithGoogleAuth(BuildContext context, {bool isRequestFromLogin = false}) async {
     type('google');
 
     try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String googleEmail = googleSignInAccount.email;
         final String? displayName = googleSignInAccount.displayName;
         final String? photoUrl = googleSignInAccount.photoUrl;
-        final GoogleSignInAuthentication kd =
-            await googleSignInAccount.authentication;
+        final GoogleSignInAuthentication kd = await googleSignInAccount.authentication;
         email(googleEmail);
         if (displayName != null) {
           username(displayName);
@@ -301,9 +295,7 @@ class RegisterController extends GetxController {
       RegisterRequest(
         confirmPassword: confirmPassword.value,
         password: password.value,
-        wallet: wController.walletAddress.value.isNotEmpty
-            ? wController.walletAddress.value
-            : null,
+        wallet: wController.walletAddress.value.isNotEmpty ? wController.walletAddress.value : null,
         email: !isWalletConnect ? email.value : null,
         referralCode: referralCode.value.isNotEmpty ? referralCode.value : null,
         type: isWalletConnect ? 'wallet' : type.value.trim(),
@@ -333,8 +325,7 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccount(BuildContext context, String username,
-      [Function()? callback]) async {
+  void createOkxAccount(BuildContext context, String username, [Function()? callback]) async {
     isCreatingOkxAccount(true);
 
     final Either<Failure, OkxAccount> failureOrUser =
@@ -353,12 +344,10 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccountApiKey(BuildContext context,
-      [Function()? callback]) async {
+  void createOkxAccountApiKey(BuildContext context, [Function()? callback]) async {
     isCreatingAccountApiKey(true);
 
-    final Either<Failure, OkxAccount> failureOrOkx =
-        await createSubAccountApiKey(NoParams());
+    final Either<Failure, OkxAccount> failureOrOkx = await createSubAccountApiKey(NoParams());
 
     failureOrOkx.fold(
       (Failure failure) {
@@ -587,8 +576,7 @@ class RegisterController extends GetxController {
     required int minimumAge,
     String? errorMessage,
   }) {
-    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() <
-        minimumAge) {
+    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() < minimumAge) {
       return errorMessage ?? 'You should be at least $minimumAge years old';
     }
 
@@ -630,8 +618,7 @@ class RegisterController extends GetxController {
       validateConfrimPassword(confirmPassword.value) == null;
 
   bool get walletConnectRegistrationFormIsValid =>
-      validatePassword(password.value) == null &&
-      validateConfrimPassword(confirmPassword.value) == null;
+      validatePassword(password.value) == null && validateConfrimPassword(confirmPassword.value) == null;
 
   bool get profileFormIsValid => profileImage.value.isNotEmpty;
 
@@ -645,6 +632,5 @@ class RegisterController extends GetxController {
       validateLastName(lastName.value) == null &&
       validateUsername(username.value) == null &&
       validatePhone(phone.value) == null &&
-      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) ==
-          null;
+      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) == null;
 }

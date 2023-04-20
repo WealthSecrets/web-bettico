@@ -44,8 +44,7 @@ class ResetController extends GetxController {
       (User user) {
         isLoading(false);
         Get.offAllNamed<void>(AppRoutes.login);
-        AppSnacks.show(context,
-            message: 'Password reset successfully. Please login again.');
+        AppSnacks.show(context, message: 'Password reset successfully. Please login again.');
       },
     );
   }
@@ -95,6 +94,5 @@ class ResetController extends GetxController {
   }
 
   bool get formIsValid =>
-      validatePassword(password.value) == null &&
-      validateConfirmPassword(confirmPassword.value) == null;
+      validatePassword(password.value) == null && validateConfirmPassword(confirmPassword.value) == null;
 }

@@ -14,8 +14,7 @@ class UserStats with _$UserStats {
 
   const UserStats._();
 
-  factory UserStats.fromJson(Map<String, dynamic> json) =>
-      _$UserStatsFromJson(json);
+  factory UserStats.fromJson(Map<String, dynamic> json) => _$UserStatsFromJson(json);
 
   factory UserStats.mock() => UserStats(
         id: const Uuid().v1(),

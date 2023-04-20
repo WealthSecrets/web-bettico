@@ -39,8 +39,7 @@ class WalletLinks {
     required this.universal,
   });
 
-  factory WalletLinks.fromJson(Map<String, dynamic> json) =>
-      _$WalletLinksFromJson(json);
+  factory WalletLinks.fromJson(Map<String, dynamic> json) => _$WalletLinksFromJson(json);
 
   final String? native;
   final String? universal;
@@ -56,8 +55,7 @@ class WalletAppLinks {
     required this.android,
   });
 
-  factory WalletAppLinks.fromJson(Map<String, dynamic> json) =>
-      _$WalletAppLinksFromJson(json);
+  factory WalletAppLinks.fromJson(Map<String, dynamic> json) => _$WalletAppLinksFromJson(json);
 
   final String? browser;
   final String? ios;
@@ -72,8 +70,7 @@ class WalletMetadata {
     required this.shortName,
   });
 
-  factory WalletMetadata.fromJson(Map<String, dynamic> json) =>
-      _$WalletMetadataFromJson(json);
+  factory WalletMetadata.fromJson(Map<String, dynamic> json) => _$WalletMetadataFromJson(json);
 
   final String? shortName;
 

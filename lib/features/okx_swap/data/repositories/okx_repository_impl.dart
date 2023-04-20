@@ -35,16 +35,14 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
   final AuthLocalDataSource authLocalDataSource;
 
   @override
-  Future<Either<Failure, OkxAccount>> createSubAccount(
-      {required String subAccount}) async {
+  Future<Either<Failure, OkxAccount>> createSubAccount({required String subAccount}) async {
     final Either<Failure, OkxAccount> response = await makeRequest(
       okxRemoteDataSources.createSubAccount(
         request: CreateSubAccountRequest(subAccount: subAccount),
       ),
     );
 
-    return response.fold((Failure failure) => left(failure),
-        (OkxAccount account) async {
+    return response.fold((Failure failure) => left(failure), (OkxAccount account) async {
       await authLocalDataSource.persistUserData(account.user);
       return right(account);
     });
@@ -52,18 +50,15 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
 
   @override
   Future<Either<Failure, OkxAccount>> createSubAccountApiKey() async {
-    final Either<Failure, OkxAccount> response =
-        await makeRequest(okxRemoteDataSources.createSubAccountApiKey());
-    return response.fold((Failure failure) => left(failure),
-        (OkxAccount account) async {
+    final Either<Failure, OkxAccount> response = await makeRequest(okxRemoteDataSources.createSubAccountApiKey());
+    return response.fold((Failure failure) => left(failure), (OkxAccount account) async {
       await authLocalDataSource.persistUserData(account.user);
       return right(account);
     });
   }
 
   @override
-  Future<Either<Failure, CurrencyPair>> fetchCurrencyPair(
-          {required String fromCurrency, required String toCurrency}) =>
+  Future<Either<Failure, CurrencyPair>> fetchCurrencyPair({required String fromCurrency, required String toCurrency}) =>
       makeRequest(
         okxRemoteDataSources.fetchCurrencyPair(
           request: CurrencyPairRequest(
@@ -172,17 +167,14 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
           {required String currency, String? chain}) =>
       makeRequest(
         okxRemoteDataSources.createDepositAddress(
-          request:
-              CreateDepositAddressRequest(currency: currency, chain: chain),
+          request: CreateDepositAddressRequest(currency: currency, chain: chain),
         ),
       );
 
   @override
   Future<Either<Failure, OkxAccount>> getOkxAccount() async {
-    final Either<Failure, OkxAccount> response =
-        await makeRequest(okxRemoteDataSources.getOkxAccount());
-    return response.fold((Failure failure) => left(failure),
-        (OkxAccount account) async {
+    final Either<Failure, OkxAccount> response = await makeRequest(okxRemoteDataSources.getOkxAccount());
+    return response.fold((Failure failure) => left(failure), (OkxAccount account) async {
       await authLocalDataSource.persistUserData(account.user);
       return right(account);
     });
@@ -193,8 +185,7 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       makeRequest(okxRemoteDataSources.fetchAssetCurrencies());
 
   @override
-  Future<Either<Failure, BalanceResponse>> fetchBalances() =>
-      makeRequest(okxRemoteDataSources.fetchBalances());
+  Future<Either<Failure, BalanceResponse>> fetchBalances() => makeRequest(okxRemoteDataSources.fetchBalances());
 
   @override
   Future<Either<Failure, List<Deposit>>> fetchDepositHistory() =>

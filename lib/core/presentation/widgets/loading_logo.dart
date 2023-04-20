@@ -21,8 +21,7 @@ class LoadingLogo extends StatefulWidget {
   _LoadingLogoState createState() => _LoadingLogoState();
 }
 
-class _LoadingLogoState extends State<LoadingLogo>
-    with TickerProviderStateMixin {
+class _LoadingLogoState extends State<LoadingLogo> with TickerProviderStateMixin {
   late AnimationController controller;
   Animation<double>? rotate;
   late Animation<double> scale;
@@ -33,10 +32,9 @@ class _LoadingLogoState extends State<LoadingLogo>
       vsync: this,
       duration: const Duration(milliseconds: 2500),
     );
-    rotate = Tween<double>(begin: 360.0, end: 1.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
-    scale = Tween<double>(begin: 0.8, end: 1.0).animate(CurvedAnimation(
-        parent: controller, curve: Curves.fastLinearToSlowEaseIn));
+    rotate = Tween<double>(begin: 360.0, end: 1.0).animate(CurvedAnimation(parent: controller, curve: Curves.linear));
+    scale = Tween<double>(begin: 0.8, end: 1.0)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.fastLinearToSlowEaseIn));
     controller.repeat(reverse: true);
     super.initState();
   }
@@ -67,8 +65,7 @@ class _LoadingLogoState extends State<LoadingLogo>
                 height: 15,
               ),
               FutureBuilder<bool>(
-                  future: Future<bool>.delayed(
-                      const Duration(milliseconds: 100), () => true),
+                  future: Future<bool>.delayed(const Duration(milliseconds: 100), () => true),
                   builder: (_, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.hasData) {
                       return SizedBox(
@@ -77,8 +74,7 @@ class _LoadingLogoState extends State<LoadingLogo>
                         child: CircularProgressIndicator(
                           strokeWidth: .7,
                           value: widget.progress,
-                          valueColor: AlwaysStoppedAnimation<Color?>(
-                              widget.color ?? PrimaryColor.color),
+                          valueColor: AlwaysStoppedAnimation<Color?>(widget.color ?? PrimaryColor.color),
                         ),
                       );
                     } else {
@@ -86,8 +82,7 @@ class _LoadingLogoState extends State<LoadingLogo>
                     }
                   }),
               FutureBuilder<bool>(
-                future: Future<bool>.delayed(
-                    const Duration(milliseconds: 200), () => true),
+                future: Future<bool>.delayed(const Duration(milliseconds: 200), () => true),
                 builder: (_, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasData) {
                     return SizedBox(
@@ -96,9 +91,8 @@ class _LoadingLogoState extends State<LoadingLogo>
                       child: CircularProgressIndicator(
                         strokeWidth: .7,
                         value: widget.progress,
-                        valueColor: AlwaysStoppedAnimation<Color?>(
-                            (widget.color ?? PrimaryColor.color)
-                                .withOpacity(.5)),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color?>((widget.color ?? PrimaryColor.color).withOpacity(.5)),
                       ),
                     );
                   }
@@ -111,8 +105,7 @@ class _LoadingLogoState extends State<LoadingLogo>
                 child: CircularProgressIndicator(
                   strokeWidth: .7,
                   value: widget.progress,
-                  valueColor: AlwaysStoppedAnimation<Color?>(
-                      (widget.color ?? PrimaryColor.color).withOpacity(.2)),
+                  valueColor: AlwaysStoppedAnimation<Color?>((widget.color ?? PrimaryColor.color).withOpacity(.2)),
                 ),
               )
             ],

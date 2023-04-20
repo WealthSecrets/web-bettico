@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:betticos/env/env.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
@@ -8,7 +7,6 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/s_league_reque
 import 'package:betticos/features/p2p_betting/domain/requests/bet/s_team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/nullable_livescore_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/s_fixture_request.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixtures.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_fixtures.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_leagues.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_livescores.dart';
@@ -20,25 +18,18 @@ import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sli
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter/services.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
-import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
-import '/features/p2p_betting/domain/usecases/live_score/get_live_matches.dart';
 import '../../../../betticos/data/models/listpage/listpage.dart';
 import '../../../data/models/crypto/volume.dart';
 import '../../../domain/requests/crypto/convert_amount_request.dart';
-import '../../../domain/requests/live_score/live_scores_request.dart';
 import '../../../domain/usecases/crypto/convert_amount_to_currency.dart';
 
 class LiveScoreController extends GetxController {
   LiveScoreController({
-    required this.getLiveMatches,
-    required this.getFixtures,
     required this.convertAmountToCurrency,
     required this.fetchPaginatedLiveScore,
     required this.fetchLiveScores,
@@ -51,14 +42,12 @@ class LiveScoreController extends GetxController {
     required this.getLeague,
   });
 
-  final GetLiveMatches getLiveMatches;
   final FetchPaginatedLiveScore fetchPaginatedLiveScore;
   final FetchLiveScores fetchLiveScores;
   final FetchFixtures fetchFixtures;
   final FetchPaginatedFixtures fetchPaginatedFixtures;
   final FetchLeagues fetchLeagues;
 
-  final GetFixtures getFixtures;
   final GetTeam getTeam;
   final GetSFixture getSFixture;
   final GetSLiveScore getSLiveScore;
@@ -66,7 +55,6 @@ class LiveScoreController extends GetxController {
 
   final ConvertAmountToCurrency convertAmountToCurrency;
 
-  RxList<SoccerMatch> matches = <SoccerMatch>[].obs;
   RxList<LiveScore> liveScores = <LiveScore>[].obs;
   RxList<LiveScore> sFixtures = <LiveScore>[].obs;
   RxList<SLeague> sLeagues = <SLeague>[].obs;
@@ -75,10 +63,6 @@ class LiveScoreController extends GetxController {
   Rx<ListPage<LiveScore>> sFixturesL = ListPage<LiveScore>.empty().obs;
   RxList<Fixture> fixtures = <Fixture>[].obs;
   RxList<Fixture> searchedFixtures = <Fixture>[].obs;
-  RxList<SoccerMatch> sMatches = <SoccerMatch>[].obs;
-  RxList<SoccerMatch> finishedMatches = <SoccerMatch>[].obs;
-  RxList<SoccerMatch> notStartedMatches = <SoccerMatch>[].obs;
-  RxList<SoccerMatch> inPlayMatches = <SoccerMatch>[].obs;
   RxInt pageK = 1.obs;
 
   RxDouble convertedAmount = 0.0.obs;
@@ -203,27 +187,17 @@ class LiveScoreController extends GetxController {
       return response;
     } catch (e) {
       showLoadingLogo.value = false;
-      await AppSnacks.show(context,
-          message: 'Couldn\'t make payment, please check your wallet balance');
+      await AppSnacks.show(context, message: 'Couldn\'t make payment, please check your wallet balance');
       return null;
     }
   }
 
-  Future<TransactionResponse?> sendWsc(
-      BuildContext context, double amount) async {
+  Future<TransactionResponse?> sendWsc(BuildContext context, double amount) async {
     try {
-      final String jsonText =
-          await rootBundle.loadString('assets/keys/keys.json');
-      final dynamic value = json.decode(jsonText);
+      final ContractERC20 token = ContractERC20(Env.wscContractAddress, web3wc!.getSigner());
 
-      final String wscAddress = value['token'] as String;
-      final String depositAddress = value['depositAddress'] as String;
-
-      final ContractERC20 token =
-          ContractERC20(wscAddress, web3wc!.getSigner());
-
-      final TransactionResponse? response = await send(context,
-          amt: amount, token: token, depositAddress: depositAddress);
+      final TransactionResponse? response =
+          await send(context, amt: amount, token: token, depositAddress: Env.receiveAddress);
       return response;
     } catch (e) {
       await AppSnacks.show(context, message: 'Something went wrong!');
@@ -231,21 +205,13 @@ class LiveScoreController extends GetxController {
     }
   }
 
-  Future<TransactionResponse?> sendUsdt(
-      BuildContext context, double amount, String depositAddress) async {
+  Future<TransactionResponse?> sendUsdt(BuildContext context, double amount, String depositAddress) async {
     isMakingPayment(true);
     try {
-      final String jsonText =
-          await rootBundle.loadString('assets/keys/keys.json');
-      final dynamic value = json.decode(jsonText);
+      final ContractERC20 token = ContractERC20(Env.usdtContractAddress, web3wc!.getSigner());
 
-      final String usdtAddress = value['usdt'] as String;
-
-      final ContractERC20 token =
-          ContractERC20(usdtAddress, web3wc!.getSigner());
-
-      final TransactionResponse? response = await send(context,
-          amt: amount, token: token, depositAddress: depositAddress);
+      final TransactionResponse? response =
+          await send(context, amt: amount, token: token, depositAddress: depositAddress);
       isMakingPayment(false);
       return response;
     } catch (e) {
@@ -266,20 +232,12 @@ class LiveScoreController extends GetxController {
 
     final double amount = convertedAmount * 1000000000 * 1000000000;
 
-    final String jsonText =
-        await rootBundle.loadString('assets/keys/keys.json');
-    final dynamic value = json.decode(jsonText);
+    final Wallet wallet = Wallet.fromMnemonic(Env.walletPhrase);
 
-    final String tokenAddress = value['token'] as String;
-    final String mnemonic = value['phrase'] as String;
-
-    final Wallet wallet = Wallet.fromMnemonic(mnemonic);
-
-    final JsonRpcProvider jsonRpcProvider =
-        JsonRpcProvider('https://bsc-dataseed.binance.org/');
+    final JsonRpcProvider jsonRpcProvider = JsonRpcProvider('https://bsc-dataseed.binance.org/');
     final Wallet walletProvider = wallet.connect(jsonRpcProvider);
 
-    final ContractERC20 token = ContractERC20(tokenAddress, walletProvider);
+    final ContractERC20 token = ContractERC20(Env.wscContractAddress, walletProvider);
 
     try {
       final TransactionResponse response = await token.transfer(
@@ -307,44 +265,9 @@ class LiveScoreController extends GetxController {
     getSFixtures();
   }
 
-  void getAllLiveMatches(BuildContext context) async {
-    isLoading(true);
-    final String response =
-        await rootBundle.loadString('assets/keys/live_score.json');
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
-    final String apiKey = liveScoreKeys['api_key'] as String;
-    final String secretKey = liveScoreKeys['secret_key'] as String;
-
-    final Either<Failure, List<SoccerMatch>> failureOrMatches =
-        await getLiveMatches(
-      LiveScoreRequest(
-        apiKey: apiKey,
-        secretKey: secretKey,
-      ),
-    );
-
-    failureOrMatches.fold<void>(
-      (Failure failure) {
-        isLoading(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (List<SoccerMatch> value) {
-        isLoading(false);
-        matches(value);
-        if (matches.isNotEmpty) {
-          getFilteredMatches('IN PLAY');
-          getFilteredMatches('NOT STARTED');
-          getFilteredMatches('FINISHED');
-        }
-      },
-    );
-  }
-
   void getAllLeagues() async {
     isFetchingLeagues(true);
-    final Either<Failure, List<SLeague>> failureOrLeagues =
-        await fetchLeagues(NoParams());
+    final Either<Failure, List<SLeague>> failureOrLeagues = await fetchLeagues(NoParams());
     failureOrLeagues.fold<void>(
       (Failure failure) {
         isFetchingLeagues(false);
@@ -361,10 +284,10 @@ class LiveScoreController extends GetxController {
   }
 
   void getLiveScores() async {
+    print('getLiveScores is called');
     isFetchingLiveScores(true);
     final Either<Failure, List<LiveScore>> failureOrLiveScores =
-        await fetchLiveScores(
-            NullLiveScoreRequest(leagueId: selectedLeague.value.id));
+        await fetchLiveScores(NullLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrLiveScores.fold<void>(
       (Failure failure) {
         isFetchingLiveScores(false);
@@ -372,8 +295,7 @@ class LiveScoreController extends GetxController {
       (List<LiveScore> value) {
         isFetchingLiveScores(false);
         final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
-        copyLiveScores
-            .removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
+        copyLiveScores.removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
         liveScores.value = copyLiveScores;
       },
     );
@@ -382,8 +304,7 @@ class LiveScoreController extends GetxController {
   void getSFixtures() async {
     isFetchingFixtures(true);
     final Either<Failure, List<LiveScore>> failureOrSFixtures =
-        await fetchFixtures(
-            NullLiveScoreRequest(leagueId: selectedLeague.value.id));
+        await fetchFixtures(NullLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrSFixtures.fold<void>(
       (Failure failure) {
         isFetchingFixtures(false);
@@ -493,8 +414,7 @@ class LiveScoreController extends GetxController {
     setSelectedCurrency(currency);
 
     final Either<Failure, Volume> failureOrVolume =
-        await convertAmountToCurrency(
-            ConvertAmountRequest(amount: amount, currency: currency));
+        await convertAmountToCurrency(ConvertAmountRequest(amount: amount, currency: currency));
 
     failureOrVolume.fold<void>(
       (Failure failure) {
@@ -514,64 +434,5 @@ class LiveScoreController extends GetxController {
         successCallback?.call(vol.convertedAmount);
       },
     );
-  }
-
-  void getAllFixtures(BuildContext context) async {
-    isLoading(true);
-
-    final String response =
-        await rootBundle.loadString('assets/keys/live_score.json');
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
-    final String apiKey = liveScoreKeys['api_key'] as String;
-    final String secretKey = liveScoreKeys['secret_key'] as String;
-
-    final Either<Failure, List<Fixture>> failureOrFixtures = await getFixtures(
-      LiveScoreRequest(
-        apiKey: apiKey,
-        secretKey: secretKey,
-      ),
-    );
-
-    failureOrFixtures.fold<void>(
-      (Failure failure) {
-        isLoading(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (List<Fixture> value) {
-        isLoading(false);
-        fixtures(value);
-      },
-    );
-  }
-
-  void getFilteredMatches(String filter) {
-    final List<SoccerMatch> newMatches =
-        matches.where((SoccerMatch match) => match.status == filter).toList();
-    if (filter == 'FINISHED') {
-      finishedMatches(newMatches);
-    } else if (filter == 'IN PLAY') {
-      inPlayMatches(newMatches);
-    } else if (filter == 'NOT STARTED') {
-      notStartedMatches(newMatches);
-    }
-  }
-
-  void searchLiveMatchesAndFixtures(String query) async {
-    isSearching(true);
-    final List<SoccerMatch> ss = matches
-        .where((SoccerMatch s) =>
-            s.awayName.toLowerCase().contains(query) ||
-            s.homeName.toLowerCase().contains(query))
-        .toList();
-    sMatches(ss);
-    if (ss.isEmpty) {
-      final List<Fixture> ff = fixtures
-          .where((Fixture f) =>
-              f.awayName.toLowerCase().contains(query) ||
-              f.homeName.toLowerCase().contains(query))
-          .toList();
-      searchedFixtures(ff);
-    }
   }
 }

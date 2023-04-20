@@ -22,13 +22,9 @@ class ImagesScreen extends StatelessWidget {
         () => AppLoadingBox(
           loading: controller.isSearching.value,
           child: controller.images.isEmpty && !controller.isSearching.value
-              ? AppEmptyScreen(
-                  message:
-                      'Oops! No results found for ${controller.selectedHashtag.value}')
+              ? AppEmptyScreen(message: 'Oops! No results found for ${controller.selectedHashtag.value}')
               : ListView.builder(
-                  padding: isSmallScreen
-                      ? const EdgeInsets.symmetric(horizontal: 16)
-                      : EdgeInsets.zero,
+                  padding: isSmallScreen ? const EdgeInsets.symmetric(horizontal: 16) : EdgeInsets.zero,
                   itemCount: controller.images.length,
                   itemBuilder: (BuildContext context, int index) {
                     final Post post = controller.images[index];
@@ -37,8 +33,7 @@ class ImagesScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push<void>(
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                PostDetailsScreen(post: post),
+                            builder: (BuildContext context) => PostDetailsScreen(post: post),
                           ),
                         );
                       },

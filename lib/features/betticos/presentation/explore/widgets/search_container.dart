@@ -39,8 +39,7 @@ class SearchContainer extends StatelessWidget {
                   resetValues();
                   Navigator.of(context).pop();
                 },
-                child: Icon(Ionicons.chevron_back_sharp,
-                    color: context.colors.textDark, size: 24),
+                child: Icon(Ionicons.chevron_back_sharp, color: context.colors.textDark, size: 24),
               ),
               const SizedBox(width: 8),
               Expanded(

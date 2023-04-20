@@ -17,9 +17,7 @@ class ReportOption with _$ReportOption {
 
   const ReportOption._();
 
-  factory ReportOption.fromJson(Map<String, dynamic> json) =>
-      _$ReportOptionFromJson(json);
+  factory ReportOption.fromJson(Map<String, dynamic> json) => _$ReportOptionFromJson(json);
 
-  factory ReportOption.empty() =>
-      const ReportOption(id: '', title: '', type: '');
+  factory ReportOption.empty() => const ReportOption(id: '', title: '', type: '');
 }

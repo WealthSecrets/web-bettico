@@ -16,6 +16,5 @@ class SearchResponse with _$SearchResponse {
     @JsonKey(name: 'images') required List<Post> images,
     @JsonKey(name: 'hashtags') required List<Hashtag> hashtags,
   }) = _SearchResponse;
-  factory SearchResponse.fromJson(Map<String, dynamic> json) =>
-      _$SearchResponseFromJson(json);
+  factory SearchResponse.fromJson(Map<String, dynamic> json) => _$SearchResponseFromJson(json);
 }

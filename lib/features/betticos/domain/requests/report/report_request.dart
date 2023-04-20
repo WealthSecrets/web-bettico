@@ -13,6 +13,5 @@ class ReportRequest with _$ReportRequest {
     String? postId,
     String? userId,
   }) = _ReportRequest;
-  factory ReportRequest.fromJson(Map<String, dynamic> json) =>
-      _$ReportRequestFromJson(json);
+  factory ReportRequest.fromJson(Map<String, dynamic> json) => _$ReportRequestFromJson(json);
 }

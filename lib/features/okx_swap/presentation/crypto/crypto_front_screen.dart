@@ -49,8 +49,7 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
           headerSliverBuilder: (BuildContext context, bool innerBoxScrolled) {
             return <Widget>[
               Obx(() => _SliverAppBar(
-                  total: controller.totalBalance.value,
-                  tradeName: controller.myOkxAccount.value.subAccount)),
+                  total: controller.totalBalance.value, tradeName: controller.myOkxAccount.value.subAccount)),
               SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
                   TabBar(
@@ -92,8 +91,7 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
 }
 
 class _SliverAppBar extends StatelessWidget {
-  const _SliverAppBar({Key? key, required this.total, required this.tradeName})
-      : super(key: key);
+  const _SliverAppBar({Key? key, required this.total, required this.tradeName}) : super(key: key);
 
   final String total;
   final String tradeName;
@@ -122,9 +120,7 @@ class _SliverAppBar extends StatelessWidget {
 }
 
 class _FlexibleSpaceBar extends StatelessWidget {
-  const _FlexibleSpaceBar(
-      {Key? key, required this.total, required this.tradeName})
-      : super(key: key);
+  const _FlexibleSpaceBar({Key? key, required this.total, required this.tradeName}) : super(key: key);
 
   final String total;
   final String tradeName;
@@ -182,26 +178,22 @@ class _FlexibleSpaceBar extends StatelessWidget {
                 _CryptoIconText(
                   iconData: Ionicons.swap_horizontal_sharp,
                   title: 'Swap',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.convertCrypto),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.convertCrypto),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.cash_sharp,
                   title: 'Buy/Sell',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.buySellCrypto),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.buySellCrypto),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.qr_code_sharp,
                   title: 'Receive',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.currencies),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.currencies),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.send_sharp,
                   title: 'Send',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.send),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.send),
                 ),
               ],
             ),
@@ -301,8 +293,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar _tabBar;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.white,
       child: _tabBar,

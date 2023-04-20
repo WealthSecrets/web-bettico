@@ -26,8 +26,7 @@ class LiveScore with _$LiveScore {
     @JsonKey(name: 'neutral_venue') bool? neutralVenue,
     @JsonKey(name: 'localTeam') required Steam localTeam,
     @JsonKey(name: 'visitorTeam') required Steam visitorTeam,
-    @JsonKey(name: 'winning_odds_calculated')
-        required bool winningOddsCalculated,
+    @JsonKey(name: 'winning_odds_calculated') required bool winningOddsCalculated,
     @JsonKey(name: 'formations') Formation? formations,
     @JsonKey(name: 'scores') Score? scores,
     @JsonKey(name: 'time') required Time time,
@@ -35,8 +34,7 @@ class LiveScore with _$LiveScore {
 
   const LiveScore._();
 
-  factory LiveScore.fromJson(Map<String, dynamic> json) =>
-      _$LiveScoreFromJson(json);
+  factory LiveScore.fromJson(Map<String, dynamic> json) => _$LiveScoreFromJson(json);
 
   factory LiveScore.mock() => LiveScore(
         id: 1,
@@ -70,8 +68,7 @@ class Formation with _$Formation {
     @JsonKey(name: 'visitorteam_formation') String? visitorTeamFormation,
   }) = _Formation;
 
-  factory Formation.fromJson(Map<String, dynamic> json) =>
-      _$FormationFromJson(json);
+  factory Formation.fromJson(Map<String, dynamic> json) => _$FormationFromJson(json);
 }
 
 @freezed

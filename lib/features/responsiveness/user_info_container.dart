@@ -46,9 +46,7 @@ class UserInfoContainer extends StatelessWidget {
                   image: DecorationImage(
                     image: NetworkImage(
                       '${AppEndpoints.userImages}/${bController.user.value.photo ?? 'default.jpg'}',
-                      headers: <String, String>{
-                        'Authorization': 'Bearer ${bController.userToken.value}'
-                      },
+                      headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
                     ),
                     fit: BoxFit.cover,
                   ),

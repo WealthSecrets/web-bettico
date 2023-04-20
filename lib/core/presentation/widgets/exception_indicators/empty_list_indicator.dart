@@ -21,8 +21,7 @@ class EmptyListIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExceptionIndicator(
       title: title ?? 'Nothing found here.',
-      message: message ??
-          'No post were found. You can add new posts or follow others to see their post.',
+      message: message ?? 'No post were found. You can add new posts or follow others to see their post.',
       assetName: AssetImages.emptyBox,
       size: size,
       gap: gap,

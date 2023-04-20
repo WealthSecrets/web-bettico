@@ -24,6 +24,5 @@ class Report with _$Report {
 
   factory Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
 
-  factory Report.empty() =>
-      Report(reporter: User.empty(), id: '', optionId: ReportOption.empty());
+  factory Report.empty() => Report(reporter: User.empty(), id: '', optionId: ReportOption.empty());
 }

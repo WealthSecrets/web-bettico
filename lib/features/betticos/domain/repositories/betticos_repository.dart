@@ -19,8 +19,7 @@ import '../../data/models/listing/listing_model.dart';
 abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> fetchPosts();
 
-  Future<Either<Failure, PaginatedResponseData<Post>>> explorePosts(
-      int page, int limit);
+  Future<Either<Failure, PaginatedResponseData<Post>>> explorePosts(int page, int limit);
 
   Future<Either<Failure, List<Post>>> fetchFollowingPosts();
 
@@ -140,6 +139,5 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, List<Hashtag>>> fetchHashtags();
 
-  Future<Either<Failure, SearchResponse>> searchPosts(
-      String keyword, int page, int limit);
+  Future<Either<Failure, SearchResponse>> searchPosts(String keyword, int page, int limit);
 }

@@ -35,8 +35,7 @@ class ExploreScreen extends GetWidget<ExploreController> {
                     if (bController.isLoggedIn) {
                       Navigator.of(context).push<void>(
                         MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              PostDetailsScreen(post: post),
+                          builder: (BuildContext context) => PostDetailsScreen(post: post),
                         ),
                       );
                     } else {
@@ -61,24 +60,19 @@ class ExploreScreen extends GetWidget<ExploreController> {
               },
             );
           },
-          firstPageErrorIndicatorBuilder: (BuildContext context) =>
-              ErrorIndicator(
+          firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
             error: controller.pagingController.value.error as Failure,
             onTryAgain: () => controller.pagingController.refresh(),
           ),
-          noItemsFoundIndicatorBuilder: (BuildContext context) =>
-              const EmptyListIndicator(),
-          newPageProgressIndicatorBuilder: (BuildContext context) =>
-              const Center(
+          noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
+          newPageProgressIndicatorBuilder: (BuildContext context) => const Center(
             child: LoadingLogo(),
           ),
-          firstPageProgressIndicatorBuilder: (BuildContext context) =>
-              const Center(
+          firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(
             child: LoadingLogo(),
           ),
         ),
-        separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox.shrink(),
+        separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
       ),
     );
   }

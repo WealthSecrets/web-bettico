@@ -31,8 +31,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<AuthResponse?> getAuthResponse() async {
-    final Map<String, dynamic>? json =
-        await _preferencesWrapper.getMap(SharedPrefsKeys.authResponse);
+    final Map<String, dynamic>? json = await _preferencesWrapper.getMap(SharedPrefsKeys.authResponse);
     if (json != null) {
       return authResponse = AuthResponse.fromJson(json);
     }
@@ -41,8 +40,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<User?> getUserData() async {
-    final Map<String, dynamic>? json =
-        await _preferencesWrapper.getMap(SharedPrefsKeys.userData);
+    final Map<String, dynamic>? json = await _preferencesWrapper.getMap(SharedPrefsKeys.userData);
     if (json != null) {
       return User.fromJson(json);
     }

@@ -13,6 +13,5 @@ class QuoteRequest with _$QuoteRequest {
     @JsonKey(name: 'rfqSz') required String realAmount,
     @JsonKey(name: 'rfqSzCcy') required String realAmountCurrency,
   }) = _QuoteRequest;
-  factory QuoteRequest.fromJson(Map<String, dynamic> json) =>
-      _$QuoteRequestFromJson(json);
+  factory QuoteRequest.fromJson(Map<String, dynamic> json) => _$QuoteRequestFromJson(json);
 }

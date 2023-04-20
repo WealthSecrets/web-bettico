@@ -15,8 +15,7 @@ class ErrorBoundary {
 
     FlutterError.onError = (FlutterErrorDetails details) async {
       if (isReleaseMode) {
-        async.Zone.current.handleUncaughtError(
-            details.exception, details.stack ?? StackTrace.current);
+        async.Zone.current.handleUncaughtError(details.exception, details.stack ?? StackTrace.current);
       } else {
         FlutterError.presentError(details);
       }

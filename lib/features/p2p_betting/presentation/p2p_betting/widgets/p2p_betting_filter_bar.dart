@@ -15,13 +15,7 @@ class P2PBettingFilterBar extends StatelessWidget {
 
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
 
-  final List<String> options = const <String>[
-    'wins',
-    'losts',
-    'awaiting',
-    'ongoing',
-    'completed'
-  ];
+  final List<String> options = const <String>['wins', 'losts', 'awaiting', 'ongoing', 'completed'];
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +44,10 @@ class P2PBettingFilterBar extends StatelessWidget {
                     ),
                     const Spacer(),
                     AppSelectField<String>(
-                      onChanged: (String value) => _p2pBetController
-                          .changeFilterStatus(value.toLowerCase()),
+                      onChanged: (String value) => _p2pBetController.changeFilterStatus(value.toLowerCase()),
                       options: options,
                       value: options[0].toUpperCase(),
-                      customChildBuilder:
-                          (BuildContext context, String? item) => Row(
+                      customChildBuilder: (BuildContext context, String? item) => Row(
                         children: <Widget>[
                           const Icon(
                             Ionicons.funnel_outline,

@@ -10,6 +10,5 @@ class UserDeviceRequest with _$UserDeviceRequest {
   const factory UserDeviceRequest({
     required String device,
   }) = _UserDeviceRequest;
-  factory UserDeviceRequest.fromJson(Map<String, dynamic> json) =>
-      _$UserDeviceRequestFromJson(json);
+  factory UserDeviceRequest.fromJson(Map<String, dynamic> json) => _$UserDeviceRequestFromJson(json);
 }

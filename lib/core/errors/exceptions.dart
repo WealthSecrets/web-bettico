@@ -5,8 +5,7 @@ class AppException implements Exception {
   final StackTrace? stackTrace;
 
   @override
-  String toString() =>
-      message == null ? '$runtimeType' : '$runtimeType($message)';
+  String toString() => message == null ? '$runtimeType' : '$runtimeType($message)';
 }
 
 class ServerException extends AppException {

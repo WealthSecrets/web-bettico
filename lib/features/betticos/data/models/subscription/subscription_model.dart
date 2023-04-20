@@ -18,8 +18,7 @@ class Subscription with _$Subscription {
 
   const Subscription._();
 
-  factory Subscription.fromJson(Map<String, dynamic> json) =>
-      _$SubscriptionFromJson(json);
+  factory Subscription.fromJson(Map<String, dynamic> json) => _$SubscriptionFromJson(json);
 
   factory Subscription.empty() => Subscription(
         id: '',

@@ -12,6 +12,5 @@ class BetUpdateRequest with _$BetUpdateRequest {
     required BettorRequest opponent,
     required String status,
   }) = _BetUpdateRequest;
-  factory BetUpdateRequest.fromJson(Map<String, dynamic> json) =>
-      _$BetUpdateRequestFromJson(json);
+  factory BetUpdateRequest.fromJson(Map<String, dynamic> json) => _$BetUpdateRequestFromJson(json);
 }

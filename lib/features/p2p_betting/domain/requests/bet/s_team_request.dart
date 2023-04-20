@@ -10,6 +10,5 @@ class STeamRequest with _$STeamRequest {
   const factory STeamRequest({
     required int teamId,
   }) = _STeamRequest;
-  factory STeamRequest.fromJson(Map<String, dynamic> json) =>
-      _$STeamRequestFromJson(json);
+  factory STeamRequest.fromJson(Map<String, dynamic> json) => _$STeamRequestFromJson(json);
 }

@@ -38,18 +38,12 @@ class HashtagsScreen extends StatelessWidget {
       body: Obx(
         () => AppLoadingBox(
           loading: controller.isSearching.value,
-          child: controller.filteredHashtags.isEmpty &&
-                  !controller.isSearching.value
-              ? AppEmptyScreen(
-                  message:
-                      'Oops! No results found for ${controller.selectedHashtag.value}')
+          child: controller.filteredHashtags.isEmpty && !controller.isSearching.value
+              ? AppEmptyScreen(message: 'Oops! No results found for ${controller.selectedHashtag.value}')
               : ListView.separated(
-                  padding: isSmallScreen
-                      ? const EdgeInsets.symmetric(horizontal: 16)
-                      : EdgeInsets.zero,
+                  padding: isSmallScreen ? const EdgeInsets.symmetric(horizontal: 16) : EdgeInsets.zero,
                   itemCount: controller.filteredHashtags.length,
-                  separatorBuilder: (_, int index) =>
-                      Divider(color: context.colors.text),
+                  separatorBuilder: (_, int index) => Divider(color: context.colors.text),
                   itemBuilder: (BuildContext context, int index) {
                     final Hashtag hashtag = controller.filteredHashtags[index];
                     final String name = hashtag.name.replaceAll('#', '');

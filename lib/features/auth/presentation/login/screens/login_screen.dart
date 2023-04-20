@@ -27,23 +27,17 @@ class LoginScreen extends GetWidget<LoginController> {
   List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
       'text': 'Certik',
-      'link':
-          'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
+      'link': 'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
     },
     <String, dynamic>{
       'text': 'Audit',
-      'link':
-          'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
+      'link': 'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
     },
     <String, dynamic>{
       'text': 'Whitepaper',
-      'link':
-          'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
+      'link': 'https://drive.google.com/file/d/1dNU6GwTT_WyFglyZuA7gnJsc7-8Mx3lP/view?usp=sharing'
     },
-    <String, dynamic>{
-      'text': 'Buy WSC',
-      'link': 'https://staking.wealthsecrets.io/swap'
-    },
+    <String, dynamic>{'text': 'Buy WSC', 'link': 'https://staking.wealthsecrets.io/swap'},
     <String, dynamic>{'text': 'Store', 'link': 'https://wealthsecrets.store/'},
     // <String, dynamic>{
     //   'text': 'Advertise',
@@ -60,8 +54,7 @@ class LoginScreen extends GetWidget<LoginController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return AppLoadingBox(
-        loading:
-            controller.isLoading.value || controller.isResendingEmail.value,
+        loading: controller.isLoading.value || controller.isResendingEmail.value,
         child: Scaffold(
           backgroundColor: Colors.white,
           body: FooterView(
@@ -81,9 +74,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 children: <Widget>[
                                   TextButton(
                                     onPressed: () {
-                                      js.context.callMethod('open', <String>[
-                                        'https://www.wealthsecrets.io/'
-                                      ]);
+                                      js.context.callMethod('open', <String>['https://www.wealthsecrets.io/']);
                                     },
                                     child: const Text(
                                       'About us',
@@ -96,9 +87,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      js.context.callMethod('open', <String>[
-                                        'https://www.wealthsecrets.io/'
-                                      ]);
+                                      js.context.callMethod('open', <String>['https://www.wealthsecrets.io/']);
                                     },
                                     child: const Text(
                                       'FAQs',
@@ -184,8 +173,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                   TextButton(
                                     onPressed: () {
                                       Get.toNamed<void>(AppRoutes.livescore);
-                                      menuController.changeActiveItemTo(
-                                          AppRoutes.livescore);
+                                      menuController.changeActiveItemTo(AppRoutes.livescore);
                                     },
                                     child: const Text(
                                       'Live Games',
@@ -222,9 +210,7 @@ class LoginScreen extends GetWidget<LoginController> {
               children: <Widget>[
                 Center(
                   child: SizedBox(
-                    width: ResponsiveWidget.isSmallScreen(context)
-                        ? double.infinity
-                        : 500,
+                    width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 500,
                     child: SingleChildScrollView(
                       padding: AppPaddings.lH,
                       child: AppAnimatedColumn(
@@ -232,10 +218,8 @@ class LoginScreen extends GetWidget<LoginController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          if (!ResponsiveWidget.isSmallScreen(context))
-                            const SizedBox(height: 100),
-                          if (ResponsiveWidget.isSmallScreen(context))
-                            const SizedBox(height: 30),
+                          if (!ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 100),
+                          if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 30),
                           Align(
                             alignment: Alignment.topLeft,
                             child: TextButton(
@@ -250,9 +234,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 }
                               },
                               child: Text(
-                                Get.locale == const Locale('en', 'US')
-                                    ? '🇨🇳'
-                                    : '🇺🇸',
+                                Get.locale == const Locale('en', 'US') ? '🇨🇳' : '🇺🇸',
                               ),
                             ),
                           ),
@@ -262,8 +244,7 @@ class LoginScreen extends GetWidget<LoginController> {
                               alignment: Alignment.topRight,
                               child: Image.asset(AssetImages.logo, height: 50),
                             ),
-                          if (ResponsiveWidget.isSmallScreen(context))
-                            const SizedBox(height: 80),
+                          if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 80),
                           Align(
                             alignment: Alignment.center,
                             child: RichText(
@@ -294,8 +275,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                 AppTextInput(
                                   labelText: 'email_address'.tr.toUpperCase(),
                                   initialValue: '',
-                                  backgroundColor:
-                                      context.colors.primary.shade100,
+                                  backgroundColor: context.colors.primary.shade100,
                                   prefixIcon: Icon(
                                     Ionicons.mail_outline,
                                     color: context.colors.hintLight,
@@ -323,8 +303,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                   initialValue: '',
                                   textInputType: TextInputType.phone,
-                                  backgroundColor:
-                                      context.colors.primary.shade100,
+                                  backgroundColor: context.colors.primary.shade100,
                                   lableStyle: TextStyle(
                                     color: context.colors.primary,
                                     fontWeight: FontWeight.w700,
@@ -342,25 +321,19 @@ class LoginScreen extends GetWidget<LoginController> {
                                 right: 10,
                                 child: AnimatedSwitcher(
                                   reverseDuration: Duration.zero,
-                                  transitionBuilder: (Widget? child,
-                                      Animation<double> animation) {
+                                  transitionBuilder: (Widget? child, Animation<double> animation) {
                                     final Animation<double> offset =
-                                        Tween<double>(begin: 0, end: 1.0)
-                                            .animate(animation);
-                                    return ScaleTransition(
-                                        scale: offset, child: child);
+                                        Tween<double>(begin: 0, end: 1.0).animate(animation);
+                                    return ScaleTransition(scale: offset, child: child);
                                   },
                                   switchInCurve: Curves.elasticOut,
                                   duration: const Duration(milliseconds: 700),
                                   child: RichText(
                                     text: TextSpan(
-                                      text: controller.isPhone.value
-                                          ? 'login_mobile'.tr
-                                          : 'login_email'.tr,
+                                      text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          controller.togglePhoneVisibility(
-                                              !controller.isPhone.value);
+                                          controller.togglePhoneVisibility(!controller.isPhone.value);
                                         },
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w800,

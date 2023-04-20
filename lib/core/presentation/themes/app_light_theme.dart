@@ -81,8 +81,7 @@ class AppLightTheme implements ThemeColor {
   @override
   Brightness brightness = Brightness.light;
   @override
-  SystemUiOverlayStyle statusBar =
-      SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent);
+  SystemUiOverlayStyle statusBar = SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent);
   @override
   Color shadowColor = HintColor.color.shade50;
 }

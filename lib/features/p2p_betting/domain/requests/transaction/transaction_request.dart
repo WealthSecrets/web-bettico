@@ -22,6 +22,5 @@ class TransactionRequest with _$TransactionRequest {
     required String status,
     String? provider,
   }) = _TransactionRequest;
-  factory TransactionRequest.fromJson(Map<String, dynamic> json) =>
-      _$TransactionRequestFromJson(json);
+  factory TransactionRequest.fromJson(Map<String, dynamic> json) => _$TransactionRequestFromJson(json);
 }

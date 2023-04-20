@@ -16,13 +16,11 @@ import 'package:dartz/dartz.dart';
 import '/core/errors/failure.dart';
 
 abstract class OkxRepository {
-  Future<Either<Failure, OkxAccount>> createSubAccount(
-      {required String subAccount});
+  Future<Either<Failure, OkxAccount>> createSubAccount({required String subAccount});
 
   Future<Either<Failure, OkxAccount>> createSubAccountApiKey();
 
-  Future<Either<Failure, CurrencyPair>> fetchCurrencyPair(
-      {required String fromCurrency, required String toCurrency});
+  Future<Either<Failure, CurrencyPair>> fetchCurrencyPair({required String fromCurrency, required String toCurrency});
 
   Future<Either<Failure, OkxQuote>> estimateConversionQuote({
     required String baseCurrency,
@@ -63,8 +61,7 @@ abstract class OkxRepository {
 
   Future<Either<Failure, List<TransferHistory>>> fetchTransferHistory();
 
-  Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress(
-      {required String currency, String? chain});
+  Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress({required String currency, String? chain});
 
   Future<Either<Failure, OkxAccount>> getOkxAccount();
 

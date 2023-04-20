@@ -53,8 +53,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            onPressed: () =>
-                navigationController.navigateTo(AppRoutes.withdrawalHistory),
+            onPressed: () => navigationController.navigateTo(AppRoutes.withdrawalHistory),
             icon: Image.asset(
               AssetImages.tansactionHistory,
               height: 24,
@@ -67,8 +66,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
         () {
           final User user = Get.find<BaseScreenController>().user.value;
           final Currency currency = controller.currency.value;
-          controller
-              .setBalance(okxController.getCurrencyBalance(currency.currency));
+          controller.setBalance(okxController.getCurrencyBalance(currency.currency));
           return AppLoadingBox(
             loading: controller.isMakingWithdrawal.value,
             child: Padding(
@@ -104,13 +102,11 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                                 ),
                                 const SizedBox(height: 32),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
                                           currency.currency.toUpperCase(),
@@ -131,12 +127,10 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                                         ),
                                       ],
                                     ),
-                                    if (currency.maxFee != null &&
-                                        currency.minFee != null)
+                                    if (currency.maxFee != null && currency.minFee != null)
                                       Column(
                                         mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
                                             'Transaction Fee',
@@ -162,21 +156,16 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                                 const SizedBox(height: 24),
                                 AppTextInput(
                                   labelText: 'RECIPIENT ADDRESS',
-                                  backgroundColor:
-                                      context.colors.primary.shade100,
-                                  validator:
-                                      controller.onRecipientAddressValidator,
-                                  onChanged:
-                                      controller.onRecipientAddressChanged,
+                                  backgroundColor: context.colors.primary.shade100,
+                                  validator: controller.onRecipientAddressValidator,
+                                  onChanged: controller.onRecipientAddressChanged,
                                 ),
                                 const SizedBox(height: 16),
                                 AppTextInput(
-                                  labelText:
-                                      'AMOUNT (${currency.currency.toUpperCase()})',
+                                  labelText: 'AMOUNT (${currency.currency.toUpperCase()})',
                                   textInputType: TextInputType.number,
                                   onChanged: controller.onAmountInputChanged,
-                                  backgroundColor:
-                                      context.colors.primary.shade100,
+                                  backgroundColor: context.colors.primary.shade100,
                                   validator: controller.onAmountInputValidator,
                                 ),
                               ],
@@ -191,8 +180,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                                 context,
                                 onSuccess: () => _getUserBalances(
                                   onSuccess: () => controller.setBalance(
-                                    okxController
-                                        .getCurrencyBalance(currency.currency),
+                                    okxController.getCurrencyBalance(currency.currency),
                                   ),
                                 ),
                               ),

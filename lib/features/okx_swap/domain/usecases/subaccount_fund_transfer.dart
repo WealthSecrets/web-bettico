@@ -5,14 +5,12 @@ import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
 
-class SubAccountFundTransfer
-    implements UseCase<SubAccountFundsResponse, SubAccountFundsRequest> {
+class SubAccountFundTransfer implements UseCase<SubAccountFundsResponse, SubAccountFundsRequest> {
   SubAccountFundTransfer({required this.okxRepository});
   final OkxRepository okxRepository;
 
   @override
-  Future<Either<Failure, SubAccountFundsResponse>> call(
-      SubAccountFundsRequest params) {
+  Future<Either<Failure, SubAccountFundsResponse>> call(SubAccountFundsRequest params) {
     return okxRepository.transferFundToSubAccount(
       amount: params.amount,
       currency: params.currency,

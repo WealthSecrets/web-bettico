@@ -18,8 +18,7 @@ class Feeling with _$Feeling {
 
   const Feeling._();
 
-  factory Feeling.fromJson(Map<String, dynamic> json) =>
-      _$FeelingFromJson(json);
+  factory Feeling.fromJson(Map<String, dynamic> json) => _$FeelingFromJson(json);
 
   factory Feeling.empty() => Feeling(
         id: '',

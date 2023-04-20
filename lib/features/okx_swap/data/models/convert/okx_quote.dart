@@ -24,8 +24,7 @@ class OkxQuote with _$OkxQuote {
 
   const OkxQuote._();
 
-  factory OkxQuote.fromJson(Map<String, dynamic> json) =>
-      _$OkxQuoteFromJson(json);
+  factory OkxQuote.fromJson(Map<String, dynamic> json) => _$OkxQuoteFromJson(json);
 
   factory OkxQuote.mock() => const OkxQuote(
       baseCurrency: 'ETH',

@@ -26,8 +26,7 @@ class _PreviewModalState extends State<PreviewModal> {
   @override
   void initState() {
     super.initState();
-    final int? milliseconds =
-        int.tryParse(controller.currentQuote.value.expiryTime);
+    final int? milliseconds = int.tryParse(controller.currentQuote.value.expiryTime);
     if (milliseconds != null) {
       start = milliseconds ~/ 1000;
       setState(() {
@@ -63,13 +62,10 @@ class _PreviewModalState extends State<PreviewModal> {
   Widget build(BuildContext context) {
     return Obx(() {
       final OkxQuote quote = controller.currentQuote.value;
-      final Currency? baseCurrency =
-          controller.getCurrencyByCurrency(quote.baseCurrency);
-      final Currency? quoteCurrency =
-          controller.getCurrencyByCurrency(quote.quoteCurrency);
+      final Currency? baseCurrency = controller.getCurrencyByCurrency(quote.baseCurrency);
+      final Currency? quoteCurrency = controller.getCurrencyByCurrency(quote.quoteCurrency);
       return AppLoadingBox(
-        loading: controller.isEstimatingConversion.value ||
-            controller.isConvertingCrypto.value,
+        loading: controller.isEstimatingConversion.value || controller.isConvertingCrypto.value,
         child: Padding(
           padding: AppPaddings.bodyH.add(AppPaddings.lV),
           child: Column(

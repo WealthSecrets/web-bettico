@@ -29,9 +29,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    score = widget.bet.score != null
-        ? widget.bet.score!.split(' ')
-        : '? - ?'.split(' ');
+    score = widget.bet.score != null ? widget.bet.score!.split(' ') : '? - ?'.split(' ');
     return Stack(
       children: <Widget>[
         Container(
@@ -79,8 +77,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                 ),
                 const AppSpacing(v: 5),
                 Text(
-                  StringUtils.capitalizeFirst(
-                      widget.bet.creator.choice.stringValue),
+                  StringUtils.capitalizeFirst(widget.bet.creator.choice.stringValue),
                   style: context.caption.copyWith(
                     color: widget.bet.creator.choice.color(context),
                     fontWeight: FontWeight.w700,
@@ -96,8 +93,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                     ),
                   ),
                 if (widget.bet.opponent != null) const AppSpacing(v: 8),
-                if (widget.bet.opponent != null)
-                  _buildUserAvatar(widget.bet.opponent!.user),
+                if (widget.bet.opponent != null) _buildUserAvatar(widget.bet.opponent!.user),
                 if (widget.bet.opponent != null) const AppSpacing(v: 8),
                 if (widget.bet.opponent != null)
                   Text(
@@ -128,8 +124,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                 if (widget.bet.opponent != null) const AppSpacing(v: 5),
                 if (widget.bet.opponent != null)
                   Text(
-                    StringUtils.capitalizeFirst(
-                        widget.bet.opponent!.choice.stringValue),
+                    StringUtils.capitalizeFirst(widget.bet.opponent!.choice.stringValue),
                     style: context.caption.copyWith(
                       color: widget.bet.opponent!.choice.color(context),
                       fontWeight: FontWeight.w700,
@@ -230,8 +225,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                 selected: true,
                 disabled: false,
                 onPressed: null,
-                backgroundColor: widget.bet.creator.teamId ==
-                        widget.bet.homeTeam.teamId
+                backgroundColor: widget.bet.creator.teamId == widget.bet.homeTeam.teamId
                     ? widget.bet.creator.choice.color(context)
                     : widget.bet.opponent?.teamId == widget.bet.homeTeam.teamId
                         ? widget.bet.opponent?.choice.color(context)
@@ -297,9 +291,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
-                    decoration: widget.bet.status == BetStatus.cancelled
-                        ? TextDecoration.lineThrough
-                        : null,
+                    decoration: widget.bet.status == BetStatus.cancelled ? TextDecoration.lineThrough : null,
                   ),
                 ),
               ),
@@ -316,8 +308,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                 selected: true,
                 disabled: false,
                 onPressed: null,
-                backgroundColor: widget.bet.creator.teamId ==
-                        widget.bet.awayTeam.teamId
+                backgroundColor: widget.bet.creator.teamId == widget.bet.awayTeam.teamId
                     ? widget.bet.creator.choice.color(context)
                     : widget.bet.opponent?.teamId == widget.bet.awayTeam.teamId
                         ? widget.bet.opponent?.choice.color(context)

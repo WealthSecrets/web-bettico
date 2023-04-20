@@ -40,9 +40,7 @@ class AppSelectableTile extends StatelessWidget {
         ],
         border: Border.all(
           width: 1.4,
-          color: selected
-              ? context.colors.primary
-              : context.colors.primary.shade100,
+          color: selected ? context.colors.primary : context.colors.primary.shade100,
         ),
       ),
       child: TextButton(
@@ -50,12 +48,9 @@ class AppSelectableTile extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: padding ?? AppPaddings.sA,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                AppBorderRadius.largeAll.add(AppBorderRadius.mediumAll),
+            borderRadius: AppBorderRadius.largeAll.add(AppBorderRadius.mediumAll),
           ),
-          backgroundColor: selected
-              ? context.colors.primary.shade100
-              : context.colors.primary.shade50,
+          backgroundColor: selected ? context.colors.primary.shade100 : context.colors.primary.shade50,
         ),
         child: Row(
           children: <Widget>[
@@ -63,9 +58,7 @@ class AppSelectableTile extends StatelessWidget {
               duration: const Duration(milliseconds: 900),
               reverseDuration: Duration.zero,
               transitionBuilder: (Widget child, Animation<double> animation) {
-                final Animation<double> scale =
-                    Tween<double>(begin: selected ? 0.7 : 1.0, end: 1.0)
-                        .animate(animation);
+                final Animation<double> scale = Tween<double>(begin: selected ? 0.7 : 1.0, end: 1.0).animate(animation);
                 return ScaleTransition(
                   scale: scale,
                   child: child,
@@ -117,9 +110,7 @@ class AppSelectableTile extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: subtitle == null
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: subtitle == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     title,

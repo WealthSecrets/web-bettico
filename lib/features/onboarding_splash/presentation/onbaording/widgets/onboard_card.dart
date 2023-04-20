@@ -45,8 +45,7 @@ class OnboardCard extends StatelessWidget {
                       curve: Curves.fastLinearToSlowEaseIn,
                       tween: Tween<double>(begin: 0.4, end: 1.0),
                       duration: const Duration(milliseconds: 1200),
-                      builder:
-                          (BuildContext context, double offset, Widget? child) {
+                      builder: (BuildContext context, double offset, Widget? child) {
                         return Transform.scale(scale: offset, child: child);
                       },
                       child: ClipRRect(
@@ -66,23 +65,17 @@ class OnboardCard extends StatelessWidget {
                           (int index) {
                             return TweenAnimationBuilder<Offset>(
                               curve: Curves.fastLinearToSlowEaseIn,
-                              tween: Tween<Offset>(
-                                  begin: Offset(index == 1 ? 0 : 10, 150),
-                                  end: Offset.zero),
-                              builder: (BuildContext context, Offset offset,
-                                  Widget? child) {
+                              tween: Tween<Offset>(begin: Offset(index == 1 ? 0 : 10, 150), end: Offset.zero),
+                              builder: (BuildContext context, Offset offset, Widget? child) {
                                 return Transform.translate(
                                   offset: offset,
                                   child: child,
                                 );
                               },
-                              duration: Duration(
-                                  milliseconds: (1000 + index * 500).toInt()),
+                              duration: Duration(milliseconds: (1000 + index * 500).toInt()),
                               child: Text(
                                 text[index],
-                                style: context.h6
-                                    .copyWith(color: context.colors.primary)
-                                    .copyWith(
+                                style: context.h6.copyWith(color: context.colors.primary).copyWith(
                                       height: 1.3,
                                       fontWeight: FontWeight.w400,
                                     ),

@@ -18,8 +18,7 @@ class MembersController extends GetxController {
   void loadAllMyMembers(BuildContext context) async {
     isLoading(true);
 
-    final Either<Failure, List<User>> failureOrMembers =
-        await getMyMembers(NoParams());
+    final Either<Failure, List<User>> failureOrMembers = await getMyMembers(NoParams());
 
     failureOrMembers.fold<void>(
       (Failure failure) {

@@ -43,8 +43,7 @@ class SettingsController extends GetxController {
 
   void updateIntroductionPreference(bool value) async {
     isIntro(value);
-    final Either<Failure, void> failureOrVoid =
-        await updateIntroPrefs(UpdateIntroRequest(value: value));
+    final Either<Failure, void> failureOrVoid = await updateIntroPrefs(UpdateIntroRequest(value: value));
     failureOrVoid.fold((Failure failure) {}, (_) {
       isIntro(value);
     });
@@ -52,16 +51,14 @@ class SettingsController extends GetxController {
 
   void updatePostIntroductionPreference(bool value) async {
     isPostIntro(value);
-    final Either<Failure, void> failureOrVoid =
-        await updatePostIntroPrefs(UpdateIntroRequest(value: value));
+    final Either<Failure, void> failureOrVoid = await updatePostIntroPrefs(UpdateIntroRequest(value: value));
     failureOrVoid.fold((Failure failure) {}, (_) {
       isPostIntro(value);
     });
   }
 
   void getIntroductionPreference() async {
-    final Either<Failure, bool?> failureOrIntro =
-        await getIntroPrefs(NoParams());
+    final Either<Failure, bool?> failureOrIntro = await getIntroPrefs(NoParams());
     failureOrIntro.fold((Failure failure) {
       isIntro(true);
     }, (bool? value) {
@@ -72,8 +69,7 @@ class SettingsController extends GetxController {
   }
 
   void getPostIntroductionPreference() async {
-    final Either<Failure, bool?> failureOrIntro =
-        await getPostIntroPrefs(NoParams());
+    final Either<Failure, bool?> failureOrIntro = await getPostIntroPrefs(NoParams());
     failureOrIntro.fold((Failure failure) {
       isPostIntro(true);
     }, (bool? value) {
@@ -85,8 +81,7 @@ class SettingsController extends GetxController {
 
   void updateLanguagePreference(String value) async {
     isLanguage(value);
-    final Either<Failure, void> failureOrVoid =
-        await updateLanguagePrefs(UpdateLanguageRequest(value: value));
+    final Either<Failure, void> failureOrVoid = await updateLanguagePrefs(UpdateLanguageRequest(value: value));
     failureOrVoid.fold((Failure failure) {}, (_) {
       isLanguage(value);
     });
@@ -98,8 +93,7 @@ class SettingsController extends GetxController {
   }
 
   void getLanguagePreference() async {
-    final Either<Failure, String?> failureOrLanguage =
-        await getLanguagePrefs(NoParams());
+    final Either<Failure, String?> failureOrLanguage = await getLanguagePrefs(NoParams());
 
     failureOrLanguage.fold((Failure failure) {
       isLanguage('en');

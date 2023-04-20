@@ -31,8 +31,7 @@ class Fixture with _$Fixture {
 
   const Fixture._();
 
-  factory Fixture.fromJson(Map<String, dynamic> json) =>
-      _$FixtureFromJson(json);
+  factory Fixture.fromJson(Map<String, dynamic> json) => _$FixtureFromJson(json);
 
   factory Fixture.empty() => const Fixture(
         awayId: 0,

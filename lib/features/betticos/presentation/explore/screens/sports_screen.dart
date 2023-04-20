@@ -32,14 +32,10 @@ class _SportsScreenState extends State<SportsScreen> {
         return AppLoadingBox(
           loading: controller.isFetchingLiveScores.value,
           child: controller.livescores.isEmpty
-              ? const AppEmptyScreen(
-                  message: 'Oops! No live matches are available.')
+              ? const AppEmptyScreen(message: 'Oops! No live matches are available.')
               : ListView.builder(
-                  padding: isSmallScreen
-                      ? const EdgeInsets.symmetric(horizontal: 16)
-                      : EdgeInsets.zero,
-                  itemBuilder: (BuildContext context, int index) =>
-                      _LiveScoreCard(
+                  padding: isSmallScreen ? const EdgeInsets.symmetric(horizontal: 16) : EdgeInsets.zero,
+                  itemBuilder: (BuildContext context, int index) => _LiveScoreCard(
                     livescore: controller.livescores[index],
                   ),
                   itemCount: controller.livescores.length,
@@ -62,13 +58,11 @@ class _LiveScoreCard extends StatefulWidget {
 }
 
 class _LiveScoreCardState extends State<_LiveScoreCard> {
-  final LiveScoreController liveScoreController =
-      Get.find<LiveScoreController>();
+  final LiveScoreController liveScoreController = Get.find<LiveScoreController>();
 
   Timer? _timer;
 
-  final StreamController<LiveScore?> _liveScoreStreamController =
-      StreamController<LiveScore?>.broadcast();
+  final StreamController<LiveScore?> _liveScoreStreamController = StreamController<LiveScore?>.broadcast();
 
   @override
   void initState() {
@@ -85,8 +79,7 @@ class _LiveScoreCardState extends State<_LiveScoreCard> {
 
   void startBroadcast(int liveScoreId) async {
     _timer = Timer.periodic(const Duration(seconds: 10), (Timer timer) async {
-      final LiveScore? sLiveScore =
-          await liveScoreController.getMatchSLiveScore(liveScoreId);
+      final LiveScore? sLiveScore = await liveScoreController.getMatchSLiveScore(liveScoreId);
 
       _liveScoreStreamController.add(sLiveScore);
     });
@@ -117,8 +110,7 @@ class _LiveScoreCardState extends State<_LiveScoreCard> {
       child: Stack(
         children: <Widget>[
           _TeamCardColumn(livescore: widget.livescore),
-          StreamBuilder<LiveScore?>(builder:
-              (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
+          StreamBuilder<LiveScore?>(builder: (BuildContext context, AsyncSnapshot<LiveScore?> snapshot) {
             final LiveScore? livescore = snapshot.data;
             return Positioned.fill(
               child: Align(

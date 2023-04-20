@@ -75,10 +75,7 @@ class Card extends StatelessWidget {
                       image: DecorationImage(
                         image: NetworkImage(
                           '${AppEndpoints.userImages}/${post.user.photo}',
-                          headers: <String, String>{
-                            'Authorization':
-                                'Bearer ${bController.userToken.value}'
-                          },
+                          headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -232,22 +229,16 @@ class Card extends StatelessWidget {
     );
   }
 
-  Widget _buildAnimatedButton(BuildContext context, int count, bool isLiked,
-      IconData iconOutline, IconData iconSolid, Function()? onTap,
+  Widget _buildAnimatedButton(
+      BuildContext context, int count, bool isLiked, IconData iconOutline, IconData iconSolid, Function()? onTap,
       {bool isDislikeButton = false}) {
     return LikeButton(
       size: 22,
       circleColor: CircleColor(
-          start: isDislikeButton
-              ? const Color(0xFFFF2626)
-              : const Color(0xFFFDB811),
-          end: isDislikeButton
-              ? const Color(0xFFBD1616)
-              : const Color(0xFFFCAF0E)),
+          start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
+          end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E)),
       bubblesColor: isDislikeButton
-          ? const BubblesColor(
-              dotPrimaryColor: Color(0xFFFF2626),
-              dotSecondaryColor: Color(0xFFBD1616))
+          ? const BubblesColor(dotPrimaryColor: Color(0xFFFF2626), dotSecondaryColor: Color(0xFFBD1616))
           : const BubblesColor(
               dotPrimaryColor: Color(0xFFFCA70B),
               dotSecondaryColor: Color(0xFFFC9906),
@@ -255,11 +246,7 @@ class Card extends StatelessWidget {
       likeBuilder: (bool isLiked) {
         return Icon(
           isLiked ? iconSolid : iconOutline,
-          color: isLiked
-              ? (isDislikeButton
-                  ? context.colors.error
-                  : context.colors.primary)
-              : context.colors.text,
+          color: isLiked ? (isDislikeButton ? context.colors.error : context.colors.primary) : context.colors.text,
           size: 22,
         );
       },

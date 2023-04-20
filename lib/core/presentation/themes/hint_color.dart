@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 ///Colors Generated from http://mcg.mbitson.com/
 
 class HintColor {
-  static const MaterialColor color =
-      MaterialColor(_hintPrimaryValue, <int, Color>{
+  static const MaterialColor color = MaterialColor(_hintPrimaryValue, <int, Color>{
     50: Color(0xFFEBEBED),
     100: Color(0xFFF2F2F7),
     200: Color(0xFFE0E0E6),
@@ -18,8 +17,7 @@ class HintColor {
   });
   static const int _hintPrimaryValue = 0xFF56556C;
 
-  static const MaterialColor hintAccent =
-      MaterialColor(_hintAccentValue, <int, Color>{
+  static const MaterialColor hintAccent = MaterialColor(_hintAccentValue, <int, Color>{
     100: Color(0xFF918BFF),
     200: Color(_hintAccentValue),
     400: Color(0xFF3125FF),

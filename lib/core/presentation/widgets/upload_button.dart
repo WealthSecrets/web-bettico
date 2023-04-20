@@ -38,9 +38,7 @@ class _UploadButtonState extends State<UploadButton> {
             side: BorderSide(color: context.colors.primary.shade100, width: 1),
             borderRadius: AppBorderRadius.smallAll,
           ),
-          padding: selected != null
-              ? EdgeInsets.zero
-              : AppPaddings.lH.add(AppPaddings.homeV),
+          padding: selected != null ? EdgeInsets.zero : AppPaddings.lH.add(AppPaddings.homeV),
           backgroundColor: context.colors.primary.shade100,
         );
 
@@ -56,9 +54,7 @@ class _UploadButtonState extends State<UploadButton> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        widget.type == UploadButtonType.files
-                            ? Ionicons.document_outline
-                            : Ionicons.camera_outline,
+                        widget.type == UploadButtonType.files ? Ionicons.document_outline : Ionicons.camera_outline,
                         color: context.colors.hintLight,
                         size: 40,
                       ),

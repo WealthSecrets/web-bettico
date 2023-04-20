@@ -9,6 +9,5 @@ class CreateSubAccountRequest with _$CreateSubAccountRequest {
   const factory CreateSubAccountRequest({
     @JsonKey(name: 'subAcct') required String subAccount,
   }) = _CreateSubAccountRequest;
-  factory CreateSubAccountRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateSubAccountRequestFromJson(json);
+  factory CreateSubAccountRequest.fromJson(Map<String, dynamic> json) => _$CreateSubAccountRequestFromJson(json);
 }

@@ -65,8 +65,7 @@ class TimelineCard extends StatelessWidget {
                   )
                 ]
               : null,
-          borderRadius: ResponsiveWidget.isLargeScreen(context) ||
-                  ResponsiveWidget.isMediumScreen(context)
+          borderRadius: ResponsiveWidget.isLargeScreen(context) || ResponsiveWidget.isMediumScreen(context)
               ? AppBorderRadius.smallAll
               : null,
           border: !ResponsiveWidget.isSmallScreen(context)
@@ -102,10 +101,7 @@ class TimelineCard extends StatelessWidget {
                       image: DecorationImage(
                         image: NetworkImage(
                           '${AppEndpoints.userImages}/${post.user.photo}',
-                          headers: <String, String>{
-                            'Authorization':
-                                'Bearer ${bController.userToken.value}'
-                          },
+                          headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -171,8 +167,7 @@ class TimelineCard extends StatelessWidget {
                       if (pController.myFollowingLikedPost(post.likeUsers))
                         Row(
                           children: <Widget>[
-                            Icon(Ionicons.thumbs_up,
-                                color: context.colors.primary, size: 14),
+                            Icon(Ionicons.thumbs_up, color: context.colors.primary, size: 14),
                             const SizedBox(width: 5),
                             Text(
                               '${'liked_by'.tr} ${pController.myFollowingWhoLikedPost(post.likeUsers)}',
@@ -234,9 +229,7 @@ class TimelineCard extends StatelessWidget {
                       arguments: AppWebViewRouteArgument(
                         title: 'Xviral Webview',
                         url: tappedText,
-                        navigationDelegate:
-                            (NavigationRequest navigation) async =>
-                                NavigationDecision.navigate,
+                        navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
                       ),
                     );
                   }
@@ -355,22 +348,16 @@ class TimelineCard extends StatelessWidget {
     );
   }
 
-  Widget _buildAnimatedButton(BuildContext context, int count, bool isLiked,
-      IconData iconOutline, IconData iconSolid, Function()? onTap,
+  Widget _buildAnimatedButton(
+      BuildContext context, int count, bool isLiked, IconData iconOutline, IconData iconSolid, Function()? onTap,
       {bool isDislikeButton = false}) {
     return LikeButton(
       size: 22,
       circleColor: CircleColor(
-          start: isDislikeButton
-              ? const Color(0xFFFF2626)
-              : const Color(0xFFFDB811),
-          end: isDislikeButton
-              ? const Color(0xFFBD1616)
-              : const Color(0xFFFCAF0E)),
+          start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
+          end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E)),
       bubblesColor: isDislikeButton
-          ? const BubblesColor(
-              dotPrimaryColor: Color(0xFFFF2626),
-              dotSecondaryColor: Color(0xFFBD1616))
+          ? const BubblesColor(dotPrimaryColor: Color(0xFFFF2626), dotSecondaryColor: Color(0xFFBD1616))
           : const BubblesColor(
               dotPrimaryColor: Color(0xFFFCA70B),
               dotSecondaryColor: Color(0xFFFC9906),
@@ -378,11 +365,7 @@ class TimelineCard extends StatelessWidget {
       likeBuilder: (bool isLiked) {
         return Icon(
           isLiked ? iconSolid : iconOutline,
-          color: isLiked
-              ? (isDislikeButton
-                  ? context.colors.error
-                  : context.colors.primary)
-              : context.colors.text,
+          color: isLiked ? (isDislikeButton ? context.colors.error : context.colors.primary) : context.colors.text,
           size: 22,
         );
       },

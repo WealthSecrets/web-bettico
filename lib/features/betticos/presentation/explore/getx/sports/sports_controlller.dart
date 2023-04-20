@@ -24,8 +24,7 @@ class SportsController extends GetxController {
 
   void getLiveScores() async {
     isFetchingLiveScores(true);
-    final Either<Failure, List<LiveScore>> failureOrLiveScores =
-        await fetchLiveScores(const NullLiveScoreRequest());
+    final Either<Failure, List<LiveScore>> failureOrLiveScores = await fetchLiveScores(const NullLiveScoreRequest());
     failureOrLiveScores.fold<void>(
       (Failure failure) {
         isFetchingLiveScores(false);
@@ -39,8 +38,7 @@ class SportsController extends GetxController {
 
   void getSFixtures() async {
     isFetchingFixtures(true);
-    final Either<Failure, List<LiveScore>> failureOrSFixtures =
-        await fetchFixtures(const NullLiveScoreRequest());
+    final Either<Failure, List<LiveScore>> failureOrSFixtures = await fetchFixtures(const NullLiveScoreRequest());
     failureOrSFixtures.fold<void>(
       (Failure failure) {
         isFetchingFixtures(false);

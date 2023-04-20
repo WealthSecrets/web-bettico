@@ -13,10 +13,8 @@ class OnBoardRepositoryImpl extends Repository implements OnBoardRepository {
 
   @override
   Future<Either<Failure, bool>> getOnBoard() async {
-    final Either<Failure, bool> response =
-        await makeLocalRequest(onBoardLocalDataSource.getOnBoard);
-    return response.fold((Failure failure) => left(failure),
-        (bool value) async {
+    final Either<Failure, bool> response = await makeLocalRequest(onBoardLocalDataSource.getOnBoard);
+    return response.fold((Failure failure) => left(failure), (bool value) async {
       return right(value);
     });
   }

@@ -32,15 +32,13 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
 
   @override
   Future<bool?> getIntroPrefs() async {
-    final bool? value =
-        await _preferencesWrapper.getBool(SharedPrefsKeys.intro);
+    final bool? value = await _preferencesWrapper.getBool(SharedPrefsKeys.intro);
     return value;
   }
 
   @override
   Future<bool?> getPostIntroPrefs() async {
-    final bool? value =
-        await _preferencesWrapper.getBool(SharedPrefsKeys.postIntro);
+    final bool? value = await _preferencesWrapper.getBool(SharedPrefsKeys.postIntro);
     return value;
   }
 
@@ -54,8 +52,7 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
 
   @override
   Future<String?> getLanguagePrefs() async {
-    final String value =
-        await _preferencesWrapper.getString(SharedPrefsKeys.language);
+    final String value = await _preferencesWrapper.getString(SharedPrefsKeys.language);
     return value;
   }
 }

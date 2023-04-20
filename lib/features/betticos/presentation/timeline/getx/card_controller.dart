@@ -31,8 +31,7 @@ class CardController extends GetxController {
   void blockTheUser(BuildContext context, String userId) async {
     isLoading(true);
 
-    final Either<Failure, User> failureOrUser =
-        await blockUser(UserRequest(userId: userId));
+    final Either<Failure, User> failureOrUser = await blockUser(UserRequest(userId: userId));
 
     failureOrUser.fold<void>(
       (Failure failure) {
@@ -47,8 +46,7 @@ class CardController extends GetxController {
 
   void deleteUserPost(BuildContext context, String postId) async {
     isLoading(true);
-    final Either<Failure, void> failureOrUser =
-        await deletePost(DeletePostParams(postId: postId));
+    final Either<Failure, void> failureOrUser = await deletePost(DeletePostParams(postId: postId));
 
     failureOrUser.fold<void>(
       (Failure failure) {

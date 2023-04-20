@@ -33,8 +33,7 @@ class Transaction with _$Transaction {
 
   const Transaction._();
 
-  factory Transaction.fromJson(Map<String, dynamic> json) =>
-      _$TransactionFromJson(json);
+  factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);
 
   factory Transaction.mock() => Transaction(
         id: '637c20107dd5261d9bc35bec',
@@ -45,8 +44,7 @@ class Transaction with _$Transaction {
         amount: 450000,
         convertedAmount: 10,
         walletAddress: '0x1325C81eEF0735cD103056DBD9004DE76769689A',
-        transactionHash:
-            '0xd274c5735120ed5a5a4274e872be99b29901feaf23524969e8de9cd7af08f7a9',
+        transactionHash: '0xd274c5735120ed5a5a4274e872be99b29901feaf23524969e8de9cd7af08f7a9',
         provider: 'metamask',
         status: Faker().randomGenerator.element(TransactionStatus.values),
         token: 'wsc',

@@ -8,6 +8,5 @@ class LoginWalletRequest with _$LoginWalletRequest {
   const factory LoginWalletRequest({
     required String wallet,
   }) = _LoginWalletRequest;
-  factory LoginWalletRequest.fromJson(Map<String, dynamic> json) =>
-      _$LoginWalletRequestFromJson(json);
+  factory LoginWalletRequest.fromJson(Map<String, dynamic> json) => _$LoginWalletRequestFromJson(json);
 }

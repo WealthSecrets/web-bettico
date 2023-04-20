@@ -43,8 +43,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
               return true;
             },
             child: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverPersistentHeader(
                     delegate: SliverAppBarDelegate(
@@ -135,8 +134,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
                   }
                   controller.loadAllOddsters(context);
                 },
-                isFollowing:
-                    profileController.checkIfFollowingUser(users[index]),
+                isFollowing: profileController.checkIfFollowingUser(users[index]),
               );
             });
           },
@@ -148,8 +146,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
     );
   }
 
-  Widget _buildListUserRow(
-      BuildContext context, User user, Function() onPressed,
+  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed,
       {bool isFollowingTab = false, bool isFollowing = false}) {
     return GestureDetector(
       onTap: () {

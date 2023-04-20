@@ -11,6 +11,5 @@ class VerifyUserRequest with _$VerifyUserRequest {
     String? photo,
     String? username,
   }) = _VerifyUserRequest;
-  factory VerifyUserRequest.fromJson(Map<String, dynamic> json) =>
-      _$VerifyUserRequestFromJson(json);
+  factory VerifyUserRequest.fromJson(Map<String, dynamic> json) => _$VerifyUserRequestFromJson(json);
 }

@@ -9,6 +9,5 @@ class TeamRequest with _$TeamRequest {
   const factory TeamRequest({
     required int teamId,
   }) = _TeamRequest;
-  factory TeamRequest.fromJson(Map<String, dynamic> json) =>
-      _$TeamRequestFromJson(json);
+  factory TeamRequest.fromJson(Map<String, dynamic> json) => _$TeamRequestFromJson(json);
 }

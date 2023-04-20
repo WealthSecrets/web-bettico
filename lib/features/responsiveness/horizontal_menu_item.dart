@@ -25,15 +25,12 @@ class HorizontalMenuItem extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           onHover: (bool value) {
-            value
-                ? menuController.onHover(route)
-                : menuController.onHover('not hovering');
+            value ? menuController.onHover(route) : menuController.onHover('not hovering');
           },
           borderRadius: BorderRadius.circular(30),
           child: Container(
             decoration: BoxDecoration(
-              color: menuController.isHovering(route) ||
-                      menuController.isActive(route)
+              color: menuController.isHovering(route) || menuController.isActive(route)
                   ? context.colors.lightGrey
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(30),
@@ -42,8 +39,7 @@ class HorizontalMenuItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: menuController.returnIconFor(route),
                 ),
                 Flexible(
@@ -51,9 +47,7 @@ class HorizontalMenuItem extends StatelessWidget {
                     text: name,
                     color: context.colors.textDark,
                     size: !menuController.isActive(route) ? 15 : 16,
-                    weight: !menuController.isActive(route)
-                        ? FontWeight.w600
-                        : FontWeight.bold,
+                    weight: !menuController.isActive(route) ? FontWeight.w600 : FontWeight.bold,
                   ),
                 )
               ],

@@ -14,8 +14,7 @@ class CoinQuote with _$CoinQuote {
 
   const CoinQuote._();
 
-  factory CoinQuote.fromJson(Map<String, dynamic> json) =>
-      _$CoinQuoteFromJson(json);
+  factory CoinQuote.fromJson(Map<String, dynamic> json) => _$CoinQuoteFromJson(json);
 
   factory CoinQuote.mock() => CoinQuote(
         usd: QuoteUsd.mock(),

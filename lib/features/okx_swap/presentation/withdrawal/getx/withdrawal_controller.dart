@@ -35,8 +35,7 @@ class WithdrawalController extends GetxController {
   void getWithdrawalHistory(BuildContext context) async {
     isFetchingWithdrawalHistory(true);
 
-    final Either<Failure, List<WithdrawalHistory>> failureOrDeposits =
-        await fetchWithdrawalHistory(NoParams());
+    final Either<Failure, List<WithdrawalHistory>> failureOrDeposits = await fetchWithdrawalHistory(NoParams());
 
     failureOrDeposits.fold<void>(
       (Failure failure) {
@@ -53,8 +52,7 @@ class WithdrawalController extends GetxController {
   void makeWithdrawal(BuildContext context, {VoidCallback? onSuccess}) async {
     isMakingWithdrawal(true);
 
-    final Either<Failure, WithdrawalResponse> failureOrResponse =
-        await withdraw(
+    final Either<Failure, WithdrawalResponse> failureOrResponse = await withdraw(
       WithdrawalRequest(
         currency: currency.value.currency,
         chain: currency.value.chain!,

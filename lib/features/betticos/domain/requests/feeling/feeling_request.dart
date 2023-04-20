@@ -11,6 +11,5 @@ class FeelingRequest with _$FeelingRequest {
     required String type,
     required String postId,
   }) = _FeelingRequest;
-  factory FeelingRequest.fromJson(Map<String, dynamic> json) =>
-      _$FeelingRequestFromJson(json);
+  factory FeelingRequest.fromJson(Map<String, dynamic> json) => _$FeelingRequestFromJson(json);
 }

@@ -1,8 +1,6 @@
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/data/models/user/user_stats.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
-import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
@@ -17,16 +15,6 @@ import '../../data/models/crypto/network.dart';
 import '../../data/models/crypto/volume.dart';
 
 abstract class P2pRepository {
-  Future<Either<Failure, List<SoccerMatch>>> getLiveMatches(
-    String apiKey,
-    String secretKey,
-  );
-
-  Future<Either<Failure, List<Fixture>>> getFixtures(
-    String apiKey,
-    String secretKey,
-  );
-
   Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedLiveScores(
     int page,
     int limit,
@@ -47,21 +35,6 @@ abstract class P2pRepository {
 
   Future<Either<Failure, Volume>> convertAmount(String symbol, double amount);
 
-  Future<Either<Failure, SoccerMatch?>> getCompetitionMatch(
-    String apiKey,
-    String secretKey,
-    int competitionId,
-    int teamId,
-  );
-
-  Future<Either<Failure, SoccerMatch?>> getFixture(
-    String apiKey,
-    String secretKey,
-    int competitionId,
-    int teamId,
-    String date,
-  );
-
   Future<Either<Failure, Team>> getTeam(int teamId);
 
   Future<Either<Failure, SLeague>> getLeague(int leagueId);
@@ -69,14 +42,6 @@ abstract class P2pRepository {
   Future<Either<Failure, LiveScore>> getSFixture(int fixtureId);
 
   Future<Either<Failure, LiveScore>> getSLiveScore(int liveScoreId);
-
-  Future<Either<Failure, SoccerMatch?>> getTeamMatch(
-    String apiKey,
-    String secretKey,
-    int teamId,
-    int competitionId,
-    String date,
-  );
 
   Future<Either<Failure, Bet>> addBet({
     required double amount,

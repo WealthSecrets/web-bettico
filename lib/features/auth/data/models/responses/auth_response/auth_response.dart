@@ -13,8 +13,7 @@ class AuthResponse with _$AuthResponse {
   }) = _AuthResponse;
   const AuthResponse._();
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) =>
-      _$AuthResponseFromJson(json);
+  factory AuthResponse.fromJson(Map<String, dynamic> json) => _$AuthResponseFromJson(json);
 
   factory AuthResponse.mock() => AuthResponse(
         token: const Uuid().v1(),

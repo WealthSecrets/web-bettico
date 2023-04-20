@@ -51,11 +51,9 @@ class _DepositHistoryScreenState extends State<TransferHistoryScreen> {
               ? ListView.separated(
                   itemBuilder: (BuildContext context, int index) {
                     final TransferHistory transfer = transfers[index];
-                    final Currency? currency =
-                        okxController.getCurrencyByCurrency(transfer.currency);
+                    final Currency? currency = okxController.getCurrencyByCurrency(transfer.currency);
                     final int timestamp = int.parse(transfer.timestamp);
-                    final DateTime date =
-                        DateTime.fromMillisecondsSinceEpoch(timestamp);
+                    final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
                     return ListTile(
                       leading: currency != null && currency.logoLink != null
                           ? SizedBox(
@@ -102,8 +100,7 @@ class _DepositHistoryScreenState extends State<TransferHistoryScreen> {
                     );
                   },
                   itemCount: transfers.length,
-                  separatorBuilder: (_, __) =>
-                      Divider(color: context.colors.lightGrey),
+                  separatorBuilder: (_, __) => Divider(color: context.colors.lightGrey),
                 )
               : const AppEmptyScreen(
                   title: 'Nothing Found',

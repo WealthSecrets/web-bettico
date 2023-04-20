@@ -30,9 +30,7 @@ class StartTime with _$StartTime {
     @JsonKey(name: 'timezone') required String timezone,
   }) = _StartTime;
 
-  factory StartTime.fromJson(Map<String, dynamic> json) =>
-      _$StartTimeFromJson(json);
+  factory StartTime.fromJson(Map<String, dynamic> json) => _$StartTimeFromJson(json);
 
-  factory StartTime.empty() =>
-      const StartTime(date: '', dateTime: '', time: '', timezone: '');
+  factory StartTime.empty() => const StartTime(date: '', dateTime: '', time: '', timezone: '');
 }

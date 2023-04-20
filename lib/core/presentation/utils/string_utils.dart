@@ -41,7 +41,6 @@ class StringUtils {
     return newList.join('-');
   }
 
-  static String getInitials(String name) => name.isNotEmpty
-      ? name.trim().split(RegExp(' +')).map((String s) => s[0]).take(2).join()
-      : '';
+  static String getInitials(String name) =>
+      name.isNotEmpty ? name.trim().split(RegExp(' +')).map((String s) => s[0]).take(2).join() : '';
 }

@@ -21,8 +21,7 @@ class FixtureCard extends StatefulWidget {
 }
 
 class _FixtureCardState extends State<FixtureCard> {
-  final LiveScoreController liveScoreController =
-      Get.find<LiveScoreController>();
+  final LiveScoreController liveScoreController = Get.find<LiveScoreController>();
 
   @override
   Widget build(BuildContext context) {

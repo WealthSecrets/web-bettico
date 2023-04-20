@@ -17,8 +17,7 @@ class TransferHistory with _$TransferHistory {
 
   const TransferHistory._();
 
-  factory TransferHistory.fromJson(Map<String, dynamic> json) =>
-      _$TransferHistoryFromJson(json);
+  factory TransferHistory.fromJson(Map<String, dynamic> json) => _$TransferHistoryFromJson(json);
 
   factory TransferHistory.mock() => const TransferHistory(
         amount: '1',

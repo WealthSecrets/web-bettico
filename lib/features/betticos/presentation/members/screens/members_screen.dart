@@ -44,16 +44,14 @@ class _MembersScreenState extends State<MembersScreen> {
                       () => null,
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
                 ),
         ),
       ),
     );
   }
 
-  Widget _buildListUserRow(
-      BuildContext context, User user, Function() onPressed) {
+  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed) {
     return Row(
       children: <Widget>[
         GestureDetector(

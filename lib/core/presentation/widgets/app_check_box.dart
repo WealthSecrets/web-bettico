@@ -67,8 +67,7 @@ class _AppCheckBoxState extends State<AppCheckBox> {
               duration: const Duration(milliseconds: 700),
               reverseDuration: const Duration(milliseconds: 400),
               transitionBuilder: (Widget child, Animation<double> animation) {
-                final Animation<double> scale =
-                    Tween<double>(begin: 0.0, end: 1.0).animate(animation);
+                final Animation<double> scale = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
                 return ScaleTransition(
                   scale: scale,
                   child: child,
@@ -80,8 +79,7 @@ class _AppCheckBoxState extends State<AppCheckBox> {
                   ? const SizedBox()
                   : Container(
                       decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(2)),
+                        borderRadius: const BorderRadius.all(Radius.circular(2)),
                         color: context.colors.primary,
                       ),
                     ),

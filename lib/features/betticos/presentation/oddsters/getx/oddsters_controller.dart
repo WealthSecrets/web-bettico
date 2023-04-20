@@ -30,8 +30,7 @@ class OddstersController extends GetxController {
 
   void loadAllOddsters(BuildContext context) async {
     isLoading(true);
-    final Either<Failure, List<User>> failureOrOddsters =
-        await getAllOddsters(NoParams());
+    final Either<Failure, List<User>> failureOrOddsters = await getAllOddsters(NoParams());
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isLoading(false);
@@ -46,8 +45,7 @@ class OddstersController extends GetxController {
 
   void searchOddsters(BuildContext context, String query) async {
     isSearchOddsters(true);
-    final Either<Failure, List<User>> failureOrOddsters =
-        await searchAllOddsters(SearchUserRequest(query: query));
+    final Either<Failure, List<User>> failureOrOddsters = await searchAllOddsters(SearchUserRequest(query: query));
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isSearchOddsters(false);

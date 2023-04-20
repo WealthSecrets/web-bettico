@@ -8,6 +8,5 @@ class ReferralRequest with _$ReferralRequest {
   const factory ReferralRequest({
     required String email,
   }) = _ReferralRequest;
-  factory ReferralRequest.fromJson(Map<String, dynamic> json) =>
-      _$ReferralRequestFromJson(json);
+  factory ReferralRequest.fromJson(Map<String, dynamic> json) => _$ReferralRequestFromJson(json);
 }

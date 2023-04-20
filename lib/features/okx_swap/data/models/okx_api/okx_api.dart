@@ -17,10 +17,8 @@ class OkxApi with _$OkxApi {
 
   factory OkxApi.fromJson(Map<String, dynamic> json) => _$OkxApiFromJson(json);
 
-  factory OkxApi.mock() => const OkxApi(
-      apiKey: '0xff028909d090f0298839',
-      ip: '000.000.000.000',
-      perm: 'withdrawal,trade');
+  factory OkxApi.mock() =>
+      const OkxApi(apiKey: '0xff028909d090f0298839', ip: '000.000.000.000', perm: 'withdrawal,trade');
 
   factory OkxApi.empty() => const OkxApi(apiKey: '', ip: '', perm: '');
 }

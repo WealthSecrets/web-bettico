@@ -19,8 +19,7 @@ class SalesController extends GetxController {
 
   void fetchUserStats(BuildContext context) async {
     isGettingStats(true);
-    final Either<Failure, UserStats> failureOrUserStats =
-        await getUserStats(NoParams());
+    final Either<Failure, UserStats> failureOrUserStats = await getUserStats(NoParams());
 
     failureOrUserStats.fold<void>(
       (Failure failure) {

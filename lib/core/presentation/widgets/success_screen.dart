@@ -18,9 +18,7 @@ class SucessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SucessScreenRouteArgument? args = ModalRoute.of(context)!
-        .settings
-        .arguments as SucessScreenRouteArgument?;
+    final SucessScreenRouteArgument? args = ModalRoute.of(context)!.settings.arguments as SucessScreenRouteArgument?;
     return Scaffold(
       body: Padding(
         padding: AppPaddings.bodyH,

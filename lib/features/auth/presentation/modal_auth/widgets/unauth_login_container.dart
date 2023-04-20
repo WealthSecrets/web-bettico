@@ -90,24 +90,18 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                       right: 10,
                       child: AnimatedSwitcher(
                         reverseDuration: Duration.zero,
-                        transitionBuilder:
-                            (Widget? child, Animation<double> animation) {
-                          final Animation<double> offset =
-                              Tween<double>(begin: 0, end: 1.0)
-                                  .animate(animation);
+                        transitionBuilder: (Widget? child, Animation<double> animation) {
+                          final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
                           return ScaleTransition(scale: offset, child: child);
                         },
                         switchInCurve: Curves.elasticOut,
                         duration: const Duration(milliseconds: 700),
                         child: RichText(
                           text: TextSpan(
-                            text: controller.isPhone.value
-                                ? 'login_mobile'.tr
-                                : 'login_email'.tr,
+                            text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                controller.togglePhoneVisibility(
-                                    !controller.isPhone.value);
+                                controller.togglePhoneVisibility(!controller.isPhone.value);
                               },
                             style: const TextStyle(
                               fontWeight: FontWeight.w800,

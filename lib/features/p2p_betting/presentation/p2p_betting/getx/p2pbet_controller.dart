@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:betticos/features/betticos/domain/requests/follow/user_request.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
@@ -10,9 +8,6 @@ import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.d
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_status_score_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/live_score/fixture_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_competition_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/live_score/live_team_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
 import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
@@ -21,16 +16,12 @@ import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dar
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_score_status.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_competition_match.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_fixture.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/live_score/get_team_match.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/transaction/add_transaction.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/transaction/get_user_transactions.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/transaction/update_transaction.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -38,7 +29,7 @@ import '/core/core.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import '/features/p2p_betting/data/models/bet/bet.dart';
 import '/features/p2p_betting/data/models/bettor/bettor.dart';
-import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
+// import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import '/features/p2p_betting/domain/requests/bet/bet_request.dart';
 import '/features/p2p_betting/domain/requests/bet/bettor_request.dart';
 import '/features/p2p_betting/domain/usecases/bet/add_bet.dart';
@@ -56,9 +47,6 @@ class P2PBetController extends GetxController {
     required this.fetchBets,
     required this.fetchStatusBets,
     required this.fetchMyBets,
-    required this.getCompetitionMatch,
-    required this.getTeamMatch,
-    required this.getFixture,
     required this.searchBets,
   });
 
@@ -73,16 +61,12 @@ class P2PBetController extends GetxController {
   final FetchBets fetchBets;
   final FetchStatusBets fetchStatusBets;
   final FetchMyBets fetchMyBets;
-  final GetCompetitionMatch getCompetitionMatch;
-  final GetTeamMatch getTeamMatch;
-  final GetFixture getFixture;
 
   Rx<Bet> bet = Bet.empty().obs;
   RxList<Bet> bets = <Bet>[].obs;
   RxList<Bet> myBets = <Bet>[].obs;
   RxList<Transaction> myTransactions = <Transaction>[].obs;
   RxString filterStatus = 'wins'.obs;
-  Rx<SoccerMatch> match = SoccerMatch.empty().obs;
   Rx<Fixture> fixture = Fixture.empty().obs;
   Rx<LiveScore> liveScore = LiveScore.empty().obs;
   RxList<String> closingBetID = <String>[].obs;
@@ -100,7 +84,6 @@ class P2PBetController extends GetxController {
   RxBool isFetchingCompetitionMatches = false.obs;
   RxBool isFetchingLiveTeamMatch = false.obs;
 
-  // Variables
   RxDouble amount = 0.0.obs;
   RxInt competitionId = (-1).obs;
   RxInt liveScoreId = (-1).obs;
@@ -112,7 +95,6 @@ class P2PBetController extends GetxController {
   RxString choice = ''.obs;
   RxString selectedButton = 'awaiting'.obs;
 
-  // for filtering bets
   RxString title = ''.obs;
   RxString searchStatus = ''.obs;
   RxString paymentType = ''.obs;
@@ -121,7 +103,6 @@ class P2PBetController extends GetxController {
 
   final List<String> buttonTexts = <String>['Awaiting', 'Ongoing', 'Completed'];
 
-  // the base screen controller
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   void resetValues() {
@@ -149,10 +130,6 @@ class P2PBetController extends GetxController {
 
   void setCompetitionId(int value) {
     competitionId(value);
-  }
-
-  void setMatch(SoccerMatch value) {
-    match(value);
   }
 
   void setFixture(Fixture value) {
@@ -207,10 +184,7 @@ class P2PBetController extends GetxController {
       validateAmount(amount.value.toString()) == null;
 
   bool get isDetailsValid =>
-      choice.isNotEmpty &&
-      teamId.value != -1 &&
-      teamSelected.isNotEmpty &&
-      paymentType.value.isNotEmpty;
+      choice.isNotEmpty && teamId.value != -1 && teamSelected.isNotEmpty && paymentType.value.isNotEmpty;
 
   void addNewBet(BuildContext context, String wallet, String txthash) async {
     isAddingBet(true);
@@ -281,8 +255,7 @@ class P2PBetController extends GetxController {
   }) async {
     isAddingTransaction(true);
 
-    final Either<Failure, Transaction> failureOrTransaction =
-        await addTransaction(
+    final Either<Failure, Transaction> failureOrTransaction = await addTransaction(
       TransactionRequest(
         betId: betId,
         userId: bController.user.value.id,
@@ -313,12 +286,10 @@ class P2PBetController extends GetxController {
     );
   }
 
-  void updateBetTransaction(BuildContext context,
-      {required String betId, required String hash}) async {
+  void updateBetTransaction(BuildContext context, {required String betId, required String hash}) async {
     isAddingTransaction(true);
 
-    final Either<Failure, Transaction> failureOrTransaction =
-        await updateTransaction(
+    final Either<Failure, Transaction> failureOrTransaction = await updateTransaction(
       TransactionUpdateRequest(betId: betId, hash: hash),
     );
 
@@ -422,8 +393,7 @@ class P2PBetController extends GetxController {
         status.toLowerCase() == 'ht' ||
         status.toLowerCase() == 'h2') {
       st = 'ongoing';
-    } else if (status.toLowerCase() == 'ft' ||
-        status.toLowerCase() == 'completed') {
+    } else if (status.toLowerCase() == 'ft' || status.toLowerCase() == 'completed') {
       st = 'completed';
     }
 
@@ -482,156 +452,18 @@ class P2PBetController extends GetxController {
         callback?.call();
         if (isMyBets ?? false) {
           final List<Bet> betCopy = List<Bet>.from(myBets);
-          final int valueIndex =
-              betCopy.indexWhere((Bet b) => b.id == value.id);
+          final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
           betCopy[valueIndex] = value;
           myBets.value = betCopy;
         } else {
           final List<Bet> betCopy = List<Bet>.from(bets);
-          final int valueIndex =
-              betCopy.indexWhere((Bet b) => b.id == value.id);
+          final int valueIndex = betCopy.indexWhere((Bet b) => b.id == value.id);
           betCopy[valueIndex] = value;
           bets.value = betCopy;
         }
         getMyBets(filterStatus.value);
       },
     );
-  }
-
-  Future<SoccerMatch?> getLiveCompetitionMatch(
-    BuildContext context,
-    int competitionId,
-    int teamId,
-  ) async {
-    isFetchingCompetitionMatches(true);
-    SoccerMatch? teamMatch;
-    final String response = await rootBundle.loadString(AppAssetJson.liveScore);
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
-    final String apiKey = liveScoreKeys['api_key'] as String;
-    final String secretKey = liveScoreKeys['secret_key'] as String;
-
-    final Either<Failure, SoccerMatch?> failureOrMatches =
-        await getCompetitionMatch(
-      LiveCompetitionRequest(
-        apiKey: apiKey,
-        secretKey: secretKey,
-        competitionId: competitionId,
-        teamId: teamId,
-      ),
-    );
-
-    failureOrMatches.fold<void>(
-      (Failure failure) {
-        isFetchingCompetitionMatches(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (SoccerMatch? value) {
-        isFetchingCompetitionMatches(false);
-        teamMatch = value;
-      },
-    );
-
-    return Future<SoccerMatch?>.value(teamMatch);
-  }
-
-  Future<SoccerMatch?> getTeamFixture(
-    BuildContext context,
-    int competitionId,
-    int teamId,
-    String date,
-  ) async {
-    isFetchingCompetitionMatches(true);
-    SoccerMatch? teamMatch;
-    final String response = await rootBundle.loadString(AppAssetJson.liveScore);
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
-    final String apiKey = liveScoreKeys['api_key'] as String;
-    final String secretKey = liveScoreKeys['secret_key'] as String;
-
-    final Either<Failure, SoccerMatch?> failureOrMatches = await getFixture(
-      FixtureRequest(
-        apiKey: apiKey,
-        secretKey: secretKey,
-        competitionId: competitionId,
-        teamId: teamId,
-        date: date,
-      ),
-    );
-
-    failureOrMatches.fold<void>(
-      (Failure failure) {
-        isFetchingCompetitionMatches(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (SoccerMatch? value) {
-        isFetchingCompetitionMatches(false);
-        teamMatch = value;
-      },
-    );
-
-    return Future<SoccerMatch?>.value(teamMatch);
-  }
-
-  Future<SoccerMatch?> getLiveTeamMatch(
-    BuildContext context,
-    int teamId,
-    int competitionId,
-    String date, {
-    bool? isFixture,
-  }) async {
-    SoccerMatch? teamMatch;
-    isFetchingLiveTeamMatch(true);
-    final String response = await rootBundle.loadString(AppAssetJson.liveScore);
-    final Map<String, dynamic> liveScoreKeys =
-        await json.decode(response) as Map<String, dynamic>;
-    final String apiKey = liveScoreKeys['api_key'] as String;
-    final String secretKey = liveScoreKeys['secret_key'] as String;
-
-    if (isFixture ?? false) {
-      final SoccerMatch? sm =
-          await getTeamFixture(context, competitionId, teamId, date);
-
-      if (sm == null) {
-        teamMatch = null;
-      } else {
-        teamMatch = sm;
-      }
-    } else {
-      final Either<Failure, SoccerMatch?> failureOrMatche = await getTeamMatch(
-        LiveTeamRequest(
-          apiKey: apiKey,
-          secretKey: secretKey,
-          teamId: teamId,
-          competitionId: competitionId,
-          date: date,
-        ),
-      );
-
-      failureOrMatche.fold<void>(
-        (Failure failure) {
-          isFetchingLiveTeamMatch(false);
-          AppSnacks.show(context, message: failure.message);
-        },
-        (SoccerMatch? value) async {
-          isFetchingLiveTeamMatch(false);
-          if (value == null) {
-            final SoccerMatch? sm =
-                await getLiveCompetitionMatch(context, competitionId, teamId);
-
-            if (sm == null) {
-              // fetch fixtures
-            } else {
-              teamMatch = sm;
-            }
-          } else {
-            teamMatch = value;
-          }
-        },
-      );
-    }
-
-    return Future<SoccerMatch?>.value(teamMatch);
   }
 
   void getAllBs() async {
@@ -682,10 +514,7 @@ class P2PBetController extends GetxController {
     getAllStatusBets(context, selectedButton.value);
   }
 
-  bool get isFiltering =>
-      title.isNotEmpty ||
-      status.isNotEmpty ||
-      (from.isNotEmpty && to.isNotEmpty);
+  bool get isFiltering => title.isNotEmpty || status.isNotEmpty || (from.isNotEmpty && to.isNotEmpty);
 
   void resetSearch() {
     title('');
@@ -721,8 +550,7 @@ class P2PBetController extends GetxController {
   void getMyBets(String status) async {
     isFetchingMyBets(true);
 
-    final Either<Failure, List<Bet>> failureOrBets =
-        await fetchMyBets(StatusBetsRequests(status: status));
+    final Either<Failure, List<Bet>> failureOrBets = await fetchMyBets(StatusBetsRequests(status: status));
 
     failureOrBets.fold<void>(
       (Failure failure) {
@@ -739,8 +567,7 @@ class P2PBetController extends GetxController {
     isFetchingTransactions(true);
 
     final Either<Failure, List<Transaction>> failureOrTransactions =
-        await getUserTransactions(
-            UserRequest(userId: bController.user.value.id));
+        await getUserTransactions(UserRequest(userId: bController.user.value.id));
 
     failureOrTransactions.fold<void>(
       (Failure failure) {
@@ -754,8 +581,6 @@ class P2PBetController extends GetxController {
   }
 
   List<Transaction> getBetTransactions(bool? isSale) => myTransactions
-      .where((Transaction trans) => trans.description
-          .toLowerCase()
-          .contains(isSale == true ? 'xviral' : 'bet'))
+      .where((Transaction trans) => trans.description.toLowerCase().contains(isSale == true ? 'xviral' : 'bet'))
       .toList();
 }

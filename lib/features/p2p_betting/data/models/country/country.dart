@@ -15,8 +15,7 @@ class Country with _$Country {
 
   const Country._();
 
-  factory Country.fromJson(Map<String, dynamic> json) =>
-      _$CountryFromJson(json);
+  factory Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
 
   factory Country.mock() => Country(
         id: 1,

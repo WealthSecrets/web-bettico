@@ -25,8 +25,7 @@ class _MarketCardState extends State<MarketCard> {
   Widget build(BuildContext context) {
     final double size = isSmallScreen ? 30 : 40;
     final double percentChange1h = widget.listing.quote.usd.percentChange1h;
-    final Color color =
-        percentChange1h < 0 ? context.colors.error : context.colors.success;
+    final Color color = percentChange1h < 0 ? context.colors.error : context.colors.success;
     return GestureDetector(
       onTap: () async {
         await showMaterialModalBottomSheet<bool?>(

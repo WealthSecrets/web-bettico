@@ -32,48 +32,39 @@ class _TrendsForYouScreenState extends State<TrendsForYouScreen> {
           loading: controller.isLoadingHashtags.value,
           child: SizedBox(
             height: 380,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Viralz',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: context.colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: hashtags.isNotEmpty
-                        ? ListView(
-                            children: hashtags.take(5).map(
-                              (Hashtag hashtag) {
-                                return TrendCard(
-                                  title: 'Tredning in Ghana',
-                                  hashtag: StringUtils.capitalizeFirst(
-                                      hashtag.name.replaceAll('#', '')),
-                                  count: '${hashtag.count}',
-                                  isSelected:
-                                      controller.selectedHashtag.value ==
-                                          hashtag.name.replaceAll('#', ''),
-                                  onPressed: () {
-                                    controller
-                                            .textEditingController.value.text =
-                                        hashtag.name.replaceAll('#', '');
-                                    controller.setSelectedHashtag(
-                                        hashtag.name.replaceAll('#', ''));
-                                    controller.navigateToSearchPage();
-                                    controller.getFilteredPosts(1);
-                                  },
-                                );
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+              Text(
+                'Viralz',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: context.colors.black,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: hashtags.isNotEmpty
+                    ? ListView(
+                        children: hashtags.take(5).map(
+                          (Hashtag hashtag) {
+                            return TrendCard(
+                              title: 'Tredning in Ghana',
+                              hashtag: StringUtils.capitalizeFirst(hashtag.name.replaceAll('#', '')),
+                              count: '${hashtag.count}',
+                              isSelected: controller.selectedHashtag.value == hashtag.name.replaceAll('#', ''),
+                              onPressed: () {
+                                controller.textEditingController.value.text = hashtag.name.replaceAll('#', '');
+                                controller.setSelectedHashtag(hashtag.name.replaceAll('#', ''));
+                                controller.navigateToSearchPage();
+                                controller.getFilteredPosts(1);
                               },
-                            ).toList(),
-                          )
-                        : const AppEmptyScreen(
-                            message: 'No popular hashtags were found.'),
-                  ),
-                ]),
+                            );
+                          },
+                        ).toList(),
+                      )
+                    : const AppEmptyScreen(message: 'No popular hashtags were found.'),
+              ),
+            ]),
           ),
         );
       },

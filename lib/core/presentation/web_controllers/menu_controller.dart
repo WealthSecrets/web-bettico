@@ -60,9 +60,7 @@ class MenuController extends GetxController {
     return Icon(
       icon,
       size: 24,
-      color: isHovering(itemName)
-          ? const Color(0xFF3d3d3d)
-          : const Color(0xFFD3D3D3),
+      color: isHovering(itemName) ? const Color(0xFF3d3d3d) : const Color(0xFFD3D3D3),
     );
   }
 }

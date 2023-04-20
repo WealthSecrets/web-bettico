@@ -15,6 +15,5 @@ class ConversionRequest with _$ConversionRequest {
     @JsonKey(name: 'quoteId') required String quoteId,
     @JsonKey(name: 'clTReqId') required String clientOrderId,
   }) = _ConversionRequest;
-  factory ConversionRequest.fromJson(Map<String, dynamic> json) =>
-      _$ConversionRequestFromJson(json);
+  factory ConversionRequest.fromJson(Map<String, dynamic> json) => _$ConversionRequestFromJson(json);
 }

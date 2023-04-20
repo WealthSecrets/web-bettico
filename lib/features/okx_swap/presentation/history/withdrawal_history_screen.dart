@@ -50,13 +50,10 @@ class _DepositHistoryScreenState extends State<WithdrawalHistoryScreen> {
           child: withdrawals.isNotEmpty
               ? ListView.separated(
                   itemBuilder: (BuildContext context, int index) {
-                    final WithdrawalHistory withdrawal =
-                        controller.withdrawals[index];
-                    final Currency? currency =
-                        okxController.getCurrency(withdrawal.chain);
+                    final WithdrawalHistory withdrawal = controller.withdrawals[index];
+                    final Currency? currency = okxController.getCurrency(withdrawal.chain);
                     final int timestamp = int.parse(withdrawal.timestamp);
-                    final DateTime date =
-                        DateTime.fromMillisecondsSinceEpoch(timestamp);
+                    final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
                     return ListTile(
                       leading: currency != null && currency.logoLink != null
                           ? SizedBox(
@@ -103,8 +100,7 @@ class _DepositHistoryScreenState extends State<WithdrawalHistoryScreen> {
                     );
                   },
                   itemCount: withdrawals.length,
-                  separatorBuilder: (_, __) =>
-                      Divider(color: context.colors.lightGrey),
+                  separatorBuilder: (_, __) => Divider(color: context.colors.lightGrey),
                 )
               : const AppEmptyScreen(
                   title: 'Nothing Found',

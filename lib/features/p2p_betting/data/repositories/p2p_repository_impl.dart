@@ -3,7 +3,6 @@ import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/data/models/user/user_stats.dart';
 import 'package:betticos/features/betticos/data/models/listpage/listpage.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
 import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
@@ -20,7 +19,6 @@ import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
 import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
-import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
 import '../../domain/repositories/p2p_repository.dart';
 import '../../domain/requests/bet/bettor_request.dart';
 import '../models/crypto/network.dart';
@@ -34,76 +32,6 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
 
   final P2pRemoteDataSource p2pRemoteDataSource;
   final AuthLocalDataSource authLocalDataSource;
-
-  @override
-  Future<Either<Failure, List<SoccerMatch>>> getLiveMatches(
-    String apiKey,
-    String secretKey,
-  ) =>
-      makeRequest(
-        p2pRemoteDataSource.getLiveMatches(apiKey, secretKey),
-      );
-
-  @override
-  Future<Either<Failure, List<Fixture>>> getFixtures(
-    String apiKey,
-    String secretKey,
-  ) =>
-      makeRequest(
-        p2pRemoteDataSource.getFixtures(apiKey, secretKey),
-      );
-
-  @override
-  Future<Either<Failure, SoccerMatch?>> getCompetitionMatch(
-    String apiKey,
-    String secretKey,
-    int competitionId,
-    int teamId,
-  ) =>
-      makeRequest(
-        p2pRemoteDataSource.getCompetitionMatch(
-          apiKey,
-          secretKey,
-          competitionId,
-          teamId,
-        ),
-      );
-
-  @override
-  Future<Either<Failure, SoccerMatch?>> getFixture(
-    String apiKey,
-    String secretKey,
-    int competitionId,
-    int teamId,
-    String date,
-  ) =>
-      makeRequest(
-        p2pRemoteDataSource.getFixture(
-          apiKey,
-          secretKey,
-          competitionId,
-          teamId,
-          date,
-        ),
-      );
-
-  @override
-  Future<Either<Failure, SoccerMatch?>> getTeamMatch(
-    String apiKey,
-    String secretKey,
-    int teamId,
-    int competitionId,
-    String date,
-  ) =>
-      makeRequest(
-        p2pRemoteDataSource.getTeamMatch(
-          apiKey,
-          secretKey,
-          teamId,
-          competitionId,
-          date,
-        ),
-      );
 
   @override
   Future<Either<Failure, Bet>> addBet({
@@ -236,28 +164,23 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
       );
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchBets() =>
-      makeRequest(p2pRemoteDataSource.fetchBets());
+  Future<Either<Failure, List<Bet>>> fetchBets() => makeRequest(p2pRemoteDataSource.fetchBets());
 
   @override
-  Future<Either<Failure, UserStats>> getUserStats() =>
-      makeRequest(p2pRemoteDataSource.getUserStats());
+  Future<Either<Failure, UserStats>> getUserStats() => makeRequest(p2pRemoteDataSource.getUserStats());
 
   @override
-  Future<Either<Failure, List<SLeague>>> fetchLeagues() =>
-      makeRequest(p2pRemoteDataSource.fetchLeagues());
+  Future<Either<Failure, List<SLeague>>> fetchLeagues() => makeRequest(p2pRemoteDataSource.fetchLeagues());
 
   @override
   Future<Either<Failure, List<Bet>>> fetchStatusBets(String status) =>
       makeRequest(p2pRemoteDataSource.fetchStatusBets(status));
 
   @override
-  Future<Either<Failure, List<Bet>>> fetchMyBets(String status) =>
-      makeRequest(p2pRemoteDataSource.fetchMyBets(status));
+  Future<Either<Failure, List<Bet>>> fetchMyBets(String status) => makeRequest(p2pRemoteDataSource.fetchMyBets(status));
 
   @override
-  Future<Either<Failure, List<Transaction>>> fetchMyTransactions(
-          String userId) =>
+  Future<Either<Failure, List<Transaction>>> fetchMyTransactions(String userId) =>
       makeRequest(p2pRemoteDataSource.fetchMyTransactions(userId));
 
   @override
@@ -274,8 +197,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
     int limit,
     int leagueId,
   ) =>
-      makeRequest(
-          p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
+      makeRequest(p2pRemoteDataSource.fetchPaginatedLiveScores(page, limit, leagueId));
 
   @override
   Future<Either<Failure, List<LiveScore>>> fetchLiveScores({int? leagueId}) =>
@@ -291,16 +213,13 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
     int limit,
     int leagueId,
   ) =>
-      makeRequest(
-          p2pRemoteDataSource.fetchPaginatedFixtures(page, limit, leagueId));
+      makeRequest(p2pRemoteDataSource.fetchPaginatedFixtures(page, limit, leagueId));
 
   @override
-  Future<Either<Failure, Team>> getTeam(int teamId) =>
-      makeRequest(p2pRemoteDataSource.getTeam(teamId));
+  Future<Either<Failure, Team>> getTeam(int teamId) => makeRequest(p2pRemoteDataSource.getTeam(teamId));
 
   @override
-  Future<Either<Failure, User>> updateUserBonus(
-      {required String type, required double amount}) async {
+  Future<Either<Failure, User>> updateUserBonus({required String type, required double amount}) async {
     final Either<Failure, User> response = await makeRequest(
       p2pRemoteDataSource.updateBonus(
         UserBonusRequest(
@@ -334,8 +253,7 @@ class P2pRepositoryImpl extends Repository implements P2pRepository {
   }
 
   @override
-  Future<Either<Failure, SLeague>> getLeague(int leagueId) =>
-      makeRequest(p2pRemoteDataSource.getLeague(leagueId));
+  Future<Either<Failure, SLeague>> getLeague(int leagueId) => makeRequest(p2pRemoteDataSource.getLeague(leagueId));
 
   @override
   Future<Either<Failure, LiveScore>> getSFixture(int fixtureId) =>

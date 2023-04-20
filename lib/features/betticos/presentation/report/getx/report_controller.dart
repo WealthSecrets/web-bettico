@@ -42,8 +42,7 @@ class ReportController extends GetxController {
     );
   }
 
-  void navigateToAddReport(BuildContext context, String type,
-      {String? postId, String? userId}) async {
+  void navigateToAddReport(BuildContext context, String type, {String? postId, String? userId}) async {
     Get.back<void>();
     final dynamic value = await Get.toNamed<dynamic>(
       AppRoutes.report,

@@ -18,8 +18,7 @@ class CurrencyPair with _$CurrencyPair {
 
   const CurrencyPair._();
 
-  factory CurrencyPair.fromJson(Map<String, dynamic> json) =>
-      _$CurrencyPairFromJson(json);
+  factory CurrencyPair.fromJson(Map<String, dynamic> json) => _$CurrencyPairFromJson(json);
 
   factory CurrencyPair.mock() => const CurrencyPair(
         baseCurrency: 'BTC',

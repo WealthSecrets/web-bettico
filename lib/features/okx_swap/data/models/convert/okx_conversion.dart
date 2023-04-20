@@ -22,8 +22,7 @@ class OkxConversion with _$OkxConversion {
 
   const OkxConversion._();
 
-  factory OkxConversion.fromJson(Map<String, dynamic> json) =>
-      _$OkxConversionFromJson(json);
+  factory OkxConversion.fromJson(Map<String, dynamic> json) => _$OkxConversionFromJson(json);
 
   factory OkxConversion.mock() => const OkxConversion(
         baseCurrency: 'ETH',

@@ -9,8 +9,6 @@ class AppDateUtils {
 
   static int calculateDifference(DateTime date) {
     final DateTime now = DateTime.now();
-    return DateTime(date.year, date.month, date.day)
-        .difference(DateTime(now.year, now.month, now.day))
-        .inDays;
+    return DateTime(date.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays;
   }
 }

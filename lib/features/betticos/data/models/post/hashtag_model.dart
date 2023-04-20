@@ -13,8 +13,7 @@ class Hashtag with _$Hashtag {
 
   const Hashtag._();
 
-  factory Hashtag.fromJson(Map<String, dynamic> json) =>
-      _$HashtagFromJson(json);
+  factory Hashtag.fromJson(Map<String, dynamic> json) => _$HashtagFromJson(json);
 
   factory Hashtag.empty() => const Hashtag(name: '#newpost', count: 1);
 }

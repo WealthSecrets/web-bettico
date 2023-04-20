@@ -59,8 +59,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            onPressed: () =>
-                navigationController.navigateTo(AppRoutes.conversionHistory),
+            onPressed: () => navigationController.navigateTo(AppRoutes.conversionHistory),
             icon: Image.asset(
               AssetImages.tansactionHistory,
               height: 24,
@@ -77,12 +76,10 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
 
           final User user = Get.find<BaseScreenController>().user.value;
 
-          final Balance? fromBalance = controller
-              .getCurrencyBalance(controller.fromCurrency.value.currency);
+          final Balance? fromBalance = controller.getCurrencyBalance(controller.fromCurrency.value.currency);
 
           return AppLoadingBox(
-            loading: controller.isConvertScreenLoading ||
-                registerController.isLoading,
+            loading: controller.isConvertScreenLoading || registerController.isLoading,
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
               child: user.okx == null
@@ -91,8 +88,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                       ? NoTradingApiKey()
                       : Column(
                           children: <Widget>[
-                            if (!(controller.isConvertScreenLoading ||
-                                registerController.isLoading)) ...<Widget>[
+                            if (!(controller.isConvertScreenLoading || registerController.isLoading)) ...<Widget>[
                               if (fromBalance != null) ...<Widget>[
                                 Text(
                                   'From Balance',
@@ -126,8 +122,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                                 ),
                               const SizedBox(height: 24),
                             ],
-                            if (controller.isConvertScreenLoading ||
-                                registerController.isLoading)
+                            if (controller.isConvertScreenLoading || registerController.isLoading)
                               const Align(
                                 alignment: Alignment.center,
                                 child: LoadingLogo(height: 14, width: 14),
@@ -154,8 +149,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                                   controller.getCurrencyPair(context);
                                 },
                                 validator: controller.onFromCurrencyValidator,
-                                onChanged:
-                                    controller.onFromCurrencyInputChanged,
+                                onChanged: controller.onFromCurrencyInputChanged,
                                 options: controller.options,
                               ),
                             ),
@@ -201,12 +195,10 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                               backgroundColor: context.colors.primary,
                               enabled: controller.quoteAmount.isNotEmpty,
                               onPressed: () async {
-                                controller.getConversionQuote(context,
-                                    () async {
+                                controller.getConversionQuote(context, () async {
                                   await showMaterialModalBottomSheet<void>(
                                     bounce: true,
-                                    animationCurve:
-                                        Curves.fastLinearToSlowEaseIn,
+                                    animationCurve: Curves.fastLinearToSlowEaseIn,
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(30),
@@ -216,14 +208,8 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                                     builder: (BuildContext context) {
                                       return ConstrainedBox(
                                         constraints: BoxConstraints(
-                                          maxHeight: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .55,
-                                          minHeight: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .45,
+                                          maxHeight: MediaQuery.of(context).size.height * .55,
+                                          minHeight: MediaQuery.of(context).size.height * .45,
                                         ),
                                         child: const ClipRRect(
                                           borderRadius: BorderRadius.only(

@@ -26,8 +26,7 @@ import '../models/listing/listing_model.dart';
 import 'betticos_remote_data_source.dart';
 
 class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
-  const BetticosRemoteDataSourceImpl({required AppHTTPClient client})
-      : _client = client;
+  const BetticosRemoteDataSourceImpl({required AppHTTPClient client}) : _client = client;
   final AppHTTPClient _client;
 
   @override
@@ -58,8 +57,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<void> deletePost(String postId) async {
-    await _client
-        .delete(BetticosEndpoints.thePost(postId), body: <String, dynamic>{});
+    await _client.delete(BetticosEndpoints.thePost(postId), body: <String, dynamic>{});
   }
 
   @override
@@ -120,8 +118,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<Post>> fetchPosts() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.posts);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.posts);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Post>.from(
       items.map<Post>(
@@ -132,19 +129,14 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<PaginatedResponseData<Post>> explorePosts(int page, int limit) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.explore(page, limit));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.explore(page, limit));
     return PaginatedResponseData<Post>.fromJson(
-        json,
-        (Object? j) => j == null
-            ? Post.empty()
-            : Post.fromJson(j as Map<String, dynamic>));
+        json, (Object? j) => j == null ? Post.empty() : Post.fromJson(j as Map<String, dynamic>));
   }
 
   @override
   Future<List<Post>> fetchFollowingPosts() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.followingPosts);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.followingPosts);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Post>.from(
       items.map<Post>(
@@ -172,15 +164,13 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<User> getReferralCode() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.referCode);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.referCode);
     return User.fromJson(json['user'] as Map<String, dynamic>);
   }
 
   @override
   Future<List<Post>> fetchPostComments(String postId) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.postComments(postId));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.postComments(postId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Post>.from(
       items.map<Post>(
@@ -209,14 +199,13 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<User> blockUser({required String userId}) async {
-    final Map<String, dynamic> json = await _client
-        .post(BetticosEndpoints.blockUser(userId), body: <String, dynamic>{});
+    final Map<String, dynamic> json =
+        await _client.post(BetticosEndpoints.blockUser(userId), body: <String, dynamic>{});
     return User.fromJson(json['user'] as Map<String, dynamic>);
   }
 
   @override
-  Future<Subscription> subscribeToUser(
-      {required SubscribeRequest request}) async {
+  Future<Subscription> subscribeToUser({required SubscribeRequest request}) async {
     final Map<String, dynamic> json = await _client.post(
       BetticosEndpoints.subscription,
       body: request.toJson(),
@@ -262,8 +251,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<Post>> fetchSubscribedOddbox() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.subscribedOddboxes);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.subscribedOddboxes);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Post>.from(
       items.map<Post>(
@@ -274,8 +262,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<User>> getMyMembers() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.members);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.members);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<User>.from(
       items.map<User>(
@@ -286,8 +273,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<User>> getMyFollowers(String userId) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.followers(userId));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.followers(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<User>.from(
       items.map<User>(
@@ -298,8 +284,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<User>> getMyFollowings(String userId) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.followings(userId));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.followings(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<User>.from(
       items.map<User>(
@@ -310,8 +295,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<Post>> getMyPosts(String userId) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.myPosts(userId));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.myPosts(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Post>.from(
       items.map<Post>(
@@ -322,8 +306,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<Post>> getMyOddboxes(String userId) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.myOddboxes(userId));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.myOddboxes(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Post>.from(
       items.map<Post>(
@@ -334,14 +317,12 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<void> unfollowUser(String userId) async {
-    await _client.delete(BetticosEndpoints.unfollowUser(userId),
-        body: <String, dynamic>{});
+    await _client.delete(BetticosEndpoints.unfollowUser(userId), body: <String, dynamic>{});
   }
 
   @override
   Future<List<User>> getAllOddsters() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.oddsters);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.oddsters);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<User>.from(
       items.map<User>(
@@ -352,8 +333,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<User>> searchAllOddsters(String query) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.searchOddsters(query));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.searchOddsters(query));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<User>.from(
       items.map<User>(
@@ -364,8 +344,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<User>> searchAllUsers(String query) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.searchUsers(query));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.searchUsers(query));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<User>.from(
       items.map<User>(
@@ -376,8 +355,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<ReportOption>> getReportOptions(String type) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.optionsByType(type));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.optionsByType(type));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<ReportOption>.from(
       items.map<ReportOption>(
@@ -388,8 +366,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<ListPage<Post>> fetchPaginatedPosts(int page, int limit) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.paginatedPosts(page, limit));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.paginatedPosts(page, limit));
     final List<dynamic> items = json['items'] as List<dynamic>;
     final List<Post> posts = List<Post>.from(
       items.map<Post>(
@@ -404,8 +381,7 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<List<Listing>> fetchListings() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.listings);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.listings);
     final List<dynamic> items = json['data'] as List<dynamic>;
     return List<Listing>.from(
       items.map<Listing>(
@@ -416,15 +392,13 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
 
   @override
   Future<Listing> getListing({required String symbol}) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.listing(symbol));
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.listing(symbol));
     return Listing.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
   Future<List<Hashtag>> fetchHashtags() async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.hashtags);
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.hashtags);
     final List<dynamic> items = json['data'] as List<dynamic>;
     return List<Hashtag>.from(
       items.map<Hashtag>(
@@ -434,10 +408,8 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<SearchResponse> searchPosts(
-      String keyword, int page, int limit) async {
-    final Map<String, dynamic> json =
-        await _client.get(BetticosEndpoints.searchPosts(keyword, page, limit));
+  Future<SearchResponse> searchPosts(String keyword, int page, int limit) async {
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.searchPosts(keyword, page, limit));
     return SearchResponse.fromJson(json['data'] as Map<String, dynamic>);
   }
 }

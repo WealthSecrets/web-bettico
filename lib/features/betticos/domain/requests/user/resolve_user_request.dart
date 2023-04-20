@@ -10,6 +10,5 @@ class ResolveUserRequest with _$ResolveUserRequest {
   const factory ResolveUserRequest({
     required String userId,
   }) = _ResolveUserRequest;
-  factory ResolveUserRequest.fromJson(Map<String, dynamic> json) =>
-      _$ResolveUserRequestFromJson(json);
+  factory ResolveUserRequest.fromJson(Map<String, dynamic> json) => _$ResolveUserRequestFromJson(json);
 }

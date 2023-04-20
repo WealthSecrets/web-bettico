@@ -16,8 +16,7 @@ class SubAccountFundsRequest with _$SubAccountFundsRequest {
 
   const SubAccountFundsRequest._();
 
-  factory SubAccountFundsRequest.fromJson(Map<String, dynamic> json) =>
-      _$SubAccountFundsRequestFromJson(json);
+  factory SubAccountFundsRequest.fromJson(Map<String, dynamic> json) => _$SubAccountFundsRequestFromJson(json);
 
   factory SubAccountFundsRequest.mock() => const SubAccountFundsRequest(
         amount: '0.1',
