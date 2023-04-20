@@ -38,6 +38,5 @@ class CustomScreen extends StatelessWidget {
     );
   }
 
-  bool isLargeScreen(BuildContext context) =>
-      ResponsiveWidget.isLargeScreen(context);
+  bool isLargeScreen(BuildContext context) => ResponsiveWidget.isLargeScreen(context);
 }

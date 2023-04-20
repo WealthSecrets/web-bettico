@@ -45,8 +45,7 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                         onTap: () {
                           Navigator.of(context).push<void>(
                             MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  PostDetailsScreen(post: post),
+                              builder: (BuildContext context) => PostDetailsScreen(post: post),
                             ),
                           );
                         },
@@ -54,10 +53,8 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                           context,
                           pstId: post.id,
                         ),
-                        onLikeTap: () => controller
-                            .likeThePost(context, post.id, isOddbox: true),
-                        onDislikeTap: () => controller
-                            .dislikeThePost(context, post.id, isOddbox: true),
+                        onLikeTap: () => controller.likeThePost(context, post.id, isOddbox: true),
+                        onDislikeTap: () => controller.dislikeThePost(context, post.id, isOddbox: true),
                       );
                     },
                   ),

@@ -25,24 +25,20 @@ class UpdatesTab extends StatelessWidget {
             padding: AppPaddings.lA,
             itemCount: topPosts.length,
             itemBuilder: (BuildContext context, int index) {
-              return _UserListRow(
-                  controller: controller, user: topPosts[index].user);
+              return _UserListRow(controller: controller, user: topPosts[index].user);
             },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
           );
   }
 }
 
 class _UserListRow extends StatelessWidget {
-  _UserListRow({Key? key, required this.controller, required this.user})
-      : super(key: key);
+  _UserListRow({Key? key, required this.controller, required this.user}) : super(key: key);
 
   final TimelineController controller;
   final User user;
 
-  final BaseScreenController baseScreenController =
-      Get.find<BaseScreenController>();
+  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +61,7 @@ class _UserListRow extends StatelessWidget {
               image: DecorationImage(
                 image: NetworkImage(
                   '${AppEndpoints.userImages}/${user.photo}',
-                  headers: <String, String>{
-                    'Authorization':
-                        'Bearer ${baseScreenController.userToken.value}'
-                  },
+                  headers: <String, String>{'Authorization': 'Bearer ${baseScreenController.userToken.value}'},
                 ),
                 fit: BoxFit.cover,
               ),
@@ -120,9 +113,7 @@ class _UserListRow extends StatelessWidget {
             Text(
               '${averageUserPosts.toStringAsFixed(2)}%',
               style: TextStyle(
-                color: averageUserPosts >= 50
-                    ? context.colors.success
-                    : context.colors.error,
+                color: averageUserPosts >= 50 ? context.colors.success : context.colors.error,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),

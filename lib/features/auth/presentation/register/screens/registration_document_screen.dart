@@ -7,12 +7,7 @@ import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
 import '../../../../responsiveness/constants/web_controller.dart';
 
-const List<String> documentTypes = <String>[
-  'Passport',
-  'Voter ID',
-  'National Card',
-  'Driver\'s License'
-];
+const List<String> documentTypes = <String>['Passport', 'Voter ID', 'National Card', 'Driver\'s License'];
 
 class RegistrationDocumentScreen extends GetWidget<RegisterController> {
   RegistrationDocumentScreen({Key? key}) : super(key: key);
@@ -42,9 +37,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
             return SafeArea(
               child: Center(
                 child: SizedBox(
-                  width: ResponsiveWidget.isSmallScreen(context)
-                      ? double.infinity
-                      : 450,
+                  width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                   child: SingleChildScrollView(
                     padding: AppPaddings.lH.add(AppPaddings.lV),
                     child: AppAnimatedColumn(
@@ -74,10 +67,8 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             fontWeight: FontWeight.w700,
                             fontSize: 10,
                           ),
-                          titleBuilder: (_, String documentType) =>
-                              documentType,
-                          onChanged:
-                              controller.onIdentificationTypeInputChanged,
+                          titleBuilder: (_, String documentType) => documentType,
+                          onChanged: controller.onIdentificationTypeInputChanged,
                           options: documentTypes,
                         ),
                         const AppSpacing(v: 8),
@@ -92,8 +83,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             fontSize: 10,
                           ),
                           validator: controller.validateIdentificationNumber,
-                          onChanged:
-                              controller.onIdentificationNumberInputChanged,
+                          onChanged: controller.onIdentificationNumberInputChanged,
                         ),
                         AppDatePicker(
                           labelText: 'exp_date'.tr.toUpperCase(),
@@ -104,8 +94,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             fontSize: 10,
                           ),
                           validator: controller.validateExpiryDate,
-                          onDateTimeChanged:
-                              controller.onExpiryDateInputChanged,
+                          onDateTimeChanged: controller.onExpiryDateInputChanged,
                         ),
                         const AppSpacing(v: 35),
                         UploadButton(
@@ -118,8 +107,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                           () => AppButton(
                             enabled: controller.documentFormIsValid,
                             borderRadius: AppBorderRadius.largeAll,
-                            onPressed: () =>
-                                controller.uploadUserIdentification(context),
+                            onPressed: () => controller.uploadUserIdentification(context),
                             child: Text(
                               'next'.tr.toUpperCase(),
                               style: const TextStyle(
@@ -139,8 +127,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                                   Get.toNamed<void>(AppRoutes.profilePhoto);
                                 } else {
                                   Get.offAllNamed<void>(AppRoutes.home);
-                                  menuController
-                                      .changeActiveItemTo(AppRoutes.timeline);
+                                  menuController.changeActiveItemTo(AppRoutes.timeline);
                                 }
                               } else {
                                 Get.toNamed<void>(AppRoutes.profilePhoto);

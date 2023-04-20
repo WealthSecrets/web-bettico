@@ -18,12 +18,9 @@ class ConversionSuccessScreen extends StatelessWidget {
     return Scaffold(
       body: Obx(
         () {
-          final ConversionResponse response =
-              controller.currentConversion.value;
-          final Currency? baseCurrency =
-              controller.getCurrencyByCurrency(response.baseCurrency);
-          final Currency? quoteCurrency =
-              controller.getCurrencyByCurrency(response.quoteCurrency);
+          final ConversionResponse response = controller.currentConversion.value;
+          final Currency? baseCurrency = controller.getCurrencyByCurrency(response.baseCurrency);
+          final Currency? quoteCurrency = controller.getCurrencyByCurrency(response.quoteCurrency);
           return Padding(
             padding: AppPaddings.bodyH,
             child: Column(
@@ -85,8 +82,7 @@ class ConversionSuccessScreen extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.primary,
-                        onPressed: () => navigationController
-                            .navigateTo(AppRoutes.conversionHistory),
+                        onPressed: () => navigationController.navigateTo(AppRoutes.conversionHistory),
                         child: const Text(
                           'VIEW HISTORY',
                           style: TextStyle(

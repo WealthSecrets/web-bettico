@@ -71,8 +71,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  onPressed: () =>
-                      Get.toNamed<void>(AppRoutes.p2pBettingHistory),
+                  onPressed: () => Get.toNamed<void>(AppRoutes.p2pBettingHistory),
                 ),
                 if (actions != null) ...actions!
               ],
@@ -86,9 +85,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                   Icon(
                     Ionicons.wallet_sharp,
                     size: 20,
-                    color: walletAddress.isEmpty
-                        ? context.colors.grey
-                        : context.colors.primary,
+                    color: walletAddress.isEmpty ? context.colors.grey : context.colors.primary,
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -116,9 +113,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                             ? context.colors.grey.withOpacity(.3)
                             : context.colors.success.withOpacity(.3),
                         border: Border.all(
-                          color: walletAddress.isEmpty
-                              ? context.colors.grey
-                              : context.colors.success,
+                          color: walletAddress.isEmpty ? context.colors.grey : context.colors.success,
                           width: 1,
                         ),
                       ),
@@ -127,9 +122,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                         style: context.overline.copyWith(
                           fontSize: 8,
                           fontWeight: FontWeight.w700,
-                          color: walletAddress.isEmpty
-                              ? context.colors.text
-                              : context.colors.success,
+                          color: walletAddress.isEmpty ? context.colors.text : context.colors.success,
                         ),
                       ),
                     ),

@@ -32,8 +32,7 @@ class TimelineImageDivider extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
-                        FullImage(imageAddress: images[0], token: token),
+                    builder: (BuildContext context) => FullImage(imageAddress: images[0], token: token),
                   ),
                 );
               },
@@ -44,9 +43,7 @@ class TimelineImageDivider extends StatelessWidget {
                   image: DecorationImage(
                     image: NetworkImage(
                       '${AppEndpoints.postImages}/${images[0]}',
-                      headers: <String, String>{
-                        'Authorization': 'Bearer $token'
-                      },
+                      headers: <String, String>{'Authorization': 'Bearer $token'},
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -72,8 +69,7 @@ class TimelineImageDivider extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-                builder: (BuildContext context) =>
-                    FullImage(imageAddress: images[0], token: token)));
+                builder: (BuildContext context) => FullImage(imageAddress: images[0], token: token)));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
@@ -85,8 +81,7 @@ class TimelineImageDivider extends StatelessWidget {
     );
   }
 
-  Widget _buildRowImages(
-      BuildContext context, String image1, String image2, double height) {
+  Widget _buildRowImages(BuildContext context, String image1, String image2, double height) {
     return Row(
       children: <Widget>[
         Expanded(
@@ -95,8 +90,7 @@ class TimelineImageDivider extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
-                        FullImage(imageAddress: image1, token: token)));
+                    builder: (BuildContext context) => FullImage(imageAddress: image1, token: token)));
           },
           child: Container(
             height: height,
@@ -119,8 +113,7 @@ class TimelineImageDivider extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
-                        FullImage(imageAddress: image2, token: token)));
+                    builder: (BuildContext context) => FullImage(imageAddress: image2, token: token)));
           },
           child: Container(
             height: height,
@@ -140,8 +133,7 @@ class TimelineImageDivider extends StatelessWidget {
     );
   }
 
-  Widget _buildColumnImages(
-      BuildContext context, String image1, String image2, double height) {
+  Widget _buildColumnImages(BuildContext context, String image1, String image2, double height) {
     return SizedBox(
       height: 235,
       child: Column(
@@ -151,8 +143,7 @@ class TimelineImageDivider extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          FullImage(imageAddress: image1, token: token)));
+                      builder: (BuildContext context) => FullImage(imageAddress: image1, token: token)));
             },
             child: Container(
               height: height,
@@ -174,8 +165,7 @@ class TimelineImageDivider extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          FullImage(imageAddress: image2, token: token)));
+                      builder: (BuildContext context) => FullImage(imageAddress: image2, token: token)));
             },
             child: Container(
               height: height,
@@ -198,8 +188,7 @@ class TimelineImageDivider extends StatelessWidget {
 }
 
 class FullImage extends StatelessWidget {
-  const FullImage({Key? key, required this.imageAddress, required this.token})
-      : super(key: key);
+  const FullImage({Key? key, required this.imageAddress, required this.token}) : super(key: key);
 
   final String imageAddress;
   final String token;

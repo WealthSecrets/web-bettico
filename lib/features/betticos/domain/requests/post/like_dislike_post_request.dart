@@ -10,6 +10,5 @@ class LikeDislikePostRequest with _$LikeDislikePostRequest {
   const factory LikeDislikePostRequest({
     required String user,
   }) = _LikeDislikePostRequest;
-  factory LikeDislikePostRequest.fromJson(Map<String, dynamic> json) =>
-      _$LikeDislikePostRequestFromJson(json);
+  factory LikeDislikePostRequest.fromJson(Map<String, dynamic> json) => _$LikeDislikePostRequestFromJson(json);
 }

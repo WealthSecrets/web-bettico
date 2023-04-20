@@ -25,8 +25,7 @@ class ConversionResponse with _$ConversionResponse {
 
   const ConversionResponse._();
 
-  factory ConversionResponse.fromJson(Map<String, dynamic> json) =>
-      _$ConversionResponseFromJson(json);
+  factory ConversionResponse.fromJson(Map<String, dynamic> json) => _$ConversionResponseFromJson(json);
 
   factory ConversionResponse.mock() => const ConversionResponse(
         baseCurrency: 'ETH',

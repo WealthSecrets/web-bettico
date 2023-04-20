@@ -36,8 +36,7 @@ class _TokenScreenState extends State<TokenScreen> {
             padding: EdgeInsets.zero,
             itemBuilder: (BuildContext context, int index) {
               final Balance balance = balances[index];
-              final Currency? currency =
-                  controller.getCurrencyByCurrency(balance.currency);
+              final Currency? currency = controller.getCurrencyByCurrency(balance.currency);
               return _TokenCard(
                 currency: balance.currency,
                 imagePath: currency?.logoLink,

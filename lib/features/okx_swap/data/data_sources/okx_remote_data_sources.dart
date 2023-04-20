@@ -20,18 +20,14 @@ import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposi
 import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
 
 abstract class OkxRemoteDataSources {
-  Future<OkxAccount> createSubAccount(
-      {required CreateSubAccountRequest request});
+  Future<OkxAccount> createSubAccount({required CreateSubAccountRequest request});
   Future<OkxAccount> createSubAccountApiKey();
-  Future<CurrencyPair> fetchCurrencyPair(
-      {required CurrencyPairRequest request});
+  Future<CurrencyPair> fetchCurrencyPair({required CurrencyPairRequest request});
   Future<OkxQuote> estimateConversionQuote({required QuoteRequest request});
   Future<ConversionResponse> convertTrade({required ConversionRequest request});
   Future<WithdrawalResponse> withdraw({required WithdrawalRequest request});
-  Future<SubAccountFundsResponse> transferFundToSubAccount(
-      {required SubAccountFundsRequest request});
-  Future<CreateDepositAddressResponse> createDepositAddress(
-      {required CreateDepositAddressRequest request});
+  Future<SubAccountFundsResponse> transferFundToSubAccount({required SubAccountFundsRequest request});
+  Future<CreateDepositAddressResponse> createDepositAddress({required CreateDepositAddressRequest request});
   Future<OkxAccount> getOkxAccount();
   Future<List<Currency>> fetchAssetCurrencies();
   Future<BalanceResponse> fetchBalances();

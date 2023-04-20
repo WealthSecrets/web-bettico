@@ -23,9 +23,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
             loading: controller.isUpdatingUserRole.value,
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
@@ -51,8 +49,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                             child: _BuildAccountTypeCard(
                               onTap: controller.onAccountTypeSelected,
                               type: AccountType.personal,
-                              selected: controller.accountType.value ==
-                                  AccountType.personal,
+                              selected: controller.accountType.value == AccountType.personal,
                             ),
                           ),
                           const AppSpacing(h: 12),
@@ -60,8 +57,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                             child: _BuildAccountTypeCard(
                               onTap: controller.onAccountTypeSelected,
                               type: AccountType.oddster,
-                              selected: controller.accountType.value ==
-                                  AccountType.oddster,
+                              selected: controller.accountType.value == AccountType.oddster,
                             ),
                           ),
                         ],
@@ -77,8 +73,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              controller.accountType.value ==
-                                      AccountType.personal
+                              controller.accountType.value == AccountType.personal
                                   ? 'personal_account'.tr
                                   : 'oddster_account'.tr,
                               style: TextStyle(
@@ -89,8 +84,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                             ),
                             const AppSpacing(v: 10),
                             Text(
-                              controller.accountType.value ==
-                                      AccountType.personal
+                              controller.accountType.value == AccountType.personal
                                   ? 'personal_account_info'.tr
                                   : 'oddster_account_info'.tr,
                               style: TextStyle(
@@ -166,25 +160,19 @@ class _BuildAccountTypeCard extends StatelessWidget {
               SizedBox(
                 height: 186.h,
                 child: Padding(
-                  padding:
-                      AppPaddings.mH.add(AppPaddings.lV.add(AppPaddings.mV)),
+                  padding: AppPaddings.mH.add(AppPaddings.lV.add(AppPaddings.mV)),
                   child: AppAnimatedColumn(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Icon(
-                        type == AccountType.personal
-                            ? Ionicons.person
-                            : Ionicons.football_outline,
-                        color:
-                            selected ? Colors.white : context.colors.hintLight,
+                        type == AccountType.personal ? Ionicons.person : Ionicons.football_outline,
+                        color: selected ? Colors.white : context.colors.hintLight,
                         size: 20,
                       ),
                       const AppSpacing(v: 16),
                       Text(
-                        type == AccountType.personal
-                            ? 'personal_account'.tr
-                            : 'oddster_account'.tr,
+                        type == AccountType.personal ? 'personal_account'.tr : 'oddster_account'.tr,
                         style: TextStyle(
                           color: selected ? Colors.white : context.colors.text,
                           fontWeight: FontWeight.w700,
@@ -202,10 +190,8 @@ class _BuildAccountTypeCard extends StatelessWidget {
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 700),
                   reverseDuration: const Duration(milliseconds: 400),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    final Animation<double> scale =
-                        Tween<double>(begin: 0.0, end: 1.0).animate(animation);
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    final Animation<double> scale = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
                     return ScaleTransition(
                       scale: scale,
                       child: child,

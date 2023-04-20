@@ -16,9 +16,7 @@ class UsersScreen extends StatelessWidget {
       () => AppLoadingBox(
         loading: controller.isSearching.value,
         child: controller.users.isEmpty
-            ? AppEmptyScreen(
-                message:
-                    'Oops! No results found for ${controller.selectedHashtag.value}')
+            ? AppEmptyScreen(message: 'Oops! No results found for ${controller.selectedHashtag.value}')
             : ListView.separated(
                 padding: AppPaddings.lA,
                 itemCount: controller.users.length,

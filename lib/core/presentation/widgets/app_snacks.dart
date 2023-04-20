@@ -81,7 +81,6 @@ class AppSnacks {
       duration: duration ?? const Duration(seconds: 4),
     );
     _snacks.add(flushbar);
-    return flushbar.show(context).then(
-        (void _) => _snacks.map((Flushbar<void> snack) => snack.dismiss()));
+    return flushbar.show(context).then((void _) => _snacks.map((Flushbar<void> snack) => snack.dismiss()));
   }
 }

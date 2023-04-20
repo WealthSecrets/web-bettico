@@ -192,8 +192,7 @@ class ProfileController extends GetxController {
     }, (Follow _) {
       isFollowingUser(false);
       if (u != null) {
-        final List<User> followings =
-            List<User>.from(Get.find<BaseScreenController>().myFollowings);
+        final List<User> followings = List<User>.from(Get.find<BaseScreenController>().myFollowings);
         followings.add(u);
         Get.find<BaseScreenController>().myFollowings(followings);
       }
@@ -204,8 +203,7 @@ class ProfileController extends GetxController {
   void subscribeToTheUser(BuildContext context, String userId) async {
     isSubscribingToUser(true);
 
-    final Either<Failure, Subscription> fialureOrSuccess =
-        await subscribeToUser(SubscribeRequest(userId: userId));
+    final Either<Failure, Subscription> fialureOrSuccess = await subscribeToUser(SubscribeRequest(userId: userId));
 
     fialureOrSuccess.fold((Failure failure) {
       isSubscribingToUser(false);
@@ -223,8 +221,7 @@ class ProfileController extends GetxController {
   void checkIfSubscribedToUser() async {
     isCheckingSubscription(true);
 
-    final Either<Failure, Subscription> fialureOrSuccess =
-        await checkSubscription(
+    final Either<Failure, Subscription> fialureOrSuccess = await checkSubscription(
       SubscribeRequest(userId: user.value.id),
     );
 
@@ -270,9 +267,7 @@ class ProfileController extends GetxController {
     if (user != null) {
       u = myFollowings.firstWhereOrNull((User u) => u.id == userId);
     } else {
-      u = Get.find<BaseScreenController>()
-          .myFollowings
-          .firstWhereOrNull((User u) => u.id == userId);
+      u = Get.find<BaseScreenController>().myFollowings.firstWhereOrNull((User u) => u.id == userId);
     }
 
     if (u != null) {
@@ -284,8 +279,7 @@ class ProfileController extends GetxController {
   void unfollowTheUser({User? u}) async {
     isUnfollowingUser(true);
 
-    final Either<Failure, void> fialureOrSuccess =
-        await unfollowUser(UserRequest(userId: u?.id ?? user.value.id));
+    final Either<Failure, void> fialureOrSuccess = await unfollowUser(UserRequest(userId: u?.id ?? user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
       isUnfollowingUser(false);
@@ -295,8 +289,7 @@ class ProfileController extends GetxController {
     }, (void _) {
       isUnfollowingUser(false);
       if (u != null) {
-        final List<User> followings =
-            List<User>.from(Get.find<BaseScreenController>().myFollowings);
+        final List<User> followings = List<User>.from(Get.find<BaseScreenController>().myFollowings);
         followings.removeWhere((User e) => e.id == u.id);
         Get.find<BaseScreenController>().myFollowings(followings);
       }
@@ -312,8 +305,7 @@ class ProfileController extends GetxController {
     isLoadingFollowers(true);
     resetValues();
 
-    final Either<Failure, List<User>> fialureOrSuccess =
-        await getMyFollowers(UserRequest(userId: user.value.id));
+    final Either<Failure, List<User>> fialureOrSuccess = await getMyFollowers(UserRequest(userId: user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
       isLoadingFollowers(false);
@@ -330,8 +322,7 @@ class ProfileController extends GetxController {
     isLoadingFollowings(true);
     resetValues();
 
-    final Either<Failure, List<User>> fialureOrSuccess =
-        await getMyFollowings(UserRequest(userId: user.value.id));
+    final Either<Failure, List<User>> fialureOrSuccess = await getMyFollowings(UserRequest(userId: user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
       isLoadingFollowings(false);
@@ -386,8 +377,7 @@ class ProfileController extends GetxController {
 
   bool myFollowingLikedPost(List<String> likeUsers) {
     for (int i = 0; i < likeUsers.length; i++) {
-      final User? ud =
-          myFollowings.firstWhereOrNull((User u) => u.id == likeUsers[i]);
+      final User? ud = myFollowings.firstWhereOrNull((User u) => u.id == likeUsers[i]);
       if (ud != null) {
         return true;
       }
@@ -397,8 +387,7 @@ class ProfileController extends GetxController {
 
   String myFollowingWhoLikedPost(List<String> likeUsers) {
     for (int i = 0; i < likeUsers.length; i++) {
-      final User? ud =
-          myFollowings.firstWhereOrNull((User u) => u.id == likeUsers[i]);
+      final User? ud = myFollowings.firstWhereOrNull((User u) => u.id == likeUsers[i]);
       if (ud != null) {
         return '${ud.firstName} ${ud.lastName}';
       }
@@ -407,8 +396,7 @@ class ProfileController extends GetxController {
   }
 
   bool checkIfFollowingUser(User user) {
-    final User? foundUser =
-        myFollowings.firstWhereOrNull((User u) => u.id == user.id);
+    final User? foundUser = myFollowings.firstWhereOrNull((User u) => u.id == user.id);
     return foundUser == null ? false : true;
   }
 
@@ -560,8 +548,7 @@ class ProfileController extends GetxController {
     required int minimumAge,
     String? errorMessage,
   }) {
-    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() <
-        minimumAge) {
+    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() < minimumAge) {
       return errorMessage ?? 'You should be at least $minimumAge years old';
     }
 
@@ -578,8 +565,7 @@ class ProfileController extends GetxController {
     return null;
   }
 
-  void likeThePost(BuildContext context, String postId, String userId,
-      {bool isOddbox = false}) async {
+  void likeThePost(BuildContext context, String postId, String userId, {bool isOddbox = false}) async {
     isLikingPost(true);
 
     Post? post;
@@ -627,8 +613,7 @@ class ProfileController extends GetxController {
     }
   }
 
-  void dislikeThePost(BuildContext context, String postId, String userId,
-      {bool isOddbox = false}) async {
+  void dislikeThePost(BuildContext context, String postId, String userId, {bool isOddbox = false}) async {
     isLikingPost(true);
 
     Post? post;

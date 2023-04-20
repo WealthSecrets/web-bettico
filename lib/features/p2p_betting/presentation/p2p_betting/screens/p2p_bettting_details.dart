@@ -74,8 +74,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isUpdatingBet.value ||
-                bController.isUpdatingUserBonus.value,
+            loading: controller.isUpdatingBet.value || bController.isUpdatingUserBonus.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
@@ -95,24 +94,20 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                     ),
                     localTeamScore: 0,
                     visitorTeamScore: 0,
-                    onAwayPressed:
-                        widget.bet.creator.teamId != widget.bet.awayTeam.teamId
-                            ? () => controller.selectTeam(
-                                  widget.bet.awayTeam.name,
-                                  widget.bet.awayTeam.teamId,
-                                )
-                            : null,
-                    onHomePressed:
-                        widget.bet.creator.teamId != widget.bet.homeTeam.teamId
-                            ? () => controller.selectTeam(
-                                  widget.bet.homeTeam.name,
-                                  widget.bet.homeTeam.teamId,
-                                )
-                            : null,
-                    awayDisabled:
-                        widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
-                    homeDisabled:
-                        widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
+                    onAwayPressed: widget.bet.creator.teamId != widget.bet.awayTeam.teamId
+                        ? () => controller.selectTeam(
+                              widget.bet.awayTeam.name,
+                              widget.bet.awayTeam.teamId,
+                            )
+                        : null,
+                    onHomePressed: widget.bet.creator.teamId != widget.bet.homeTeam.teamId
+                        ? () => controller.selectTeam(
+                              widget.bet.homeTeam.name,
+                              widget.bet.homeTeam.teamId,
+                            )
+                        : null,
+                    awayDisabled: widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
+                    homeDisabled: widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
                   ),
                   const AppSpacing(v: 30),
                   Text(
@@ -251,8 +246,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                       ),
                       PaymentButton(
                         text: 'Wallet',
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 32),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
                         selected: controller.paymentType.value == 'wallet',
                         onPressed: () {
                           controller.paymentType.value = 'wallet';
@@ -276,8 +270,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                               failureCallback: () async {
                                 // TODO(blankson): Consider using .then() on futures (send)
                                 final TransactionResponse? response =
-                                    await lController.sendWsc(context,
-                                        lController.convertedAmount.value);
+                                    await lController.sendWsc(context, lController.convertedAmount.value);
                                 if (response != null) {
                                   controller.createBetTransaction(
                                     context,
@@ -285,12 +278,10 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                     amount: widget.bet.amount,
                                     description: 'Bet Acceptance',
                                     type: 'deposit',
-                                    convertedAmount:
-                                        lController.convertedAmount.value,
+                                    convertedAmount: lController.convertedAmount.value,
                                     wallet: lController.walletAddress.value,
                                     txthash: response.hash,
-                                    convertedToken:
-                                        lController.selectedCurrency.value,
+                                    convertedToken: lController.selectedCurrency.value,
                                     time: response.timestamp,
                                     callback: () => controller.addOpponentToBet(
                                       context,
@@ -312,8 +303,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             );
                           } else if (controller.paymentType.value == 'wallet') {
                             final TransactionResponse? response =
-                                await lController.sendWsc(
-                                    context, lController.convertedAmount.value);
+                                await lController.sendWsc(context, lController.convertedAmount.value);
                             if (response != null) {
                               controller.addOpponentToBet(
                                 context,
@@ -335,8 +325,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             );
                           }
                         } else {
-                          await AppSnacks.show(context,
-                              message: 'You cannot accept bets you created.');
+                          await AppSnacks.show(context, message: 'You cannot accept bets you created.');
                         }
                       },
                       enabled: controller.isDetailsValid,

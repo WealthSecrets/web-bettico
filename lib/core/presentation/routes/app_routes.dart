@@ -62,4 +62,5 @@ class AppRoutes {
   static const String appwebview = '/appwebview';
   static const String explore = '/explore';
   static const String search = '/search';
+  static const String buyUsdt = '/buy_usdt';
 }

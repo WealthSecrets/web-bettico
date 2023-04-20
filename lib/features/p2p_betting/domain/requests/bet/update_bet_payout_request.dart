@@ -13,6 +13,5 @@ class UpdateBetPayoutRequest with _$UpdateBetPayoutRequest {
     required bool payout,
     required String txthash,
   }) = _UpdateBetPayoutRequest;
-  factory UpdateBetPayoutRequest.fromJson(Map<String, dynamic> json) =>
-      _$UpdateBetPayoutRequestFromJson(json);
+  factory UpdateBetPayoutRequest.fromJson(Map<String, dynamic> json) => _$UpdateBetPayoutRequestFromJson(json);
 }

@@ -123,19 +123,15 @@ class BaseScreenController extends GetxController {
   }
 
   void loadMyFollowers() async {
-    final Either<Failure, List<User>> fialureOrSuccess =
-        await getMyFollowers(UserRequest(userId: user.value.id));
+    final Either<Failure, List<User>> fialureOrSuccess = await getMyFollowers(UserRequest(userId: user.value.id));
 
-    fialureOrSuccess.fold(
-        (_) {}, (List<User> followers) => myFollowers(followers));
+    fialureOrSuccess.fold((_) {}, (List<User> followers) => myFollowers(followers));
   }
 
   void loadMyFollowings() async {
-    final Either<Failure, List<User>> fialureOrSuccess =
-        await getMyFollowings(UserRequest(userId: user.value.id));
+    final Either<Failure, List<User>> fialureOrSuccess = await getMyFollowings(UserRequest(userId: user.value.id));
 
-    fialureOrSuccess.fold(
-        (_) {}, (List<User> followers) => myFollowings(followers));
+    fialureOrSuccess.fold((_) {}, (List<User> followers) => myFollowings(followers));
   }
 
   void updateTheUser(User u) {
@@ -170,8 +166,7 @@ class BaseScreenController extends GetxController {
 
   void updateUserDeviceInfo(String? dvic) async {
     if (dvic != null) {
-      final Either<Failure, User> failureOrUser =
-          await updateUserDevice(UserDeviceRequest(device: dvic));
+      final Either<Failure, User> failureOrUser = await updateUserDevice(UserDeviceRequest(device: dvic));
       failureOrUser.fold((_) {}, (User user) {
         if (user.device != null) {
           device.value = user.device!;

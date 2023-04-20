@@ -8,8 +8,7 @@ class AppLog {
   AppLog._();
 
   static void e(Object error, StackTrace stackTrace, {Object? message}) {
-    Logger.root
-        .log(Level.SEVERE, message ?? error.toString(), error, stackTrace);
+    Logger.root.log(Level.SEVERE, message ?? error.toString(), error, stackTrace);
   }
 
   static void i(Object message) {
@@ -21,8 +20,7 @@ void _debugLog(Object? object) {
   debugPrint(object?.toString());
 }
 
-typedef ReleaseModeExceptionLogger = void Function(
-    Object error, StackTrace stackTrace, Object extra);
+typedef ReleaseModeExceptionLogger = void Function(Object error, StackTrace stackTrace, Object extra);
 
 void Function(LogRecord) logListener({
   required ReleaseModeExceptionLogger onReleaseModeException,
@@ -45,7 +43,6 @@ void Function(LogRecord) logListener({
       return;
     }
 
-    onReleaseModeException(record.error!, record.stackTrace!,
-        record.object ?? <String, dynamic>{});
+    onReleaseModeException(record.error!, record.stackTrace!, record.object ?? <String, dynamic>{});
   };
 }

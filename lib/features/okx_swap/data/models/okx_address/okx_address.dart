@@ -15,11 +15,9 @@ class OkxAddress with _$OkxAddress {
 
   const OkxAddress._();
 
-  factory OkxAddress.fromJson(Map<String, dynamic> json) =>
-      _$OkxAddressFromJson(json);
+  factory OkxAddress.fromJson(Map<String, dynamic> json) => _$OkxAddressFromJson(json);
 
-  factory OkxAddress.mock() =>
-      const OkxAddress(currency: 'BTC', address: '0xff028909d090f0ww');
+  factory OkxAddress.mock() => const OkxAddress(currency: 'BTC', address: '0xff028909d090f0ww');
 
   factory OkxAddress.empty() => const OkxAddress(currency: '', address: '');
 }

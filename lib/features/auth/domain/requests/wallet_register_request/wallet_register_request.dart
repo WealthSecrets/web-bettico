@@ -15,6 +15,5 @@ class WalletRegisterRequest with _$WalletRegisterRequest {
     String? referralCode,
     String? type,
   }) = _WalletRegisterRequest;
-  factory WalletRegisterRequest.fromJson(Map<String, dynamic> json) =>
-      _$WalletRegisterRequestFromJson(json);
+  factory WalletRegisterRequest.fromJson(Map<String, dynamic> json) => _$WalletRegisterRequestFromJson(json);
 }

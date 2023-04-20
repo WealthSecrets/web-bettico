@@ -2,9 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
 class Notice extends StatelessWidget {
-  const Notice(
-      {Key? key, required this.message, this.backgroundColor, this.textColor})
-      : super(key: key);
+  const Notice({Key? key, required this.message, this.backgroundColor, this.textColor}) : super(key: key);
 
   final String message;
   final Color? backgroundColor;

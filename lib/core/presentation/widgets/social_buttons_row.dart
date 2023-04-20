@@ -7,8 +7,7 @@ import 'package:flutter_web3/ethereum.dart';
 import 'package:get/get.dart';
 
 class SocialButtonsRow extends StatelessWidget {
-  SocialButtonsRow({Key? key, this.mainAxisAlignment, this.size})
-      : super(key: key);
+  SocialButtonsRow({Key? key, this.mainAxisAlignment, this.size}) : super(key: key);
   final MainAxisAlignment? mainAxisAlignment;
   final double? size;
 

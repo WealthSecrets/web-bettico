@@ -13,14 +13,12 @@ class Utils {
     }) =>
         Uri.parse('$appLink/wc?uri=${Uri.encodeComponent(wcUri)}');
 
-    if (wallet.mobile.universal != null &&
-        await canLaunchUrl(Uri.parse(wallet.mobile.universal!))) {
+    if (wallet.mobile.universal != null && await canLaunchUrl(Uri.parse(wallet.mobile.universal!))) {
       await launchUrl(
         convertToWcLink(appLink: wallet.mobile.universal!, wcUri: uri),
         mode: LaunchMode.externalApplication,
       );
-    } else if (wallet.mobile.native != null &&
-        await canLaunchUrl(Uri.parse(wallet.mobile.native!))) {
+    } else if (wallet.mobile.native != null && await canLaunchUrl(Uri.parse(wallet.mobile.native!))) {
       await launchUrl(
         convertToWcLink(appLink: wallet.mobile.native!, wcUri: uri),
       );

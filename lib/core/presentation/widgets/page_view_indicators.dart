@@ -27,9 +27,7 @@ class PageViewIndicators extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
             borderRadius: AppBorderRadius.smallAll,
-            color: index == activeItemIndex
-                ? context.colors.blue
-                : context.colors.hintLight,
+            color: index == activeItemIndex ? context.colors.blue : context.colors.hintLight,
           ),
         ),
       ),

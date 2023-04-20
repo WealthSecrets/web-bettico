@@ -30,8 +30,7 @@ class TimelineTab extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push<void>(
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>
-                            PostDetailsScreen(post: post),
+                        builder: (BuildContext context) => PostDetailsScreen(post: post),
                       ),
                     );
                   },
@@ -40,30 +39,24 @@ class TimelineTab extends StatelessWidget {
                     pstId: post.id,
                   ),
                   onLikeTap: () => controller.likeThePost(context, post.id),
-                  onDislikeTap: () =>
-                      controller.dislikeThePost(context, post.id),
+                  onDislikeTap: () => controller.dislikeThePost(context, post.id),
                 ),
               );
             },
-            firstPageErrorIndicatorBuilder: (BuildContext context) =>
-                ErrorIndicator(
+            firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
               error: controller.pagingController.value.error as Failure,
               onTryAgain: () => controller.pagingController.value.refresh(),
             ),
-            noItemsFoundIndicatorBuilder: (BuildContext context) =>
-                const EmptyListIndicator(),
-            newPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
+            noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
+            newPageProgressIndicatorBuilder: (BuildContext context) => const Center(
               child: LoadingLogo(),
             ),
-            firstPageProgressIndicatorBuilder: (BuildContext context) =>
-                const Center(
+            firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(
               child: LoadingLogo(),
             ),
             // padding: AppPaddings.homeA,
           ),
-          separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox.shrink(),
+          separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
         ),
       ),
     );

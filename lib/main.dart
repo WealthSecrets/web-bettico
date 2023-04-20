@@ -19,6 +19,7 @@ import 'package:betticos/features/betticos/presentation/timeline/getx/card_bindi
 import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_bindings.dart';
 import 'package:betticos/features/okx_swap/presentation/funds/getx/funds_bindings.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_bindings.dart';
+import 'package:betticos/features/okx_swap/presentation/usdt/getx/usdt_sale_bindings.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_bindings.dart';
 import 'package:betticos/features/onboarding_splash/presentation/onbaording/getx/onboard_bindings.dart';
 import 'package:betticos/features/onboarding_splash/presentation/splash/getx/splash_bindings.dart';
@@ -60,6 +61,7 @@ void main() async {
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
   OkxBindigns.dependencies();
+  UsdtSaleBinding.dependencies();
   WithdrawalBindings.dependencies();
   FundsBindings.dependencies();
 
@@ -108,10 +110,7 @@ class _ReporterClient implements ReporterClient {
   _ReporterClient();
 
   @override
-  FutureOr<void> report(
-      {required StackTrace stackTrace,
-      required Object error,
-      Object? extra}) async {
+  FutureOr<void> report({required StackTrace stackTrace, required Object error, Object? extra}) async {
     // TODO: Sentry or Crashlytics
   }
 

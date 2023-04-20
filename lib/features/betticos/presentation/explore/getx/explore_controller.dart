@@ -17,8 +17,7 @@ import '../../../data/models/listpage/listpage.dart';
 
 enum Options { posts, sports, rates }
 
-class ExploreController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class ExploreController extends GetxController with GetSingleTickerProviderStateMixin {
   ExploreController({
     required this.explorePosts,
     required this.fetchHashtags,
@@ -38,13 +37,11 @@ class ExploreController extends GetxController
 
   RxInt pageK = 1.obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
-  PagingController<int, Post> pagingController =
-      PagingController<int, Post>(firstPageKey: 1);
+  PagingController<int, Post> pagingController = PagingController<int, Post>(firstPageKey: 1);
 
   RxString selectedHashtag = ''.obs;
 
-  Rx<TextEditingController> textEditingController =
-      TextEditingController(text: '').obs;
+  Rx<TextEditingController> textEditingController = TextEditingController(text: '').obs;
 
   late TabController tabController;
 
@@ -76,8 +73,7 @@ class ExploreController extends GetxController
   void getExplorePosts(int pageKey) async {
     pageK(pageKey);
     isLoading(true);
-    final Either<Failure, PaginatedResponseData<Post>> failureOrResult =
-        await explorePosts(
+    final Either<Failure, PaginatedResponseData<Post>> failureOrResult = await explorePosts(
       PageParmas(
         page: pageK.value,
         size: 100,

@@ -10,6 +10,5 @@ class TransactionUpdateRequest with _$TransactionUpdateRequest {
     @JsonKey(name: 'bet') required String betId,
     String? hash,
   }) = _TransactionUpdateRequest;
-  factory TransactionUpdateRequest.fromJson(Map<String, dynamic> json) =>
-      _$TransactionUpdateRequestFromJson(json);
+  factory TransactionUpdateRequest.fromJson(Map<String, dynamic> json) => _$TransactionUpdateRequestFromJson(json);
 }

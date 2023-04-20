@@ -22,26 +22,17 @@ class QuoteUsd with _$QuoteUsd {
 
   const QuoteUsd._();
 
-  factory QuoteUsd.fromJson(Map<String, dynamic> json) =>
-      _$QuoteUsdFromJson(json);
+  factory QuoteUsd.fromJson(Map<String, dynamic> json) => _$QuoteUsdFromJson(json);
 
   factory QuoteUsd.mock() => QuoteUsd(
-        price:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        volume24h:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        volumeChange24h:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        percentChange1h:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        percentChange24h:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        percentChange7d:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        marketCap:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
-        marketCapDominance:
-            Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        price: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        volume24h: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        volumeChange24h: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        percentChange1h: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        percentChange24h: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        percentChange7d: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        marketCap: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
+        marketCapDominance: Faker().randomGenerator.decimal(scale: 999999999, min: 100000000),
       );
 
   factory QuoteUsd.empty() => const QuoteUsd(

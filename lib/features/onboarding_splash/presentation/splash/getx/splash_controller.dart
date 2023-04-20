@@ -25,8 +25,7 @@ class SplashController extends GetxController {
   RxString device = ''.obs;
 
   void isUserAuthenticated(BuildContext context) async {
-    final Either<Failure, bool> failureOrUser =
-        await isAuthenticated(NoParams());
+    final Either<Failure, bool> failureOrUser = await isAuthenticated(NoParams());
 
     failureOrUser.fold((Failure failure) {
       Get.offAllNamed<void>(AppRoutes.login);
@@ -42,8 +41,7 @@ class SplashController extends GetxController {
   }
 
   void validateUserSession(BuildContext context) async {
-    final Either<Failure, User> failureOrUser =
-        await validateSession(NoParams());
+    final Either<Failure, User> failureOrUser = await validateSession(NoParams());
 
     failureOrUser.fold((Failure failure) {
       Get.offAllNamed<void>(AppRoutes.login);

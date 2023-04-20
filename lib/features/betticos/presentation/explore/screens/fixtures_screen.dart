@@ -29,14 +29,10 @@ class _FixturesScreenState extends State<FixturesScreen> {
       body: Obx(
         () => AppLoadingBox(
           loading: lController.isFetchingFixtures.value,
-          child: lController.sFixtures.isEmpty &&
-                  !lController.isFetchingFixtures.value
-              ? const AppEmptyScreen(
-                  message: 'Oops! No fixtures are available.')
+          child: lController.sFixtures.isEmpty && !lController.isFetchingFixtures.value
+              ? const AppEmptyScreen(message: 'Oops! No fixtures are available.')
               : ListView(
-                  padding: isSmallScreen
-                      ? const EdgeInsets.symmetric(horizontal: 16)
-                      : EdgeInsets.zero,
+                  padding: isSmallScreen ? const EdgeInsets.symmetric(horizontal: 16) : EdgeInsets.zero,
                   children: lController.sFixtures
                       .map(
                         (LiveScore liveScore) => FixtureCard(

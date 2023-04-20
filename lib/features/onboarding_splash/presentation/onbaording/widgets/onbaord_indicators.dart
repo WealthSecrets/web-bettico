@@ -26,8 +26,7 @@ class OnboardIndicators extends StatelessWidget {
           height: radius ?? 10,
           width: radius ?? 10,
           decoration: BoxDecoration(
-            color: context.colors.primary
-                .withOpacity(index == activeItem ? 1.0 : 0.3),
+            color: context.colors.primary.withOpacity(index == activeItem ? 1.0 : 0.3),
             shape: BoxShape.circle,
           ),
         ),

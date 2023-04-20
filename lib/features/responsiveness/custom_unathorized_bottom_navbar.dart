@@ -59,8 +59,7 @@ class CustomUnAthenticatedBottomNavbar extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       textColor: context.colors.primary,
-                      onPressed: () =>
-                          WidgetUtils.showUnAuthorizedLoginContainer(context),
+                      onPressed: () => WidgetUtils.showUnAuthorizedLoginContainer(context),
                     ),
                     const SizedBox(width: 8),
                     SelectableButton(

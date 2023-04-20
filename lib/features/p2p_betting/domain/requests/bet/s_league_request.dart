@@ -10,6 +10,5 @@ class SLeagueRequest with _$SLeagueRequest {
   const factory SLeagueRequest({
     required int leagueId,
   }) = _SLeagueRequest;
-  factory SLeagueRequest.fromJson(Map<String, dynamic> json) =>
-      _$SLeagueRequestFromJson(json);
+  factory SLeagueRequest.fromJson(Map<String, dynamic> json) => _$SLeagueRequestFromJson(json);
 }

@@ -120,8 +120,7 @@ class LoginController extends GetxController {
     Get.updateLocale(locale);
   }
 
-  void reRouteOddster(BuildContext context, User user,
-      {bool? isSkipEmail, bool? isSkipPhone}) {
+  void reRouteOddster(BuildContext context, User user, {bool? isSkipEmail, bool? isSkipPhone}) {
     if (isSkipEmail ?? false) {
       if (!user.hasRole) {
         Get.toNamed<void>(AppRoutes.accountType);
@@ -137,8 +136,7 @@ class LoginController extends GetxController {
 
   void subRerouting(User user) {
     if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.toNamed<void>(AppRoutes.documentScreen,
-          arguments: UserArgument(user: user));
+      Get.toNamed<void>(AppRoutes.documentScreen, arguments: UserArgument(user: user));
     } else if (user.role == 'oddster' && !user.hasProfileImage) {
       Get.toNamed<void>(AppRoutes.profilePhoto);
     } else {
@@ -227,6 +225,5 @@ class LoginController extends GetxController {
 
   bool get formIsValid =>
       validateEmail(email.value) == null ||
-      validatePhone(phone.value) == null &&
-          validatePassword(password.value) == null;
+      validatePhone(phone.value) == null && validatePassword(password.value) == null;
 }

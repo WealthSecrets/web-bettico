@@ -28,8 +28,7 @@ class MarketRateController extends GetxController {
   void getAllListings() async {
     isFetchingListings(true);
 
-    final Either<Failure, List<Listing>> failureOrListings =
-        await fetchListings(NoParams());
+    final Either<Failure, List<Listing>> failureOrListings = await fetchListings(NoParams());
 
     failureOrListings.fold<void>(
       (Failure failure) {
@@ -45,8 +44,7 @@ class MarketRateController extends GetxController {
   Future<List<Listing>> getListings() async {
     isFetchingListings(true);
 
-    final Either<Failure, List<Listing>> failureOrListings =
-        await fetchListings(NoParams());
+    final Either<Failure, List<Listing>> failureOrListings = await fetchListings(NoParams());
 
     return failureOrListings.fold<List<Listing>>(
       (Failure failure) {
@@ -63,8 +61,7 @@ class MarketRateController extends GetxController {
   Future<Listing?> getSingleListing(String symbol) async {
     isFetchingListings(true);
 
-    final Either<Failure, Listing> failureOrListings =
-        await getListing(GetListingRequest(symbol: symbol));
+    final Either<Failure, Listing> failureOrListings = await getListing(GetListingRequest(symbol: symbol));
 
     return failureOrListings.fold<Listing?>(
       (Failure failure) {

@@ -36,8 +36,7 @@ class AppLoadingBox extends StatelessWidget {
                 child: DecoratedBox(
                   key: ValueKey<bool>(loading),
                   decoration: BoxDecoration(
-                    color: backgroundColor ??
-                        context.colors.background.withOpacity(.70),
+                    color: backgroundColor ?? context.colors.background.withOpacity(.70),
                   ),
                   child: !loading
                       ? const SizedBox()

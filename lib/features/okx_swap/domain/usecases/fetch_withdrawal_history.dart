@@ -3,8 +3,7 @@ import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.da
 import 'package:dartz/dartz.dart';
 import '/core/core.dart';
 
-class FetchWithdrawalHistory
-    implements UseCase<List<WithdrawalHistory>, NoParams> {
+class FetchWithdrawalHistory implements UseCase<List<WithdrawalHistory>, NoParams> {
   FetchWithdrawalHistory({required this.okxRepository});
   final OkxRepository okxRepository;
 

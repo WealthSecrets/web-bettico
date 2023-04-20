@@ -30,8 +30,7 @@ class PaymentButton extends StatelessWidget {
     return GestureDetector(
       onTap: disabled ? null : onPressed,
       child: Container(
-        padding:
-            padding ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        padding: padding ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         decoration: BoxDecoration(
           color: color ??
               (selected
@@ -54,8 +53,7 @@ class PaymentButton extends StatelessWidget {
               textScaleFactor: 1.0,
               style: TextStyle(
                 fontSize: fontSize ?? 10,
-                color: textColor ??
-                    (selected ? Colors.white : const Color(0xFF4A4B65)),
+                color: textColor ?? (selected ? Colors.white : const Color(0xFF4A4B65)),
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -67,14 +65,10 @@ class PaymentButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 3.0, horizontal: 6.0),
+                  padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
                   child: Text(
                     tagValue!,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color:
-                            selected ? context.colors.primary : Colors.white),
+                    style: TextStyle(fontSize: 12, color: selected ? context.colors.primary : Colors.white),
                   ),
                 ),
               ),

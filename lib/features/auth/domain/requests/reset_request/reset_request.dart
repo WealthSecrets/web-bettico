@@ -10,6 +10,5 @@ class ResetRequest with _$ResetRequest {
     required String confirmPassword,
     required String email,
   }) = _ResetRequest;
-  factory ResetRequest.fromJson(Map<String, dynamic> json) =>
-      _$ResetRequestFromJson(json);
+  factory ResetRequest.fromJson(Map<String, dynamic> json) => _$ResetRequestFromJson(json);
 }

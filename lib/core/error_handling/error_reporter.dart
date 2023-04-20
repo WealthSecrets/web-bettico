@@ -16,12 +16,9 @@ class ErrorReporter {
 
   DateTime? _lastReportTime;
 
-  bool get _reportLocked =>
-      _lastReportTime != null &&
-      DateTime.now().difference(_lastReportTime!) < _lockDuration;
+  bool get _reportLocked => _lastReportTime != null && DateTime.now().difference(_lastReportTime!) < _lockDuration;
 
-  Future<void> report(Object error, StackTrace stackTrace,
-      [Object? extra]) async {
+  Future<void> report(Object error, StackTrace stackTrace, [Object? extra]) async {
     if (_reportLocked) {
       return;
     }
@@ -41,8 +38,7 @@ class ErrorReporter {
 }
 
 abstract class ReporterClient {
-  FutureOr<void> report(
-      {required StackTrace stackTrace, required Object error, Object? extra});
+  FutureOr<void> report({required StackTrace stackTrace, required Object error, Object? extra});
 
   void log(Object object);
 }
@@ -51,8 +47,7 @@ class NoopReporterClient implements ReporterClient {
   const NoopReporterClient();
 
   @override
-  FutureOr<void> report(
-      {required StackTrace stackTrace, required Object error, Object? extra}) {}
+  FutureOr<void> report({required StackTrace stackTrace, required Object error, Object? extra}) {}
 
   @override
   void log(Object object) {}

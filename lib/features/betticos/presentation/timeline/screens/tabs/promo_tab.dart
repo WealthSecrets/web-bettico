@@ -41,8 +41,7 @@ class PromoTab extends StatelessWidget {
                     aspectRatio: 24 / 3,
                     autoPlayCurve: Curves.fastLinearToSlowEaseIn,
                     enableInfiniteScroll: true,
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 300),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 300),
                     viewportFraction: 1.0,
                   ),
                 ),

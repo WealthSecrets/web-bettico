@@ -23,8 +23,7 @@ class Deposit with _$Deposit {
 
   const Deposit._();
 
-  factory Deposit.fromJson(Map<String, dynamic> json) =>
-      _$DepositFromJson(json);
+  factory Deposit.fromJson(Map<String, dynamic> json) => _$DepositFromJson(json);
 
   factory Deposit.mock() => Deposit(
         amount: '0.01044408',

@@ -23,13 +23,11 @@ class LiveScoreCard extends StatefulWidget {
 }
 
 class _LiveScoreCardState extends State<LiveScoreCard> {
-  final LiveScoreController liveScoreController =
-      Get.find<LiveScoreController>();
+  final LiveScoreController liveScoreController = Get.find<LiveScoreController>();
 
   Timer? _timer;
 
-  final StreamController<LiveScore?> _liveScoreStreamController =
-      StreamController<LiveScore?>.broadcast();
+  final StreamController<LiveScore?> _liveScoreStreamController = StreamController<LiveScore?>.broadcast();
 
   @override
   void initState() {
@@ -46,8 +44,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
 
   void startBroadcast(int liveScoreId) async {
     _timer = Timer.periodic(const Duration(seconds: 10), (Timer timer) async {
-      final LiveScore? sLiveScore =
-          await liveScoreController.getMatchSLiveScore(liveScoreId);
+      final LiveScore? sLiveScore = await liveScoreController.getMatchSLiveScore(liveScoreId);
 
       _liveScoreStreamController.add(sLiveScore);
     });
@@ -94,11 +91,8 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                           ),
                         ),
                       ),
-                      if ((liveScore == null &&
-                              widget.liveScore.time.status?.toLowerCase() ==
-                                  'ns') ||
-                          (liveScore != null &&
-                              liveScore.time.status?.toLowerCase() == 'ns'))
+                      if ((liveScore == null && widget.liveScore.time.status?.toLowerCase() == 'ns') ||
+                          (liveScore != null && liveScore.time.status?.toLowerCase() == 'ns'))
                         TimeCard(
                           dateTime: DateTime.parse(
                             widget.liveScore.time.startingAt.dateTime,
@@ -126,9 +120,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                                 snapshot.hasData && snapshot.data != null
                                     ? '${snapshot.data!.scores?.localTeamScore}'
                                     : widget.liveScore.scores != null
-                                        ? widget
-                                            .liveScore.scores!.localTeamScore
-                                            .toString()
+                                        ? widget.liveScore.scores!.localTeamScore.toString()
                                         : '0',
                                 style: const TextStyle(
                                   fontSize: 26,
@@ -150,9 +142,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                                 snapshot.hasData && snapshot.data != null
                                     ? '${snapshot.data!.scores?.visitorTeamScore}'
                                     : widget.liveScore.scores != null
-                                        ? widget
-                                            .liveScore.scores!.visitorTeamScore
-                                            .toString()
+                                        ? widget.liveScore.scores!.visitorTeamScore.toString()
                                         : '0',
                                 style: const TextStyle(
                                   fontSize: 26,
@@ -179,20 +169,14 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                             ),
                             child: Text(
                               liveScore != null
-                                  ? (liveScore.time.status?.toLowerCase() ==
-                                          'ns'
+                                  ? (liveScore.time.status?.toLowerCase() == 'ns'
                                       ? 'NS'
-                                      : liveScore.time.status?.toLowerCase() ==
-                                              'live'
+                                      : liveScore.time.status?.toLowerCase() == 'live'
                                           ? '${liveScore.time.minute}\''
                                           : '${liveScore.time.status}')
-                                  : (widget.liveScore.time.status
-                                              ?.toLowerCase() ==
-                                          'ns'
+                                  : (widget.liveScore.time.status?.toLowerCase() == 'ns'
                                       ? 'NS'
-                                      : widget.liveScore.time.status
-                                                  ?.toLowerCase() ==
-                                              'live'
+                                      : widget.liveScore.time.status?.toLowerCase() == 'live'
                                           ? '${widget.liveScore.time.minute}\''
                                           : '${widget.liveScore.time.status}'),
                               style: TextStyle(

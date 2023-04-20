@@ -10,6 +10,5 @@ class StatusBetsRequests with _$StatusBetsRequests {
   const factory StatusBetsRequests({
     required String status,
   }) = _StatusBetsRequests;
-  factory StatusBetsRequests.fromJson(Map<String, dynamic> json) =>
-      _$StatusBetsRequestsFromJson(json);
+  factory StatusBetsRequests.fromJson(Map<String, dynamic> json) => _$StatusBetsRequestsFromJson(json);
 }

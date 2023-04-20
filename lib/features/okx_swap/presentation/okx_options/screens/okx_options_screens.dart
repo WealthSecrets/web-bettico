@@ -74,36 +74,28 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                             OptionCard(
                               imagePath: AssetImages.convert,
                               title: 'Convert / Swap',
-                              subtitle:
-                                  'Convert or swap any token within seconds.',
-                              backgroundColor:
-                                  const Color(0xFFAA7503).withOpacity(.2),
+                              subtitle: 'Convert or swap any token within seconds.',
+                              backgroundColor: const Color(0xFFAA7503).withOpacity(.2),
                               iconColor: const Color(0xFFAA7503),
-                              onPressed: () => navigationController
-                                  .navigateTo(AppRoutes.convertCrypto),
+                              onPressed: () => navigationController.navigateTo(AppRoutes.convertCrypto),
                             ),
                             OptionCard(
                               imagePath: AssetImages.deposit,
                               title: 'Deposit',
                               subtitle: 'Send money into your deposit address',
-                              backgroundColor:
-                                  const Color(0xFF1896A5).withOpacity(.2),
+                              backgroundColor: const Color(0xFF1896A5).withOpacity(.2),
                               iconColor: const Color(0xFF1896A5),
-                              onPressed: () => navigationController
-                                  .navigateTo(AppRoutes.currencies),
+                              onPressed: () => navigationController.navigateTo(AppRoutes.currencies),
                             ),
                             OptionCard(
                               imagePath: AssetImages.withdrawal,
                               title: 'Withdraw',
-                              subtitle:
-                                  'Withdraw money from your deposit address',
-                              backgroundColor:
-                                  const Color(0xFF1896A5).withOpacity(.2),
+                              subtitle: 'Withdraw money from your deposit address',
+                              backgroundColor: const Color(0xFF1896A5).withOpacity(.2),
                               iconColor: const Color(0xFF1896A5),
                               onPressed: () => navigationController.navigateTo(
                                 AppRoutes.currencies,
-                                arguments:
-                                    const AssetCurrenciesScreenRouteArgument(
+                                arguments: const AssetCurrenciesScreenRouteArgument(
                                   isWithdrawal: true,
                                 ),
                               ),
@@ -111,13 +103,10 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
                             OptionCard(
                               imagePath: AssetImages.bitcoinWallet,
                               title: 'Addresses',
-                              subtitle:
-                                  'View deposit addresses and create new ones',
-                              backgroundColor:
-                                  const Color(0xFF7C8B96).withOpacity(.2),
+                              subtitle: 'View deposit addresses and create new ones',
+                              backgroundColor: const Color(0xFF7C8B96).withOpacity(.2),
                               iconColor: const Color(0xFF7C8B96),
-                              onPressed: () => navigationController
-                                  .navigateTo(AppRoutes.walletAddresses),
+                              onPressed: () => navigationController.navigateTo(AppRoutes.walletAddresses),
                             ),
                           ],
                         ),

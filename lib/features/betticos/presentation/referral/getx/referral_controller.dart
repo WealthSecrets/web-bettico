@@ -25,8 +25,7 @@ class ReferralController extends GetxController {
 
   void getTheReferralCode(BuildContext context) async {
     isLoading(true);
-    final Either<Failure, User> failureOrOddsters =
-        await getReferralCode(NoParams());
+    final Either<Failure, User> failureOrOddsters = await getReferralCode(NoParams());
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isLoading(false);
@@ -43,8 +42,7 @@ class ReferralController extends GetxController {
 
   void referralUserByEmail(BuildContext context) async {
     isReferringUser(true);
-    final Either<Failure, void> failureOrOddsters =
-        await referUser(ReferralRequest(email: email.value.trim()));
+    final Either<Failure, void> failureOrOddsters = await referUser(ReferralRequest(email: email.value.trim()));
     failureOrOddsters.fold<void>(
       (Failure failure) {
         isReferringUser(false);

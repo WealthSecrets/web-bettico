@@ -49,11 +49,9 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
               ? ListView.separated(
                   itemBuilder: (BuildContext context, int index) {
                     final Deposit deposit = controller.deposits[index];
-                    final Currency? currency =
-                        controller.getCurrency(deposit.chain);
+                    final Currency? currency = controller.getCurrency(deposit.chain);
                     final int timestamp = int.parse(deposit.timestamp);
-                    final DateTime date =
-                        DateTime.fromMillisecondsSinceEpoch(timestamp);
+                    final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
                     return ListTile(
                       leading: currency != null && currency.logoLink != null
                           ? SizedBox(
@@ -100,8 +98,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                     );
                   },
                   itemCount: deposits.length,
-                  separatorBuilder: (_, __) =>
-                      Divider(color: context.colors.lightGrey),
+                  separatorBuilder: (_, __) => Divider(color: context.colors.lightGrey),
                 )
               : const AppEmptyScreen(
                   title: 'Nothing Found',

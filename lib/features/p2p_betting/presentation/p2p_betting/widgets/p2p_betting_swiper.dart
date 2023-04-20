@@ -1,13 +1,9 @@
-import 'package:betticos/core/presentation/widgets/app_failure_screen.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/score_row.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_history_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '/core/core.dart';
 
 class P2PBettingSwiper extends StatefulWidget {
@@ -30,15 +26,11 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
 
   @override
   void initState() {
-    //ScreenWidth minus padding(60)
-    // _p2pBetController.getAllBets();
     final double fraction = (1.sw - 30) / 1.sw;
     _controller = PageController(
       viewportFraction: fraction,
     );
-    ongoingBets = _p2pBetController.bets
-        .where((Bet b) => b.status == BetStatus.ongoing)
-        .toList();
+    ongoingBets = _p2pBetController.bets.where((Bet b) => b.status == BetStatus.ongoing).toList();
     super.initState();
   }
 
@@ -58,8 +50,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                 SizedBox(
                   height: 125,
                   child: PageView(
-                    onPageChanged: (int index) =>
-                        _activePageValueNotifier.value = index,
+                    onPageChanged: (int index) => _activePageValueNotifier.value = index,
                     controller: _controller,
                     children: <Widget>[
                       ...ongoingBets.map(
@@ -107,7 +98,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
 }
 
 class P2POngoingCard extends StatelessWidget {
-  P2POngoingCard({
+  const P2POngoingCard({
     Key? key,
     required this.bet,
     this.backgroundColor,
@@ -115,7 +106,6 @@ class P2POngoingCard extends StatelessWidget {
   final Bet bet;
 
   final Color? backgroundColor;
-  final P2PBetController _p2pBetController = Get.find<P2PBetController>();
 
   @override
   Widget build(BuildContext context) {
@@ -152,55 +142,38 @@ class P2POngoingCard extends StatelessWidget {
             ],
           ),
           const AppSpacing(v: 8),
-          FutureBuilder<SoccerMatch?>(
-            future: _p2pBetController.getLiveTeamMatch(
-              context,
-              bet.creator.teamId,
-              bet.competitionId,
-              bet.isFixture ?? false
-                  ? bet.date!
-                  : DateFormat('yyyy-MM-dd').format(bet.createdAt),
-              isFixture: bet.isFixture,
-            ),
-            builder:
-                (BuildContext context, AsyncSnapshot<SoccerMatch?> snapshot) {
-              if (snapshot.hasData) {
-                return snapshot.data != null
-                    ? ScoreRow(
-                        awayName: snapshot.data!.awayName,
-                        homeName: snapshot.data!.homeName,
-                        score: snapshot.data!.score!,
-                        time: snapshot.data!.time,
-                      )
-                    : const SizedBox.shrink();
-              } else if (snapshot.hasError) {
-                return AppFailureScreen(snapshot.error.toString());
-              } else {
-                return const Center(
-                  child: LoadingLogo(),
-                );
-              }
-            },
-          ),
+          // FutureBuilder<SoccerMatch?>(
+          //   future: _p2pBetController.getLiveTeamMatch(
+          //     context,
+          //     bet.creator.teamId,
+          //     bet.competitionId,
+          //     bet.isFixture ?? false
+          //         ? bet.date!
+          //         : DateFormat('yyyy-MM-dd').format(bet.createdAt),
+          //     isFixture: bet.isFixture,
+          //   ),
+          //   builder:
+          //       (BuildContext context, AsyncSnapshot<SoccerMatch?> snapshot) {
+          //     if (snapshot.hasData) {
+          //       return snapshot.data != null
+          //           ? ScoreRow(
+          //               awayName: snapshot.data!.awayName,
+          //               homeName: snapshot.data!.homeName,
+          //               score: snapshot.data!.score!,
+          //               time: snapshot.data!.time,
+          //             )
+          //           : const SizedBox.shrink();
+          //     } else if (snapshot.hasError) {
+          //       return AppFailureScreen(snapshot.error.toString());
+          //     } else {
+          //       return const Center(
+          //         child: LoadingLogo(),
+          //       );
+          //     }
+          //   },
+          // ),
         ],
       ),
     );
   }
 }
-
-// extension BetStatusX on BetStatus {
-//   Color color(BuildContext context) {
-//     switch (this) {
-//       case BetStatus.awaiting:
-//         return context.colors.yellow;
-//       case BetStatus.ongoing:
-//         return context.colors.success;
-//       case BetStatus.won:
-//         return context.colors.success;
-//       case BetStatus.lost:
-//         return context.colors.error;
-//       case BetStatus.ignored:
-//         return context.colors.textDark;
-//     }
-//   }
-// }

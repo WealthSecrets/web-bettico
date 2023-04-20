@@ -17,8 +17,7 @@ class TwilioResponse with _$TwilioResponse {
   }) = _TwilioResponse;
   const TwilioResponse._();
 
-  factory TwilioResponse.fromJson(Map<String, dynamic> json) =>
-      _$TwilioResponseFromJson(json);
+  factory TwilioResponse.fromJson(Map<String, dynamic> json) => _$TwilioResponseFromJson(json);
 
   factory TwilioResponse.mock() => TwilioResponse(
         sid: '',

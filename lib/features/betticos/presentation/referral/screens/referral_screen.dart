@@ -31,8 +31,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
     return Scaffold(
       body: Obx(
         () => AppLoadingBox(
-          loading: referralController.isLoading.value ||
-              referralController.isReferringUser.value,
+          loading: referralController.isLoading.value || referralController.isReferringUser.value,
           child: Padding(
             padding: AppPaddings.homeH,
             child: SingleChildScrollView(

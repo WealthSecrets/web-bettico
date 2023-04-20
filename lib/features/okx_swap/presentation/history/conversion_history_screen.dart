@@ -12,8 +12,7 @@ class CovnersionHistoryScreen extends StatefulWidget {
   const CovnersionHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<CovnersionHistoryScreen> createState() =>
-      _CovnersionHistoryScreenState();
+  State<CovnersionHistoryScreen> createState() => _CovnersionHistoryScreenState();
 }
 
 class _CovnersionHistoryScreenState extends State<CovnersionHistoryScreen> {
@@ -51,34 +50,23 @@ class _CovnersionHistoryScreenState extends State<CovnersionHistoryScreen> {
               ? ListView.separated(
                   padding: AppPaddings.lH,
                   itemBuilder: (BuildContext context, int index) {
-                    final OkxConversion conversion =
-                        controller.conversions[index];
+                    final OkxConversion conversion = controller.conversions[index];
 
-                    final Currency? baseCurrency = controller
-                        .getCurrencyByCurrency(conversion.baseCurrency);
+                    final Currency? baseCurrency = controller.getCurrencyByCurrency(conversion.baseCurrency);
 
-                    final Currency? quoteCurrency = controller
-                        .getCurrencyByCurrency(conversion.quoteCurrency);
+                    final Currency? quoteCurrency = controller.getCurrencyByCurrency(conversion.quoteCurrency);
 
                     final int timestamp = int.parse(conversion.timestamp);
 
-                    final DateTime date =
-                        DateTime.fromMillisecondsSinceEpoch(timestamp);
+                    final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
 
-                    final String baseFilledAmount =
-                        double.parse(conversion.baseFilledAmount)
-                            .toStringAsFixed(2);
-                    final String filledQuoteAmount =
-                        double.parse(conversion.filledQuoteAmount)
-                            .toStringAsFixed(2);
+                    final String baseFilledAmount = double.parse(conversion.baseFilledAmount).toStringAsFixed(2);
+                    final String filledQuoteAmount = double.parse(conversion.filledQuoteAmount).toStringAsFixed(2);
 
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _OverlapImages(currencies: <Currency>[
-                          baseCurrency!,
-                          quoteCurrency!
-                        ]),
+                        _OverlapImages(currencies: <Currency>[baseCurrency!, quoteCurrency!]),
                         const SizedBox(width: 24),
                         _ColumnText(
                           title: '$baseFilledAmount ${conversion.baseCurrency}',
@@ -87,8 +75,7 @@ class _CovnersionHistoryScreenState extends State<CovnersionHistoryScreen> {
                         ),
                         const Spacer(),
                         _ColumnText(
-                          title:
-                              '$filledQuoteAmount ${conversion.quoteCurrency}',
+                          title: '$filledQuoteAmount ${conversion.quoteCurrency}',
                           subtitle: Text(
                             conversion.state.name(),
                             style: TextStyle(
@@ -103,8 +90,7 @@ class _CovnersionHistoryScreenState extends State<CovnersionHistoryScreen> {
                     );
                   },
                   itemCount: conversions.length,
-                  separatorBuilder: (_, __) =>
-                      Divider(color: context.colors.lightGrey),
+                  separatorBuilder: (_, __) => Divider(color: context.colors.lightGrey),
                 )
               : const AppEmptyScreen(
                   title: 'Nothing Found',

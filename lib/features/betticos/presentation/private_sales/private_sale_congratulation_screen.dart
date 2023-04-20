@@ -76,8 +76,7 @@ class PrivateSaleCongratulationScreen extends StatelessWidget {
                           Navigator.of(context).pop();
                           navigationController.navigateTo(
                             AppRoutes.transactions,
-                            arguments:
-                                const TransactionHistoryScreenRouteArgument(
+                            arguments: const TransactionHistoryScreenRouteArgument(
                               isSale: true,
                             ),
                           );

@@ -9,6 +9,5 @@ class NullLiveScoreRequest with _$NullLiveScoreRequest {
   const factory NullLiveScoreRequest({
     int? leagueId,
   }) = _SNullLiveScoreRequest;
-  factory NullLiveScoreRequest.fromJson(Map<String, dynamic> json) =>
-      _$NullLiveScoreRequestFromJson(json);
+  factory NullLiveScoreRequest.fromJson(Map<String, dynamic> json) => _$NullLiveScoreRequestFromJson(json);
 }

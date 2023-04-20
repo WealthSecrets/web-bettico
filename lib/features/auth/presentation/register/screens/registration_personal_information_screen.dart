@@ -7,16 +7,14 @@ import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
 
-class RegistrationPersonalInformationScreen
-    extends GetWidget<RegisterController> {
+class RegistrationPersonalInformationScreen extends GetWidget<RegisterController> {
   const RegistrationPersonalInformationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => AppLoadingBox(
-        loading: controller.isAddingPersonalInformation.value ||
-            controller.isSendingSms.value,
+        loading: controller.isAddingPersonalInformation.value || controller.isSendingSms.value,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -30,9 +28,7 @@ class RegistrationPersonalInformationScreen
           body: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.lH,
                   child: AppAnimatedColumn(
@@ -111,9 +107,7 @@ class RegistrationPersonalInformationScreen
                       AppDatePicker(
                         labelText: 'dob'.tr.toUpperCase(),
                         validator: (DateTime? dateOfBirth) =>
-                            controller.validateMinimumAge(
-                                dateOfBirth: dateOfBirth ?? DateTime.now(),
-                                minimumAge: 18),
+                            controller.validateMinimumAge(dateOfBirth: dateOfBirth ?? DateTime.now(), minimumAge: 18),
                         onDateTimeChanged: controller.onDateOfBirthInputChanged,
                         backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
@@ -147,8 +141,7 @@ class RegistrationPersonalInformationScreen
                       AppButton(
                         enabled: controller.personalFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
-                        onPressed: () =>
-                            controller.updatePersonalInformation(context),
+                        onPressed: () => controller.updatePersonalInformation(context),
                         child: Text(
                           'next'.tr.toUpperCase(),
                           style: const TextStyle(

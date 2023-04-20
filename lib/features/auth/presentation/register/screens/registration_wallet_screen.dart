@@ -29,9 +29,7 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
             loading: controller.isUpdatingUserRole.value,
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
@@ -56,8 +54,7 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                         colorCaptChar: const Color.fromARGB(255, 248, 248, 248),
                         onConfirm: (bool value) async {
                           if (value) {
-                            await navigationController
-                                .navigateTo(AppRoutes.accountType);
+                            await navigationController.navigateTo(AppRoutes.accountType);
                           } else {
                             sController.create();
                           }

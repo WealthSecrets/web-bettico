@@ -25,8 +25,7 @@ class FundsController extends GetxController {
   RxString subAccount = ''.obs;
   Rx<Currency> currency = Currency.empty().obs;
   RxList<TransferHistory> transfers = <TransferHistory>[].obs;
-  Rx<SubAccountFundsResponse> currentTransfer =
-      SubAccountFundsResponse.empty().obs;
+  Rx<SubAccountFundsResponse> currentTransfer = SubAccountFundsResponse.empty().obs;
   Rx<Balance> balance = Balance.empty().obs;
 
   // loading variables
@@ -36,8 +35,7 @@ class FundsController extends GetxController {
   void getTransferHistory(BuildContext context) async {
     isFetchingTransferHistory(true);
 
-    final Either<Failure, List<TransferHistory>> failureOrDeposits =
-        await fetchTransferHistory(NoParams());
+    final Either<Failure, List<TransferHistory>> failureOrDeposits = await fetchTransferHistory(NoParams());
 
     failureOrDeposits.fold<void>(
       (Failure failure) {
@@ -51,12 +49,10 @@ class FundsController extends GetxController {
     );
   }
 
-  void transferFundsToSubAccount(BuildContext context,
-      {VoidCallback? onSuccess}) async {
+  void transferFundsToSubAccount(BuildContext context, {VoidCallback? onSuccess}) async {
     isTransferring(true);
 
-    final Either<Failure, SubAccountFundsResponse> failureOrResponse =
-        await subAccountFundTransfer(
+    final Either<Failure, SubAccountFundsResponse> failureOrResponse = await subAccountFundTransfer(
       SubAccountFundsRequest(
         from: '6',
         to: '6',

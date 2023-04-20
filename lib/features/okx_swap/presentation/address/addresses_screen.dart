@@ -55,8 +55,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
       ),
       body: Obx(() {
         final User user = Get.find<BaseScreenController>().user.value;
-        final List<OkxAddress>? addresses =
-            controller.myOkxAccount.value.addresses;
+        final List<OkxAddress>? addresses = controller.myOkxAccount.value.addresses;
         return AppLoadingBox(
           loading: controller.isGettingOkxAccount.value ||
               registerController.isCreatingOkxAccount.value ||
@@ -71,8 +70,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                           return OptionCard(
                             title: address.currency,
                             subtitle: address.address,
-                            backgroundColor:
-                                const Color(0xFFAA7503).withOpacity(.2),
+                            backgroundColor: const Color(0xFFAA7503).withOpacity(.2),
                             onPressed: () async {
                               controller.setSelectedCurrency(address.currency);
                               await showMaterialModalBottomSheet<void>(
@@ -87,12 +85,8 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                                 builder: (BuildContext context) {
                                   return ConstrainedBox(
                                     constraints: BoxConstraints(
-                                      maxHeight:
-                                          MediaQuery.of(context).size.height *
-                                              .6,
-                                      minHeight:
-                                          MediaQuery.of(context).size.height *
-                                              .5,
+                                      maxHeight: MediaQuery.of(context).size.height * .6,
+                                      minHeight: MediaQuery.of(context).size.height * .5,
                                     ),
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
@@ -107,8 +101,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                               );
                             },
                             onCopy: () {
-                              Clipboard.setData(
-                                  ClipboardData(text: address.address));
+                              Clipboard.setData(ClipboardData(text: address.address));
 
                               AppSnacks.show(
                                 context,
@@ -128,8 +121,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                     )
                   : AppEmptyScreen(
                       message: 'You do not have any deposit address yet.',
-                      onBottonPressed: () =>
-                          navigationController.navigateTo(AppRoutes.currencies),
+                      onBottonPressed: () => navigationController.navigateTo(AppRoutes.currencies),
                       btnText: 'new address',
                     )
               : NoTradignAccount(user: user),

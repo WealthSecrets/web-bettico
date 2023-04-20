@@ -30,8 +30,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ReportArgument? args =
-        ModalRoute.of(context)?.settings.arguments as ReportArgument?;
+    final ReportArgument? args = ModalRoute.of(context)?.settings.arguments as ReportArgument?;
     if (args != null) {
       controller.setPostId(pId: args.postId);
       controller.setUserId(uId: args.userId);

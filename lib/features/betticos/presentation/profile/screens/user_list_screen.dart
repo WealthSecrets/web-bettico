@@ -11,8 +11,7 @@ import '../../../../auth/data/models/user/user.dart';
 import 'profile_screen.dart';
 
 class UserListScreen extends GetWidget<ProfileController> {
-  UserListScreen({Key? key, this.theUser, this.isFollowers = true})
-      : super(key: key);
+  UserListScreen({Key? key, this.theUser, this.isFollowers = true}) : super(key: key);
   final User? theUser;
   final bool isFollowers;
 
@@ -37,15 +36,11 @@ class UserListScreen extends GetWidget<ProfileController> {
         title: Text(isFollowers ? 'followers'.tr : 'following'.tr),
         centerTitle: false,
       ),
-      body: (isFollowers
-              ? controller.myFollowers.isEmpty
-              : controller.myFollowings.isEmpty)
+      body: (isFollowers ? controller.myFollowers.isEmpty : controller.myFollowings.isEmpty)
           ? AppEmptyScreen(message: 'no_followers'.tr)
           : ListView.separated(
               padding: AppPaddings.lA,
-              itemCount: isFollowers
-                  ? controller.myFollowers.length
-                  : controller.myFollowings.length,
+              itemCount: isFollowers ? controller.myFollowers.length : controller.myFollowings.length,
               itemBuilder: (BuildContext context, int index) {
                 return isFollowers
                     ? _buildListUserRow(
@@ -59,20 +54,17 @@ class UserListScreen extends GetWidget<ProfileController> {
                         () => null,
                       );
               },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
+              separatorBuilder: (BuildContext context, int index) => const Divider(),
             ),
     );
   }
 
-  Widget _buildListUserRow(
-      BuildContext context, User user, Function() onPressed) {
+  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed) {
     return Row(
       children: <Widget>[
         GestureDetector(
           onTap: () async {
-            final User? thePreviousUser =
-                await Navigator.of(context).push<User>(
+            final User? thePreviousUser = await Navigator.of(context).push<User>(
               MaterialPageRoute<User>(
                 builder: (BuildContext context) => ProfileScreen(
                   user: user,

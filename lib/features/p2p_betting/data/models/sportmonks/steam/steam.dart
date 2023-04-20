@@ -32,8 +32,7 @@ class SteamData with _$SteamData {
     @JsonKey(name: 'founded') int? founded,
   }) = _SteamData;
 
-  factory SteamData.fromJson(Map<String, dynamic> json) =>
-      _$SteamDataFromJson(json);
+  factory SteamData.fromJson(Map<String, dynamic> json) => _$SteamDataFromJson(json);
 
   factory SteamData.empty() => const SteamData(
         id: 0,

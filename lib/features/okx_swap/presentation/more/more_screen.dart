@@ -37,8 +37,7 @@ class _MoreScreenState extends State<MoreScreen> {
             const SizedBox(height: 10),
             CustomTile(
               icon: Ionicons.pricetag_outline,
-              onPressed: () =>
-                  navigationController.navigateTo(AppRoutes.privateSales),
+              onPressed: () => navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
             ),
           ],

@@ -10,6 +10,5 @@ class UserRequest with _$UserRequest {
   const factory UserRequest({
     required String userId,
   }) = _UserRequest;
-  factory UserRequest.fromJson(Map<String, dynamic> json) =>
-      _$UserRequestFromJson(json);
+  factory UserRequest.fromJson(Map<String, dynamic> json) => _$UserRequestFromJson(json);
 }

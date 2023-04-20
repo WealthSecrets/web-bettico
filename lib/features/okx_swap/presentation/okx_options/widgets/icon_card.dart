@@ -31,16 +31,12 @@ class IconCard extends StatelessWidget {
         height: size,
         width: size,
         decoration: BoxDecoration(
-          color: backgroundColor != null
-              ? backgroundColor!.withOpacity(0.1)
-              : Colors.white,
+          color: backgroundColor != null ? backgroundColor!.withOpacity(0.1) : Colors.white,
           borderRadius: BorderRadius.circular(radius ?? 15),
           border: hideBorder ?? false
               ? null
               : Border.all(
-                  color: backgroundColor != null
-                      ? backgroundColor!.withOpacity(.5)
-                      : const Color(0xFFD2CDDE),
+                  color: backgroundColor != null ? backgroundColor!.withOpacity(.5) : const Color(0xFFD2CDDE),
                 ),
         ),
         child: SizedBox(

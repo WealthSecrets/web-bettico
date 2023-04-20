@@ -24,8 +24,7 @@ class WithdrawalHistory with _$WithdrawalHistory {
 
   const WithdrawalHistory._();
 
-  factory WithdrawalHistory.fromJson(Map<String, dynamic> json) =>
-      _$WithdrawalHistoryFromJson(json);
+  factory WithdrawalHistory.fromJson(Map<String, dynamic> json) => _$WithdrawalHistoryFromJson(json);
 
   factory WithdrawalHistory.mock() => const WithdrawalHistory(
         amount: '0.1',

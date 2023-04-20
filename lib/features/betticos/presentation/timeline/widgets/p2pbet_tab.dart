@@ -20,8 +20,7 @@ class P2pBetTab extends StatefulWidget {
   State<P2pBetTab> createState() => _P2pBetTabState();
 }
 
-class _P2pBetTabState extends State<P2pBetTab>
-    with AutomaticKeepAliveClientMixin {
+class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixin {
   // getx controllers
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
@@ -37,10 +36,7 @@ class _P2pBetTabState extends State<P2pBetTab>
   void initState() {
     super.initState();
     _controller = TextEditingController(text: '');
-    subject.stream
-        .debounce(
-            (_) => TimerStream<bool>(true, const Duration(milliseconds: 1000)))
-        .listen(
+    subject.stream.debounce((_) => TimerStream<bool>(true, const Duration(milliseconds: 1000))).listen(
       (String txt) {
         _p2pBetController.title.value = txt;
         if (txt.isNotEmpty) {
@@ -95,10 +91,8 @@ class _P2pBetTabState extends State<P2pBetTab>
                             borderRadius: AppBorderRadius.largeAll,
                             color: context.colors.primary,
                             textColor: Colors.white,
-                            onPressed: () => _p2pBetController
-                                .setButtonSelected(context, text.toLowerCase()),
-                            selected: _p2pBetController.selectedButton.value ==
-                                text.toLowerCase(),
+                            onPressed: () => _p2pBetController.setButtonSelected(context, text.toLowerCase()),
+                            selected: _p2pBetController.selectedButton.value == text.toLowerCase(),
                           ),
                         ),
                       )
@@ -123,8 +117,7 @@ class _P2pBetTabState extends State<P2pBetTab>
                             bet: bet,
                             isMyBets: false,
                             onPressed: () {
-                              if (bet.status == BetStatus.awaiting ||
-                                  bet.opponent != null) {
+                              if (bet.status == BetStatus.awaiting || bet.opponent != null) {
                                 if (!lController.isConnected) {
                                   if (Ethereum.isSupported) {
                                     lController.initiateWalletConnect(
@@ -132,8 +125,7 @@ class _P2pBetTabState extends State<P2pBetTab>
                                     );
                                   } else {
                                     lController.connectWC().then((_) {
-                                      if (lController
-                                          .walletAddress.isNotEmpty) {
+                                      if (lController.walletAddress.isNotEmpty) {
                                         navigateToBetDetailsScreen(bet);
                                       }
                                     });

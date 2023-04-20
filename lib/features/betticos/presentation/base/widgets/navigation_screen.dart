@@ -9,8 +9,7 @@ class NavigationScreen extends StatefulWidget {
   _NavigationScreenState createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen>
-    with TickerProviderStateMixin {
+class _NavigationScreenState extends State<NavigationScreen> with TickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? animation;
 

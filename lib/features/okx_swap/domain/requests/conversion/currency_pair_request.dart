@@ -10,6 +10,5 @@ class CurrencyPairRequest with _$CurrencyPairRequest {
     @JsonKey(name: 'fromCcy') required String fromCurrency,
     @JsonKey(name: 'toCcy') required String toCurrency,
   }) = _CurrencyPairRequest;
-  factory CurrencyPairRequest.fromJson(Map<String, dynamic> json) =>
-      _$CurrencyPairRequestFromJson(json);
+  factory CurrencyPairRequest.fromJson(Map<String, dynamic> json) => _$CurrencyPairRequestFromJson(json);
 }

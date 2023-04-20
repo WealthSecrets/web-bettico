@@ -9,6 +9,5 @@ class SFixtureRequest with _$SFixtureRequest {
   const factory SFixtureRequest({
     required int fixtureId,
   }) = _SFixtureRequest;
-  factory SFixtureRequest.fromJson(Map<String, dynamic> json) =>
-      _$SFixtureRequestFromJson(json);
+  factory SFixtureRequest.fromJson(Map<String, dynamic> json) => _$SFixtureRequestFromJson(json);
 }

@@ -10,6 +10,5 @@ class GetReportOptionsRequest with _$GetReportOptionsRequest {
   const factory GetReportOptionsRequest({
     required String type,
   }) = _GetReportOptionsRequest;
-  factory GetReportOptionsRequest.fromJson(Map<String, dynamic> json) =>
-      _$GetReportOptionsRequestFromJson(json);
+  factory GetReportOptionsRequest.fromJson(Map<String, dynamic> json) => _$GetReportOptionsRequestFromJson(json);
 }

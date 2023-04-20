@@ -15,6 +15,5 @@ class BettorRequest with _$BettorRequest {
     required String wallet,
     required String txthash,
   }) = _BettorRequest;
-  factory BettorRequest.fromJson(Map<String, dynamic> json) =>
-      _$BettorRequestFromJson(json);
+  factory BettorRequest.fromJson(Map<String, dynamic> json) => _$BettorRequestFromJson(json);
 }

@@ -11,6 +11,5 @@ class LiveScoreRequest with _$LiveScoreRequest {
     required String apiKey,
     required String secretKey,
   }) = _LiveScoreRequest;
-  factory LiveScoreRequest.fromJson(Map<String, dynamic> json) =>
-      _$LiveScoreRequestFromJson(json);
+  factory LiveScoreRequest.fromJson(Map<String, dynamic> json) => _$LiveScoreRequestFromJson(json);
 }

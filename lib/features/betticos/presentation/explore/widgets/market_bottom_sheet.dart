@@ -27,8 +27,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
   final MarketRateController controller = Get.find<MarketRateController>();
   Timer? _timer;
 
-  final StreamController<Listing?> _listingStreamController =
-      StreamController<Listing?>.broadcast();
+  final StreamController<Listing?> _listingStreamController = StreamController<Listing?>.broadcast();
 
   @override
   void initState() {
@@ -59,8 +58,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final double percentChange1h = widget.listing.quote.usd.percentChange1h;
-    final Color color =
-        percentChange1h < 0 ? context.colors.error : context.colors.success;
+    final Color color = percentChange1h < 0 ? context.colors.error : context.colors.success;
     final double space = getSpaceValue(context);
     return StreamBuilder<Listing?>(
       stream: _listingStreamController.stream,
@@ -108,38 +106,32 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                               children: <Widget>[
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Expanded(
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'PRICE',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: context.colors.text,
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                            Text(
-                                              '\$${listing.quote.usd.price.toStringAsFixed(2)}',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: context.colors.text,
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ]),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                                        Text(
+                                          'PRICE',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            color: context.colors.text,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        Text(
+                                          '\$${listing.quote.usd.price.toStringAsFixed(2)}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            color: context.colors.text,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ]),
                                     ),
                                     Expanded(
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
                                             'CHANGE',
@@ -165,13 +157,11 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                 const AppSpacing(v: 30),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'PRICE CHART',
@@ -186,27 +176,21 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                             height: 20,
                                             data: List<LineChartModel>.generate(
                                               6,
-                                              (_) => LineChartModel(
-                                                  amount:
-                                                      Random().nextDouble() *
-                                                          10),
+                                              (_) => LineChartModel(amount: Random().nextDouble() * 10),
                                             ),
 
                                             linePaint: Paint()
                                               ..strokeWidth = 2.5
                                               ..style = PaintingStyle.stroke
-                                              ..color =
-                                                  color, // Custom paint for the line
+                                              ..color = color, // Custom paint for the line
                                           ),
                                         ],
                                       ),
                                     ),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'VOLUME',
@@ -217,8 +201,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                             ),
                                           ),
                                           Text(
-                                            listing.quote.usd.volume24h
-                                                .toStringAsFixed(2),
+                                            listing.quote.usd.volume24h.toStringAsFixed(2),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: context.colors.text,
@@ -233,15 +216,12 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                 const AppSpacing(v: 30),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Expanded(
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'MARKET CAP',
@@ -252,8 +232,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                             ),
                                           ),
                                           Text(
-                                            listing.quote.usd.marketCap
-                                                .toStringAsFixed(2),
+                                            listing.quote.usd.marketCap.toStringAsFixed(2),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: context.colors.text,
@@ -265,8 +244,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                     ),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
                                             'DILUTED MARKET CAP',
@@ -277,9 +255,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                             ),
                                           ),
                                           Text(
-                                            listing.quote.usd
-                                                .fullyDilutedMarketCap!
-                                                .toStringAsFixed(2),
+                                            listing.quote.usd.fullyDilutedMarketCap!.toStringAsFixed(2),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: context.colors.text,

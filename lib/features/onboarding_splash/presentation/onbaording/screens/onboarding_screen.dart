@@ -13,8 +13,7 @@ class OnboardingScreen extends StatefulWidget {
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen>
-    with TickerProviderStateMixin {
+class _OnboardingScreenState extends State<OnboardingScreen> with TickerProviderStateMixin {
   final OnboardController controller = Get.find<OnboardController>();
   late final PageController pageController;
   late final ValueNotifier<int> activeIndexValueNotifier;
@@ -37,8 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     pageOffsetValueNotifier = ValueNotifier<double>(0.0);
     pageController = PageController();
     pageController.addListener(() {
-      pageOffsetValueNotifier.value =
-          activeIndexValueNotifier.value - (pageController.page ?? 0.0);
+      pageOffsetValueNotifier.value = activeIndexValueNotifier.value - (pageController.page ?? 0.0);
     });
     super.initState();
   }
@@ -71,8 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       builder: (BuildContext context, double pageOffset, _) {
                         return PageView(
                           physics: const BouncingScrollPhysics(),
-                          onPageChanged: (int index) =>
-                              activeIndexValueNotifier.value = index,
+                          onPageChanged: (int index) => activeIndexValueNotifier.value = index,
                           controller: pageController,
                           children: List<Widget>.generate(
                             onBoardTexts.length,
@@ -107,8 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               child: activeIndex < 2
                                   ? TextButton(
                                       onPressed: () => pageController.nextPage(
-                                          duration: const Duration(
-                                              milliseconds: 1200),
+                                          duration: const Duration(milliseconds: 1200),
                                           curve: Curves.fastLinearToSlowEaseIn),
                                       child: Text(
                                         'skip'.tr,
@@ -123,8 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                         height: 50,
                                         color: context.colors.primary,
                                         elevation: 0.0,
-                                        onPressed: () =>
-                                            controller.saveOnBoarded(),
+                                        onPressed: () => controller.saveOnBoarded(),
                                         child: Text(
                                           'enter'.tr.toUpperCase(),
                                           style: context.body2.copyWith(

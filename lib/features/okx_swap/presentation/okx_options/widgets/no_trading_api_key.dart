@@ -14,8 +14,7 @@ class NoTradingApiKey extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppEmptyScreen(
       title: 'ACCESS EXPIRED',
-      message:
-          'Your access to trading has expired, please refresh trading access.',
+      message: 'Your access to trading has expired, please refresh trading access.',
       onBottonPressed: () {
         registerController.createOkxAccountApiKey(context);
       },

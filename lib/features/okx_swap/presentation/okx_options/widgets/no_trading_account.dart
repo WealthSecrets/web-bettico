@@ -20,9 +20,7 @@ class NoTradignAccount extends StatelessWidget {
       title: 'ENABLE TRADE',
       message: 'Your account do not have trading support yet.',
       onBottonPressed: () {
-        if (user.email == null &&
-            user.firstName == null &&
-            user.username == null) {
+        if (user.email == null && user.firstName == null && user.username == null) {
           AppSnacks.show(context, message: 'Oops! Something went wrong.');
           return;
         }

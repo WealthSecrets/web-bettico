@@ -17,6 +17,5 @@ class PostRequest with _$PostRequest {
     List<String>? shares,
     List<List<int>>? files,
   }) = _PostRequest;
-  factory PostRequest.fromJson(Map<String, dynamic> json) =>
-      _$PostRequestFromJson(json);
+  factory PostRequest.fromJson(Map<String, dynamic> json) => _$PostRequestFromJson(json);
 }

@@ -22,6 +22,5 @@ class BetRequest with _$BetRequest {
     String? score,
     bool? isFixture,
   }) = _BetRequest;
-  factory BetRequest.fromJson(Map<String, dynamic> json) =>
-      _$BetRequestFromJson(json);
+  factory BetRequest.fromJson(Map<String, dynamic> json) => _$BetRequestFromJson(json);
 }

@@ -26,15 +26,11 @@ class SelectableButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints:
-          constraints ?? const BoxConstraints(maxHeight: 45, minWidth: 100),
+      constraints: constraints ?? const BoxConstraints(maxHeight: 45, minWidth: 100),
       child: TextButton(
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14),
-          backgroundColor: color ??
-              (selected ?? false
-                  ? context.colors.primary
-                  : const Color(0xFFD7D7D7)),
+          backgroundColor: color ?? (selected ?? false ? context.colors.primary : const Color(0xFFD7D7D7)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -44,18 +40,13 @@ class SelectableButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: tagValue == null
-                  ? EdgeInsets.zero
-                  : const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
+              padding: tagValue == null ? EdgeInsets.zero : const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
               child: Text(
                 text,
                 textScaleFactor: 1.0,
                 style: TextStyle(
                   fontSize: fontSize ?? 10,
-                  color: textColor ??
-                      (selected ?? false
-                          ? Colors.white
-                          : const Color(0xFF4A4B65)),
+                  color: textColor ?? (selected ?? false ? Colors.white : const Color(0xFF4A4B65)),
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -64,20 +55,14 @@ class SelectableButton extends StatelessWidget {
             if (tagValue != null)
               Container(
                 decoration: BoxDecoration(
-                  color:
-                      selected ?? false ? Colors.white : context.colors.primary,
+                  color: selected ?? false ? Colors.white : context.colors.primary,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 3.0, horizontal: 6.0),
+                  padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
                   child: Text(
                     tagValue!,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: selected ?? false
-                            ? context.colors.primary
-                            : Colors.white),
+                    style: TextStyle(fontSize: 12, color: selected ?? false ? context.colors.primary : Colors.white),
                   ),
                 ),
               ),

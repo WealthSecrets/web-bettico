@@ -13,8 +13,7 @@ class BalanceResponse with _$BalanceResponse {
 
   const BalanceResponse._();
 
-  factory BalanceResponse.fromJson(Map<String, dynamic> json) =>
-      _$BalanceResponseFromJson(json);
+  factory BalanceResponse.fromJson(Map<String, dynamic> json) => _$BalanceResponseFromJson(json);
 
   factory BalanceResponse.mock() => BalanceResponse(
         total: '2.32',
@@ -38,8 +37,7 @@ class Balance with _$Balance {
     @JsonKey(name: 'marketValue') required String marketValue,
   }) = _Balance;
 
-  factory Balance.fromJson(Map<String, dynamic> json) =>
-      _$BalanceFromJson(json);
+  factory Balance.fromJson(Map<String, dynamic> json) => _$BalanceFromJson(json);
 
   factory Balance.mock() => const Balance(
       availableBalance: '2.33',
@@ -49,11 +47,6 @@ class Balance with _$Balance {
       usd: '2.35',
       marketValue: '1.000');
 
-  factory Balance.empty() => const Balance(
-      availableBalance: '',
-      balance: '',
-      currency: '',
-      fronzenBalance: '',
-      usd: '',
-      marketValue: '');
+  factory Balance.empty() =>
+      const Balance(availableBalance: '', balance: '', currency: '', fronzenBalance: '', usd: '', marketValue: '');
 }

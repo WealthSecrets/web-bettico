@@ -5,8 +5,7 @@ import 'package:dartz/dartz.dart';
 import '/core/core.dart';
 import '/features/betticos/data/models/listpage/listpage.dart';
 
-class FetchPaginatedFixtures
-    implements UseCase<ListPage<LiveScore>, PageParmas> {
+class FetchPaginatedFixtures implements UseCase<ListPage<LiveScore>, PageParmas> {
   FetchPaginatedFixtures({required this.p2pRepository});
   final P2pRepository p2pRepository;
 

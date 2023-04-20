@@ -16,8 +16,7 @@ class WithdrawalResponse with _$WithdrawalResponse {
 
   const WithdrawalResponse._();
 
-  factory WithdrawalResponse.fromJson(Map<String, dynamic> json) =>
-      _$WithdrawalResponseFromJson(json);
+  factory WithdrawalResponse.fromJson(Map<String, dynamic> json) => _$WithdrawalResponseFromJson(json);
 
   factory WithdrawalResponse.mock() => const WithdrawalResponse(
         amount: '0.1',

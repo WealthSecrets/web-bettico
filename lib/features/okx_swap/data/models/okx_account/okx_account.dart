@@ -25,8 +25,7 @@ class OkxAccount with _$OkxAccount {
 
   const OkxAccount._();
 
-  factory OkxAccount.fromJson(Map<String, dynamic> json) =>
-      _$OkxAccountFromJson(json);
+  factory OkxAccount.fromJson(Map<String, dynamic> json) => _$OkxAccountFromJson(json);
 
   factory OkxAccount.mock() => OkxAccount(
         accountLevel: '1',

@@ -14,6 +14,5 @@ class LiveTeamRequest with _$LiveTeamRequest {
     required int competitionId,
     required String date,
   }) = _LiveTeamRequest;
-  factory LiveTeamRequest.fromJson(Map<String, dynamic> json) =>
-      _$LiveTeamRequestFromJson(json);
+  factory LiveTeamRequest.fromJson(Map<String, dynamic> json) => _$LiveTeamRequestFromJson(json);
 }

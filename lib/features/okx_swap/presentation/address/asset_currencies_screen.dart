@@ -16,8 +16,7 @@ import 'package:get/get.dart';
 import '../okx_options/widgets/no_trading_account.dart';
 
 class AssetCurrenciesScreenRouteArgument {
-  const AssetCurrenciesScreenRouteArgument(
-      {this.isWithdrawal = false, this.isTransfer = false});
+  const AssetCurrenciesScreenRouteArgument({this.isWithdrawal = false, this.isTransfer = false});
 
   final bool? isWithdrawal;
   final bool? isTransfer;
@@ -49,9 +48,8 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AssetCurrenciesScreenRouteArgument? args = ModalRoute.of(context)!
-        .settings
-        .arguments as AssetCurrenciesScreenRouteArgument?;
+    final AssetCurrenciesScreenRouteArgument? args =
+        ModalRoute.of(context)!.settings.arguments as AssetCurrenciesScreenRouteArgument?;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -68,8 +66,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
         actions: args?.isTransfer == null && args?.isWithdrawal == null
             ? <Widget>[
                 IconButton(
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.depositHistory),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.depositHistory),
                   icon: Image.asset(
                     AssetImages.tansactionHistory,
                     height: 24,
@@ -125,8 +122,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                           : currencies.isNotEmpty
                               ? ListView.separated(
                                   padding: EdgeInsets.zero,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
+                                  itemBuilder: (BuildContext context, int index) {
                                     final Currency currency = currencies[index];
                                     return ListTile(
                                       onTap: () => _handleOnTap(currency, args),
@@ -158,9 +154,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                                       ),
                                     );
                                   },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                          Divider(
+                                  separatorBuilder: (BuildContext context, int index) => Divider(
                                     color: context.colors.faintGrey,
                                   ),
                                   itemCount: currencies.length,
@@ -173,10 +167,8 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                                   btnText: isKeywordEmpty ? 'Retry' : null,
                                   onBottonPressed: isKeywordEmpty
                                       ? () {
-                                          controller
-                                              .fetchAssetCurrencies(context);
-                                          controller
-                                              .fetchConvertCurrencies(context);
+                                          controller.fetchAssetCurrencies(context);
+                                          controller.fetchConvertCurrencies(context);
                                         }
                                       : null,
                                 ),
@@ -189,8 +181,7 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
     );
   }
 
-  void _handleOnTap(
-      Currency currency, AssetCurrenciesScreenRouteArgument? args) {
+  void _handleOnTap(Currency currency, AssetCurrenciesScreenRouteArgument? args) {
     WidgetUtils.showChainModal(
       context: context,
       currencies: controller.getTokens(currency.currency),

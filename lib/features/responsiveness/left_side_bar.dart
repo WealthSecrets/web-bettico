@@ -13,8 +13,7 @@ import '../../core/presentation/utils/app_endpoints.dart';
 import 'constants/web_controller.dart';
 
 class LeftSideBar extends StatefulWidget {
-  const LeftSideBar({Key? key, required this.userToken, required this.user})
-      : super(key: key);
+  const LeftSideBar({Key? key, required this.userToken, required this.user}) : super(key: key);
   final String userToken;
   final User user;
 

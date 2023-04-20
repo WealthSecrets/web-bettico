@@ -52,14 +52,13 @@ class BuySellCryptoScreen extends StatelessWidget {
                   title: 'Xviral Token',
                   subtitle: 'Buy Xviral token for private sale.',
                   imagePath: AssetImages.crypto,
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.privateSales),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.privateSales),
                 ),
                 CryptoCard(
                   title: 'USDT',
                   subtitle: 'Buy or sell USDT',
                   imagePath: AssetImages.tether,
-                  onPressed: () {},
+                  onPressed: () => navigationController.navigateTo(AppRoutes.buyUsdt),
                 ),
               ],
             )

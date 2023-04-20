@@ -10,6 +10,5 @@ class ConvertAmountRequest with _$ConvertAmountRequest {
     required double amount,
     required String currency,
   }) = _ConvertAmountRequest;
-  factory ConvertAmountRequest.fromJson(Map<String, dynamic> json) =>
-      _$ConvertAmountRequestFromJson(json);
+  factory ConvertAmountRequest.fromJson(Map<String, dynamic> json) => _$ConvertAmountRequestFromJson(json);
 }

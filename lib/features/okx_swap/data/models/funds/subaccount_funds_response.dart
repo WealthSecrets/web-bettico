@@ -17,8 +17,7 @@ class SubAccountFundsResponse with _$SubAccountFundsResponse {
 
   const SubAccountFundsResponse._();
 
-  factory SubAccountFundsResponse.fromJson(Map<String, dynamic> json) =>
-      _$SubAccountFundsResponseFromJson(json);
+  factory SubAccountFundsResponse.fromJson(Map<String, dynamic> json) => _$SubAccountFundsResponseFromJson(json);
 
   factory SubAccountFundsResponse.mock() => const SubAccountFundsResponse(
         amount: '0.1',

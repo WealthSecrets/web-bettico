@@ -10,8 +10,7 @@ abstract class Repository {
     Future<T> Function()? onTimeOut,
   }) async {
     try {
-      final T response = await request.timeout(
-          duration ?? const Duration(seconds: 30), onTimeout: () async {
+      final T response = await request.timeout(duration ?? const Duration(seconds: 30), onTimeout: () async {
         if (onTimeOut != null) {
           return onTimeOut();
         }
@@ -19,13 +18,11 @@ abstract class Repository {
       });
       return right(response);
     } on ServerException catch (exception) {
-      return left(Failure.server(
-          message: exception.message ?? 'Something went wrong technically'));
+      return left(Failure.server(message: exception.message ?? 'Something went wrong technically'));
     } on TimeoutException catch (_) {
       return left(const Failure.timeout());
     } on AppException catch (exception) {
-      return left(Failure.client(
-          message: exception.message ?? 'Something went wrong technically'));
+      return left(Failure.client(message: exception.message ?? 'Something went wrong technically'));
     } catch (error, stackTrace) {
       AppLog.e(error.toString(), stackTrace);
       return left(
@@ -34,8 +31,7 @@ abstract class Repository {
     }
   }
 
-  Future<Either<Failure, T>> makeLocalRequest<T>(
-      Future<T?> Function() request) async {
+  Future<Either<Failure, T>> makeLocalRequest<T>(Future<T?> Function() request) async {
     try {
       final T? response = await request();
       if (response != null) {

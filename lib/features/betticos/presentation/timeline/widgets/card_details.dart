@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CardDetails extends StatelessWidget {
-  CardDetails(
-      {Key? key,
-      required this.imageAddress,
-      required this.index,
-      required this.placeDetails})
+  CardDetails({Key? key, required this.imageAddress, required this.index, required this.placeDetails})
       : super(key: key);
 
   String imageAddress;
@@ -57,8 +53,7 @@ class CardDetails extends StatelessWidget {
                   child: Text(
                     placeDetails,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                        fontSize: 20.0, fontStyle: FontStyle.italic),
+                    style: const TextStyle(fontSize: 20.0, fontStyle: FontStyle.italic),
                   ),
                 ),
               ),

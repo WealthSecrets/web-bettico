@@ -47,9 +47,7 @@ class CryptoConverterInput extends StatelessWidget {
             value: selectedCurrency,
             onChanged: onCurrencyChanged,
             options: options,
-            customTitleBuilder:
-                (BuildContext context, Currency? currency, bool isSelected) =>
-                    Row(
+            customTitleBuilder: (BuildContext context, Currency? currency, bool isSelected) => Row(
               children: <Widget>[
                 if (currency != null && currency.logoLink != null)
                   SizedBox(
@@ -67,11 +65,8 @@ class CryptoConverterInput extends StatelessWidget {
                     Text(
                       currency!.currency,
                       style: TextStyle(
-                        fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.w500,
-                        color: isSelected
-                            ? context.colors.primary
-                            : context.colors.textDark,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                        color: isSelected ? context.colors.primary : context.colors.textDark,
                         fontSize: 16,
                       ),
                     ),
@@ -88,8 +83,7 @@ class CryptoConverterInput extends StatelessWidget {
                 )
               ],
             ),
-            customChildBuilder: (BuildContext context, Currency? item) =>
-                SizedBox(
+            customChildBuilder: (BuildContext context, Currency? item) => SizedBox(
               height: kToolbarHeight - 7,
               child: Row(
                 children: <Widget>[
@@ -118,8 +112,7 @@ class CryptoConverterInput extends StatelessWidget {
                     size: 20,
                     color: context.colors.textDark,
                   ),
-                  const VerticalDivider(
-                      width: 1, thickness: 1, color: Color(0xFFD2CDDE)),
+                  const VerticalDivider(width: 1, thickness: 1, color: Color(0xFFD2CDDE)),
                 ],
               ),
             ),

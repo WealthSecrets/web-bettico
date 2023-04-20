@@ -35,8 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         controller.updateLanguagePreference('en');
                       }
                     },
-                    value: Text(
-                        controller.isLanguage.value == 'en' ? '🇨🇳' : '🇺🇸'),
+                    value: Text(controller.isLanguage.value == 'en' ? '🇨🇳' : '🇺🇸'),
                   ),
                   SettingsTile.switchTile(
                     onToggle: controller.updateIntroductionPreference,
@@ -47,47 +46,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SettingsTile.navigation(
                     title: const Text('Certik'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view'
-                      ]);
+                      js.context.callMethod(
+                          'open', <String>['https://drive.google.com/file/d/1CpaYubbMAY377_bBVHW7x1PBvv2kliVK/view']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Audit'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view'
-                      ]);
+                      js.context.callMethod(
+                          'open', <String>['https://drive.google.com/file/d/189LTkNlKGKJhOUvnktuAIrrJHnPn3UO3/view']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Whitepaper'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW'
-                      ]);
+                      js.context.callMethod(
+                          'open', <String>['https://drive.google.com/drive/folders/1vXyezl7lrtgpo8lmOlMkO7n9DLkuGDkW']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Buy WSC'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open',
-                          <String>['https://staking.wealthsecrets.io/swap']);
+                      js.context.callMethod('open', <String>['https://staking.wealthsecrets.io/swap']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Store'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod(
-                          'open', <String>['https://wealthsecrets.store/']);
+                      js.context.callMethod('open', <String>['https://wealthsecrets.store/']);
                     },
                   ),
                   SettingsTile.navigation(
                     title: const Text('Advertise'),
                     onPressed: (BuildContext context) {
-                      js.context.callMethod('open', <String>[
-                        'https://www.wealthsecrets.io/advertiseRequest'
-                      ]);
+                      js.context.callMethod('open', <String>['https://www.wealthsecrets.io/advertiseRequest']);
                     },
                   ),
                 ],

@@ -20,8 +20,7 @@ class TransactionHistoryScreen extends StatefulWidget {
   const TransactionHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<TransactionHistoryScreen> createState() =>
-      _TransactionHistoryScreenState();
+  State<TransactionHistoryScreen> createState() => _TransactionHistoryScreenState();
 }
 
 class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
@@ -35,13 +34,11 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final TransactionHistoryScreenRouteArgument? args = ModalRoute.of(context)!
-        .settings
-        .arguments as TransactionHistoryScreenRouteArgument?;
+    final TransactionHistoryScreenRouteArgument? args =
+        ModalRoute.of(context)!.settings.arguments as TransactionHistoryScreenRouteArgument?;
     return Obx(
       () {
-        final List<Transaction> transactions =
-            controller.getBetTransactions(args?.isSale);
+        final List<Transaction> transactions = controller.getBetTransactions(args?.isSale);
         return AppLoadingBox(
           loading: controller.isFetchingTransactions.value,
           child: Scaffold(
@@ -57,8 +54,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       IconButton(
-                        icon: const Icon(Ionicons.arrow_back_sharp,
-                            size: 24, color: Colors.black),
+                        icon: const Icon(Ionicons.arrow_back_sharp, size: 24, color: Colors.black),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       Expanded(
@@ -77,21 +73,17 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                   const SizedBox(height: 16),
                   Expanded(
                     child: transactions.isEmpty
-                        ? const AppEmptyScreen(
-                            message: 'No transactions were found.')
+                        ? const AppEmptyScreen(message: 'No transactions were found.')
                         : ListView.separated(
-                            separatorBuilder:
-                                (BuildContext context, int index) => Divider(
+                            separatorBuilder: (BuildContext context, int index) => Divider(
                               color: context.colors.faintGrey,
                             ),
                             padding: EdgeInsets.zero,
                             itemCount: transactions.length,
                             itemBuilder: (BuildContext context, int index) {
-                              final Transaction transaction =
-                                  transactions[index];
+                              final Transaction transaction = transactions[index];
                               return ListTile(
-                                onTap: () => showTransactionDetails(
-                                    context, transaction),
+                                onTap: () => showTransactionDetails(context, transaction),
                                 leading: Image.asset(
                                   transaction.type.transactionAsset(),
                                   width: 24,
@@ -106,8 +98,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  StringUtils.capitalizeFirst(
-                                      transaction.status.stringValue),
+                                  StringUtils.capitalizeFirst(transaction.status.stringValue),
                                   style: TextStyle(
                                     color: transaction.status.color(context),
                                     fontSize: 12,
@@ -145,9 +136,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           child: AppTransactionDailog(
             transaction: transaction,
             onPressed: () {
-              js.context.callMethod('open', <String>[
-                'https://bscscan.com//tx/${transaction.transactionHash}'
-              ]);
+              js.context.callMethod('open', <String>['https://bscscan.com//tx/${transaction.transactionHash}']);
             },
           ),
         ),

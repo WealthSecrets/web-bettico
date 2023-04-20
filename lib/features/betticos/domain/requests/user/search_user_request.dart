@@ -10,6 +10,5 @@ class SearchUserRequest with _$SearchUserRequest {
   const factory SearchUserRequest({
     required String query,
   }) = _SearchUserRequest;
-  factory SearchUserRequest.fromJson(Map<String, dynamic> json) =>
-      _$SearchUserRequestFromJson(json);
+  factory SearchUserRequest.fromJson(Map<String, dynamic> json) => _$SearchUserRequestFromJson(json);
 }

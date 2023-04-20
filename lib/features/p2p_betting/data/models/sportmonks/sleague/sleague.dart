@@ -24,24 +24,11 @@ class SLeague with _$SLeague {
 
   const SLeague._();
 
-  factory SLeague.fromJson(Map<String, dynamic> json) =>
-      _$SLeagueFromJson(json);
+  factory SLeague.fromJson(Map<String, dynamic> json) => _$SLeagueFromJson(json);
 
   factory SLeague.mock() => SLeague(
-      id: 1,
-      name: Faker().person.name(),
-      active: false,
-      logo: '',
-      isCup: false,
-      isFriendly: false,
-      type: 'domestic');
+      id: 1, name: Faker().person.name(), active: false, logo: '', isCup: false, isFriendly: false, type: 'domestic');
 
   factory SLeague.empty() => SLeague(
-      id: 1,
-      name: Faker().person.name(),
-      active: false,
-      logo: '',
-      isCup: false,
-      isFriendly: false,
-      type: 'domestic');
+      id: 1, name: Faker().person.name(), active: false, logo: '', isCup: false, isFriendly: false, type: 'domestic');
 }
