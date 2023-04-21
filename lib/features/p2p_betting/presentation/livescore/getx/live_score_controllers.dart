@@ -187,17 +187,20 @@ class LiveScoreController extends GetxController {
       return response;
     } catch (e) {
       showLoadingLogo.value = false;
-      await AppSnacks.show(context, message: 'Couldn\'t make payment, please check your wallet balance');
+      await AppSnacks.show(context,
+          message: 'Couldn\'t make payment, please check your wallet balance');
       return null;
     }
   }
 
-  Future<TransactionResponse?> sendWsc(BuildContext context, double amount) async {
+  Future<TransactionResponse?> sendWsc(
+      BuildContext context, double amount) async {
     try {
-      final ContractERC20 token = ContractERC20(Env.wscContractAddress, web3wc!.getSigner());
+      final ContractERC20 token =
+          ContractERC20(Env.wscContractAddress, web3wc!.getSigner());
 
-      final TransactionResponse? response =
-          await send(context, amt: amount, token: token, depositAddress: Env.receiveAddress);
+      final TransactionResponse? response = await send(context,
+          amt: amount, token: token, depositAddress: Env.receiveAddress);
       return response;
     } catch (e) {
       await AppSnacks.show(context, message: 'Something went wrong!');
@@ -205,13 +208,15 @@ class LiveScoreController extends GetxController {
     }
   }
 
-  Future<TransactionResponse?> sendUsdt(BuildContext context, double amount, String depositAddress) async {
+  Future<TransactionResponse?> sendUsdt(
+      BuildContext context, double amount, String depositAddress) async {
     isMakingPayment(true);
     try {
-      final ContractERC20 token = ContractERC20(Env.usdtContractAddress, web3wc!.getSigner());
+      final ContractERC20 token =
+          ContractERC20(Env.usdtContractAddress, web3wc!.getSigner());
 
-      final TransactionResponse? response =
-          await send(context, amt: amount, token: token, depositAddress: depositAddress);
+      final TransactionResponse? response = await send(context,
+          amt: amount, token: token, depositAddress: depositAddress);
       isMakingPayment(false);
       return response;
     } catch (e) {
@@ -234,10 +239,12 @@ class LiveScoreController extends GetxController {
 
     final Wallet wallet = Wallet.fromMnemonic(Env.walletPhrase);
 
-    final JsonRpcProvider jsonRpcProvider = JsonRpcProvider('https://bsc-dataseed.binance.org/');
+    final JsonRpcProvider jsonRpcProvider =
+        JsonRpcProvider('https://bsc-dataseed.binance.org/');
     final Wallet walletProvider = wallet.connect(jsonRpcProvider);
 
-    final ContractERC20 token = ContractERC20(Env.wscContractAddress, walletProvider);
+    final ContractERC20 token =
+        ContractERC20(Env.wscContractAddress, walletProvider);
 
     try {
       final TransactionResponse response = await token.transfer(
@@ -267,7 +274,8 @@ class LiveScoreController extends GetxController {
 
   void getAllLeagues() async {
     isFetchingLeagues(true);
-    final Either<Failure, List<SLeague>> failureOrLeagues = await fetchLeagues(NoParams());
+    final Either<Failure, List<SLeague>> failureOrLeagues =
+        await fetchLeagues(NoParams());
     failureOrLeagues.fold<void>(
       (Failure failure) {
         isFetchingLeagues(false);
@@ -284,10 +292,10 @@ class LiveScoreController extends GetxController {
   }
 
   void getLiveScores() async {
-    print('getLiveScores is called');
     isFetchingLiveScores(true);
     final Either<Failure, List<LiveScore>> failureOrLiveScores =
-        await fetchLiveScores(NullLiveScoreRequest(leagueId: selectedLeague.value.id));
+        await fetchLiveScores(
+            NullLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrLiveScores.fold<void>(
       (Failure failure) {
         isFetchingLiveScores(false);
@@ -295,7 +303,8 @@ class LiveScoreController extends GetxController {
       (List<LiveScore> value) {
         isFetchingLiveScores(false);
         final List<LiveScore> copyLiveScores = List<LiveScore>.from(value);
-        copyLiveScores.removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
+        copyLiveScores
+            .removeWhere((LiveScore l) => l.time.status?.toLowerCase() == 'ft');
         liveScores.value = copyLiveScores;
       },
     );
@@ -304,7 +313,8 @@ class LiveScoreController extends GetxController {
   void getSFixtures() async {
     isFetchingFixtures(true);
     final Either<Failure, List<LiveScore>> failureOrSFixtures =
-        await fetchFixtures(NullLiveScoreRequest(leagueId: selectedLeague.value.id));
+        await fetchFixtures(
+            NullLiveScoreRequest(leagueId: selectedLeague.value.id));
     failureOrSFixtures.fold<void>(
       (Failure failure) {
         isFetchingFixtures(false);
@@ -414,7 +424,8 @@ class LiveScoreController extends GetxController {
     setSelectedCurrency(currency);
 
     final Either<Failure, Volume> failureOrVolume =
-        await convertAmountToCurrency(ConvertAmountRequest(amount: amount, currency: currency));
+        await convertAmountToCurrency(
+            ConvertAmountRequest(amount: amount, currency: currency));
 
     failureOrVolume.fold<void>(
       (Failure failure) {
