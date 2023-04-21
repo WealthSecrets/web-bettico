@@ -1,3 +1,4 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
@@ -34,7 +35,26 @@ class LargeScreen extends StatelessWidget {
         ),
         Expanded(
           flex: 6,
-          child: webNavigator(initialRoute),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              border: Border(
+                right: BorderSide(
+                  color: context.colors.lightGrey,
+                  width: 1,
+                  style: BorderStyle.solid,
+                ),
+                left: BorderSide(
+                  color: context.colors.lightGrey,
+                  width: 1,
+                  style: BorderStyle.solid,
+                ),
+              ),
+            ),
+            child: webNavigator(initialRoute),
+          ),
         ),
         Expanded(
           flex: 4,
@@ -47,7 +67,8 @@ class LargeScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 const TrendsForYouScreen(),
                 const SizedBox(height: 24),
-                if (isLargeScreen(context) && userToken.isEmpty) const RightLoginContainer(),
+                if (isLargeScreen(context) && userToken.isEmpty)
+                  const RightLoginContainer(),
               ],
             ),
           ),
@@ -57,5 +78,6 @@ class LargeScreen extends StatelessWidget {
     );
   }
 
-  bool isLargeScreen(BuildContext context) => ResponsiveWidget.isLargeScreen(context);
+  bool isLargeScreen(BuildContext context) =>
+      ResponsiveWidget.isLargeScreen(context);
 }
