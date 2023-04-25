@@ -17,6 +17,7 @@ List<SideMenuItem> sideMenuItemRoutes = <SideMenuItem>[
   const SideMenuItem('Refer A Friend', AppRoutes.referral),
   const SideMenuItem('Settings', AppRoutes.settings),
   const SideMenuItem('Trade', AppRoutes.okxOptions),
+  const SideMenuItem('More', AppRoutes.moreScreen),
   const SideMenuItem('Logout', AppRoutes.logout),
 ];
 

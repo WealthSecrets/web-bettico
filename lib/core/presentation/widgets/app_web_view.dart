@@ -17,8 +17,7 @@ class AppWebViewRouteArgument {
   final String title;
   final PreferredSizeWidget? appBar;
   final Widget Function(BuildContext context)? loadingBuilder;
-  final FutureOr<NavigationDecision> Function(NavigationRequest)?
-      navigationDelegate;
+  final FutureOr<NavigationDecision> Function(NavigationRequest)? navigationDelegate;
 }
 
 class AppWebView extends StatefulWidget {
@@ -30,8 +29,7 @@ class AppWebView extends StatefulWidget {
 
 class _AppWebViewState extends State<AppWebView> {
   final ValueNotifier<bool> loadingValueNotifier = ValueNotifier<bool>(true);
-  final Completer<WebViewXController<dynamic>> _controller =
-      Completer<WebViewXController<dynamic>>();
+  final Completer<WebViewXController<dynamic>> _controller = Completer<WebViewXController<dynamic>>();
 
   Size get screenSize => MediaQuery.of(context).size;
 
@@ -43,8 +41,7 @@ class _AppWebViewState extends State<AppWebView> {
 
   @override
   Widget build(BuildContext context) {
-    final AppWebViewRouteArgument args =
-        ModalRoute.of(context)!.settings.arguments! as AppWebViewRouteArgument;
+    final AppWebViewRouteArgument args = ModalRoute.of(context)!.settings.arguments! as AppWebViewRouteArgument;
     String url = args.url;
     if (url.endsWith('/')) {
       url = url.substring(0, url.length - 1);

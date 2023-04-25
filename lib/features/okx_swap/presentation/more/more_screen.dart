@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class MoreScreen extends StatefulWidget {
 class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -27,20 +29,36 @@ class _MoreScreenState extends State<MoreScreen> {
         child: AppAnimatedColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'More Services',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: context.colors.textDark,
-              ),
-              textAlign: TextAlign.center,
+            if (!isSmallScreen) const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Icon(
+                    Ionicons.arrow_back_sharp,
+                    size: 24,
+                    color: context.colors.black,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    'More Services',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: context.colors.textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             CustomTile(
               icon: Ionicons.pricetag_outline,
-              onPressed: () =>
-                  navigationController.navigateTo(AppRoutes.privateSales),
+              onPressed: () => navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
             ),
             const SizedBox(height: 10),
@@ -52,8 +70,7 @@ class _MoreScreenState extends State<MoreScreen> {
                   arguments: AppWebViewRouteArgument(
                     title: 'Web Browser',
                     url: 'https://www.avatrade.com/',
-                    navigationDelegate: (NavigationRequest navigation) async =>
-                        NavigationDecision.navigate,
+                    navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
                   ),
                 );
               },
