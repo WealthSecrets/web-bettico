@@ -47,6 +47,8 @@ class MenuController extends GetxController {
         return _customIcon(Ionicons.swap_horizontal_sharp, itemName);
       case AppRoutes.explore:
         return _customIcon(Ionicons.search_sharp, itemName);
+      case AppRoutes.moreScreen:
+        return _customIcon(Ionicons.apps_sharp, itemName);
       default:
         return _customIcon(Icons.exit_to_app, itemName);
     }

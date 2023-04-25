@@ -68,8 +68,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                   children: <Widget>[
                     _FooterText(
                       title: 'Quantity',
-                      subtitle:
-                          '${controller.quantity.value.toStringAsFixed(2)} USDT',
+                      subtitle: '${controller.quantity.value.toStringAsFixed(2)} USDT',
                     ),
                     const SizedBox(height: 16),
                     _FooterText(
@@ -114,8 +113,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
         controller.isTransferringFunds.value = true;
       },
       onSuccess: () async {
-        final TransactionResponse? result =
-            await controller.transferUSDT(context);
+        final TransactionResponse? result = await controller.transferUSDT(context);
         if (result != null && result.hash.isNotEmpty) {
           await showAppModal<void>(
             barrierDismissible: false,
@@ -136,8 +134,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                             color: context.colors.success,
                             size: 60,
                           ),
-                          description:
-                              'You have successfully accepted purchased ${controller.quantity.value} USDT',
+                          description: 'You have successfully accepted purchased ${controller.quantity.value} USDT',
                           title: Text(
                             'USDT Purchased',
                             style: TextStyle(
