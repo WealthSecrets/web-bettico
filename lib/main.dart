@@ -51,7 +51,7 @@ void main() async {
   MainBindings.dependencies();
 
   Get.put(NavigationController());
-  Get.put(MenuController());
+  Get.put(AppMenuController());
   SettingsBindings.dependencies();
   SplashBindings.dependencies();
   LiveScoreBindings.dependencies();
@@ -110,7 +110,10 @@ class _ReporterClient implements ReporterClient {
   _ReporterClient();
 
   @override
-  FutureOr<void> report({required StackTrace stackTrace, required Object error, Object? extra}) async {
+  FutureOr<void> report(
+      {required StackTrace stackTrace,
+      required Object error,
+      Object? extra}) async {
     // TODO: Sentry or Crashlytics
   }
 
