@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-class MenuController extends GetxController {
-  static MenuController instance = Get.find();
+class AppMenuController extends GetxController {
+  static AppMenuController instance = Get.find();
 
   RxString activeitem = AppRoutes.timeline.obs;
   RxString hoverItem = ''.obs;
@@ -62,7 +62,9 @@ class MenuController extends GetxController {
     return Icon(
       icon,
       size: 24,
-      color: isHovering(itemName) ? const Color(0xFF3d3d3d) : const Color(0xFFD3D3D3),
+      color: isHovering(itemName)
+          ? const Color(0xFF3d3d3d)
+          : const Color(0xFFD3D3D3),
     );
   }
 }
