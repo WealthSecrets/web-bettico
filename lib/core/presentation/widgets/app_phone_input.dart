@@ -78,10 +78,11 @@ class AppPhoneInput extends StatefulWidget {
   final BorderRadius? borderRadius;
 
   @override
-  _AppPhoneInputState createState() => _AppPhoneInputState();
+  State<AppPhoneInput> createState() => _AppPhoneInputState();
 }
 
-class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateMixin {
+class _AppPhoneInputState extends State<AppPhoneInput>
+    with TickerProviderStateMixin {
   FocusNode? focusNode;
   TextEditingController? controller;
   late ValueNotifier<bool> obscureTextValueListenable;
@@ -143,7 +144,8 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
             constraints: BoxConstraints(minHeight: max(40.h.toDouble(), 40)),
             decoration: BoxDecoration(
                 borderRadius: widget.borderRadius ?? AppBorderRadius.largeAll,
-                color: widget.backgroundColor ?? context.colors.primary.shade50),
+                color:
+                    widget.backgroundColor ?? context.colors.primary.shade50),
             child: AnimatedOpacity(
               curve: Curves.fastLinearToSlowEaseIn,
               duration: const Duration(milliseconds: 300),
@@ -159,12 +161,14 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
                           0.0,
                           widget.hideLabel
                               ? 0.0
-                              : focusNode!.hasFocus || controller!.text.isNotEmpty
+                              : focusNode!.hasFocus ||
+                                      controller!.text.isNotEmpty
                                   ? .0
                                   : 0.0),
                     child: ValueListenableBuilder<bool>(
                       valueListenable: obscureTextValueListenable,
-                      builder: (BuildContext context, bool obscuringText, Widget? child) {
+                      builder: (BuildContext context, bool obscuringText,
+                          Widget? child) {
                         return InternationalPhoneNumberInput(
                           onInputChanged: (PhoneNumber number) {
                             final String parsableNumber = '$number';
@@ -181,7 +185,8 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
                             fontSize: 14,
                           ),
                           inputDecoration: InputDecoration(
-                            contentPadding: widget.padding ?? const EdgeInsets.all(5),
+                            contentPadding:
+                                widget.padding ?? const EdgeInsets.all(5),
                             fillColor: context.colors.background,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             suffixIcon: widget.suffixIcon,
@@ -206,11 +211,13 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
                           initialValue: number,
                           textFieldController: controller,
                           formatInput: true,
-                          keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: false),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: true, decimal: false),
                           inputBorder: const OutlineInputBorder(),
                           onSaved: (PhoneNumber number) {},
                           searchBoxDecoration: InputDecoration(
-                            contentPadding: widget.padding ?? const EdgeInsets.all(5),
+                            contentPadding:
+                                widget.padding ?? const EdgeInsets.all(5),
                             fillColor: context.colors.background,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             suffixIcon: widget.suffixIcon,
@@ -231,15 +238,20 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
                     right: 10,
                     child: ValueListenableBuilder<bool>(
                       valueListenable: obscureTextValueListenable,
-                      builder: (BuildContext context, bool obscuringText, Widget? child) {
-                        if (!widget.showObscureTextToggle || !focusNode!.hasFocus && !widget.obscureText) {
+                      builder: (BuildContext context, bool obscuringText,
+                          Widget? child) {
+                        if (!widget.showObscureTextToggle ||
+                            !focusNode!.hasFocus && !widget.obscureText) {
                           return const SizedBox(height: 20);
                         }
 
                         return AnimatedSwitcher(
                           reverseDuration: Duration.zero,
-                          transitionBuilder: (Widget? child, Animation<double> animation) {
-                            final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
+                          transitionBuilder:
+                              (Widget? child, Animation<double> animation) {
+                            final Animation<double> offset =
+                                Tween<double>(begin: 0, end: 1.0)
+                                    .animate(animation);
                             return ScaleTransition(scale: offset, child: child);
                           },
                           switchInCurve: Curves.elasticOut,
@@ -271,11 +283,14 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
           ),
           ValueListenableBuilder<TextEditingValue>(
             valueListenable: controller!,
-            builder: (BuildContext context, TextEditingValue textEditingValue, _) {
+            builder:
+                (BuildContext context, TextEditingValue textEditingValue, _) {
               return ValueListenableBuilder<bool>(
                 valueListenable: dirtyValueListenable,
                 builder: (BuildContext context, bool dirty, _) {
-                  final bool showError = (widget.validator(textEditingValue.text) is String) && dirty;
+                  final bool showError =
+                      (widget.validator(textEditingValue.text) is String) &&
+                          dirty;
                   return AnimatedSize(
                     curve: Curves.elasticOut,
                     duration: const Duration(milliseconds: 900),
@@ -284,11 +299,13 @@ class _AppPhoneInputState extends State<AppPhoneInput> with TickerProviderStateM
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Builder(
-                          key: ValueKey<bool>(showError || widget.infoText == null),
+                          key: ValueKey<bool>(
+                              showError || widget.infoText == null),
                           builder: (_) {
                             if (showError) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
                                   widget.validator(controller!.value.text)!,
                                   style: widget.errorStyle ??

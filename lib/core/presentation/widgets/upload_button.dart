@@ -25,20 +25,22 @@ class UploadButton extends StatefulWidget {
   final bool openFrontCamera;
 
   @override
-  _UploadButtonState createState() => _UploadButtonState();
+  State<UploadButton> createState() => _UploadButtonState();
 }
 
 class _UploadButtonState extends State<UploadButton> {
   Uint8List? selected;
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle _style = widget.style ??
+    final ButtonStyle style = widget.style ??
         TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             side: BorderSide(color: context.colors.primary.shade100, width: 1),
             borderRadius: AppBorderRadius.smallAll,
           ),
-          padding: selected != null ? EdgeInsets.zero : AppPaddings.lH.add(AppPaddings.homeV),
+          padding: selected != null
+              ? EdgeInsets.zero
+              : AppPaddings.lH.add(AppPaddings.homeV),
           backgroundColor: context.colors.primary.shade100,
         );
 
@@ -47,14 +49,16 @@ class _UploadButtonState extends State<UploadButton> {
         AspectRatio(
           aspectRatio: 0.9,
           child: TextButton(
-            style: _style,
+            style: style,
             onPressed: _onPickFile,
             child: selected == null
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        widget.type == UploadButtonType.files ? Ionicons.document_outline : Ionicons.camera_outline,
+                        widget.type == UploadButtonType.files
+                            ? Ionicons.document_outline
+                            : Ionicons.camera_outline,
                         color: context.colors.hintLight,
                         size: 40,
                       ),

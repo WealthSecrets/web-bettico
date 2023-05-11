@@ -19,7 +19,7 @@ class OTPVerificationScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
+  State<OTPVerificationScreen> createState() => _OTPVerificationScreenState();
 }
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
@@ -31,7 +31,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   // late Timer _timer;
 
   // get arguments
-  final OTPVerificationScreenArgument? args = Get.arguments as OTPVerificationScreenArgument?;
+  final OTPVerificationScreenArgument? args =
+      Get.arguments as OTPVerificationScreenArgument?;
   final String? params = Get.parameters['type'];
 
   @override
@@ -80,7 +81,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           body: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
+                width: ResponsiveWidget.isSmallScreen(context)
+                    ? double.infinity
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyA,
                   child: AppAnimatedColumn(
@@ -117,7 +120,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         borderRadius: AppBorderRadius.largeAll,
                         enabled: controller.otpCode.value.length == 6,
                         onPressed: () {
-                          if (params != null && params!.toLowerCase() == 'email') {
+                          if (params != null &&
+                              params!.toLowerCase() == 'email') {
                             controller.verifyUserEmailAddress(
                               context,
                               u: args?.user,
@@ -169,17 +173,22 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               //   _showResendButton = false;
                               // });
                               // _startTimer();
-                              if (params != null && params!.toLowerCase() == 'email') {
+                              if (params != null &&
+                                  params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
-                                  args != null && args!.user != null && args!.user!.email != null
+                                  args != null &&
+                                          args!.user != null &&
+                                          args!.user!.email != null
                                       ? args!.user!.email!
                                       : controller.email.value,
                                 );
                               } else {
                                 lController.resendOTPSms(
                                   context,
-                                  args != null && args!.user != null ? args!.user!.phone! : controller.phone.value,
+                                  args != null && args!.user != null
+                                      ? args!.user!.phone!
+                                      : controller.phone.value,
                                 );
                               }
                             },
@@ -205,15 +214,19 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               lController.reRouteOddster(
                                 context,
                                 args!.user!,
-                                isSkipEmail: params != null && params!.toLowerCase() == 'email',
-                                isSkipPhone: params != null && params!.toLowerCase() != 'phone',
+                                isSkipEmail: params != null &&
+                                    params!.toLowerCase() == 'email',
+                                isSkipPhone: params != null &&
+                                    params!.toLowerCase() != 'phone',
                               );
                             } else {
-                              if (params != null && params!.toLowerCase() == 'email') {
+                              if (params != null &&
+                                  params!.toLowerCase() == 'email') {
                                 Get.toNamed<void>(AppRoutes.accountType);
                               } else {
                                 Get.offAllNamed<void>(AppRoutes.home);
-                                menuController.changeActiveItemTo(AppRoutes.home);
+                                menuController
+                                    .changeActiveItemTo(AppRoutes.home);
                               }
                             }
                           },

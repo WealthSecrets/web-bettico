@@ -10,7 +10,8 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddressDetails extends StatefulWidget {
-  const AddressDetails({Key? key, required this.address, this.isScreen = false}) : super(key: key);
+  const AddressDetails({Key? key, required this.address, this.isScreen = false})
+      : super(key: key);
 
   final OkxAddress address;
   final bool? isScreen;
@@ -26,7 +27,8 @@ class _ShareQRViewState extends State<AddressDetails> {
 
   @override
   Widget build(BuildContext context) {
-    const Widget loadingBox = SizedBox(height: _boxHeight, child: LoadingLogo(color: Colors.white));
+    const Widget loadingBox =
+        SizedBox(height: _boxHeight, child: LoadingLogo(color: Colors.white));
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
@@ -83,8 +85,9 @@ class _ShareQRViewState extends State<AddressDetails> {
                 if (data != null) {
                   return SvgPicture.string(
                     data,
-                    color: Colors.black,
                     height: _boxHeight,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.black, BlendMode.color),
                   );
                 }
 
@@ -163,7 +166,8 @@ class _ShareQRViewState extends State<AddressDetails> {
 
   Future<String> generateQrCode(String data) async {
     const double size = _ShareQRViewState._boxHeight * 2;
-    return Barcode.qrCode().toSvg(data, width: size, height: size, color: 0x1F1056);
+    return Barcode.qrCode()
+        .toSvg(data, width: size, height: size, color: 0x1F1056);
   }
 }
 

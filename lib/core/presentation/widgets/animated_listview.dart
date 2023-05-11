@@ -27,10 +27,11 @@ class AppAnimatedListView extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   @override
-  _AppAnimatedListViewState createState() => _AppAnimatedListViewState();
+  State<AppAnimatedListView> createState() => _AppAnimatedListViewState();
 }
 
-class _AppAnimatedListViewState extends State<AppAnimatedListView> with TickerProviderStateMixin {
+class _AppAnimatedListViewState extends State<AppAnimatedListView>
+    with TickerProviderStateMixin {
   AnimationController? _animationController;
   Timer? delay;
   @override
@@ -86,15 +87,20 @@ class _AppAnimatedListViewState extends State<AppAnimatedListView> with TickerPr
               ),
               child: SlideTransition(
                 position: Tween<Offset>(
-                  begin:
-                      widget.direction == Axis.vertical ? Offset(0.0, index == 0 ? 1.5 : .5) : const Offset(.25, 0.0),
+                  begin: widget.direction == Axis.vertical
+                      ? Offset(0.0, index == 0 ? 1.5 : .5)
+                      : const Offset(.25, 0.0),
                   end: Offset.zero,
                 ).animate(
                   CurvedAnimation(
                     curve: Interval(
-                      index == 0 ? 0 : 1 / widget.itemCount * (index + 1) * 0.20,
+                      index == 0
+                          ? 0
+                          : 1 / widget.itemCount * (index + 1) * 0.20,
                       index == 0 ? .5 : 1 / widget.itemCount * (index + 1),
-                      curve: index == 0 ? Curves.fastLinearToSlowEaseIn : Curves.linearToEaseOut,
+                      curve: index == 0
+                          ? Curves.fastLinearToSlowEaseIn
+                          : Curves.linearToEaseOut,
                     ),
                     parent: _animationController!,
                   ),

@@ -21,7 +21,9 @@ import '/features/betticos/presentation/profile/screens/user_list_screen.dart';
 import '../../timeline/widgets/modal_fit.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key, this.user, this.thePreviousUser, this.showBackButton}) : super(key: key);
+  const ProfileScreen(
+      {Key? key, this.user, this.thePreviousUser, this.showBackButton})
+      : super(key: key);
   final User? user;
   final User? thePreviousUser;
   final bool? showBackButton;
@@ -45,7 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       final Uint8List? bytes = picked.files.first.bytes;
 
       controller.onProfileImageSelected(bytes);
-      controller.updateTheUserProfilePhoto(context);
+      if (context.mounted) {
+        controller.updateTheUserProfilePhoto(context);
+      }
     }
   }
 
@@ -77,7 +81,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return true;
             },
             child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   _buildSliverAppBar(),
                   SliverPersistentHeader(
@@ -161,7 +166,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   LayoutBuilder _buildFlexibleSpaceWidget() {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       return FlexibleSpaceBar(
         background: Padding(
             padding: AppPaddings.lH.add(AppPaddings.lB),
@@ -250,25 +256,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //   );
                               // }
 
-                              final dynamic value = await Navigator.push<dynamic>(
+                              final dynamic value =
+                                  await Navigator.push<dynamic>(
                                 context,
                                 MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) => UpdateProfileScreen(
+                                  builder: (BuildContext context) =>
+                                      UpdateProfileScreen(
                                     user: controller.user.value,
                                   ),
                                 ),
                               );
 
                               if (value as bool? ?? false) {
-                                await AppSnacks.show(
-                                  context,
-                                  message: 'Profile updated successfully',
-                                  backgroundColor: context.colors.success,
-                                  leadingIcon: const Icon(
-                                    Ionicons.checkmark_circle_outline,
-                                    color: Colors.white,
-                                  ),
-                                );
+                                if (context.mounted) {
+                                  await AppSnacks.show(
+                                    context,
+                                    message: 'Profile updated successfully',
+                                    backgroundColor: context.colors.success,
+                                    leadingIcon: const Icon(
+                                      Ionicons.checkmark_circle_outline,
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                }
                               }
                             },
                             style: OutlinedButton.styleFrom(
@@ -289,7 +299,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
-                        if (widget.user != null && controller.isNotLoggedInUser())
+                        if (widget.user != null &&
+                            controller.isNotLoggedInUser())
                           OutlinedButton(
                             onPressed: () {
                               if (controller.isFollowedByUser.value) {
@@ -302,8 +313,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
-                              backgroundColor:
-                                  controller.isFollowedByUser.value ? context.colors.primary : Colors.white,
+                              backgroundColor: controller.isFollowedByUser.value
+                                  ? context.colors.primary
+                                  : Colors.white,
                               side: BorderSide(
                                 width: 2.0,
                                 color: controller.isFollowedByUser.value
@@ -311,33 +323,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     : context.colors.cardColor,
                               ),
                             ),
-                            child: controller.isFollowingUser.value || controller.isUnfollowingUser.value
+                            child: controller.isFollowingUser.value ||
+                                    controller.isUnfollowingUser.value
                                 ? SizedBox(
                                     height: 10,
                                     width: 10,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      color: controller.isUnfollowingUser.value ? Colors.white : context.colors.primary,
+                                      color: controller.isUnfollowingUser.value
+                                          ? Colors.white
+                                          : context.colors.primary,
                                     ),
                                   )
                                 : Text(
-                                    controller.isFollowedByUser.value ? 'following'.tr : 'follow'.tr,
+                                    controller.isFollowedByUser.value
+                                        ? 'following'.tr
+                                        : 'follow'.tr,
                                     style: TextStyle(
-                                      color: controller.isFollowedByUser.value ? Colors.white : context.colors.textDark,
+                                      color: controller.isFollowedByUser.value
+                                          ? Colors.white
+                                          : context.colors.textDark,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
                                     ),
                                   ),
                           ),
-                        if (widget.user != null && controller.user.value.role == 'oddster')
+                        if (widget.user != null &&
+                            controller.user.value.role == 'oddster')
                           OutlinedButton(
-                            onPressed: () => controller.subscribeToTheUser(context, widget.user!.id),
+                            onPressed: () => controller.subscribeToTheUser(
+                                context, widget.user!.id),
                             style: OutlinedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
                               backgroundColor:
-                                  controller.isSubscribedToUser.value ? context.colors.error : Colors.white,
+                                  controller.isSubscribedToUser.value
+                                      ? context.colors.error
+                                      : Colors.white,
                               side: BorderSide(
                                 width: 2.0,
                                 color: controller.isSubscribedToUser.value
@@ -351,14 +374,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     width: 10,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      color: controller.isSubscribedToUser.value ? Colors.white : context.colors.error,
+                                      color: controller.isSubscribedToUser.value
+                                          ? Colors.white
+                                          : context.colors.error,
                                     ),
                                   )
                                 : Text(
-                                    controller.isSubscribedToUser.value ? 'subscribed'.tr : 'subscribe'.tr,
+                                    controller.isSubscribedToUser.value
+                                        ? 'subscribed'.tr
+                                        : 'subscribe'.tr,
                                     style: TextStyle(
-                                      color:
-                                          controller.isSubscribedToUser.value ? Colors.white : context.colors.textDark,
+                                      color: controller.isSubscribedToUser.value
+                                          ? Colors.white
+                                          : context.colors.textDark,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
                                     ),
@@ -458,7 +486,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               image: DecorationImage(
                 image: NetworkImage(
                   '${AppEndpoints.userImages}/${controller.user.value.photo}',
-                  headers: <String, String>{'Authorization': 'Bearer ${controller.userToken.value}'},
+                  headers: <String, String>{
+                    'Authorization': 'Bearer ${controller.userToken.value}'
+                  },
                 ),
                 fit: BoxFit.cover,
               ),
@@ -604,7 +634,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.white,
       child: _tabBar,

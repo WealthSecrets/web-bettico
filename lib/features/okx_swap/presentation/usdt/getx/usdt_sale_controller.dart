@@ -19,7 +19,8 @@ class UsdtSaleController extends GetxController {
   Future<TransactionResponse?> transferUSDT(BuildContext context) async {
     isTransferringFunds.value = true;
     final double amount = quantity.value * 1000000000 * 1000000000;
-    final String jsonText = await rootBundle.loadString('assets/keys/keys.json');
+    final String jsonText =
+        await rootBundle.loadString('assets/keys/keys.json');
 
     final dynamic value = json.decode(jsonText);
 
@@ -28,7 +29,8 @@ class UsdtSaleController extends GetxController {
 
     final Wallet wallet = Wallet.fromMnemonic(mnemonic);
 
-    final JsonRpcProvider jsonRpcProvider = JsonRpcProvider('https://bsc-dataseed.binance.org/');
+    final JsonRpcProvider jsonRpcProvider =
+        JsonRpcProvider('https://bsc-dataseed.binance.org/');
 
     final Wallet walletProvider = wallet.connect(jsonRpcProvider);
 
@@ -43,7 +45,10 @@ class UsdtSaleController extends GetxController {
       return response;
     } catch (e) {
       isTransferringFunds.value = false;
-      await AppSnacks.show(context, message: 'Sorry, failed to send you USDT to your wallet address.');
+      if (context.mounted) {
+        await AppSnacks.show(context,
+            message: 'Sorry, failed to send you USDT to your wallet address.');
+      }
       return null;
     }
   }
@@ -90,5 +95,7 @@ class UsdtSaleController extends GetxController {
     quantity.value = 0.0;
   }
 
-  bool get formIsValid => validateAmount(fiatAmount.value) == null && validateAddress(walletAddress.value) == null;
+  bool get formIsValid =>
+      validateAmount(fiatAmount.value) == null &&
+      validateAddress(walletAddress.value) == null;
 }

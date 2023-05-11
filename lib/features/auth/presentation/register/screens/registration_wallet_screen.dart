@@ -3,7 +3,7 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_s
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:slider_captcha/slider_capchar.dart';
+import 'package:slider_captcha/slider_captcha.dart';
 import '/core/core.dart';
 import '../../../../../core/presentation/helpers/responsiveness.dart';
 
@@ -29,7 +29,9 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
             loading: controller.isUpdatingUserRole.value,
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
+                width: ResponsiveWidget.isSmallScreen(context)
+                    ? double.infinity
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
@@ -54,7 +56,8 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                         colorCaptChar: const Color.fromARGB(255, 248, 248, 248),
                         onConfirm: (bool value) async {
                           if (value) {
-                            await navigationController.navigateTo(AppRoutes.accountType);
+                            await navigationController
+                                .navigateTo(AppRoutes.accountType);
                           } else {
                             sController.create();
                           }

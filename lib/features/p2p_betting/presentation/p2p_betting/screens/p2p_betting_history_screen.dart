@@ -15,7 +15,8 @@ class P2PBettingHistoryScreen extends StatefulWidget {
   static const String route = 'P2PBettingHistoryScreen';
 
   @override
-  _P2PBettingHistoryScreenState createState() => _P2PBettingHistoryScreenState();
+  State<P2PBettingHistoryScreen> createState() =>
+      _P2PBettingHistoryScreenState();
 }
 
 class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {

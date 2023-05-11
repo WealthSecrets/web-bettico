@@ -82,7 +82,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Wallet Address: ' + lController.walletAddress.value,
+                              'Wallet Address: ${lController.walletAddress.value}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.primary,
