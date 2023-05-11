@@ -38,16 +38,18 @@ abstract class P2pRemoteDataSource {
 
   Future<Transaction> addTransaction({required TransactionRequest request});
 
-  Future<Bet> updateBet({required BetUpdateRequest request, required String betId});
+  Future<Bet> updateBet(
+      {required BetUpdateRequest request, required String betId});
 
-  Future<Transaction> updateTransaction({required TransactionUpdateRequest request, required String hash});
+  Future<Transaction> updateTransaction(
+      {required TransactionUpdateRequest request, required String hash});
 
   Future<Bet> updateBetStatusScore({
     required UpdateBetStatusScoreRequest request,
     required String betId,
   });
 
-  Future<UserStats> getUserStats();
+  Future<UserStats?> getUserStats();
 
   Future<Bet> updateBetPayoutStatus({
     required UpdateBetPayoutRequest request,

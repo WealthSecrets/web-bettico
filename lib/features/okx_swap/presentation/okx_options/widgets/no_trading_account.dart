@@ -16,25 +16,34 @@ class NoTradignAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppEmptyScreen(
-      title: 'ENABLE TRADE',
-      message: 'Your account do not have trading support yet.',
-      onBottonPressed: () {
-        if (user.email == null && user.firstName == null && user.username == null) {
-          AppSnacks.show(context, message: 'Oops! Something went wrong.');
-          return;
-        }
-        registerController.createOkxAccount(
-          context,
-          user.email?.split('@').first ?? user.firstName ?? user.username ?? '',
-          () {
-            okxController.fetchAssetCurrencies(context);
-            okxController.fetchConvertCurrencies(context);
-            okxController.getCurrencyPair(context);
-          },
-        );
-      },
-      btnText: 'get started',
+    return Obx(
+      () => AppEmptyScreen(
+        loading: registerController.isCreatingOkxAccount.value,
+        title: 'ENABLE TRADE',
+        message: 'Your account do not have trading support yet.',
+        onBottonPressed: () {
+          if (user.email == null &&
+              user.firstName == null &&
+              user.username == null) {
+            AppSnacks.show(context, message: 'Oops! Something went wrong.');
+            return;
+          }
+          registerController.createOkxAccount(
+            context,
+            user.email?.split('@').first ??
+                user.firstName ??
+                user.username ??
+                '',
+            () {
+              okxController.getUserOkxAccount(context);
+              okxController.fetchAssetCurrencies(context);
+              okxController.fetchConvertCurrencies(context);
+              okxController.getCurrencyPair(context);
+            },
+          );
+        },
+        btnText: 'get started',
+      ),
     );
   }
 }

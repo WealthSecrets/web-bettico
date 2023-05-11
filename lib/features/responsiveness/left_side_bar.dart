@@ -13,7 +13,8 @@ import '../../core/presentation/utils/app_endpoints.dart';
 import 'constants/web_controller.dart';
 
 class LeftSideBar extends StatefulWidget {
-  const LeftSideBar({Key? key, required this.userToken, required this.user}) : super(key: key);
+  const LeftSideBar({Key? key, required this.userToken, required this.user})
+      : super(key: key);
   final String userToken;
   final User user;
 
@@ -183,15 +184,17 @@ class _LeftSideBarState extends State<LeftSideBar> {
     Icon? icon,
   }) {
     final BaseScreenController controller = Get.find<BaseScreenController>();
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     showAppModal<void>(
       context: context,
       alignment: Alignment.center,
       builder: (BuildContext context) => Obx(
         () => AppLoadingBox(
           loading: controller.isLoggingOut.value,
-          child: SizedBox(
+          child: Container(
             width: 500,
             height: 300,
+            margin: isSmallScreen ? AppPaddings.lH : null,
             child: Center(
               child: AppOptionDialogueModal(
                 modalContext: context,

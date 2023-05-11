@@ -8,6 +8,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 import '/features/auth/data/models/responses/twilio/twilio_response.dart';
@@ -95,7 +96,7 @@ class LoginController extends GetxController {
   void loginWallet(BuildContext context, String address) async {
     isLoading(true);
 
-    final Either<Failure, User> failureOrUser = await loginUserWallet(
+    final Either<Failure, AuthResponse> failureOrUser = await loginUserWallet(
       LoginWalletRequest(
         wallet: address,
       ),
@@ -108,10 +109,9 @@ class LoginController extends GetxController {
           AppRoutes.walletConnectRegistration,
         );
       },
-      (User user) {
+      (AuthResponse response) {
         isLoading(false);
-        controller.user(user);
-        reRouteOddster(context, user);
+        reRouteOddster(context, response.user, token: response.token);
       },
     );
   }
@@ -120,28 +120,40 @@ class LoginController extends GetxController {
     Get.updateLocale(locale);
   }
 
-  void reRouteOddster(BuildContext context, User user, {bool? isSkipEmail, bool? isSkipPhone}) {
+  void reRouteOddster(BuildContext context, User user,
+      {bool? isSkipEmail, bool? isSkipPhone, String? token}) {
     if (isSkipEmail ?? false) {
       if (!user.hasRole) {
         Get.toNamed<void>(AppRoutes.accountType);
       } else if (!user.isPersonalInfoProvided) {
         Get.toNamed<void>(AppRoutes.personalInformation);
       } else {
-        subRerouting(user);
+        subRerouting(user, context, token: token);
       }
     } else {
-      subRerouting(user);
+      subRerouting(user, context, token: token);
     }
   }
 
-  void subRerouting(User user) {
+  void subRerouting(User user, BuildContext context, {String? token}) {
     if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.toNamed<void>(AppRoutes.documentScreen, arguments: UserArgument(user: user));
+      Get.toNamed<void>(AppRoutes.documentScreen,
+          arguments: UserArgument(user: user));
     } else if (user.role == 'oddster' && !user.hasProfileImage) {
       Get.toNamed<void>(AppRoutes.profilePhoto);
     } else {
-      Get.offAllNamed<void>(AppRoutes.home);
-      menuController.changeActiveItemTo(AppRoutes.timeline);
+      Get.until((_) => Get.currentRoute == AppRoutes.home);
+      controller.user(user);
+      if (token != null && token.isNotEmpty) {
+        controller.userToken(token);
+      }
+      AppSnacks.show(
+        context,
+        message: 'Yay!, welcome to Xviral',
+        backgroundColor: context.colors.success,
+        leadingIcon:
+            const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white),
+      );
     }
   }
 
@@ -225,5 +237,6 @@ class LoginController extends GetxController {
 
   bool get formIsValid =>
       validateEmail(email.value) == null ||
-      validatePhone(phone.value) == null && validatePassword(password.value) == null;
+      validatePhone(phone.value) == null &&
+          validatePassword(password.value) == null;
 }

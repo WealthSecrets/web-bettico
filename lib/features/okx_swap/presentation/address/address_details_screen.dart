@@ -15,8 +15,9 @@ class AddressDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AddressDetailsScreenRouteArgument? args =
-        ModalRoute.of(context)!.settings.arguments as AddressDetailsScreenRouteArgument?;
+    final AddressDetailsScreenRouteArgument? args = ModalRoute.of(context)!
+        .settings
+        .arguments as AddressDetailsScreenRouteArgument?;
     return Scaffold(
       body: AddressDetails(
         address: args!.address!,

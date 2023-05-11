@@ -168,10 +168,10 @@ class WidgetUtils {
         return Center(
           child: Container(
             width: isSmallScreen ? double.infinity : 600,
-            height: isSmallScreen ? 430 : 500,
+            height: isSmallScreen ? 450 : 500,
             margin: AppPaddings.lH,
             child: ClipRRect(
-              borderRadius: AppBorderRadius.mediumAll,
+              borderRadius: AppBorderRadius.largeAll,
               child: UnAuthLoginController(),
             ),
           ),

@@ -47,7 +47,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                             AssetSVGs.logo.path,
                             height: 80,
                             colorFilter: ColorFilter.mode(
-                                context.colors.secondary, BlendMode.color),
+                                context.colors.secondary, BlendMode.srcIn),
                           ),
                         ),
                       if (ResponsiveWidget.isSmallScreen(context))
