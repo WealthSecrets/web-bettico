@@ -184,7 +184,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed<void>(AppRoutes.signup);
+                    Get.offNamed<void>(AppRoutes.signup);
                   },
                   child: Center(
                     child: RichText(

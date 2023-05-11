@@ -1,3 +1,4 @@
+import 'package:betticos/features/auth/data/models/responses/auth_response/auth_response.dart';
 import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
 import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
 import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
@@ -109,7 +110,8 @@ class RegisterController extends GetxController {
 
   // controllers
   final LoginController lController = Get.find<LoginController>();
-  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
+  final BaseScreenController baseScreenController =
+      Get.find<BaseScreenController>();
   final LiveScoreController wController = Get.find<LiveScoreController>();
 
   // social authentication
@@ -149,8 +151,9 @@ class RegisterController extends GetxController {
   void verifyUserPhoneNumber(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
 
-    final Either<Failure, User> fialureOrSuccess =
-        await verifySms(VerifySmsRequest(code: otpCode.value, phone: u != null ? u.phone! : phone.value));
+    final Either<Failure, User> fialureOrSuccess = await verifySms(
+        VerifySmsRequest(
+            code: otpCode.value, phone: u != null ? u.phone! : phone.value));
 
     fialureOrSuccess.fold((Failure failure) {
       isVerifyingOTP(false);
@@ -167,7 +170,8 @@ class RegisterController extends GetxController {
     });
   }
 
-  bool get isLoading => isCreatingAccountApiKey.value || isCreatingOkxAccount.value;
+  bool get isLoading =>
+      isCreatingAccountApiKey.value || isCreatingOkxAccount.value;
 
   void verifyUserEmailAddress(BuildContext context, {User? u}) async {
     isVerifyingOTP(true);
@@ -221,16 +225,19 @@ class RegisterController extends GetxController {
     });
   }
 
-  void registerWithGoogleAuth(BuildContext context, {bool isRequestFromLogin = false}) async {
+  void registerWithGoogleAuth(BuildContext context,
+      {bool isRequestFromLogin = false}) async {
     type('google');
 
     try {
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String googleEmail = googleSignInAccount.email;
         final String? displayName = googleSignInAccount.displayName;
         final String? photoUrl = googleSignInAccount.photoUrl;
-        final GoogleSignInAuthentication kd = await googleSignInAccount.authentication;
+        final GoogleSignInAuthentication kd =
+            await googleSignInAccount.authentication;
         email(googleEmail);
         if (displayName != null) {
           username(displayName);
@@ -283,19 +290,28 @@ class RegisterController extends GetxController {
     }, (User value) {
       isAddingProfileImage(false);
       baseScreenController.updateTheUser(value);
-      Get.offAllNamed<void>(AppRoutes.home);
+      Get.until((_) => Get.currentRoute == AppRoutes.home);
       menuController.changeActiveItemTo(AppRoutes.timeline);
+      AppSnacks.show(
+        context,
+        message: 'Yay!, welcome to Xviral',
+        backgroundColor: context.colors.success,
+        leadingIcon:
+            const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white),
+      );
     });
   }
 
   void register(BuildContext context, {bool isWalletConnect = false}) async {
     isRegisteringUser(true);
 
-    final Either<Failure, User> failureOrUser = await registerUser(
+    final Either<Failure, AuthResponse> failureOrUser = await registerUser(
       RegisterRequest(
         confirmPassword: confirmPassword.value,
         password: password.value,
-        wallet: wController.walletAddress.value.isNotEmpty ? wController.walletAddress.value : null,
+        wallet: wController.walletAddress.value.isNotEmpty
+            ? wController.walletAddress.value
+            : null,
         email: !isWalletConnect ? email.value : null,
         referralCode: referralCode.value.isNotEmpty ? referralCode.value : null,
         type: isWalletConnect ? 'wallet' : type.value.trim(),
@@ -307,12 +323,13 @@ class RegisterController extends GetxController {
         isRegisteringUser(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (User _) {
+      (AuthResponse response) {
         isRegisteringUser(false);
-        if (_.email != null) {
-          createOkxAccount(context, _.email!.split('@').first);
-        }
-
+        // if (_.email != null) {
+        //   createOkxAccount(context, _.email!.split('@').first);
+        // }
+        baseScreenController.user(response.user);
+        baseScreenController.userToken(response.token);
         if (isWalletConnect) {
           Get.toNamed<void>(AppRoutes.accountType);
         } else {
@@ -325,7 +342,8 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccount(BuildContext context, String username, [Function()? callback]) async {
+  void createOkxAccount(BuildContext context, String username,
+      [Function()? callback]) async {
     isCreatingOkxAccount(true);
 
     final Either<Failure, OkxAccount> failureOrUser =
@@ -344,10 +362,12 @@ class RegisterController extends GetxController {
     );
   }
 
-  void createOkxAccountApiKey(BuildContext context, [Function()? callback]) async {
+  void createOkxAccountApiKey(BuildContext context,
+      [Function()? callback]) async {
     isCreatingAccountApiKey(true);
 
-    final Either<Failure, OkxAccount> failureOrOkx = await createSubAccountApiKey(NoParams());
+    final Either<Failure, OkxAccount> failureOrOkx =
+        await createSubAccountApiKey(NoParams());
 
     failureOrOkx.fold(
       (Failure failure) {
@@ -386,8 +406,9 @@ class RegisterController extends GetxController {
         isUpdatingUserRole(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (_) {
+      (User user) {
         isUpdatingUserRole(false);
+        baseScreenController.user(user);
         Get.toNamed<void>(AppRoutes.personalInformation);
       },
     );
@@ -412,7 +433,7 @@ class RegisterController extends GetxController {
       },
       (User us) {
         isAddingPersonalInformation(false);
-        baseScreenController.updateTheUser(us);
+        lController.reRouteOddster(context, us);
       },
     );
   }
@@ -576,7 +597,8 @@ class RegisterController extends GetxController {
     required int minimumAge,
     String? errorMessage,
   }) {
-    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() < minimumAge) {
+    if ((DateTime.now().difference(dateOfBirth).inDays / 365).round() <
+        minimumAge) {
       return errorMessage ?? 'You should be at least $minimumAge years old';
     }
 
@@ -618,7 +640,8 @@ class RegisterController extends GetxController {
       validateConfrimPassword(confirmPassword.value) == null;
 
   bool get walletConnectRegistrationFormIsValid =>
-      validatePassword(password.value) == null && validateConfrimPassword(confirmPassword.value) == null;
+      validatePassword(password.value) == null &&
+      validateConfrimPassword(confirmPassword.value) == null;
 
   bool get profileFormIsValid => profileImage.value.isNotEmpty;
 
@@ -632,5 +655,6 @@ class RegisterController extends GetxController {
       validateLastName(lastName.value) == null &&
       validateUsername(username.value) == null &&
       validatePhone(phone.value) == null &&
-      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) == null;
+      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) ==
+          null;
 }

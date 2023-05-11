@@ -20,14 +20,14 @@ import '/features/betticos/domain/requests/update_request/update_request.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure, AuthResponse>> login(LoginRequest request);
-  Future<Either<Failure, User>> loginWallet(LoginWalletRequest request);
+  Future<Either<Failure, AuthResponse>> loginWallet(LoginWalletRequest request);
   Future<Either<Failure, User>> verifyUser(VerifyUserRequest request);
   Future<Either<Failure, User>> forgotPassword(ForgotRequest request);
   Future<Either<Failure, User>> validateSession();
   Future<Either<Failure, User>> resetPassword(ResetRequest request);
   Future<Either<Failure, User>> updateProfile(UpdateRequest request);
   Future<Either<Failure, User>> updateUserRole(String role);
-  Future<Either<Failure, User>> register(RegisterRequest request);
+  Future<Either<Failure, AuthResponse>> register(RegisterRequest request);
   Future<Either<Failure, TwilioResponse>> sendSms(SendSmsRequest request);
   Future<Either<Failure, User>> verifySms(VerifySmsRequest request);
   Future<Either<Failure, User>> verifyEmail(VerifyEmailRequest request);

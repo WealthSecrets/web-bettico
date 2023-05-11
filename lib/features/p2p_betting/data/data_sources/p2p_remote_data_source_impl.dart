@@ -22,7 +22,8 @@ import '../models/crypto/network.dart';
 import '../models/crypto/volume.dart';
 
 class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
-  const P2pRemoteDataSourceImpl({required AppHTTPClient client}) : _client = client;
+  const P2pRemoteDataSourceImpl({required AppHTTPClient client})
+      : _client = client;
   final AppHTTPClient _client;
 
   @override
@@ -80,7 +81,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<Transaction> addTransaction({required TransactionRequest request}) async {
+  Future<Transaction> addTransaction(
+      {required TransactionRequest request}) async {
     final Map<String, dynamic> json = await _client.post(
       TransactionEndpoints.transactions,
       body: request.toJson(),
@@ -89,7 +91,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<Bet> updateBet({required BetUpdateRequest request, required String betId}) async {
+  Future<Bet> updateBet(
+      {required BetUpdateRequest request, required String betId}) async {
     final Map<String, dynamic> json = await _client.patch(
       P2pEndpoints.updateBet(betId),
       body: request.toJson(),
@@ -98,13 +101,18 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<UserStats> getUserStats() async {
-    final Map<String, dynamic> json = await _client.get(TransactionEndpoints.userStats);
+  Future<UserStats?> getUserStats() async {
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userStats);
+    if (json.isEmpty) {
+      return null;
+    }
     return UserStats.fromJson(json);
   }
 
   @override
-  Future<Transaction> updateTransaction({required TransactionUpdateRequest request, required String hash}) async {
+  Future<Transaction> updateTransaction(
+      {required TransactionUpdateRequest request, required String hash}) async {
     final Map<String, dynamic> json = await _client.patch(
       TransactionEndpoints.updateTransaction(hash),
       body: request.toJson(),
@@ -149,7 +157,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<Bet>> fetchStatusBets(String status) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.statusBets(status));
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.statusBets(status));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
       items.map<Bet>(
@@ -179,7 +188,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<Bet>> fetchMyBets(String status) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.myBets(status));
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.myBets(status));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
       items.map<Bet>(
@@ -190,34 +200,41 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<Transaction>> fetchMyTransactions(String userId) async {
-    final Map<String, dynamic> json = await _client.get(TransactionEndpoints.userTransactions(userId));
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userTransactions(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Transaction>.from(
-      items.map<Transaction>((dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
+      items.map<Transaction>(
+          (dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
     );
   }
 
   @override
   Future<List<Transaction>> fetchMyWithdrawals(String userId) async {
-    final Map<String, dynamic> json = await _client.get(TransactionEndpoints.userWithdrawals(userId));
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userWithdrawals(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Transaction>.from(
-      items.map<Transaction>((dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
+      items.map<Transaction>(
+          (dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
     );
   }
 
   @override
   Future<List<Transaction>> fetchMyDeposits(String userId) async {
-    final Map<String, dynamic> json = await _client.get(TransactionEndpoints.userDeposits(userId));
+    final Map<String, dynamic> json =
+        await _client.get(TransactionEndpoints.userDeposits(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Transaction>.from(
-      items.map<Transaction>((dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
+      items.map<Transaction>(
+          (dynamic json) => Transaction.fromJson(json as Map<String, dynamic>)),
     );
   }
 
   @override
   Future<List<LiveScore>> fetchLiveScores({int? leagueId}) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.liveScores(leagueId: leagueId));
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.liveScores(leagueId: leagueId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<LiveScore>.from(
       items.map<LiveScore>(
@@ -228,7 +245,8 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
   @override
   Future<List<LiveScore>> fetchFixtures({int? leagueId}) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.sFixtures(leagueId: leagueId));
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.sFixtures(leagueId: leagueId));
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<LiveScore>.from(
       items.map<LiveScore>(
@@ -255,13 +273,16 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
 
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Bet>.from(
-      items.map<Bet>((dynamic json) => Bet.fromJson(json as Map<String, dynamic>)),
+      items.map<Bet>(
+          (dynamic json) => Bet.fromJson(json as Map<String, dynamic>)),
     );
   }
 
   @override
-  Future<ListPage<LiveScore>> fetchPaginatedLiveScores(int page, int limit, int leagueId) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.paginateLiveScore(
+  Future<ListPage<LiveScore>> fetchPaginatedLiveScores(
+      int page, int limit, int leagueId) async {
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.paginateLiveScore(
       page: page,
       size: limit,
       leagueId: leagueId,
@@ -279,8 +300,10 @@ class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   }
 
   @override
-  Future<ListPage<LiveScore>> fetchPaginatedFixtures(int page, int limit, int leagueId) async {
-    final Map<String, dynamic> json = await _client.get(P2pEndpoints.spaginateFixtures(
+  Future<ListPage<LiveScore>> fetchPaginatedFixtures(
+      int page, int limit, int leagueId) async {
+    final Map<String, dynamic> json =
+        await _client.get(P2pEndpoints.spaginateFixtures(
       page: page,
       size: limit,
       leagueId: leagueId,

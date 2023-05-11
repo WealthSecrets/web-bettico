@@ -2,7 +2,7 @@
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+// import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,11 +35,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
       Get.arguments as OTPVerificationScreenArgument?;
   final String? params = Get.parameters['type'];
 
-  @override
-  void initState() {
-    // _startTimer();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  // _startTimer();
+  //   super.initState();
+  // }
 
   // void _startTimer() {
   //   _counter = 59;
@@ -63,22 +63,22 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => AppLoadingBox(
-        loading: controller.isVerifyingOTP.value,
-        child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            title: Text(
-              '${params != null && params!.toLowerCase() == 'email' ? 'email'.tr : 'phone'.tr} ${'verification'.tr}',
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
+      () => Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Text(
+            '${params != null && params!.toLowerCase() == 'email' ? 'email'.tr : 'phone'.tr} ${'verification'.tr}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16,
             ),
           ),
-          backgroundColor: context.colors.background,
-          body: SafeArea(
+        ),
+        backgroundColor: context.colors.background,
+        body: AppLoadingBox(
+          loading: controller.isVerifyingOTP.value,
+          child: SafeArea(
             child: Center(
               child: SizedBox(
                 width: ResponsiveWidget.isSmallScreen(context)
@@ -222,11 +222,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             } else {
                               if (params != null &&
                                   params!.toLowerCase() == 'email') {
-                                Get.toNamed<void>(AppRoutes.accountType);
+                                Get.offNamed<void>(AppRoutes.accountType);
                               } else {
-                                Get.offAllNamed<void>(AppRoutes.home);
-                                menuController
-                                    .changeActiveItemTo(AppRoutes.home);
+                                Get.offNamed<void>(AppRoutes.home);
+                                // menuController
+                                //     .changeActiveItemTo(AppRoutes.home);
                               }
                             }
                           },

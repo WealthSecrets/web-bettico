@@ -14,19 +14,20 @@ class SalesController extends GetxController {
 
   RxDouble amount = 0.0.obs;
   RxDouble convertedAmount = 0.0.obs;
-  Rx<UserStats> stats = UserStats.empty().obs;
+  Rx<UserStats?> stats = UserStats.empty().obs;
   RxBool isGettingStats = false.obs;
 
   void fetchUserStats(BuildContext context) async {
     isGettingStats(true);
-    final Either<Failure, UserStats> failureOrUserStats = await getUserStats(NoParams());
+    final Either<Failure, UserStats?> failureOrUserStats =
+        await getUserStats(NoParams());
 
     failureOrUserStats.fold<void>(
       (Failure failure) {
         isGettingStats(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (UserStats userStats) {
+      (UserStats? userStats) {
         isGettingStats(false);
         stats(userStats);
       },

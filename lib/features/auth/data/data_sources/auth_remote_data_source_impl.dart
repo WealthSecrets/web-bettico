@@ -54,8 +54,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       AuthEndpoints.signup,
       body: request.toJson(),
     );
-    final AuthResponse authResponse = AuthResponse.fromJson(json);
-    return authResponse;
+    return AuthResponse.fromJson(json);
   }
 
   @override

@@ -39,7 +39,7 @@ class ResetScreen extends GetWidget<ResetController> {
                             AssetSVGs.logo.path,
                             height: 130,
                             colorFilter: ColorFilter.mode(
-                                context.colors.secondary, BlendMode.color),
+                                context.colors.secondary, BlendMode.srcIn),
                           ),
                         ),
                       if (ResponsiveWidget.isSmallScreen(context))

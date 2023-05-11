@@ -12,13 +12,22 @@ class NoTradingApiKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppEmptyScreen(
-      title: 'ACCESS EXPIRED',
-      message: 'Your access to trading has expired, please refresh trading access.',
-      onBottonPressed: () {
-        registerController.createOkxAccountApiKey(context);
-      },
-      btnText: 'Refresh Access',
+    return Obx(
+      () => AppEmptyScreen(
+        loading: registerController.isCreatingAccountApiKey.value,
+        title: 'ACCESS EXPIRED',
+        message:
+            'Your access to trading has expired, please refresh trading access.',
+        onBottonPressed: () {
+          registerController.createOkxAccountApiKey(
+            context,
+            () {
+              okxController.getUserOkxAccount(context);
+            },
+          );
+        },
+        btnText: 'Refresh Access',
+      ),
     );
   }
 }

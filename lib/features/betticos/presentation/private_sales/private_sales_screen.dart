@@ -44,7 +44,7 @@ class _PrivateSaleState extends State<PrivateSale> {
         () {
           final bool hasAmount = controller.convertedAmount.value > 0;
           final String walletAddress = lController.walletAddress.value;
-          final double totalAmount = controller.stats.value.totalAmount;
+          final double? totalAmount = controller.stats.value?.totalAmount;
           return AppLoadingBox(
             loading: bController.isGettingSetup.value ||
                 lController.isMakingPayment.value,
@@ -109,7 +109,9 @@ class _PrivateSaleState extends State<PrivateSale> {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      r'$' + totalAmount.toStringAsFixed(2),
+                      totalAmount != null
+                          ? r'$' + totalAmount.toStringAsFixed(2)
+                          : r'$0.00',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

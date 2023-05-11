@@ -51,60 +51,62 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() {
-        final User user = Get.find<BaseScreenController>().user.value;
-        return user.okx == null
-            ? NoTradignAccount(user: user)
-            : user.apiKey == null
-                ? NoTradingApiKey()
-                : DefaultTabController(
-                    length: 3,
-                    child: NestedScrollView(
-                      headerSliverBuilder:
-                          (BuildContext context, bool innerBoxScrolled) {
-                        return <Widget>[
-                          Obx(() => _SliverAppBar(
-                              total: controller.totalBalance.value,
-                              tradeName:
-                                  controller.myOkxAccount.value.subAccount)),
-                          SliverPersistentHeader(
-                            delegate: _SliverAppBarDelegate(
-                              TabBar(
-                                indicatorColor: context.colors.primary,
-                                labelColor: Colors.black,
-                                labelStyle: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+      body: Obx(
+        () {
+          final User user = Get.find<BaseScreenController>().user.value;
+          return user.okx == null
+              ? NoTradignAccount(user: user)
+              : user.apiKey == null
+                  ? NoTradingApiKey()
+                  : DefaultTabController(
+                      length: 3,
+                      child: NestedScrollView(
+                        headerSliverBuilder:
+                            (BuildContext context, bool innerBoxScrolled) {
+                          return <Widget>[
+                            Obx(() => _SliverAppBar(
+                                total: controller.totalBalance.value,
+                                tradeName:
+                                    controller.myOkxAccount.value.subAccount)),
+                            SliverPersistentHeader(
+                              delegate: _SliverAppBarDelegate(
+                                TabBar(
+                                  indicatorColor: context.colors.primary,
+                                  labelColor: Colors.black,
+                                  labelStyle: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                  unselectedLabelStyle:
+                                      const TextStyle(fontSize: 14),
+                                  padding: AppPaddings.lH,
+                                  unselectedLabelColor: Colors.grey,
+                                  indicator: CircleTabIndicator(
+                                    color: context.colors.primary,
+                                    radius: 3,
+                                  ),
+                                  tabs: const <Tab>[
+                                    Tab(text: 'Tokens'),
+                                    Tab(text: 'Xviral Pay'),
+                                    Tab(text: 'NFTs'),
+                                  ],
                                 ),
-                                unselectedLabelStyle:
-                                    const TextStyle(fontSize: 14),
-                                padding: AppPaddings.lH,
-                                unselectedLabelColor: Colors.grey,
-                                indicator: CircleTabIndicator(
-                                  color: context.colors.primary,
-                                  radius: 3,
-                                ),
-                                tabs: const <Tab>[
-                                  Tab(text: 'Tokens'),
-                                  Tab(text: 'Xviral Pay'),
-                                  Tab(text: 'NFTs'),
-                                ],
                               ),
+                              pinned: true,
                             ),
-                            pinned: true,
-                          ),
-                        ];
-                      },
-                      body: const TabBarView(
-                        children: <Widget>[
-                          TokenScreen(),
-                          Center(child: Text('Xviral Pay')),
-                          Center(child: Text('NFTs')),
-                        ],
+                          ];
+                        },
+                        body: const TabBarView(
+                          children: <Widget>[
+                            TokenScreen(),
+                            Center(child: Text('Xviral Pay')),
+                            Center(child: Text('NFTs')),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-      }),
+                    );
+        },
+      ),
     );
   }
 }
