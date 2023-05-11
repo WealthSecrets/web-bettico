@@ -57,8 +57,9 @@ class _MoreScreenState extends State<MoreScreen> {
             ),
             const SizedBox(height: 16),
             CustomTile(
-              icon: Ionicons.pricetag_outline,
-              onPressed: () => navigationController.navigateTo(AppRoutes.privateSales),
+              icon: Ionicons.bag_sharp,
+              onPressed: () =>
+                  navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
             ),
             const SizedBox(height: 10),
@@ -70,11 +71,19 @@ class _MoreScreenState extends State<MoreScreen> {
                   arguments: AppWebViewRouteArgument(
                     title: 'Web Browser',
                     url: 'https://www.avatrade.com/',
-                    navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
+                    navigationDelegate: (NavigationRequest navigation) async =>
+                        NavigationDecision.navigate,
                   ),
                 );
               },
               text: 'Avatrade',
+            ),
+            const SizedBox(height: 10),
+            CustomTile(
+              icon: Ionicons.pricetags_outline,
+              onPressed: () =>
+                  navigationController.navigateTo(AppRoutes.adsProces),
+              text: 'Boost Ad',
             ),
           ],
         ),

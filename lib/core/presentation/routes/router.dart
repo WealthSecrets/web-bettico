@@ -11,6 +11,7 @@ import 'package:betticos/features/betticos/presentation/timeline/screens/timelin
 import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/ads/screens/ad_process_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/conversion_success_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/crypto/buy_sell_crypto_screen.dart';
@@ -100,6 +101,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(SearchContainer(), settings);
     case AppRoutes.buyUsdt:
       return _getPageRoute(BuyUsdtScreen(), settings);
+    case AppRoutes.adsProces:
+      return _getPageRoute(const AdProcessScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

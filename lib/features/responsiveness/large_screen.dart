@@ -67,7 +67,8 @@ class LargeScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 const TrendsForYouScreen(),
                 const SizedBox(height: 24),
-                if (isLargeScreen(context) && userToken.isEmpty) const RightLoginContainer(),
+                if (isLargeScreen(context) && userToken.isEmpty)
+                  const RightLoginContainer(),
               ],
             ),
           ),
@@ -77,5 +78,6 @@ class LargeScreen extends StatelessWidget {
     );
   }
 
-  bool isLargeScreen(BuildContext context) => ResponsiveWidget.isLargeScreen(context);
+  bool isLargeScreen(BuildContext context) =>
+      ResponsiveWidget.isLargeScreen(context);
 }

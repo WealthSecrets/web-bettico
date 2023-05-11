@@ -10,12 +10,14 @@ class Country with _$Country {
   const factory Country({
     required int id,
     required String name,
-    required String flag,
+    String? flag,
+    String? code,
   }) = _Country;
 
   const Country._();
 
-  factory Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
+  factory Country.fromJson(Map<String, dynamic> json) =>
+      _$CountryFromJson(json);
 
   factory Country.mock() => Country(
         id: 1,
