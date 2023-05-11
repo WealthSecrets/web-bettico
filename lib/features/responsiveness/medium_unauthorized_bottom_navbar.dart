@@ -22,12 +22,12 @@ class MediumUnAthenticatedBottomNavbar extends StatelessWidget {
         child: Row(
           children: <Widget>[
             const Expanded(flex: 2, child: SizedBox()),
-            Expanded(
+            const Expanded(
                 flex: 6,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Text(
                       'Don\'t have an account?',
                       style: TextStyle(

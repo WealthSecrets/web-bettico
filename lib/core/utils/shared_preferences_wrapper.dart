@@ -18,8 +18,8 @@ class SharedPreferencesWrapper {
 
   Future<Map<String, dynamic>?> getMap(String key) async {
     try {
-      final String _map = await getString(key);
-      return _map.isEmpty ? null : json.decode(_map) as Map<String, dynamic>;
+      final String map = await getString(key);
+      return map.isEmpty ? null : json.decode(map) as Map<String, dynamic>;
     } catch (e, st) {
       AppLog.e(e, st);
       return null;

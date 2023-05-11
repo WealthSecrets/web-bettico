@@ -34,8 +34,8 @@ class MainBindings {
       Dio(
         BaseOptions(
           baseUrl: environment.url,
-          connectTimeout: 40000,
-          receiveTimeout: 40000,
+          connectTimeout: const Duration(milliseconds: 40000),
+          receiveTimeout: const Duration(milliseconds: 40000),
           headers: <String, dynamic>{
             'Content-Type': 'application/json',
           },

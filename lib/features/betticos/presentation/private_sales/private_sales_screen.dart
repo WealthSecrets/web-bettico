@@ -46,7 +46,8 @@ class _PrivateSaleState extends State<PrivateSale> {
           final String walletAddress = lController.walletAddress.value;
           final double totalAmount = controller.stats.value.totalAmount;
           return AppLoadingBox(
-            loading: bController.isGettingSetup.value || lController.isMakingPayment.value,
+            loading: bController.isGettingSetup.value ||
+                lController.isMakingPayment.value,
             child: Padding(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top,
@@ -87,7 +88,8 @@ class _PrivateSaleState extends State<PrivateSale> {
                           onTap: () {
                             navigationController.navigateTo(
                               AppRoutes.transactions,
-                              arguments: const TransactionHistoryScreenRouteArgument(
+                              arguments:
+                                  const TransactionHistoryScreenRouteArgument(
                                 isSale: true,
                               ),
                             );
@@ -179,9 +181,13 @@ class _PrivateSaleState extends State<PrivateSale> {
                             ? 'No USD to convert'
                             : 'USD coverted to Xviral: ${controller.convertedAmount.toStringAsFixed(2)}',
                         style: TextStyle(
-                          color: hasAmount ? context.colors.success : context.colors.text,
-                          fontWeight: hasAmount ? FontWeight.bold : FontWeight.normal,
-                          fontStyle: hasAmount ? FontStyle.normal : FontStyle.italic,
+                          color: hasAmount
+                              ? context.colors.success
+                              : context.colors.text,
+                          fontWeight:
+                              hasAmount ? FontWeight.bold : FontWeight.normal,
+                          fontStyle:
+                              hasAmount ? FontStyle.normal : FontStyle.italic,
                           fontSize: 12,
                         ),
                       ),
@@ -190,10 +196,14 @@ class _PrivateSaleState extends State<PrivateSale> {
                 ),
                 const Spacer(),
                 AppButton(
-                  enabled: walletAddress.isNotEmpty ? controller.amount.value > 0 : true,
+                  enabled: walletAddress.isNotEmpty
+                      ? controller.amount.value > 0
+                      : true,
                   padding: EdgeInsets.zero,
                   borderRadius: AppBorderRadius.largeAll,
-                  backgroundColor: walletAddress.isNotEmpty ? context.colors.primary : context.colors.success,
+                  backgroundColor: walletAddress.isNotEmpty
+                      ? context.colors.primary
+                      : context.colors.success,
                   onPressed: () => _handleSubmit(walletAddress, depositAddress),
                   child: Text(
                     walletAddress.isNotEmpty ? 'PURCHASE' : 'CONNECT WALLET',
@@ -222,7 +232,7 @@ class _PrivateSaleState extends State<PrivateSale> {
         controller.amount.value,
         depositAddress,
       );
-      if (response != null) {
+      if (response != null && context.mounted) {
         p2pBetController.createBetTransaction(
           context,
           convertedAmount: controller.convertedAmount.value,
@@ -233,7 +243,8 @@ class _PrivateSaleState extends State<PrivateSale> {
           txthash: response.hash,
           convertedToken: 'xvl',
           time: response.timestamp,
-          callback: () => navigationController.navigateTo(AppRoutes.saleSuccess),
+          callback: () =>
+              navigationController.navigateTo(AppRoutes.saleSuccess),
         );
       }
     }

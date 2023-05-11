@@ -8,37 +8,37 @@ import '/features/auth/data/data_sources/auth_local_data_source.dart';
 import '/features/auth/data/models/responses/auth_response/auth_response.dart';
 import 'app_log.dart';
 
-typedef _ProgressCallback = void Function(int count, int total);
+typedef ProgressCallback = void Function(int count, int total);
 
 abstract class AppHTTPClient {
   Future<Map<String, dynamic>> get(String url);
   Future<Map<String, dynamic>> post(
     String endpoint, {
     required Map<String, dynamic> body,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   });
 
   Future<Map<String, dynamic>> put(
     String endpoint, {
     required Map<String, dynamic> body,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   });
 
   Future<Map<String, dynamic>> patch(
     String endpoint, {
     required Map<String, dynamic> body,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   });
 
   Future<Map<String, dynamic>> upload(
     String endpoint, {
     required List<FormUploadDocument> files,
     required Map<String, dynamic> body,
-    required _ProgressCallback onSendProgress,
-    required _ProgressCallback onReceiveProgress,
+    required ProgressCallback onSendProgress,
+    required ProgressCallback onReceiveProgress,
   });
 
   Future<Map<String, dynamic>> delete(
@@ -74,8 +74,8 @@ class DioHTTPClient implements AppHTTPClient {
   Future<Map<String, dynamic>> post(
     String endpoint, {
     required Map<String, dynamic> body,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) =>
       makeRequest(
         endpoint: endpoint,
@@ -88,8 +88,8 @@ class DioHTTPClient implements AppHTTPClient {
   Future<Map<String, dynamic>> put(
     String endpoint, {
     required Map<String, dynamic> body,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) =>
       makeRequest(
         endpoint: endpoint,
@@ -103,8 +103,8 @@ class DioHTTPClient implements AppHTTPClient {
   Future<Map<String, dynamic>> patch(
     String endpoint, {
     required Map<String, dynamic> body,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) =>
       makeRequest(
         endpoint: endpoint,
@@ -130,8 +130,8 @@ class DioHTTPClient implements AppHTTPClient {
     String endpoint, {
     required List<FormUploadDocument> files,
     required Map<String, dynamic> body,
-    required _ProgressCallback onSendProgress,
-    required _ProgressCallback onReceiveProgress,
+    required ProgressCallback onSendProgress,
+    required ProgressCallback onReceiveProgress,
   }) =>
       makeRequest(
         endpoint: endpoint,
@@ -147,8 +147,8 @@ class DioHTTPClient implements AppHTTPClient {
     required String requestMethod,
     Map<String, dynamic>? body,
     List<FormUploadDocument>? uploads,
-    _ProgressCallback? onSendProgress,
-    _ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       dynamic data = body;
@@ -159,11 +159,15 @@ class DioHTTPClient implements AppHTTPClient {
       }
       if (uploads != null && uploads.isNotEmpty) {
         AppLog.i('==================== FILES SENT IS ==================');
-        AppLog.i(uploads.map((FormUploadDocument uploadDocument) => uploadDocument.toString()).join('\n'));
+        AppLog.i(uploads
+            .map((FormUploadDocument uploadDocument) =>
+                uploadDocument.toString())
+            .join('\n'));
         data = FormData.fromMap(body ?? <String, dynamic>{})
           ..files.addAll(
             uploads.map(
-              (FormUploadDocument uploadDocument) => MapEntry<String, MultipartFile>(
+              (FormUploadDocument uploadDocument) =>
+                  MapEntry<String, MultipartFile>(
                 uploadDocument.field,
                 MultipartFile.fromFileSync(
                   uploadDocument.file.path,
@@ -199,7 +203,10 @@ class DioHTTPClient implements AppHTTPClient {
         }
         if (data['data'] is List) {
           if (data['results'] != null) {
-            return <String, dynamic>{'results': data['results'], 'items': data['data']};
+            return <String, dynamic>{
+              'results': data['results'],
+              'items': data['data']
+            };
           }
           return <String, dynamic>{'items': data['data']};
         }
@@ -219,17 +226,22 @@ class DioHTTPClient implements AppHTTPClient {
       AppLog.i(jsonEncode(error.response?.data));
 
       switch (error.type) {
-        case DioErrorType.connectTimeout:
-          throw TimeoutException(error.message, Duration(milliseconds: _client.options.connectTimeout));
+        case DioErrorType.connectionTimeout:
+          throw TimeoutException(error.message, _client.options.connectTimeout);
         case DioErrorType.sendTimeout:
-          throw TimeoutException(error.message, Duration(milliseconds: _client.options.sendTimeout));
+          throw TimeoutException(error.message, _client.options.sendTimeout);
         case DioErrorType.receiveTimeout:
-          throw TimeoutException(error.message, Duration(milliseconds: _client.options.receiveTimeout));
-        case DioErrorType.response:
-          final String errorMessage = (error.response?.data['message'] as String?) ?? error.message;
+          throw TimeoutException(error.message, _client.options.receiveTimeout);
+        case DioErrorType.badResponse:
+          final String errorMessage = error.response?.data['message'] != null
+              ? error.response?.data['message'] as String
+              : error.message != null
+                  ? error.message!
+                  : '';
           throw ServerException(errorMessage);
-        case DioErrorType.other:
-          if (error.message.contains('SocketException')) {
+        case DioErrorType.unknown:
+          if (error.message != null &&
+              error.message!.contains('SocketException')) {
             throw AppException('No Internet');
           }
 
@@ -248,11 +260,13 @@ class DioHTTPClient implements AppHTTPClient {
       ..clear()
       ..add(
         QueuedInterceptorsWrapper(
-          onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+          onRequest: (RequestOptions options,
+              RequestInterceptorHandler handler) async {
             // _client.interceptors.requestLock.lock();
-            final AuthResponse? response =
-                _authLocalDataSource.authResponse ?? await _authLocalDataSource.getAuthResponse();
-            options.headers['Authorization'] = 'Bearer ${response?.token ?? ''}';
+            final AuthResponse? response = _authLocalDataSource.authResponse ??
+                await _authLocalDataSource.getAuthResponse();
+            options.headers['Authorization'] =
+                'Bearer ${response?.token ?? ''}';
             AppLog.i('==================== HEADER SENT IS ==================');
             AppLog.i(options.headers);
             handler.next(options);

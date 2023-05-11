@@ -21,11 +21,11 @@ class SmallUnAthenticatedBottomNavbar extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            Expanded(
+            const Expanded(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: <Widget>[
                 Text(
                   'Don\'t have an account?',
                   style: TextStyle(

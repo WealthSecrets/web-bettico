@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/utils.dart';
 import 'themes.dart';
@@ -231,18 +230,18 @@ class AppTheme {
 
 class AppFontSizes {
   AppFontSizes._();
-  static double h3 = 48.sp.toDouble();
-  static double h4 = 32.sp.toDouble();
-  static double h5 = 24.sp.toDouble();
-  static double h6 = 20.sp.toDouble();
-  static double subtitle1 = 18.sp.toDouble(); //SEMI-BOLD
-  static double subtitle2 = 14.sp.toDouble(); //SEMI-BOLD
-  static double bodyText1 = 16.sp.toDouble();
-  static double bodyText2 = 14.sp.toDouble();
-  static double caption = 12.sp.toDouble();
-  static double button = 18.sp.toDouble();
-  static double overline = 10.sp.toDouble();
-  static double smallest = 8.sp.toDouble();
+  static double h3 = 48.toDouble();
+  static double h4 = 32.toDouble();
+  static double h5 = 24.toDouble();
+  static double h6 = 20.toDouble();
+  static double subtitle1 = 18.toDouble(); //SEMI-BOLD
+  static double subtitle2 = 14.toDouble(); //SEMI-BOLD
+  static double bodyText1 = 16.toDouble();
+  static double bodyText2 = 14.toDouble();
+  static double caption = 12.toDouble();
+  static double button = 18.toDouble();
+  static double overline = 10.toDouble();
+  static double smallest = 8.toDouble();
 }
 
 class AppFontWeight {
@@ -262,18 +261,24 @@ extension ThemeExtension on BuildContext {
   TextStyle get sub2 => theme.textTheme.titleSmall!;
   TextStyle get body1 => theme.textTheme.bodyLarge!;
   TextStyle get body2 => theme.textTheme.bodyMedium!;
-  TextStyle get body2Bold => theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w800);
-  TextStyle get bodyError => theme.textTheme.bodyMedium!.copyWith(color: Theme.of(this).colorScheme.error);
+  TextStyle get body2Bold =>
+      theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w800);
+  TextStyle get bodyError => theme.textTheme.bodyMedium!
+      .copyWith(color: Theme.of(this).colorScheme.error);
   TextStyle get caption => theme.textTheme.bodySmall!;
-  TextStyle get smallest => theme.textTheme.bodyMedium!.copyWith(fontSize: AppFontSizes.smallest);
-  TextStyle get captionError => theme.textTheme.bodySmall!.copyWith(color: Theme.of(this).colorScheme.error);
+  TextStyle get smallest =>
+      theme.textTheme.bodyMedium!.copyWith(fontSize: AppFontSizes.smallest);
+  TextStyle get captionError => theme.textTheme.bodySmall!
+      .copyWith(color: Theme.of(this).colorScheme.error);
   TextStyle get button => theme.textTheme.labelLarge!;
-  TextStyle get buttonSmall => theme.textTheme.labelLarge!.copyWith(fontSize: AppFontSizes.caption);
+  TextStyle get buttonSmall =>
+      theme.textTheme.labelLarge!.copyWith(fontSize: AppFontSizes.caption);
   TextStyle get overline => theme.textTheme.labelSmall!;
   TextStyle get appBarTitle => theme.textTheme.bodyLarge!.copyWith(
         fontSize: AppFontSizes.h6,
         fontWeight: FontWeight.w600,
         fontFamily: AppFonts.base,
       );
-  bool get isDarkMode => MediaQuery.of(this).platformBrightness == Brightness.dark;
+  bool get isDarkMode =>
+      MediaQuery.of(this).platformBrightness == Brightness.dark;
 }

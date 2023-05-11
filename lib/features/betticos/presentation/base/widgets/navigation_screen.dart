@@ -6,10 +6,11 @@ class NavigationScreen extends StatefulWidget {
   final Widget content;
 
   @override
-  _NavigationScreenState createState() => _NavigationScreenState();
+  State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> with TickerProviderStateMixin {
+class _NavigationScreenState extends State<NavigationScreen>
+    with TickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? animation;
 

@@ -7,18 +7,18 @@ bool isTesting = Platform.environment.containsKey('FLUTTER_TEST');
 const String _env = String.fromEnvironment('env.mode', defaultValue: 'development');
 
 Environment get environment {
-  const Map<String, Environment> _envs = <String, Environment>{
+  const Map<String, Environment> envs = <String, Environment>{
     'dev': Environment.development,
     'prod': Environment.production,
     'production': Environment.production,
     'development': Environment.development,
   };
 
-  if (!_envs.containsKey(_env)) {
-    throw Exception("Invalid runtime environment: '$_env'. Available environments: ${_envs.keys.join(', ')}");
+  if (!envs.containsKey(_env)) {
+    throw Exception("Invalid runtime environment: '$_env'. Available environments: ${envs.keys.join(', ')}");
   }
 
-  return _envs[_env]!;
+  return envs[_env]!;
 }
 
 extension EnvironmentX on Environment {

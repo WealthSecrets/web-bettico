@@ -12,7 +12,7 @@ class MoreScreen extends StatefulWidget {
   const MoreScreen({Key? key}) : super(key: key);
 
   @override
-  _MoreScreenState createState() => _MoreScreenState();
+  State<MoreScreen> createState() => _MoreScreenState();
 }
 
 class _MoreScreenState extends State<MoreScreen> {
@@ -58,7 +58,8 @@ class _MoreScreenState extends State<MoreScreen> {
             const SizedBox(height: 16),
             CustomTile(
               icon: Ionicons.pricetag_outline,
-              onPressed: () => navigationController.navigateTo(AppRoutes.privateSales),
+              onPressed: () =>
+                  navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
             ),
             const SizedBox(height: 10),
@@ -70,7 +71,8 @@ class _MoreScreenState extends State<MoreScreen> {
                   arguments: AppWebViewRouteArgument(
                     title: 'Web Browser',
                     url: 'https://www.avatrade.com/',
-                    navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
+                    navigationDelegate: (NavigationRequest navigation) async =>
+                        NavigationDecision.navigate,
                   ),
                 );
               },

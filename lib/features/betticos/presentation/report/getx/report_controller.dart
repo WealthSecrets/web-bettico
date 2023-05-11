@@ -42,7 +42,8 @@ class ReportController extends GetxController {
     );
   }
 
-  void navigateToAddReport(BuildContext context, String type, {String? postId, String? userId}) async {
+  void navigateToAddReport(BuildContext context, String type,
+      {String? postId, String? userId}) async {
     Get.back<void>();
     final dynamic value = await Get.toNamed<dynamic>(
       AppRoutes.report,
@@ -52,7 +53,7 @@ class ReportController extends GetxController {
         userId: userId,
       ),
     );
-    if (value != null) {
+    if (value != null && context.mounted) {
       await AppSnacks.show(
         context,
         message: 'We have received your report. Thank you.',
