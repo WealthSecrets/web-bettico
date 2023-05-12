@@ -30,10 +30,7 @@ class NoTradignAccount extends StatelessWidget {
           }
           registerController.createOkxAccount(
             context,
-            user.email?.split('@').first ??
-                user.firstName ??
-                user.username ??
-                '',
+            user.username ?? user.firstName ?? '',
             () {
               okxController.getUserOkxAccount(context);
               okxController.fetchAssetCurrencies(context);

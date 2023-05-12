@@ -4,7 +4,8 @@ enum Environment { development, production }
 
 bool isTesting = Platform.environment.containsKey('FLUTTER_TEST');
 
-const String _env = String.fromEnvironment('env.mode', defaultValue: 'development');
+const String _env =
+    String.fromEnvironment('env.mode', defaultValue: 'development');
 
 Environment get environment {
   const Map<String, Environment> envs = <String, Environment>{
@@ -15,7 +16,8 @@ Environment get environment {
   };
 
   if (!envs.containsKey(_env)) {
-    throw Exception("Invalid runtime environment: '$_env'. Available environments: ${envs.keys.join(', ')}");
+    throw Exception(
+        "Invalid runtime environment: '$_env'. Available environments: ${envs.keys.join(', ')}");
   }
 
   return envs[_env]!;
