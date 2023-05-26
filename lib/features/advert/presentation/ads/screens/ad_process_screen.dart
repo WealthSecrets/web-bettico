@@ -1,13 +1,13 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';
-import 'package:betticos/features/okx_swap/presentation/ads/utils/special_category_type.dart';
-import 'package:betticos/features/okx_swap/presentation/ads/widgets/category_widget.dart';
+import 'package:betticos/features/advert/data/models/advert_model.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../getx/ads_controller.dart';
+import '../widgets/step_controls.dart';
+import 'ad_preview_step.dart';
 
 class AdProcessScreen extends StatefulWidget {
   const AdProcessScreen({Key? key}) : super(key: key);
@@ -30,16 +30,14 @@ class _AdProcessScreenState extends State<AdProcessScreen> {
             children: <Widget>[
               SizedBox(
                 height: 60,
-                child:
-                    AppBackButton(onPressed: () => Navigator.of(context).pop()),
+                child: AppBackButton(onPressed: () => Navigator.of(context).pop()),
               ),
               const SizedBox(width: 8),
               Expanded(child: _AdEasyStepper()),
             ],
           ),
           const SizedBox(height: 16),
-          Obx(() =>
-              Expanded(child: switchWidgets(controller.currentStep.value))),
+          Obx(() => Expanded(child: switchWidgets(controller.currentStep.value))),
         ],
       ),
     );
@@ -48,7 +46,7 @@ class _AdProcessScreenState extends State<AdProcessScreen> {
   Widget switchWidgets(int currentStep) {
     switch (currentStep) {
       case 0:
-        return _AdsPreviewStep();
+        return AdsPreviewStep();
 
       case 1:
         return _TargetAudienceStep();
@@ -56,14 +54,10 @@ class _AdProcessScreenState extends State<AdProcessScreen> {
         return _BudgetAndDuration();
       case 3:
         return Column(
-          children: <Widget>[
-            const Spacer(),
-            _StepControls(),
-            const SizedBox(height: 20)
-          ],
+          children: <Widget>[const Spacer(), StepControls(), const SizedBox(height: 20)],
         );
       default:
-        return _AdsPreviewStep();
+        return AdsPreviewStep();
     }
   }
 }
@@ -99,8 +93,7 @@ class _AdEasyStepper extends StatelessWidget {
             ),
           ),
           EasyStep(
-            icon: Icon(Ionicons.information,
-                color: context.colors.text, size: 16),
+            icon: Icon(Ionicons.information, color: context.colors.text, size: 16),
             customTitle: Text(
               'Target Audience',
               style: context.caption.copyWith(color: context.colors.text),
@@ -127,70 +120,6 @@ class _AdEasyStepper extends StatelessWidget {
         onStepReached: (int index) => controller.currentStep.value = index,
       );
     });
-  }
-}
-
-class _AdsPreviewStep extends StatelessWidget {
-  _AdsPreviewStep();
-
-  final AdsController controller = Get.find<AdsController>();
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Obx(
-        () => Column(
-          children: <Widget>[
-            TimelineCard(post: controller.post.value),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                controller.isSpecialAdCategory.value =
-                    !controller.isSpecialAdCategory.value;
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Special Ad category',
-                    textAlign: TextAlign.left,
-                    style: context.body2.copyWith(
-                        color: context.colors.textDark,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  IgnorePointer(
-                    child: AppCheckBox(
-                      checkBoxMargin: EdgeInsets.zero,
-                      borderRadius: BorderRadius.circular(2),
-                      height: 24,
-                      value: controller.isSpecialAdCategory.value,
-                      onChanged: (_) {},
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (!controller.isSpecialAdCategory.value) ...<Widget>[
-              const SizedBox(height: 5),
-              Text(
-                'If special Ad category is selected we will show your Ads to certain group of people.',
-                style: context.caption.copyWith(
-                  color: context.colors.text,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ],
-            if (controller.isSpecialAdCategory.value) ...<Widget>[
-              const SizedBox(height: 8),
-              _PopularCategorySection(),
-            ],
-            const Spacer(),
-            _StepControls(),
-            const SizedBox(height: 20)
-          ],
-        ),
-      ),
-    );
   }
 }
 
@@ -228,16 +157,14 @@ class _TargetAudienceStep extends StatelessWidget {
                 ),
                 child: CountryCodePicker(
                   onChanged: controller.addCountry,
-                  dialogTextStyle:
-                      context.caption.copyWith(color: context.colors.black),
+                  dialogTextStyle: context.caption.copyWith(color: context.colors.black),
                   showFlagMain: false,
                   showFlag: false,
                   initialSelection: 'GH',
                   showCountryOnly: true,
                   showOnlyCountryWhenClosed: true,
                   alignLeft: true,
-                  textStyle:
-                      context.caption.copyWith(color: context.colors.black),
+                  textStyle: context.caption.copyWith(color: context.colors.black),
                   onInit: controller.addCountry,
                 ),
               ),
@@ -269,8 +196,7 @@ class _TargetAudienceStep extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               code.name!,
-                              style: context.caption
-                                  .copyWith(color: context.colors.black),
+                              style: context.caption.copyWith(color: context.colors.black),
                             ),
                             Icon(
                               Ionicons.checkmark_circle_sharp,
@@ -306,8 +232,7 @@ class _TargetAudienceStep extends StatelessWidget {
           Obx(
             () => RangeSlider(
               values: controller.rangeValues.value,
-              onChanged: (RangeValues values) =>
-                  controller.rangeValues.value = values,
+              onChanged: (RangeValues values) => controller.rangeValues.value = values,
               min: 18,
               max: 65,
             ),
@@ -328,8 +253,7 @@ class _TargetAudienceStep extends StatelessWidget {
                     (Gender gender) => AppConstrainedButton(
                       text: StringUtils.capitalizeFirst(gender.name),
                       onPressed: () => controller.gender.value = gender,
-                      constraints:
-                          const BoxConstraints(maxHeight: 40, minWidth: 80),
+                      constraints: const BoxConstraints(maxHeight: 40, minWidth: 80),
                       color: context.colors.primary,
                       textColor: Colors.white,
                       selected: controller.gender.value == gender,
@@ -339,7 +263,7 @@ class _TargetAudienceStep extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          _StepControls(),
+          StepControls(),
           const SizedBox(height: 20)
         ],
       ),
@@ -351,8 +275,7 @@ class _BudgetAndDuration extends StatelessWidget {
   _BudgetAndDuration({Key? key}) : super(key: key);
 
   final AdsController controller = Get.find<AdsController>();
-  final TextEditingController amountTextEditingController =
-      TextEditingController();
+  final TextEditingController amountTextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +291,7 @@ class _BudgetAndDuration extends StatelessWidget {
                   child: Obx(
                     () => _InfoCard(
                       title: 'Total Spend',
-                      subtitle: '\$${controller.amount.value}/day',
+                      subtitle: '\$${controller.budget.value}/day',
                     ),
                   ),
                 ),
@@ -389,12 +312,12 @@ class _BudgetAndDuration extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               controller: amountTextEditingController,
-              initialValue: controller.amount.value.toString(),
+              initialValue: controller.budget.value.toString(),
               textInputType: TextInputType.number,
               onChanged: (String value) {
                 if (value.isNotEmpty) {
                   final int amount = int.parse(value);
-                  controller.amount.value = amount;
+                  controller.budget.value = amount;
                   if (amount > 1000 || amount == 1000) {
                     controller.maxAmount.value = amount;
                   }
@@ -404,9 +327,9 @@ class _BudgetAndDuration extends StatelessWidget {
               validator: (String value) => null,
             ),
             Slider(
-              value: controller.amount.value.toDouble(),
+              value: controller.budget.value.toDouble(),
               onChanged: (double value) {
-                controller.amount.value = value.toInt();
+                controller.budget.value = value.toInt();
                 amountTextEditingController.text = value.toInt().toString();
               },
               min: 1,
@@ -425,15 +348,13 @@ class _BudgetAndDuration extends StatelessWidget {
                 if (!controller.runUntilPaused.value)
                   Text(
                     '${controller.duration.value} days',
-                    style:
-                        context.caption.copyWith(color: context.colors.black),
+                    style: context.caption.copyWith(color: context.colors.black),
                   ),
               ],
             ),
             TextButton(
               onPressed: () {
-                controller.runUntilPaused.value =
-                    !controller.runUntilPaused.value;
+                controller.runUntilPaused.value = !controller.runUntilPaused.value;
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -441,9 +362,7 @@ class _BudgetAndDuration extends StatelessWidget {
                   Text(
                     'Run this ad until I pause it.',
                     textAlign: TextAlign.left,
-                    style: context.body2.copyWith(
-                        color: context.colors.textDark,
-                        fontWeight: FontWeight.w400),
+                    style: context.body2.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w400),
                   ),
                   IgnorePointer(
                     child: AppCheckBox(
@@ -460,13 +379,12 @@ class _BudgetAndDuration extends StatelessWidget {
             if (!controller.runUntilPaused.value)
               Slider(
                 value: controller.duration.value.toDouble(),
-                onChanged: (double value) =>
-                    controller.duration.value = value.toInt(),
+                onChanged: (double value) => controller.duration.value = value.toInt(),
                 min: 1,
                 max: 30,
               ),
             const Spacer(),
-            _StepControls(),
+            StepControls(),
             const SizedBox(height: 20)
           ],
         ),
@@ -476,8 +394,7 @@ class _BudgetAndDuration extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  const _InfoCard({Key? key, required this.title, required this.subtitle})
-      : super(key: key);
+  const _InfoCard({Key? key, required this.title, required this.subtitle}) : super(key: key);
 
   final String title;
   final String subtitle;
@@ -508,148 +425,5 @@ class _InfoCard extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    Key? key,
-    required this.iconData,
-    required this.textData,
-    this.onPressed,
-    this.reverse = false,
-  }) : super(key: key);
-
-  final VoidCallback? onPressed;
-  final bool reverse;
-  final IconData iconData;
-  final String textData;
-
-  @override
-  Widget build(BuildContext context) {
-    final Icon icon = Icon(iconData, color: Colors.white, size: 20.0);
-    final Text text = Text(textData,
-        style: context.caption
-            .copyWith(color: Colors.white, fontWeight: FontWeight.bold));
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.only(
-            left: reverse ? 15 : 8, right: reverse ? 8 : 15, top: 8, bottom: 8),
-        decoration: BoxDecoration(
-          color: context.colors.primary,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Center(
-            child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            if (!reverse) icon else text,
-            if (!reverse) text else icon,
-          ],
-        )),
-      ),
-    );
-  }
-}
-
-class _StepControls extends StatelessWidget {
-  _StepControls({Key? key}) : super(key: key);
-
-  final AdsController controller = Get.find<AdsController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () {
-        final MainAxisAlignment mainAxisAlignment =
-            controller.currentStep.value == 0
-                ? MainAxisAlignment.end
-                : controller.currentStep.value == 3
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.spaceBetween;
-        return Row(
-          mainAxisAlignment: mainAxisAlignment,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            if (controller.currentStep.value != 0)
-              _ActionButton(
-                iconData: Ionicons.chevron_back_outline,
-                textData: 'Back'.toUpperCase(),
-                onPressed: () => controller.currentStep.value -= 1,
-              ),
-            if (controller.currentStep.value != 3)
-              _ActionButton(
-                iconData: Ionicons.chevron_forward_outline,
-                textData: 'Next'.toUpperCase(),
-                onPressed: () => controller.currentStep.value += 1,
-                reverse: true,
-              ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _PopularCategorySection extends StatelessWidget {
-  _PopularCategorySection();
-
-  final AdsController controller = Get.find<AdsController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Wrap(
-          spacing: 8,
-          runSpacing: 16,
-          children: SpecialCategoryType.values
-              .map(
-                (SpecialCategoryType type) => type.displayName.isNotEmpty
-                    ? Obx(
-                        () => CategoryWidget(
-                          category: type.displayName,
-                          isSelected: controller.category.value == type,
-                          onPressed: () => controller.category.value = type,
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-              )
-              .toList(),
-        ),
-        const AppSpacing(v: 8),
-        Obx(
-          () => Text(
-            controller.category.value.info,
-            style: context.caption.copyWith(color: Colors.black),
-            textAlign: TextAlign.start,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-extension SpecialCateoryTypex on SpecialCategoryType {
-  String get info {
-    switch (this) {
-      case SpecialCategoryType.credit:
-        return 'Ads for credit card offers, auto loans, long-term financing or other related opportunities.';
-      case SpecialCategoryType.employment:
-        return 'Ads for job offers, internships, professional certification programs or other related opportunities.';
-      case SpecialCategoryType.housing:
-        return 'Ads for real estate listings, homeowners insurance, mortgage loands or other related opportunities.';
-      case SpecialCategoryType.socialIssues:
-        return 'Ads about social issues such as the economy or civiy and social rights.';
-      case SpecialCategoryType.election:
-        return 'Ads for elections such as national election, assembly, Member of parliament eelctions.';
-      case SpecialCategoryType.politics:
-        return 'Ads about politics, topics related to politics.';
-      case SpecialCategoryType.unknown:
-        return '';
-    }
   }
 }

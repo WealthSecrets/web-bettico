@@ -1,17 +1,19 @@
 import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/core/presentation/widgets/success_screen.dart';
+import 'package:betticos/features/advert/presentation/ads/screens/ad_process_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/explore_container.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/search_container.dart';
 import 'package:betticos/features/betticos/presentation/members/screens/members_screen.dart';
+import 'package:betticos/features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
 import 'package:betticos/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
 import 'package:betticos/features/betticos/presentation/private_sales/private_sale_congratulation_screen.dart';
 import 'package:betticos/features/betticos/presentation/private_sales/private_sales_screen.dart';
+import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
 import 'package:betticos/features/betticos/presentation/referral/screens/referral_screen.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/timeline_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/address_details_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/addresses_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
-import 'package:betticos/features/okx_swap/presentation/ads/screens/ad_process_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/conversion_success_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/crypto/buy_sell_crypto_screen.dart';
@@ -29,10 +31,9 @@ import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withd
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_transaction_history_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
+import 'package:betticos/features/settings/presentation/settings/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
-import '../../../features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
-import '../../../features/betticos/presentation/profile/screens/profile_screen.dart';
-import '../../../features/settings/presentation/settings/screens/settings_screen.dart';
+
 import 'app_routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
