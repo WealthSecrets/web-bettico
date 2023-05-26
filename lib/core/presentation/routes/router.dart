@@ -28,6 +28,7 @@ import 'package:betticos/features/okx_swap/presentation/more/more_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/usdt/screens/buy_usdt_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_congratulations_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/withdrawal/screens/withdrawal_screen.dart';
+import 'package:betticos/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_transaction_history_screen.dart';
 import 'package:betticos/features/responsiveness/not_found_screen.dart';
@@ -38,6 +39,8 @@ import 'app_routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case AppRoutes.onboard:
+      return _getPageRoute(const OnboardingScreen(), settings);
     case AppRoutes.profile:
       return _getPageRoute(const ProfileScreen(), settings);
     case AppRoutes.members:
