@@ -25,15 +25,15 @@ class Pages {
   static final List<GetPage<AppRoutes>> pages = <GetPage<AppRoutes>>[
     GetPage<AppRoutes>(
       name: AppRoutes.login,
-      page: () => LoginScreen(),
+      page: LoginScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.registration,
-      page: () => RegistrationScreen(),
+      page: RegistrationScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.accountType,
-      page: () => RegistrationAccountTypeScreen(),
+      page: RegistrationAccountTypeScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.forgot,
@@ -41,7 +41,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.reset,
-      page: () => ResetScreen(),
+      page: ResetScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.profilePhoto,
@@ -53,7 +53,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.documentScreen,
-      page: () => RegistrationDocumentScreen(),
+      page: RegistrationDocumentScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.timelinePost,
@@ -61,7 +61,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.walletConnect,
-      page: () => ForgotWalletScreen(),
+      page: ForgotWalletScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.livescore,
@@ -69,7 +69,7 @@ class Pages {
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.addressConnect,
-      page: () => RegistrationWalletScreen(),
+      page: RegistrationWalletScreen.new,
     ),
     GetPage<AppRoutes>(
       name: AppRoutes.personalInformation,

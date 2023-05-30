@@ -28,10 +28,7 @@ class LargeScreen extends StatelessWidget {
         const Expanded(flex: 1, child: SizedBox()),
         Expanded(
           flex: 3,
-          child: LeftSideBar(
-            user: user,
-            userToken: userToken,
-          ),
+          child: LeftSideBar(user: user, userToken: userToken),
         ),
         Expanded(
           flex: 6,

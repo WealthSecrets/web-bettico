@@ -38,4 +38,25 @@ class Post with _$Post {
         dislikeUsers: <String>[],
         shares: <String>[],
       );
+
+  factory Post.mock() => Post(
+        id: '625e06f392dad8843a4d30c6',
+        user: User.mock(),
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        comments: 3,
+        isOddbox: false,
+        text: 'Hello world, this is a test post',
+        images: <String>[],
+        likeUsers: <String>[
+          '625e06f392dad8843a4d3e0f',
+          '625e06f892dad8843a4d3e0f',
+          '625e06f392d092033a4d3e0f',
+          '625e06f392dwe8843a4d3e0f',
+          '625e06f892dad8843a4d3e0f',
+          '625e098289d092033a4d3e0f',
+        ],
+        dislikeUsers: <String>[],
+        shares: <String>[],
+      );
 }

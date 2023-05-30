@@ -9,7 +9,7 @@ import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
 import 'constants/web_controller.dart';
 
 class UserInfoContainer extends StatelessWidget {
-  UserInfoContainer({Key? key}) : super(key: key);
+  UserInfoContainer({super.key});
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
@@ -19,15 +19,10 @@ class UserInfoContainer extends StatelessWidget {
       padding: AppPaddings.lH.add(AppPaddings.mV),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(
-          color: context.colors.faintGrey,
-          width: 1,
-          style: BorderStyle.solid,
-        ),
+        border: Border.all(color: context.colors.faintGrey),
         borderRadius: AppBorderRadius.largeAll,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Obx(
             () => GestureDetector(
@@ -58,7 +53,6 @@ class UserInfoContainer extends StatelessWidget {
           Obx(
             () => Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(height: 8),

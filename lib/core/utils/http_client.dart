@@ -262,7 +262,6 @@ class DioHTTPClient implements AppHTTPClient {
         QueuedInterceptorsWrapper(
           onRequest: (RequestOptions options,
               RequestInterceptorHandler handler) async {
-            // _client.interceptors.requestLock.lock();
             final AuthResponse? response = _authLocalDataSource.authResponse ??
                 await _authLocalDataSource.getAuthResponse();
             options.headers['Authorization'] =
@@ -270,7 +269,6 @@ class DioHTTPClient implements AppHTTPClient {
             AppLog.i('==================== HEADER SENT IS ==================');
             AppLog.i(options.headers);
             handler.next(options);
-            // _client.interceptors.requestLock.unlock();
           },
         ),
       );

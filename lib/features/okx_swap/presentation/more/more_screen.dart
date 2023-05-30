@@ -57,7 +57,7 @@ class _MoreScreenState extends State<MoreScreen> {
             ),
             const SizedBox(height: 16),
             CustomTile(
-              icon: Ionicons.pricetag_outline,
+              icon: Ionicons.bag_sharp,
               onPressed: () =>
                   navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
@@ -77,6 +77,13 @@ class _MoreScreenState extends State<MoreScreen> {
                 );
               },
               text: 'Avatrade',
+            ),
+            const SizedBox(height: 10),
+            CustomTile(
+              icon: Ionicons.pricetags_outline,
+              onPressed: () =>
+                  navigationController.navigateTo(AppRoutes.adsProces),
+              text: 'Boost Ad',
             ),
           ],
         ),
