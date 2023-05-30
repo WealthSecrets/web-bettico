@@ -42,7 +42,9 @@ class MainBindings {
             'Content-Type': 'application/json',
           },
         ),
-        permanent: true);
+      ),
+      permanent: true,
+    );
 
     Get.put<SharedPreferencesWrapper>(SharedPreferencesWrapper(), permanent: true);
 
