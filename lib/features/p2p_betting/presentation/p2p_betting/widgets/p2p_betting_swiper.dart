@@ -12,7 +12,7 @@ class P2PBettingSwiper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _P2PBettingSwiperState createState() => _P2PBettingSwiperState();
+  State<P2PBettingSwiper> createState() => _P2PBettingSwiperState();
 }
 
 class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
@@ -30,7 +30,9 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
     _controller = PageController(
       viewportFraction: fraction,
     );
-    ongoingBets = _p2pBetController.bets.where((Bet b) => b.status == BetStatus.ongoing).toList();
+    ongoingBets = _p2pBetController.bets
+        .where((Bet b) => b.status == BetStatus.ongoing)
+        .toList();
     super.initState();
   }
 
@@ -50,7 +52,8 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                 SizedBox(
                   height: 125,
                   child: PageView(
-                    onPageChanged: (int index) => _activePageValueNotifier.value = index,
+                    onPageChanged: (int index) =>
+                        _activePageValueNotifier.value = index,
                     controller: _controller,
                     children: <Widget>[
                       ...ongoingBets.map(

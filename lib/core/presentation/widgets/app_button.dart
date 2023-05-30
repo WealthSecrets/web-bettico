@@ -32,7 +32,7 @@ class AppButton extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   @override
-  _AppButtonState createState() => _AppButtonState();
+  State<AppButton> createState() => _AppButtonState();
 }
 
 class _AppButtonState extends State<AppButton> {
@@ -93,9 +93,12 @@ class _AppButtonState extends State<AppButton> {
                       begin: Alignment.topLeft.add(const Alignment(.4, 0)),
                       end: Alignment.bottomRight,
                       colors: <Color>[
-                        context.colors.background.withOpacity(widget.enabled ? 0.0 : 0.6),
-                        context.colors.background.withOpacity(widget.enabled ? 0.0 : 0.6),
-                        context.colors.background.withOpacity(widget.enabled ? 0.0 : 0.6),
+                        context.colors.background
+                            .withOpacity(widget.enabled ? 0.0 : 0.6),
+                        context.colors.background
+                            .withOpacity(widget.enabled ? 0.0 : 0.6),
+                        context.colors.background
+                            .withOpacity(widget.enabled ? 0.0 : 0.6),
                       ],
                     ),
                   ),
@@ -140,11 +143,14 @@ class AppConstrainedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: constraints ?? const BoxConstraints(maxHeight: 25, minWidth: 80),
+      constraints:
+          constraints ?? const BoxConstraints(maxHeight: 25, minWidth: 80),
       child: TextButton(
         style: TextButton.styleFrom(
           padding: AppPaddings.sV,
-          backgroundColor: selected ? color?.withOpacity(disabled! ? 0.6 : 1) ?? Colors.white : null,
+          backgroundColor: selected
+              ? color?.withOpacity(disabled! ? 0.6 : 1) ?? Colors.white
+              : null,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? AppBorderRadius.smallAll,
             side: selected

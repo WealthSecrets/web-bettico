@@ -31,7 +31,8 @@ class _ReferralScreenState extends State<ReferralScreen> {
     return Scaffold(
       body: Obx(
         () => AppLoadingBox(
-          loading: referralController.isLoading.value || referralController.isReferringUser.value,
+          loading: referralController.isLoading.value ||
+              referralController.isReferringUser.value,
           child: Padding(
             padding: AppPaddings.homeH,
             child: SingleChildScrollView(
@@ -92,16 +93,18 @@ class _ReferralScreenState extends State<ReferralScreen> {
                                     '${'enjoy_exclusive_1'.tr}\n\n${'refer_code'.tr}: ${referralController.referralCode.value.toUpperCase()}.\n\n${'enjoy_exclusive_2'.tr}',
                               ),
                             );
-                            await AppSnacks.show(
-                              context,
-                              message: 'copied'.tr,
-                              backgroundColor: context.colors.success,
-                              leadingIcon: const Icon(
-                                Ionicons.checkmark_sharp,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            );
+                            if (context.mounted) {
+                              await AppSnacks.show(
+                                context,
+                                message: 'copied'.tr,
+                                backgroundColor: context.colors.success,
+                                leadingIcon: const Icon(
+                                  Ionicons.checkmark_sharp,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                              );
+                            }
                           },
                           child: Container(
                             height: 30,

@@ -10,10 +10,11 @@ class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
   static const String route = 'OnboardingScreen';
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> with TickerProviderStateMixin {
+class _OnboardingScreenState extends State<OnboardingScreen>
+    with TickerProviderStateMixin {
   final OnboardController controller = Get.find<OnboardController>();
   late final PageController pageController;
   late final ValueNotifier<int> activeIndexValueNotifier;
@@ -36,7 +37,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     pageOffsetValueNotifier = ValueNotifier<double>(0.0);
     pageController = PageController();
     pageController.addListener(() {
-      pageOffsetValueNotifier.value = activeIndexValueNotifier.value - (pageController.page ?? 0.0);
+      pageOffsetValueNotifier.value =
+          activeIndexValueNotifier.value - (pageController.page ?? 0.0);
     });
     super.initState();
   }
@@ -105,7 +107,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                               child: activeIndex < 2
                                   ? TextButton(
                                       onPressed: () => pageController.nextPage(
-                                          duration: const Duration(milliseconds: 1200),
+                                          duration: const Duration(
+                                              milliseconds: 1200),
                                           curve: Curves.fastLinearToSlowEaseIn),
                                       child: Text(
                                         'skip'.tr,

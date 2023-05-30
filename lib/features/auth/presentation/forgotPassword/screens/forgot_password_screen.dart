@@ -29,7 +29,9 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
           ),
           body: Center(
             child: SizedBox(
-              width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
+              width: ResponsiveWidget.isSmallScreen(context)
+                  ? double.infinity
+                  : 450,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: AppPaddings.lH,
@@ -44,10 +46,12 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                           child: SvgPicture.asset(
                             AssetSVGs.logo.path,
                             height: 80,
-                            color: context.colors.secondary,
+                            colorFilter: ColorFilter.mode(
+                                context.colors.secondary, BlendMode.srcIn),
                           ),
                         ),
-                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 60),
+                      if (ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 60),
                       Align(
                         alignment: Alignment.center,
                         child: RichText(

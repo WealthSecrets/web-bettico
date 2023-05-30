@@ -183,15 +183,17 @@ class _LeftSideBarState extends State<LeftSideBar> {
     Icon? icon,
   }) {
     final BaseScreenController controller = Get.find<BaseScreenController>();
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     showAppModal<void>(
       context: context,
       alignment: Alignment.center,
       builder: (BuildContext context) => Obx(
         () => AppLoadingBox(
           loading: controller.isLoggingOut.value,
-          child: SizedBox(
+          child: Container(
             width: 500,
             height: 300,
+            margin: isSmallScreen ? AppPaddings.lH : null,
             child: Center(
               child: AppOptionDialogueModal(
                 modalContext: context,

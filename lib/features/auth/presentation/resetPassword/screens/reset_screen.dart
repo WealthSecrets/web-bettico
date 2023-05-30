@@ -21,7 +21,9 @@ class ResetScreen extends GetWidget<ResetController> {
           backgroundColor: Colors.white,
           body: Center(
             child: SizedBox(
-              width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
+              width: ResponsiveWidget.isSmallScreen(context)
+                  ? double.infinity
+                  : 450,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: AppPaddings.lH,
@@ -36,10 +38,12 @@ class ResetScreen extends GetWidget<ResetController> {
                           child: SvgPicture.asset(
                             AssetSVGs.logo.path,
                             height: 130,
-                            color: context.colors.secondary,
+                            colorFilter: ColorFilter.mode(
+                                context.colors.secondary, BlendMode.srcIn),
                           ),
                         ),
-                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 10),
+                      if (ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.center,
                         child: RichText(
@@ -106,14 +110,17 @@ class ResetScreen extends GetWidget<ResetController> {
                         validator: controller.validateConfirmPassword,
                         onChanged: controller.onConfirmPasswordInputChanged,
                       ),
-                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 10),
-                      if (!ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 50),
+                      if (ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 10),
+                      if (!ResponsiveWidget.isSmallScreen(context))
+                        const SizedBox(height: 50),
                       AppButton(
                         enabled: controller.formIsValid,
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.primary,
-                        onPressed: () => controller.reset(context, fController.email.value),
+                        onPressed: () =>
+                            controller.reset(context, fController.email.value),
                         // onPressed: () => Get.toNamed<void>(AppRoutes.reset),
                         child: Text(
                           'reset password'.toUpperCase(),

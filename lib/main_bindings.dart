@@ -33,15 +33,14 @@ import 'features/p2p_betting/data/repositories/p2p_repository_impl.dart';
 class MainBindings {
   static void dependencies() {
     Get.put<Dio>(
-        Dio(
-          BaseOptions(
-            baseUrl: environment.url,
-            connectTimeout: 40000,
-            receiveTimeout: 40000,
-            headers: <String, dynamic>{
-              'Content-Type': 'application/json',
-            },
-          ),
+      Dio(
+        BaseOptions(
+          baseUrl: environment.url,
+          connectTimeout: const Duration(milliseconds: 40000),
+          receiveTimeout: const Duration(milliseconds: 40000),
+          headers: <String, dynamic>{
+            'Content-Type': 'application/json',
+          },
         ),
         permanent: true);
 

@@ -80,7 +80,7 @@ abstract class P2pRepository {
     required BettorRequest opponent,
   });
 
-  Future<Either<Failure, UserStats>> getUserStats();
+  Future<Either<Failure, UserStats?>> getUserStats();
 
   Future<Either<Failure, Transaction>> updateTransaction({
     required String hash,

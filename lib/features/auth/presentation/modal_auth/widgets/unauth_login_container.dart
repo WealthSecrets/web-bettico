@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -16,25 +17,28 @@ class UnAuthLoginController extends GetWidget<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     return Obx(
       () => Material(
         child: AppLoadingBox(
           loading: controller.isLoading.value,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100),
+            padding: isSmallScreen
+                ? AppPaddings.lH
+                : const EdgeInsets.symmetric(horizontal: 100),
             child: AppAnimatedColumn(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Image.asset(AssetImages.logo, height: 30, width: 30),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Login to join activities on Xviral.',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  style: isSmallScreen
+                      ? context.h6.copyWith(
+                          fontWeight: FontWeight.bold, color: Colors.black)
+                      : context.h5.copyWith(
+                          fontWeight: FontWeight.bold, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -90,18 +94,24 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                       right: 10,
                       child: AnimatedSwitcher(
                         reverseDuration: Duration.zero,
-                        transitionBuilder: (Widget? child, Animation<double> animation) {
-                          final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
+                        transitionBuilder:
+                            (Widget? child, Animation<double> animation) {
+                          final Animation<double> offset =
+                              Tween<double>(begin: 0, end: 1.0)
+                                  .animate(animation);
                           return ScaleTransition(scale: offset, child: child);
                         },
                         switchInCurve: Curves.elasticOut,
                         duration: const Duration(milliseconds: 700),
                         child: RichText(
                           text: TextSpan(
-                            text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
+                            text: controller.isPhone.value
+                                ? 'login_mobile'.tr
+                                : 'login_email'.tr,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                controller.togglePhoneVisibility(!controller.isPhone.value);
+                                controller.togglePhoneVisibility(
+                                    !controller.isPhone.value);
                               },
                             style: const TextStyle(
                               fontWeight: FontWeight.w800,
@@ -174,7 +184,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed<void>(AppRoutes.signup);
+                    Get.offNamed<void>(AppRoutes.signup);
                   },
                   child: Center(
                     child: RichText(

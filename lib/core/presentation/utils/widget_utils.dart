@@ -26,13 +26,15 @@ class WidgetUtils {
       context: context,
       alignment: Alignment.center,
       builder: (BuildContext context) {
-        final bool _isSmallScreen = ResponsiveWidget.isSmallScreen(context);
-        final double width = ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width : 370;
+        final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
+        final double width = ResponsiveWidget.isSmallScreen(context)
+            ? MediaQuery.of(context).size.width
+            : 370;
         return Center(
           child: Container(
             width: width,
-            height: _isSmallScreen ? 315 : 330,
-            margin: EdgeInsets.symmetric(horizontal: _isSmallScreen ? 16 : 0),
+            height: isSmallScreen ? 315 : 330,
+            margin: EdgeInsets.symmetric(horizontal: isSmallScreen ? 16 : 0),
             child: AppOptionDialogueModal(
               modalContext: context,
               title: 'Disconnect Wallet',
@@ -66,8 +68,10 @@ class WidgetUtils {
       builder: (BuildContext context) {
         return ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * ((currencies.length * .05) + .2),
-            minHeight: MediaQuery.of(context).size.height * ((currencies.length * 0.05) + .15),
+            maxHeight: MediaQuery.of(context).size.height *
+                ((currencies.length * .05) + .2),
+            minHeight: MediaQuery.of(context).size.height *
+                ((currencies.length * 0.05) + .15),
           ),
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -132,7 +136,9 @@ class WidgetUtils {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: item.chain == selectedChain ? context.colors.primary : Colors.black,
+                                color: item.chain == selectedChain
+                                    ? context.colors.primary
+                                    : Colors.black,
                               ),
                             ),
                           );
@@ -155,15 +161,17 @@ class WidgetUtils {
     String? title,
     Icon? icon,
   }) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     showAppModal<void>(
       context: context,
       builder: (BuildContext context) {
         return Center(
-          child: SizedBox(
-            width: 600,
-            height: 500,
+          child: Container(
+            width: isSmallScreen ? double.infinity : 600,
+            height: isSmallScreen ? 450 : 500,
+            margin: AppPaddings.lH,
             child: ClipRRect(
-              borderRadius: AppBorderRadius.mediumAll,
+              borderRadius: AppBorderRadius.largeAll,
               child: UnAuthLoginController(),
             ),
           ),

@@ -76,10 +76,11 @@ class AppTextInput extends StatefulWidget {
   final BorderRadius? borderRadius;
 
   @override
-  _AppTextInputState createState() => _AppTextInputState();
+  State<AppTextInput> createState() => _AppTextInputState();
 }
 
-class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMixin {
+class _AppTextInputState extends State<AppTextInput>
+    with TickerProviderStateMixin {
   FocusNode? focusNode;
   TextEditingController? controller;
   late ValueNotifier<bool> obscureTextValueListenable;
@@ -155,17 +156,20 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                           0.0,
                           widget.hideLabel
                               ? 0.0
-                              : focusNode!.hasFocus || controller!.text.isNotEmpty
+                              : focusNode!.hasFocus ||
+                                      controller!.text.isNotEmpty
                                   ? .0
                                   : 0.0),
                     child: ValueListenableBuilder<bool>(
                       valueListenable: obscureTextValueListenable,
-                      builder: (BuildContext context, bool obscuringText, Widget? child) {
+                      builder: (BuildContext context, bool obscuringText,
+                          Widget? child) {
                         return TextFormField(
                           focusNode: focusNode,
-                          autovalidateMode: focusNode!.hasFocus && dirtyValueListenable.value
-                              ? AutovalidateMode.always
-                              : AutovalidateMode.onUserInteraction,
+                          autovalidateMode:
+                              focusNode!.hasFocus && dirtyValueListenable.value
+                                  ? AutovalidateMode.always
+                                  : AutovalidateMode.onUserInteraction,
                           obscuringCharacter: '*',
                           obscureText: obscuringText,
                           controller: controller,
@@ -187,7 +191,8 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                           inputFormatters: widget.inputFormatters,
                           onFieldSubmitted: widget.onFieldSubmitted,
                           decoration: InputDecoration(
-                            contentPadding: widget.padding ?? const EdgeInsets.all(5),
+                            contentPadding:
+                                widget.padding ?? const EdgeInsets.all(5),
                             fillColor: context.colors.background,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: widget.prefixIcon,
@@ -208,15 +213,20 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                     right: 10,
                     child: ValueListenableBuilder<bool>(
                       valueListenable: obscureTextValueListenable,
-                      builder: (BuildContext context, bool obscuringText, Widget? child) {
-                        if (!widget.showObscureTextToggle || !focusNode!.hasFocus && !widget.obscureText) {
+                      builder: (BuildContext context, bool obscuringText,
+                          Widget? child) {
+                        if (!widget.showObscureTextToggle ||
+                            !focusNode!.hasFocus && !widget.obscureText) {
                           return const SizedBox(height: 20);
                         }
 
                         return AnimatedSwitcher(
                           reverseDuration: Duration.zero,
-                          transitionBuilder: (Widget? child, Animation<double> animation) {
-                            final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
+                          transitionBuilder:
+                              (Widget? child, Animation<double> animation) {
+                            final Animation<double> offset =
+                                Tween<double>(begin: 0, end: 1.0)
+                                    .animate(animation);
                             return ScaleTransition(scale: offset, child: child);
                           },
                           switchInCurve: Curves.elasticOut,
@@ -248,11 +258,14 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
           ),
           ValueListenableBuilder<TextEditingValue>(
             valueListenable: controller!,
-            builder: (BuildContext context, TextEditingValue textEditingValue, _) {
+            builder:
+                (BuildContext context, TextEditingValue textEditingValue, _) {
               return ValueListenableBuilder<bool>(
                 valueListenable: dirtyValueListenable,
                 builder: (BuildContext context, bool dirty, _) {
-                  final bool showError = (widget.validator(textEditingValue.text) is String) && dirty;
+                  final bool showError =
+                      (widget.validator(textEditingValue.text) is String) &&
+                          dirty;
                   return AnimatedSize(
                     curve: Curves.elasticOut,
                     duration: const Duration(milliseconds: 900),
@@ -261,11 +274,13 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Builder(
-                          key: ValueKey<bool>(showError || widget.infoText == null),
+                          key: ValueKey<bool>(
+                              showError || widget.infoText == null),
                           builder: (_) {
                             if (showError) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
                                   widget.validator(controller!.value.text)!,
                                   style: widget.errorStyle ??

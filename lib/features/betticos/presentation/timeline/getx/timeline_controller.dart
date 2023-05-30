@@ -86,7 +86,8 @@ class TimelineController extends GetxController {
   RxBool isOddbox = false.obs;
   RxInt tabIndex = 0.obs;
   RxInt pageK = 1.obs;
-  Rx<PagingController<int, Post>> pagingController = PagingController<int, Post>(firstPageKey: 1).obs;
+  Rx<PagingController<int, Post>> pagingController =
+      PagingController<int, Post>(firstPageKey: 1).obs;
 
   // loading state
   RxBool isLoading = false.obs;
@@ -183,7 +184,8 @@ class TimelineController extends GetxController {
 
   void postCommentedOnListener(dynamic data) async {
     // final Post thePost = Post.fromJson(data['post'] as Map<String, dynamic>);
-    final Post theComment = Post.fromJson(data['comment'] as Map<String, dynamic>);
+    final Post theComment =
+        Post.fromJson(data['comment'] as Map<String, dynamic>);
     if (theComment.images != null && theComment.images!.isNotEmpty) {
       // final Bitmap bitmap = await Bitmap.fromProvider(NetworkImage(
       //   '${AppEndpoints.postImages}/${theComment.images![0]}',
@@ -206,7 +208,8 @@ class TimelineController extends GetxController {
   void followListener(dynamic data) async {
     // final User follower =
     User.fromJson(data as Map<String, dynamic>);
-    final Map<String, dynamic> theLoggedInUserMap = bController.user.value.toJson();
+    final Map<String, dynamic> theLoggedInUserMap =
+        bController.user.value.toJson();
     final int hisFollowersCount = theLoggedInUserMap['followers'] as int;
     theLoggedInUserMap['followers'] = hisFollowersCount + 1;
     final User theLoggedInUser = User.fromJson(theLoggedInUserMap);
@@ -233,14 +236,16 @@ class TimelineController extends GetxController {
 
   void userBlockedListener(dynamic data) async {
     final String blockedUserId = data as String;
-    pagingController.value.itemList!.removeWhere((Post p) => p.user.id == blockedUserId);
+    pagingController.value.itemList!
+        .removeWhere((Post p) => p.user.id == blockedUserId);
     pagingController.value.notifyListeners();
   }
 
   void getAllFollowingPosts() async {
     isPostLoading(true);
 
-    final Either<Failure, List<Post>> failureOrPosts = await fetchFollowingPosts(NoParams());
+    final Either<Failure, List<Post>> failureOrPosts =
+        await fetchFollowingPosts(NoParams());
 
     failureOrPosts.fold(
       (Failure failure) {
@@ -263,7 +268,8 @@ class TimelineController extends GetxController {
   void getAllSubscribedOddboxes(BuildContext context) async {
     isOddboxLoading(true);
 
-    final Either<Failure, List<Post>> failureOrOddboxes = await fetchSubscribedOddboxes(NoParams());
+    final Either<Failure, List<Post>> failureOrOddboxes =
+        await fetchSubscribedOddboxes(NoParams());
 
     failureOrOddboxes.fold<void>(
       (Failure failure) {
@@ -284,7 +290,8 @@ class TimelineController extends GetxController {
   void getPaginatedPosts(int pageKey) async {
     pageK(pageKey);
     isLoading(true);
-    final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
+    final Either<Failure, ListPage<Post>> failureOrPosts =
+        await fetchPaginatedPosts(
       PageParmas(
         page: pageK.value,
         size: 100,
@@ -299,7 +306,8 @@ class TimelineController extends GetxController {
       },
       (ListPage<Post> newPage) {
         isLoading(false);
-        final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
+        final int previouslyFetchedItemsCount =
+            pagingController.value.itemList?.length ?? 0;
 
         final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
         final List<Post> newItems = newPage.itemList;
@@ -375,7 +383,8 @@ class TimelineController extends GetxController {
         orderedOddbox.add(oddboxes[i]);
       }
     }
-    orderedOddbox.sort((Post a, Post b) => getUserPercentage(b.user.id).compareTo(getUserPercentage(a.user.id)));
+    orderedOddbox.sort((Post a, Post b) =>
+        getUserPercentage(b.user.id).compareTo(getUserPercentage(a.user.id)));
     return orderedOddbox;
   }
 
@@ -396,7 +405,8 @@ class TimelineController extends GetxController {
   // }
 
   bool checkIfUserAlreadyExists(List<Post> psts, String userId) {
-    final Post? value = psts.firstWhereOrNull((Post element) => element.user.id == userId);
+    final Post? value =
+        psts.firstWhereOrNull((Post element) => element.user.id == userId);
     if (value != null) {
       return true;
     }
@@ -404,7 +414,8 @@ class TimelineController extends GetxController {
   }
 
   int getUsersTotalWins(String userId) {
-    final List<Post> userPosts = oddboxes.where((Post post) => post.user.id == userId).toList();
+    final List<Post> userPosts =
+        oddboxes.where((Post post) => post.user.id == userId).toList();
     int wins = 0;
     for (int i = 0; i < userPosts.length; i++) {
       if (userPosts[i].likeUsers.length > userPosts[i].dislikeUsers.length) {
@@ -416,7 +427,8 @@ class TimelineController extends GetxController {
   }
 
   int getUserTotalLosses(String userId) {
-    final List<Post> userPosts = oddboxes.where((Post post) => post.user.id == userId).toList();
+    final List<Post> userPosts =
+        oddboxes.where((Post post) => post.user.id == userId).toList();
     int losses = 0;
     for (int i = 0; i < userPosts.length; i++) {
       if (userPosts[i].dislikeUsers.length > userPosts[i].likeUsers.length) {
@@ -427,7 +439,8 @@ class TimelineController extends GetxController {
   }
 
   double getUserPercentage(String userId) {
-    final int total = oddboxes.where((Post post) => post.user.id == userId).toList().length;
+    final int total =
+        oddboxes.where((Post post) => post.user.id == userId).toList().length;
     final int wins = getUsersTotalWins(userId);
     return (wins / total) * 100;
   }
@@ -483,7 +496,8 @@ class TimelineController extends GetxController {
     );
   }
 
-  bool get timelineIsInvalid => text.value.isEmpty && files.isEmpty && slipCode.value.isEmpty;
+  bool get timelineIsInvalid =>
+      text.value.isEmpty && files.isEmpty && slipCode.value.isEmpty;
 
   void addNewReply(BuildContext context, String commentId) async {
     isLoading(true);
@@ -556,8 +570,8 @@ class TimelineController extends GetxController {
             } else {
               final int postIndex = posts.indexOf(post);
               posts[postIndex] = pst;
-              pagingController.value.itemList!
-                  .replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+              pagingController.value.itemList!.replaceRange(
+                  0, pagingController.value.itemList!.length, <Post>[...posts]);
               pagingController.value.notifyListeners();
             }
           }
@@ -620,8 +634,8 @@ class TimelineController extends GetxController {
               final int postIndex = posts.indexOf(post);
               posts[postIndex] = pst;
 
-              pagingController.value.itemList!
-                  .replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+              pagingController.value.itemList!.replaceRange(
+                  0, pagingController.value.itemList!.length, <Post>[...posts]);
               pagingController.value.notifyListeners();
             }
           }
@@ -648,39 +662,42 @@ class TimelineController extends GetxController {
       if (post != null) {
         resetValues();
         getAllFollowingPosts();
-        getAllSubscribedOddboxes(context);
-
-        await AppSnacks.show(
-          context,
-          message: 'Post added succcessfully',
-          backgroundColor: context.colors.success,
-          leadingIcon: const Icon(
-            Ionicons.checkmark_circle_outline,
-            color: Colors.white,
-          ),
-        );
+        if (context.mounted) {
+          getAllSubscribedOddboxes(context);
+          await AppSnacks.show(
+            context,
+            message: 'Post added succcessfully',
+            backgroundColor: context.colors.success,
+            leadingIcon: const Icon(
+              Ionicons.checkmark_circle_outline,
+              color: Colors.white,
+            ),
+          );
+        }
       }
     } else {
       isReply(true);
       postId(pstId);
-      final dynamic post =
-          await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: pstId));
+      final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost,
+          arguments: AddPostCommentArgument(postId: pstId));
       // final dynamic post = await navigationController.navigateTo(
       //     AppRoutes.timelinePost,
       //     arguments: AddPostCommentArgument(postId: pstId));
       if (post != null) {
         getPaginatedPosts(pageK.value);
         pagingController.value.refresh();
-        getAllSubscribedOddboxes(context);
-        await AppSnacks.show(
-          context,
-          message: 'Comment added succcessfully',
-          backgroundColor: context.colors.success,
-          leadingIcon: const Icon(
-            Ionicons.checkmark_circle_outline,
-            color: Colors.white,
-          ),
-        );
+        if (context.mounted) {
+          getAllSubscribedOddboxes(context);
+          await AppSnacks.show(
+            context,
+            message: 'Comment added succcessfully',
+            backgroundColor: context.colors.success,
+            leadingIcon: const Icon(
+              Ionicons.checkmark_circle_outline,
+              color: Colors.white,
+            ),
+          );
+        }
       }
     }
   }
@@ -692,7 +709,8 @@ class TimelineController extends GetxController {
 
   void deleteUserPost(BuildContext context, String postId) async {
     isLoading(true);
-    final Either<Failure, void> failureOrUser = await deletePost(DeletePostParams(postId: postId));
+    final Either<Failure, void> failureOrUser =
+        await deletePost(DeletePostParams(postId: postId));
 
     failureOrUser.fold<void>(
       (Failure failure) {

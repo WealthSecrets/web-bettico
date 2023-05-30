@@ -19,10 +19,12 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isWalletConnect = params != null && params!.toLowerCase() == 'walletconnect';
+    final bool isWalletConnect =
+        params != null && params!.toLowerCase() == 'walletconnect';
     return Obx(
       () => AppLoadingBox(
-        loading: registerController.isRegisteringUser.value || registerController.isCreatingOkxAccount.value,
+        loading: registerController.isRegisteringUser.value ||
+            registerController.isCreatingOkxAccount.value,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -36,7 +38,9 @@ class RegistrationScreen extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
+                width: ResponsiveWidget.isSmallScreen(context)
+                    ? double.infinity
+                    : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.lH,
                   child: AppAnimatedColumn(
@@ -49,7 +53,9 @@ class RegistrationScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          isWalletConnect ? 'Sign up with WalletConnect' : 'create_account'.tr,
+                          isWalletConnect
+                              ? 'Sign up with WalletConnect'
+                              : 'create_account'.tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -59,7 +65,9 @@ class RegistrationScreen extends StatelessWidget {
                       ),
                       const AppSpacing(v: 30),
                       Text(
-                        isWalletConnect ? 'Create a password for your signup and click \'Next\'' : 'signup_info'.tr,
+                        isWalletConnect
+                            ? 'Create a password for your signup and click \'Next\''
+                            : 'signup_info'.tr,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           height: 1.22,
@@ -70,7 +78,7 @@ class RegistrationScreen extends StatelessWidget {
                       const AppSpacing(v: 30),
                       if (!isWalletConnect)
                         AppTextInput(
-                          labelText: 'email_address'.tr.toUpperCase(),
+                          labelText: 'email'.tr.toUpperCase(),
                           prefixIcon: Icon(
                             Ionicons.mail_outline,
                             color: context.colors.hintLight,
@@ -126,7 +134,8 @@ class RegistrationScreen extends StatelessWidget {
                           fontSize: 12,
                         ),
                         validator: registerController.validateConfrimPassword,
-                        onChanged: registerController.onConfirmPasswordInputChanged,
+                        onChanged:
+                            registerController.onConfirmPasswordInputChanged,
                       ),
                       const AppSpacing(v: 8),
                       AppTextInput(
@@ -153,7 +162,8 @@ class RegistrationScreen extends StatelessWidget {
                           trimMode: TrimMode.Line,
                           trimCollapsedText: 'more',
                           trimExpandedText: '...less',
-                          text: 'By signing up, you agree to our Terms & Privacy Policy.',
+                          text:
+                              'By signing up, you agree to our Terms & Privacy Policy.',
                           detectionRegExp: RegExp(
                             '(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent',
                             multiLine: true,
@@ -185,7 +195,8 @@ class RegistrationScreen extends StatelessWidget {
                       const AppSpacing(v: 49),
                       AppButton(
                         enabled: isWalletConnect
-                            ? registerController.walletConnectRegistrationFormIsValid
+                            ? registerController
+                                .walletConnectRegistrationFormIsValid
                             : registerController.registrationFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
                         onPressed: () => registerController.register(

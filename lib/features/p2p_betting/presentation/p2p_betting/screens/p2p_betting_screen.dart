@@ -88,7 +88,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
         body: Obx(
           () {
             return AppLoadingBox(
-              loading: controller.isAddingBet.value || lController.showLoadingLogo.value,
+              loading: controller.isAddingBet.value ||
+                  lController.showLoadingLogo.value,
               child: SingleChildScrollView(
                 padding: AppPaddings.lA,
                 child: AppAnimatedColumn(
@@ -120,7 +121,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         ),
                         localTeamScore: widget.liveScore.scores!.localTeamScore,
                         time: widget.liveScore.time,
-                        visitorTeamScore: widget.liveScore.scores!.visitorTeamScore,
+                        visitorTeamScore:
+                            widget.liveScore.scores!.visitorTeamScore,
                         onAwayPressed: () => controller.selectTeam(
                           widget.liveScore.visitorTeam.data.name,
                           widget.liveScore.visitorTeam.data.id,
@@ -188,7 +190,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         final double? amount = double.tryParse(value);
                         if (amount != null) {
                           controller.onAmountInputChanged(amount);
-                          lController.convertAmount(context, lController.selectedCurrency.value, amount);
+                          lController.convertAmount(context,
+                              lController.selectedCurrency.value, amount);
                         }
                       },
                       inputFormatters: <TextInputFormatter>[
@@ -214,8 +217,13 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                                 color: lController.convertedAmount.value > 0
                                     ? context.colors.success
                                     : context.colors.text,
-                                fontWeight: lController.convertedAmount.value > 0 ? FontWeight.bold : FontWeight.normal,
-                                fontStyle: lController.convertedAmount.value > 0 ? FontStyle.normal : FontStyle.italic,
+                                fontWeight:
+                                    lController.convertedAmount.value > 0
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                fontStyle: lController.convertedAmount.value > 0
+                                    ? FontStyle.normal
+                                    : FontStyle.italic,
                                 fontSize: 12,
                               ),
                             ),
@@ -243,7 +251,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         ),
                         PaymentButton(
                           text: 'Wallet',
-                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 32),
                           selected: controller.paymentType.value == 'wallet',
                           onPressed: () {
                             controller.paymentType.value = 'wallet';
@@ -264,9 +273,10 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             failureCallback: () async {
                               // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
                               final TransactionResponse? response =
-                                  await lController.sendWsc(context, lController.convertedAmount.value);
+                                  await lController.sendWsc(context,
+                                      lController.convertedAmount.value);
 
-                              if (response != null) {
+                              if (response != null && context.mounted) {
                                 controller.addNewBet(
                                   context,
                                   lController.walletAddress.value,
@@ -294,17 +304,20 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         } else if (controller.paymentType.value == 'wallet') {
                           final TransactionResponse? response =
-                              await lController.sendWsc(context, lController.convertedAmount.value);
-                          if (response != null) {
+                              await lController.sendWsc(
+                                  context, lController.convertedAmount.value);
+                          if (response != null && context.mounted) {
                             controller.createBetTransaction(
                               context,
-                              convertedAmount: lController.convertedAmount.value,
+                              convertedAmount:
+                                  lController.convertedAmount.value,
                               amount: controller.amount.value,
                               description: 'Bet Creation',
                               type: 'deposit',
                               wallet: lController.walletAddress.value,
                               txthash: response.hash,
-                              convertedToken: lController.selectedCurrency.value,
+                              convertedToken:
+                                  lController.selectedCurrency.value,
                               time: response.timestamp,
                               callback: () => controller.addNewBet(
                                 context,
@@ -320,7 +333,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         }
                       },
-                      enabled: controller.isValid && !lController.isLoading.value,
+                      enabled:
+                          controller.isValid && !lController.isLoading.value,
                       borderRadius: AppBorderRadius.largeAll,
                       child: Text(
                         'Create Bet'.toUpperCase(),
