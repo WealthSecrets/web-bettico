@@ -171,13 +171,13 @@ class _CupertinoModalPopupRoute<T> extends PopupRoute<T> {
 
 class AppDialogueModal extends StatelessWidget {
   const AppDialogueModal({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.buttonText,
     required this.onDismissed,
     required this.description,
-  }) : super(key: key);
+  });
 
   final Widget icon;
   final Widget title;

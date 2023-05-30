@@ -7,7 +7,7 @@ import '/features/onboarding_splash/presentation/onbaording/widgets/onbaord_indi
 import '/features/onboarding_splash/presentation/onbaording/widgets/onboard_card.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+  const OnboardingScreen({super.key});
   static const String route = 'OnboardingScreen';
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -20,14 +20,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   late final ValueNotifier<double> pageOffsetValueNotifier;
 
   final List<String> onBoardTexts = <String>[
-    '${'follow_oddsters'.tr}\n${'sure_bet'.tr}\n${'exclusive_odds'.tr}',
-    '${'get_slip_code'.tr}\n${'strategized'.tr}\n${'success'.tr}',
-    '${'win_bet'.tr}\n${'be_happy'.tr}\n${'be_happy'.tr}',
+    'Get Insights\nAccount Performance\nContact Options',
+    'Know Your Followers\nPost Performance',
+    'Rach More People\nBuild Community',
   ];
   final List<String> onBoardAssets = <String>[
-    AssetSVGs.follow.path,
-    AssetSVGs.slipCode.path,
-    AssetSVGs.win.path,
+    AssetSVGs.realtime.path,
+    AssetSVGs.followers.path,
+    AssetSVGs.goals.path,
   ];
 
   @override
@@ -65,24 +65,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                 Expanded(
                   flex: 4,
                   child: ValueListenableBuilder<double>(
-                      valueListenable: pageOffsetValueNotifier,
-                      builder: (BuildContext context, double pageOffset, _) {
-                        return PageView(
-                          physics: const BouncingScrollPhysics(),
-                          onPageChanged: (int index) => activeIndexValueNotifier.value = index,
-                          controller: pageController,
-                          children: List<Widget>.generate(
-                            onBoardTexts.length,
-                            (int index) => OnboardCard(
-                              index: index,
-                              isPrevious: pageOffset < index,
-                              isActive: index == activeIndex,
-                              text: onBoardTexts[index].split('\n'),
-                              svgAssetPath: onBoardAssets[index],
-                            ),
+                    valueListenable: pageOffsetValueNotifier,
+                    builder: (BuildContext context, double pageOffset, _) {
+                      return PageView(
+                        physics: const BouncingScrollPhysics(),
+                        onPageChanged: (int index) => activeIndexValueNotifier.value = index,
+                        controller: pageController,
+                        children: List<Widget>.generate(
+                          onBoardTexts.length,
+                          (int index) => OnboardCard(
+                            index: index,
+                            isPrevious: pageOffset < index,
+                            isActive: index == activeIndex,
+                            text: onBoardTexts[index].split('\n'),
+                            svgAssetPath: onBoardAssets[index],
                           ),
-                        );
-                      }),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -119,7 +120,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                                         height: 50,
                                         color: context.colors.primary,
                                         elevation: 0.0,
-                                        onPressed: () => controller.saveOnBoarded(),
+                                        onPressed: controller.saveOnBoarded,
                                         child: Text(
                                           'enter'.tr.toUpperCase(),
                                           style: context.body2.copyWith(

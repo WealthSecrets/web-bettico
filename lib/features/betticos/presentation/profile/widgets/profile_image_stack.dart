@@ -10,9 +10,9 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ProfileImageStack extends StatefulWidget {
-  const ProfileImageStack({super.key, this.user});
+  const ProfileImageStack({super.key, required this.user});
 
-  final User? user;
+  final User user;
 
   @override
   State<ProfileImageStack> createState() => _ProfileImageStackState();
@@ -20,16 +20,10 @@ class ProfileImageStack extends StatefulWidget {
 
 class _ProfileImageStackState extends State<ProfileImageStack> {
   final ProfileController controller = Get.find<ProfileController>();
-
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    String image = '${AppEndpoints.userImages}/${bController.user.value.photo}';
-
-    if (widget.user != null) {
-      image = '${AppEndpoints.userImages}/${widget.user!.photo}';
-    }
     return Stack(
       children: <Widget>[
         if (controller.profileImage.value.isEmpty)
@@ -40,7 +34,7 @@ class _ProfileImageStackState extends State<ProfileImageStack> {
               borderRadius: BorderRadius.circular(45),
               image: DecorationImage(
                 image: NetworkImage(
-                  image,
+                  '${AppEndpoints.userImages}/${widget.user.photo}',
                   headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
                 ),
                 fit: BoxFit.cover,
@@ -58,7 +52,7 @@ class _ProfileImageStackState extends State<ProfileImageStack> {
               image: DecorationImage(image: MemoryImage(controller.profileImage.value), fit: BoxFit.cover),
             ),
           ),
-        if (widget.user == null)
+        if (widget.user.id == bController.user.value.id)
           Positioned(
             bottom: 0,
             right: 0,

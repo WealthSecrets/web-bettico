@@ -1,6 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/betticos/presentation/profile/arguments/profile_argument.dart';
 import 'package:betticos/features/responsiveness/side_menu_item.dart';
 import 'package:betticos/features/responsiveness/user_info_container.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,7 @@ import '../../core/presentation/utils/app_endpoints.dart';
 import 'constants/web_controller.dart';
 
 class LeftSideBar extends StatefulWidget {
-  const LeftSideBar({Key? key, required this.userToken, required this.user})
-      : super(key: key);
+  const LeftSideBar({super.key, required this.userToken, required this.user});
   final String userToken;
   final User user;
 
@@ -26,11 +26,8 @@ class _LeftSideBarState extends State<LeftSideBar> {
   @override
   Widget build(BuildContext context) {
     final List<SideMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
-    final EdgeInsetsGeometry padding = isLargeScreen
-        ? const EdgeInsets.symmetric(vertical: 24, horizontal: 16)
-        : const EdgeInsets.symmetric(vertical: 24);
     return ListView(
-      padding: padding,
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       children: <Widget>[
         if (isLargeScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
@@ -38,7 +35,6 @@ class _LeftSideBarState extends State<LeftSideBar> {
         ],
         if (!isSmallScreen && widget.userToken.isEmpty) ...<Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const SizedBox(width: 16),
@@ -54,7 +50,6 @@ class _LeftSideBarState extends State<LeftSideBar> {
               const SizedBox(height: 40),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Row(
@@ -67,9 +62,7 @@ class _LeftSideBarState extends State<LeftSideBar> {
                           image: DecorationImage(
                             image: NetworkImage(
                               '${AppEndpoints.userImages}/${widget.user.photo}',
-                              headers: <String, String>{
-                                'Authorization': 'Bearer ${widget.userToken}',
-                              },
+                              headers: <String, String>{'Authorization': 'Bearer ${widget.userToken}'},
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -77,21 +70,22 @@ class _LeftSideBarState extends State<LeftSideBar> {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          _UserColumnButton(
-                              context: context,
-                              title: 'Following',
-                              subtitle: '${widget.user.following}',
-                              onPressed: () {}),
-                          _UserColumnButton(
-                              context: context,
-                              title: 'Followers',
-                              subtitle: '${widget.user.followers}',
-                              onPressed: () {}),
-                        ],
-                      ))
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            _UserColumnButton(
+                                context: context,
+                                title: 'Following',
+                                subtitle: '${widget.user.following}',
+                                onPressed: () {}),
+                            _UserColumnButton(
+                                context: context,
+                                title: 'Followers',
+                                subtitle: '${widget.user.followers}',
+                                onPressed: () {}),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -149,7 +143,12 @@ class _LeftSideBarState extends State<LeftSideBar> {
                       showLogoutDialog(context);
                     } else if (!menuController.isActive(item.route)) {
                       menuController.changeActiveItemTo(item.route);
-                      navigationController.navigateTo(item.route);
+                      if (item.route == AppRoutes.profile) {
+                        navigationController.navigateTo(item.route,
+                            arguments: ProfileScreenArgument(user: widget.user));
+                      } else {
+                        navigationController.navigateTo(item.route);
+                      }
                     }
                   },
                 ),

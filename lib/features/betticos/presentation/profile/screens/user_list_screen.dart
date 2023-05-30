@@ -66,11 +66,7 @@ class UserListScreen extends GetWidget<ProfileController> {
           onTap: () async {
             final User? thePreviousUser = await Navigator.of(context).push<User>(
               MaterialPageRoute<User>(
-                builder: (BuildContext context) => ProfileScreen(
-                  user: user,
-                  showBackButton: true,
-                  thePreviousUser: theUser,
-                ),
+                builder: (BuildContext context) => ProfileScreen(user: user, showBackButton: true),
               ),
             );
 

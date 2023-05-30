@@ -107,9 +107,7 @@ class TimelineController extends GetxController {
   void onInit() {
     // notificationService.initialize();
     // connectAndListen();
-    pagingController.value.addPageRequestListener((int pageKey) {
-      getPaginatedPosts(pageKey);
-    });
+    pagingController.value.addPageRequestListener(getPaginatedPosts);
     // getAllFollowingPosts();
     super.onInit();
   }

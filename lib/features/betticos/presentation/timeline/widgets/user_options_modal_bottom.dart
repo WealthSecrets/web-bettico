@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-class ModalFit extends StatelessWidget {
-  ModalFit({Key? key, required this.ctx, this.post, this.user}) : super(key: key);
+class UserOptionsModalBottom extends StatelessWidget {
+  UserOptionsModalBottom({super.key, required this.ctx, this.post, this.user});
   final BuildContext ctx;
   final Post? post;
   final User? user;
@@ -31,7 +31,6 @@ class ModalFit extends StatelessWidget {
               child: Padding(
                 padding: AppPaddings.bodyH.add(AppPaddings.lV),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Icon(
                       Ionicons.person_remove_outline,
@@ -63,7 +62,6 @@ class ModalFit extends StatelessWidget {
               child: Padding(
                 padding: AppPaddings.bodyH.add(AppPaddings.lV),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Icon(
                       Ionicons.volume_mute_outline,
@@ -92,7 +90,6 @@ class ModalFit extends StatelessWidget {
               child: Padding(
                 padding: AppPaddings.bodyH.add(AppPaddings.lV),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Icon(
                       Ionicons.ban_outline,
@@ -121,20 +118,12 @@ class ModalFit extends StatelessWidget {
               child: Padding(
                 padding: AppPaddings.bodyH.add(AppPaddings.lV),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Icon(
-                      Ionicons.flag_outline,
-                      color: context.colors.text,
-                      size: 24,
-                    ),
+                    Icon(Ionicons.flag_outline, color: context.colors.text, size: 24),
                     const AppSpacing(h: 16),
                     Text(
                       post != null ? 'report_post'.tr : 'report_user'.tr,
-                      style: context.body2.copyWith(
-                        color: context.colors.text,
-                        fontSize: 16,
-                      ),
+                      style: context.body2.copyWith(color: context.colors.text, fontSize: 16),
                     ),
                   ],
                 ),
@@ -152,20 +141,12 @@ class ModalFit extends StatelessWidget {
               child: Padding(
                 padding: AppPaddings.bodyH.add(AppPaddings.lV),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Icon(
-                      Ionicons.trash_outline,
-                      color: context.colors.text,
-                      size: 24,
-                    ),
+                    Icon(Ionicons.trash_outline, color: context.colors.text, size: 24),
                     const AppSpacing(h: 16),
                     Text(
                       'Delete ${post!.isOddbox ? 'Oddbox' : 'Post'}',
-                      style: context.body2.copyWith(
-                        color: context.colors.text,
-                        fontSize: 16,
-                      ),
+                      style: context.body2.copyWith(color: context.colors.text, fontSize: 16),
                     ),
                   ],
                 ),

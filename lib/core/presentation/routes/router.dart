@@ -35,6 +35,7 @@ import 'package:betticos/features/responsiveness/not_found_screen.dart';
 import 'package:betticos/features/settings/presentation/settings/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../features/betticos/presentation/profile/arguments/profile_argument.dart';
 import 'app_routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -42,7 +43,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.onboard:
       return _getPageRoute(const OnboardingScreen(), settings);
     case AppRoutes.profile:
-      return _getPageRoute(const ProfileScreen(), settings);
+      final ProfileScreenArgument argument = settings.arguments! as ProfileScreenArgument;
+      return _getPageRoute(ProfileScreen(user: argument.user, showBackButton: argument.showBackButton), settings);
     case AppRoutes.members:
       return _getPageRoute(const MembersScreen(), settings);
     case AppRoutes.oddsters:
