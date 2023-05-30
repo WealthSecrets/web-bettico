@@ -109,10 +109,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         // appBar: isSmallScreen ? topNavigationBar(context, scaffoldKey) : null,
         drawer: isSmallScreen
             ? Drawer(
-                child: LeftSideBar(
-                  user: user,
-                  userToken: userToken,
-                ),
+                child: LeftSideBar(user: user, userToken: userToken),
               )
             : null,
         bottomNavigationBar: isSmallScreen && userToken.isNotEmpty

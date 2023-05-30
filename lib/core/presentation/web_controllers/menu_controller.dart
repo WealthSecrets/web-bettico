@@ -19,6 +19,10 @@ class AppMenuController extends GetxController {
     }
   }
 
+  void resetActiveItem() {
+    activeitem.value = '';
+  }
+
   bool isActive(String itemName) => activeitem.value == itemName;
 
   bool isHovering(String itemName) => hoverItem.value == itemName;

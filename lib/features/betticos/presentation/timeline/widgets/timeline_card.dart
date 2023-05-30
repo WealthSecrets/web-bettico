@@ -18,13 +18,13 @@ import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import '/features/betticos/presentation/profile/getx/profile_controller.dart';
-import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 import '/features/betticos/presentation/timeline/widgets/timeline_image_divider.dart';
-import 'modal_fit.dart';
+import '../../profile/arguments/profile_argument.dart';
+import 'user_options_modal_bottom.dart';
 
 class TimelineCard extends StatelessWidget {
   TimelineCard({
-    Key? key,
+    super.key,
     required this.post,
     this.onTap,
     this.onCommentTap,
@@ -32,7 +32,8 @@ class TimelineCard extends StatelessWidget {
     this.onDislikeTap,
     this.onShareTap,
     this.largeFonts = false,
-  }) : super(key: key);
+  });
+
   final bool largeFonts;
   final Post post;
   final void Function()? onTap;
@@ -68,31 +69,18 @@ class TimelineCard extends StatelessWidget {
           borderRadius: ResponsiveWidget.isLargeScreen(context) || ResponsiveWidget.isMediumScreen(context)
               ? AppBorderRadius.smallAll
               : null,
-          border: !ResponsiveWidget.isSmallScreen(context)
-              ? Border.all(
-                  color: context.colors.faintGrey,
-                  width: 1,
-                  style: BorderStyle.solid,
-                )
-              : null,
+          border: !ResponsiveWidget.isSmallScreen(context) ? Border.all(color: context.colors.faintGrey) : null,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => ProfileScreen(
-                          user: post.user,
-                          showBackButton: true,
-                        ),
-                      ),
-                    );
-                  },
+                  onTap: () => navigationController.navigateTo(
+                    AppRoutes.profile,
+                    arguments: ProfileScreenArgument(user: post.user, showBackButton: true),
+                  ),
                   child: Container(
                     height: 40,
                     width: 40,
@@ -110,92 +98,62 @@ class TimelineCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                    child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => ProfileScreen(
-                          user: post.user,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  '${post.user.firstName} ${post.user.lastName}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                if (post.user.role == 'admin')
-                                  Image.asset(
-                                    AssetImages.verified,
-                                    height: 14,
-                                    width: 14,
-                                  ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            timeago.format(post.createdAt),
-                            style: TextStyle(
-                              color: context.colors.text,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '@${post.user.username}',
-                        style: TextStyle(
-                          color: context.colors.grey,
-                          fontSize: 10,
-                        ),
-                      ),
-                      if (pController.myFollowingLikedPost(post.likeUsers))
+                  child: GestureDetector(
+                    onTap: () => navigationController.navigateTo(
+                      AppRoutes.profile,
+                      arguments: ProfileScreenArgument(user: post.user, showBackButton: true),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Icon(Ionicons.thumbs_up, color: context.colors.primary, size: 14),
+                            Expanded(
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    '${post.user.firstName} ${post.user.lastName}',
+                                    style:
+                                        const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  if (post.user.role == 'admin')
+                                    Image.asset(AssetImages.verified, height: 14, width: 14),
+                                ],
+                              ),
+                            ),
                             const SizedBox(width: 5),
                             Text(
-                              '${'liked_by'.tr} ${pController.myFollowingWhoLikedPost(post.likeUsers)}',
-                              style: context.sub1.copyWith(
-                                color: context.colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
+                              timeago.format(post.createdAt),
+                              style: TextStyle(color: context.colors.text, fontSize: 12),
+                            ),
                           ],
                         ),
-                    ],
+                        const SizedBox(width: 8),
+                        Text('@${post.user.username}', style: TextStyle(color: context.colors.grey, fontSize: 10)),
+                        if (pController.myFollowingLikedPost(post.likeUsers))
+                          Row(
+                            children: <Widget>[
+                              Icon(Ionicons.thumbs_up, color: context.colors.primary, size: 14),
+                              const SizedBox(width: 5),
+                              Text(
+                                '${'liked_by'.tr} ${pController.myFollowingWhoLikedPost(post.likeUsers)}',
+                                style: context.sub1
+                                    .copyWith(color: context.colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                      ],
+                    ),
                   ),
-                )),
+                ),
                 // if (user.id != post.user.id)
                 GestureDetector(
                   onTap: () => showMaterialModalBottomSheet<String>(
                     context: context,
-                    builder: (_) => ModalFit(
-                      post: post,
-                      ctx: context,
-                    ),
+                    builder: (_) => UserOptionsModalBottom(post: post, ctx: context),
                   ),
-                  child: Icon(
-                    Ionicons.ellipsis_vertical,
-                    size: 16,
-                    color: context.colors.text,
-                  ),
+                  child: Icon(Ionicons.ellipsis_vertical, size: 16, color: context.colors.text),
                 ),
               ],
             ),
@@ -349,13 +307,20 @@ class TimelineCard extends StatelessWidget {
   }
 
   Widget _buildAnimatedButton(
-      BuildContext context, int count, bool isLiked, IconData iconOutline, IconData iconSolid, Function()? onTap,
-      {bool isDislikeButton = false}) {
+    BuildContext context,
+    int count,
+    bool isLiked,
+    IconData iconOutline,
+    IconData iconSolid,
+    Function()? onTap, {
+    bool isDislikeButton = false,
+  }) {
     return LikeButton(
       size: 22,
       circleColor: CircleColor(
-          start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
-          end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E)),
+        start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
+        end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E),
+      ),
       bubblesColor: isDislikeButton
           ? const BubblesColor(dotPrimaryColor: Color(0xFFFF2626), dotSecondaryColor: Color(0xFFBD1616))
           : const BubblesColor(
@@ -374,18 +339,13 @@ class TimelineCard extends StatelessWidget {
       countBuilder: (int? c, bool value, String text) {
         return Text(
           '$c',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: context.colors.text,
-          ),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: context.colors.text),
         );
       },
       onTap: (bool isLiked) async {
         if (onTap != null) {
           onTap();
         }
-
         return !isLiked;
       },
     );

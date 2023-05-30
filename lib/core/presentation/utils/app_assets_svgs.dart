@@ -6,6 +6,10 @@ class _AssetSVGs {
   static String slipCode = 'assets/svgs/slip_code.svg';
   static String win = 'assets/svgs/win.svg';
   static String referral = 'assets/svgs/referral.svg';
+  static String followers = 'assets/svgs/followers.svg';
+  static String goals = 'assets/svgs/goals.svg';
+  static String messages = 'assets/svgs/messages.svg';
+  static String realtime = 'assets/svgs/realtime.svg';
 }
 
 enum AssetSVGs {
@@ -15,6 +19,10 @@ enum AssetSVGs {
   slipCode,
   win,
   referral,
+  followers,
+  goals,
+  messages,
+  realtime,
 }
 
 extension X on AssetSVGs {
@@ -32,6 +40,14 @@ extension X on AssetSVGs {
         return _AssetSVGs.win;
       case AssetSVGs.referral:
         return _AssetSVGs.referral;
+      case AssetSVGs.followers:
+        return _AssetSVGs.followers;
+      case AssetSVGs.goals:
+        return _AssetSVGs.goals;
+      case AssetSVGs.messages:
+        return _AssetSVGs.messages;
+      case AssetSVGs.realtime:
+        return _AssetSVGs.realtime;
     }
   }
 }

@@ -15,9 +15,13 @@ dependencies:
   barcode: ^2.2.3
   carousel_slider: ^4.0.0
   circular_reveal_animation: ^2.0.0
+  country_code_picker: ^3.0.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0
   detectable_text_field: ^2.0.3
+  dio: ^4.0.4
+  easy_stepper: ^0.5.2+1
+  efficient_autocomplete_formfield: ^0.3.2+1
   dio: ^5.1.2
   envied: ^0.3.0
   faker: ^2.0.0

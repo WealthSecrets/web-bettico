@@ -51,13 +51,13 @@ class User with _$User {
         lastName: Faker().person.lastName(),
         username: Faker().person.name(),
         dateOfBirth: Faker().date.dateTime(maxYear: 1998, minYear: 1960),
-        phone: '+233024${Faker().randomGenerator.integer(9999999, min: 1000000)}',
+        phone: '+233024${Faker().randomGenerator.integer(9999999, min: 0)}',
         role: 'user',
         passwordResetToken: '',
         walletAddress: '',
-        followers: Faker().randomGenerator.integer(999, min: 1000),
-        following: Faker().randomGenerator.integer(999, min: 1000),
-        referrals: Faker().randomGenerator.integer(999, min: 1000),
+        followers: Faker().randomGenerator.integer(999, min: 0),
+        following: Faker().randomGenerator.integer(999, min: 0),
+        referrals: Faker().randomGenerator.integer(999, min: 0),
       );
 
   factory User.empty() => User(
@@ -78,10 +78,17 @@ class User with _$User {
 
   bool get isVerified => role == 'user'
       ? profileAt != null && emailVerifiedAt != null
-      : (emailVerifiedAt != null && profileAt != null && identification != null && photo != null);
+      : (emailVerifiedAt != null &&
+          profileAt != null &&
+          identification != null &&
+          photo != null);
 
   bool get isPersonalInfoProvided =>
-      firstName != null && lastName != null && phone != null && username != null && dateOfBirth != null;
+      firstName != null &&
+      lastName != null &&
+      phone != null &&
+      username != null &&
+      dateOfBirth != null;
 
   bool get hasRole => role != null;
 

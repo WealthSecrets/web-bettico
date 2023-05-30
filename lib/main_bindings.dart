@@ -1,10 +1,12 @@
 // import 'dart:async';
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/advert/data/datasources/advert_remote_data_source.dart';
+import 'package:betticos/features/advert/data/repository/advert_repository_impl.dart';
+import 'package:betticos/features/advert/domain/repository/advert_repository.dart';
 import 'package:betticos/features/betticos/data/data_sources/betticos_remote_data_source.dart';
 import 'package:betticos/features/betticos/data/data_sources/betticos_remote_data_source_impl.dart';
 import 'package:betticos/features/betticos/data/repositories/betticos_repository_impl.dart';
 import 'package:betticos/features/betticos/domain/repositories/betticos_repository.dart';
-import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_bindings.dart';
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources_impl.dart';
 import 'package:betticos/features/okx_swap/data/repositories/okx_repository_impl.dart';
@@ -40,104 +42,52 @@ class MainBindings {
             'Content-Type': 'application/json',
           },
         ),
-      ),
-      permanent: true,
-    );
+        permanent: true);
 
-    Get.put<SharedPreferencesWrapper>(
-      SharedPreferencesWrapper(),
-      permanent: true,
-    );
+    Get.put<SharedPreferencesWrapper>(SharedPreferencesWrapper(), permanent: true);
 
-    Get.put<SettingsLocalDataSource>(
-      SettingsLocalDataSourceImpl(Get.find()),
-      permanent: true,
-    );
+    Get.put<SettingsLocalDataSource>(SettingsLocalDataSourceImpl(Get.find()), permanent: true);
 
-    Get.put<AuthLocalDataSource>(
-      AuthLocalDataSourceImpl(Get.find()),
-      permanent: true,
-    );
+    Get.put<AuthLocalDataSource>(AuthLocalDataSourceImpl(Get.find()), permanent: true);
 
-    Get.put<OnBoardLocalDataSource>(
-      OnBoardLocalDataSourceImpl(Get.find()),
-      permanent: true,
-    );
+    Get.put<OnBoardLocalDataSource>(OnBoardLocalDataSourceImpl(Get.find()), permanent: true);
 
-    Get.put<AppHTTPClient>(
-      DioHTTPClient(
-        authLocalDataSource: Get.find(),
-        client: Get.find(),
-      ),
-      permanent: true,
-    );
+    Get.put<AppHTTPClient>(DioHTTPClient(authLocalDataSource: Get.find(), client: Get.find()), permanent: true);
 
-    Get.put<AuthRemoteDataSource>(
-      AuthRemoteDataSourceImpl(client: Get.find()),
-      permanent: true,
-    );
+    Get.put<AuthRemoteDataSource>(AuthRemoteDataSourceImpl(client: Get.find()), permanent: true);
 
-    Get.put<BetticosRemoteDataSource>(
-      BetticosRemoteDataSourceImpl(client: Get.find()),
-      permanent: true,
-    );
+    Get.put<BetticosRemoteDataSource>(BetticosRemoteDataSourceImpl(client: Get.find()), permanent: true);
 
-    Get.put<P2pRemoteDataSource>(
-      P2pRemoteDataSourceImpl(client: Get.find()),
-      permanent: true,
-    );
+    Get.put<P2pRemoteDataSource>(P2pRemoteDataSourceImpl(client: Get.find()), permanent: true);
 
-    Get.put<OkxRemoteDataSources>(
-      OkxRemoteDataSourcesImpl(client: Get.find()),
-      permanent: true,
-    );
+    Get.put<OkxRemoteDataSources>(OkxRemoteDataSourcesImpl(client: Get.find()), permanent: true);
 
-    Get.put<OnBoardRepository>(
-      OnBoardRepositoryImpl(
-        onBoardLocalDataSource: Get.find(),
-      ),
-      permanent: true,
-    );
+    Get.put<AdvertRemoteDataSource>(AdvertRemoteDataSourceImpl(client: Get.find()), permanent: true);
 
-    Get.put<SettingsRepository>(
-      SettingsRepositoryImpl(
-        settingsLocalDataSource: Get.find(),
-      ),
-      permanent: true,
-    );
+    Get.put<OnBoardRepository>(OnBoardRepositoryImpl(onBoardLocalDataSource: Get.find()), permanent: true);
+
+    Get.put<SettingsRepository>(SettingsRepositoryImpl(settingsLocalDataSource: Get.find()), permanent: true);
 
     Get.put<AuthRepository>(
-      AuthRepositoryImpl(
-        authLocalDataSource: Get.find(),
-        authRemoteDataSource: Get.find(),
-      ),
+      AuthRepositoryImpl(authLocalDataSource: Get.find(), authRemoteDataSource: Get.find()),
       permanent: true,
     );
 
     Get.put<BetticosRepository>(
-      BetticosRepositoryImpl(
-        authLocalDataSource: Get.find(),
-        betticoslineRemoteDataSource: Get.find(),
-      ),
+      BetticosRepositoryImpl(authLocalDataSource: Get.find(), betticoslineRemoteDataSource: Get.find()),
       permanent: true,
     );
 
     Get.put<P2pRepository>(
-      P2pRepositoryImpl(
-        p2pRemoteDataSource: Get.find(),
-        authLocalDataSource: Get.find(),
-      ),
+      P2pRepositoryImpl(p2pRemoteDataSource: Get.find(), authLocalDataSource: Get.find()),
       permanent: true,
     );
 
     Get.put<OkxRepository>(
-      OkxRepositoryImpl(
-        okxRemoteDataSources: Get.find(),
-        authLocalDataSource: Get.find(),
-      ),
+      OkxRepositoryImpl(okxRemoteDataSources: Get.find(), authLocalDataSource: Get.find()),
       permanent: true,
     );
 
-    TimelineBindings();
+    Get.put<AdvertRepository>(AdvertRepositoryImpl(advertRemoteDataSource: Get.find()), permanent: true);
   }
 }

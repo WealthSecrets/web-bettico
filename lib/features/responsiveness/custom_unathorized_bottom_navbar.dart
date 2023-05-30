@@ -23,30 +23,31 @@ class CustomUnAthenticatedBottomNavbar extends StatelessWidget {
           children: <Widget>[
             const Expanded(flex: 1, child: SizedBox()),
             const Expanded(
-                flex: 4,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Don\'t have an account?',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Don\'t have an account?',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Sign up now to know what\'s happening on Xviral.',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Sign up now to know what\'s happening on Xviral.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               flex: 3,
               child: Padding(
@@ -59,7 +60,8 @@ class CustomUnAthenticatedBottomNavbar extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       textColor: context.colors.primary,
-                      onPressed: () => WidgetUtils.showUnAuthorizedLoginContainer(context),
+                      onPressed: () =>
+                          WidgetUtils.showUnAuthorizedLoginContainer(context),
                     ),
                     const SizedBox(width: 8),
                     SelectableButton(
