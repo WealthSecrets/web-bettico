@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
 import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
+import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,7 @@ void main() async {
   OddstersBindings.dependencies();
   ReferralBindings.dependencies();
   AdsBinding.dependencies();
+  ProfessionalBindings.dependencies();
   CardBindings.dependencies();
   ReportBindings.dependencies();
 

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
-enum SpecialCategoryType {
-  credit('credit'),
-  employment('employment'),
-  housing('housing'),
-  socialIssues('social issues'),
-  election('election'),
-  politics('politics'),
+enum BusinessCategoryType {
+  artist('artist'),
+  musician(r'musician\band'),
+  blogger('blogger'),
+  clothing('clothing brand'),
+  community('community'),
+  digitalcreator('digital creator'),
+  education('education'),
+  entrepreneur('entrepreneur'),
+  contentcreator('content creator'),
   unknown('');
 
-  const SpecialCategoryType(this.rawValue);
+  const BusinessCategoryType(this.rawValue);
 
-  static SpecialCategoryType fromValue(String value) {
-    for (final SpecialCategoryType item in values) {
+  static BusinessCategoryType fromValue(String value) {
+    for (final BusinessCategoryType item in values) {
       if (item.rawValue == value.toLowerCase()) {
         return item;
       }
