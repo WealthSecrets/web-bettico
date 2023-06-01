@@ -1,6 +1,7 @@
 import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/core/presentation/widgets/success_screen.dart';
 import 'package:betticos/features/advert/presentation/ads/screens/ad_process_screen.dart';
+import 'package:betticos/features/advert/presentation/ads/screens/business_type_screen.dart';
 import 'package:betticos/features/advert/presentation/ads/screens/professional_account_category_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/explore_container.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/search_container.dart';
@@ -112,6 +113,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const AdProcessScreen(), settings);
     case AppRoutes.professionalCategory:
       return _getPageRoute(const ProfessionalAccountCategoryScreen(), settings);
+    case AppRoutes.businessType:
+      return _getPageRoute(const BusinessTypeScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
