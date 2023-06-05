@@ -66,4 +66,5 @@ class AppRoutes {
   static const String adsProces = '/ads_process';
   static const String professionalCategory = '/professional_category';
   static const String businessType = '/business-type';
+  static const String reviewAccount = '/review-account';
 }

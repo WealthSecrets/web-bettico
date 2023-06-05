@@ -1,4 +1,5 @@
 import 'package:betticos/features/advert/presentation/ads/getx/professional_controller.dart';
+import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -87,7 +88,7 @@ class BusinessTypeScreen extends GetWidget<ProfessionalController> {
                     AppButton(
                       borderRadius: AppBorderRadius.largeAll,
                       backgroundColor: context.colors.primary,
-                      onPressed: () {},
+                      onPressed: () => navigationController.navigateTo(AppRoutes.reviewAccount),
                       child: Text(
                         'next'.tr.toUpperCase(),
                         style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
@@ -125,11 +126,7 @@ class _BuildAccountTypeCard extends StatelessWidget {
             color: selected ? context.colors.primary : Colors.white,
             borderRadius: AppBorderRadius.smallAll,
             boxShadow: const <BoxShadow>[
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 6.0), //(x,y)
-                blurRadius: 6.0,
-              ),
+              BoxShadow(color: Colors.grey, offset: Offset(0.0, 6.0), blurRadius: 6.0),
             ],
           ),
           child: Stack(

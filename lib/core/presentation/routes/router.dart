@@ -37,6 +37,7 @@ import 'package:betticos/features/responsiveness/not_found_screen.dart';
 import 'package:betticos/features/settings/presentation/settings/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../features/advert/presentation/ads/screens/review_account_screen.dart';
 import '../../../features/betticos/presentation/profile/arguments/profile_argument.dart';
 import 'app_routes.dart';
 
@@ -115,6 +116,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const ProfessionalAccountCategoryScreen(), settings);
     case AppRoutes.businessType:
       return _getPageRoute(const BusinessTypeScreen(), settings);
+    case AppRoutes.reviewAccount:
+      return _getPageRoute(const ReviewAccountScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
