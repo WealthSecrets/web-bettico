@@ -9,7 +9,7 @@ import 'package:webviewx/webviewx.dart';
 import '../widgets/custom_tile.dart';
 
 class MoreScreen extends StatefulWidget {
-  const MoreScreen({Key? key}) : super(key: key);
+  const MoreScreen({super.key});
 
   @override
   State<MoreScreen> createState() => _MoreScreenState();
@@ -31,7 +31,6 @@ class _MoreScreenState extends State<MoreScreen> {
           children: <Widget>[
             if (!isSmallScreen) const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
@@ -58,8 +57,7 @@ class _MoreScreenState extends State<MoreScreen> {
             const SizedBox(height: 16),
             CustomTile(
               icon: Ionicons.bag_sharp,
-              onPressed: () =>
-                  navigationController.navigateTo(AppRoutes.privateSales),
+              onPressed: () => navigationController.navigateTo(AppRoutes.privateSales),
               text: 'Private Sales',
             ),
             const SizedBox(height: 10),
@@ -71,19 +69,11 @@ class _MoreScreenState extends State<MoreScreen> {
                   arguments: AppWebViewRouteArgument(
                     title: 'Web Browser',
                     url: 'https://www.avatrade.com/',
-                    navigationDelegate: (NavigationRequest navigation) async =>
-                        NavigationDecision.navigate,
+                    navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
                   ),
                 );
               },
               text: 'Avatrade',
-            ),
-            const SizedBox(height: 10),
-            CustomTile(
-              icon: Ionicons.pricetags_outline,
-              onPressed: () =>
-                  navigationController.navigateTo(AppRoutes.adsProces),
-              text: 'Boost Ad',
             ),
           ],
         ),

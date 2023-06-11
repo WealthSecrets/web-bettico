@@ -6,22 +6,17 @@ import '../getx/ads_controller.dart';
 import 'action_button.dart';
 
 class StepControls extends StatelessWidget {
-  StepControls({Key? key}) : super(key: key);
-
+  StepControls({super.key});
   final AdsController controller = Get.find<AdsController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
-        final MainAxisAlignment mainAxisAlignment = controller.currentStep.value == 0
-            ? MainAxisAlignment.end
-            : controller.currentStep.value == 3
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.spaceBetween;
+        final MainAxisAlignment mainAxisAlignment =
+            controller.currentStep.value == 0 ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween;
         return Row(
           mainAxisAlignment: mainAxisAlignment,
-          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             if (controller.currentStep.value != 0)
               ActionButton(
@@ -29,13 +24,18 @@ class StepControls extends StatelessWidget {
                 textData: 'Back'.toUpperCase(),
                 onPressed: () => controller.currentStep.value -= 1,
               ),
-            if (controller.currentStep.value != 3)
-              ActionButton(
-                iconData: Ionicons.chevron_forward_outline,
-                textData: 'Next'.toUpperCase(),
-                onPressed: () => controller.currentStep.value += 1,
-                reverse: true,
-              ),
+            ActionButton(
+              iconData: Ionicons.chevron_forward_outline,
+              textData: controller.currentStep.value == 3 ? 'Confirm'.toUpperCase() : 'Next'.toUpperCase(),
+              onPressed: () {
+                if (controller.currentStep.value != 3) {
+                  controller.currentStep.value += 1;
+                } else {
+                  controller.addAdvert(context);
+                }
+              },
+              reverse: true,
+            ),
           ],
         );
       },

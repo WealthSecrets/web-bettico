@@ -1,3 +1,4 @@
+import 'package:betticos/features/advert/presentation/ads/screens/professional_account_category_screen.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/otp_verification_screen.dart';
 import 'package:betticos/features/auth/presentation/register/screens/registration_account_type_screen.dart';
@@ -98,6 +99,10 @@ class Pages {
     GetPage<AppRoutes>(
       name: AppRoutes.p2pSuccess,
       page: () => const P2PBettingCongratScreen(),
+    ),
+    GetPage<AppRoutes>(
+      name: AppRoutes.professionalCategory,
+      page: () => const ProfessionalAccountCategoryScreen(),
     ),
   ];
 }

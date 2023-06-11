@@ -13,8 +13,7 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen>
-    with TickerProviderStateMixin {
+class _OnboardingScreenState extends State<OnboardingScreen> with TickerProviderStateMixin {
   final OnboardController controller = Get.find<OnboardController>();
   late final PageController pageController;
   late final ValueNotifier<int> activeIndexValueNotifier;
@@ -37,8 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     pageOffsetValueNotifier = ValueNotifier<double>(0.0);
     pageController = PageController();
     pageController.addListener(() {
-      pageOffsetValueNotifier.value =
-          activeIndexValueNotifier.value - (pageController.page ?? 0.0);
+      pageOffsetValueNotifier.value = activeIndexValueNotifier.value - (pageController.page ?? 0.0);
     });
     super.initState();
   }
@@ -107,15 +105,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               child: activeIndex < 2
                                   ? TextButton(
                                       onPressed: () => pageController.nextPage(
-                                          duration: const Duration(
-                                              milliseconds: 1200),
-                                          curve: Curves.fastLinearToSlowEaseIn),
-                                      child: Text(
-                                        'skip'.tr,
-                                        style: context.body2.copyWith(
-                                          color: context.colors.primary,
-                                        ),
+                                        duration: const Duration(milliseconds: 1200),
+                                        curve: Curves.fastLinearToSlowEaseIn,
                                       ),
+                                      child:
+                                          Text('skip'.tr, style: context.body2.copyWith(color: context.colors.primary)),
                                     )
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
@@ -126,10 +120,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                         onPressed: controller.saveOnBoarded,
                                         child: Text(
                                           'enter'.tr.toUpperCase(),
-                                          style: context.body2.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style:
+                                              context.body2.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),

@@ -45,10 +45,9 @@ class _CupertinoModalPopupRoute<T> extends PopupRoute<T> {
     this.colorFilter,
     this.duration,
     this.alignment,
-    RouteSettings? settings,
+    super.settings,
     bool? barrierDismissible,
-  })  : _barrierDismissible = barrierDismissible ?? false,
-        super(settings: settings);
+  }) : _barrierDismissible = barrierDismissible ?? false;
 
   final WidgetBuilder builder;
   final bool _barrierDismissible;
@@ -196,7 +195,6 @@ class AppDialogueModal extends StatelessWidget {
       padding: AppPaddings.homeA,
       child: AppAnimatedColumn(
         delay: const Duration(milliseconds: 200),
-        duration: const Duration(milliseconds: 1000),
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           icon,
@@ -234,7 +232,7 @@ class AppDialogueModal extends StatelessWidget {
 
 class AppOptionDialogueModal extends StatelessWidget {
   const AppOptionDialogueModal({
-    Key? key,
+    super.key,
     required this.modalContext,
     required this.onPressed,
     required this.title,
@@ -242,7 +240,7 @@ class AppOptionDialogueModal extends StatelessWidget {
     required this.affirmButtonText,
     this.iconData,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final BuildContext modalContext;
   final void Function() onPressed;
@@ -268,7 +266,6 @@ class AppOptionDialogueModal extends StatelessWidget {
             padding: AppPaddings.lA,
             child: AppAnimatedColumn(
               delay: const Duration(milliseconds: 100),
-              duration: const Duration(milliseconds: 1000),
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const AppSpacing(v: 10),
@@ -305,27 +302,19 @@ class AppOptionDialogueModal extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      flex: 1,
                       child: AppButton(
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
                         backgroundColor: context.colors.text,
-                        onPressed: () {
-                          Navigator.of(modalContext).pop(false);
-                        },
+                        onPressed: () => Navigator.of(modalContext).pop(false),
                         child: const Text(
                           'CANCEL',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                     ),
                     const AppSpacing(h: 20),
                     Expanded(
-                      flex: 1,
                       child: AppButton(
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
@@ -333,11 +322,7 @@ class AppOptionDialogueModal extends StatelessWidget {
                         onPressed: onPressed,
                         child: Text(
                           affirmButtonText.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                     )
@@ -355,7 +340,7 @@ class AppOptionDialogueModal extends StatelessWidget {
 
 class AppTextDailogModal extends StatelessWidget {
   const AppTextDailogModal({
-    Key? key,
+    super.key,
     required this.modalContext,
     this.onAffrimButtonPressed,
     required this.title,
@@ -365,7 +350,7 @@ class AppTextDailogModal extends StatelessWidget {
     required this.affirmButtonText,
     this.iconData,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final BuildContext modalContext;
   final Function()? onAffrimButtonPressed;
@@ -388,36 +373,23 @@ class AppTextDailogModal extends StatelessWidget {
       padding: AppPaddings.lA,
       child: AppAnimatedColumn(
         delay: const Duration(milliseconds: 100),
-        duration: const Duration(milliseconds: 1000),
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           const AppSpacing(v: 10),
           Container(
             padding: AppPaddings.lA,
-            decoration: BoxDecoration(
-              color: backgroundColor ?? context.colors.primary,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              iconData ?? Ionicons.football,
-              color: Colors.white,
-              size: 20,
-            ),
+            decoration: BoxDecoration(color: backgroundColor ?? context.colors.primary, shape: BoxShape.circle),
+            child: Icon(iconData ?? Ionicons.football, color: Colors.white, size: 20),
           ),
           const AppSpacing(v: 20),
           Material(
             child: AppTextInput(
               controller: controller,
-              disabled: false,
               labelText: title,
               backgroundColor: context.colors.primary.shade100,
-              lableStyle: TextStyle(
-                color: context.colors.primary,
-                fontWeight: FontWeight.w700,
-                fontSize: 10,
-              ),
+              lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
               onChanged: onChanged,
-              validator: (String string) => null,
+              validator: (_) => null,
             ),
           ),
           const AppSpacing(v: 20),
@@ -426,13 +398,7 @@ class AppTextDailogModal extends StatelessWidget {
               Expanded(
                 child: TextButton(
                   onPressed: onCancelledPressed,
-                  child: Text(
-                    'cancel'.tr.toUpperCase(),
-                    style: TextStyle(
-                      color: context.colors.text,
-                      fontSize: 14,
-                    ),
-                  ),
+                  child: Text('cancel'.tr.toUpperCase(), style: TextStyle(color: context.colors.text, fontSize: 14)),
                 ),
               ),
               const AppSpacing(h: 20),
@@ -443,13 +409,7 @@ class AppTextDailogModal extends StatelessWidget {
                     backgroundColor: backgroundColor ?? context.colors.primary,
                   ),
                   onPressed: onAffrimButtonPressed,
-                  child: Text(
-                    affirmButtonText,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
+                  child: Text(affirmButtonText, style: const TextStyle(color: Colors.white, fontSize: 14)),
                 ),
               ),
             ],
@@ -461,11 +421,7 @@ class AppTextDailogModal extends StatelessWidget {
 }
 
 class AppTransactionDailog extends StatelessWidget {
-  const AppTransactionDailog({
-    Key? key,
-    required this.transaction,
-    this.onPressed,
-  }) : super(key: key);
+  const AppTransactionDailog({super.key, required this.transaction, this.onPressed});
 
   final Transaction transaction;
   final Function()? onPressed;
@@ -482,7 +438,6 @@ class AppTransactionDailog extends StatelessWidget {
         padding: AppPaddings.lA,
         child: AppAnimatedColumn(
           delay: const Duration(milliseconds: 100),
-          duration: const Duration(milliseconds: 1000),
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Row(
@@ -490,20 +445,12 @@ class AppTransactionDailog extends StatelessWidget {
                 Expanded(
                   child: Text(
                     transaction.description,
-                    style: TextStyle(
-                      color: context.colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                    style: TextStyle(color: context.colors.black, fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
                 IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: Icon(
-                    Ionicons.close_sharp,
-                    size: 20,
-                    color: context.colors.error,
-                  ),
+                  icon: Icon(Ionicons.close_sharp, size: 20, color: context.colors.error),
                 ),
               ],
             ),
@@ -536,22 +483,13 @@ class AppTransactionDailog extends StatelessWidget {
             const SizedBox(height: 4),
             Divider(color: context.colors.faintGrey),
             const SizedBox(height: 4),
-            FieldDisplay(
-              leadingTitle: 'Txn Hash',
-              leadingSubtitle: transaction.transactionHash,
-            ),
+            FieldDisplay(leadingTitle: 'Txn Hash', leadingSubtitle: transaction.transactionHash),
             const SizedBox(height: 30),
             AppButton(
-              onPressed: () {
-                onPressed?.call();
-              },
+              onPressed: () => onPressed?.call(),
               child: const Text(
                 'View on Bscscan',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ),
           ],
@@ -563,13 +501,13 @@ class AppTransactionDailog extends StatelessWidget {
 
 class FieldDisplay extends StatelessWidget {
   const FieldDisplay({
-    Key? key,
+    super.key,
     required this.leadingTitle,
     this.leadingColor,
     this.trailingTitle,
     required this.leadingSubtitle,
     this.trailingSubtitle,
-  }) : super(key: key);
+  });
 
   final String leadingTitle;
   final Color? leadingColor;
@@ -582,28 +520,17 @@ class FieldDisplay extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          flex: 1,
           child: SizedBox(
             height: 40,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  leadingTitle,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: context.colors.text,
-                  ),
-                ),
+                Text(leadingTitle, style: TextStyle(fontSize: 10, color: context.colors.text)),
                 const Spacer(),
                 Text(
                   leadingSubtitle,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: leadingColor ?? context.colors.text,
-                  ),
+                  style:
+                      TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: leadingColor ?? context.colors.text),
                 ),
               ],
             ),
@@ -611,28 +538,16 @@ class FieldDisplay extends StatelessWidget {
         ),
         if (trailingTitle != null && trailingSubtitle != null)
           Expanded(
-            flex: 1,
             child: SizedBox(
               height: 40,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    trailingTitle!,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: context.colors.text,
-                    ),
-                  ),
+                  Text(trailingTitle!, style: TextStyle(fontSize: 10, color: context.colors.text)),
                   const Spacer(),
                   Text(
                     trailingSubtitle!,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: context.colors.text,
-                    ),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: context.colors.text),
                   ),
                 ],
               ),

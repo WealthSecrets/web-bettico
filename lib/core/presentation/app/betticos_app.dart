@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 
 class BetticosApp extends StatelessWidget {
-  const BetticosApp({Key? key}) : super(key: key);
+  const BetticosApp({super.key});
 
   @override
   Widget build(BuildContext context) {

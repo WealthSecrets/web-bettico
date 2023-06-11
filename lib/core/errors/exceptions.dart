@@ -9,11 +9,11 @@ class AppException implements Exception {
 }
 
 class ServerException extends AppException {
-  ServerException(String? message) : super(message);
+  ServerException(super.message);
 }
 
 class CacheException extends AppException {
-  CacheException(String? message) : super(message);
+  CacheException(super.message);
 }
 
 class UnAuthorizedException extends AppException {

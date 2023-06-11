@@ -1,11 +1,15 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/data/models/advert_model.dart';
+import 'package:betticos/features/advert/data/models/business_model.dart';
 import 'package:betticos/features/advert/domain/requests/create_advert_request.dart';
+import 'package:betticos/features/advert/domain/requests/create_business_request.dart';
 
 import '../endpoints/advert_endpoints.dart';
 
 abstract class AdvertRemoteDataSource {
   Future<Advert> createAdvert({required CreateAdvertRequest request});
+  Future<Business> createBusiness({required CreateBusinessRequest request});
+  Future<List<Advert>> fetchAdverts();
 }
 
 class AdvertRemoteDataSourceImpl implements AdvertRemoteDataSource {
@@ -15,6 +19,23 @@ class AdvertRemoteDataSourceImpl implements AdvertRemoteDataSource {
   @override
   Future<Advert> createAdvert({required CreateAdvertRequest request}) async {
     final Map<String, dynamic> json = await _client.post(AdvertEndpoints.adverts, body: request.toJson());
-    return Advert.fromJson(json);
+    return Advert.fromJson(json['data'] as Map<String, dynamic>);
+  }
+
+  @override
+  Future<Business> createBusiness({required CreateBusinessRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(AdvertEndpoints.business, body: request.toJson());
+    return Business.fromJson(json['data'] as Map<String, dynamic>);
+  }
+
+  @override
+  Future<List<Advert>> fetchAdverts() async {
+    final Map<String, dynamic> json = await _client.get(AdvertEndpoints.adverts);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Advert>.from(
+      items.map<Advert>(
+        (dynamic json) => Advert.fromJson(json as Map<String, dynamic>),
+      ),
+    );
   }
 }
