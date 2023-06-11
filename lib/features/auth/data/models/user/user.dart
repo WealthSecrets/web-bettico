@@ -37,6 +37,7 @@ class User with _$User {
     int? referrals,
     String? device,
     String? apiKey,
+    bool? isBusiness,
     @JsonKey(name: 'bonus') double? bonus,
   }) = _User;
 
@@ -58,6 +59,7 @@ class User with _$User {
         followers: Faker().randomGenerator.integer(999, min: 0),
         following: Faker().randomGenerator.integer(999, min: 0),
         referrals: Faker().randomGenerator.integer(999, min: 0),
+        isBusiness: false,
       );
 
   factory User.empty() => User(
@@ -74,21 +76,15 @@ class User with _$User {
         followers: 0,
         following: 0,
         referrals: 0,
+        isBusiness: false,
       );
 
   bool get isVerified => role == 'user'
       ? profileAt != null && emailVerifiedAt != null
-      : (emailVerifiedAt != null &&
-          profileAt != null &&
-          identification != null &&
-          photo != null);
+      : (emailVerifiedAt != null && profileAt != null && identification != null && photo != null);
 
   bool get isPersonalInfoProvided =>
-      firstName != null &&
-      lastName != null &&
-      phone != null &&
-      username != null &&
-      dateOfBirth != null;
+      firstName != null && lastName != null && phone != null && username != null && dateOfBirth != null;
 
   bool get hasRole => role != null;
 

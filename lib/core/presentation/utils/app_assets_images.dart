@@ -43,4 +43,11 @@ class AssetImages {
   static String tether = 'assets/images/tether.png';
   static String internal = 'assets/images/internal.png';
   static String external = 'assets/images/external.png';
+  static String darts = 'assets/images/darts.png';
+  static String ageRange = 'assets/images/age-range.png';
+  static String duration = 'assets/images/back-in-time.png';
+  static String category = 'assets/images/category.png';
+  static String gender = 'assets/images/gender.png';
+  static String location = 'assets/images/location.png';
+  static String money = 'assets/images/money.png';
 }

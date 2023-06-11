@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/features/advert/data/models/advert_model.dart';
 import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,12 +15,40 @@ class AdsPreviewStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Obx(
         () => Column(
           children: <Widget>[
-            TimelineCard(post: controller.post.value),
+            TimelineCard(post: controller.post.value, hideOptions: true, hideButtons: true, sponsored: true),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Select your goal.',
+                style: context.caption.copyWith(
+                  color: context.colors.black,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: Target.values
+                    .map(
+                      (Target target) => AppConstrainedButton(
+                        text: StringUtils.capitalizeFirst(target.name),
+                        onPressed: () => controller.target.value = target,
+                        constraints: const BoxConstraints(maxHeight: 40, minWidth: 80),
+                        color: context.colors.primary,
+                        textColor: Colors.white,
+                        selected: controller.target.value == target,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
@@ -47,19 +76,22 @@ class AdsPreviewStep extends StatelessWidget {
             ),
             if (!controller.isSpecialAdCategory.value) ...<Widget>[
               const SizedBox(height: 5),
-              Text(
-                'If special Ad category is selected we will show your Ads to certain group of people.',
-                style: context.caption.copyWith(
-                  color: context.colors.text,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'If special Ad category is selected we will show your Ads to certain group of people.',
+                  style: context.caption.copyWith(
+                    color: context.colors.text,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.justify,
               ),
             ],
             if (controller.isSpecialAdCategory.value) ...<Widget>[
               const SizedBox(height: 8),
               PopularCategorySection(),
             ],
-            const Spacer(),
+            const SizedBox(height: 56),
             StepControls(),
             const SizedBox(height: 20)
           ],

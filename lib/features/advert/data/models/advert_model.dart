@@ -11,7 +11,7 @@ enum Gender { both, male, female }
 
 enum Category { credit, politics, social, employment, housing, election, other }
 
-enum Target { views, clicks, engagement }
+enum Target { views, clicks, engagements }
 
 @freezed
 class Advert with _$Advert {

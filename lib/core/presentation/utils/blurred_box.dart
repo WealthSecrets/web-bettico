@@ -5,14 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BlurredBox extends StatelessWidget {
   const BlurredBox({
-    Key? key,
+    super.key,
     this.padding,
     this.height,
     this.child,
     this.backgroundColor,
     this.sigmaX = 6,
     this.sigmaY = 6,
-  }) : super(key: key);
+  });
 
   final Widget? child;
   final EdgeInsets? padding;
@@ -31,12 +31,7 @@ class BlurredBox extends StatelessWidget {
           ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY),
-              child: LimitedBox(
-                child: Container(
-                  width: 1.sw.toDouble(),
-                  color: Colors.transparent,
-                ),
-              ),
+              child: LimitedBox(child: Container(width: 1.sw.toDouble(), color: Colors.transparent)),
             ),
           ),
           Container(

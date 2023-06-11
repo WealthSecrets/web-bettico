@@ -108,10 +108,11 @@ class AppTheme {
             ),
           ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: AppBorderRadius.largeAll,
-              borderSide: BorderSide(
-                color: colors.primary.shade100,
-              )),
+            borderRadius: AppBorderRadius.largeAll,
+            borderSide: BorderSide(
+              color: colors.primary.shade100,
+            ),
+          ),
           disabledBorder: OutlineInputBorder(
             borderRadius: AppBorderRadius.largeAll,
             borderSide: BorderSide(
@@ -261,24 +262,18 @@ extension ThemeExtension on BuildContext {
   TextStyle get sub2 => theme.textTheme.titleSmall!;
   TextStyle get body1 => theme.textTheme.bodyLarge!;
   TextStyle get body2 => theme.textTheme.bodyMedium!;
-  TextStyle get body2Bold =>
-      theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w800);
-  TextStyle get bodyError => theme.textTheme.bodyMedium!
-      .copyWith(color: Theme.of(this).colorScheme.error);
+  TextStyle get body2Bold => theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w800);
+  TextStyle get bodyError => theme.textTheme.bodyMedium!.copyWith(color: Theme.of(this).colorScheme.error);
   TextStyle get caption => theme.textTheme.bodySmall!;
-  TextStyle get smallest =>
-      theme.textTheme.bodyMedium!.copyWith(fontSize: AppFontSizes.smallest);
-  TextStyle get captionError => theme.textTheme.bodySmall!
-      .copyWith(color: Theme.of(this).colorScheme.error);
+  TextStyle get smallest => theme.textTheme.bodyMedium!.copyWith(fontSize: AppFontSizes.smallest);
+  TextStyle get captionError => theme.textTheme.bodySmall!.copyWith(color: Theme.of(this).colorScheme.error);
   TextStyle get button => theme.textTheme.labelLarge!;
-  TextStyle get buttonSmall =>
-      theme.textTheme.labelLarge!.copyWith(fontSize: AppFontSizes.caption);
+  TextStyle get buttonSmall => theme.textTheme.labelLarge!.copyWith(fontSize: AppFontSizes.caption);
   TextStyle get overline => theme.textTheme.labelSmall!;
   TextStyle get appBarTitle => theme.textTheme.bodyLarge!.copyWith(
         fontSize: AppFontSizes.h6,
         fontWeight: FontWeight.w600,
         fontFamily: AppFonts.base,
       );
-  bool get isDarkMode =>
-      MediaQuery.of(this).platformBrightness == Brightness.dark;
+  bool get isDarkMode => MediaQuery.of(this).platformBrightness == Brightness.dark;
 }

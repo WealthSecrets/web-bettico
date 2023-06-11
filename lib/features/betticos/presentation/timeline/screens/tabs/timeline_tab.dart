@@ -9,7 +9,7 @@ import '../../widgets/timeline_card.dart';
 import '../post_detail_screen.dart';
 
 class TimelineTab extends StatelessWidget {
-  TimelineTab({Key? key}) : super(key: key);
+  TimelineTab({super.key});
 
   final TimelineController controller = Get.find<TimelineController>();
 
@@ -38,6 +38,7 @@ class TimelineTab extends StatelessWidget {
                     context,
                     pstId: post.id,
                   ),
+                  sponsored: post.boosted == true,
                   onLikeTap: () => controller.likeThePost(context, post.id),
                   onDislikeTap: () => controller.dislikeThePost(context, post.id),
                 ),

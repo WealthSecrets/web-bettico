@@ -9,5 +9,9 @@ class NavigationController extends GetxController {
     return navigatorKey.currentState?.pushNamed(routeName, arguments: arguments);
   }
 
+  void popUntil(String routeName) {
+    return navigatorKey.currentState?.popUntil(ModalRoute.withName(routeName));
+  }
+
   void goBack() => navigatorKey.currentState?.pop();
 }

@@ -32,10 +32,16 @@ class TimelineCard extends StatelessWidget {
     this.onDislikeTap,
     this.onShareTap,
     this.largeFonts = false,
+    this.hideOptions = false,
+    this.hideButtons = false,
+    this.sponsored = false,
   });
 
   final bool largeFonts;
   final Post post;
+  final bool hideOptions;
+  final bool hideButtons;
+  final bool sponsored;
   final void Function()? onTap;
   final void Function()? onCommentTap;
   final void Function()? onLikeTap;
@@ -147,14 +153,14 @@ class TimelineCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                // if (user.id != post.user.id)
-                GestureDetector(
-                  onTap: () => showMaterialModalBottomSheet<String>(
-                    context: context,
-                    builder: (_) => UserOptionsModalBottom(post: post, ctx: context),
+                if (hideOptions == false)
+                  GestureDetector(
+                    onTap: () => showMaterialModalBottomSheet<String>(
+                      context: context,
+                      builder: (_) => UserOptionsModalBottom(post: post, ctx: context),
+                    ),
+                    child: Icon(Ionicons.ellipsis_vertical, size: 16, color: context.colors.text),
                   ),
-                  child: Icon(Ionicons.ellipsis_vertical, size: 16, color: context.colors.text),
-                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -250,56 +256,71 @@ class TimelineCard extends StatelessWidget {
                 images: post.images!,
                 token: bController.userToken.value,
               ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                _buildAnimatedButton(
-                  context,
-                  post.likeUsers.length,
-                  post.likeUsers.contains(user.id),
-                  Ionicons.thumbs_up_outline,
-                  Ionicons.thumbs_up,
-                  onLikeTap,
-                ),
-                _buildAnimatedButton(
-                  context,
-                  post.dislikeUsers.length,
-                  post.dislikeUsers.contains(user.id),
-                  Ionicons.thumbs_down_outline,
-                  Ionicons.thumbs_down,
-                  onDislikeTap,
-                  isDislikeButton: true,
-                ),
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        Ionicons.chatbox_outline,
-                        color: context.colors.text,
-                        size: 20,
+            if (hideButtons == false)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  _buildAnimatedButton(
+                    context,
+                    post.likeUsers.length,
+                    post.likeUsers.contains(user.id),
+                    Ionicons.thumbs_up_outline,
+                    Ionicons.thumbs_up,
+                    onLikeTap,
+                  ),
+                  _buildAnimatedButton(
+                    context,
+                    post.dislikeUsers.length,
+                    post.dislikeUsers.contains(user.id),
+                    Ionicons.thumbs_down_outline,
+                    Ionicons.thumbs_down,
+                    onDislikeTap,
+                    isDislikeButton: true,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Ionicons.chatbox_outline,
+                          color: context.colors.text,
+                          size: 20,
+                        ),
+                        onPressed: onCommentTap,
                       ),
-                      onPressed: onCommentTap,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      post.comments.toString(),
-                      style: TextStyle(
-                        color: context.colors.text,
-                        fontSize: 12,
+                      const SizedBox(width: 5),
+                      Text(
+                        post.comments.toString(),
+                        style: TextStyle(
+                          color: context.colors.text,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                _buildAnimatedButton(
-                  context,
-                  post.shares.length,
-                  post.shares.contains(user.id),
-                  Ionicons.arrow_redo_outline,
-                  Ionicons.arrow_redo,
-                  onShareTap,
-                ),
-              ],
-            ),
+                    ],
+                  ),
+                  _buildAnimatedButton(
+                    context,
+                    post.shares.length,
+                    post.shares.contains(user.id),
+                    Ionicons.arrow_redo_outline,
+                    Ionicons.arrow_redo,
+                    onShareTap,
+                  ),
+                ],
+              ),
+            if (sponsored == true) ...<Widget>[
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(Ionicons.arrow_redo_circle, size: 10, color: context.colors.textDark),
+                  Text(
+                    ' Sponsored',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: context.colors.textDark),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+            if (hideButtons == true) const SizedBox(height: 16)
           ],
         ),
       ),

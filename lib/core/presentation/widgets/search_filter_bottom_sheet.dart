@@ -8,8 +8,7 @@ import 'package:intl/intl.dart';
 import 'selectable_button.dart';
 
 class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
-  const SearchFilterBottomSheet({Key? key}) : super(key: key);
-
+  const SearchFilterBottomSheet({super.key});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -56,13 +55,10 @@ class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
                       children: <Widget>[
                         Expanded(
                           child: AppDatePicker(
-                            showIcon: true,
                             labelText: 'From Date',
                             initialDate:
                                 controller.from.value.isNotEmpty ? DateTime.parse(controller.from.value) : null,
-                            validator: (DateTime? from) {
-                              return null;
-                            },
+                            validator: (_) => null,
                             onDateTimeChanged: (DateTime from) {
                               final DateFormat formatter = DateFormat('yyyy-MM-dd');
                               final String formatted = formatter.format(from);
@@ -73,7 +69,6 @@ class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: AppDatePicker(
-                            showIcon: true,
                             labelText: 'To Date',
                             initialDate: controller.to.value.isNotEmpty ? DateTime.parse(controller.to.value) : null,
                             validator: (DateTime? from) {

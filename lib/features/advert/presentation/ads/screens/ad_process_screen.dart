@@ -1,5 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/data/models/advert_model.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:get/get.dart';
@@ -8,9 +9,10 @@ import 'package:ionicons/ionicons.dart';
 import '../getx/ads_controller.dart';
 import '../widgets/step_controls.dart';
 import 'ad_preview_step.dart';
+import 'ads_summary_screen.dart';
 
 class AdProcessScreen extends StatefulWidget {
-  const AdProcessScreen({Key? key}) : super(key: key);
+  const AdProcessScreen({super.key});
 
   @override
   State<AdProcessScreen> createState() => _AdProcessScreenState();
@@ -20,25 +22,32 @@ class _AdProcessScreenState extends State<AdProcessScreen> {
   final AdsController controller = Get.find<AdsController>();
 
   @override
+  void initState() {
+    super.initState();
+    controller.estimateReach();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Obx(
+        () => AppLoadingBox(
+          loading: controller.isCreatingAd.value,
+          child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 60,
-                child: AppBackButton(onPressed: () => Navigator.of(context).pop()),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 60, child: AppBackButton(onPressed: () => Navigator.of(context).pop())),
+                  const SizedBox(width: 8),
+                  Expanded(child: _AdEasyStepper()),
+                ],
               ),
-              const SizedBox(width: 8),
-              Expanded(child: _AdEasyStepper()),
+              const SizedBox(height: 16),
+              Expanded(child: switchWidgets(controller.currentStep.value)),
             ],
           ),
-          const SizedBox(height: 16),
-          Obx(() => Expanded(child: switchWidgets(controller.currentStep.value))),
-        ],
+        ),
       ),
     );
   }
@@ -53,9 +62,7 @@ class _AdProcessScreenState extends State<AdProcessScreen> {
       case 2:
         return _BudgetAndDuration();
       case 3:
-        return Column(
-          children: <Widget>[const Spacer(), StepControls(), const SizedBox(height: 20)],
-        );
+        return const AdsSummaryScreen();
       default:
         return AdsPreviewStep();
     }
@@ -124,8 +131,7 @@ class _AdEasyStepper extends StatelessWidget {
 }
 
 class _TargetAudienceStep extends StatelessWidget {
-  _TargetAudienceStep({Key? key}) : super(key: key);
-
+  _TargetAudienceStep();
   final AdsController controller = Get.find<AdsController>();
 
   @override
@@ -141,18 +147,11 @@ class _TargetAudienceStep extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Add Location',
-                style: context.caption.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colors.black,
-                ),
+                style: context.caption.copyWith(fontWeight: FontWeight.bold, color: context.colors.black),
               ),
-              Container(
+              DecoratedBox(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: context.colors.primary,
-                    width: 2,
-                    style: BorderStyle.solid,
-                  ),
+                  border: Border.all(color: context.colors.primary, width: 2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: CountryCodePicker(
@@ -175,10 +174,7 @@ class _TargetAudienceStep extends StatelessWidget {
             if (controller.countries.isNotEmpty) {
               return Text(
                 'Selected Locations',
-                style: context.caption.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colors.black,
-                ),
+                style: context.caption.copyWith(fontWeight: FontWeight.bold, color: context.colors.black),
               );
             }
             return const SizedBox.shrink();
@@ -194,14 +190,8 @@ class _TargetAudienceStep extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(
-                              code.name!,
-                              style: context.caption.copyWith(color: context.colors.black),
-                            ),
-                            Icon(
-                              Ionicons.checkmark_circle_sharp,
-                              color: context.colors.success,
-                            )
+                            Text(code.name!, style: context.caption.copyWith(color: context.colors.black)),
+                            Icon(Ionicons.checkmark_circle_sharp, color: context.colors.success)
                           ],
                         ),
                       ),
@@ -213,14 +203,10 @@ class _TargetAudienceStep extends StatelessWidget {
           const SizedBox(height: 16),
           Obx(
             () => Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
                   'Age Range: ',
-                  style: context.caption.copyWith(
-                    color: context.colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.caption.copyWith(color: context.colors.black, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '${controller.rangeValues.value.start.toInt()} - ${controller.rangeValues.value.end.toInt()}',
@@ -272,9 +258,10 @@ class _TargetAudienceStep extends StatelessWidget {
 }
 
 class _BudgetAndDuration extends StatelessWidget {
-  _BudgetAndDuration({Key? key}) : super(key: key);
+  _BudgetAndDuration();
 
   final AdsController controller = Get.find<AdsController>();
+  final BaseScreenController bController = Get.find<BaseScreenController>();
   final TextEditingController amountTextEditingController = TextEditingController();
 
   @override
@@ -289,28 +276,20 @@ class _BudgetAndDuration extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Obx(
-                    () => _InfoCard(
-                      title: 'Total Spend',
-                      subtitle: '\$${controller.budget.value}/day',
-                    ),
+                    () => _InfoCard(title: 'Total Spend', subtitle: '\$${controller.budget.value}'),
                   ),
                 ),
                 const SizedBox(width: 20),
-                const Expanded(
-                  child: _InfoCard(
-                    title: 'Estimated Reach',
-                    subtitle: r'23K - 60K',
-                  ),
+                Expanded(
+                  child:
+                      _InfoCard(title: 'Estimated Reach', subtitle: controller.estimatedReach.value.toInt().toString()),
                 ),
               ],
             ),
             const SizedBox(height: 16),
             AppTextInput(
               labelText: 'Amount (USD)',
-              lableStyle: context.caption.copyWith(
-                color: context.colors.black,
-                fontWeight: FontWeight.bold,
-              ),
+              lableStyle: context.caption.copyWith(color: context.colors.black, fontWeight: FontWeight.bold),
               controller: amountTextEditingController,
               initialValue: controller.budget.value.toString(),
               textInputType: TextInputType.number,
@@ -321,6 +300,8 @@ class _BudgetAndDuration extends StatelessWidget {
                   if (amount > 1000 || amount == 1000) {
                     controller.maxAmount.value = amount;
                   }
+
+                  controller.estimateReach();
                 }
               },
               backgroundColor: context.colors.primary.shade100,
@@ -331,6 +312,7 @@ class _BudgetAndDuration extends StatelessWidget {
               onChanged: (double value) {
                 controller.budget.value = value.toInt();
                 amountTextEditingController.text = value.toInt().toString();
+                controller.estimateReach();
               },
               min: 1,
               max: controller.maxAmount.value.toDouble(),
@@ -379,7 +361,10 @@ class _BudgetAndDuration extends StatelessWidget {
             if (!controller.runUntilPaused.value)
               Slider(
                 value: controller.duration.value.toDouble(),
-                onChanged: (double value) => controller.duration.value = value.toInt(),
+                onChanged: (double value) {
+                  controller.duration.value = value.toInt();
+                  controller.estimateReach();
+                },
                 min: 1,
                 max: 30,
               ),

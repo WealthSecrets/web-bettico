@@ -16,7 +16,7 @@ import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
 class TimelineScreen extends StatefulWidget {
-  const TimelineScreen({Key? key}) : super(key: key);
+  const TimelineScreen({super.key});
   @override
   State<TimelineScreen> createState() => _TimelineScreenState();
 }
@@ -53,9 +53,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
       tutorialCoachMark = TutorialCoachMark(
         targets: targets,
         colorShadow: context.colors.primary,
-        textSkip: 'SKIP',
-        paddingFocus: 10,
-        opacityShadow: 0.8,
         onFinish: () => sController.updateIntroductionPreference(false),
         onClickTarget: (TargetFocus target) {},
         onClickOverlay: (TargetFocus target) {},
