@@ -1,5 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/ads_controller.dart';
+import 'package:betticos/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
@@ -157,6 +158,30 @@ class UserOptionsModalBottom extends StatelessWidget {
                         const AppSpacing(h: 16),
                         Text(
                           'Boost ${post!.isOddbox ? 'Oddbox' : 'Post'}',
+                          style: context.body2.copyWith(color: context.colors.text, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              if (loggedInUser.isBusiness == true &&
+                  ((loggedInUser.id == post!.user.id) && post != null && post!.boosted == true))
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    navigationController.navigateTo(
+                      AppRoutes.adAnalytics,
+                      arguments: AdAnalyticsScreenRouteArgument(post: post!),
+                    );
+                  },
+                  child: Padding(
+                    padding: AppPaddings.bodyH.add(AppPaddings.lV),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Ionicons.analytics, color: context.colors.text, size: 24),
+                        const AppSpacing(h: 16),
+                        Text(
+                          'Ad Analytics',
                           style: context.body2.copyWith(color: context.colors.text, fontSize: 16),
                         ),
                       ],

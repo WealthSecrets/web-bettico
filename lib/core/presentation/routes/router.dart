@@ -1,5 +1,6 @@
 import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/core/presentation/widgets/success_screen.dart';
+import 'package:betticos/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
 import 'package:betticos/features/advert/presentation/ads/screens/ad_process_screen.dart';
 import 'package:betticos/features/advert/presentation/ads/screens/business_type_screen.dart';
 import 'package:betticos/features/advert/presentation/ads/screens/professional_account_category_screen.dart';
@@ -118,6 +119,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const BusinessTypeScreen(), settings);
     case AppRoutes.reviewAccount:
       return _getPageRoute(const ReviewAccountScreen(), settings);
+    case AppRoutes.adAnalytics:
+      final AdAnalyticsScreenRouteArgument argument = settings.arguments! as AdAnalyticsScreenRouteArgument;
+      return _getPageRoute(AdAnalyticsScreen(post: argument.post), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
