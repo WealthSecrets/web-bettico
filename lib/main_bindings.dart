@@ -90,6 +90,9 @@ class MainBindings {
       permanent: true,
     );
 
-    Get.put<AdvertRepository>(AdvertRepositoryImpl(advertRemoteDataSource: Get.find()), permanent: true);
+    Get.put<AdvertRepository>(
+      AdvertRepositoryImpl(advertRemoteDataSource: Get.find(), authLocalDataSource: Get.find()),
+      permanent: true,
+    );
   }
 }
