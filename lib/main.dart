@@ -60,6 +60,8 @@ void main() async {
   LiveScoreBindings.dependencies();
   OnBoardBindings.dependencies();
   BaseBindings.dependencies();
+  ProfileBindings.dependencies();
+  TimelineBindings.dependencies();
   AdsBinding.dependencies();
   SalesBindings.dependencies();
   LoginBindings.dependencies();
@@ -69,13 +71,10 @@ void main() async {
   WithdrawalBindings.dependencies();
   FundsBindings.dependencies();
 
-  ProfileBindings.dependencies();
-
   ForgotBindings.dependencies();
   ResetBindings.dependencies();
   P2PBetBindings.dependencies();
 
-  TimelineBindings.dependencies();
   ExploreBindings.dependencies();
   SportsBindings.dependencies();
   MarketRateBindings.dependencies();

@@ -46,7 +46,6 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                   if (widget.user.id == bController.user.value.id)
                     IconButton(
                       onPressed: () => showBarModalBottomSheet<void>(
-                        isDismissible: false,
                         animationCurve: Curves.fastLinearToSlowEaseIn,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(topRight: Radius.circular(32), topLeft: Radius.circular(32)),

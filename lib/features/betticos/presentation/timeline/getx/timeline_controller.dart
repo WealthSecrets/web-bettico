@@ -574,6 +574,40 @@ class TimelineController extends GetxController {
     }
   }
 
+  void updatePostListView(
+    String postId,
+    Post post, {
+    bool isOddbox = false,
+    bool isComment = false,
+  }) {
+    Post? oldPost;
+
+    if (isComment) {
+      oldPost = postComments.firstWhereOrNull((Post p) => p.id == postId);
+    } else {
+      if (isOddbox) {
+        oldPost = oddboxes.firstWhereOrNull((Post p) => p.id == postId);
+      } else {
+        oldPost = posts.firstWhereOrNull((Post p) => p.id == postId);
+      }
+    }
+
+    if (isComment) {
+      final int postIndex = postComments.indexOf(oldPost);
+      postComments[postIndex] = post;
+    } else {
+      if (isOddbox) {
+        final int postIndex = oddboxes.indexOf(oldPost);
+        oddboxes[postIndex] = post;
+      } else {
+        final int postIndex = posts.indexOf(oldPost);
+        posts[postIndex] = post;
+        pagingController.value.itemList!.replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+        pagingController.value.notifyListeners();
+      }
+    }
+  }
+
   void dislikeThePost(
     BuildContext context,
     String postId, {

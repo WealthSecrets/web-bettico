@@ -9,7 +9,7 @@ import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
 class PostDetailsScreen extends StatefulWidget {
-  PostDetailsScreen({Key? key, required this.post, this.thePrevPost}) : super(key: key);
+  PostDetailsScreen({super.key, required this.post, this.thePrevPost});
 
   Post post;
   Post? thePrevPost;
@@ -67,6 +67,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   onLikeTap: () => controller.likeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
                   onDislikeTap: () =>
                       controller.dislikeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
+                  sponsored: widget.post.boosted == true,
                 );
               }
 
@@ -101,6 +102,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     controller.postComments[index - 1].id,
                     isComment: true,
                   ),
+                  sponsored: controller.postComments[index - 1].boosted == true,
                 ),
               );
             },

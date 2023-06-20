@@ -5,6 +5,8 @@ import 'package:betticos/features/advert/domain/usecases/create_advert.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
+import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dartz/dartz.dart';
@@ -41,6 +43,8 @@ class AdsController extends GetxController {
   RxBool isFetchingAds = false.obs;
 
   final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
+  final TimelineController timelineController = Get.find<TimelineController>();
+  final ProfileController profileController = Get.find<ProfileController>();
 
   @override
   void onInit() {
@@ -93,10 +97,14 @@ class AdsController extends GetxController {
       (Advert ad) {
         isCreatingAd.value = false;
         navigationController.popUntil(AppRoutes.timeline);
-        AppSnacks.show(context,
-            message: 'You have successfully created an ad.',
-            leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white, size: 20),
-            backgroundColor: context.colors.success);
+        timelineController.updatePostListView(post.value.id, ad.post, isOddbox: post.value.isOddbox);
+        profileController.updatePost(post.value.id, ad.post, isOddbox: post.value.isOddbox);
+        AppSnacks.show(
+          context,
+          message: 'You have successfully created an ad.',
+          leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white, size: 20),
+          backgroundColor: context.colors.success,
+        );
       },
     );
   }
