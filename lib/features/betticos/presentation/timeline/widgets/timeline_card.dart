@@ -260,21 +260,19 @@ class TimelineCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _buildAnimatedButton(
-                    context,
-                    post.likeUsers.length,
-                    post.likeUsers.contains(user.id),
-                    Ionicons.thumbs_up_outline,
-                    Ionicons.thumbs_up,
-                    onLikeTap,
+                  _AnimatedButton(
+                    count: post.likeUsers.length,
+                    isLiked: post.likeUsers.contains(user.id),
+                    iconOutline: Ionicons.thumbs_up_outline,
+                    iconSolid: Ionicons.thumbs_up,
+                    onTap: onLikeTap,
                   ),
-                  _buildAnimatedButton(
-                    context,
-                    post.dislikeUsers.length,
-                    post.dislikeUsers.contains(user.id),
-                    Ionicons.thumbs_down_outline,
-                    Ionicons.thumbs_down,
-                    onDislikeTap,
+                  _AnimatedButton(
+                    count: post.dislikeUsers.length,
+                    isLiked: post.dislikeUsers.contains(user.id),
+                    iconOutline: Ionicons.thumbs_down_outline,
+                    iconSolid: Ionicons.thumbs_down,
+                    onTap: onDislikeTap,
                     isDislikeButton: true,
                   ),
                   Row(
@@ -288,22 +286,22 @@ class TimelineCard extends StatelessWidget {
                         onPressed: onCommentTap,
                       ),
                       const SizedBox(width: 5),
-                      Text(
-                        post.comments.toString(),
-                        style: TextStyle(
-                          color: context.colors.text,
-                          fontSize: 12,
+                      if (post.comments != null)
+                        Text(
+                          post.comments.toString(),
+                          style: TextStyle(
+                            color: context.colors.text,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
                     ],
                   ),
-                  _buildAnimatedButton(
-                    context,
-                    post.shares.length,
-                    post.shares.contains(user.id),
-                    Ionicons.arrow_redo_outline,
-                    Ionicons.arrow_redo,
-                    onShareTap,
+                  _AnimatedButton(
+                    count: post.shares.length,
+                    isLiked: post.shares.contains(user.id),
+                    iconOutline: Ionicons.arrow_redo_outline,
+                    iconSolid: Ionicons.arrow_redo,
+                    onTap: onShareTap,
                   ),
                 ],
               ),
@@ -320,22 +318,33 @@ class TimelineCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
             ],
-            if (hideButtons == true) const SizedBox(height: 16)
+            if (hideButtons == true && sponsored == false) const SizedBox(height: 16)
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildAnimatedButton(
-    BuildContext context,
-    int count,
-    bool isLiked,
-    IconData iconOutline,
-    IconData iconSolid,
-    Function()? onTap, {
-    bool isDislikeButton = false,
-  }) {
+class _AnimatedButton extends StatelessWidget {
+  const _AnimatedButton({
+    required this.count,
+    required this.isLiked,
+    required this.iconOutline,
+    required this.iconSolid,
+    this.onTap,
+    this.isDislikeButton = false,
+  });
+
+  final int count;
+  final bool isLiked;
+  final IconData iconOutline;
+  final IconData iconSolid;
+  final Function()? onTap;
+  final bool isDislikeButton;
+
+  @override
+  Widget build(BuildContext context) {
     return LikeButton(
       size: 22,
       circleColor: CircleColor(
@@ -364,9 +373,7 @@ class TimelineCard extends StatelessWidget {
         );
       },
       onTap: (bool isLiked) async {
-        if (onTap != null) {
-          onTap();
-        }
+        onTap?.call();
         return !isLiked;
       },
     );

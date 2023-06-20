@@ -613,6 +613,23 @@ class ProfileController extends GetxController {
     }
   }
 
+  void updatePost(String postId, Post pst, {bool isOddbox = false}) {
+    Post? post;
+
+    if (isOddbox) {
+      post = myOddboxes.firstWhereOrNull((Post p) => p.id == postId);
+    } else {
+      post = myPosts.firstWhereOrNull((Post p) => p.id == postId);
+    }
+    if (isOddbox) {
+      final int postIndex = myOddboxes.indexOf(post);
+      myOddboxes[postIndex] = pst;
+    } else {
+      final int postIndex = myPosts.indexOf(post);
+      myPosts[postIndex] = pst;
+    }
+  }
+
   void dislikeThePost(BuildContext context, String postId, String userId, {bool isOddbox = false}) async {
     isLikingPost(true);
 

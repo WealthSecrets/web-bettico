@@ -33,9 +33,7 @@ class AdvertRemoteDataSourceImpl implements AdvertRemoteDataSource {
     final Map<String, dynamic> json = await _client.get(AdvertEndpoints.adverts);
     final List<dynamic> items = json['items'] as List<dynamic>;
     return List<Advert>.from(
-      items.map<Advert>(
-        (dynamic json) => Advert.fromJson(json as Map<String, dynamic>),
-      ),
+      items.map<Advert>((dynamic json) => Advert.fromJson(json as Map<String, dynamic>)),
     );
   }
 }

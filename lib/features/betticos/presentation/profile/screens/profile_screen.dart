@@ -59,10 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: context.colors.primary,
                         radius: 3,
                       ),
-                      tabs: <Tab>[
-                        Tab(text: 'posts'.tr),
-                        Tab(text: 'odd_boxes'.tr),
-                      ],
+                      tabs: <Tab>[Tab(text: 'posts'.tr), Tab(text: 'odd_boxes'.tr)],
                     ),
                   ),
                   pinned: true,

@@ -1,6 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/domain/requests/create_business_request.dart';
 import 'package:betticos/features/advert/presentation/ads/utils/business_category_type.dart';
+import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,8 @@ class ProfessionalController extends GetxController {
 
   bool get isBusinessCategoryValid => category.value != BusinessCategoryType.unknown;
 
+  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
+
   String? validateEmail(String? email) {
     String? errorMessage;
     if (email != null && !validator.isEmail(email.trim())) {
@@ -56,9 +59,13 @@ class ProfessionalController extends GetxController {
     );
 
     failureOrSuccess.fold(
-      (_) => isCreatingBusiness.value = false,
+      (_) {
+        isCreatingBusiness.value = false;
+        AppSnacks.show(context, message: _.message);
+      },
       (Business business) {
         isCreatingBusiness.value = false;
+        baseScreenController.user.value = business.user;
         navigationController.popUntil(AppRoutes.profile);
         AppSnacks.show(
           context,

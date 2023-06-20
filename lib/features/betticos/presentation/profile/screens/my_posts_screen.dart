@@ -54,6 +54,7 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                       userId,
                       isOddbox: isOddboxes,
                     ),
+                    sponsored: post.boosted == true,
                   );
                 },
               ),

@@ -20,44 +20,60 @@ class TimelineTab extends StatelessWidget {
         () => controller.pagingController.value.refresh(),
       ),
       child: Obx(
-        () => PagedListView<int, Post>.separated(
-          pagingController: controller.pagingController.value,
-          builderDelegate: PagedChildBuilderDelegate<Post>(
-            itemBuilder: (BuildContext context, Post post, int index) {
-              return Obx(
-                () => TimelineCard(
-                  post: post,
-                  onTap: () {
-                    Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => PostDetailsScreen(post: post),
+        () => CustomScrollView(
+          slivers: <Widget>[
+            PagedSliverList<int, Post>(
+              pagingController: controller.pagingController.value,
+              builderDelegate: PagedChildBuilderDelegate<Post>(
+                itemBuilder: (BuildContext context, Post post, int index) {
+                  return Obx(
+                    () => TimelineCard(
+                      post: post,
+                      onTap: () {
+                        Navigator.of(context).push<void>(
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => PostDetailsScreen(post: post),
+                          ),
+                        );
+                      },
+                      onCommentTap: () => controller.navigateToAddPost(
+                        context,
+                        pstId: post.id,
                       ),
-                    );
-                  },
-                  onCommentTap: () => controller.navigateToAddPost(
-                    context,
-                    pstId: post.id,
-                  ),
-                  sponsored: post.boosted == true,
-                  onLikeTap: () => controller.likeThePost(context, post.id),
-                  onDislikeTap: () => controller.dislikeThePost(context, post.id),
+                      sponsored: post.boosted == true,
+                      onLikeTap: () => controller.likeThePost(context, post.id),
+                      onDislikeTap: () => controller.dislikeThePost(context, post.id),
+                    ),
+                  );
+                },
+                firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
+                  error: controller.pagingController.value.error as Failure,
+                  onTryAgain: () => controller.pagingController.value.refresh(),
                 ),
-              );
-            },
-            firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
-              error: controller.pagingController.value.error as Failure,
-              onTryAgain: () => controller.pagingController.value.refresh(),
+                noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
+                newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
+                firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
+                // padding: AppPaddings.homeA,
+              ),
             ),
-            noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
-            newPageProgressIndicatorBuilder: (BuildContext context) => const Center(
-              child: LoadingLogo(),
+            SliverToBoxAdapter(
+              child: Builder(
+                builder: (BuildContext context) {
+                  final int? itemCount = controller.pagingController.value.itemList?.length;
+                  final int pageIndex = (itemCount! - 1) ~/ 100;
+                  if ((pageIndex + 1) % 20 == 0) {
+                    return Container(
+                      color: Colors.grey,
+                      height: 50,
+                      child: const Center(child: Text('Widget after every 20 posts')),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
             ),
-            firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(
-              child: LoadingLogo(),
-            ),
-            // padding: AppPaddings.homeA,
-          ),
-          separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
+          ],
         ),
       ),
     );

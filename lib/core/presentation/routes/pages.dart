@@ -16,7 +16,7 @@ import '/features/auth/presentation/register/screens/registration_screen.dart';
 import '/features/auth/presentation/register/screens/registration_upload_photo_screen.dart';
 import '/features/auth/presentation/resetPassword/screens/reset_screen.dart';
 import '/features/betticos/presentation/timeline/screens/timeline_post_screen.dart';
-import '/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
+// import '/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
 import '/features/onboarding_splash/presentation/splash/screens/splash_screen.dart';
 import '../../../features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import '../../../features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
@@ -76,10 +76,10 @@ class Pages {
       name: AppRoutes.personalInformation,
       page: () => const RegistrationPersonalInformationScreen(),
     ),
-    GetPage<AppRoutes>(
-      name: AppRoutes.onboard,
-      page: () => const OnboardingScreen(),
-    ),
+    // GetPage<AppRoutes>(
+    //   name: AppRoutes.onboard,
+    //   page: () => const OnboardingScreen(),
+    // ),
     GetPage<AppRoutes>(
       name: AppRoutes.splash,
       page: () => const SplashScreen(),

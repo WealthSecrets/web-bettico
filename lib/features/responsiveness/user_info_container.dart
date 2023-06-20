@@ -2,6 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
+import 'package:betticos/features/betticos/presentation/profile/arguments/profile_argument.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +32,10 @@ class UserInfoContainer extends StatelessWidget {
                 if (ResponsiveWidget.isSmallScreen(context)) {
                   Get.back<void>();
                 }
-                navigationController.navigateTo(AppRoutes.profile);
+                navigationController.navigateTo(
+                  AppRoutes.profile,
+                  arguments: ProfileScreenArgument(user: bController.user.value),
+                );
               },
               child: Container(
                 height: 40,
