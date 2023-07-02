@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +16,6 @@ class AdAnalyticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -27,7 +24,7 @@ class AdAnalyticsScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: isSmallScreen ? const EdgeInsets.symmetric(horizontal: 16) : EdgeInsets.zero,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

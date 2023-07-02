@@ -5,7 +5,7 @@ import 'package:ionicons/ionicons.dart';
 
 class OptionCard extends StatelessWidget {
   const OptionCard({
-    Key? key,
+    super.key,
     required this.title,
     this.imagePath,
     this.subtitle,
@@ -16,7 +16,7 @@ class OptionCard extends StatelessWidget {
     this.padding,
     this.size,
     this.iconColor,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onPressed;
   final VoidCallback? onCopy;

@@ -51,8 +51,9 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                           borderRadius: BorderRadius.only(topRight: Radius.circular(32), topLeft: Radius.circular(32)),
                         ),
                         context: context,
-                        builder: (_) => const ClipRRect(
-                          borderRadius: BorderRadius.only(topRight: Radius.circular(32), topLeft: Radius.circular(32)),
+                        builder: (_) => ClipRRect(
+                          borderRadius:
+                              const BorderRadius.only(topRight: Radius.circular(32), topLeft: Radius.circular(32)),
                           child: ProfileOptionsModalBottom(),
                         ),
                       ),

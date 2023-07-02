@@ -13,9 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OkxOptionsScreen extends StatefulWidget {
-  const OkxOptionsScreen({
-    Key? key,
-  }) : super(key: key);
+  const OkxOptionsScreen({super.key});
 
   @override
   State<OkxOptionsScreen> createState() => _OkxOptionsScreenState();

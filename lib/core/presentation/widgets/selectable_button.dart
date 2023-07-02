@@ -53,7 +53,7 @@ class SelectableButton extends StatelessWidget {
             ),
             if (tagValue != null) const SizedBox(width: 16),
             if (tagValue != null)
-              Container(
+              DecoratedBox(
                 decoration: BoxDecoration(
                   color: selected ?? false ? Colors.white : context.colors.primary,
                   borderRadius: BorderRadius.circular(15),
