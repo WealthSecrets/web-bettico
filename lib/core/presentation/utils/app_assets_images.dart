@@ -50,4 +50,7 @@ class AssetImages {
   static String gender = 'assets/images/gender.png';
   static String location = 'assets/images/location.png';
   static String money = 'assets/images/money.png';
+  static String insight = 'assets/images/insight.png';
+  static String boost = 'assets/images/shuttle.png';
+  static String tools = 'assets/images/tools.png';
 }

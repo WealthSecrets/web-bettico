@@ -83,20 +83,18 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  ..._p2pBetController.buttonTexts
-                      .map(
-                        (String text) => Obx(
-                          () => AppConstrainedButton(
-                            text: StringUtils.capitalizeFirst(text),
-                            borderRadius: AppBorderRadius.largeAll,
-                            color: context.colors.primary,
-                            textColor: Colors.white,
-                            onPressed: () => _p2pBetController.setButtonSelected(context, text.toLowerCase()),
-                            selected: _p2pBetController.selectedButton.value == text.toLowerCase(),
-                          ),
-                        ),
-                      )
-                      .toList()
+                  ..._p2pBetController.buttonTexts.map(
+                    (String text) => Obx(
+                      () => AppConstrainedButton(
+                        text: StringUtils.capitalizeFirst(text),
+                        borderRadius: AppBorderRadius.largeAll,
+                        color: context.colors.primary,
+                        textColor: Colors.white,
+                        onPressed: () => _p2pBetController.setButtonSelected(context, text.toLowerCase()),
+                        selected: _p2pBetController.selectedButton.value == text.toLowerCase(),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -108,38 +106,40 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
                           ? 'Sorry, we couldn’t find any results for this search.'
                           : 'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.')
                   : SingleChildScrollView(
-                      child: Column(children: <Widget>[
-                        ..._p2pBetController.bets.map((Bet bet) {
-                          return P2PBettingHistoryCard(
-                            key: ObjectKey(
-                              bet.id,
-                            ),
-                            bet: bet,
-                            isMyBets: false,
-                            onPressed: () {
-                              if (bet.status == BetStatus.awaiting || bet.opponent != null) {
-                                if (!lController.isConnected) {
-                                  if (Ethereum.isSupported) {
-                                    lController.initiateWalletConnect(
-                                      (_) => navigateToBetDetailsScreen(bet),
-                                    );
+                      child: Column(
+                        children: <Widget>[
+                          ..._p2pBetController.bets.map((Bet bet) {
+                            return P2PBettingHistoryCard(
+                              key: ObjectKey(
+                                bet.id,
+                              ),
+                              bet: bet,
+                              isMyBets: false,
+                              onPressed: () {
+                                if (bet.status == BetStatus.awaiting || bet.opponent != null) {
+                                  if (!lController.isConnected) {
+                                    if (Ethereum.isSupported) {
+                                      lController.initiateWalletConnect(
+                                        (_) => navigateToBetDetailsScreen(bet),
+                                      );
+                                    } else {
+                                      lController.connectWC().then((_) {
+                                        if (lController.walletAddress.isNotEmpty) {
+                                          navigateToBetDetailsScreen(bet);
+                                        }
+                                      });
+                                    }
                                   } else {
-                                    lController.connectWC().then((_) {
-                                      if (lController.walletAddress.isNotEmpty) {
-                                        navigateToBetDetailsScreen(bet);
-                                      }
-                                    });
+                                    navigateToBetDetailsScreen(bet);
                                   }
                                 } else {
-                                  navigateToBetDetailsScreen(bet);
+                                  showBetDetailsModalBottomSheet(bet);
                                 }
-                              } else {
-                                showBetDetailsModalBottomSheet(bet);
-                              }
-                            },
-                          );
-                        }).toList(),
-                      ]),
+                              },
+                            );
+                          }),
+                        ],
+                      ),
                     ),
             )
           ],
@@ -164,10 +164,11 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
       useRootNavigator: true,
       animationCurve: Curves.fastLinearToSlowEaseIn,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30),
-        topLeft: Radius.circular(30),
-      )),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30),
+        ),
+      ),
       builder: (BuildContext modalContext) {
         return P2PBettingBottomSheet(
           bet: bet,

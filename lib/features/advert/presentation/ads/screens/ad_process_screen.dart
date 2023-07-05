@@ -70,7 +70,7 @@ class _AdProcessScreenState extends State<AdProcessScreen> {
 }
 
 class _AdEasyStepper extends StatelessWidget {
-  _AdEasyStepper({Key? key}) : super(key: key);
+  _AdEasyStepper();
 
   final AdsController controller = Get.find<AdsController>();
 
@@ -379,7 +379,7 @@ class _BudgetAndDuration extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  const _InfoCard({Key? key, required this.title, required this.subtitle}) : super(key: key);
+  const _InfoCard({required this.title, required this.subtitle});
 
   final String title;
   final String subtitle;
