@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
@@ -314,7 +315,8 @@ class LoginScreen extends GetWidget<LoginController> {
                                     FilteringTextInputFormatter.digitsOnly,
                                     FilteringTextInputFormatter.deny(' '),
                                   ],
-                                  onChanged: controller.onPhoneInputChanged,
+                                  onChanged: (PhoneNumber phone) =>
+                                      controller.onPhoneInputChanged(phone.phoneNumber, phone.isoCode),
                                 ),
                               const SizedBox(height: 8),
                               Positioned(

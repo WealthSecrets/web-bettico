@@ -73,6 +73,7 @@ class ProfileController extends GetxController {
   Rx<DateTime> dateOfBirth = DateTime.now().obs;
   RxString email = ''.obs;
   RxString phone = ''.obs;
+  RxString country = ''.obs;
   RxString otpCode = ''.obs;
   RxString identificationType = ''.obs;
   RxString identificationNumber = ''.obs;
@@ -417,6 +418,7 @@ class ProfileController extends GetxController {
         lastName: lastName.value.isEmpty ? null : lastName.value,
         username: username.value.isEmpty ? null : username.value,
         phone: phone.value.isEmpty ? null : phone.value,
+        country: country.value.isEmpty ? null : country.value,
       ),
     );
     return failureOrUser;
@@ -465,8 +467,13 @@ class ProfileController extends GetxController {
     dateOfBirth(value);
   }
 
-  void onPhoneInputChanged(String value) {
-    phone(value);
+  void onPhoneInputChanged(String? number, String? isoCode) {
+    if (number != null) {
+      phone.value = number;
+    }
+    if (isoCode != null) {
+      country.value = isoCode;
+    }
   }
 
   void onExpiryDateInputChanged(DateTime value) {

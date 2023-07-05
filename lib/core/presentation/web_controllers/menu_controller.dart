@@ -1,3 +1,5 @@
+// ignore_for_file: use_setters_to_change_properties
+
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,9 +11,7 @@ class AppMenuController extends GetxController {
   RxString activeitem = AppRoutes.timeline.obs;
   RxString hoverItem = ''.obs;
 
-  void changeActiveItemTo(String itemName) {
-    activeitem.value = itemName;
-  }
+  void changeActiveItemTo(String itemName) => activeitem.value = itemName;
 
   void onHover(String itemName) {
     if (!isActive(itemName)) {
@@ -66,9 +66,7 @@ class AppMenuController extends GetxController {
     return Icon(
       icon,
       size: 24,
-      color: isHovering(itemName)
-          ? const Color(0xFF3d3d3d)
-          : const Color(0xFFD3D3D3),
+      color: isHovering(itemName) ? const Color(0xFF3d3d3d) : const Color(0xFFD3D3D3),
     );
   }
 }

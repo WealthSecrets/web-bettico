@@ -141,33 +141,17 @@ class _TargetAudienceStep extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'Add Location',
-                style: context.caption.copyWith(fontWeight: FontWeight.bold, color: context.colors.black),
-              ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(color: context.colors.primary, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: CountryCodePicker(
-                  onChanged: controller.addCountry,
-                  dialogTextStyle: context.caption.copyWith(color: context.colors.black),
-                  showFlagMain: false,
-                  showFlag: false,
-                  initialSelection: 'GH',
-                  showCountryOnly: true,
-                  showOnlyCountryWhenClosed: true,
-                  alignLeft: true,
-                  textStyle: context.caption.copyWith(color: context.colors.black),
-                  onInit: controller.addCountry,
-                ),
-              ),
-            ],
+          AppCountryPicker(
+            onChanged: controller.addCountry,
+            dialogTextStyle: context.caption.copyWith(color: context.colors.black),
+            showFlagMain: false,
+            showFlag: false,
+            initialSelection: 'GH',
+            showCountryOnly: true,
+            showOnlyCountryWhenClosed: true,
+            alignLeft: true,
+            textStyle: context.caption.copyWith(color: context.colors.black),
+            onInit: controller.addCountry,
           ),
           const SizedBox(height: 16),
           Obx(() {

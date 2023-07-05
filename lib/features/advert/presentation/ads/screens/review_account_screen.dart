@@ -2,6 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../getx/professional_controller.dart';
 // import 'package:ionicons/ionicons.dart';
@@ -56,7 +57,11 @@ class ReviewAccountScreen extends GetWidget<ProfessionalController> {
                     FilteringTextInputFormatter.digitsOnly,
                     FilteringTextInputFormatter.deny(' '),
                   ],
-                  onChanged: (String value) => controller.phone.value = value,
+                  onChanged: (PhoneNumber value) {
+                    if (value.phoneNumber != null) {
+                      controller.phone.value = value.phoneNumber!;
+                    }
+                  },
                 ),
                 const AppSpacing(v: 8),
                 AppTextInput(
