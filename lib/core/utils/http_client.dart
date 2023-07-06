@@ -159,15 +159,17 @@ class DioHTTPClient implements AppHTTPClient {
       }
       if (uploads != null && uploads.isNotEmpty) {
         AppLog.i('==================== FILES SENT IS ==================');
-        AppLog.i(uploads
-            .map((FormUploadDocument uploadDocument) =>
-                uploadDocument.toString())
-            .join('\n'));
+        AppLog.i(
+          uploads
+              .map(
+                (FormUploadDocument uploadDocument) => uploadDocument.toString(),
+              )
+              .join('\n'),
+        );
         data = FormData.fromMap(body ?? <String, dynamic>{})
           ..files.addAll(
             uploads.map(
-              (FormUploadDocument uploadDocument) =>
-                  MapEntry<String, MultipartFile>(
+              (FormUploadDocument uploadDocument) => MapEntry<String, MultipartFile>(
                 uploadDocument.field,
                 MultipartFile.fromFileSync(
                   uploadDocument.file.path,
@@ -203,10 +205,7 @@ class DioHTTPClient implements AppHTTPClient {
         }
         if (data['data'] is List) {
           if (data['results'] != null) {
-            return <String, dynamic>{
-              'results': data['results'],
-              'items': data['data']
-            };
+            return <String, dynamic>{'results': data['results'], 'items': data['data']};
           }
           return <String, dynamic>{'items': data['data']};
         }
@@ -240,14 +239,17 @@ class DioHTTPClient implements AppHTTPClient {
                   : '';
           throw ServerException(errorMessage);
         case DioErrorType.unknown:
-          if (error.message != null &&
-              error.message!.contains('SocketException')) {
+          if (error.message != null && error.message!.contains('SocketException')) {
             throw AppException('No Internet');
           }
 
           throw AppException();
-        default:
+        case DioErrorType.badCertificate:
           throw AppException();
+        case DioErrorType.cancel:
+          throw AppException();
+        case DioErrorType.connectionError:
+          throw AppException('There was an error connecting to server.');
       }
     } catch (error, stackTrace) {
       AppLog.e(error, stackTrace);
@@ -260,12 +262,10 @@ class DioHTTPClient implements AppHTTPClient {
       ..clear()
       ..add(
         QueuedInterceptorsWrapper(
-          onRequest: (RequestOptions options,
-              RequestInterceptorHandler handler) async {
-            final AuthResponse? response = _authLocalDataSource.authResponse ??
-                await _authLocalDataSource.getAuthResponse();
-            options.headers['Authorization'] =
-                'Bearer ${response?.token ?? ''}';
+          onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+            final AuthResponse? response =
+                _authLocalDataSource.authResponse ?? await _authLocalDataSource.getAuthResponse();
+            options.headers['Authorization'] = 'Bearer ${response?.token ?? ''}';
             AppLog.i('==================== HEADER SENT IS ==================');
             AppLog.i(options.headers);
             handler.next(options);

@@ -6,7 +6,7 @@ import 'package:ionicons/ionicons.dart';
 import 'widgets/crypto_card.dart';
 
 class BuySellCryptoScreen extends StatelessWidget {
-  const BuySellCryptoScreen({Key? key}) : super(key: key);
+  const BuySellCryptoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,24 +22,15 @@ class BuySellCryptoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 IconButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(
-                    Ionicons.close_sharp,
-                    size: 24,
-                    color: Colors.black,
-                  ),
+                  icon: const Icon(Ionicons.close_sharp, size: 24, color: Colors.black),
                 ),
                 const SizedBox(width: 16),
                 Text(
                   'Buy / Sell Crypto',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: context.colors.textDark,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.colors.textDark),
                   textAlign: TextAlign.center,
                 ),
               ],

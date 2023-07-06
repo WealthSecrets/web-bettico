@@ -4,7 +4,7 @@ import 'package:ionicons/ionicons.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({
-    Key? key,
+    super.key,
     this.onChanged,
     this.showSortBy,
     this.isLoading,
@@ -12,7 +12,7 @@ class SearchField extends StatelessWidget {
     this.initialValue,
     this.hintText,
     this.suffixIcon,
-  }) : super(key: key);
+  });
 
   final Function(String text)? onChanged;
   final bool? showSortBy;

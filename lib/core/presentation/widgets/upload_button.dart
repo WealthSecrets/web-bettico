@@ -8,14 +8,14 @@ enum UploadButtonType { files, photos }
 
 class UploadButton extends StatefulWidget {
   const UploadButton({
-    Key? key,
+    super.key,
     required this.onFileSelected,
     required this.type,
     this.style,
     this.buttonText,
     this.textColor,
     this.openFrontCamera = false,
-  }) : super(key: key);
+  });
 
   final Function(Uint8List?) onFileSelected;
   final UploadButtonType type;
@@ -35,12 +35,10 @@ class _UploadButtonState extends State<UploadButton> {
     final ButtonStyle style = widget.style ??
         TextButton.styleFrom(
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: context.colors.primary.shade100, width: 1),
+            side: BorderSide(color: context.colors.primary.shade100),
             borderRadius: AppBorderRadius.smallAll,
           ),
-          padding: selected != null
-              ? EdgeInsets.zero
-              : AppPaddings.lH.add(AppPaddings.homeV),
+          padding: selected != null ? EdgeInsets.zero : AppPaddings.lH.add(AppPaddings.homeV),
           backgroundColor: context.colors.primary.shade100,
         );
 
@@ -56,9 +54,7 @@ class _UploadButtonState extends State<UploadButton> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        widget.type == UploadButtonType.files
-                            ? Ionicons.document_outline
-                            : Ionicons.camera_outline,
+                        widget.type == UploadButtonType.files ? Ionicons.document_outline : Ionicons.camera_outline,
                         color: context.colors.hintLight,
                         size: 40,
                       ),
@@ -77,10 +73,7 @@ class _UploadButtonState extends State<UploadButton> {
                 : Container(
                     decoration: BoxDecoration(
                       borderRadius: AppBorderRadius.smallAll,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: MemoryImage(selected!),
-                      ),
+                      image: DecorationImage(fit: BoxFit.cover, image: MemoryImage(selected!)),
                     ),
                   ),
           ),
@@ -94,21 +87,11 @@ class _UploadButtonState extends State<UploadButton> {
                 widget.onFileSelected(null);
               });
             },
-            child: SizedBox(
-              height: 20,
-              child: Text(
-                'Remove',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: context.colors.text,
-                ),
-              ),
-            ),
+            child:
+                SizedBox(height: 20, child: Text('Remove', style: TextStyle(fontSize: 12, color: context.colors.text))),
           )
         else
-          const SizedBox(
-            height: 20,
-          )
+          const SizedBox(height: 20)
       ],
     );
   }
@@ -116,7 +99,6 @@ class _UploadButtonState extends State<UploadButton> {
   void _onPickFile() async {
     final FilePickerResult? picked = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowMultiple: false,
       onFileLoading: (FilePickerStatus status) => debugPrint(status.name),
       allowedExtensions: <String>['png', 'jpg', 'jpeg', 'pdf', 'doc', 'docx'],
     );

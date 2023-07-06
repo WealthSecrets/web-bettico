@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:betticos/core/presentation/web_controllers/menu_controller.dart';
-import 'package:betticos/core/presentation/web_controllers/navigation_controller.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,12 +40,13 @@ void main() async {
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-        apiKey: 'AIzaSyAzvRUUfl7-8tObQkzgtqPp7a870EJ_I_U',
-        authDomain: 'betticos.firebaseapp.com',
-        projectId: 'betticos',
-        storageBucket: 'betticos.appspot.com',
-        messagingSenderId: '356955805793',
-        appId: '1:356955805793:web:56a09c92dac8827a32f220'),
+      apiKey: 'AIzaSyAzvRUUfl7-8tObQkzgtqPp7a870EJ_I_U',
+      authDomain: 'betticos.firebaseapp.com',
+      projectId: 'betticos',
+      storageBucket: 'betticos.appspot.com',
+      messagingSenderId: '356955805793',
+      appId: '1:356955805793:web:56a09c92dac8827a32f220',
+    ),
   );
 
   MainBindings.dependencies();
@@ -115,9 +113,7 @@ class _ReporterClient implements ReporterClient {
   _ReporterClient();
 
   @override
-  FutureOr<void> report({required StackTrace stackTrace, required Object error, Object? extra}) async {
-    // TODO: Sentry or Crashlytics
-  }
+  FutureOr<void> report({required StackTrace stackTrace, required Object error, Object? extra}) async {}
 
   @override
   void log(Object object) {

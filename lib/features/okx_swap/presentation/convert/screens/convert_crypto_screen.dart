@@ -17,7 +17,7 @@ import '../widgets/crypto_converter_input.dart';
 import '../widgets/preview_modal.dart';
 
 class ConvertCryptoScreen extends StatefulWidget {
-  const ConvertCryptoScreen({Key? key}) : super(key: key);
+  const ConvertCryptoScreen({super.key});
 
   @override
   State<ConvertCryptoScreen> createState() => _ConvertCryptoScreenState();
@@ -60,11 +60,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () => navigationController.navigateTo(AppRoutes.conversionHistory),
-            icon: Image.asset(
-              AssetImages.tansactionHistory,
-              height: 24,
-              width: 24,
-            ),
+            icon: Image.asset(AssetImages.tansactionHistory, height: 24, width: 24),
           ),
         ],
       ),
@@ -123,10 +119,7 @@ class _ConvertCryptoScreenState extends State<ConvertCryptoScreen> {
                               const SizedBox(height: 24),
                             ],
                             if (controller.isConvertScreenLoading || registerController.isLoading)
-                              const Align(
-                                alignment: Alignment.center,
-                                child: LoadingLogo(height: 14, width: 14),
-                              ),
+                              const Align(child: LoadingLogo(height: 14, width: 14)),
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(

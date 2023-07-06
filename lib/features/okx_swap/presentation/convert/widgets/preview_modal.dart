@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class PreviewModal extends StatefulWidget {
-  const PreviewModal({Key? key}) : super(key: key);
+  const PreviewModal({super.key});
 
   @override
   State<PreviewModal> createState() => _PreviewModalState();
@@ -72,24 +72,15 @@ class _PreviewModalState extends State<PreviewModal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Confirm Order',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   const Spacer(),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Ionicons.close_sharp,
-                      size: 20,
-                      color: context.colors.error,
-                    ),
+                    icon: Icon(Ionicons.close_sharp, size: 20, color: context.colors.error),
                   )
                 ],
               ),
@@ -154,7 +145,6 @@ class _PreviewModalState extends State<PreviewModal> {
               Row(
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: AppButton(
                       padding: EdgeInsets.zero,
                       borderRadius: AppBorderRadius.largeAll,
@@ -162,17 +152,12 @@ class _PreviewModalState extends State<PreviewModal> {
                       onPressed: () => Navigator.of(context).pop(),
                       child: const Text(
                         'CANCEL',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    flex: 1,
                     child: AppButton(
                       padding: EdgeInsets.zero,
                       borderRadius: AppBorderRadius.largeAll,
@@ -180,11 +165,7 @@ class _PreviewModalState extends State<PreviewModal> {
                       onPressed: () => controller.convertCrypto(context),
                       child: Text(
                         'CONVERT ($start)',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ),
                   ),

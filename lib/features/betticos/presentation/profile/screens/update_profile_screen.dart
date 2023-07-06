@@ -5,17 +5,14 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 
 class UpdateProfileScreen extends GetWidget<ProfileController> {
-  UpdateProfileScreen({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  UpdateProfileScreen({super.key, required this.user});
   final User user;
-
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
@@ -54,7 +51,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                   children: <Widget>[
                     AppAnimatedColumn(
                       direction: Axis.horizontal,
-                      duration: const Duration(milliseconds: 1000),
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const AppSpacing(v: 20),
@@ -163,11 +159,11 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             FilteringTextInputFormatter.digitsOnly,
                             FilteringTextInputFormatter.deny(' '),
                           ],
-                          onChanged: controller.onPhoneInputChanged,
+                          onChanged: (PhoneNumber phone) =>
+                              controller.onPhoneInputChanged(phone.phoneNumber, phone.isoCode),
                         ),
                         const AppSpacing(v: 49),
                         AppButton(
-                          enabled: true,
                           borderRadius: AppBorderRadius.largeAll,
                           onPressed: () async {
                             final Either<Failure, User> failurOrUser = await controller.updateProfile(context);
@@ -182,14 +178,9 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                               Navigator.of(context).pop(true);
                             });
                           },
-                          // onPressed: () => Get.back<void>(),
                           child: Text(
                             'update_profile'.tr.toUpperCase(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                         ),
                         const AppSpacing(v: 50),

@@ -26,13 +26,13 @@ class SettingsRepositoryImpl extends Repository implements SettingsRepository {
 
   @override
   Future<Either<Failure, bool?>> getIntroPrefs() async {
-    final Either<Failure, bool?> response = await makeLocalRequest(() => settingsLocalDataSource.getIntroPrefs());
+    final Either<Failure, bool?> response = await makeLocalRequest(settingsLocalDataSource.getIntroPrefs);
     return response;
   }
 
   @override
   Future<Either<Failure, bool?>> getPostIntroPrefs() async {
-    final Either<Failure, bool?> response = await makeLocalRequest(() => settingsLocalDataSource.getPostIntroPrefs());
+    final Either<Failure, bool?> response = await makeLocalRequest(settingsLocalDataSource.getPostIntroPrefs);
     return response;
   }
 
@@ -45,7 +45,7 @@ class SettingsRepositoryImpl extends Repository implements SettingsRepository {
 
   @override
   Future<Either<Failure, String?>> getLanguagePrefs() async {
-    final Either<Failure, String?> response = await makeLocalRequest(() => settingsLocalDataSource.getLanguagePrefs());
+    final Either<Failure, String?> response = await makeLocalRequest(settingsLocalDataSource.getLanguagePrefs);
     return response;
   }
 }

@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/helpers/web_navigator.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
 import 'package:betticos/features/betticos/presentation/right_side_bar/screens/right_login_container.dart';
@@ -10,12 +8,7 @@ import 'package:flutter/material.dart';
 import 'left_side_bar.dart';
 
 class MediumScreen extends StatelessWidget {
-  const MediumScreen({
-    Key? key,
-    required this.initialRoute,
-    required this.userToken,
-    required this.user,
-  }) : super(key: key);
+  const MediumScreen({super.key, required this.initialRoute, required this.userToken, required this.user});
   final String initialRoute;
   final String userToken;
   final User user;
@@ -25,11 +18,8 @@ class MediumScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Expanded(flex: 1, child: SizedBox()),
-        Expanded(
-          flex: 1,
-          child: LeftSideBar(user: user, userToken: userToken),
-        ),
+        const Expanded(child: SizedBox()),
+        Expanded(child: LeftSideBar(user: user, userToken: userToken)),
         Expanded(
           flex: 6,
           child: Container(
@@ -38,16 +28,8 @@ class MediumScreen extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               border: Border(
-                right: BorderSide(
-                  color: context.colors.lightGrey,
-                  width: 1,
-                  style: BorderStyle.solid,
-                ),
-                left: BorderSide(
-                  color: context.colors.lightGrey,
-                  width: 1,
-                  style: BorderStyle.solid,
-                ),
+                right: BorderSide(color: context.colors.lightGrey),
+                left: BorderSide(color: context.colors.lightGrey),
               ),
             ),
             child: webNavigator(initialRoute),
@@ -69,7 +51,7 @@ class MediumScreen extends StatelessWidget {
             ),
           ),
         ),
-        const Expanded(flex: 1, child: SizedBox()),
+        const Expanded(child: SizedBox()),
       ],
     );
   }

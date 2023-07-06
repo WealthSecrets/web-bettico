@@ -139,7 +139,7 @@ class P2PBetController extends GetxController {
   void setLiveScoreId(int value) {}
 
   void setLiveScore(LiveScore value) {
-    liveScore.value = value;
+    liveScore(value);
   }
 
   void onAmountInputChanged(double value) {
@@ -228,7 +228,7 @@ class P2PBetController extends GetxController {
         updateBetTransaction(context, betId: value.id, hash: txthash);
         resetValues();
         bet(value);
-        // TODO:(blankson123) when successful, update transaction via transaction hash
+        // TODO(blankson): when successful, update transaction via transaction hash
         Navigator.of(context).pushReplacement(
           MaterialPageRoute<void>(
             builder: (BuildContext context) => const P2PBettingCongratScreen(),
@@ -300,7 +300,7 @@ class P2PBetController extends GetxController {
       },
       (Transaction transaction) {
         isAddingTransaction(false);
-        //TODO:(blankson123) think of what to implement here.
+        // TODO(blankson): think of what to implement here.
       },
     );
   }
@@ -489,10 +489,11 @@ class P2PBetController extends GetxController {
 
     final Either<Failure, List<Bet>> failureOrBets = await searchBets(
       SearchBetRequest(
-          title: title.value,
-          status: searchStatus.isEmpty ? null : searchStatus.value,
-          from: from.isEmpty ? null : from.value,
-          to: to.isEmpty ? null : to.value),
+        title: title.value,
+        status: searchStatus.isEmpty ? null : searchStatus.value,
+        from: from.isEmpty ? null : from.value,
+        to: to.isEmpty ? null : to.value,
+      ),
     );
 
     failureOrBets.fold<void>(

@@ -6,13 +6,7 @@ import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/rig
 import 'package:flutter/material.dart';
 
 class ScoreRow extends StatelessWidget {
-  const ScoreRow({
-    Key? key,
-    required this.awayName,
-    required this.homeName,
-    required this.score,
-    required this.time,
-  }) : super(key: key);
+  const ScoreRow({super.key, required this.awayName, required this.homeName, required this.score, required this.time});
 
   final String awayName;
   final String homeName;
@@ -26,11 +20,7 @@ class ScoreRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Expanded(
-          flex: 1,
-          child: LeftTeamLogoText(
-            title: awayName,
-            initials: StringUtils.getInitials(awayName),
-          ),
+          child: LeftTeamLogoText(title: awayName, initials: StringUtils.getInitials(awayName)),
         ),
         const AppSpacing(h: 5),
         Column(
@@ -38,33 +28,19 @@ class ScoreRow extends StatelessWidget {
           children: <Widget>[
             Text(
               score,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: context.colors.black,
-                fontSize: 12,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.black, fontSize: 12),
             ),
             const SizedBox(height: 5),
             ChipCard(
               child: Text(
                 time,
-                style: TextStyle(
-                  color: context.colors.text,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10,
-                ),
+                style: TextStyle(color: context.colors.text, fontWeight: FontWeight.bold, fontSize: 10),
               ),
             )
           ],
         ),
         const SizedBox(width: 5),
-        Expanded(
-          flex: 1,
-          child: RightTeamLogoText(
-            initials: StringUtils.getInitials(homeName),
-            title: homeName,
-          ),
-        ),
+        Expanded(child: RightTeamLogoText(initials: StringUtils.getInitials(homeName), title: homeName)),
       ],
     );
   }

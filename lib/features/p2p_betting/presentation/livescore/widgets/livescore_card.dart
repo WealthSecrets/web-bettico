@@ -9,11 +9,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 
 class LiveScoreCard extends StatefulWidget {
-  const LiveScoreCard({
-    Key? key,
-    required this.liveScore,
-    required this.onTap,
-  }) : super(key: key);
+  const LiveScoreCard({super.key, required this.liveScore, required this.onTap});
 
   final LiveScore liveScore;
   final Function() onTap;
@@ -60,18 +56,12 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
           final LiveScore? liveScore = snapshot.data;
           return Container(
             width: 300,
-            margin: const EdgeInsets.only(
-              right: 20,
-            ),
+            margin: const EdgeInsets.only(right: 20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: const <BoxShadow>[
-                BoxShadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 20,
-                  color: Color.fromRGBO(69, 52, 127, 0.3),
-                ),
+                BoxShadow(offset: Offset(0, 10), blurRadius: 20, color: Color.fromRGBO(69, 52, 127, 0.3)),
               ],
             ),
             child: Padding(
@@ -84,19 +74,13 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                       Obx(
                         () => Text(
                           liveScoreController.selectedLeague.value.name,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
                       if ((liveScore == null && widget.liveScore.time.status?.toLowerCase() == 'ns') ||
                           (liveScore != null && liveScore.time.status?.toLowerCase() == 'ns'))
                         TimeCard(
-                          dateTime: DateTime.parse(
-                            widget.liveScore.time.startingAt.dateTime,
-                          ),
+                          dateTime: DateTime.parse(widget.liveScore.time.startingAt.dateTime),
                           showOnlyTime: true,
                         ),
                     ],
@@ -105,7 +89,6 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 1,
                         child: _buildLiveScoreCard(
                           imagePath: widget.liveScore.localTeam.data.logo,
                           name: widget.liveScore.localTeam.data.name,
@@ -122,20 +105,12 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                                     : widget.liveScore.scores != null
                                         ? widget.liveScore.scores!.localTeamScore.toString()
                                         : '0',
-                                style: const TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
+                                style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                               const SizedBox(width: 5),
                               const Text(
                                 ':',
-                                style: TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                               const SizedBox(width: 5),
                               Text(
@@ -144,11 +119,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                                     : widget.liveScore.scores != null
                                         ? widget.liveScore.scores!.visitorTeamScore.toString()
                                         : '0',
-                                style: const TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
+                                style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -161,11 +132,7 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: context.colors.primary.withOpacity(.2),
-                              border: Border.all(
-                                color: context.colors.primary,
-                                width: 1,
-                                style: BorderStyle.solid,
-                              ),
+                              border: Border.all(color: context.colors.primary),
                             ),
                             child: Text(
                               liveScore != null
@@ -179,11 +146,8 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
                                       : widget.liveScore.time.status?.toLowerCase() == 'live'
                                           ? '${widget.liveScore.time.minute}\''
                                           : '${widget.liveScore.time.status}'),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: context.colors.primary,
-                              ),
+                              style:
+                                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: context.colors.primary),
                             ),
                           ),
                         ],
@@ -216,22 +180,13 @@ class _LiveScoreCardState extends State<LiveScoreCard> {
           height: 60,
           width: 60,
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(
-                imagePath,
-              ),
-              fit: BoxFit.cover,
-            ),
+            image: DecorationImage(image: NetworkImage(imagePath), fit: BoxFit.cover),
           ),
         ),
         const SizedBox(height: 8),
         Text(
           name,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ],

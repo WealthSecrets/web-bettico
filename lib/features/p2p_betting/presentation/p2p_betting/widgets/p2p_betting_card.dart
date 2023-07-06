@@ -12,7 +12,7 @@ import '../../livescore/widgets/chip.dart';
 
 class P2PBettingCard extends StatefulWidget {
   const P2PBettingCard({
-    Key? key,
+    super.key,
     required this.awayTeam,
     required this.homeTeam,
     required this.localTeamScore,
@@ -22,7 +22,7 @@ class P2PBettingCard extends StatefulWidget {
     this.homeDisabled = false,
     this.onAwayPressed,
     this.onHomePressed,
-  }) : super(key: key);
+  });
 
   final Team awayTeam;
   final Team homeTeam;
@@ -48,10 +48,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
       width: MediaQuery.of(context).size.width,
       margin: AppPaddings.sV.add(AppPaddings.sT),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: context.colors.cardColor,
-          width: 1,
-        ),
+        border: Border.all(color: context.colors.cardColor),
         borderRadius: AppBorderRadius.smallAll,
       ),
       child: Row(
@@ -60,7 +57,6 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
           SizedBox(
             width: 100,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 if (widget.homeDisabled ?? false)
                   MatchAvatar(
@@ -81,10 +77,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 const AppSpacing(v: 8),
                 Text(
                   widget.homeTeam.name,
-                  style: TextStyle(
-                    color: context.colors.black,
-                    fontSize: 10,
-                  ),
+                  style: TextStyle(color: context.colors.black, fontSize: 10),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
@@ -99,28 +92,17 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 children: <Widget>[
                   Text(
                     widget.localTeamScore.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 24,
-                    ),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
                   ),
                   const AppSpacing(h: 5),
                   const Text(
                     '-',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   const AppSpacing(h: 5),
                   Text(
                     widget.visitorTeamScore.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 24,
-                    ),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
                   ),
                 ],
               ),
@@ -157,7 +139,6 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
           SizedBox(
             width: 100,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 if (widget.awayDisabled ?? false)
                   MatchAvatar(
@@ -178,10 +159,7 @@ class _P2PBettingCardState extends State<P2PBettingCard> {
                 const AppSpacing(v: 8),
                 Text(
                   widget.awayTeam.name,
-                  style: TextStyle(
-                    color: context.colors.black,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: context.colors.black, fontSize: 12),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

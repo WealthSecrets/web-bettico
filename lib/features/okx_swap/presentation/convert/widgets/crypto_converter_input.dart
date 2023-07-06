@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CryptoConverterInput extends StatelessWidget {
   const CryptoConverterInput({
-    Key? key,
+    super.key,
     required this.onCurrencyChanged,
     required this.controller,
     required this.options,
@@ -14,7 +14,7 @@ class CryptoConverterInput extends StatelessWidget {
     required this.validator,
     required this.onChanged,
     this.label,
-  }) : super(key: key);
+  });
 
   final Currency? selectedCurrency;
   final Function(Currency currency) onCurrencyChanged;
@@ -50,14 +50,7 @@ class CryptoConverterInput extends StatelessWidget {
             customTitleBuilder: (BuildContext context, Currency? currency, bool isSelected) => Row(
               children: <Widget>[
                 if (currency != null && currency.logoLink != null)
-                  SizedBox(
-                    width: 30,
-                    child: Image.network(
-                      currency.logoLink!,
-                      height: 30,
-                      width: 30,
-                    ),
-                  ),
+                  SizedBox(width: 30, child: Image.network(currency.logoLink!, height: 30, width: 30)),
                 const AppSpacing(h: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,11 +66,7 @@ class CryptoConverterInput extends StatelessWidget {
                     if (currency.name != null)
                       Text(
                         currency.name!,
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: context.colors.text,
-                          fontSize: 10,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.normal, color: context.colors.text, fontSize: 10),
                       ),
                   ],
                 )
@@ -90,28 +79,11 @@ class CryptoConverterInput extends StatelessWidget {
                   const AppSpacing(h: 7),
                   if (item != null) ...<Widget>[
                     if (item.logoLink != null)
-                      SizedBox(
-                        width: 25,
-                        child: Image.network(
-                          item.logoLink!,
-                          height: 25,
-                          width: 25,
-                        ),
-                      ),
+                      SizedBox(width: 25, child: Image.network(item.logoLink!, height: 25, width: 25)),
                     const AppSpacing(h: 5),
-                    Text(
-                      item.currency,
-                      style: TextStyle(
-                        color: context.colors.textDark,
-                        fontSize: 14,
-                      ),
-                    ),
+                    Text(item.currency, style: TextStyle(color: context.colors.textDark, fontSize: 14)),
                   ],
-                  Icon(
-                    Icons.arrow_drop_down,
-                    size: 20,
-                    color: context.colors.textDark,
-                  ),
+                  Icon(Icons.arrow_drop_down, size: 20, color: context.colors.textDark),
                   const VerticalDivider(width: 1, thickness: 1, color: Color(0xFFD2CDDE)),
                 ],
               ),

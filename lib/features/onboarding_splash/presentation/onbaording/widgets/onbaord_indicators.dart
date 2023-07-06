@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import '/core/core.dart';
 
 class OnboardIndicators extends StatelessWidget {
-  const OnboardIndicators({
-    Key? key,
-    required this.itemCount,
-    required this.activeItem,
-    this.radius,
-  })  : assert(activeItem <= itemCount),
-        super(key: key);
+  const OnboardIndicators({super.key, required this.itemCount, required this.activeItem, this.radius})
+      : assert(activeItem <= itemCount);
 
   final int itemCount;
   final int activeItem;

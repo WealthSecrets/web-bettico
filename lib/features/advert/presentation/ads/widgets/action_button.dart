@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
   const ActionButton({
-    Key? key,
+    super.key,
     required this.iconData,
     required this.textData,
     this.onPressed,
     this.reverse = false,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onPressed;
   final bool reverse;
@@ -28,13 +28,14 @@ class ActionButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
         ),
         child: Center(
-            child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            if (!reverse) icon else text,
-            if (!reverse) text else icon,
-          ],
-        )),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              if (!reverse) icon else text,
+              if (!reverse) text else icon,
+            ],
+          ),
+        ),
       ),
     );
   }

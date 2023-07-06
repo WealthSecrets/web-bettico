@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class IconCard extends StatelessWidget {
   const IconCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     this.backgroundColor,
     this.color,
@@ -11,7 +11,7 @@ class IconCard extends StatelessWidget {
     this.radius,
     this.hideBorder,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
@@ -42,12 +42,7 @@ class IconCard extends StatelessWidget {
         child: SizedBox(
           height: size ?? 23,
           width: size ?? 23,
-          child: Image.asset(
-            imagePath,
-            color: color,
-            height: size ?? 23,
-            width: size ?? 23,
-          ),
+          child: Image.asset(imagePath, color: color, height: size ?? 23, width: size ?? 23),
         ),
       ),
     );

@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/notice.dart';
 import 'package:betticos/features/auth/presentation/modal_auth/widgets/unauth_login_container.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
@@ -27,9 +25,7 @@ class WidgetUtils {
       alignment: Alignment.center,
       builder: (BuildContext context) {
         final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
-        final double width = ResponsiveWidget.isSmallScreen(context)
-            ? MediaQuery.of(context).size.width
-            : 370;
+        final double width = ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width : 370;
         return Center(
           child: Container(
             width: width,
@@ -68,10 +64,8 @@ class WidgetUtils {
       builder: (BuildContext context) {
         return ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height *
-                ((currencies.length * .05) + .2),
-            minHeight: MediaQuery.of(context).size.height *
-                ((currencies.length * 0.05) + .15),
+            maxHeight: MediaQuery.of(context).size.height * ((currencies.length * .05) + .2),
+            minHeight: MediaQuery.of(context).size.height * ((currencies.length * 0.05) + .15),
           ),
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -84,7 +78,6 @@ class WidgetUtils {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       const Text(
                         'Choose Network',
@@ -127,7 +120,6 @@ class WidgetUtils {
                           return ListTile(
                             selectedColor: context.colors.primary.shade100,
                             selected: item.chain == selectedChain,
-                            enabled: true,
                             onTap: () {
                               onTap?.call(item);
                             },
@@ -136,9 +128,7 @@ class WidgetUtils {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: item.chain == selectedChain
-                                    ? context.colors.primary
-                                    : Colors.black,
+                                color: item.chain == selectedChain ? context.colors.primary : Colors.black,
                               ),
                             ),
                           );

@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -7,10 +6,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
 
 class UnAuthLoginController extends GetWidget<LoginController> {
-  UnAuthLoginController({Key? key}) : super(key: key);
+  UnAuthLoginController({super.key});
 
   final RegisterController rController = Get.find<RegisterController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
@@ -23,9 +23,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
         child: AppLoadingBox(
           loading: controller.isLoading.value,
           child: Padding(
-            padding: isSmallScreen
-                ? AppPaddings.lH
-                : const EdgeInsets.symmetric(horizontal: 100),
+            padding: isSmallScreen ? AppPaddings.lH : const EdgeInsets.symmetric(horizontal: 100),
             child: AppAnimatedColumn(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,10 +33,8 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                 Text(
                   'Login to join activities on Xviral.',
                   style: isSmallScreen
-                      ? context.h6.copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.black)
-                      : context.h5.copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.black),
+                      ? context.h6.copyWith(fontWeight: FontWeight.bold, color: Colors.black)
+                      : context.h5.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -87,31 +83,26 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                           FilteringTextInputFormatter.digitsOnly,
                           FilteringTextInputFormatter.deny(' '),
                         ],
-                        onChanged: controller.onPhoneInputChanged,
+                        onChanged: (PhoneNumber number) =>
+                            controller.onPhoneInputChanged(number.phoneNumber, number.isoCode),
                       ),
                     const SizedBox(height: 8),
                     Positioned(
                       right: 10,
                       child: AnimatedSwitcher(
                         reverseDuration: Duration.zero,
-                        transitionBuilder:
-                            (Widget? child, Animation<double> animation) {
-                          final Animation<double> offset =
-                              Tween<double>(begin: 0, end: 1.0)
-                                  .animate(animation);
+                        transitionBuilder: (Widget? child, Animation<double> animation) {
+                          final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
                           return ScaleTransition(scale: offset, child: child);
                         },
                         switchInCurve: Curves.elasticOut,
                         duration: const Duration(milliseconds: 700),
                         child: RichText(
                           text: TextSpan(
-                            text: controller.isPhone.value
-                                ? 'login_mobile'.tr
-                                : 'login_email'.tr,
+                            text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                controller.togglePhoneVisibility(
-                                    !controller.isPhone.value);
+                                controller.togglePhoneVisibility(!controller.isPhone.value);
                               },
                             style: const TextStyle(
                               fontWeight: FontWeight.w800,

@@ -2,15 +2,14 @@ import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:flutter/material.dart';
 
 class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({Key? key, required this.content}) : super(key: key);
+  const NavigationScreen({super.key, required this.content});
   final Widget content;
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen>
-    with TickerProviderStateMixin {
+class _NavigationScreenState extends State<NavigationScreen> with TickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? animation;
 

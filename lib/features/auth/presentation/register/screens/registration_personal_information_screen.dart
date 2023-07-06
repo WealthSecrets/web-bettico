@@ -1,14 +1,15 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class RegistrationPersonalInformationScreen extends GetWidget<RegisterController> {
-  const RegistrationPersonalInformationScreen({Key? key}) : super(key: key);
+  const RegistrationPersonalInformationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,6 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                   padding: AppPaddings.lH,
                   child: AppAnimatedColumn(
                     direction: Axis.horizontal,
-                    duration: const Duration(milliseconds: 1000),
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -135,7 +135,20 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                           FilteringTextInputFormatter.digitsOnly,
                           FilteringTextInputFormatter.deny(' '),
                         ],
-                        onChanged: controller.onPhoneInputChanged,
+                        onChanged: (PhoneNumber number) =>
+                            controller.onPhoneInputChanged(number.phoneNumber, number.isoCode),
+                      ),
+                      AppCountryPicker(
+                        onChanged: (CountryCode code) {},
+                        dialogTextStyle: context.caption.copyWith(color: context.colors.black),
+                        showFlagMain: false,
+                        showFlag: false,
+                        initialSelection: 'GH',
+                        showCountryOnly: true,
+                        showOnlyCountryWhenClosed: true,
+                        alignLeft: true,
+                        textStyle: context.caption.copyWith(color: context.colors.black),
+                        onInit: (CountryCode? code) {},
                       ),
                       const AppSpacing(v: 20),
                       AppButton(

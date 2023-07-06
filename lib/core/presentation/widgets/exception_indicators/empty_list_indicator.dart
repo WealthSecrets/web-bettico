@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 
 class EmptyListIndicator extends StatelessWidget {
   const EmptyListIndicator({
-    Key? key,
+    super.key,
     this.title,
     this.message,
     this.size,
     this.gap,
     this.spacing,
-  }) : super(key: key);
+  });
 
   final String? title;
   final String? message;

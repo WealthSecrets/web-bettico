@@ -5,12 +5,7 @@ import 'package:get/get.dart';
 import 'constants/web_controller.dart';
 
 class VerticalMenuItem extends StatelessWidget {
-  const VerticalMenuItem({
-    Key? key,
-    required this.name,
-    required this.route,
-    required this.onTap,
-  }) : super(key: key);
+  const VerticalMenuItem({super.key, required this.name, required this.route, required this.onTap});
 
   final String name;
   final String route;

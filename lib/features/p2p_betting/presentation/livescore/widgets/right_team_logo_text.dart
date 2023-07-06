@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class RightTeamLogoText extends StatelessWidget {
   const RightTeamLogoText({
-    Key? key,
+    super.key,
     required this.title,
     required this.initials,
     this.logoSize = 40,
-  }) : super(key: key);
+  });
 
   final String title;
   final String initials;

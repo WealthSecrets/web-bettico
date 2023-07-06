@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TransferFundsScreen extends StatefulWidget {
-  const TransferFundsScreen({Key? key}) : super(key: key);
+  const TransferFundsScreen({super.key});
 
   @override
   State<TransferFundsScreen> createState() => _WithdrawalScreenState();
@@ -25,9 +25,7 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetUtils.onWidgetDidBuild(() {
-      _getUserBalances();
-    });
+    WidgetUtils.onWidgetDidBuild(_getUserBalances);
   }
 
   void _getUserBalances({VoidCallback? onSuccess}) {
@@ -45,22 +43,14 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
         leading: const AppBackButton(color: Colors.black),
         title: const Text(
           'Transfer Funds',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.black),
         ),
         centerTitle: true,
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            onPressed: () =>
-                navigationController.navigateTo(AppRoutes.transferHistory),
-            icon: Image.asset(
-              AssetImages.tansactionHistory,
-              height: 24,
-              width: 24,
-            ),
+            onPressed: () => navigationController.navigateTo(AppRoutes.transferHistory),
+            icon: Image.asset(AssetImages.tansactionHistory, height: 24, width: 24),
           ),
         ],
       ),
@@ -68,8 +58,7 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
         () {
           final User user = Get.find<BaseScreenController>().user.value;
           final Currency currency = controller.currency.value;
-          controller
-              .setBalance(okxController.getCurrencyBalance(currency.currency));
+          controller.setBalance(okxController.getCurrencyBalance(currency.currency));
           return AppLoadingBox(
             loading: controller.isTransferring.value,
             child: Padding(
@@ -105,12 +94,10 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
                                 ),
                                 const SizedBox(height: 32),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
                                           currency.currency.toUpperCase(),
@@ -136,19 +123,16 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
                                 const SizedBox(height: 24),
                                 AppTextInput(
                                   labelText: 'TRADING USERNAME',
-                                  backgroundColor:
-                                      context.colors.primary.shade100,
+                                  backgroundColor: context.colors.primary.shade100,
                                   validator: controller.onSubAccountValidator,
                                   onChanged: controller.onSubAccountChanged,
                                 ),
                                 const SizedBox(height: 16),
                                 AppTextInput(
-                                  labelText:
-                                      'AMOUNT (${currency.currency.toUpperCase()})',
+                                  labelText: 'AMOUNT (${currency.currency.toUpperCase()})',
                                   textInputType: TextInputType.number,
                                   onChanged: controller.onAmountInputChanged,
-                                  backgroundColor:
-                                      context.colors.primary.shade100,
+                                  backgroundColor: context.colors.primary.shade100,
                                   validator: controller.onAmountInputValidator,
                                 ),
                               ],
@@ -159,14 +143,12 @@ class _WithdrawalScreenState extends State<TransferFundsScreen> {
                               padding: EdgeInsets.zero,
                               borderRadius: AppBorderRadius.largeAll,
                               backgroundColor: context.colors.primary,
-                              onPressed: () =>
-                                  controller.transferFundsToSubAccount(
+                              onPressed: () => controller.transferFundsToSubAccount(
                                 context,
                                 onSuccess: () {
                                   _getUserBalances(
                                     onSuccess: () => controller.setBalance(
-                                      okxController.getCurrencyBalance(
-                                          currency.currency),
+                                      okxController.getCurrencyBalance(currency.currency),
                                     ),
                                   );
                                 },

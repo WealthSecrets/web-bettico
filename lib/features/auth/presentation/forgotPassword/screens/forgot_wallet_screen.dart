@@ -6,10 +6,9 @@ import 'package:get/get.dart';
 
 import '/core/core.dart';
 import '/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class ForgotWalletScreen extends GetWidget<RegisterController> {
-  ForgotWalletScreen({Key? key}) : super(key: key);
+  ForgotWalletScreen({super.key});
   final ForgotController fController = Get.find<ForgotController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
 
@@ -20,10 +19,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          leading: Transform.translate(
-            offset: const Offset(10, 0),
-            child: const AppBackButton(),
-          ),
+          leading: Transform.translate(offset: const Offset(10, 0), child: const AppBackButton()),
         ),
         backgroundColor: context.colors.background,
         body: SafeArea(
@@ -36,7 +32,6 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
                     direction: Axis.horizontal,
-                    duration: const Duration(milliseconds: 1000),
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -44,11 +39,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                       Text(
                         'address_verification'.tr,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 16),
                       ),
                       const AppSpacing(v: 47),
                       if (lController.walletAddress.value == '')
@@ -64,11 +55,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                           },
                           child: const Text(
                             'Connect Wallet',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                           ),
                         ),
                       const AppSpacing(v: 49),
@@ -83,11 +70,8 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                           children: <Widget>[
                             Text(
                               'Wallet Address: ${lController.walletAddress.value}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: context.colors.primary,
-                                fontSize: 12,
-                              ),
+                              style:
+                                  TextStyle(fontWeight: FontWeight.w700, color: context.colors.primary, fontSize: 12),
                             ),
                           ],
                         ),
@@ -100,11 +84,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                           onPressed: () => fController.nextToRest(context),
                           child: Text(
                             'next'.tr,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                           ),
                         ),
                       const AppSpacing(v: 100)

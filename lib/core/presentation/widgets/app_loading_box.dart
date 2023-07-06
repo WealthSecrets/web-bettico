@@ -3,14 +3,14 @@ import '/core/core.dart';
 
 class AppLoadingBox extends StatelessWidget {
   const AppLoadingBox({
-    Key? key,
+    super.key,
     required this.child,
     this.backgroundColor,
     this.loaderColor,
     this.loaderSize,
     this.loadingProgress,
     this.loading = false,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final bool loading;

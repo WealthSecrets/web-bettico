@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 
-import 'selectable_button.dart';
-
 class SearchFilterBottomSheet extends GetWidget<P2PBetController> {
   const SearchFilterBottomSheet({super.key});
   @override

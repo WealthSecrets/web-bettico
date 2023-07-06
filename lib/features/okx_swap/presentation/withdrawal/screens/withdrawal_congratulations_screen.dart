@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WithdrawalCongratulationsScreen extends StatelessWidget {
-  WithdrawalCongratulationsScreen({Key? key}) : super(key: key);
+  WithdrawalCongratulationsScreen({super.key});
 
   final WithdrawalController controller = Get.find<WithdrawalController>();
 
@@ -17,38 +17,24 @@ class WithdrawalCongratulationsScreen extends StatelessWidget {
           return Padding(
             padding: AppPaddings.bodyH,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  AssetImages.checkedColor,
-                  height: 65,
-                  width: 65,
-                ),
+                Image.asset(AssetImages.checkedColor, height: 65, width: 65),
                 const SizedBox(height: 16),
                 const Text(
                   'Withdrawal Successful',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 const SizedBox(height: 32),
                 Text(
                   'You have successfully withdrawn ${controller.currentWithdrawal.value.amount} ${controller.currentWithdrawal.value.currency.toUpperCase()}.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: context.colors.text,
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: context.colors.text),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 50),
                 Row(
                   children: <Widget>[
                     Expanded(
-                      flex: 1,
                       child: AppButton(
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
@@ -56,17 +42,12 @@ class WithdrawalCongratulationsScreen extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pop(),
                         child: const Text(
                           'BACK',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      flex: 1,
                       child: AppButton(
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
@@ -77,11 +58,7 @@ class WithdrawalCongratulationsScreen extends StatelessWidget {
                         },
                         child: const Text(
                           'VIEW HISTORY',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                     ),

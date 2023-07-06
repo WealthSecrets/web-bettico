@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
@@ -17,11 +16,11 @@ import '/core/core.dart';
 
 class P2PBettingHistoryCard extends StatefulWidget {
   const P2PBettingHistoryCard({
-    Key? key,
+    super.key,
     required this.bet,
     required this.isMyBets,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final Bet bet;
   final bool isMyBets;
@@ -41,8 +40,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   String? winnerWalletAddress;
   Bet bet = Bet.empty();
 
-  final StreamController<LiveScore?> _liveScoreStreamController =
-      StreamController<LiveScore?>.broadcast();
+  final StreamController<LiveScore?> _liveScoreStreamController = StreamController<LiveScore?>.broadcast();
 
   @override
   void initState() {
@@ -86,52 +84,44 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
         if (liveScoreData != null) {
           if (liveScoreData.time.status?.toLowerCase() == 'ft') {
             if ((bet.creator.teamId == liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore >
-                    liveScoreData.scores!.visitorTeamScore) &&
+                (liveScoreData.scores!.localTeamScore > liveScoreData.scores!.visitorTeamScore) &&
                 bet.creator.choice == BettorChoice.win) {
               winner = bet.creator.user.id;
               winnerWalletAddress = bet.creator.wallet;
             } else if ((bet.creator.teamId == liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore <
-                    liveScoreData.scores!.visitorTeamScore) &&
+                (liveScoreData.scores!.localTeamScore < liveScoreData.scores!.visitorTeamScore) &&
                 bet.creator.choice == BettorChoice.loss) {
               winner = bet.creator.user.id;
               winnerWalletAddress = bet.creator.wallet;
             } else if ((bet.opponent?.teamId == liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore <
-                    liveScoreData.scores!.visitorTeamScore) &&
+                (liveScoreData.scores!.localTeamScore < liveScoreData.scores!.visitorTeamScore) &&
                 bet.opponent?.choice == BettorChoice.loss) {
               winner = bet.opponent?.user.id;
               winnerWalletAddress = bet.opponent?.wallet;
             } else if ((bet.opponent?.teamId == liveScoreData.localTeamId) &&
-                (liveScoreData.scores!.localTeamScore >
-                    liveScoreData.scores!.visitorTeamScore) &&
+                (liveScoreData.scores!.localTeamScore > liveScoreData.scores!.visitorTeamScore) &&
                 bet.opponent?.choice == BettorChoice.win) {
               winner = bet.opponent?.user.id;
               winnerWalletAddress = bet.opponent?.wallet;
             } else if (bet.creator.choice == BettorChoice.draw &&
-                (liveScoreData.scores!.localTeamScore ==
-                    liveScoreData.scores!.visitorTeamScore)) {
+                (liveScoreData.scores!.localTeamScore == liveScoreData.scores!.visitorTeamScore)) {
               winner = bet.creator.user.id;
               winnerWalletAddress = bet.creator.wallet;
             } else if (bet.opponent?.choice == BettorChoice.draw &&
-                (liveScoreData.scores!.localTeamScore ==
-                    liveScoreData.scores!.visitorTeamScore)) {
+                (liveScoreData.scores!.localTeamScore == liveScoreData.scores!.visitorTeamScore)) {
               winner = bet.opponent?.user.id;
               winnerWalletAddress = bet.opponent?.wallet;
             }
             p2pBetController.addStatusScoreToBet(
               betId: bet.id,
-              score:
-                  '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+              score: '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
               status: 'completed',
               winner: winner,
             );
           } else {
             p2pBetController.addStatusScoreToBet(
               betId: bet.id,
-              score:
-                  '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
+              score: '${liveScoreData.scores!.localTeamScore} : ${liveScoreData.scores!.visitorTeamScore}',
               status: liveScoreData.time.status?.toLowerCase() ?? 'h1',
               winner: winner,
             );
@@ -139,35 +129,25 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
         }
         return Obx(
           () => AppLoadingBox(
-            loading: (lController.isLoading.value &&
-                    lController.closingBetID.contains(bet.id)) ||
-                (lController.showLoadingLogo.value &&
-                    lController.closingBetID.contains(bet.id)) ||
-                (p2pBetController.isClosingPayout.value &&
-                    p2pBetController.closingBetID.contains(bet.id)),
+            loading: (lController.isLoading.value && lController.closingBetID.contains(bet.id)) ||
+                (lController.showLoadingLogo.value && lController.closingBetID.contains(bet.id)) ||
+                (p2pBetController.isClosingPayout.value && p2pBetController.closingBetID.contains(bet.id)),
             child: Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(vertical: 4).add(
                 const EdgeInsets.only(top: 4),
               ),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: context.colors.cardColor,
-                  width: 1,
-                ),
+                border: Border.all(color: context.colors.cardColor),
                 borderRadius: AppBorderRadius.smallAll,
               ),
               child: TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
+                style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16)),
                 onPressed: widget.onPressed,
                 child: Padding(
                   padding: ResponsiveWidget.isSmallScreen(context)
                       ? const EdgeInsets.symmetric(horizontal: 16)
-                      : const EdgeInsets.symmetric(vertical: 16).add(
-                          const EdgeInsets.symmetric(horizontal: 38),
-                        ),
+                      : const EdgeInsets.symmetric(vertical: 16).add(const EdgeInsets.symmetric(horizontal: 38)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
@@ -175,82 +155,53 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           if (bet.date != null &&
-                              (liveScoreData != null &&
-                                  liveScoreData.time.status?.toLowerCase() ==
-                                      'ns'))
+                              (liveScoreData != null && liveScoreData.time.status?.toLowerCase() == 'ns'))
                             TimeCard(dateTime: DateTime.parse(bet.date!)),
-                          if (liveScoreData != null &&
-                              liveScoreData.time.status?.toLowerCase() ==
-                                  'live')
+                          if (liveScoreData != null && liveScoreData.time.status?.toLowerCase() == 'live')
                             Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 2,
-                                horizontal: 8,
-                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
                                 color: context.colors.primary.withOpacity(.2),
-                                border: Border.all(
-                                  color: context.colors.primary,
-                                  width: 1,
-                                  style: BorderStyle.solid,
-                                ),
+                                border: Border.all(color: context.colors.primary),
                               ),
                               child: Text(
                                 liveScoreData.time.status?.toLowerCase() == 'ns'
                                     ? 'NS'
-                                    : liveScoreData.time.status
-                                                ?.toLowerCase() ==
-                                            'live'
+                                    : liveScoreData.time.status?.toLowerCase() == 'live'
                                         ? '${liveScoreData.time.minute}\''
                                         : '${liveScoreData.time.status}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: context.colors.primary,
-                                ),
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: context.colors.primary),
                               ),
                             ),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8)
-                                .add(const EdgeInsets.symmetric(vertical: 4)),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8).add(const EdgeInsets.symmetric(vertical: 4)),
                             decoration: BoxDecoration(
                               borderRadius: AppBorderRadius.largeAll,
                               color: bet.status.color(context).withOpacity(.3),
-                              border: Border.all(
-                                color: bet.status.color(context),
-                                width: 1,
-                              ),
+                              border: Border.all(color: bet.status.color(context)),
                             ),
                             child: Text(
                               bet.status.stringValue.toUpperCase(),
                               style: TextStyle(
-                                fontSize:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? 8
-                                        : 10,
-                                // fontWeight: FontWeight.w700,
+                                fontSize: ResponsiveWidget.isSmallScreen(context) ? 8 : 10,
                                 fontWeight:
-                                    ResponsiveWidget.isSmallScreen(context)
-                                        ? FontWeight.w700
-                                        : FontWeight.normal,
+                                    ResponsiveWidget.isSmallScreen(context) ? FontWeight.w700 : FontWeight.normal,
                                 color: bet.status.color(context),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height:
-                            ResponsiveWidget.isSmallScreen(context) ? 8 : 12,
-                      ),
+                      SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           SizedBox(
                             width: 130,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 if (bet.homeTeam.logo != null)
                                   Container(
@@ -259,18 +210,14 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                     padding: AppPaddings.lA,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: bet.creator.teamId ==
-                                                bet.homeTeam.teamId
+                                        color: bet.creator.teamId == bet.homeTeam.teamId
                                             ? bet.creator.choice.color(context)
                                             : bet.opponent != null
-                                                ? bet.opponent!.teamId ==
-                                                        bet.homeTeam.teamId
-                                                    ? bet.opponent!.choice
-                                                        .color(context)
+                                                ? bet.opponent!.teamId == bet.homeTeam.teamId
+                                                    ? bet.opponent!.choice.color(context)
                                                     : context.colors.text
                                                 : context.colors.text,
                                         width: 2,
-                                        style: BorderStyle.solid,
                                       ),
                                       image: DecorationImage(
                                         image: NetworkImage(
@@ -281,24 +228,14 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                   ),
-                                SizedBox(
-                                  height:
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? 8
-                                          : 12,
-                                ),
+                                SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12),
                                 Text(
                                   bet.homeTeam.name,
                                   style: TextStyle(
                                     color: context.colors.black,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                    fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                     fontWeight:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
+                                        ResponsiveWidget.isSmallScreen(context) ? FontWeight.bold : FontWeight.normal,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -314,27 +251,16 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                   snapshot.hasData && snapshot.data != null
                                       ? '${snapshot.data!.scores?.localTeamScore} - ${snapshot.data!.scores?.visitorTeamScore}'
                                       : bet.score ?? '? - ?',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: context.colors.text,
-                                    fontSize: 24,
-                                  ),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold, color: context.colors.text, fontSize: 24),
                                 ),
-                                SizedBox(
-                                  height:
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? 8
-                                          : 12,
-                                ),
+                                SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12),
                                 Container(
-                                  padding: ResponsiveWidget.isSmallScreen(
-                                          context)
+                                  padding: ResponsiveWidget.isSmallScreen(context)
                                       ? const EdgeInsets.symmetric(vertical: 4)
-                                          .add(const EdgeInsets.symmetric(
-                                              horizontal: 8))
+                                          .add(const EdgeInsets.symmetric(horizontal: 8))
                                       : const EdgeInsets.symmetric(vertical: 4)
-                                          .add(const EdgeInsets.symmetric(
-                                              horizontal: 16)),
+                                          .add(const EdgeInsets.symmetric(horizontal: 16)),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: bet.status.color(context),
@@ -344,20 +270,12 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                       bet.status.stringAmount(bet.amount),
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight:
-                                            ResponsiveWidget.isSmallScreen(
-                                                    context)
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                        fontWeight: ResponsiveWidget.isSmallScreen(context)
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
                                         decoration:
-                                            bet.status == BetStatus.cancelled
-                                                ? TextDecoration.lineThrough
-                                                : null,
-                                        fontSize:
-                                            ResponsiveWidget.isSmallScreen(
-                                                    context)
-                                                ? 12
-                                                : 14,
+                                            bet.status == BetStatus.cancelled ? TextDecoration.lineThrough : null,
+                                        fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                       ),
                                     ),
                                   ),
@@ -369,7 +287,6 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                           SizedBox(
                             width: 130,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 if (bet.awayTeam.logo != null)
                                   Container(
@@ -378,46 +295,28 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                     padding: AppPaddings.lA,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: bet.creator.teamId ==
-                                                bet.awayTeam.teamId
+                                        color: bet.creator.teamId == bet.awayTeam.teamId
                                             ? bet.creator.choice.color(context)
                                             : bet.opponent != null
-                                                ? bet.opponent!.teamId ==
-                                                        bet.awayTeam.teamId
-                                                    ? bet.opponent!.choice
-                                                        .color(context)
+                                                ? bet.opponent!.teamId == bet.awayTeam.teamId
+                                                    ? bet.opponent!.choice.color(context)
                                                     : context.colors.text
                                                 : context.colors.text,
                                         width: 2,
-                                        style: BorderStyle.solid,
                                       ),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          bet.awayTeam.logo!,
-                                        ),
-                                        fit: BoxFit.contain,
-                                      ),
+                                      image:
+                                          DecorationImage(image: NetworkImage(bet.awayTeam.logo!), fit: BoxFit.contain),
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                   ),
-                                SizedBox(
-                                  height:
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? 8
-                                          : 12,
-                                ),
+                                SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 8 : 12),
                                 Text(
                                   bet.awayTeam.name,
                                   style: TextStyle(
                                     color: context.colors.black,
                                     fontWeight:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
-                                    fontSize:
-                                        ResponsiveWidget.isSmallScreen(context)
-                                            ? 12
-                                            : 14,
+                                        ResponsiveWidget.isSmallScreen(context) ? FontWeight.bold : FontWeight.normal,
+                                    fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
                                   ),
                                 ),
                               ],
@@ -426,16 +325,12 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      if ((bet.status == BetStatus.completed ||
-                              liveScoreData?.time.status?.toLowerCase() ==
-                                  'ft') &&
+                      if ((bet.status == BetStatus.completed || liveScoreData?.time.status?.toLowerCase() == 'ft') &&
                           bController.isYou(winner) &&
                           !(bet.payout ?? false))
                         AppConstrainedButton(
-                          disabled: (bController.isYou(winner) &&
-                                  (bet.payout ?? false)) ||
-                              (lController.showLoadingLogo.value &&
-                                  lController.closingBetID.contains(bet.id)) ||
+                          disabled: (bController.isYou(winner) && (bet.payout ?? false)) ||
+                              (lController.showLoadingLogo.value && lController.closingBetID.contains(bet.id)) ||
                               p2pBetController.isClosingPayout.value,
                           color: context.colors.success,
                           textColor: Colors.white,
@@ -491,12 +386,13 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
 }
 
 void cashout(
-    BuildContext context,
-    String? walletAddress,
-    Bet bet,
-    LiveScoreController lController,
-    P2PBetController p2pBetController,
-    bool isMyBet) async {
+  BuildContext context,
+  String? walletAddress,
+  Bet bet,
+  LiveScoreController lController,
+  P2PBetController p2pBetController,
+  bool isMyBet,
+) async {
   if (walletAddress != null && !(bet.payout ?? false)) {
     await AppSnacks.show(
       context,

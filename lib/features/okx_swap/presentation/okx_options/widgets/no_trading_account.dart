@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NoTradignAccount extends StatelessWidget {
-  NoTradignAccount({Key? key, required this.user}) : super(key: key);
+  NoTradignAccount({super.key, required this.user});
 
   final User user;
 
@@ -22,9 +21,7 @@ class NoTradignAccount extends StatelessWidget {
         title: 'ENABLE TRADE',
         message: 'Your account do not have trading support yet.',
         onBottonPressed: () {
-          if (user.email == null &&
-              user.firstName == null &&
-              user.username == null) {
+          if (user.email == null && user.firstName == null && user.username == null) {
             AppSnacks.show(context, message: 'Oops! Something went wrong.');
             return;
           }

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:slider_captcha/slider_captcha.dart';
 import '/core/core.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class RegistrationWalletScreen extends GetWidget<RegisterController> {
-  RegistrationWalletScreen({Key? key}) : super(key: key);
+  RegistrationWalletScreen({super.key});
+
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final SliderController sController = SliderController();
   @override
@@ -18,10 +18,7 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          leading: Transform.translate(
-            offset: const Offset(10, 0),
-            child: const AppBackButton(),
-          ),
+          leading: Transform.translate(offset: const Offset(10, 0), child: const AppBackButton()),
         ),
         backgroundColor: context.colors.background,
         body: SafeArea(
@@ -29,14 +26,11 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
             loading: controller.isUpdatingUserRole.value,
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
                     direction: Axis.horizontal,
-                    duration: const Duration(milliseconds: 1000),
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -48,16 +42,12 @@ class RegistrationWalletScreen extends GetWidget<RegisterController> {
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
-                        image: Image.asset(
-                          'assets/images/nightmode.jpg',
-                          fit: BoxFit.fitWidth,
-                        ),
+                        image: Image.asset('assets/images/nightmode.jpg', fit: BoxFit.fitWidth),
                         colorBar: const Color.fromARGB(255, 255, 255, 255),
                         colorCaptChar: const Color.fromARGB(255, 248, 248, 248),
                         onConfirm: (bool value) async {
                           if (value) {
-                            await navigationController
-                                .navigateTo(AppRoutes.accountType);
+                            await navigationController.navigateTo(AppRoutes.accountType);
                           } else {
                             sController.create();
                           }

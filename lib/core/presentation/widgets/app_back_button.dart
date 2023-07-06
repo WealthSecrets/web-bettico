@@ -3,12 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import '/core/presentation/presentation.dart';
 
 class AppBackButton extends StatelessWidget {
-  const AppBackButton({
-    Key? key,
-    this.color,
-    this.rootNavigator = false,
-    this.onPressed,
-  }) : super(key: key);
+  const AppBackButton({super.key, this.color, this.rootNavigator = false, this.onPressed});
 
   final Color? color;
   final bool rootNavigator;
@@ -24,22 +19,13 @@ class AppBackButton extends StatelessWidget {
           Navigator.of(context, rootNavigator: rootNavigator).maybePop();
         }
       },
-      icon: Icon(
-        Ionicons.chevron_back,
-        color: color ?? context.colors.textDark,
-        size: 20,
-      ),
+      icon: Icon(Ionicons.chevron_back, color: color ?? context.colors.textDark, size: 20),
     );
   }
 }
 
 class AppCloseButton extends StatelessWidget {
-  const AppCloseButton({
-    Key? key,
-    this.color,
-    this.rootNavigator = false,
-    this.onPressed,
-  }) : super(key: key);
+  const AppCloseButton({super.key, this.color, this.rootNavigator = false, this.onPressed});
 
   final Color? color;
   final bool rootNavigator;
@@ -55,11 +41,7 @@ class AppCloseButton extends StatelessWidget {
           Navigator.of(context, rootNavigator: rootNavigator).maybePop();
         }
       },
-      icon: Icon(
-        Icons.close,
-        color: color ?? context.colors.text,
-        size: 25,
-      ),
+      icon: Icon(Icons.close, color: color ?? context.colors.text, size: 25),
     );
   }
 }

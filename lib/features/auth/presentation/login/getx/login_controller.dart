@@ -120,8 +120,7 @@ class LoginController extends GetxController {
     Get.updateLocale(locale);
   }
 
-  void reRouteOddster(BuildContext context, User user,
-      {bool? isSkipEmail, bool? isSkipPhone, String? token}) {
+  void reRouteOddster(BuildContext context, User user, {bool? isSkipEmail, bool? isSkipPhone, String? token}) {
     if (isSkipEmail ?? false) {
       if (!user.hasRole) {
         Get.toNamed<void>(AppRoutes.accountType);
@@ -137,8 +136,7 @@ class LoginController extends GetxController {
 
   void subRerouting(User user, BuildContext context, {String? token}) {
     if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.toNamed<void>(AppRoutes.documentScreen,
-          arguments: UserArgument(user: user));
+      Get.toNamed<void>(AppRoutes.documentScreen, arguments: UserArgument(user: user));
     } else if (user.role == 'oddster' && !user.hasProfileImage) {
       Get.toNamed<void>(AppRoutes.profilePhoto);
     } else {
@@ -151,8 +149,7 @@ class LoginController extends GetxController {
         context,
         message: 'Yay!, welcome to Xviral',
         backgroundColor: context.colors.success,
-        leadingIcon:
-            const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white),
+        leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white),
       );
     }
   }
@@ -203,8 +200,11 @@ class LoginController extends GetxController {
     email(value.trim());
   }
 
-  void onPhoneInputChanged(String value) {
-    phone(value.trim());
+  void onPhoneInputChanged(String? number, String? isoCode) {
+    if (number != null) {
+      phone.value = number;
+    }
+    if (isoCode != null) {}
   }
 
   void onPasswordInputChanged(String value) {
@@ -237,6 +237,5 @@ class LoginController extends GetxController {
 
   bool get formIsValid =>
       validateEmail(email.value) == null ||
-      validatePhone(phone.value) == null &&
-          validatePassword(password.value) == null;
+      validatePhone(phone.value) == null && validatePassword(password.value) == null;
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NoTradingApiKey extends StatelessWidget {
-  NoTradingApiKey({Key? key}) : super(key: key);
+  NoTradingApiKey({super.key});
 
   final RegisterController registerController = Get.find<RegisterController>();
   final OkxController okxController = Get.find<OkxController>();
@@ -16,8 +16,7 @@ class NoTradingApiKey extends StatelessWidget {
       () => AppEmptyScreen(
         loading: registerController.isCreatingAccountApiKey.value,
         title: 'ACCESS EXPIRED',
-        message:
-            'Your access to trading has expired, please refresh trading access.',
+        message: 'Your access to trading has expired, please refresh trading access.',
         onBottonPressed: () {
           registerController.createOkxAccountApiKey(
             context,

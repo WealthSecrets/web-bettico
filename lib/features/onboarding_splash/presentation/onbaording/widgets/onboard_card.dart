@@ -5,13 +5,13 @@ import '/core/core.dart';
 
 class OnboardCard extends StatelessWidget {
   const OnboardCard({
-    Key? key,
+    super.key,
     required this.text,
     required this.svgAssetPath,
     required this.index,
     required this.isActive,
     required this.isPrevious,
-  }) : super(key: key);
+  });
 
   final List<String> text;
   final int index;
@@ -39,7 +39,6 @@ class OnboardCard extends StatelessWidget {
                 padding: AppPaddings.bodyH,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     TweenAnimationBuilder<double>(
                       curve: Curves.fastLinearToSlowEaseIn,
@@ -48,12 +47,7 @@ class OnboardCard extends StatelessWidget {
                       builder: (BuildContext context, double offset, Widget? child) {
                         return Transform.scale(scale: offset, child: child);
                       },
-                      child: ClipRRect(
-                        child: SvgPicture.asset(
-                          svgAssetPath,
-                          height: 300,
-                        ),
-                      ),
+                      child: ClipRRect(child: SvgPicture.asset(svgAssetPath, height: 300)),
                     ),
                     const AppSpacing(v: 50),
                     SizedBox(
@@ -67,18 +61,13 @@ class OnboardCard extends StatelessWidget {
                               curve: Curves.fastLinearToSlowEaseIn,
                               tween: Tween<Offset>(begin: Offset(index == 1 ? 0 : 10, 150), end: Offset.zero),
                               builder: (BuildContext context, Offset offset, Widget? child) {
-                                return Transform.translate(
-                                  offset: offset,
-                                  child: child,
-                                );
+                                return Transform.translate(offset: offset, child: child);
                               },
                               duration: Duration(milliseconds: (1000 + index * 500).toInt()),
                               child: Text(
                                 text[index],
-                                style: context.h6.copyWith(color: context.colors.primary).copyWith(
-                                      height: 1.3,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                style: context.h6
+                                    .copyWith(color: context.colors.primary, height: 1.3, fontWeight: FontWeight.w400),
                               ),
                             );
                           },

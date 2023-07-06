@@ -8,9 +8,10 @@ class ExploreBindings {
   static void dependencies() {
     Get.put<ExploreController>(
       ExploreController(
-          explorePosts: ExplorePosts(betticosRepository: Get.find()),
-          fetchHashtags: FetchHashtags(betticosRepository: Get.find()),
-          searchPosts: SearchPosts(betticosRepository: Get.find())),
+        explorePosts: ExplorePosts(betticosRepository: Get.find()),
+        fetchHashtags: FetchHashtags(betticosRepository: Get.find()),
+        searchPosts: SearchPosts(betticosRepository: Get.find()),
+      ),
       permanent: true,
     );
   }

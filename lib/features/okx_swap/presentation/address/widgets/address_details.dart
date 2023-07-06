@@ -10,8 +10,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddressDetails extends StatefulWidget {
-  const AddressDetails({Key? key, required this.address, this.isScreen = false})
-      : super(key: key);
+  const AddressDetails({super.key, required this.address, this.isScreen = false});
 
   final OkxAddress address;
   final bool? isScreen;
@@ -27,14 +26,12 @@ class _ShareQRViewState extends State<AddressDetails> {
 
   @override
   Widget build(BuildContext context) {
-    const Widget loadingBox =
-        SizedBox(height: _boxHeight, child: LoadingLogo(color: Colors.white));
+    const Widget loadingBox = SizedBox(height: _boxHeight, child: LoadingLogo(color: Colors.white));
 
     return Scaffold(
       body: Padding(
         padding: AppPaddings.lH,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             if (widget.isScreen == false) ...<Widget>[
@@ -42,11 +39,7 @@ class _ShareQRViewState extends State<AddressDetails> {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                   onTap: () => Navigator.of(context).pop(),
-                  child: Icon(
-                    Ionicons.close_sharp,
-                    size: 24,
-                    color: context.colors.error,
-                  ),
+                  child: Icon(Ionicons.close_sharp, size: 24, color: context.colors.error),
                 ),
               ),
               const SizedBox(height: 32),
@@ -57,37 +50,26 @@ class _ShareQRViewState extends State<AddressDetails> {
                 children: <Widget>[
                   InkWell(
                     onTap: () => Navigator.of(context).pop(),
-                    child: const Icon(
-                      Ionicons.close_sharp,
-                      size: 24,
-                      color: Colors.black,
-                    ),
+                    child: const Icon(Ionicons.close_sharp, size: 24, color: Colors.black),
                   ),
                   Text(
                     'Deposit ${widget.address.currency.toUpperCase()}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ],
               ),
               const SizedBox(height: 32),
             ],
             Align(
-              alignment: Alignment.center,
               child: FutureBuilder<String>(
                 future: generateQrCode(widget.address.address),
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                   final String? data = snapshot.data;
                   if (data != null) {
                     return SvgPicture.string(
                       data,
                       height: _boxHeight,
-                      colorFilter: ColorFilter.mode(
-                          context.colors.primary, BlendMode.srcIn),
+                      colorFilter: ColorFilter.mode(context.colors.primary, BlendMode.srcIn),
                     );
                   }
 
@@ -97,16 +79,11 @@ class _ShareQRViewState extends State<AddressDetails> {
             ),
             const SizedBox(height: 16),
             Align(
-              alignment: Alignment.center,
               child: SizedBox(
                 width: 290,
                 child: Text(
                   'Please send only ${widget.address.currency.toUpperCase()} to this deposit address. There might be loss of assets if you different token is sent.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    color: context.colors.text,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: context.colors.text),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -133,14 +110,9 @@ class _ShareQRViewState extends State<AddressDetails> {
                   );
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: context.colors.lightGrey,
-                      width: 1,
-                      style: BorderStyle.solid,
-                    ),
+                    border: Border.all(color: context.colors.lightGrey),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Row(
@@ -149,11 +121,7 @@ class _ShareQRViewState extends State<AddressDetails> {
                         child: _ChainWidget(chain: widget.address.chain!),
                       ),
                       const SizedBox(width: 16),
-                      Icon(
-                        Ionicons.arrow_forward_sharp,
-                        size: 30,
-                        color: context.colors.lightGrey,
-                      )
+                      Icon(Ionicons.arrow_forward_sharp, size: 30, color: context.colors.lightGrey)
                     ],
                   ),
                 ),
@@ -168,13 +136,12 @@ class _ShareQRViewState extends State<AddressDetails> {
 
   Future<String> generateQrCode(String data) async {
     const double size = _ShareQRViewState._boxHeight * 2;
-    return Barcode.qrCode()
-        .toSvg(data, width: size, height: size, color: 0x1F1056);
+    return Barcode.qrCode().toSvg(data, width: size, height: size, color: 0x1F1056);
   }
 }
 
 class _ChainWidget extends StatelessWidget {
-  const _ChainWidget({Key? key, required this.chain}) : super(key: key);
+  const _ChainWidget({required this.chain});
   final String chain;
 
   @override
@@ -185,19 +152,11 @@ class _ChainWidget extends StatelessWidget {
       children: <Widget>[
         Text(
           'Chain (Network)',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: context.colors.text,
-            fontSize: 14,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.text, fontSize: 14),
         ),
         Text(
           chain,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: context.colors.textDark,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: context.colors.textDark),
         ),
       ],
     );
@@ -206,9 +165,8 @@ class _ChainWidget extends StatelessWidget {
 
 class _WalletAddressRow extends StatelessWidget {
   const _WalletAddressRow({
-    Key? key,
     required this.address,
-  }) : super(key: key);
+  });
 
   final OkxAddress address;
 
@@ -223,19 +181,11 @@ class _WalletAddressRow extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Wallet Address',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: context.colors.text,
-                  fontSize: 14,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.text, fontSize: 14),
               ),
               Text(
                 address.address,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: context.colors.textDark,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: context.colors.textDark),
               ),
             ],
           ),
@@ -249,19 +199,10 @@ class _WalletAddressRow extends StatelessWidget {
               context,
               message: 'Address copied to clipboard',
               backgroundColor: context.colors.success,
-              leadingIcon: const Icon(
-                Ionicons.checkmark_circle_sharp,
-                size: 20,
-                color: Colors.white,
-              ),
+              leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, size: 20, color: Colors.white),
             );
           },
-          icon: Image.asset(
-            AssetImages.copyFile,
-            height: 24,
-            width: 24,
-            color: const Color(0xFF999999),
-          ),
+          icon: Image.asset(AssetImages.copyFile, height: 24, width: 24, color: const Color(0xFF999999)),
         )
       ],
     );

@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DepositHistoryScreen extends StatefulWidget {
-  const DepositHistoryScreen({Key? key}) : super(key: key);
+  const DepositHistoryScreen({super.key});
 
   @override
   State<DepositHistoryScreen> createState() => _DepositHistoryScreenState();
@@ -33,10 +32,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
         leading: const AppBackButton(color: Colors.black),
         title: const Text(
           'Deposit History',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.black),
         ),
         centerTitle: true,
         elevation: 0,
@@ -56,32 +52,19 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                       leading: currency != null && currency.logoLink != null
                           ? SizedBox(
                               width: 40,
-                              child: Image.network(
-                                currency.logoLink!,
-                                height: 40,
-                                width: 40,
-                              ),
+                              child: Image.network(currency.logoLink!, height: 40, width: 40),
                             )
                           : const SizedBox(),
                       title: Text(
                         currency?.currency ?? deposit.currency,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: context.colors.textDark,
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: context.colors.textDark),
                       ),
                       subtitle: Text(
                         currency?.chain ?? deposit.chain,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: context.colors.text,
-                        ),
+                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: context.colors.text),
                       ),
                       trailing: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             '${deposit.amount} ${deposit.currency}',
@@ -100,10 +83,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                   itemCount: deposits.length,
                   separatorBuilder: (_, __) => Divider(color: context.colors.lightGrey),
                 )
-              : const AppEmptyScreen(
-                  title: 'Nothing Found',
-                  message: 'You do not have any deposit history.',
-                ),
+              : const AppEmptyScreen(title: 'Nothing Found', message: 'You do not have any deposit history.'),
         );
       }),
     );

@@ -6,15 +6,14 @@ class AppAnimatedColumn extends StatefulWidget {
   const AppAnimatedColumn({
     AnimationController? animationController,
     required this.children,
-    Key? key,
+    super.key,
     this.mainAxisAlignment,
     this.duration = const Duration(milliseconds: 1000),
     this.delay,
     this.crossAxisAlignment,
     this.direction = Axis.vertical,
     this.mainAxisSize,
-  })  : _animationController = animationController,
-        super(key: key);
+  }) : _animationController = animationController;
 
   final AnimationController? _animationController;
   final List<Widget> children;
@@ -29,8 +28,7 @@ class AppAnimatedColumn extends StatefulWidget {
   State<AppAnimatedColumn> createState() => _AppAnimatedColumnState();
 }
 
-class _AppAnimatedColumnState extends State<AppAnimatedColumn>
-    with TickerProviderStateMixin {
+class _AppAnimatedColumnState extends State<AppAnimatedColumn> with TickerProviderStateMixin {
   AnimationController? _animationController;
   Timer? delay;
   @override
@@ -68,10 +66,8 @@ class _AppAnimatedColumnState extends State<AppAnimatedColumn>
       builder: (BuildContext context, Widget? child) {
         return Column(
           mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
-          crossAxisAlignment:
-              widget.crossAxisAlignment ?? CrossAxisAlignment.start,
-          mainAxisAlignment:
-              widget.mainAxisAlignment ?? MainAxisAlignment.start,
+          crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.start,
+          mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
           children: <Widget>[
             ...List<Widget>.generate(widget.children.length, (int index) {
               return FadeTransition(
@@ -90,22 +86,15 @@ class _AppAnimatedColumnState extends State<AppAnimatedColumn>
                 ),
                 child: SlideTransition(
                   position: Tween<Offset>(
-                    begin: widget.direction == Axis.vertical
-                        ? Offset(0.0, index == 0 ? 1.5 : .5)
-                        : const Offset(.25, 0.0),
+                    begin:
+                        widget.direction == Axis.vertical ? Offset(0.0, index == 0 ? 1.5 : .5) : const Offset(.25, 0.0),
                     end: Offset.zero,
                   ).animate(
                     CurvedAnimation(
                       curve: Interval(
-                        index == 0
-                            ? 0
-                            : 1 / widget.children.length * (index + 1) * 0.20,
-                        index == 0
-                            ? .5
-                            : 1 / widget.children.length * (index + 1),
-                        curve: index == 0
-                            ? Curves.fastLinearToSlowEaseIn
-                            : Curves.linearToEaseOut,
+                        index == 0 ? 0 : 1 / widget.children.length * (index + 1) * 0.20,
+                        index == 0 ? .5 : 1 / widget.children.length * (index + 1),
+                        curve: index == 0 ? Curves.fastLinearToSlowEaseIn : Curves.linearToEaseOut,
                       ),
                       parent: _animationController!,
                     ),
@@ -125,15 +114,14 @@ class AppAnimatedRow extends StatefulWidget {
   const AppAnimatedRow({
     AnimationController? animationController,
     required this.children,
-    Key? key,
+    super.key,
     this.mainAxisAlignment,
     this.duration,
     this.delay,
     this.crossAxisAlignment,
     this.direction = Axis.vertical,
     this.mainAxisSize,
-  })  : _animationController = animationController,
-        super(key: key);
+  }) : _animationController = animationController;
 
   final AnimationController? _animationController;
   final List<Widget> children;
@@ -148,16 +136,15 @@ class AppAnimatedRow extends StatefulWidget {
   State<AppAnimatedRow> createState() => _AppAnimatedRowState();
 }
 
-class _AppAnimatedRowState extends State<AppAnimatedRow>
-    with TickerProviderStateMixin {
+class _AppAnimatedRowState extends State<AppAnimatedRow> with TickerProviderStateMixin {
   late AnimationController _animationController;
   @override
   void initState() {
     _animationController = widget._animationController ??
         AnimationController(
-            vsync: this,
-            duration: widget.duration ??
-                Duration(milliseconds: widget.children.length * 300));
+          vsync: this,
+          duration: widget.duration ?? Duration(milliseconds: widget.children.length * 300),
+        );
 
     if (widget._animationController == null) {
       Future<void>.delayed(widget.delay ?? const Duration(milliseconds: 100))
@@ -182,10 +169,8 @@ class _AppAnimatedRowState extends State<AppAnimatedRow>
       builder: (BuildContext context, Widget? child) {
         return Row(
           mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
-          crossAxisAlignment:
-              widget.crossAxisAlignment ?? CrossAxisAlignment.start,
-          mainAxisAlignment:
-              widget.mainAxisAlignment ?? MainAxisAlignment.start,
+          crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.start,
+          mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
           children: <Widget>[
             ...List<Widget>.generate(widget.children.length, (int index) {
               return FadeTransition(
@@ -205,9 +190,7 @@ class _AppAnimatedRowState extends State<AppAnimatedRow>
                 ),
                 child: SlideTransition(
                   position: Tween<Offset>(
-                    begin: widget.direction == Axis.vertical
-                        ? const Offset(0.0, 1.0)
-                        : const Offset(1.0, 0.0),
+                    begin: widget.direction == Axis.vertical ? const Offset(0.0, 1.0) : const Offset(1.0, 0.0),
                     end: Offset.zero,
                   ).animate(
                     CurvedAnimation(

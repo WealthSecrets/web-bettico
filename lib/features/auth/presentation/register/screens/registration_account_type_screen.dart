@@ -6,11 +6,10 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '../../../data/models/user/user.dart';
 
 class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
-  RegistrationAccountTypeScreen({Key? key}) : super(key: key);
+  RegistrationAccountTypeScreen({super.key});
   final RegisterController registerController = Get.find<RegisterController>();
 
   @override
@@ -28,7 +27,6 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                   padding: AppPaddings.bodyH,
                   child: AppAnimatedColumn(
                     direction: Axis.horizontal,
-                    duration: const Duration(milliseconds: 1000),
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -36,11 +34,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                       Text(
                         'account_type'.tr,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 16),
                       ),
                       const AppSpacing(v: 47),
                       Row(
@@ -76,22 +70,15 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                               controller.accountType.value == AccountType.personal
                                   ? 'personal_account'.tr
                                   : 'oddster_account'.tr,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: context.colors.primary,
-                                fontSize: 12,
-                              ),
+                              style:
+                                  TextStyle(fontWeight: FontWeight.w700, color: context.colors.primary, fontSize: 12),
                             ),
                             const AppSpacing(v: 10),
                             Text(
                               controller.accountType.value == AccountType.personal
                                   ? 'personal_account_info'.tr
                                   : 'oddster_account_info'.tr,
-                              style: TextStyle(
-                                color: context.colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 10,
-                              ),
+                              style: TextStyle(color: context.colors.black, fontWeight: FontWeight.w600, fontSize: 10),
                             ),
                           ],
                         ),
@@ -103,11 +90,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
                         onPressed: () => registerController.updateRole(context),
                         child: Text(
                           'next'.tr.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                       const AppSpacing(v: 50),
@@ -124,12 +107,7 @@ class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
 }
 
 class _BuildAccountTypeCard extends StatelessWidget {
-  const _BuildAccountTypeCard({
-    Key? key,
-    required this.selected,
-    required this.type,
-    required this.onTap,
-  }) : super(key: key);
+  const _BuildAccountTypeCard({required this.selected, required this.type, required this.onTap});
 
   final bool selected;
   final AccountType type;
@@ -143,7 +121,7 @@ class _BuildAccountTypeCard extends StatelessWidget {
       },
       child: ClipRRect(
         borderRadius: AppBorderRadius.smallAll,
-        child: Container(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             color: selected ? context.colors.primary : Colors.white,
             borderRadius: AppBorderRadius.smallAll,
@@ -192,20 +170,13 @@ class _BuildAccountTypeCard extends StatelessWidget {
                   reverseDuration: const Duration(milliseconds: 400),
                   transitionBuilder: (Widget child, Animation<double> animation) {
                     final Animation<double> scale = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
-                    return ScaleTransition(
-                      scale: scale,
-                      child: child,
-                    );
+                    return ScaleTransition(scale: scale, child: child);
                   },
                   switchInCurve: Curves.elasticOut,
                   switchOutCurve: Curves.elasticInOut.flipped,
                   child: !selected
                       ? const SizedBox()
-                      : const Icon(
-                          CupertinoIcons.checkmark_square_fill,
-                          size: 27,
-                          color: Colors.white,
-                        ),
+                      : const Icon(CupertinoIcons.checkmark_square_fill, size: 27, color: Colors.white),
                 ),
               ),
             ],

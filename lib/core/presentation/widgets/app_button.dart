@@ -5,7 +5,7 @@ import '/core/core.dart';
 
 class AppButton extends StatefulWidget {
   const AppButton({
-    Key? key,
+    super.key,
     this.loading = false,
     this.enabled = true,
     this.hasShadow = false,
@@ -17,7 +17,7 @@ class AppButton extends StatefulWidget {
     this.spinnerColor,
     this.boxShadow,
     this.padding,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final Widget child;
@@ -93,12 +93,9 @@ class _AppButtonState extends State<AppButton> {
                       begin: Alignment.topLeft.add(const Alignment(.4, 0)),
                       end: Alignment.bottomRight,
                       colors: <Color>[
-                        context.colors.background
-                            .withOpacity(widget.enabled ? 0.0 : 0.6),
-                        context.colors.background
-                            .withOpacity(widget.enabled ? 0.0 : 0.6),
-                        context.colors.background
-                            .withOpacity(widget.enabled ? 0.0 : 0.6),
+                        context.colors.background.withOpacity(widget.enabled ? 0.0 : 0.6),
+                        context.colors.background.withOpacity(widget.enabled ? 0.0 : 0.6),
+                        context.colors.background.withOpacity(widget.enabled ? 0.0 : 0.6),
                       ],
                     ),
                   ),
@@ -118,7 +115,7 @@ class _AppButtonState extends State<AppButton> {
 
 class AppConstrainedButton extends StatelessWidget {
   const AppConstrainedButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.color,
@@ -128,7 +125,7 @@ class AppConstrainedButton extends StatelessWidget {
     this.selected = false,
     this.disabled = false,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   final String text;
   final VoidCallback onPressed;
@@ -143,23 +140,14 @@ class AppConstrainedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints:
-          constraints ?? const BoxConstraints(maxHeight: 25, minWidth: 80),
+      constraints: constraints ?? const BoxConstraints(maxHeight: 25, minWidth: 80),
       child: TextButton(
         style: TextButton.styleFrom(
           padding: AppPaddings.sV,
-          backgroundColor: selected
-              ? color?.withOpacity(disabled! ? 0.6 : 1) ?? Colors.white
-              : null,
+          backgroundColor: selected ? color?.withOpacity(disabled! ? 0.6 : 1) ?? Colors.white : null,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? AppBorderRadius.smallAll,
-            side: selected
-                ? BorderSide.none
-                : BorderSide(
-                    color: color ?? Colors.white,
-                    style: BorderStyle.solid,
-                    width: 1,
-                  ),
+            side: selected ? BorderSide.none : BorderSide(color: color ?? Colors.white),
           ),
         ),
         onPressed: () {

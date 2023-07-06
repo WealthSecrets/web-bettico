@@ -4,7 +4,7 @@ import '/core/core.dart';
 
 class AppSelectField<T> extends StatefulWidget {
   const AppSelectField({
-    Key? key,
+    super.key,
     required this.onChanged,
     this.value,
     this.validator,
@@ -18,7 +18,8 @@ class AppSelectField<T> extends StatefulWidget {
     this.customTitleBuilder,
     this.disabled = false,
     this.header,
-  }) : super(key: key);
+  });
+
   final void Function(T) onChanged;
   final T? value;
   final String? labelText;
@@ -58,8 +59,7 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
     if (widget.value != oldWidget.value) {
       _selectedItem.value = widget.value;
       controller.value = widget.value != null
-          ? TextEditingValue(
-              text: widget.titleBuilder(context, widget.value as T))
+          ? TextEditingValue(text: widget.titleBuilder(context, widget.value as T))
           : TextEditingValue.empty;
     }
   }
@@ -85,10 +85,7 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                 widget.labelText!,
                 textAlign: TextAlign.left,
                 style: widget.lableStyle ??
-                    context.overline.copyWith(
-                      color: context.colors.text,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    context.overline.copyWith(color: context.colors.text, fontWeight: FontWeight.w700),
               ),
             ),
           InkWell(
@@ -97,10 +94,7 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                 bounce: true,
                 animationCurve: Curves.fastLinearToSlowEaseIn,
                 shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30),
-                  ),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
                 ),
                 builder: (BuildContext context) {
                   return ConstrainedBox(
@@ -109,10 +103,8 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                       minHeight: MediaQuery.of(context).size.height * .6,
                     ),
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30),
-                      ),
+                      borderRadius:
+                          const BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
                       child: ListView.separated(
                         shrinkWrap: true,
                         controller: ModalScrollController.of(context),
@@ -123,43 +115,30 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                           final bool selected = item == _selectedItem.value;
                           final TextButton childListItem = TextButton(
                             style: TextButton.styleFrom(
-                              backgroundColor: selected
-                                  ? context.colors.primary.shade100
-                                  : Colors.transparent,
+                              backgroundColor: selected ? context.colors.primary.shade100 : Colors.transparent,
                             ),
                             onPressed: () {
                               FocusScope.of(context).unfocus();
                               widget.onChanged(item);
                               _selectedItem.value = item;
-                              controller.value = TextEditingValue(
-                                  text: widget.titleBuilder(context, item));
+                              controller.value = TextEditingValue(text: widget.titleBuilder(context, item));
                               Navigator.of(context).pop();
                             },
                             child: Padding(
                               padding: AppPaddings.mH.add(AppPaddings.mV),
                               child: widget.customTitleBuilder != null
-                                  ? widget.customTitleBuilder!(
-                                      context, item, selected)
+                                  ? widget.customTitleBuilder!(context, item, selected)
                                   : Text(
                                       widget.titleBuilder(context, item),
                                       style: context.body2.copyWith(
-                                        fontWeight: selected
-                                            ? FontWeight.bold
-                                            : FontWeight.w300,
-                                        color: selected
-                                            ? context.colors.primary
-                                            : context.colors.textDark,
+                                        fontWeight: selected ? FontWeight.bold : FontWeight.w300,
+                                        color: selected ? context.colors.primary : context.colors.textDark,
                                       ),
                                     ),
                             ),
                           );
                           if (index == 0 && widget.header != null) {
-                            return Column(
-                              children: <Widget>[
-                                widget.header!(context),
-                                childListItem
-                              ],
-                            );
+                            return Column(children: <Widget>[widget.header!(context), childListItem]);
                           }
 
                           return childListItem;
@@ -180,23 +159,14 @@ class _AppSelectFieldState<T> extends State<AppSelectField<T>> {
                       : AppTextInput(
                           disabled: widget.disabled,
                           hideLabel: true,
-                          validator: (_) {
-                            return null;
-                          },
-                          initialValue: item == null
-                              ? ''
-                              : widget.titleBuilder(context, item),
+                          validator: (_) => null,
+                          initialValue: item == null ? '' : widget.titleBuilder(context, item),
                           controller: controller,
-                          backgroundColor: widget.backgroundColor ??
-                              context.colors.primary.shade50,
+                          backgroundColor: widget.backgroundColor ?? context.colors.primary.shade50,
                           hintText: '',
                           onChanged: (_) {},
                           suffixIcon: widget.showIcon
-                              ? Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 30,
-                                  color: context.colors.text,
-                                )
+                              ? Icon(Icons.arrow_drop_down, size: 30, color: context.colors.text)
                               : null,
                         ),
                 );

@@ -156,7 +156,7 @@ class OkxController extends GetxController {
   }
 
   void setSelectedCurrency(String chain) {
-    selectedChain.value = chain;
+    selectedChain(chain);
   }
 
   void fetchConvertCurrencies(BuildContext context) async {
@@ -376,9 +376,11 @@ class OkxController extends GetxController {
     } else {
       keyword(value);
       final List<Currency> values = options
-          .where((Currency p0) =>
-              p0.currency.toLowerCase().contains(keyword.value.toLowerCase()) ||
-              p0.chain != null && p0.chain!.toLowerCase().contains(keyword.value.toLowerCase()))
+          .where(
+            (Currency p0) =>
+                p0.currency.toLowerCase().contains(keyword.value.toLowerCase()) ||
+                p0.chain != null && p0.chain!.toLowerCase().contains(keyword.value.toLowerCase()),
+          )
           .toList();
       searchCurrencies(values);
     }

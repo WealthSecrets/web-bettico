@@ -1,15 +1,9 @@
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../core.dart';
-
 class AppFailureScreen extends StatelessWidget {
-  const AppFailureScreen(
-    this.message, {
-    Key? key,
-    this.onRetry,
-    this.lightTheme = true,
-  }) : super(key: key);
+  const AppFailureScreen(this.message, {super.key, this.onRetry, this.lightTheme = true});
   final String message;
   final VoidCallback? onRetry;
   final bool lightTheme;
@@ -23,18 +17,10 @@ class AppFailureScreen extends StatelessWidget {
         const AppSpacing(v: 10),
         Stack(
           children: <Widget>[
-            Icon(
-              Ionicons.information_outline,
-              color: context.colors.darkRed,
-              size: 40,
-            ),
+            Icon(Ionicons.information_outline, color: context.colors.darkRed, size: 40),
             Transform.translate(
               offset: const Offset(3, 3),
-              child: Icon(
-                Ionicons.information,
-                color: context.colors.darkRed.withOpacity(.1),
-                size: 40,
-              ),
+              child: Icon(Ionicons.information, color: context.colors.darkRed.withOpacity(.1), size: 40),
             ),
           ],
         ),
@@ -54,15 +40,10 @@ class AppFailureScreen extends StatelessWidget {
         const AppSpacing(v: 10),
         TextButton(
           onPressed: onRetry,
-          style: TextButton.styleFrom(
-            backgroundColor: context.colors.primary.shade100,
-          ),
+          style: TextButton.styleFrom(backgroundColor: context.colors.primary.shade100),
           child: Text(
             'Retry',
-            style: context.caption.copyWith(
-              fontWeight: FontWeight.w700,
-              color: context.colors.primary,
-            ),
+            style: context.caption.copyWith(fontWeight: FontWeight.w700, color: context.colors.primary),
           ),
         )
       ],

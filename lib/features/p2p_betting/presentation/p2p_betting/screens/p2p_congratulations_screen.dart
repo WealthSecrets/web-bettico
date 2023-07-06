@@ -5,12 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class P2PBettingCongratScreen extends StatefulWidget {
-  const P2PBettingCongratScreen({
-    Key? key,
-  }) : super(key: key);
+  const P2PBettingCongratScreen({super.key});
   @override
-  State<P2PBettingCongratScreen> createState() =>
-      _P2PBettingCongratScreenState();
+  State<P2PBettingCongratScreen> createState() => _P2PBettingCongratScreenState();
 }
 
 class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
@@ -27,21 +24,13 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
           children: <Widget>[
             Text(
               'Congratulation! 🎉',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: context.colors.success,
-                fontSize: 20,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.success, fontSize: 20),
               textAlign: TextAlign.center,
             ),
             const AppSpacing(v: 8),
             Text(
               'You have placed the bet successfully.\nGood luck to you.',
-              style: TextStyle(
-                color: context.colors.text,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-              ),
+              style: TextStyle(color: context.colors.text, fontWeight: FontWeight.w600, fontSize: 12),
               textAlign: TextAlign.center,
             ),
             const AppSpacing(v: 16),
@@ -58,20 +47,14 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         padding: AppPaddings.sA,
                         decoration: BoxDecoration(
                           border: p2pBetController.bet.value.creator.team !=
-                                  p2pBetController
-                                      .liveScore.value.localTeam.data.name
+                                  p2pBetController.liveScore.value.localTeam.data.name
                               ? null
-                              : Border.all(
-                                  color: context.colors.primary,
-                                  width: 2,
-                                  style: BorderStyle.solid,
-                                ),
+                              : Border.all(color: context.colors.primary, width: 2),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Center(
                           child: Image.network(
-                            p2pBetController
-                                .liveScore.value.localTeam.data.logo,
+                            p2pBetController.liveScore.value.localTeam.data.logo,
                             height: 45,
                             width: 45,
                           ),
@@ -80,20 +63,13 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       const AppSpacing(v: 8),
                       Text(
                         p2pBetController.liveScore.value.localTeam.data.name,
-                        style: TextStyle(
-                          color: context.colors.black,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: context.colors.black, fontSize: 12),
                       ),
                     ],
                   ),
                   const Text(
                     'Vrs',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Column(
                     children: <Widget>[
@@ -103,20 +79,14 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                         padding: AppPaddings.sA,
                         decoration: BoxDecoration(
                           border: p2pBetController.bet.value.creator.team !=
-                                  p2pBetController
-                                      .liveScore.value.visitorTeam.data.name
+                                  p2pBetController.liveScore.value.visitorTeam.data.name
                               ? null
-                              : Border.all(
-                                  color: context.colors.primary,
-                                  width: 2,
-                                  style: BorderStyle.solid,
-                                ),
+                              : Border.all(color: context.colors.primary, width: 2),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Center(
                           child: Image.network(
-                            p2pBetController
-                                .liveScore.value.visitorTeam.data.logo,
+                            p2pBetController.liveScore.value.visitorTeam.data.logo,
                             height: 45,
                             width: 45,
                           ),
@@ -125,10 +95,7 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
                       const AppSpacing(v: 8),
                       Text(
                         p2pBetController.liveScore.value.visitorTeam.data.name,
-                        style: TextStyle(
-                          color: context.colors.black,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: context.colors.black, fontSize: 12),
                       ),
                     ],
                   ),
@@ -141,44 +108,27 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
               child: Row(
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       const Text(
                         'Choice: ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                       Text(
-                        p2pBetController.bet.value.creator.choice.stringValue
-                            .toUpperCase(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: context.colors.success,
-                          fontSize: 12,
-                        ),
+                        p2pBetController.bet.value.creator.choice.stringValue.toUpperCase(),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.success, fontSize: 12),
                       ),
                     ],
                   ),
                   const Spacer(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       const Text(
                         'Potential Reward: ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                       Text(
                         '\$${p2pBetController.bet.value.amount * 2}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: context.colors.success,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.success, fontSize: 12),
                       ),
                     ],
                   )
@@ -189,16 +139,11 @@ class _P2PBettingCongratScreenState extends State<P2PBettingCongratScreen> {
             Padding(
               padding: AppPaddings.bodyH,
               child: AppButton(
-                enabled: true,
                 borderRadius: AppBorderRadius.largeAll,
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   'Back Home'.toUpperCase(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 14),
                 ),
               ),
             ),

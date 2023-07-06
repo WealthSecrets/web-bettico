@@ -2,17 +2,17 @@ import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
 class SelectableButton extends StatelessWidget {
-  const SelectableButton(
-      {Key? key,
-      required this.text,
-      required this.onPressed,
-      this.color,
-      this.textColor,
-      this.constraints,
-      this.fontSize,
-      this.selected,
-      this.tagValue})
-      : super(key: key);
+  const SelectableButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.color,
+    this.textColor,
+    this.constraints,
+    this.fontSize,
+    this.selected,
+    this.tagValue,
+  });
 
   final String text;
   final String? tagValue;
@@ -31,9 +31,7 @@ class SelectableButton extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14),
           backgroundColor: color ?? (selected ?? false ? context.colors.primary : const Color(0xFFD7D7D7)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
         onPressed: onPressed,
         child: Row(

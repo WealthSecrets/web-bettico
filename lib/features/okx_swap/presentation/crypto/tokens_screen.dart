@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import '../../data/models/currency/currency.dart';
 
 class TokenScreen extends StatefulWidget {
-  const TokenScreen({Key? key}) : super(key: key);
+  const TokenScreen({super.key});
 
   @override
   State<TokenScreen> createState() => _TokenScreenState();
@@ -56,14 +56,13 @@ class _TokenScreenState extends State<TokenScreen> {
 
 class _TokenCard extends StatelessWidget {
   const _TokenCard({
-    Key? key,
     required this.currency,
     this.imagePath,
     required this.marketValue,
     required this.balance,
     required this.eqUsd,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onPressed;
   final String? imagePath;

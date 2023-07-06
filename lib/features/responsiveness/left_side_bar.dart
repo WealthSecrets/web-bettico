@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../core/presentation/helpers/responsiveness.dart';
 import '../../core/presentation/routes/side_menu_routes.dart';
 import '../../core/presentation/utils/app_endpoints.dart';
 import 'constants/web_controller.dart';
@@ -74,15 +73,17 @@ class _LeftSideBarState extends State<LeftSideBar> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             _UserColumnButton(
-                                context: context,
-                                title: 'Following',
-                                subtitle: '${widget.user.following}',
-                                onPressed: () {}),
+                              context: context,
+                              title: 'Following',
+                              subtitle: '${widget.user.following}',
+                              onPressed: () {},
+                            ),
                             _UserColumnButton(
-                                context: context,
-                                title: 'Followers',
-                                subtitle: '${widget.user.followers}',
-                                onPressed: () {}),
+                              context: context,
+                              title: 'Followers',
+                              subtitle: '${widget.user.followers}',
+                              onPressed: () {},
+                            ),
                           ],
                         ),
                       )
@@ -96,27 +97,14 @@ class _LeftSideBarState extends State<LeftSideBar> {
                         children: <Widget>[
                           Text(
                             '${widget.user.firstName} ${widget.user.lastName}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
-                          if (widget.user.isVerified)
-                            Image.asset(
-                              AssetImages.verified,
-                              height: 14,
-                              width: 14,
-                            ),
+                          if (widget.user.isVerified) Image.asset(AssetImages.verified, height: 14, width: 14),
                         ],
                       ),
                       Text(
                         '@${widget.user.username}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: context.colors.text,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 12, color: context.colors.text, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -144,8 +132,10 @@ class _LeftSideBarState extends State<LeftSideBar> {
                     } else if (!menuController.isActive(item.route)) {
                       menuController.changeActiveItemTo(item.route);
                       if (item.route == AppRoutes.profile) {
-                        navigationController.navigateTo(item.route,
-                            arguments: ProfileScreenArgument(user: widget.user));
+                        navigationController.navigateTo(
+                          item.route,
+                          arguments: ProfileScreenArgument(user: widget.user),
+                        );
                       } else {
                         navigationController.navigateTo(item.route);
                       }
@@ -214,12 +204,11 @@ class _LeftSideBarState extends State<LeftSideBar> {
 
 class _UserColumnButton extends StatelessWidget {
   const _UserColumnButton({
-    Key? key,
     required this.context,
     required this.title,
     required this.subtitle,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final BuildContext context;
   final String title;
@@ -235,19 +224,11 @@ class _UserColumnButton extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              color: context.colors.text,
-            ),
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: context.colors.text),
           ),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: context.colors.textDark,
-            ),
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: context.colors.textDark),
           )
         ],
       ),
