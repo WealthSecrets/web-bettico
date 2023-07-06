@@ -1,51 +1,36 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:flutter/material.dart';
 
 class LargeUnAthenticatedBottomNavbar extends StatelessWidget {
-  const LargeUnAthenticatedBottomNavbar({
-    Key? key,
-  }) : super(key: key);
+  const LargeUnAthenticatedBottomNavbar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 80),
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 16,
-        ),
-        decoration: BoxDecoration(
-          color: context.colors.primary,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(color: context.colors.primary),
         child: Row(
           children: <Widget>[
             const Expanded(flex: 4, child: SizedBox()),
             const Expanded(
-                flex: 6,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Don\'t have an account?',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Sign up now to know what\'s happening on Xviral.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                )),
+              flex: 6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Don\'t have an account?',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Sign up now to know what\'s happening on Xviral.',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               flex: 4,
               child: Padding(
@@ -72,7 +57,7 @@ class LargeUnAthenticatedBottomNavbar extends StatelessWidget {
                 ),
               ),
             ),
-            const Expanded(flex: 1, child: SizedBox()),
+            const Expanded(child: SizedBox()),
           ],
         ),
       ),

@@ -4,7 +4,7 @@ import '/core/core.dart';
 
 class AppSelectableTile extends StatelessWidget {
   const AppSelectableTile({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.selected,
@@ -14,7 +14,7 @@ class AppSelectableTile extends StatelessWidget {
     this.padding,
     this.width,
     this.textOverflow,
-  }) : super(key: key);
+  });
   final Widget icon;
   final String title;
   final String? subtitle;
@@ -33,15 +33,8 @@ class AppSelectableTile extends StatelessWidget {
       duration: const Duration(milliseconds: 800),
       decoration: BoxDecoration(
         borderRadius: AppBorderRadius.largeAll.add(AppBorderRadius.mediumAll),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: context.colors.textDark.withOpacity(.2),
-          ),
-        ],
-        border: Border.all(
-          width: 1.4,
-          color: selected ? context.colors.primary : context.colors.primary.shade100,
-        ),
+        boxShadow: <BoxShadow>[BoxShadow(color: context.colors.textDark.withOpacity(.2))],
+        border: Border.all(width: 1.4, color: selected ? context.colors.primary : context.colors.primary.shade100),
       ),
       child: TextButton(
         onPressed: onPressed,
@@ -59,10 +52,7 @@ class AppSelectableTile extends StatelessWidget {
               reverseDuration: Duration.zero,
               transitionBuilder: (Widget child, Animation<double> animation) {
                 final Animation<double> scale = Tween<double>(begin: selected ? 0.7 : 1.0, end: 1.0).animate(animation);
-                return ScaleTransition(
-                  scale: scale,
-                  child: child,
-                );
+                return ScaleTransition(scale: scale, child: child);
               },
               switchInCurve: Curves.elasticOut,
               switchOutCurve: Curves.elasticInOut.flipped,
@@ -114,20 +104,14 @@ class AppSelectableTile extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     title,
-                    style: context.caption.copyWith(
-                      color: context.colors.textDark,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w600),
                     overflow: textOverflow,
                   ),
                   if (subtitle != null) const AppSpacing(v: 4),
                   if (subtitle != null)
                     Text(
                       subtitle!,
-                      style: context.overline.copyWith(
-                        color: context.colors.textDark,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: context.overline.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w600),
                       overflow: textOverflow,
                     ),
                 ],

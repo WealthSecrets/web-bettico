@@ -52,13 +52,13 @@ class User with _$User {
         lastName: Faker().person.lastName(),
         username: Faker().person.name(),
         dateOfBirth: Faker().date.dateTime(maxYear: 1998, minYear: 1960),
-        phone: '+233024${Faker().randomGenerator.integer(9999999, min: 0)}',
+        phone: '+233024${Faker().randomGenerator.integer(9999999)}',
         role: 'user',
         passwordResetToken: '',
         walletAddress: '',
-        followers: Faker().randomGenerator.integer(999, min: 0),
-        following: Faker().randomGenerator.integer(999, min: 0),
-        referrals: Faker().randomGenerator.integer(999, min: 0),
+        followers: Faker().randomGenerator.integer(999),
+        following: Faker().randomGenerator.integer(999),
+        referrals: Faker().randomGenerator.integer(999),
         isBusiness: false,
       );
 

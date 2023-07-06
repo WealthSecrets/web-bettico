@@ -28,12 +28,13 @@ class Bettor with _$Bettor {
   factory Bettor.fromJson(Map<String, dynamic> json) => _$BettorFromJson(json);
 
   factory Bettor.mock() => Bettor(
-      choice: Faker().randomGenerator.element(BettorChoice.values),
-      id: const Uuid().v1(),
-      team: Faker().person.name(),
-      teamId: Random().nextInt(1000),
-      user: User.empty(),
-      wallet: '');
+        choice: Faker().randomGenerator.element(BettorChoice.values),
+        id: const Uuid().v1(),
+        team: Faker().person.name(),
+        teamId: Random().nextInt(1000),
+        user: User.empty(),
+        wallet: '',
+      );
 
   factory Bettor.empty() => Bettor(
         choice: Faker().randomGenerator.element(BettorChoice.values),

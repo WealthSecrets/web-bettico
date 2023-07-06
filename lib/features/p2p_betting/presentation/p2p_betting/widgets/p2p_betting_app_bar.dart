@@ -3,18 +3,14 @@ import 'package:flutter/material.dart';
 import '/core/core.dart';
 
 class P2PBettingAppBar extends StatelessWidget {
-  const P2PBettingAppBar({
-    Key? key,
-    this.title,
-    this.subtitle,
-  }) : super(key: key);
+  const P2PBettingAppBar({super.key, this.title, this.subtitle});
+
   final String? title;
   final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      pinned: false,
       floating: true,
       backgroundColor: Colors.transparent,
       leading: const Align(
@@ -25,7 +21,6 @@ class P2PBettingAppBar extends StatelessWidget {
       flexibleSpace: BlurredBox(
         backgroundColor: context.colors.background.withOpacity(.9),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
@@ -47,7 +42,6 @@ class P2PBettingAppBar extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
-            // const SizedBox(height: 20),
           ],
         ),
       ),

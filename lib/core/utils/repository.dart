@@ -10,12 +10,15 @@ abstract class Repository {
     Future<T> Function()? onTimeOut,
   }) async {
     try {
-      final T response = await request.timeout(duration ?? const Duration(seconds: 30), onTimeout: () async {
-        if (onTimeOut != null) {
-          return onTimeOut();
-        }
-        throw TimeoutException(null, duration);
-      });
+      final T response = await request.timeout(
+        duration ?? const Duration(seconds: 30),
+        onTimeout: () async {
+          if (onTimeOut != null) {
+            return onTimeOut();
+          }
+          throw TimeoutException(null, duration);
+        },
+      );
       return right(response);
     } on ServerException catch (exception) {
       return left(Failure.server(message: exception.message ?? 'Something went wrong technically'));

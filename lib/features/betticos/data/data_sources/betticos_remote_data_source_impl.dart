@@ -131,7 +131,9 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   Future<PaginatedResponseData<Post>> explorePosts(int page, int limit) async {
     final Map<String, dynamic> json = await _client.get(BetticosEndpoints.explore(page, limit));
     return PaginatedResponseData<Post>.fromJson(
-        json, (Object? j) => j == null ? Post.empty() : Post.fromJson(j as Map<String, dynamic>));
+      json,
+      (Object? j) => j == null ? Post.empty() : Post.fromJson(j as Map<String, dynamic>),
+    );
   }
 
   @override

@@ -12,10 +12,8 @@ import '../../../data/models/bettor/bettor.dart';
 import 'match_avatar.dart';
 
 class P2PBettingBottomSheet extends StatefulWidget {
-  const P2PBettingBottomSheet({
-    Key? key,
-    required this.bet,
-  }) : super(key: key);
+  const P2PBettingBottomSheet({super.key, required this.bet});
+
   final Bet bet;
 
   @override
@@ -44,53 +42,36 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                 const AppSpacing(v: 16),
                 Text(
                   'Creator of Bet',
-                  style: context.caption.copyWith(
-                    color: context.colors.textDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                 ),
                 const AppSpacing(v: 8),
                 _buildUserAvatar(widget.bet.creator.user),
                 const AppSpacing(v: 8),
                 Text(
                   'Creator\'s team',
-                  style: context.caption.copyWith(
-                    color: context.colors.textDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                 ),
                 const AppSpacing(v: 5),
                 Text(
                   widget.bet.creator.team,
-                  style: context.caption.copyWith(
-                    color: context.colors.text,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.caption.copyWith(color: context.colors.text, fontWeight: FontWeight.w700),
                 ),
                 const AppSpacing(v: 8),
                 Text(
                   'Creator\'s choice',
-                  style: context.caption.copyWith(
-                    color: context.colors.textDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                 ),
                 const AppSpacing(v: 5),
                 Text(
                   StringUtils.capitalizeFirst(widget.bet.creator.choice.stringValue),
-                  style: context.caption.copyWith(
-                    color: widget.bet.creator.choice.color(context),
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.caption
+                      .copyWith(color: widget.bet.creator.choice.color(context), fontWeight: FontWeight.w700),
                 ),
                 if (widget.bet.opponent != null) const AppSpacing(v: 16),
                 if (widget.bet.opponent != null)
                   Text(
                     'Opponent',
-                    style: context.caption.copyWith(
-                      color: context.colors.textDark,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                   ),
                 if (widget.bet.opponent != null) const AppSpacing(v: 8),
                 if (widget.bet.opponent != null) _buildUserAvatar(widget.bet.opponent!.user),
@@ -98,37 +79,26 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                 if (widget.bet.opponent != null)
                   Text(
                     'Opponent\'s team',
-                    style: context.caption.copyWith(
-                      color: context.colors.textDark,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                   ),
                 if (widget.bet.opponent != null) const AppSpacing(v: 5),
                 if (widget.bet.opponent != null)
                   Text(
                     widget.bet.opponent!.team,
-                    style: context.caption.copyWith(
-                      color: context.colors.text,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: context.caption.copyWith(color: context.colors.text, fontWeight: FontWeight.w700),
                   ),
                 if (widget.bet.opponent != null) const AppSpacing(v: 8),
                 if (widget.bet.opponent != null)
                   Text(
                     'Opponent\'s choice',
-                    style: context.caption.copyWith(
-                      color: context.colors.textDark,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                   ),
                 if (widget.bet.opponent != null) const AppSpacing(v: 5),
                 if (widget.bet.opponent != null)
                   Text(
                     StringUtils.capitalizeFirst(widget.bet.opponent!.choice.stringValue),
-                    style: context.caption.copyWith(
-                      color: widget.bet.opponent!.choice.color(context),
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: context.caption
+                        .copyWith(color: widget.bet.opponent!.choice.color(context), fontWeight: FontWeight.w700),
                   ),
                 const AppSpacing(v: 8),
                 Row(
@@ -136,14 +106,9 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
                   children: <Widget>[
                     Text(
                       'Date Created',
-                      style: context.caption.copyWith(
-                        color: context.colors.textDark,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.w700),
                     ),
-                    TimeCard(
-                      dateTime: widget.bet.createdAt,
-                    ),
+                    TimeCard(dateTime: widget.bet.createdAt),
                   ],
                 ),
               ],
@@ -155,10 +120,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
           top: 0,
           child: TextButton(
             onPressed: Navigator.of(context).pop,
-            child: Icon(
-              Icons.cancel_rounded,
-              color: context.colors.error,
-            ),
+            child: Icon(Icons.cancel_rounded, color: context.colors.error),
           ),
         ),
       ],
@@ -191,17 +153,11 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
             children: <Widget>[
               Text(
                 '${user.firstName} ${user.lastName}',
-                style: context.body2.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: context.body2.copyWith(color: Colors.black, fontWeight: FontWeight.w600),
               ),
               Text(
                 '@${user.username}',
-                style: TextStyle(
-                  color: context.colors.grey,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: context.colors.grey, fontSize: 12),
               ),
               const AppSpacing(v: 5),
             ],
@@ -218,13 +174,11 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
         SizedBox(
           width: 100,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               MatchAvatar(
                 logo: widget.bet.homeTeam.logo,
                 selected: true,
                 disabled: false,
-                onPressed: null,
                 backgroundColor: widget.bet.creator.teamId == widget.bet.homeTeam.teamId
                     ? widget.bet.creator.choice.color(context)
                     : widget.bet.opponent?.teamId == widget.bet.homeTeam.teamId
@@ -234,10 +188,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
               const AppSpacing(v: 8),
               Text(
                 widget.bet.homeTeam.name,
-                style: TextStyle(
-                  color: context.colors.black,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: context.colors.black, fontSize: 12),
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -252,38 +203,25 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
               children: <Widget>[
                 Text(
                   score.first,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
                 ),
                 const AppSpacing(h: 5),
                 const Text(
                   '-',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                 ),
                 const AppSpacing(h: 5),
                 Text(
                   score.last,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
                 ),
               ],
             ),
             const AppSpacing(v: 8),
             Container(
               padding: AppPaddings.sV.add(AppPaddings.mH),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: widget.bet.status.color(context),
-              ),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(50), color: widget.bet.status.color(context)),
               child: Center(
                 child: Text(
                   widget.bet.status.stringAmount(widget.bet.amount),
@@ -301,13 +239,11 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
         SizedBox(
           width: 100,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               MatchAvatar(
                 logo: widget.bet.awayTeam.logo,
                 selected: true,
                 disabled: false,
-                onPressed: null,
                 backgroundColor: widget.bet.creator.teamId == widget.bet.awayTeam.teamId
                     ? widget.bet.creator.choice.color(context)
                     : widget.bet.opponent?.teamId == widget.bet.awayTeam.teamId
@@ -317,10 +253,7 @@ class _P2PBettingBottomSheetState extends State<P2PBettingBottomSheet> {
               const AppSpacing(v: 8),
               Text(
                 widget.bet.awayTeam.name,
-                style: TextStyle(
-                  color: context.colors.black,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: context.colors.black, fontSize: 12),
                 overflow: TextOverflow.ellipsis,
               ),
             ],

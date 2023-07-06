@@ -458,7 +458,6 @@ class RegisterController extends GetxController {
 
   void onPhoneInputChanged(String? number, String? isoCode) {
     if (number != null) {
-      print('the phone number received: $number');
       phone.value = number;
     }
     if (isoCode != null) {

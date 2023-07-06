@@ -1,15 +1,12 @@
-// import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '/core/core.dart';
 
 class AppPinCodeTextField extends StatelessWidget {
   const AppPinCodeTextField({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.length,
     this.onCompleted,
@@ -17,7 +14,7 @@ class AppPinCodeTextField extends StatelessWidget {
     this.inputFormatters = const <TextInputFormatter>[],
     this.label,
     this.validator,
-  }) : super(key: key);
+  });
 
   final List<TextInputFormatter> inputFormatters;
   final Function(String pin) onChanged;
@@ -40,11 +37,7 @@ class AppPinCodeTextField extends StatelessWidget {
               child: Text(
                 label!,
                 textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: context.colors.text,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: context.colors.text, fontWeight: FontWeight.w700, fontSize: 12),
               ),
             ),
           ),
@@ -57,11 +50,7 @@ class AppPinCodeTextField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           animationCurve: Curves.fastLinearToSlowEaseIn,
           enableActiveFill: true,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w800,
-            color: context.colors.primary,
-            fontSize: 18,
-          ),
+          textStyle: TextStyle(fontWeight: FontWeight.w800, color: context.colors.primary, fontSize: 18),
           validator: validator,
           errorTextSpace: 20,
           errorAnimationDuration: 400,
@@ -77,8 +66,6 @@ class AppPinCodeTextField extends StatelessWidget {
             selectedFillColor: context.colors.primary.shade100,
             inactiveColor: context.colors.primary.shade100,
             selectedColor: context.colors.primary.shade100,
-            // fieldHeight: 60.w,
-            // fieldWidth: max(42.w, (1.sw / length) - (76 / 6) - (48.w / length)),
           ),
           animationDuration: const Duration(milliseconds: 700),
           backgroundColor: Colors.transparent,

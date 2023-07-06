@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import '/features/onboarding_splash/presentation/splash/getx/splash_controller.d
 
 // ignore: must_be_immutable
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -33,11 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: ResponsiveWidget.isSmallScreen(context)
-            ? CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 50,
-                child: Image.asset(AssetImages.logo),
-              )
+            ? CircleAvatar(backgroundColor: Colors.white, radius: 50, child: Image.asset(AssetImages.logo))
             : const LoadingLogo(),
       ),
     );

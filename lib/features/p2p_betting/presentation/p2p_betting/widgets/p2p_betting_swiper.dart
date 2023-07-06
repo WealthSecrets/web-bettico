@@ -7,9 +7,7 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 
 class P2PBettingSwiper extends StatefulWidget {
-  const P2PBettingSwiper({
-    Key? key,
-  }) : super(key: key);
+  const P2PBettingSwiper({super.key});
 
   @override
   State<P2PBettingSwiper> createState() => _P2PBettingSwiperState();
@@ -27,12 +25,8 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
   @override
   void initState() {
     final double fraction = (1.sw - 30) / 1.sw;
-    _controller = PageController(
-      viewportFraction: fraction,
-    );
-    ongoingBets = _p2pBetController.bets
-        .where((Bet b) => b.status == BetStatus.ongoing)
-        .toList();
+    _controller = PageController(viewportFraction: fraction);
+    ongoingBets = _p2pBetController.bets.where((Bet b) => b.status == BetStatus.ongoing).toList();
     super.initState();
   }
 
@@ -52,15 +46,11 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                 SizedBox(
                   height: 125,
                   child: PageView(
-                    onPageChanged: (int index) =>
-                        _activePageValueNotifier.value = index,
+                    onPageChanged: (int index) => _activePageValueNotifier.value = index,
                     controller: _controller,
                     children: <Widget>[
                       ...ongoingBets.map(
-                        (Bet b) => P2PBettingHistoryCard(
-                          bet: b,
-                          isMyBets: false,
-                        ),
+                        (Bet b) => P2PBettingHistoryCard(bet: b, isMyBets: false),
                       ),
                     ],
                   ),
@@ -69,10 +59,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                 ValueListenableBuilder<int>(
                   valueListenable: _activePageValueNotifier,
                   builder: (_, int activePage, __) {
-                    return PageViewIndicators(
-                      activeItemIndex: activePage,
-                      itemCount: ongoingBets.length,
-                    );
+                    return PageViewIndicators(activeItemIndex: activePage, itemCount: ongoingBets.length);
                   },
                 )
               ],
@@ -88,10 +75,7 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
                 margin: AppPaddings.lH.add(AppPaddings.sT),
                 decoration: BoxDecoration(
                   color: context.colors.primary.shade50,
-                  border: Border.all(
-                    color: context.colors.primary.shade100,
-                    width: 1,
-                  ),
+                  border: Border.all(color: context.colors.primary.shade100),
                   borderRadius: AppBorderRadius.card,
                 ),
               ),
@@ -101,13 +85,9 @@ class _P2PBettingSwiperState extends State<P2PBettingSwiper> {
 }
 
 class P2POngoingCard extends StatelessWidget {
-  const P2POngoingCard({
-    Key? key,
-    required this.bet,
-    this.backgroundColor,
-  }) : super(key: key);
-  final Bet bet;
+  const P2POngoingCard({super.key, required this.bet, this.backgroundColor});
 
+  final Bet bet;
   final Color? backgroundColor;
 
   @override
@@ -115,66 +95,23 @@ class P2POngoingCard extends StatelessWidget {
     return Container(
       padding: AppPaddings.sA,
       margin: const EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        color: backgroundColor ?? context.colors.primary.shade100,
-      ),
-      child: Column(
+      decoration: BoxDecoration(color: backgroundColor ?? context.colors.primary.shade100),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                padding: AppPaddings.mH.add(AppPaddings.sV),
-                decoration: BoxDecoration(
-                  borderRadius: AppBorderRadius.largeAll,
-                  color: bet.status.color(context).withOpacity(.3),
-                  border: Border.all(
-                    color: bet.status.color(context),
-                    width: 1,
-                  ),
-                ),
-                child: Text(
-                  bet.status.stringValue.toUpperCase(),
-                  style: context.overline.copyWith(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w700,
-                    color: bet.status.color(context),
-                  ),
-                ),
-              ),
-            ],
+          Container(
+            padding: AppPaddings.mH.add(AppPaddings.sV),
+            decoration: BoxDecoration(
+              borderRadius: AppBorderRadius.largeAll,
+              color: bet.status.color(context).withOpacity(.3),
+              border: Border.all(color: bet.status.color(context)),
+            ),
+            child: Text(
+              bet.status.stringValue.toUpperCase(),
+              style:
+                  context.overline.copyWith(fontSize: 8, fontWeight: FontWeight.w700, color: bet.status.color(context)),
+            ),
           ),
-          const AppSpacing(v: 8),
-          // FutureBuilder<SoccerMatch?>(
-          //   future: _p2pBetController.getLiveTeamMatch(
-          //     context,
-          //     bet.creator.teamId,
-          //     bet.competitionId,
-          //     bet.isFixture ?? false
-          //         ? bet.date!
-          //         : DateFormat('yyyy-MM-dd').format(bet.createdAt),
-          //     isFixture: bet.isFixture,
-          //   ),
-          //   builder:
-          //       (BuildContext context, AsyncSnapshot<SoccerMatch?> snapshot) {
-          //     if (snapshot.hasData) {
-          //       return snapshot.data != null
-          //           ? ScoreRow(
-          //               awayName: snapshot.data!.awayName,
-          //               homeName: snapshot.data!.homeName,
-          //               score: snapshot.data!.score!,
-          //               time: snapshot.data!.time,
-          //             )
-          //           : const SizedBox.shrink();
-          //     } else if (snapshot.hasError) {
-          //       return AppFailureScreen(snapshot.error.toString());
-          //     } else {
-          //       return const Center(
-          //         child: LoadingLogo(),
-          //       );
-          //     }
-          //   },
-          // ),
         ],
       ),
     );

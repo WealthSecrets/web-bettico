@@ -8,22 +8,14 @@ Widget topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldK
     color: Colors.white,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         IconButton(
           onPressed: () {
             scaffoldKey.currentState?.openDrawer();
           },
-          icon: Icon(
-            Icons.menu,
-            color: context.colors.textDark,
-          ),
+          icon: Icon(Icons.menu, color: context.colors.textDark),
         ),
-        Image.asset(
-          AssetImages.logo,
-          height: 25,
-          width: 25,
-        ),
+        Image.asset(AssetImages.logo, height: 25, width: 25),
         IconButton(onPressed: () {}, icon: const SizedBox()),
       ],
     ),

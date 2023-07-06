@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,12 +10,11 @@ import '../widgets/p2p_betting_filter_bar.dart';
 import '../widgets/p2p_betting_history_card.dart';
 
 class P2PBettingHistoryScreen extends StatefulWidget {
-  const P2PBettingHistoryScreen({Key? key}) : super(key: key);
+  const P2PBettingHistoryScreen({super.key});
   static const String route = 'P2PBettingHistoryScreen';
 
   @override
-  State<P2PBettingHistoryScreen> createState() =>
-      _P2PBettingHistoryScreenState();
+  State<P2PBettingHistoryScreen> createState() => _P2PBettingHistoryScreenState();
 }
 
 class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
@@ -34,10 +32,7 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (_, __) {
-          return <Widget>[
-            const P2PBettingAppBar(),
-            P2PBettingFilterBar(),
-          ];
+          return <Widget>[const P2PBettingAppBar(), P2PBettingFilterBar()];
         },
         body: Obx(
           () => AppLoadingBox(
@@ -62,15 +57,11 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
                                 useRootNavigator: true,
                                 animationCurve: Curves.fastLinearToSlowEaseIn,
                                 shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(30),
-                                    topLeft: Radius.circular(30),
-                                  ),
+                                  borderRadius:
+                                      BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
                                 ),
                                 builder: (BuildContext modalContext) {
-                                  return P2PBettingBottomSheet(
-                                    bet: _p2pBetController.myBets[index],
-                                  );
+                                  return P2PBettingBottomSheet(bet: _p2pBetController.myBets[index]);
                                 },
                                 context: context,
                               );
@@ -83,15 +74,10 @@ class _P2PBettingHistoryScreenState extends State<P2PBettingHistoryScreen> {
                           margin: AppPaddings.sV.add(AppPaddings.sT),
                           decoration: BoxDecoration(
                             color: context.colors.primary.shade50,
-                            border: Border.all(
-                              color: context.colors.primary.shade100,
-                              width: 1,
-                            ),
+                            border: Border.all(color: context.colors.primary.shade100),
                             borderRadius: AppBorderRadius.card,
                           ),
-                          child: const AppEmptyScreen(
-                            message: 'All bets will show up here.',
-                          ),
+                          child: const AppEmptyScreen(message: 'All bets will show up here.'),
                         );
                       },
                       childCount: _p2pBetController.myBets.length,

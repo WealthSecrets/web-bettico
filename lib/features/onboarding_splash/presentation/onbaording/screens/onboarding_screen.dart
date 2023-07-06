@@ -55,87 +55,90 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       valueListenable: activeIndexValueNotifier,
       builder: (BuildContext context, int activeIndex, _) {
         return Scaffold(
-            body: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: <Widget>[
-                const Spacer(),
-                Expanded(
-                  flex: 4,
-                  child: ValueListenableBuilder<double>(
-                    valueListenable: pageOffsetValueNotifier,
-                    builder: (BuildContext context, double pageOffset, _) {
-                      return PageView(
-                        physics: const BouncingScrollPhysics(),
-                        onPageChanged: (int index) => activeIndexValueNotifier.value = index,
-                        controller: pageController,
-                        children: List<Widget>.generate(
-                          onBoardTexts.length,
-                          (int index) => OnboardCard(
-                            index: index,
-                            isPrevious: pageOffset < index,
-                            isActive: index == activeIndex,
-                            text: onBoardTexts[index].split('\n'),
-                            svgAssetPath: onBoardAssets[index],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: AppPaddings.bodyA,
-                    child: Row(
-                      children: <Widget>[
-                        OnboardIndicators(
-                          activeItem: activeIndex,
-                          itemCount: onBoardTexts.length,
-                          radius: 8,
-                        ),
-                        Expanded(
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 500),
-                            switchInCurve: Curves.fastLinearToSlowEaseIn,
-                            child: Align(
-                              key: ValueKey<bool>(activeIndex < 2),
-                              alignment: Alignment.centerRight,
-                              child: activeIndex < 2
-                                  ? TextButton(
-                                      onPressed: () => pageController.nextPage(
-                                        duration: const Duration(milliseconds: 1200),
-                                        curve: Curves.fastLinearToSlowEaseIn,
-                                      ),
-                                      child:
-                                          Text('skip'.tr, style: context.body2.copyWith(color: context.colors.primary)),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: MaterialButton(
-                                        height: 50,
-                                        color: context.colors.primary,
-                                        elevation: 0.0,
-                                        onPressed: controller.saveOnBoarded,
-                                        child: Text(
-                                          'enter'.tr.toUpperCase(),
-                                          style:
-                                              context.body2.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
+          body: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: <Widget>[
+                  const Spacer(),
+                  Expanded(
+                    flex: 4,
+                    child: ValueListenableBuilder<double>(
+                      valueListenable: pageOffsetValueNotifier,
+                      builder: (BuildContext context, double pageOffset, _) {
+                        return PageView(
+                          physics: const BouncingScrollPhysics(),
+                          onPageChanged: (int index) => activeIndexValueNotifier.value = index,
+                          controller: pageController,
+                          children: List<Widget>.generate(
+                            onBoardTexts.length,
+                            (int index) => OnboardCard(
+                              index: index,
+                              isPrevious: pageOffset < index,
+                              isActive: index == activeIndex,
+                              text: onBoardTexts[index].split('\n'),
+                              svgAssetPath: onBoardAssets[index],
                             ),
                           ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Padding(
+                      padding: AppPaddings.bodyA,
+                      child: Row(
+                        children: <Widget>[
+                          OnboardIndicators(
+                            activeItem: activeIndex,
+                            itemCount: onBoardTexts.length,
+                            radius: 8,
+                          ),
+                          Expanded(
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 500),
+                              switchInCurve: Curves.fastLinearToSlowEaseIn,
+                              child: Align(
+                                key: ValueKey<bool>(activeIndex < 2),
+                                alignment: Alignment.centerRight,
+                                child: activeIndex < 2
+                                    ? TextButton(
+                                        onPressed: () => pageController.nextPage(
+                                          duration: const Duration(milliseconds: 1200),
+                                          curve: Curves.fastLinearToSlowEaseIn,
+                                        ),
+                                        child: Text(
+                                          'skip'.tr,
+                                          style: context.body2.copyWith(color: context.colors.primary),
+                                        ),
+                                      )
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: MaterialButton(
+                                          height: 50,
+                                          color: context.colors.primary,
+                                          elevation: 0.0,
+                                          onPressed: controller.saveOnBoarded,
+                                          child: Text(
+                                            'enter'.tr.toUpperCase(),
+                                            style: context.body2
+                                                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        );
       },
     );
   }

@@ -7,7 +7,7 @@ import '/core/presentation/presentation.dart';
 
 class NewLiveScoreAppBar extends StatelessWidget {
   const NewLiveScoreAppBar({
-    Key? key,
+    super.key,
     this.title,
     this.subtitle,
     this.onMenuPressed,
@@ -15,7 +15,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
     required this.walletAddress,
     required this.onChanged,
     this.actions,
-  }) : super(key: key);
+  });
 
   final String? title;
   final String? subtitle;
@@ -80,7 +80,6 @@ class NewLiveScoreAppBar extends StatelessWidget {
             Padding(
               padding: AppPaddings.homeH,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Icon(
                     Ionicons.wallet_sharp,
@@ -96,11 +95,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                             walletAddress.length,
                             '*************',
                           ),
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: context.colors.textDark,
-                    ),
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: context.colors.textDark),
                   ),
                   const Spacer(),
                   GestureDetector(
@@ -112,10 +107,7 @@ class NewLiveScoreAppBar extends StatelessWidget {
                         color: walletAddress.isEmpty
                             ? context.colors.grey.withOpacity(.3)
                             : context.colors.success.withOpacity(.3),
-                        border: Border.all(
-                          color: walletAddress.isEmpty ? context.colors.grey : context.colors.success,
-                          width: 1,
-                        ),
+                        border: Border.all(color: walletAddress.isEmpty ? context.colors.grey : context.colors.success),
                       ),
                       child: Text(
                         walletAddress.isEmpty ? 'CONNECT' : 'CONNECTED',

@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/ads_controller.dart';
 import 'package:betticos/features/advert/presentation/ads/widgets/step_controls.dart';
 import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';

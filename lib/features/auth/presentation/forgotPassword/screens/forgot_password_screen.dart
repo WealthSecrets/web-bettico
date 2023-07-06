@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +9,7 @@ import '/core/presentation/presentation.dart';
 import '/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
 
 class ForgotPasswordScreen extends GetWidget<ForgotController> {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +28,7 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
           ),
           body: Center(
             child: SizedBox(
-              width: ResponsiveWidget.isSmallScreen(context)
-                  ? double.infinity
-                  : 450,
+              width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: AppPaddings.lH,
@@ -46,14 +43,11 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                           child: SvgPicture.asset(
                             AssetSVGs.logo.path,
                             height: 80,
-                            colorFilter: ColorFilter.mode(
-                                context.colors.secondary, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(context.colors.secondary, BlendMode.srcIn),
                           ),
                         ),
-                      if (ResponsiveWidget.isSmallScreen(context))
-                        const SizedBox(height: 60),
+                      if (ResponsiveWidget.isSmallScreen(context)) const SizedBox(height: 60),
                       Align(
-                        alignment: Alignment.center,
                         child: RichText(
                           text: TextSpan(
                             text: 'forgot_password'.tr,

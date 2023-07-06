@@ -2,7 +2,6 @@
 
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
-// import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,13 +9,10 @@ import 'package:get/get.dart';
 
 import '/core/core.dart';
 import '/features/auth/presentation/register/getx/register_controller.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 import '../widgets/app_pincode_textfield.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  const OTPVerificationScreen({
-    Key? key,
-  }) : super(key: key);
+  const OTPVerificationScreen({super.key});
 
   @override
   State<OTPVerificationScreen> createState() => _OTPVerificationScreenState();
@@ -31,8 +27,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   // late Timer _timer;
 
   // get arguments
-  final OTPVerificationScreenArgument? args =
-      Get.arguments as OTPVerificationScreenArgument?;
+  final OTPVerificationScreenArgument? args = Get.arguments as OTPVerificationScreenArgument?;
   final String? params = Get.parameters['type'];
 
   // @override
@@ -81,14 +76,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           child: SafeArea(
             child: Center(
               child: SizedBox(
-                width: ResponsiveWidget.isSmallScreen(context)
-                    ? double.infinity
-                    : 450,
+                width: ResponsiveWidget.isSmallScreen(context) ? double.infinity : 450,
                 child: SingleChildScrollView(
                   padding: AppPaddings.bodyA,
                   child: AppAnimatedColumn(
                     direction: Axis.horizontal,
-                    duration: const Duration(milliseconds: 1000),
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -110,9 +102,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       AppPinCodeTextField(
                         length: 6,
                         onChanged: controller.onOTPCodeInputChanged,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
+                        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                         textInputType: TextInputType.number,
                       ),
                       const AppSpacing(v: 50),
@@ -120,8 +110,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         borderRadius: AppBorderRadius.largeAll,
                         enabled: controller.otpCode.value.length == 6,
                         onPressed: () {
-                          if (params != null &&
-                              params!.toLowerCase() == 'email') {
+                          if (params != null && params!.toLowerCase() == 'email') {
                             controller.verifyUserEmailAddress(
                               context,
                               u: args?.user,
@@ -144,13 +133,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       ),
                       const AppSpacing(v: 22),
                       Align(
-                        alignment: Alignment.center,
                         child: Text(
                           'didnt_receive'.tr,
-                          style: context.h6.copyWith(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
+                          style: context.h6.copyWith(fontSize: 18, color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -160,7 +145,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       Visibility(
                         visible: _showResendButton,
                         child: Align(
-                          alignment: Alignment.center,
                           child: TextButton(
                             style: TextButton.styleFrom(
                               shadowColor: context.colors.primary,
@@ -173,22 +157,17 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               //   _showResendButton = false;
                               // });
                               // _startTimer();
-                              if (params != null &&
-                                  params!.toLowerCase() == 'email') {
+                              if (params != null && params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
-                                  args != null &&
-                                          args!.user != null &&
-                                          args!.user!.email != null
+                                  args != null && args!.user != null && args!.user!.email != null
                                       ? args!.user!.email!
                                       : controller.email.value,
                                 );
                               } else {
                                 lController.resendOTPSms(
                                   context,
-                                  args != null && args!.user != null
-                                      ? args!.user!.phone!
-                                      : controller.phone.value,
+                                  args != null && args!.user != null ? args!.user!.phone! : controller.phone.value,
                                 );
                               }
                             },
@@ -214,30 +193,21 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               lController.reRouteOddster(
                                 context,
                                 args!.user!,
-                                isSkipEmail: params != null &&
-                                    params!.toLowerCase() == 'email',
-                                isSkipPhone: params != null &&
-                                    params!.toLowerCase() != 'phone',
+                                isSkipEmail: params != null && params!.toLowerCase() == 'email',
+                                isSkipPhone: params != null && params!.toLowerCase() != 'phone',
                               );
                             } else {
-                              if (params != null &&
-                                  params!.toLowerCase() == 'email') {
+                              if (params != null && params!.toLowerCase() == 'email') {
                                 Get.offNamed<void>(AppRoutes.accountType);
                               } else {
                                 Get.offNamed<void>(AppRoutes.home);
-                                // menuController
-                                //     .changeActiveItemTo(AppRoutes.home);
                               }
                             }
                           },
                           child: Text(
                             'skip'.tr,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: context.colors.primary,
-                              fontSize: 14,
-                            ),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: context.colors.primary, fontSize: 14),
                           ),
                         ),
                       ),

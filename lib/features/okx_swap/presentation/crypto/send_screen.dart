@@ -7,7 +7,7 @@ import '../address/asset_currencies_screen.dart';
 import 'widgets/crypto_card.dart';
 
 class SendScreen extends StatelessWidget {
-  const SendScreen({Key? key}) : super(key: key);
+  const SendScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +23,15 @@ class SendScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 IconButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(
-                    Ionicons.close_sharp,
-                    size: 24,
-                    color: Colors.black,
-                  ),
+                  icon: const Icon(Ionicons.close_sharp, size: 24, color: Colors.black),
                 ),
                 const SizedBox(width: 16),
                 Text(
                   'Send Funds',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: context.colors.textDark,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.colors.textDark),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -55,9 +46,7 @@ class SendScreen extends StatelessWidget {
                   imagePath: AssetImages.internal,
                   onPressed: () => navigationController.navigateTo(
                     AppRoutes.currencies,
-                    arguments: const AssetCurrenciesScreenRouteArgument(
-                      isTransfer: true,
-                    ),
+                    arguments: const AssetCurrenciesScreenRouteArgument(isTransfer: true),
                   ),
                 ),
                 CryptoCard(
@@ -66,9 +55,7 @@ class SendScreen extends StatelessWidget {
                   imagePath: AssetImages.external,
                   onPressed: () => navigationController.navigateTo(
                     AppRoutes.currencies,
-                    arguments: const AssetCurrenciesScreenRouteArgument(
-                      isWithdrawal: true,
-                    ),
+                    arguments: const AssetCurrenciesScreenRouteArgument(isWithdrawal: true),
                   ),
                 ),
               ],

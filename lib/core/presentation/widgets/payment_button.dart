@@ -2,18 +2,18 @@ import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
 class PaymentButton extends StatelessWidget {
-  const PaymentButton(
-      {Key? key,
-      required this.text,
-      required this.onPressed,
-      this.disabled = false,
-      this.color,
-      this.textColor,
-      this.padding,
-      this.fontSize,
-      this.selected = false,
-      this.tagValue})
-      : super(key: key);
+  const PaymentButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.disabled = false,
+    this.color,
+    this.textColor,
+    this.padding,
+    this.fontSize,
+    this.selected = false,
+    this.tagValue,
+  });
 
   final String text;
   final String? tagValue;
@@ -38,12 +38,7 @@ class PaymentButton extends StatelessWidget {
                   : Colors.white.withOpacity(disabled ? 0 : 0.6)),
           borderRadius: BorderRadius.circular(50),
           boxShadow: const <BoxShadow>[
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5.0,
-              offset: Offset(0, 3),
-              spreadRadius: 2,
-            )
+            BoxShadow(color: Colors.black12, blurRadius: 5.0, offset: Offset(0, 3), spreadRadius: 2)
           ],
         ),
         child: Row(
@@ -59,7 +54,7 @@ class PaymentButton extends StatelessWidget {
             ),
             if (tagValue != null) const SizedBox(width: 16),
             if (tagValue != null)
-              Container(
+              DecoratedBox(
                 decoration: BoxDecoration(
                   color: selected ? Colors.white : context.colors.primary,
                   borderRadius: BorderRadius.circular(15),

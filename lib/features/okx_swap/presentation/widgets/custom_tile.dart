@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class CustomTile extends StatelessWidget {
   const CustomTile({
-    Key? key,
+    super.key,
     required this.text,
     this.icon,
     required this.onPressed,
     this.hideMoreIcon = false,
-  }) : super(key: key);
+  });
 
   final String text;
   final IconData? icon;
@@ -24,30 +24,12 @@ class CustomTile extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          if (icon == null)
-            const SizedBox.shrink()
-          else
-            Icon(
-              icon,
-              size: 22,
-              color: context.colors.text,
-            ),
+          if (icon == null) const SizedBox.shrink() else Icon(icon, size: 22, color: context.colors.text),
           const AppSpacing(h: 26),
-          Text(
-            text,
-            style: TextStyle(
-              color: context.colors.textDark,
-              fontSize: 14,
-            ),
-          ),
+          Text(text, style: TextStyle(color: context.colors.textDark, fontSize: 14)),
           const Spacer(),
-          if (!hideMoreIcon)
-            Icon(
-              CupertinoIcons.right_chevron,
-              color: context.colors.hintLight,
-            ),
+          if (!hideMoreIcon) Icon(CupertinoIcons.right_chevron, color: context.colors.hintLight),
         ],
       ),
     );

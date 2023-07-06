@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/payment_button.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
@@ -24,10 +23,7 @@ enum ConnectionState {
 }
 
 class P2PBettingScreen extends StatefulWidget {
-  const P2PBettingScreen({
-    Key? key,
-    required this.liveScore,
-  }) : super(key: key);
+  const P2PBettingScreen({super.key, required this.liveScore});
 
   final LiveScore liveScore;
 
@@ -88,21 +84,15 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
         body: Obx(
           () {
             return AppLoadingBox(
-              loading: controller.isAddingBet.value ||
-                  lController.showLoadingLogo.value,
+              loading: controller.isAddingBet.value || lController.showLoadingLogo.value,
               child: SingleChildScrollView(
                 padding: AppPaddings.lA,
                 child: AppAnimatedColumn(
-                  duration: const Duration(milliseconds: 1000),
                   direction: Axis.horizontal,
                   children: <Widget>[
                     Text(
                       'Select one of the team to bet',
-                      style: TextStyle(
-                        color: context.colors.textDark,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: context.colors.textDark, fontWeight: FontWeight.w700, fontSize: 12),
                     ),
                     const AppSpacing(v: 8),
                     SizedBox(
@@ -121,8 +111,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         ),
                         localTeamScore: widget.liveScore.scores!.localTeamScore,
                         time: widget.liveScore.time,
-                        visitorTeamScore:
-                            widget.liveScore.scores!.visitorTeamScore,
+                        visitorTeamScore: widget.liveScore.scores!.visitorTeamScore,
                         onAwayPressed: () => controller.selectTeam(
                           widget.liveScore.visitorTeam.data.name,
                           widget.liveScore.visitorTeam.data.id,
@@ -182,7 +171,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                       ),
                     ),
                     const AppSpacing(v: 8),
-                    // TODO:(blankson) add debounce to await user typing before you convert
+                    // TODO(blankson): add debounce to await user typing before you convert
                     AppTextInput(
                       labelText: 'AMOUNT (USD)',
                       textInputType: TextInputType.number,
@@ -190,8 +179,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         final double? amount = double.tryParse(value);
                         if (amount != null) {
                           controller.onAmountInputChanged(amount);
-                          lController.convertAmount(context,
-                              lController.selectedCurrency.value, amount);
+                          lController.convertAmount(context, lController.selectedCurrency.value, amount);
                         }
                       },
                       inputFormatters: <TextInputFormatter>[
@@ -217,13 +205,8 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                                 color: lController.convertedAmount.value > 0
                                     ? context.colors.success
                                     : context.colors.text,
-                                fontWeight:
-                                    lController.convertedAmount.value > 0
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                fontStyle: lController.convertedAmount.value > 0
-                                    ? FontStyle.normal
-                                    : FontStyle.italic,
+                                fontWeight: lController.convertedAmount.value > 0 ? FontWeight.bold : FontWeight.normal,
+                                fontStyle: lController.convertedAmount.value > 0 ? FontStyle.normal : FontStyle.italic,
                                 fontSize: 12,
                               ),
                             ),
@@ -251,8 +234,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         ),
                         PaymentButton(
                           text: 'Wallet',
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 32),
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
                           selected: controller.paymentType.value == 'wallet',
                           onPressed: () {
                             controller.paymentType.value = 'wallet';
@@ -273,8 +255,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             failureCallback: () async {
                               // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
                               final TransactionResponse? response =
-                                  await lController.sendWsc(context,
-                                      lController.convertedAmount.value);
+                                  await lController.sendWsc(context, lController.convertedAmount.value);
 
                               if (response != null && context.mounted) {
                                 controller.addNewBet(
@@ -304,20 +285,17 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         } else if (controller.paymentType.value == 'wallet') {
                           final TransactionResponse? response =
-                              await lController.sendWsc(
-                                  context, lController.convertedAmount.value);
+                              await lController.sendWsc(context, lController.convertedAmount.value);
                           if (response != null && context.mounted) {
                             controller.createBetTransaction(
                               context,
-                              convertedAmount:
-                                  lController.convertedAmount.value,
+                              convertedAmount: lController.convertedAmount.value,
                               amount: controller.amount.value,
                               description: 'Bet Creation',
                               type: 'deposit',
                               wallet: lController.walletAddress.value,
                               txthash: response.hash,
-                              convertedToken:
-                                  lController.selectedCurrency.value,
+                              convertedToken: lController.selectedCurrency.value,
                               time: response.timestamp,
                               callback: () => controller.addNewBet(
                                 context,
@@ -333,8 +311,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         }
                       },
-                      enabled:
-                          controller.isValid && !lController.isLoading.value,
+                      enabled: controller.isValid && !lController.isLoading.value,
                       borderRadius: AppBorderRadius.largeAll,
                       child: Text(
                         'Create Bet'.toUpperCase(),

@@ -63,7 +63,7 @@ class PieChartSample1State extends State {
               child: PieChart(
                 PieChartData(
                   pieTouchData: PieTouchData(
-                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                    touchCallback: (FlTouchEvent event, PieTouchResponse? pieTouchResponse) {
                       setState(() {
                         if (!event.isInterestedForInteractions ||
                             pieTouchResponse == null ||
@@ -92,14 +92,14 @@ class PieChartSample1State extends State {
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(
+    return List<PieChartSectionData>.generate(
       4,
-      (i) {
-        final isTouched = i == touchedIndex;
-        const color0 = AppColors.contentColorBlue;
-        const color1 = AppColors.contentColorYellow;
-        const color2 = AppColors.contentColorPink;
-        const color3 = AppColors.contentColorGreen;
+      (int i) {
+        final bool isTouched = i == touchedIndex;
+        const Color color0 = AppColors.contentColorBlue;
+        const Color color1 = AppColors.contentColorYellow;
+        const Color color2 = AppColors.contentColorPink;
+        const Color color3 = AppColors.contentColorGreen;
 
         switch (i) {
           case 0:

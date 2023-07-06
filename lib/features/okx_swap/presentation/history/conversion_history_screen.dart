@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
 import 'package:betticos/features/okx_swap/data/models/convert/okx_conversion.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
@@ -9,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CovnersionHistoryScreen extends StatefulWidget {
-  const CovnersionHistoryScreen({Key? key}) : super(key: key);
+  const CovnersionHistoryScreen({super.key});
 
   @override
   State<CovnersionHistoryScreen> createState() => _CovnersionHistoryScreenState();
@@ -32,13 +31,7 @@ class _CovnersionHistoryScreenState extends State<CovnersionHistoryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: const AppBackButton(color: Colors.black),
-        title: const Text(
-          'Conversion History',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
-        ),
+        title: const Text('Conversion History', style: TextStyle(fontSize: 14, color: Colors.black)),
         centerTitle: true,
         elevation: 0,
       ),
@@ -103,13 +96,7 @@ class _CovnersionHistoryScreenState extends State<CovnersionHistoryScreen> {
 }
 
 class _ColumnText extends StatelessWidget {
-  const _ColumnText({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-    this.titleFontWeight,
-    this.crossAxisAlignment,
-  }) : super(key: key);
+  const _ColumnText({required this.title, required this.subtitle, this.titleFontWeight, this.crossAxisAlignment});
   final String title;
   final Widget subtitle;
   final FontWeight? titleFontWeight;
@@ -118,17 +105,13 @@ class _ColumnText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
           title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: titleFontWeight ?? FontWeight.bold,
-            color: context.colors.textDark,
-          ),
+          style:
+              TextStyle(fontSize: 14, fontWeight: titleFontWeight ?? FontWeight.bold, color: context.colors.textDark),
         ),
         const SizedBox(height: 5),
         subtitle
@@ -138,7 +121,7 @@ class _ColumnText extends StatelessWidget {
 }
 
 class _OverlapImages extends StatelessWidget {
-  const _OverlapImages({Key? key, required this.currencies}) : super(key: key);
+  const _OverlapImages({required this.currencies});
 
   final List<Currency> currencies;
 
@@ -149,26 +132,12 @@ class _OverlapImages extends StatelessWidget {
       children: <Widget>[
         for (int i = 0; i < currencies.length; i++) ...<Widget>[
           if (i == 0)
-            SizedBox(
-              width: 40,
-              child: Image.network(
-                currencies[i].logoLink!,
-                height: 40,
-                width: 40,
-              ),
-            )
+            SizedBox(width: 40, child: Image.network(currencies[i].logoLink!, height: 40, width: 40))
           else
             Positioned(
               top: i * 8,
               left: i * 8,
-              child: SizedBox(
-                width: 40,
-                child: Image.network(
-                  currencies[i].logoLink!,
-                  height: 40,
-                  width: 40,
-                ),
-              ),
+              child: SizedBox(width: 40, child: Image.network(currencies[i].logoLink!, height: 40, width: 40)),
             ),
         ],
       ],

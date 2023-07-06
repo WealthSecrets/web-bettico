@@ -18,7 +18,6 @@ export 'error_view.dart';
 export 'exception_indicators/exception_indicators.dart';
 export 'full_image.dart';
 export 'loading_logo.dart';
-export 'loading_spinner.dart';
 export 'notice.dart';
 export 'page_view_indicators.dart';
 export 'payment_button.dart';

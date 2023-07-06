@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WithdrawalScreen extends StatefulWidget {
-  const WithdrawalScreen({Key? key}) : super(key: key);
+  const WithdrawalScreen({super.key});
 
   @override
   State<WithdrawalScreen> createState() => _WithdrawalScreenState();
@@ -24,9 +24,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetUtils.onWidgetDidBuild(() {
-      _getUserBalances();
-    });
+    WidgetUtils.onWidgetDidBuild(_getUserBalances);
   }
 
   void _getUserBalances({VoidCallback? onSuccess}) {
@@ -44,21 +42,14 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
         leading: const AppBackButton(color: Colors.black),
         title: const Text(
           'Withdrawal',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.black),
         ),
         centerTitle: true,
         elevation: 0,
         actions: <Widget>[
           IconButton(
             onPressed: () => navigationController.navigateTo(AppRoutes.withdrawalHistory),
-            icon: Image.asset(
-              AssetImages.tansactionHistory,
-              height: 24,
-              width: 24,
-            ),
+            icon: Image.asset(AssetImages.tansactionHistory, height: 24, width: 24),
           ),
         ],
       ),

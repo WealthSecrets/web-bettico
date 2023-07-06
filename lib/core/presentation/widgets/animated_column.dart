@@ -114,15 +114,14 @@ class AppAnimatedRow extends StatefulWidget {
   const AppAnimatedRow({
     AnimationController? animationController,
     required this.children,
-    Key? key,
+    super.key,
     this.mainAxisAlignment,
     this.duration,
     this.delay,
     this.crossAxisAlignment,
     this.direction = Axis.vertical,
     this.mainAxisSize,
-  })  : _animationController = animationController,
-        super(key: key);
+  }) : _animationController = animationController;
 
   final AnimationController? _animationController;
   final List<Widget> children;
@@ -143,7 +142,9 @@ class _AppAnimatedRowState extends State<AppAnimatedRow> with TickerProviderStat
   void initState() {
     _animationController = widget._animationController ??
         AnimationController(
-            vsync: this, duration: widget.duration ?? Duration(milliseconds: widget.children.length * 300));
+          vsync: this,
+          duration: widget.duration ?? Duration(milliseconds: widget.children.length * 300),
+        );
 
     if (widget._animationController == null) {
       Future<void>.delayed(widget.delay ?? const Duration(milliseconds: 100))

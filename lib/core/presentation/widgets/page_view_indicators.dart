@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import '../utils/app_border_radius.dart';
 
 class PageViewIndicators extends StatelessWidget {
-  const PageViewIndicators({
-    Key? key,
-    required this.itemCount,
-    required this.activeItemIndex,
-  })  : assert(activeItemIndex <= itemCount),
-        super(key: key);
+  const PageViewIndicators({super.key, required this.itemCount, required this.activeItemIndex})
+      : assert(activeItemIndex <= itemCount);
 
   final int itemCount;
   final int activeItemIndex;

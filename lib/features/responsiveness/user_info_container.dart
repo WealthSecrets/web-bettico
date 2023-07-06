@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/profile/arguments/profile_argument.dart';
@@ -64,28 +63,16 @@ class UserInfoContainer extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         '${bController.user.value.firstName} ${bController.user.value.lastName}',
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                       const SizedBox(width: 5),
                       if (bController.user.value.role == 'admin')
-                        Image.asset(
-                          AssetImages.verified,
-                          height: 14,
-                          width: 14,
-                        ),
+                        Image.asset(AssetImages.verified, height: 14, width: 14),
                     ],
                   ),
                   Text(
                     '@${bController.user.value.username}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: context.colors.text,
-                    ),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: context.colors.text),
                   ),
                 ],
               ),
@@ -101,10 +88,7 @@ class UserInfoContainer extends StatelessWidget {
                     child: SizedBox(
                       width: 600,
                       height: 500,
-                      child: ClipRRect(
-                        borderRadius: AppBorderRadius.mediumAll,
-                        child: const TimelinePostScreen(),
-                      ),
+                      child: ClipRRect(borderRadius: AppBorderRadius.mediumAll, child: const TimelinePostScreen()),
                     ),
                   );
                 },
@@ -113,19 +97,9 @@ class UserInfoContainer extends StatelessWidget {
             child: Container(
               height: 30,
               padding: AppPaddings.lH.add(AppPaddings.mV),
-              decoration: BoxDecoration(
-                color: context.colors.primary,
-                borderRadius: BorderRadius.circular(15),
-              ),
+              decoration: BoxDecoration(color: context.colors.primary, borderRadius: BorderRadius.circular(15)),
               child: const Center(
-                child: Text(
-                  'Post',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
-                ),
+                child: Text('Post', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12)),
               ),
             ),
           ),

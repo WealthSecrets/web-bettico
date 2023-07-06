@@ -14,7 +14,7 @@ class SucessScreenRouteArgument {
 }
 
 class SucessScreen extends StatelessWidget {
-  const SucessScreen({Key? key}) : super(key: key);
+  const SucessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,40 +23,26 @@ class SucessScreen extends StatelessWidget {
       body: Padding(
         padding: AppPaddings.bodyH,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              AssetImages.checkedColor,
-              height: 65,
-              width: 65,
-            ),
+            Image.asset(AssetImages.checkedColor, height: 65, width: 65),
             const SizedBox(height: 16),
             if (args != null)
               Text(
                 args.title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             const SizedBox(height: 32),
             if (args != null)
               Text(
                 args.message,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.normal,
-                  color: context.colors.text,
-                ),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: context.colors.text),
                 textAlign: TextAlign.center,
               ),
             const SizedBox(height: 50),
             Row(
               children: <Widget>[
                 Expanded(
-                  flex: 1,
                   child: AppButton(
                     padding: EdgeInsets.zero,
                     borderRadius: AppBorderRadius.largeAll,
@@ -64,18 +50,13 @@ class SucessScreen extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                     child: const Text(
                       'BACK',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                     ),
                   ),
                 ),
                 const SizedBox(width: 16),
                 if (args != null)
                   Expanded(
-                    flex: 1,
                     child: AppButton(
                       padding: EdgeInsets.zero,
                       borderRadius: AppBorderRadius.largeAll,
@@ -83,11 +64,7 @@ class SucessScreen extends StatelessWidget {
                       onPressed: args.onPressed,
                       child: const Text(
                         'VIEW HISTORY',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ),
                   ),

@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
-  BuyUsdtScreen({Key? key}) : super(key: key);
+  BuyUsdtScreen({super.key});
 
   final User user = Get.find<BaseScreenController>().user.value;
 
@@ -18,17 +18,13 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
   Widget build(BuildContext context) {
     return Obx(
       () => AppLoadingBox(
-        loading: false,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: const AppBackButton(color: Colors.black),
             title: const Text(
               'Purchase USDT',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.black),
             ),
             centerTitle: true,
             elevation: 0,
@@ -62,20 +58,12 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                 ),
                 const SizedBox(height: 30),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    _FooterText(
-                      title: 'Quantity',
-                      subtitle:
-                          '${controller.quantity.value.toStringAsFixed(2)} USDT',
-                    ),
+                    _FooterText(title: 'Quantity', subtitle: '${controller.quantity.value.toStringAsFixed(2)} USDT'),
                     const SizedBox(height: 16),
-                    _FooterText(
-                      title: 'Amount',
-                      subtitle: '${controller.fiatAmount.value} GHS',
-                    ),
+                    _FooterText(title: 'Amount', subtitle: '${controller.fiatAmount.value} GHS'),
                   ],
                 ),
                 const SizedBox(height: 100),
@@ -87,11 +75,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                   onPressed: () => _initiatePayment(context),
                   child: const Text(
                     'PURCHASE',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                 ),
               ],
@@ -114,8 +98,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
         controller.isTransferringFunds.value = true;
       },
       onSuccess: () async {
-        final TransactionResponse? result =
-            await controller.transferUSDT(context);
+        final TransactionResponse? result = await controller.transferUSDT(context);
         if (context.mounted && result != null && result.hash.isNotEmpty) {
           await showAppModal<void>(
             barrierDismissible: false,
@@ -131,19 +114,11 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
                       children: <Widget>[
                         const Spacer(),
                         AppDialogueModal(
-                          icon: Icon(
-                            Ionicons.checkmark_circle_sharp,
-                            color: context.colors.success,
-                            size: 60,
-                          ),
-                          description:
-                              'You have successfully accepted purchased ${controller.quantity.value} USDT',
+                          icon: Icon(Ionicons.checkmark_circle_sharp, color: context.colors.success, size: 60),
+                          description: 'You have successfully accepted purchased ${controller.quantity.value} USDT',
                           title: Text(
                             'USDT Purchased',
-                            style: TextStyle(
-                              color: context.colors.success,
-                              fontSize: 20,
-                            ),
+                            style: TextStyle(color: context.colors.success, fontSize: 20),
                           ),
                           buttonText: 'Dismiss',
                           onDismissed: () async {
@@ -166,11 +141,7 @@ class BuyUsdtScreen extends GetWidget<UsdtSaleController> {
 }
 
 class _FooterText extends StatelessWidget {
-  const _FooterText({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-  }) : super(key: key);
+  const _FooterText({required this.title, required this.subtitle});
 
   final String title;
   final String subtitle;
@@ -179,23 +150,14 @@ class _FooterText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Text(
           title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-            color: context.colors.text,
-          ),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: context.colors.text),
         ),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: context.colors.black,
-          ),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: context.colors.black),
         )
       ],
     );

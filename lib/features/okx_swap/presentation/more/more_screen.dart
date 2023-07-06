@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -21,11 +19,7 @@ class _MoreScreenState extends State<MoreScreen> {
     final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top,
-          right: 16.0,
-          left: 16.0,
-        ),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, right: 16.0, left: 16.0),
         child: AppAnimatedColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -34,21 +28,13 @@ class _MoreScreenState extends State<MoreScreen> {
               children: <Widget>[
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
-                  child: Icon(
-                    Ionicons.arrow_back_sharp,
-                    size: 24,
-                    color: context.colors.black,
-                  ),
+                  child: Icon(Ionicons.arrow_back_sharp, size: 24, color: context.colors.black),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
                     'More Services',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: context.colors.textDark,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.colors.textDark),
                     textAlign: TextAlign.center,
                   ),
                 ),

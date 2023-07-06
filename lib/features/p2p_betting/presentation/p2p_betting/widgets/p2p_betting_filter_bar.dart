@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/widgets/sliver_app_bar_deleagate.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +8,7 @@ import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 
 class P2PBettingFilterBar extends StatelessWidget {
-  P2PBettingFilterBar({
-    Key? key,
-  }) : super(key: key);
+  P2PBettingFilterBar({super.key});
 
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
 

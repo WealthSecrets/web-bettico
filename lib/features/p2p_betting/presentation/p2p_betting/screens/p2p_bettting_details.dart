@@ -1,5 +1,4 @@
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
-import 'package:betticos/core/presentation/widgets/payment_button.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
@@ -15,10 +14,7 @@ import '/core/core.dart';
 import '../widgets/p2p_betting_card.dart';
 
 class P2PBettingDetailsScreen extends StatefulWidget {
-  const P2PBettingDetailsScreen({
-    Key? key,
-    required this.bet,
-  }) : super(key: key);
+  const P2PBettingDetailsScreen({super.key, required this.bet});
   final Bet bet;
 
   @override
@@ -74,12 +70,10 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
         ),
         body: Obx(
           () => AppLoadingBox(
-            loading: controller.isUpdatingBet.value ||
-                bController.isUpdatingUserBonus.value,
+            loading: controller.isUpdatingBet.value || bController.isUpdatingUserBonus.value,
             child: SingleChildScrollView(
               padding: AppPaddings.lA,
               child: AppAnimatedColumn(
-                duration: const Duration(milliseconds: 1000),
                 direction: Axis.horizontal,
                 children: <Widget>[
                   P2PBettingCard(
@@ -95,33 +89,25 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                     ),
                     localTeamScore: 0,
                     visitorTeamScore: 0,
-                    onAwayPressed:
-                        widget.bet.creator.teamId != widget.bet.awayTeam.teamId
-                            ? () => controller.selectTeam(
-                                  widget.bet.awayTeam.name,
-                                  widget.bet.awayTeam.teamId,
-                                )
-                            : null,
-                    onHomePressed:
-                        widget.bet.creator.teamId != widget.bet.homeTeam.teamId
-                            ? () => controller.selectTeam(
-                                  widget.bet.homeTeam.name,
-                                  widget.bet.homeTeam.teamId,
-                                )
-                            : null,
-                    awayDisabled:
-                        widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
-                    homeDisabled:
-                        widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
+                    onAwayPressed: widget.bet.creator.teamId != widget.bet.awayTeam.teamId
+                        ? () => controller.selectTeam(
+                              widget.bet.awayTeam.name,
+                              widget.bet.awayTeam.teamId,
+                            )
+                        : null,
+                    onHomePressed: widget.bet.creator.teamId != widget.bet.homeTeam.teamId
+                        ? () => controller.selectTeam(
+                              widget.bet.homeTeam.name,
+                              widget.bet.homeTeam.teamId,
+                            )
+                        : null,
+                    awayDisabled: widget.bet.creator.teamId == widget.bet.awayTeam.teamId,
+                    homeDisabled: widget.bet.creator.teamId == widget.bet.homeTeam.teamId,
                   ),
                   const AppSpacing(v: 30),
                   Text(
                     'Choose your bet',
-                    style: TextStyle(
-                      color: context.colors.textDark,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: context.colors.textDark, fontWeight: FontWeight.w700, fontSize: 12),
                   ),
                   const AppSpacing(v: 8),
                   Obx(
@@ -251,8 +237,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                       ),
                       PaymentButton(
                         text: 'Wallet',
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 32),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
                         selected: controller.paymentType.value == 'wallet',
                         onPressed: () {
                           controller.paymentType.value = 'wallet';
@@ -276,8 +261,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                               failureCallback: () async {
                                 // TODO(blankson): Consider using .then() on futures (send)
                                 final TransactionResponse? response =
-                                    await lController.sendWsc(context,
-                                        lController.convertedAmount.value);
+                                    await lController.sendWsc(context, lController.convertedAmount.value);
                                 if (response != null && context.mounted) {
                                   controller.createBetTransaction(
                                     context,
@@ -285,12 +269,10 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                     amount: widget.bet.amount,
                                     description: 'Bet Acceptance',
                                     type: 'deposit',
-                                    convertedAmount:
-                                        lController.convertedAmount.value,
+                                    convertedAmount: lController.convertedAmount.value,
                                     wallet: lController.walletAddress.value,
                                     txthash: response.hash,
-                                    convertedToken:
-                                        lController.selectedCurrency.value,
+                                    convertedToken: lController.selectedCurrency.value,
                                     time: response.timestamp,
                                     callback: () => controller.addOpponentToBet(
                                       context,
@@ -312,8 +294,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             );
                           } else if (controller.paymentType.value == 'wallet') {
                             final TransactionResponse? response =
-                                await lController.sendWsc(
-                                    context, lController.convertedAmount.value);
+                                await lController.sendWsc(context, lController.convertedAmount.value);
                             if (response != null && context.mounted) {
                               controller.addOpponentToBet(
                                 context,
@@ -335,8 +316,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             );
                           }
                         } else {
-                          await AppSnacks.show(context,
-                              message: 'You cannot accept bets you created.');
+                          await AppSnacks.show(context, message: 'You cannot accept bets you created.');
                         }
                       },
                       enabled: controller.isDetailsValid,

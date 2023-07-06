@@ -58,7 +58,7 @@ class ResetController extends GetxController {
   }
 
   void onResetInputChanged(String value) {
-    resetCode.value = value;
+    resetCode(value);
   }
 
   String? validatePassword(String? password) {
@@ -68,17 +68,6 @@ class ResetController extends GetxController {
     }
     return errorMessage;
   }
-
-  // String? validateResetCode(String? resetCode) {
-  //   String? errorMessage;
-  //   if (resetCode!.isEmpty) {
-  //     errorMessage = 'Please reset code is required';
-  //   }
-  //   if (resetCode.length != 6) {
-  //     errorMessage = 'Reset code is invalid';
-  //   }
-  //   return errorMessage;
-  // }
 
   String? validateConfirmPassword(String? confirm) {
     String? errorMessage;

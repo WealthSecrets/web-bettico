@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class MatchAvatar extends StatelessWidget {
   const MatchAvatar({
-    Key? key,
+    super.key,
     this.logo,
     required this.selected,
     this.disabled,
     this.onPressed,
     this.backgroundColor,
-  }) : super(key: key);
+  });
   final String? logo;
   final bool selected;
   final bool? disabled;
@@ -31,23 +31,10 @@ class MatchAvatar extends StatelessWidget {
                     context.colors.primary.withOpacity(disabled! ? 0.6 : 1)
                 : context.colors.text,
             width: 2,
-            style: BorderStyle.solid,
           ),
           borderRadius: BorderRadius.circular(30),
-          // image: DecorationImage(
-          //   image: AssetImage(AssetImages.leicester),
-          //   fit: BoxFit.cover,
-          // ),
         ),
-        child: Center(
-          child: logo != null
-              ? Image.network(
-                  logo!,
-                  height: 45,
-                  width: 45,
-                )
-              : const SizedBox.shrink(),
-        ),
+        child: Center(child: logo != null ? Image.network(logo!, height: 45, width: 45) : const SizedBox.shrink()),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -11,7 +10,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
 
 class UnAuthLoginController extends GetWidget<LoginController> {
-  UnAuthLoginController({Key? key}) : super(key: key);
+  UnAuthLoginController({super.key});
 
   final RegisterController rController = Get.find<RegisterController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();

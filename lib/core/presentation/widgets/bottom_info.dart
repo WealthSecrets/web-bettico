@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import '/core/presentation/themes/themes.dart';
 
 class BottomInfo extends StatelessWidget {
-  const BottomInfo({
-    Key? key,
-    required this.firstText,
-    required this.secondText,
-    required this.onCallbackFunction,
-  }) : super(key: key);
+  const BottomInfo({super.key, required this.firstText, required this.secondText, required this.onCallbackFunction});
   final String firstText;
   final String secondText;
   final void Function()? onCallbackFunction;
@@ -23,22 +18,14 @@ class BottomInfo extends StatelessWidget {
         children: <Widget>[
           Text(
             firstText,
-            style: TextStyle(
-              fontSize: 14,
-              color: context.colors.grey,
-              fontWeight: FontWeight.normal,
-            ),
+            style: TextStyle(fontSize: 14, color: context.colors.grey, fontWeight: FontWeight.normal),
           ),
           const SizedBox(width: 10),
           GestureDetector(
             onTap: onCallbackFunction,
             child: Text(
               secondText,
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                color: context.colors.primary,
-              ),
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: context.colors.primary),
             ),
           )
         ],

@@ -3,7 +3,6 @@ import 'dart:js' as js;
 
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/utils/enums.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class TransactionHistoryScreenRouteArgument {
 }
 
 class TransactionHistoryScreen extends StatefulWidget {
-  const TransactionHistoryScreen({Key? key}) : super(key: key);
+  const TransactionHistoryScreen({super.key});
 
   @override
   State<TransactionHistoryScreen> createState() => _TransactionHistoryScreenState();
@@ -51,7 +50,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               child: Column(
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       IconButton(
                         icon: const Icon(Ionicons.arrow_back_sharp, size: 24, color: Colors.black),
@@ -60,11 +58,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                       Expanded(
                         child: Text(
                           'Transactions History',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: context.colors.textDark,
-                          ),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.colors.textDark),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -84,11 +78,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                               final Transaction transaction = transactions[index];
                               return ListTile(
                                 onTap: () => showTransactionDetails(context, transaction),
-                                leading: Image.asset(
-                                  transaction.type.transactionAsset(),
-                                  width: 24,
-                                  height: 24,
-                                ),
+                                leading: Image.asset(transaction.type.transactionAsset(), width: 24, height: 24),
                                 title: Text(
                                   transaction.description,
                                   style: TextStyle(
@@ -99,17 +89,11 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                 ),
                                 subtitle: Text(
                                   StringUtils.capitalizeFirst(transaction.status.stringValue),
-                                  style: TextStyle(
-                                    color: transaction.status.color(context),
-                                    fontSize: 12,
-                                  ),
+                                  style: TextStyle(color: transaction.status.color(context), fontSize: 12),
                                 ),
                                 trailing: Text(
                                   '${transaction.convertedAmount.toStringAsFixed(2)} ${transaction.convertedToken.toUpperCase()}',
-                                  style: TextStyle(
-                                    color: context.colors.text,
-                                    fontSize: 12,
-                                  ),
+                                  style: TextStyle(color: context.colors.text, fontSize: 12),
                                 ),
                               );
                             },

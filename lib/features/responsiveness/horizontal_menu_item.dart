@@ -6,12 +6,7 @@ import 'constants/web_controller.dart';
 import 'custom_text.dart';
 
 class HorizontalMenuItem extends StatelessWidget {
-  const HorizontalMenuItem({
-    Key? key,
-    required this.name,
-    required this.route,
-    required this.onTap,
-  }) : super(key: key);
+  const HorizontalMenuItem({super.key, required this.name, required this.route, required this.onTap});
 
   final String name;
   final String route;
@@ -28,7 +23,7 @@ class HorizontalMenuItem extends StatelessWidget {
             value ? menuController.onHover(route) : menuController.onHover('not hovering');
           },
           borderRadius: BorderRadius.circular(30),
-          child: Container(
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: menuController.isHovering(route) || menuController.isActive(route)
                   ? context.colors.lightGrey
@@ -36,7 +31,6 @@ class HorizontalMenuItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

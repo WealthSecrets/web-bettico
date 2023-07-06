@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '/core/core.dart';
-import '../../../../../core/presentation/helpers/responsiveness.dart';
 
 class BusinessTypeScreen extends GetWidget<ProfessionalController> {
   const BusinessTypeScreen({super.key});

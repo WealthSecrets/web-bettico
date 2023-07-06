@@ -16,7 +16,7 @@ import '../okx_options/widgets/no_trading_account.dart';
 import '../okx_options/widgets/no_trading_api_key.dart';
 
 class CryptoFrontScreen extends StatefulWidget {
-  const CryptoFrontScreen({Key? key}) : super(key: key);
+  const CryptoFrontScreen({super.key});
 
   @override
   State<CryptoFrontScreen> createState() => _CryptoFrontScreenState();
@@ -61,13 +61,14 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
                   : DefaultTabController(
                       length: 3,
                       child: NestedScrollView(
-                        headerSliverBuilder:
-                            (BuildContext context, bool innerBoxScrolled) {
+                        headerSliverBuilder: (BuildContext context, bool innerBoxScrolled) {
                           return <Widget>[
-                            Obx(() => _SliverAppBar(
+                            Obx(
+                              () => _SliverAppBar(
                                 total: controller.totalBalance.value,
-                                tradeName:
-                                    controller.myOkxAccount.value.subAccount)),
+                                tradeName: controller.myOkxAccount.value.subAccount,
+                              ),
+                            ),
                             SliverPersistentHeader(
                               delegate: _SliverAppBarDelegate(
                                 TabBar(
@@ -77,8 +78,7 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
-                                  unselectedLabelStyle:
-                                      const TextStyle(fontSize: 14),
+                                  unselectedLabelStyle: const TextStyle(fontSize: 14),
                                   padding: AppPaddings.lH,
                                   unselectedLabelColor: Colors.grey,
                                   indicator: CircleTabIndicator(
@@ -112,8 +112,7 @@ class _CryptoFrontScreenState extends State<CryptoFrontScreen> {
 }
 
 class _SliverAppBar extends StatelessWidget {
-  const _SliverAppBar({Key? key, required this.total, required this.tradeName})
-      : super(key: key);
+  const _SliverAppBar({required this.total, required this.tradeName});
 
   final String total;
   final String tradeName;
@@ -123,18 +122,13 @@ class _SliverAppBar extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: 200,
       automaticallyImplyLeading: false,
-      floating: false,
       pinned: true,
       backgroundColor: Colors.white,
       elevation: 0,
       iconTheme: const IconThemeData(color: Colors.black),
       leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
-        icon: const Icon(
-          Ionicons.close_outline,
-          color: Colors.black,
-          size: 24,
-        ),
+        icon: const Icon(Ionicons.close_outline, color: Colors.black, size: 24),
       ),
       flexibleSpace: _FlexibleSpaceBar(total: total, tradeName: tradeName),
     );
@@ -142,9 +136,7 @@ class _SliverAppBar extends StatelessWidget {
 }
 
 class _FlexibleSpaceBar extends StatelessWidget {
-  const _FlexibleSpaceBar(
-      {Key? key, required this.total, required this.tradeName})
-      : super(key: key);
+  const _FlexibleSpaceBar({required this.total, required this.tradeName});
 
   final String total;
   final String tradeName;
@@ -162,16 +154,11 @@ class _FlexibleSpaceBar extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               '\$${total.isEmpty ? 0.0 : total}',
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Align(
-              alignment: Alignment.center,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -179,11 +166,7 @@ class _FlexibleSpaceBar extends StatelessWidget {
                     onTap: () => _onCopy(context),
                     child: Text(
                       tradeName,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: context.colors.text,
-                      ),
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: context.colors.text),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -202,26 +185,22 @@ class _FlexibleSpaceBar extends StatelessWidget {
                 _CryptoIconText(
                   iconData: Ionicons.swap_horizontal_sharp,
                   title: 'Swap',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.convertCrypto),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.convertCrypto),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.cash_sharp,
                   title: 'Buy/Sell',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.buySellCrypto),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.buySellCrypto),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.qr_code_sharp,
                   title: 'Receive',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.currencies),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.currencies),
                 ),
                 _CryptoIconText(
                   iconData: Ionicons.send_sharp,
                   title: 'Send',
-                  onPressed: () =>
-                      navigationController.navigateTo(AppRoutes.send),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.send),
                 ),
               ],
             ),
@@ -239,22 +218,13 @@ class _FlexibleSpaceBar extends StatelessWidget {
       context,
       message: 'Trade name copied to clipboard',
       backgroundColor: context.colors.success,
-      leadingIcon: const Icon(
-        Ionicons.checkmark_circle_sharp,
-        size: 20,
-        color: Colors.white,
-      ),
+      leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, size: 20, color: Colors.white),
     );
   }
 }
 
 class _CryptoIconText extends StatelessWidget {
-  const _CryptoIconText({
-    Key? key,
-    required this.iconData,
-    required this.title,
-    required this.onPressed,
-  }) : super(key: key);
+  const _CryptoIconText({required this.iconData, required this.title, required this.onPressed});
 
   final IconData iconData;
   final String title;
@@ -268,11 +238,7 @@ class _CryptoIconText extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           title,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: context.colors.grey,
-          ),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: context.colors.grey),
         ),
       ],
     );
@@ -280,11 +246,7 @@ class _CryptoIconText extends StatelessWidget {
 }
 
 class _CryptoIcon extends StatelessWidget {
-  const _CryptoIcon({
-    Key? key,
-    required this.iconData,
-    required this.onPressed,
-  }) : super(key: key);
+  const _CryptoIcon({required this.iconData, required this.onPressed});
 
   final IconData iconData;
   final VoidCallback onPressed;
@@ -296,18 +258,9 @@ class _CryptoIcon extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 40, maxWidth: 75),
         child: Center(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Center(
-              child: Icon(
-                iconData,
-                size: 24,
-                color: Colors.black,
-              ),
-            ),
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+            child: Center(child: Icon(iconData, size: 24, color: Colors.black)),
           ),
         ),
       ),
@@ -321,12 +274,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar _tabBar;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Colors.white,
-      child: _tabBar,
-    );
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return ColoredBox(color: Colors.white, child: _tabBar);
   }
 
   @override

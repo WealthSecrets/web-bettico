@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fixture_card.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_card.dart';
@@ -19,7 +17,7 @@ import '../../p2p_betting/screens/p2p_betting_screen.dart';
 import '../getx/live_score_controllers.dart';
 
 class NewLiveScore extends StatefulWidget {
-  const NewLiveScore({Key? key}) : super(key: key);
+  const NewLiveScore({super.key});
 
   @override
   State<NewLiveScore> createState() => _NewLiveScoreState();
@@ -54,7 +52,6 @@ class _NewLiveScoreState extends State<NewLiveScore> {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const AppSpacing(v: 30),
           Obx(
@@ -81,12 +78,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
               },
               actions: <Widget>[
                 IconButton(
-                  icon: Image.asset(
-                    AssetImages.transactionHisotry,
-                    color: Colors.black,
-                    height: 24,
-                    width: 24,
-                  ),
+                  icon: Image.asset(AssetImages.transactionHisotry, color: Colors.black, height: 24, width: 24),
                   onPressed: () => navigationController.navigateTo(AppRoutes.transactions),
                 ),
               ],
@@ -105,20 +97,13 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                           padding: isSmallScreen ? AppPaddings.lL : EdgeInsets.zero,
                           child: const Text(
                             'Leagues',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                           ),
                         ),
                         SizedBox(
                           height: 112,
                           child: ListView.builder(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 28,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 28),
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
                               return Obx(
@@ -150,11 +135,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                       padding: isSmallScreen ? AppPaddings.lL : EdgeInsets.zero,
                       child: const Text(
                         'Live Matches',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   ),
@@ -190,11 +171,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                       padding: isSmallScreen ? AppPaddings.lL : EdgeInsets.zero,
                       child: const Text(
                         'Fixtures',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   ),
@@ -203,9 +180,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     () => lController.sFixtures.isEmpty
                         ? const AppEmptyScreen(message: 'No fixtures were found for the selected league.')
                         : lController.isFetchingFixtures.value
-                            ? const Center(
-                                child: LoadingLogo(),
-                              )
+                            ? const Center(child: LoadingLogo())
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                                 child: Column(
@@ -238,57 +213,42 @@ class _NewLiveScoreState extends State<NewLiveScore> {
         context,
         message: 'Sorry, match is already completed',
         backgroundColor: context.colors.error,
-        leadingIcon: const Icon(
-          Ionicons.checkmark_circle_outline,
-          color: Colors.white,
-        ),
+        leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
       );
     } else if (minutes != null && minutes > 10) {
       await AppSnacks.show(
         context,
         message: 'Sorry, match has already started',
         backgroundColor: context.colors.error,
-        leadingIcon: const Icon(
-          Ionicons.checkmark_circle_outline,
-          color: Colors.white,
-        ),
+        leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
       );
     } else if ((localTeamScore != null && localTeamScore > 0) || (visitorTeamScore != null && visitorTeamScore > 0)) {
       await AppSnacks.show(
         context,
         message: 'Can\'t bet on match when there is already a goal.',
         backgroundColor: context.colors.error,
-        leadingIcon: const Icon(
-          Ionicons.checkmark_circle_outline,
-          color: Colors.white,
-        ),
+        leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
       );
     } else {
       if (!lController.isConnected) {
         if (Ethereum.isSupported) {
-          lController.initiateWalletConnect((_) async => Navigator.of(context).push<void>(
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore),
-                ),
-              ));
+          lController.initiateWalletConnect(
+            (_) async => Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore),
+              ),
+            ),
+          );
         } else {
           await lController.connectWC(
             (_) async => Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => P2PBettingScreen(
-                  liveScore: liveScore,
-                ),
-              ),
+              MaterialPageRoute<void>(builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore)),
             ),
           );
         }
       } else {
         await Navigator.of(context).push<void>(
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => P2PBettingScreen(
-              liveScore: liveScore,
-            ),
-          ),
+          MaterialPageRoute<void>(builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore)),
         );
       }
     }
