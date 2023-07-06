@@ -123,10 +123,7 @@ class UserOptionsModalBottom extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
-                    controller.deleteUserPost(
-                      ctx,
-                      post!.id,
-                    );
+                    controller.deleteUserPost(ctx, post!.id);
                   },
                   child: Padding(
                     padding: AppPaddings.bodyH.add(AppPaddings.lV),

@@ -1,18 +1,13 @@
 import 'package:betticos/features/betticos/domain/requests/post/delete_post_params.dart';
 import 'package:betticos/features/betticos/domain/usecases/post/delete_post.dart';
-// import 'package:bitmap/bitmap.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
-// import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '/core/core.dart';
-// import '/core/presentation/services/notification_service.dart';
-// import '/core/presentation/utils/app_endpoints.dart';
-import '/features/auth/data/models/user/user.dart';
 import '/features/betticos/data/models/listpage/listpage.dart';
 import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/data/models/reply/reply_model.dart';
@@ -64,11 +59,6 @@ class TimelineController extends GetxController {
   final DeletePost deletePost;
 
   static TimelineController instance = Get.find();
-
-  // notification dependencies
-  // final NotificationService notificationService;
-
-  // reactive variables
   RxList<Post> posts = <Post>[].obs;
   Rx<Post> detailPost = Post.empty().obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
@@ -101,140 +91,10 @@ class TimelineController extends GetxController {
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final ProfileController pController = Get.find<ProfileController>();
 
-  // io.Socket? socket;
-
   @override
   void onInit() {
-    // notificationService.initialize();
-    // connectAndListen();
     pagingController.value.addPageRequestListener(getPaginatedPosts);
-    // getAllFollowingPosts();
     super.onInit();
-  }
-
-  // void connectAndListen() {
-  //   socket = io.io(
-  //     environment.isProduction
-  //         ? 'http://api.wealthsecrets.io:8000'
-  //         : 'http://192.168.0.117:8000',
-  //     io.OptionBuilder().setTransports(<String>['websocket']).build(),
-  //   );
-  //   socket?.onConnect((dynamic _) async {
-  //     socket?.on('post-added-${bController.user.value.id}', postAddedListener);
-  //     socket?.on('post-liked-${bController.user.value.id}', postLikedListener);
-  //     socket?.on('post-commented-${bController.user.value.id}',
-  //         postCommentedOnListener);
-  //     socket?.on('follow-${bController.user.value.id}-user', followListener);
-  //     socket?.on(
-  //         'follow-${bController.user.value.id}-follower', followerListener);
-  //     socket?.on(
-  //         'subscribe-${bController.user.value.id}', subscriptionListener);
-  //     socket?.on(
-  //         'user-blocked-${bController.user.value.id}', userBlockedListener);
-  //   });
-  // }
-
-  void postAddedListener(dynamic data) async {
-    final Post newPost = Post.fromJson(data as Map<String, dynamic>);
-    if (!posts.contains(newPost)) {
-      posts.insert(0, newPost);
-      if (newPost.images != null) {
-        // final Bitmap bitmap = await Bitmap.fromProvider(NetworkImage(
-        //   '${AppEndpoints.postImages}/${newPost.images![0]}',
-        //   headers: <String, String>{
-        //     'Authorization': 'Bearer ${bController.userToken.value}'
-        //   },
-        // ));
-        // await notificationService.imageNotification(
-        //     '${newPost.user.firstName} ${newPost.user.lastName}',
-        //     '${newPost.text}',
-        //     bitmap);
-      } else {
-        // await notificationService.instantNotification(
-        //     '${newPost.user.firstName} ${newPost.user.lastName}',
-        //     '${newPost.text}');
-      }
-    }
-  }
-
-  void postLikedListener(dynamic data) async {
-    final Post newPost = Post.fromJson(data['post'] as Map<String, dynamic>);
-    // final User user =
-    User.fromJson(data['user'] as Map<String, dynamic>);
-    if (newPost.images != null && newPost.images!.isNotEmpty) {
-      // final Bitmap bitmap = await Bitmap.fromProvider(NetworkImage(
-      //   '${AppEndpoints.postImages}/${newPost.images![0]}',
-      //   headers: <String, String>{
-      //     'Authorization': 'Bearer ${bController.userToken.value}'
-      //   },
-      // ));
-      // await notificationService.imageNotification(
-      //   '${user.firstName} ${user.lastName} liked',
-      //   '${newPost.text}',
-      //   bitmap,
-      // );
-    } else {
-      // await notificationService.instantNotification(
-      //   '${user.firstName} ${user.lastName} liked',
-      //   '${newPost.text}',
-      // );
-    }
-  }
-
-  void postCommentedOnListener(dynamic data) async {
-    // final Post thePost = Post.fromJson(data['post'] as Map<String, dynamic>);
-    final Post theComment = Post.fromJson(data['comment'] as Map<String, dynamic>);
-    if (theComment.images != null && theComment.images!.isNotEmpty) {
-      // final Bitmap bitmap = await Bitmap.fromProvider(NetworkImage(
-      //   '${AppEndpoints.postImages}/${theComment.images![0]}',
-      //   headers: <String, String>{
-      //     'Authorization': 'Bearer ${bController.userToken.value}'
-      //   },
-      // ));
-      // await notificationService.imageNotification(
-      //   '${theComment.user.firstName} ${theComment.user.lastName} commented',
-      //   '${theComment.text}',
-      //   bitmap,
-      // );
-    } else {
-      // await notificationService.instantNotification(
-      //     '${theComment.user.firstName} ${theComment.user.lastName} commented',
-      //     '${theComment.text}');
-    }
-  }
-
-  void followListener(dynamic data) async {
-    // final User follower =
-    User.fromJson(data as Map<String, dynamic>);
-    final Map<String, dynamic> theLoggedInUserMap = bController.user.value.toJson();
-    final int hisFollowersCount = theLoggedInUserMap['followers'] as int;
-    theLoggedInUserMap['followers'] = hisFollowersCount + 1;
-    final User theLoggedInUser = User.fromJson(theLoggedInUserMap);
-    bController.updateTheUser(theLoggedInUser);
-    // await notificationService.instantNotification(
-    //   'Bettico',
-    //   '${follower.firstName} ${follower.lastName} followed you',
-    // );
-  }
-
-  void followerListener(dynamic data) async {
-    final User user = User.fromJson(data as Map<String, dynamic>);
-    pController.setProfileUser(user);
-  }
-
-  void subscriptionListener(dynamic data) async {
-    // final User user =
-    User.fromJson(data as Map<String, dynamic>);
-    // await notificationService.instantNotification(
-    //   'Bettico',
-    //   '${user.firstName} ${user.lastName} subscribed to you',
-    // );
-  }
-
-  void userBlockedListener(dynamic data) async {
-    final String blockedUserId = data as String;
-    pagingController.value.itemList!.removeWhere((Post p) => p.user.id == blockedUserId);
-    pagingController.value.notifyListeners();
   }
 
   void getAllFollowingPosts() async {
@@ -285,11 +145,7 @@ class TimelineController extends GetxController {
     pageK(pageKey);
     isLoading(true);
     final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
-      PageParmas(
-        page: pageK.value,
-        size: 100,
-        leagueId: 1,
-      ),
+      PageParmas(page: pageK.value, size: 100, leagueId: 1),
     );
 
     failureOrPosts.fold(
@@ -329,11 +185,7 @@ class TimelineController extends GetxController {
     }
   }
 
-  void removeImage(int index) {
-    // final List<File> imageFiles = List<File>.from(files);
-    // imageFiles.indexOf((File file) => false)
-    files.removeAt(index);
-  }
+  void removeImage(int index) => files.removeAt(index);
 
   void addImage(Uint8List file) {
     files.add(file);
@@ -341,8 +193,6 @@ class TimelineController extends GetxController {
 
   Future<void> getAllPostComments(String postId) async {
     isCommentLoading(true);
-
-    // resetValues();
 
     final Either<Failure, List<Post>> failureOrPosts = await fetchPostComments(
       FetchPostCommentsRequest(
@@ -380,22 +230,6 @@ class TimelineController extends GetxController {
     );
     return orderedOddbox;
   }
-
-  // double getFeelingAverageForUserPosts(String userId) {
-  //   final List<Post> userPosts =
-  //       oddboxes.where((Post post) => post.user.id == userId).toList();
-  //   int wins = 0;
-  //   int losses = 0;
-  //   for (int i = 0; i < userPosts.length; i++) {
-  //     if (userPosts[i].likeUsers.length > userPosts[i].dislikeUsers.length) {
-  //       wins = wins + 1;
-  //     } else {
-  //       losses = losses + 1;
-  //     }
-  //   }
-
-  //   return (wins / userPosts.length) * 100;
-  // }
 
   bool checkIfUserAlreadyExists(List<Post> psts, String userId) {
     final Post? value = psts.firstWhereOrNull((Post element) => element.user.id == userId);
@@ -480,7 +314,7 @@ class TimelineController extends GetxController {
         resetValuesAfterPost();
         Get.back<dynamic>(result: pt);
         pagingController.value.itemList!.insert(0, pt);
-        pagingController.value.notifyListeners();
+        pagingController.refresh();
       },
     );
   }
@@ -560,7 +394,7 @@ class TimelineController extends GetxController {
               posts[postIndex] = pst;
               pagingController.value.itemList!
                   .replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
-              pagingController.value.notifyListeners();
+              pagingController.refresh();
             }
           }
         },
@@ -603,7 +437,7 @@ class TimelineController extends GetxController {
         final int postIndex = posts.indexOf(oldPost);
         posts[postIndex] = post;
         pagingController.value.itemList!.replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
-        pagingController.value.notifyListeners();
+        pagingController.refresh();
       }
     }
   }
@@ -658,7 +492,7 @@ class TimelineController extends GetxController {
 
               pagingController.value.itemList!
                   .replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
-              pagingController.value.notifyListeners();
+              pagingController.refresh();
             }
           }
         },
@@ -702,9 +536,6 @@ class TimelineController extends GetxController {
       postId(pstId);
       final dynamic post =
           await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: pstId));
-      // final dynamic post = await navigationController.navigateTo(
-      //     AppRoutes.timelinePost,
-      //     arguments: AddPostCommentArgument(postId: pstId));
       if (post != null) {
         getPaginatedPosts(pageK.value);
         pagingController.value.refresh();
@@ -726,10 +557,13 @@ class TimelineController extends GetxController {
 
   void removePostFromMyPosts(String id) {
     pagingController.value.itemList!.removeWhere((Post p) => p.id == id);
-    pagingController.value.notifyListeners();
+    final List<Post> theComments = List<Post>.from(postComments);
+    theComments.removeWhere((Post p) => p.id == id);
+    postComments(theComments);
+    pagingController.refresh();
   }
 
-  void deleteUserPost(BuildContext context, String postId) async {
+  void deleteUserPo(BuildContext context, String postId) async {
     isLoading(true);
     final Either<Failure, void> failureOrUser = await deletePost(DeletePostParams(postId: postId));
 
@@ -738,9 +572,7 @@ class TimelineController extends GetxController {
         isLoading(false);
         AppSnacks.show(context, message: failure.message);
       },
-      (_) {
-        isLoading(false);
-      },
+      (_) => isLoading(false),
     );
   }
 
