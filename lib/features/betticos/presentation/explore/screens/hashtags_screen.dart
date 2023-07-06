@@ -1,13 +1,11 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HashtagsScreen extends StatelessWidget {
-  HashtagsScreen({Key? key}) : super(key: key);
+  HashtagsScreen({super.key});
 
   final ExploreController controller = Get.find();
 
@@ -61,11 +59,7 @@ class HashtagsScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color: context.colors.lightGrey,
-                            width: 1,
-                            style: BorderStyle.solid,
-                          ),
+                          border: Border.all(color: context.colors.lightGrey),
                         ),
                         child: Center(
                           child: Text(

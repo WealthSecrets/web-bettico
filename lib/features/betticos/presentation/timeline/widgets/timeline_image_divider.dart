@@ -2,11 +2,7 @@ import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:flutter/material.dart';
 
 class TimelineImageDivider extends StatelessWidget {
-  const TimelineImageDivider({
-    Key? key,
-    required this.images,
-    required this.token,
-  }) : super(key: key);
+  const TimelineImageDivider({super.key, required this.images, required this.token});
 
   final List<String> images;
   final String token;
@@ -53,12 +49,7 @@ class TimelineImageDivider extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Expanded(
-            child: _buildColumnImages(
-              context,
-              images[1],
-              images[2],
-              115,
-            ),
+            child: _buildColumnImages(context, images[1], images[2], 115),
           ),
         ],
       );
@@ -67,9 +58,9 @@ class TimelineImageDivider extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute<void>(
-                builder: (BuildContext context) => FullImage(imageAddress: images[0], token: token)));
+          context,
+          MaterialPageRoute<void>(builder: (BuildContext context) => FullImage(imageAddress: images[0], token: token)),
+        );
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
@@ -85,50 +76,56 @@ class TimelineImageDivider extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-            child: GestureDetector(
-          onTap: () {
-            Navigator.push(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                    builder: (BuildContext context) => FullImage(imageAddress: image1, token: token)));
-          },
-          child: Container(
-            height: height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${AppEndpoints.postImages}/$image1',
-                  headers: <String, String>{'Authorization': 'Bearer $token'},
+                  builder: (BuildContext context) => FullImage(imageAddress: image1, token: token),
                 ),
-                fit: BoxFit.cover,
+              );
+            },
+            child: Container(
+              height: height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    '${AppEndpoints.postImages}/$image1',
+                    headers: <String, String>{'Authorization': 'Bearer $token'},
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        )),
+        ),
         const SizedBox(width: 5),
         Expanded(
-            child: GestureDetector(
-          onTap: () {
-            Navigator.push(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                    builder: (BuildContext context) => FullImage(imageAddress: image2, token: token)));
-          },
-          child: Container(
-            height: height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${AppEndpoints.postImages}/$image2',
-                  headers: <String, String>{'Authorization': 'Bearer $token'},
+                  builder: (BuildContext context) => FullImage(imageAddress: image2, token: token),
                 ),
-                fit: BoxFit.cover,
+              );
+            },
+            child: Container(
+              height: height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    '${AppEndpoints.postImages}/$image2',
+                    headers: <String, String>{'Authorization': 'Bearer $token'},
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -141,9 +138,11 @@ class TimelineImageDivider extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                      builder: (BuildContext context) => FullImage(imageAddress: image1, token: token)));
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => FullImage(imageAddress: image1, token: token),
+                ),
+              );
             },
             child: Container(
               height: height,
@@ -163,9 +162,11 @@ class TimelineImageDivider extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                      builder: (BuildContext context) => FullImage(imageAddress: image2, token: token)));
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => FullImage(imageAddress: image2, token: token),
+                ),
+              );
             },
             child: Container(
               height: height,
@@ -188,7 +189,7 @@ class TimelineImageDivider extends StatelessWidget {
 }
 
 class FullImage extends StatelessWidget {
-  const FullImage({Key? key, required this.imageAddress, required this.token}) : super(key: key);
+  const FullImage({super.key, required this.imageAddress, required this.token});
 
   final String imageAddress;
   final String token;
@@ -197,9 +198,7 @@ class FullImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
+        onTap: () => Navigator.pop(context),
         child: Center(
           child: Hero(
             tag: 'imageHero',

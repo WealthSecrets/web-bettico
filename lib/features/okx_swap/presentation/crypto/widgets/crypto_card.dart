@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class CryptoCard extends StatelessWidget {
   const CryptoCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.imagePath,
     required this.onPressed,
-  }) : super(key: key);
+  });
   final String title;
   final String subtitle;
   final String imagePath;

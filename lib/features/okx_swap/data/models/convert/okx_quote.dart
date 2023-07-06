@@ -27,19 +27,20 @@ class OkxQuote with _$OkxQuote {
   factory OkxQuote.fromJson(Map<String, dynamic> json) => _$OkxQuoteFromJson(json);
 
   factory OkxQuote.mock() => const OkxQuote(
-      baseCurrency: 'ETH',
-      baseConvertedAmount: '0.01023052',
-      clientOrderId: '',
-      rate: '2932.40104429',
-      originalRFQAmount: '30',
-      quoteCurrency: 'USDT',
-      quoteId: 'quoterETH-USDT16461885104612381',
-      quoteConvertedAmount: '30',
-      timestamp: '1646188510461',
-      realRFQAmount: '30',
-      rfqCurrency: 'USDT',
-      side: 'buy',
-      expiryTime: '10000');
+        baseCurrency: 'ETH',
+        baseConvertedAmount: '0.01023052',
+        clientOrderId: '',
+        rate: '2932.40104429',
+        originalRFQAmount: '30',
+        quoteCurrency: 'USDT',
+        quoteId: 'quoterETH-USDT16461885104612381',
+        quoteConvertedAmount: '30',
+        timestamp: '1646188510461',
+        realRFQAmount: '30',
+        rfqCurrency: 'USDT',
+        side: 'buy',
+        expiryTime: '10000',
+      );
 
   factory OkxQuote.empty() => const OkxQuote(
         baseCurrency: '',

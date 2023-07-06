@@ -9,20 +9,12 @@ class AddressDetailsScreenRouteArgument {
 }
 
 class AddressDetailsScreen extends StatelessWidget {
-  const AddressDetailsScreen({
-    Key? key,
-  }) : super(key: key);
+  const AddressDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final AddressDetailsScreenRouteArgument? args = ModalRoute.of(context)!
-        .settings
-        .arguments as AddressDetailsScreenRouteArgument?;
-    return Scaffold(
-      body: AddressDetails(
-        address: args!.address!,
-        isScreen: true,
-      ),
-    );
+    final AddressDetailsScreenRouteArgument? args =
+        ModalRoute.of(context)!.settings.arguments as AddressDetailsScreenRouteArgument?;
+    return Scaffold(body: AddressDetails(address: args!.address!, isScreen: true));
   }
 }

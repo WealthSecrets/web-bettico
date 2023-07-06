@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 import '../getx/explore_controller.dart';
 
 class SearchFieldContainer extends StatefulWidget {
-  const SearchFieldContainer({Key? key}) : super(key: key);
+  const SearchFieldContainer({super.key});
 
   @override
   State<SearchFieldContainer> createState() => _SearchFieldContainerState();
@@ -57,10 +57,7 @@ class _SearchFieldContainerState extends State<SearchFieldContainer> {
                 navigationController.goBack();
               }
             },
-            icon: const Icon(
-              Ionicons.close_circle_sharp,
-              size: 20,
-            ),
+            icon: const Icon(Ionicons.close_circle_sharp, size: 20),
           ),
         );
       },

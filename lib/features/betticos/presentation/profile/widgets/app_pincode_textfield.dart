@@ -9,7 +9,7 @@ import '/core/core.dart';
 
 class AppPinCodeTextField extends StatelessWidget {
   const AppPinCodeTextField({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.length,
     this.onCompleted,
@@ -17,7 +17,7 @@ class AppPinCodeTextField extends StatelessWidget {
     this.inputFormatters = const <TextInputFormatter>[],
     this.label,
     this.validator,
-  }) : super(key: key);
+  });
 
   final List<TextInputFormatter> inputFormatters;
   final Function(String pin) onChanged;
@@ -40,10 +40,7 @@ class AppPinCodeTextField extends StatelessWidget {
               child: Text(
                 label!,
                 textAlign: TextAlign.left,
-                style: context.overline.copyWith(
-                  color: context.colors.text,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: context.overline.copyWith(color: context.colors.text, fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -56,10 +53,7 @@ class AppPinCodeTextField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           animationCurve: Curves.fastLinearToSlowEaseIn,
           enableActiveFill: true,
-          textStyle: context.sub1.copyWith(
-            fontWeight: FontWeight.w800,
-            color: context.colors.primary,
-          ),
+          textStyle: context.sub1.copyWith(fontWeight: FontWeight.w800, color: context.colors.primary),
           validator: validator,
           errorTextSpace: 20,
           errorAnimationDuration: 400,

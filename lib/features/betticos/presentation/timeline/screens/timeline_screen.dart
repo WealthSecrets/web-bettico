@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/promo_tab.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/timeline_tab.dart';
 import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/updates_tab.dart';
@@ -78,10 +77,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                     onPressed: () => controller.navigateToAddPost(context),
                     backgroundColor: context.colors.primary.shade400,
                     key: createPost,
-                    child: const Icon(
-                      Ionicons.create_outline,
-                      color: Colors.white,
-                    ),
+                    child: const Icon(Ionicons.create_outline, color: Colors.white),
                   )
                 : null
             : null,
@@ -100,24 +96,13 @@ class _TimelineScreenState extends State<TimelineScreen> {
                       TabBar(
                         indicatorColor: context.colors.primary,
                         labelColor: Colors.black,
-                        labelStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                        unselectedLabelStyle: const TextStyle(
-                          fontSize: 14,
-                        ),
+                        labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        unselectedLabelStyle: const TextStyle(fontSize: 14),
                         padding: AppPaddings.lH.add(AppPaddings.lB),
                         unselectedLabelColor: Colors.grey,
-                        indicator: CircleTabIndicator(
-                          color: context.colors.primary,
-                          radius: 3,
-                        ),
+                        indicator: CircleTabIndicator(color: context.colors.primary, radius: 3),
                         tabs: <Widget>[
-                          Tab(
-                            text: 'timeline'.tr,
-                            key: timelineTab,
-                          ),
+                          Tab(text: 'timeline'.tr, key: timelineTab),
                           Tab(text: 'updates'.tr, key: updateTab),
                           Tab(text: 'P2P Bets', key: p2pBetsTab),
                           Tab(text: 'promos'.tr, key: promoTab),
@@ -129,12 +114,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 ];
               },
               body: TabBarView(
-                children: <Widget>[
-                  TimelineTab(),
-                  UpdatesTab(),
-                  const P2pBetTab(),
-                  const PromoTab(),
-                ],
+                children: <Widget>[TimelineTab(), UpdatesTab(), const P2pBetTab(), const PromoTab()],
               ),
             ),
           ),
@@ -152,7 +132,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
         alignSkip: Alignment.topRight,
         contents: <TargetContent>[
           TargetContent(
-            align: ContentAlign.bottom,
             builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -185,11 +164,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 children: <Widget>[
                   Text(
                     'create_posts_tut'.tr,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 20.0,
-                    ),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -206,7 +181,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
         alignSkip: Alignment.topRight,
         contents: <TargetContent>[
           TargetContent(
-            align: ContentAlign.bottom,
             builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -230,7 +204,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
         alignSkip: Alignment.topRight,
         contents: <TargetContent>[
           TargetContent(
-            align: ContentAlign.bottom,
             builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,

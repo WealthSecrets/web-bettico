@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
-import 'package:betticos/core/presentation/widgets/search_field.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
@@ -23,7 +21,7 @@ class AssetCurrenciesScreenRouteArgument {
 }
 
 class AssetCurrenciesScreen extends StatefulWidget {
-  const AssetCurrenciesScreen({Key? key}) : super(key: key);
+  const AssetCurrenciesScreen({super.key});
 
   @override
   State<AssetCurrenciesScreen> createState() => _AssetCurrenciesScreenState();
@@ -54,24 +52,14 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: const AppBackButton(color: Colors.black),
-        title: const Text(
-          'Select Crypto',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
-        ),
+        title: const Text('Select Crypto', style: TextStyle(fontSize: 14, color: Colors.black)),
         centerTitle: true,
         elevation: 0,
         actions: args?.isTransfer == null && args?.isWithdrawal == null
             ? <Widget>[
                 IconButton(
                   onPressed: () => navigationController.navigateTo(AppRoutes.depositHistory),
-                  icon: Image.asset(
-                    AssetImages.tansactionHistory,
-                    height: 24,
-                    width: 24,
-                  ),
+                  icon: Image.asset(AssetImages.tansactionHistory, height: 24, width: 24),
                 ),
               ]
             : null,
@@ -99,7 +87,6 @@ class _AssetCurrenciesScreenState extends State<AssetCurrenciesScreen> {
                 registerController.isCreatingOkxAccount.value ||
                 registerController.isCreatingAccountApiKey.value,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Padding(
                   padding: AppPaddings.bodyH,

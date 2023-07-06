@@ -1,16 +1,14 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_ructors
 import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/core.dart';
-import '/core/presentation/widgets/app_empty_screen.dart';
 import '/features/betticos/data/models/post/post_model.dart';
 import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
 class OddsboxScreen extends StatefulWidget {
-  const OddsboxScreen({Key? key}) : super(key: key);
+  const OddsboxScreen({super.key});
 
   @override
   State<OddsboxScreen> createState() => _OddsboxScreenState();
@@ -44,9 +42,7 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                         post: post,
                         onTap: () {
                           Navigator.of(context).push<void>(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) => PostDetailsScreen(post: post),
-                            ),
+                            MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                           );
                         },
                         onCommentTap: () => controller.navigateToAddPost(

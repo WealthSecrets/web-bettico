@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +9,7 @@ import '/core/core.dart';
 import '/features/betticos/presentation/referral/getx/referral_controller.dart';
 
 class ReferralScreen extends StatefulWidget {
-  const ReferralScreen({Key? key}) : super(key: key);
+  const ReferralScreen({super.key});
   @override
   State<ReferralScreen> createState() => _ReferralScreenState();
 }
@@ -31,8 +30,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
     return Scaffold(
       body: Obx(
         () => AppLoadingBox(
-          loading: referralController.isLoading.value ||
-              referralController.isReferringUser.value,
+          loading: referralController.isLoading.value || referralController.isReferringUser.value,
           child: Padding(
             padding: AppPaddings.homeH,
             child: SingleChildScrollView(
@@ -40,27 +38,17 @@ class _ReferralScreenState extends State<ReferralScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   const AppSpacing(v: 30),
-                  SvgPicture.asset(
-                    AssetSVGs.referral.path,
-                    height: 200,
-                  ),
+                  SvgPicture.asset(AssetSVGs.referral.path, height: 200),
                   const AppSpacing(v: 16),
                   Text(
                     'going_further'.tr,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                    ),
+                    style: const TextStyle(color: Colors.black, fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
                   const AppSpacing(v: 30),
                   Text(
                     'refer_code'.tr.toUpperCase(),
-                    style: TextStyle(
-                      color: context.colors.primary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: context.colors.primary, fontWeight: FontWeight.bold, fontSize: 12),
                     textAlign: TextAlign.left,
                   ),
                   const AppSpacing(v: 8),
@@ -68,10 +56,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                     padding: AppPaddings.lH,
                     width: MediaQuery.of(context).size.width,
                     height: 56.0,
-                    decoration: BoxDecoration(
-                      color: context.colors.primary,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                    decoration: BoxDecoration(color: context.colors.primary, borderRadius: BorderRadius.circular(30)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -98,29 +83,18 @@ class _ReferralScreenState extends State<ReferralScreen> {
                                 context,
                                 message: 'copied'.tr,
                                 backgroundColor: context.colors.success,
-                                leadingIcon: const Icon(
-                                  Ionicons.checkmark_sharp,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
+                                leadingIcon: const Icon(Ionicons.checkmark_sharp, size: 20, color: Colors.white),
                               );
                             }
                           },
                           child: Container(
                             height: 30,
                             padding: AppPaddings.lH.add(AppPaddings.mV),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
+                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Text(
                                 'copy'.tr,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
+                                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12),
                               ),
                             ),
                           ),
@@ -132,15 +106,8 @@ class _ReferralScreenState extends State<ReferralScreen> {
                   AppTextInput(
                     hintText: 'email'.tr.toUpperCase(),
                     backgroundColor: context.colors.primary.shade100,
-                    lableStyle: TextStyle(
-                      color: context.colors.primary,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 10,
-                    ),
-                    errorStyle: TextStyle(
-                      color: context.colors.error,
-                      fontSize: 12,
-                    ),
+                    lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
+                    errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
                     validator: referralController.validateEmail,
                     onChanged: referralController.onEmailInputChanged,
                   ),
@@ -153,16 +120,8 @@ class _ReferralScreenState extends State<ReferralScreen> {
                           padding: EdgeInsets.zero,
                           borderRadius: AppBorderRadius.largeAll,
                           backgroundColor: context.colors.primary,
-                          onPressed: () {
-                            referralController.referralUserByEmail(context);
-                          },
-                          child: Text(
-                            'refer_by_email'.tr,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
-                          ),
+                          onPressed: () => referralController.referralUserByEmail(context),
+                          child: Text('refer_by_email'.tr, style: const TextStyle(color: Colors.white, fontSize: 14)),
                         ),
                       ),
                       const AppSpacing(h: 10),
@@ -178,11 +137,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                               subject: 'Refer To User',
                             );
                           },
-                          child: const Icon(
-                            Ionicons.share_social_sharp,
-                            size: 24,
-                            color: Colors.white,
-                          ),
+                          child: const Icon(Ionicons.share_social_sharp, size: 24, color: Colors.white),
                         ),
                       )
                     ],

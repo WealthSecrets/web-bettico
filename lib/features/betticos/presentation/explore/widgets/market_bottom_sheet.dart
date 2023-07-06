@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/data/models/listing/listing_model.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/market_rate/market_rate_controller.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +11,7 @@ import 'package:line_chart/charts/line-chart.widget.dart';
 import 'package:line_chart/model/line-chart.model.dart';
 
 class MarketBottomSheet extends StatefulWidget {
-  const MarketBottomSheet({
-    Key? key,
-    required this.listing,
-  }) : super(key: key);
+  const MarketBottomSheet({super.key, required this.listing});
 
   final Listing listing;
 
@@ -72,8 +68,6 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                     width: 1.sw,
                     height: 350,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         const SizedBox(width: 10),
@@ -88,11 +82,7 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                         const SizedBox(height: 10),
                         Text(
                           listing.name,
-                          style: TextStyle(
-                            color: context.colors.textDark,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                          ),
+                          style: TextStyle(color: context.colors.textDark, fontWeight: FontWeight.w700, fontSize: 14),
                         ),
                         const SizedBox(height: 20),
                         Expanded(
@@ -109,28 +99,30 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Expanded(
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                                        Text(
-                                          'PRICE',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: context.colors.text,
-                                            fontSize: 10,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'PRICE',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: context.colors.text,
+                                              fontSize: 10,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          '\$${listing.quote.usd.price.toStringAsFixed(2)}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: context.colors.text,
-                                            fontSize: 10,
+                                          Text(
+                                            '\$${listing.quote.usd.price.toStringAsFixed(2)}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: context.colors.text,
+                                              fontSize: 10,
+                                            ),
                                           ),
-                                        ),
-                                      ]),
+                                        ],
+                                      ),
                                     ),
                                     Expanded(
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
@@ -190,7 +182,6 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.end,
-                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'VOLUME',
@@ -220,7 +211,6 @@ class _MarketBottomSheetState extends State<MarketBottomSheet> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(

@@ -42,26 +42,23 @@ class ReportController extends GetxController {
     );
   }
 
-  void navigateToAddReport(BuildContext context, String type,
-      {String? postId, String? userId}) async {
+  void navigateToAddReport(
+    BuildContext context,
+    String type, {
+    String? postId,
+    String? userId,
+  }) async {
     Get.back<void>();
     final dynamic value = await Get.toNamed<dynamic>(
       AppRoutes.report,
-      arguments: ReportArgument(
-        type: type,
-        postId: postId,
-        userId: userId,
-      ),
+      arguments: ReportArgument(type: type, postId: postId, userId: userId),
     );
     if (value != null && context.mounted) {
       await AppSnacks.show(
         context,
         message: 'We have received your report. Thank you.',
         backgroundColor: context.colors.success,
-        leadingIcon: const Icon(
-          Ionicons.checkmark_circle_outline,
-          color: Colors.white,
-        ),
+        leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
       );
     }
   }

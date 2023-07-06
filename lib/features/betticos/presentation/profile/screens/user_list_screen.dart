@@ -1,6 +1,5 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ import '../../../../auth/data/models/user/user.dart';
 import 'profile_screen.dart';
 
 class UserListScreen extends GetWidget<ProfileController> {
-  UserListScreen({Key? key, this.theUser, this.isFollowers = true}) : super(key: key);
+  UserListScreen({super.key, this.theUser, this.isFollowers = true});
   final User? theUser;
   final bool isFollowers;
 
@@ -25,13 +24,8 @@ class UserListScreen extends GetWidget<ProfileController> {
         elevation: 0.5,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: const Icon(
-            Ionicons.chevron_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Get.back<void>();
-          },
+          icon: const Icon(Ionicons.chevron_back, color: Colors.black),
+          onPressed: () => Get.back<void>(),
         ),
         title: Text(isFollowers ? 'followers'.tr : 'following'.tr),
         centerTitle: false,
@@ -87,12 +81,8 @@ class UserListScreen extends GetWidget<ProfileController> {
             width: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${AppEndpoints.userImages}/${user.photo}',
-                ),
-                fit: BoxFit.cover,
-              ),
+              image:
+                  DecorationImage(image: NetworkImage('${AppEndpoints.userImages}/${user.photo}'), fit: BoxFit.cover),
             ),
           ),
         ),
@@ -103,44 +93,20 @@ class UserListScreen extends GetWidget<ProfileController> {
             children: <Widget>[
               Text(
                 '${user.firstName} ${user.lastName}',
-                style: context.body2.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: context.body2.copyWith(color: Colors.black, fontWeight: FontWeight.w600),
               ),
               Text(
                 '@${user.username}',
-                style: context.caption.copyWith(
-                  color: context.colors.grey,
-                ),
+                style: context.caption.copyWith(color: context.colors.grey),
               ),
               const AppSpacing(v: 5),
             ],
           ),
         ),
-        // OutlinedButton(
-        //   onPressed: onPressed,
-        //   style: ButtonStyle(
-        //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //       RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(25.0),
-        //       ),
-        //     ),
-        //   ),
-        //   child: Padding(
-        //     padding: const EdgeInsets.all(10.0),
-        //     child: Text(
-        //       'follow'.tr,
-        //       style: context.body1.copyWith(
-        //         color: Colors.black,
-        //       ),
-        //     ),
-        //   ),
-        // ),
         if (user.id != bController.user.value.id)
           OutlinedButton(
             onPressed: () {
-              if (controller.isFollowedByLoggedInUser(user.id, user: null)) {
+              if (controller.isFollowedByLoggedInUser(user.id)) {
                 controller.unfollowTheUser(u: user);
               } else {
                 controller.followTheUser(u: user);
@@ -152,34 +118,18 @@ class UserListScreen extends GetWidget<ProfileController> {
               ),
               backgroundColor: controller.isFollowedByLoggedInUser(
                 user.id,
-                user: null,
               )
                   ? context.colors.primary
                   : Colors.white,
               side: BorderSide(
                 width: 2.0,
-                color: controller.isFollowedByLoggedInUser(
-                  user.id,
-                  user: null,
-                )
-                    ? context.colors.primary
-                    : context.colors.cardColor,
+                color: controller.isFollowedByLoggedInUser(user.id) ? context.colors.primary : context.colors.cardColor,
               ),
             ),
             child: Text(
-              controller.isFollowedByLoggedInUser(
-                user.id,
-                user: null,
-              )
-                  ? 'following'.tr
-                  : 'follow'.tr,
+              controller.isFollowedByLoggedInUser(user.id) ? 'following'.tr : 'follow'.tr,
               style: context.caption.copyWith(
-                color: controller.isFollowedByLoggedInUser(
-                  user.id,
-                  user: null,
-                )
-                    ? Colors.white
-                    : context.colors.textDark,
+                color: controller.isFollowedByLoggedInUser(user.id) ? Colors.white : context.colors.textDark,
                 fontWeight: FontWeight.bold,
               ),
             ),

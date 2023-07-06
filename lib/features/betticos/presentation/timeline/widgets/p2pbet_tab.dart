@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
@@ -11,17 +10,15 @@ import 'package:flutter_web3/ethereum.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rxdart/rxdart.dart';
-import '/core/presentation/widgets/search_field.dart';
 
 class P2pBetTab extends StatefulWidget {
-  const P2pBetTab({Key? key}) : super(key: key);
+  const P2pBetTab({super.key});
 
   @override
   State<P2pBetTab> createState() => _P2pBetTabState();
 }
 
 class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixin {
-  // getx controllers
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
 
@@ -104,7 +101,8 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
                   ? AppEmptyScreen(
                       message: _p2pBetController.isFiltering
                           ? 'Sorry, we couldn’t find any results for this search.'
-                          : 'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.')
+                          : 'All ${_p2pBetController.selectedButton.value} P2P bets will show up here.',
+                    )
                   : SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
@@ -150,11 +148,7 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
 
   void navigateToBetDetailsScreen(Bet bet) {
     Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) => P2PBettingDetailsScreen(
-          bet: bet,
-        ),
-      ),
+      MaterialPageRoute<void>(builder: (BuildContext context) => P2PBettingDetailsScreen(bet: bet)),
     );
   }
 
@@ -164,16 +158,9 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
       useRootNavigator: true,
       animationCurve: Curves.fastLinearToSlowEaseIn,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30),
-          topLeft: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
       ),
-      builder: (BuildContext modalContext) {
-        return P2PBettingBottomSheet(
-          bet: bet,
-        );
-      },
+      builder: (BuildContext modalContext) => P2PBettingBottomSheet(bet: bet),
       context: context,
     );
   }

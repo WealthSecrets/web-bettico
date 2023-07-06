@@ -14,10 +14,12 @@ class ColumnTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push<void>(MaterialPageRoute<void>(
-          builder: (BuildContext context) => UserListScreen(isFollowers: isFollowers, theUser: user))),
+      onTap: () => Navigator.of(context).push<void>(
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => UserListScreen(isFollowers: isFollowers, theUser: user),
+        ),
+      ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(title, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14)),
           Text(count, style: TextStyle(color: context.colors.text, fontWeight: FontWeight.bold, fontSize: 16)),

@@ -1,12 +1,11 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UsersScreen extends StatelessWidget {
-  UsersScreen({Key? key}) : super(key: key);
+  UsersScreen({super.key});
 
   final ExploreController controller = Get.find<ExploreController>();
 
@@ -24,9 +23,7 @@ class UsersScreen extends StatelessWidget {
                   final User user = controller.users[index];
                   return UserCard(user: user);
                 },
-                separatorBuilder: (BuildContext context, int index) => Divider(
-                  color: context.colors.faintGrey,
-                ),
+                separatorBuilder: (BuildContext context, int index) => Divider(color: context.colors.faintGrey),
               ),
       ),
     );

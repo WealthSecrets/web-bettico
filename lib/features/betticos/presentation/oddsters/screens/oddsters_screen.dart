@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -13,7 +12,7 @@ import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 import '../../profile/widgets/circle_indicator.dart';
 
 class OddstersScreen extends StatefulWidget {
-  const OddstersScreen({Key? key}) : super(key: key);
+  const OddstersScreen({super.key});
 
   @override
   State<OddstersScreen> createState() => _OddstersScreenState();
@@ -38,55 +37,48 @@ class _OddstersScreenState extends State<OddstersScreen> {
       body: DefaultTabController(
         length: 2,
         child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (OverscrollIndicatorNotification overscroll) {
-              overscroll.disallowIndicator();
-              return true;
-            },
-            child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverPersistentHeader(
-                    delegate: SliverAppBarDelegate(
-                      TabBar(
-                        indicatorColor: context.colors.primary,
-                        labelColor: Colors.black,
-                        labelStyle: const TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'Jost',
-                        ),
-                        onTap: (int index) {
-                          controller.changeTabIndex(index);
-                        },
-                        indicator: CircleTabIndicator(
-                          color: context.colors.primary,
-                          radius: 3,
-                        ),
-                        unselectedLabelColor: Colors.grey,
-                        padding: AppPaddings.lH.add(AppPaddings.lB),
-                        tabs: <Widget>[
-                          Tab(text: 'explore'.tr),
-                          Tab(text: 'following'.tr),
-                        ],
+          onNotification: (OverscrollIndicatorNotification overscroll) {
+            overscroll.disallowIndicator();
+            return true;
+          },
+          child: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverPersistentHeader(
+                  delegate: SliverAppBarDelegate(
+                    TabBar(
+                      indicatorColor: context.colors.primary,
+                      labelColor: Colors.black,
+                      labelStyle: const TextStyle(
+                        fontSize: 16.0,
+                        fontFamily: 'Jost',
                       ),
+                      onTap: controller.changeTabIndex,
+                      indicator: CircleTabIndicator(
+                        color: context.colors.primary,
+                        radius: 3,
+                      ),
+                      unselectedLabelColor: Colors.grey,
+                      padding: AppPaddings.lH.add(AppPaddings.lB),
+                      tabs: <Widget>[Tab(text: 'explore'.tr), Tab(text: 'following'.tr)],
                     ),
-                    pinned: true,
                   ),
-                ];
-              },
-              body: Obx(() {
-                profileController.isFollowingUser.value;
-                profileController.isUnfollowingUser.value;
-                return TabBarView(
-                  children: <Widget>[
-                    _buildExploreOddstersTab(context, controller.oddsters),
-                    _buildFollowingListView(
-                      context,
-                      profileController.getFollowingOddsters(),
-                    ),
-                  ],
-                );
-              }),
-            )),
+                  pinned: true,
+                ),
+              ];
+            },
+            body: Obx(() {
+              profileController.isFollowingUser.value;
+              profileController.isUnfollowingUser.value;
+              return TabBarView(
+                children: <Widget>[
+                  _buildExploreOddstersTab(context, controller.oddsters),
+                  _buildFollowingListView(context, profileController.getFollowingOddsters()),
+                ],
+              );
+            }),
+          ),
+        ),
       ),
     );
   }
@@ -146,16 +138,17 @@ class _OddstersScreenState extends State<OddstersScreen> {
     );
   }
 
-  Widget _buildListUserRow(BuildContext context, User user, Function() onPressed,
-      {bool isFollowingTab = false, bool isFollowing = false}) {
+  Widget _buildListUserRow(
+    BuildContext context,
+    User user,
+    Function() onPressed, {
+    bool isFollowingTab = false,
+    bool isFollowing = false,
+  }) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push<void>(
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => ProfileScreen(
-              user: user,
-            ),
-          ),
+          MaterialPageRoute<void>(builder: (BuildContext context) => ProfileScreen(user: user)),
         );
       },
       child: Row(
@@ -165,12 +158,8 @@ class _OddstersScreenState extends State<OddstersScreen> {
             width: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${AppEndpoints.userImages}/${user.photo}',
-                ),
-                fit: BoxFit.cover,
-              ),
+              image:
+                  DecorationImage(image: NetworkImage('${AppEndpoints.userImages}/${user.photo}'), fit: BoxFit.cover),
             ),
           ),
           const SizedBox(width: 10),
@@ -180,28 +169,14 @@ class _OddstersScreenState extends State<OddstersScreen> {
               children: <Widget>[
                 Text(
                   '${user.firstName} ${user.lastName}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14),
                 ),
-                Text(
-                  '@${user.username}',
-                  style: TextStyle(
-                    color: context.colors.text,
-                    fontSize: 12,
-                  ),
-                ),
+                Text('@${user.username}', style: TextStyle(color: context.colors.text, fontSize: 12)),
                 const SizedBox(height: 5),
               ],
             ),
           ),
-          if (isFollowingTab)
-            Icon(
-              Ionicons.star_sharp,
-              color: context.colors.primary,
-            )
+          if (isFollowingTab) Icon(Ionicons.star_sharp, color: context.colors.primary)
         ],
       ),
     );

@@ -42,7 +42,7 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       ),
     );
 
-    return response.fold((Failure failure) => left(failure), (OkxAccount account) async {
+    return response.fold(left, (OkxAccount account) async {
       await authLocalDataSource.persistUserData(account.user);
       return right(account);
     });
@@ -51,7 +51,7 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
   @override
   Future<Either<Failure, OkxAccount>> createSubAccountApiKey() async {
     final Either<Failure, OkxAccount> response = await makeRequest(okxRemoteDataSources.createSubAccountApiKey());
-    return response.fold((Failure failure) => left(failure), (OkxAccount account) async {
+    return response.fold(left, (OkxAccount account) async {
       await authLocalDataSource.persistUserData(account.user);
       return right(account);
     });
@@ -163,8 +163,10 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
       makeRequest(okxRemoteDataSources.fetchTransferHistory());
 
   @override
-  Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress(
-          {required String currency, String? chain}) =>
+  Future<Either<Failure, CreateDepositAddressResponse>> createDepositAddress({
+    required String currency,
+    String? chain,
+  }) =>
       makeRequest(
         okxRemoteDataSources.createDepositAddress(
           request: CreateDepositAddressRequest(currency: currency, chain: chain),
@@ -174,7 +176,7 @@ class OkxRepositoryImpl extends Repository implements OkxRepository {
   @override
   Future<Either<Failure, OkxAccount>> getOkxAccount() async {
     final Either<Failure, OkxAccount> response = await makeRequest(okxRemoteDataSources.getOkxAccount());
-    return response.fold((Failure failure) => left(failure), (OkxAccount account) async {
+    return response.fold(left, (OkxAccount account) async {
       await authLocalDataSource.persistUserData(account.user);
       return right(account);
     });

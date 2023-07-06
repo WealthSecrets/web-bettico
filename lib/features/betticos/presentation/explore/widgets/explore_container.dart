@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/selectable_button.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/explore_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/market_rate_screen.dart';
@@ -10,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ExploreContainer extends StatelessWidget {
-  ExploreContainer({Key? key}) : super(key: key);
+  ExploreContainer({super.key});
 
   final ExploreController controller = Get.find<ExploreController>();
 
@@ -37,10 +35,7 @@ class ExploreContainer extends StatelessWidget {
               if (controller.selectedOption.value == Options.rates) const SizedBox(height: 16),
               if (isSmallScreen && isPostsSelected) ...<Widget>[
                 const SizedBox(height: 8),
-                Padding(
-                  padding: AppPaddings.lH,
-                  child: const SearchFieldContainer(),
-                ),
+                Padding(padding: AppPaddings.lH, child: const SearchFieldContainer()),
                 const SizedBox(height: 8),
               ],
               if (isCustomScreen && isPostsSelected) ...<Widget>[
@@ -48,9 +43,7 @@ class ExploreContainer extends StatelessWidget {
                 const SearchFieldContainer(),
                 const SizedBox(height: 8),
               ],
-              Expanded(
-                child: child(),
-              ),
+              Expanded(child: child()),
             ],
           );
         },
@@ -73,7 +66,7 @@ class ExploreContainer extends StatelessWidget {
   List<Widget> get _selectableButtons => <Widget>[
         SelectableButton(
           text: 'Posts',
-          onPressed: () => controller.refreshPosts(),
+          onPressed: controller.refreshPosts,
           selected: controller.selectedOption.value == Options.posts,
         ),
         SelectableButton(
