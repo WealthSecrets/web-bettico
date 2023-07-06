@@ -59,7 +59,6 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 return TimelineCard(
                   post: widget.post,
                   largeFonts: true,
-                  onTap: () {},
                   onCommentTap: () => controller.navigateToAddPost(
                     context,
                     pstId: widget.post.id,

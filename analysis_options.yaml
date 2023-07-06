@@ -7,7 +7,6 @@ analyzer:
     unused_import: error
     unused_local_variable: error
     dead_code: error
-    # allow having TODOs in the code
     todo: ignore
   exclude:
     - '**/*.g.dart'
@@ -114,3 +113,35 @@ linter:
     - use_string_buffers
     - use_to_and_as_if_applicable
     - use_super_parameters
+
+dart_code_metrics:
+  anti-patterns:
+    - long-method:
+        exclude:
+          - '**/*_cubit.dart'
+          - '**/*_bloc.dart'
+    - long-parameter-list:
+        exclude:
+          - '**/*_repo.dart'
+          - '**/*_state.dart'
+          - '**/*_cubit.dart'
+          - '**/*_bloc.dart'
+  metrics:
+    maximum-nesting-level: 8
+    number-of-parameters: 8
+    source-lines-of-code: 300
+  metrics-exclude:
+    - test/**
+  rules:
+    - always-remove-listener
+    - avoid-duplicate-exports
+    - avoid-expanded-as-spacer
+    - avoid-redundant-async
+    - avoid-unrelated-type-assertions
+    - avoid-returning-widgets
+    - no-equal-then-else
+    - prefer-conditional-expressions
+    - prefer-correct-test-file-name
+
+    - prefer-single-widget-per-file:
+        ignore-private-widgets: true
