@@ -58,9 +58,7 @@ class ExploreController extends GetxController with GetSingleTickerProviderState
   @override
   void onInit() {
     tabController = TabController(length: 5, vsync: this);
-    pagingController.addPageRequestListener((int pageKey) {
-      getExplorePosts(pageKey);
-    });
+    pagingController.addPageRequestListener(getExplorePosts);
     super.onInit();
   }
 
@@ -74,11 +72,7 @@ class ExploreController extends GetxController with GetSingleTickerProviderState
     pageK(pageKey);
     isLoading(true);
     final Either<Failure, PaginatedResponseData<Post>> failureOrResult = await explorePosts(
-      PageParmas(
-        page: pageK.value,
-        size: 100,
-        leagueId: 1,
-      ),
+      PageParmas(page: pageK.value, size: 100, leagueId: 1),
     );
     failureOrResult.fold<void>(
       (Failure failure) {

@@ -13,7 +13,7 @@ import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 
 class Card extends StatelessWidget {
   Card({
-    Key? key,
+    super.key,
     required this.post,
     this.onTap,
     this.onCommentTap,
@@ -21,7 +21,7 @@ class Card extends StatelessWidget {
     this.onDislikeTap,
     this.onShareTap,
     this.largeFonts = false,
-  }) : super(key: key);
+  });
   final bool largeFonts;
   final Post post;
   final void Function()? onTap;
@@ -43,28 +43,17 @@ class Card extends StatelessWidget {
         padding: AppPaddings.lH.add(AppPaddings.lT),
         decoration: const BoxDecoration(
           color: Colors.white,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              blurRadius: 5,
-              color: Colors.black12,
-              offset: Offset(0, 1),
-            )
-          ],
+          boxShadow: <BoxShadow>[BoxShadow(blurRadius: 5, color: Colors.black12, offset: Offset(0, 1))],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => ProfileScreen(
-                          user: post.user,
-                        ),
-                      ),
+                      MaterialPageRoute<void>(builder: (BuildContext context) => ProfileScreen(user: post.user)),
                     );
                   },
                   child: Container(
@@ -92,68 +81,44 @@ class Card extends StatelessWidget {
                           Expanded(
                             child: Text(
                               '${post.user.firstName} ${post.user.lastName}',
-                              style: context.body1.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 14,
-                              ),
+                              style: context.body1
+                                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14),
                             ),
                           ),
                           const AppSpacing(h: 5),
                           Text(
                             timeago.format(post.createdAt),
-                            style: context.caption.copyWith(
-                              color: context.colors.text,
-                            ),
+                            style: context.caption.copyWith(color: context.colors.text),
                           ),
                         ],
                       ),
                       const AppSpacing(h: 8),
                       Text(
                         '@${post.user.username}',
-                        style: context.sub1.copyWith(
-                          color: context.colors.grey,
-                          fontSize: 12,
-                        ),
+                        style: context.sub1.copyWith(color: context.colors.grey, fontSize: 12),
                       )
                     ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Icon(
-                    Ionicons.ellipsis_vertical,
-                    size: 20,
-                  ),
-                ),
+                GestureDetector(onTap: () {}, child: const Icon(Ionicons.ellipsis_vertical, size: 20)),
               ],
             ),
             const AppSpacing(v: 10),
             if (post.text != null)
               RichText(
                 text: TextSpan(
-                  style: TextStyle(
-                    color: context.colors.black,
-                    fontSize: largeFonts ? 18 : 12,
-                    wordSpacing: 0.5,
-                  ),
+                  style: TextStyle(color: context.colors.black, fontSize: largeFonts ? 18 : 12, wordSpacing: 0.5),
                   children: <TextSpan>[
                     TextSpan(text: post.text),
                     if (post.isOddbox)
                       TextSpan(
                         text: '\n\n${'slip_code'.tr}: ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: context.colors.black,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w400, color: context.colors.black),
                       ),
                     if (post.isOddbox)
                       TextSpan(
                         text: post.slipCode,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: context.colors.primary,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w400, color: context.colors.primary),
                       )
                   ],
                 ),
@@ -164,16 +129,9 @@ class Card extends StatelessWidget {
                 height: 230,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage(
-                      post.images![0],
-                    ),
-                    fit: BoxFit.cover,
-                  ),
+                  image: DecorationImage(image: AssetImage(post.images![0]), fit: BoxFit.cover),
                 ),
-              )
-            else
-              const SizedBox.shrink(),
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -230,13 +188,20 @@ class Card extends StatelessWidget {
   }
 
   Widget _buildAnimatedButton(
-      BuildContext context, int count, bool isLiked, IconData iconOutline, IconData iconSolid, Function()? onTap,
-      {bool isDislikeButton = false}) {
+    BuildContext context,
+    int count,
+    bool isLiked,
+    IconData iconOutline,
+    IconData iconSolid,
+    Function()? onTap, {
+    bool isDislikeButton = false,
+  }) {
     return LikeButton(
       size: 22,
       circleColor: CircleColor(
-          start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
-          end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E)),
+        start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
+        end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E),
+      ),
       bubblesColor: isDislikeButton
           ? const BubblesColor(dotPrimaryColor: Color(0xFFFF2626), dotSecondaryColor: Color(0xFFBD1616))
           : const BubblesColor(
@@ -253,10 +218,7 @@ class Card extends StatelessWidget {
       likeCount: count,
       isLiked: isLiked,
       onTap: (bool isLiked) async {
-        if (onTap != null) {
-          onTap();
-        }
-
+        onTap?.call();
         return !isLiked;
       },
     );

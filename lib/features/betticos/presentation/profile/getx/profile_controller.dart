@@ -165,10 +165,6 @@ class ProfileController extends GetxController {
     return user.value.id != Get.find<BaseScreenController>().user.value.id;
   }
 
-  void setPageContext(BuildContext ctx) {
-    context = ctx;
-  }
-
   void performAllActions() {
     loadMyFollowers();
     loadMyFollowings();

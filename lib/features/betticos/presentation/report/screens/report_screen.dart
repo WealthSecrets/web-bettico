@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_ructors
 import 'package:betticos/features/betticos/data/models/option/option_model.dart';
 import 'package:betticos/features/betticos/presentation/report/arguments/report_argument.dart';
 import 'package:betticos/features/betticos/presentation/report/getx/report_controller.dart';
@@ -9,7 +8,7 @@ import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 
 class ReportScreen extends StatefulWidget {
-  const ReportScreen({Key? key}) : super(key: key);
+  const ReportScreen({super.key});
 
   @override
   State<ReportScreen> createState() => _ReportScreenState();
@@ -45,17 +44,10 @@ class _ReportScreenState extends State<ReportScreen> {
             leading: IconButton(
               icon: const Icon(Ionicons.close),
               color: context.colors.primary,
-              onPressed: () {
-                Get.back<void>();
-              },
+              onPressed: () => Get.back<void>(),
             ),
             centerTitle: false,
-            title: Text(
-              'Report an issue',
-              style: context.h6.copyWith(
-                color: Colors.black,
-              ),
-            ),
+            title: Text('Report an issue', style: context.h6.copyWith(color: Colors.black)),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,27 +56,16 @@ class _ReportScreenState extends State<ReportScreen> {
                 padding: AppPaddings.lH.add(AppPaddings.lV),
                 child: Text(
                   '${'problem'.tr} ${args?.type.toLowerCase().tr.toLowerCase()}?',
-                  style: context.body1.copyWith(
-                    color: context.colors.text,
-                  ),
+                  style: context.body1.copyWith(color: context.colors.text),
                 ),
               ),
               const AppSpacing(v: 16),
               ...controller.reportOptions.map(
                 (ReportOption option) => ListTile(
-                  shape: Border(
-                    bottom: BorderSide(
-                      color: context.colors.text,
-                      width: 1,
-                      style: BorderStyle.solid,
-                    ),
-                  ),
+                  shape: Border(bottom: BorderSide(color: context.colors.text)),
                   title: Text(
                     option.title,
-                    style: context.body2.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.body2.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     controller.setSelectedOption(option);

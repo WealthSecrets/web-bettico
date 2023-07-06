@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/images_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/latest_screen.dart';
@@ -14,7 +13,7 @@ import '../../profile/widgets/circle_indicator.dart';
 import '../screens/hashtags_screen.dart';
 
 class SearchContainer extends StatelessWidget {
-  SearchContainer({Key? key}) : super(key: key);
+  SearchContainer({super.key});
 
   final ExploreController controller = Get.find<ExploreController>();
 
@@ -31,8 +30,6 @@ class SearchContainer extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               GestureDetector(
                 onTap: () {
@@ -47,11 +44,7 @@ class SearchContainer extends StatelessWidget {
                     ? const SearchFieldContainer()
                     : const Text(
                         'Search Results',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
               ),
@@ -61,18 +54,12 @@ class SearchContainer extends StatelessWidget {
             controller: controller.tabController,
             indicatorColor: context.colors.primary,
             labelColor: Colors.black,
-            labelStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
+            labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             isScrollable: true,
             unselectedLabelStyle: const TextStyle(fontSize: 14),
             padding: AppPaddings.lH,
             unselectedLabelColor: Colors.grey,
-            indicator: CircleTabIndicator(
-              color: context.colors.primary,
-              radius: 3,
-            ),
+            indicator: CircleTabIndicator(color: context.colors.primary, radius: 3),
             tabs: const <Tab>[
               Tab(text: 'Top'),
               Tab(text: 'Latests'),

@@ -11,7 +11,7 @@ import '../../../data/models/post/post_model.dart';
 import '../../timeline/widgets/timeline_card.dart';
 
 class ExploreScreen extends GetWidget<ExploreController> {
-  ExploreScreen({Key? key}) : super(key: key);
+  ExploreScreen({super.key});
 
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final TimelineController tController = Get.find<TimelineController>();
@@ -34,9 +34,7 @@ class ExploreScreen extends GetWidget<ExploreController> {
                   onTap: () {
                     if (bController.isLoggedIn) {
                       Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => PostDetailsScreen(post: post),
-                        ),
+                        MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                       );
                     } else {
                       WidgetUtils.showUnAuthorizedLoginContainer(context);
@@ -65,12 +63,8 @@ class ExploreScreen extends GetWidget<ExploreController> {
             onTryAgain: () => controller.pagingController.refresh(),
           ),
           noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
-          newPageProgressIndicatorBuilder: (BuildContext context) => const Center(
-            child: LoadingLogo(),
-          ),
-          firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(
-            child: LoadingLogo(),
-          ),
+          newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
+          firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
         ),
         separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
       ),

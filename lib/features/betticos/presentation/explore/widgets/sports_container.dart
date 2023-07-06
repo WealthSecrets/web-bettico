@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/betticos/presentation/explore/screens/sports_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ import '../../profile/widgets/circle_indicator.dart';
 import '../screens/fixtures_screen.dart';
 
 class SportsContainer extends StatelessWidget {
-  const SportsContainer({Key? key}) : super(key: key);
+  const SportsContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,22 +21,12 @@ class SportsContainer extends StatelessWidget {
               TabBar(
                 indicatorColor: context.colors.primary,
                 labelColor: Colors.black,
-                labelStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+                labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 unselectedLabelStyle: const TextStyle(fontSize: 14),
                 padding: AppPaddings.lH,
                 unselectedLabelColor: Colors.grey,
-                indicator: CircleTabIndicator(
-                  color: context.colors.primary,
-                  radius: 3,
-                ),
-                tabs: const <Tab>[
-                  Tab(text: 'Live Matches'),
-                  Tab(text: 'Fixtures'),
-                  Tab(text: 'News'),
-                ],
+                indicator: CircleTabIndicator(color: context.colors.primary, radius: 3),
+                tabs: const <Tab>[Tab(text: 'Live Matches'), Tab(text: 'Fixtures'), Tab(text: 'News')],
               )
             ],
           ),
@@ -46,10 +35,7 @@ class SportsContainer extends StatelessWidget {
           children: <Widget>[
             SportsScreen(),
             FixturesScreen(),
-            AppEmptyScreen(
-              title: 'Coming soon!',
-              message: 'We are working so hard to bring you the best news.',
-            ),
+            AppEmptyScreen(title: 'Coming soon!', message: 'We are working so hard to bring you the best news.'),
           ],
         ),
       ),

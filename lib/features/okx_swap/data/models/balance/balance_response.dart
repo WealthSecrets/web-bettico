@@ -40,12 +40,13 @@ class Balance with _$Balance {
   factory Balance.fromJson(Map<String, dynamic> json) => _$BalanceFromJson(json);
 
   factory Balance.mock() => const Balance(
-      availableBalance: '2.33',
-      balance: '2.36',
-      currency: 'USDT',
-      fronzenBalance: '0',
-      usd: '2.35',
-      marketValue: '1.000');
+        availableBalance: '2.33',
+        balance: '2.36',
+        currency: 'USDT',
+        fronzenBalance: '0',
+        usd: '2.35',
+        marketValue: '1.000',
+      );
 
   factory Balance.empty() =>
       const Balance(availableBalance: '', balance: '', currency: '', fronzenBalance: '', usd: '', marketValue: '');

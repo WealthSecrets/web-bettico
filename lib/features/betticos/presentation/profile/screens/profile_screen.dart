@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     WidgetUtils.onWidgetDidBuild(() {
-      controller.setPageContext(context);
+      controller.context = context;
       controller.setProfileUser(widget.user, performActions: true);
     });
     super.initState();

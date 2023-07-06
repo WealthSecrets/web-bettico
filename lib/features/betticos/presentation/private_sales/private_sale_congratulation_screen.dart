@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PrivateSaleCongratulationScreen extends StatelessWidget {
-  PrivateSaleCongratulationScreen({Key? key}) : super(key: key);
+  PrivateSaleCongratulationScreen({super.key});
 
   final SalesController controller = Get.find<SalesController>();
 
@@ -18,38 +18,24 @@ class PrivateSaleCongratulationScreen extends StatelessWidget {
           return Padding(
             padding: AppPaddings.bodyH,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  AssetImages.checkedColor,
-                  height: 65,
-                  width: 65,
-                ),
+                Image.asset(AssetImages.checkedColor, height: 65, width: 65),
                 const SizedBox(height: 16),
                 const Text(
                   'Purchase Successful',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 const SizedBox(height: 32),
                 Text(
                   'You have successfully purchased ${controller.amount.value} USD worth of Xviral token.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: context.colors.text,
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: context.colors.text),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 50),
                 Row(
                   children: <Widget>[
                     Expanded(
-                      flex: 1,
                       child: AppButton(
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
@@ -57,17 +43,12 @@ class PrivateSaleCongratulationScreen extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pop(),
                         child: const Text(
                           'BACK',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      flex: 1,
                       child: AppButton(
                         padding: EdgeInsets.zero,
                         borderRadius: AppBorderRadius.largeAll,
@@ -76,18 +57,12 @@ class PrivateSaleCongratulationScreen extends StatelessWidget {
                           Navigator.of(context).pop();
                           navigationController.navigateTo(
                             AppRoutes.transactions,
-                            arguments: const TransactionHistoryScreenRouteArgument(
-                              isSale: true,
-                            ),
+                            arguments: const TransactionHistoryScreenRouteArgument(isSale: true),
                           );
                         },
                         child: const Text(
                           'VIEW HISTORY',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                       ),
                     ),

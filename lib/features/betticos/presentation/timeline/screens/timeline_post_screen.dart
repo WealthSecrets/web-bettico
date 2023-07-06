@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/timeline/arguments/add_post_comment_argument.dart';
 import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
@@ -13,11 +12,11 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '/core/core.dart';
-import '/core/presentation/widgets/full_image.dart';
 import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 
 class TimelinePostScreen extends StatefulWidget {
-  const TimelinePostScreen({Key? key}) : super(key: key);
+  const TimelinePostScreen({super.key});
+
   @override
   State<TimelinePostScreen> createState() => _TimelinePostScreenState();
 }
@@ -31,10 +30,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
   final BaseScreenController controller = Get.find<BaseScreenController>();
   final SettingsController sController = Get.find<SettingsController>();
 
-  // likk_picker
-  // late final GalleryController likkController;
-  // late final ValueNotifier<List<LikkEntity>> notifier;
-
   RxList<File> files = <File>[].obs;
   GlobalKey imageBtn = GlobalKey();
   GlobalKey slipBtn = GlobalKey();
@@ -43,7 +38,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
   void _onPickImage() async {
     final FilePickerResult? picked = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowMultiple: false,
       onFileLoading: (FilePickerStatus status) => debugPrint(status.name),
       allowedExtensions: <String>['png', 'jpg', 'jpeg'],
     );
@@ -69,29 +63,20 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
       tutorialCoachMark = TutorialCoachMark(
         targets: targets,
         colorShadow: context.colors.primary,
-        textSkip: 'SKIP',
-        paddingFocus: 10,
-        opacityShadow: 0.8,
-        onFinish: () {
-          sController.updatePostIntroductionPreference(false);
-        },
+        onFinish: () => sController.updatePostIntroductionPreference(false),
         onClickTarget: (TargetFocus target) {},
         onClickOverlay: (TargetFocus target) {},
-        onSkip: () {
-          sController.updatePostIntroductionPreference(false);
-        },
+        onSkip: () => sController.updatePostIntroductionPreference(false),
       )..show(context: context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final AddPostCommentArgument? args =
-        ModalRoute.of(context)?.settings.arguments as AddPostCommentArgument?;
+    final AddPostCommentArgument? args = ModalRoute.of(context)?.settings.arguments as AddPostCommentArgument?;
     return Obx(
       () => AppLoadingBox(
-        loading: timelineController.isAddingPost.value ||
-            timelineController.isAddingComment.value,
+        loading: timelineController.isAddingPost.value || timelineController.isAddingComment.value,
         child: WillPopScope(
           onWillPop: () {
             timelineController.resetValuesAfterPost();
@@ -102,10 +87,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
               elevation: 0.5,
               backgroundColor: Colors.white,
               leading: IconButton(
-                icon: const Icon(
-                  Ionicons.close,
-                  size: 24,
-                ),
+                icon: const Icon(Ionicons.close, size: 24),
                 color: context.colors.black,
                 onPressed: () {
                   timelineController.resetValuesAfterPost();
@@ -113,51 +95,31 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                 },
               ),
             ),
-            bottomSheet: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: context.colors.lightGrey,
-                  ),
-                ),
-              ),
+            bottomSheet: DecoratedBox(
+              decoration: BoxDecoration(border: Border(top: BorderSide(color: context.colors.lightGrey))),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         IconButton(
                           onPressed: () {
                             if (ResponsiveWidget.isSmallScreen(context)) {
                               showModalBottomSheet<void>(
                                 context: context,
-                                builder: ((BuildContext context) =>
-                                    bottomSheet()),
+                                builder: (BuildContext context) => bottomSheet(),
                               );
                             } else {
                               _onPickImage();
                             }
                           },
-                          icon: Icon(
-                            Ionicons.image_outline,
-                            size: 24,
-                            color: context.colors.primary,
-                            key: imageBtn,
-                          ),
+                          icon: Icon(Ionicons.image_outline, size: 24, color: context.colors.primary, key: imageBtn),
                         ),
                         const AppSpacing(h: 5),
                         if (controller.user.value.role == 'oddster')
                           IconButton(
-                            onPressed: () {
-                              showSlipCodeDialog(context);
-                            },
-                            icon: Icon(
-                              Ionicons.football_outline,
-                              size: 24,
-                              color: context.colors.primary,
-                            ),
+                            onPressed: () => showSlipCodeDialog(context),
+                            icon: Icon(Ionicons.football_outline, size: 24, color: context.colors.primary),
                             key: slipBtn,
                           ),
                       ],
@@ -182,8 +144,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                     onPressed: () {
                       if (!timelineController.timelineIsInvalid) {
                         if (args != null) {
-                          timelineController.addNewPost(context,
-                              isReply: true, postId: args.postId);
+                          timelineController.addNewPost(context, isReply: true, postId: args.postId);
                         } else {
                           timelineController.addNewPost(context);
                         }
@@ -202,7 +163,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
               ),
             ),
             body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
                   padding: AppPaddings.lH.add(AppPaddings.lB),
@@ -213,68 +173,59 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     maxLines: null,
                     decoration: InputDecoration(
-                        border: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        focusedErrorBorder: InputBorder.none,
-                        hintText:
-                            args != null ? 'add_reply'.tr : 'have_to_say'.tr,
-                        hintStyle: const TextStyle(fontSize: 16),
-                        counterStyle: const TextStyle(fontSize: 16)),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.colors.black,
+                      border: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      focusedErrorBorder: InputBorder.none,
+                      hintText: args != null ? 'add_reply'.tr : 'have_to_say'.tr,
+                      hintStyle: const TextStyle(fontSize: 16),
+                      counterStyle: const TextStyle(fontSize: 16),
                     ),
+                    style: TextStyle(fontSize: 16, color: context.colors.black),
                   ),
                 ),
                 const AppSpacing(v: 30),
-                Obx(() {
-                  return timelineController.slipCode.isNotEmpty
-                      ? Row(
-                          children: <Widget>[
-                            Container(
-                              height: 40,
-                              width: ResponsiveWidget.isSmallScreen(context)
-                                  ? MediaQuery.of(context).size.width - 32
-                                  : 600 - 32,
-                              padding: AppPaddings.lL,
-                              decoration: BoxDecoration(
-                                color: context.colors.lightGrey,
-                              ),
-                              child: Center(
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: SelectableText(
-                                        '${'slip_code'.tr}: ${timelineController.slipCode.value}',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: context.colors.text,
+                Obx(
+                  () {
+                    return timelineController.slipCode.isNotEmpty
+                        ? Row(
+                            children: <Widget>[
+                              Container(
+                                height: 40,
+                                width: ResponsiveWidget.isSmallScreen(context)
+                                    ? MediaQuery.of(context).size.width - 32
+                                    : 600 - 32,
+                                padding: AppPaddings.lL,
+                                decoration: BoxDecoration(color: context.colors.lightGrey),
+                                child: Center(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: SelectableText(
+                                          '${'slip_code'.tr}: ${timelineController.slipCode.value}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: context.colors.text,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const AppSpacing(h: 10),
-                                    IconButton(
-                                      onPressed: () {
-                                        showRemoveSlipCodeOptionDialog(context);
-                                      },
-                                      icon: Icon(
-                                        Ionicons.trash_outline,
-                                        color: context.colors.error,
-                                        size: 20,
-                                      ),
-                                    )
-                                  ],
+                                      const AppSpacing(h: 10),
+                                      IconButton(
+                                        onPressed: () => showRemoveSlipCodeOptionDialog(context),
+                                        icon: Icon(Ionicons.trash_outline, color: context.colors.error, size: 20),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox.shrink();
-                }),
+                            ],
+                          )
+                        : const SizedBox.shrink();
+                  },
+                ),
                 const AppSpacing(v: 30),
                 SizedBox(
                   height: 175.0,
@@ -289,9 +240,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(
-                                builder: (BuildContext context) => FullImage(
-                                  image: timelineController.files[index],
-                                ),
+                                builder: (BuildContext context) => FullImage(image: timelineController.files[index]),
                               ),
                             );
                           },
@@ -302,9 +251,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
-                                image: MemoryImage(
-                                  timelineController.files[index],
-                                ),
+                                image: MemoryImage(timelineController.files[index]),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -314,14 +261,8 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                           top: 15,
                           right: 15,
                           child: GestureDetector(
-                            child: const Icon(
-                              Ionicons.close_circle_sharp,
-                              color: Colors.red,
-                              size: 20,
-                            ),
-                            onTap: () {
-                              timelineController.removeImage(index);
-                            },
+                            child: const Icon(Ionicons.close_circle_sharp, color: Colors.red, size: 20),
+                            onTap: () => timelineController.removeImage(index),
                           ),
                         ),
                       ],
@@ -354,10 +295,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
               controller: textController,
               modalContext: context,
               onChanged: (String value) {},
-              onAffrimButtonPressed: () {
-                timelineController
-                    .onSlipCodeFieldSubmitted(textController.text);
-              },
+              onAffrimButtonPressed: () => timelineController.onSlipCodeFieldSubmitted(textController.text),
               affirmButtonText: 'ADD CODE',
               title: 'Odds Slip code',
               onCancelledPressed: () => Get.back<void>(),
@@ -383,7 +321,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         backgroundColor: context.colors.error,
         message: 'sure_remove_code'.tr,
         affirmButtonText: 'remove'.tr.toUpperCase(),
-        onPressed: () => timelineController.resetSlipCodeValue(),
+        onPressed: timelineController.resetSlipCodeValue,
       ),
     );
   }
@@ -392,35 +330,18 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
     return Container(
       height: 100.0,
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: <Widget>[
-          Text(
-            'choose_img'.tr,
-            style: const TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Ionicons.camera,
-              ),
-              onPressed: _onPickImage,
-            ),
-            IconButton(
-              icon: const Icon(
-                Ionicons.image,
-              ),
-              onPressed: _onPickImage,
-            ),
-          ])
+          Text('choose_img'.tr, style: const TextStyle(fontSize: 20.0)),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(icon: const Icon(Ionicons.camera), onPressed: _onPickImage),
+              IconButton(icon: const Icon(Ionicons.image), onPressed: _onPickImage),
+            ],
+          )
         ],
       ),
     );
@@ -436,18 +357,14 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'img_post_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -465,18 +382,14 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'slip_code_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -494,18 +407,14 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
         contents: <TargetContent>[
           TargetContent(
             align: ContentAlign.top,
-            builder:
-                (BuildContext context, TutorialCoachMarkController controller) {
+            builder: (BuildContext context, TutorialCoachMarkController controller) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'send_post_tut'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20.0),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );

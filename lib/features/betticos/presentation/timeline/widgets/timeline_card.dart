@@ -1,5 +1,3 @@
-import 'package:betticos/core/presentation/helpers/responsiveness.dart';
-import 'package:betticos/core/presentation/widgets/app_web_view.dart';
 import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
@@ -64,13 +62,7 @@ class TimelineCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: ResponsiveWidget.isSmallScreen(context)
-              ? const <BoxShadow>[
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.black12,
-                    offset: Offset(0, 1),
-                  )
-                ]
+              ? const <BoxShadow>[BoxShadow(blurRadius: 5, color: Colors.black12, offset: Offset(0, 1))]
               : null,
           borderRadius: ResponsiveWidget.isLargeScreen(context) || ResponsiveWidget.isMediumScreen(context)
               ? AppBorderRadius.smallAll
@@ -199,15 +191,8 @@ class TimelineCard extends StatelessWidget {
                   }
                 },
                 basicStyle: largeFonts
-                    ? TextStyle(
-                        color: context.colors.black,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 16,
-                      )
-                    : TextStyle(
-                        color: context.colors.black,
-                        fontSize: 12,
-                      ),
+                    ? TextStyle(color: context.colors.black, fontWeight: FontWeight.normal, fontSize: 16)
+                    : TextStyle(color: context.colors.black, fontSize: 12),
                 detectedStyle: largeFonts
                     ? TextStyle(
                         fontWeight: FontWeight.w500,
@@ -225,37 +210,24 @@ class TimelineCard extends StatelessWidget {
             if (post.slipCode != null && post.isOddbox)
               SelectableText.rich(
                 TextSpan(
-                  style: TextStyle(
-                    color: context.colors.black,
-                    fontSize: largeFonts ? 18 : 12,
-                    wordSpacing: 0.5,
-                  ),
+                  style: TextStyle(color: context.colors.black, fontSize: largeFonts ? 18 : 12, wordSpacing: 0.5),
                   children: <TextSpan>[
                     if (post.isOddbox)
                       TextSpan(
                         text: '${'slip_code'.tr}: ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: context.colors.black,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w400, color: context.colors.black),
                       ),
                     if (post.isOddbox)
                       TextSpan(
                         text: post.slipCode,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: context.colors.primary,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w400, color: context.colors.primary),
                       )
                   ],
                 ),
               ),
             if (post.text != null) const SizedBox(height: 10),
             if (post.images != null && post.images!.isNotEmpty)
-              TimelineImageDivider(
-                images: post.images!,
-                token: bController.userToken.value,
-              ),
+              TimelineImageDivider(images: post.images!, token: bController.userToken.value),
             if (hideButtons == false)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,21 +250,14 @@ class TimelineCard extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       IconButton(
-                        icon: Icon(
-                          Ionicons.chatbox_outline,
-                          color: context.colors.text,
-                          size: 20,
-                        ),
+                        icon: Icon(Ionicons.chatbox_outline, color: context.colors.text, size: 20),
                         onPressed: onCommentTap,
                       ),
                       const SizedBox(width: 5),
                       if (post.comments != null)
                         Text(
                           post.comments.toString(),
-                          style: TextStyle(
-                            color: context.colors.text,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: context.colors.text, fontSize: 12),
                         ),
                     ],
                   ),

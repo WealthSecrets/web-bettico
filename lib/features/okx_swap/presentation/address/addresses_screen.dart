@@ -1,6 +1,4 @@
-// import 'package:auto_size_text/auto_size_text.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
@@ -18,9 +16,7 @@ import '../okx_options/widgets/no_trading_account.dart';
 import 'widgets/address_details.dart';
 
 class AddressesScreen extends StatefulWidget {
-  const AddressesScreen({
-    Key? key,
-  }) : super(key: key);
+  const AddressesScreen({super.key});
 
   @override
   State<AddressesScreen> createState() => _OkxOptionsScreenState();
@@ -46,11 +42,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
         backgroundColor: Colors.transparent,
         title: Text(
           'Wallet Addresses',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: context.colors.textDark,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.colors.textDark),
         ),
       ),
       body: Obx(() {
@@ -107,11 +99,7 @@ class _OkxOptionsScreenState extends State<AddressesScreen> {
                                 context,
                                 message: 'Address copied to clipboard',
                                 backgroundColor: context.colors.success,
-                                leadingIcon: const Icon(
-                                  Ionicons.checkmark_circle_sharp,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
+                                leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, size: 20, color: Colors.white),
                               );
                             },
                           );

@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/widgets/app_empty_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/data/models/post/post_model.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
@@ -12,7 +11,7 @@ import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/presentation/utils/app_endpoints.dart';
 
 class UpdatesTab extends StatelessWidget {
-  UpdatesTab({Key? key}) : super(key: key);
+  UpdatesTab({super.key});
 
   final TimelineController controller = Get.find<TimelineController>();
 
@@ -33,7 +32,7 @@ class UpdatesTab extends StatelessWidget {
 }
 
 class _UserListRow extends StatelessWidget {
-  _UserListRow({Key? key, required this.controller, required this.user}) : super(key: key);
+  _UserListRow({required this.controller, required this.user});
 
   final TimelineController controller;
   final User user;
@@ -48,9 +47,7 @@ class _UserListRow extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => ProfileScreen(user: user),
-              ),
+              MaterialPageRoute<void>(builder: (BuildContext context) => ProfileScreen(user: user)),
             );
           },
           child: Container(
@@ -75,19 +72,9 @@ class _UserListRow extends StatelessWidget {
             children: <Widget>[
               Text(
                 '${user.firstName} ${user.lastName}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 12),
               ),
-              Text(
-                '@${user.username}',
-                style: TextStyle(
-                  color: context.colors.grey,
-                  fontSize: 10,
-                ),
-              ),
+              Text('@${user.username}', style: TextStyle(color: context.colors.grey, fontSize: 10)),
               const AppSpacing(v: 5),
             ],
           ),
@@ -98,16 +85,9 @@ class _UserListRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   controller.getUsersTotalWins(user.id).toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: context.colors.text,
-                  ),
+                  style: TextStyle(fontSize: 12, color: context.colors.text),
                 ),
-                Icon(
-                  Ionicons.caret_up_sharp,
-                  size: 24,
-                  color: context.colors.success,
-                ),
+                Icon(Ionicons.caret_up_sharp, size: 24, color: context.colors.success),
               ],
             ),
             Text(
@@ -122,16 +102,9 @@ class _UserListRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   controller.getUserTotalLosses(user.id).toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: context.colors.text,
-                  ),
+                  style: TextStyle(fontSize: 12, color: context.colors.text),
                 ),
-                Icon(
-                  Ionicons.caret_down_sharp,
-                  size: 24,
-                  color: context.colors.error,
-                ),
+                Icon(Ionicons.caret_down_sharp, size: 24, color: context.colors.error),
               ],
             ),
           ],

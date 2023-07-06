@@ -4,13 +4,14 @@ import 'package:ionicons/ionicons.dart';
 
 class TrendCard extends StatelessWidget {
   const TrendCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.hashtag,
     required this.count,
     required this.isSelected,
     required this.onPressed,
-  }) : super(key: key);
+  });
+
   final String title;
   final String hashtag;
   final String count;
@@ -33,32 +34,16 @@ class TrendCard extends StatelessWidget {
         padding: AppPaddings.mA,
         decoration: BoxDecoration(
           color: isSelected ? context.colors.primary : Colors.white,
-          boxShadow: const <BoxShadow>[
-            BoxShadow(
-              blurRadius: 5,
-              color: Colors.black12,
-              offset: Offset(0, 1),
-            )
-          ],
+          boxShadow: const <BoxShadow>[BoxShadow(blurRadius: 5, color: Colors.black12, offset: Offset(0, 1))],
           borderRadius: AppBorderRadius.smallAll,
-          border: isSelected
-              ? null
-              : Border.all(
-                  color: context.colors.faintGrey,
-                  width: 1,
-                  style: BorderStyle.solid,
-                ),
+          border: isSelected ? null : Border.all(color: context.colors.faintGrey),
         ),
         child: Row(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: trendStyle,
-                ),
+                Text(title, style: trendStyle),
                 space,
                 Text(
                   hashtag,
@@ -69,10 +54,7 @@ class TrendCard extends StatelessWidget {
                   ),
                 ),
                 space,
-                Text(
-                  '$count Posts',
-                  style: trendStyle,
-                ),
+                Text('$count Posts', style: trendStyle),
               ],
             ),
             const Spacer(),
