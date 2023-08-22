@@ -76,6 +76,7 @@ class LiveScoreController extends GetxController {
   RxBool isConnectingWallet = false.obs;
   RxBool isMakingPayment = false.obs;
   RxList<String> closingBetID = <String>[].obs;
+  RxBool isPayingUsdt = false.obs;
 
   static const int operatingChain = 56;
 
@@ -107,11 +108,13 @@ class LiveScoreController extends GetxController {
 
   Future<void> connectWC([Function(String wallet)? func]) async {
     isConnectingWallet.value = true;
+    print('trying to connect the wallet');
     try {
       await wc.connect();
 
       if (wc.connected) {
         walletAddress.value = wc.accounts.first;
+        print('wallet address: ${walletAddress.value = wc.accounts.first}');
         currentChain.value = 56;
         web3wc = Web3Provider.fromWalletConnect(wc);
         wcConnected.value = true;
@@ -201,6 +204,25 @@ class LiveScoreController extends GetxController {
       return response;
     } catch (e) {
       await AppSnacks.show(context, message: 'Something went wrong!');
+      return null;
+    }
+  }
+
+  Future<TransactionResponse?> sendUSDT(BuildContext context, double amount) async {
+    isPayingUsdt.value = true;
+    try {
+      print('the usd amount: $amount');
+      print('The usd contract address: ${Env.usdtContractAddress}');
+      final ContractERC20 token = ContractERC20(Env.usdtContractAddress, web3wc!.getSigner());
+      print('the receive address: ${Env.receiveAddress}');
+      final TransactionResponse? response =
+          await send(context, amt: amount, token: token, depositAddress: Env.receiveAddress);
+
+      isPayingUsdt.value = false;
+      return response;
+    } catch (e) {
+      isPayingUsdt.value = false;
+      await AppSnacks.show(context, message: 'Something went wrong!: $e');
       return null;
     }
   }

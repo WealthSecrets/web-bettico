@@ -192,7 +192,8 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                           inputFormatters: widget.inputFormatters,
                           onFieldSubmitted: widget.onFieldSubmitted,
                           decoration: InputDecoration(
-                            contentPadding: widget.padding ?? const EdgeInsets.all(5),
+                            contentPadding:
+                                widget.padding ?? const EdgeInsets.only(left: 16, right: 5, top: 5, bottom: 5),
                             fillColor: context.colors.background,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: widget.prefixIcon,

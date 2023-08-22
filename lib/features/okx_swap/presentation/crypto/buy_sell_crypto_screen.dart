@@ -49,7 +49,7 @@ class BuySellCryptoScreen extends StatelessWidget {
                   title: 'USDT',
                   subtitle: 'Buy or sell USDT',
                   imagePath: AssetImages.tether,
-                  onPressed: () => navigationController.navigateTo(AppRoutes.buyUsdt),
+                  onPressed: () => navigationController.navigateTo(AppRoutes.sellUsdt),
                 ),
               ],
             )

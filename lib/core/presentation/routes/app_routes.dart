@@ -63,6 +63,8 @@ class AppRoutes {
   static const String explore = '/explore';
   static const String search = '/search';
   static const String buyUsdt = '/buy_usdt';
+  static const String sellUsdt = '/sell_usdt';
+  static const String sellUsdtSummary = '/sell_usdt_summary';
   static const String adsProces = '/ads_process';
   static const String professionalCategory = '/professional_category';
   static const String businessType = '/business-type';

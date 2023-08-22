@@ -9,8 +9,12 @@ import 'package:betticos/features/betticos/data/repositories/betticos_repository
 import 'package:betticos/features/betticos/domain/repositories/betticos_repository.dart';
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
 import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources_impl.dart';
+import 'package:betticos/features/okx_swap/data/data_sources/paystack_remote_data_source.dart';
+import 'package:betticos/features/okx_swap/data/data_sources/paystack_remote_data_source_impl.dart';
 import 'package:betticos/features/okx_swap/data/repositories/okx_repository_impl.dart';
+import 'package:betticos/features/okx_swap/data/repositories/paystack_repository_impl.dart';
 import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
+import 'package:betticos/features/okx_swap/domain/repositories/paystack_repository.dart';
 import 'package:betticos/features/onboarding_splash/data/data_sources/onboard_local_data_source.dart';
 import 'package:betticos/features/onboarding_splash/data/repositories/onboard_repository_impl.dart';
 import 'package:betticos/features/onboarding_splash/domain/repositories/onboard_repository.dart';
@@ -64,6 +68,8 @@ class MainBindings {
 
     Get.put<OkxRemoteDataSources>(OkxRemoteDataSourcesImpl(client: Get.find()), permanent: true);
 
+    Get.put<PayStackRemoteDataSource>(PaystackRemoteDataSourceImpl(client: Get.find()), permanent: true);
+
     Get.put<AdvertRemoteDataSource>(AdvertRemoteDataSourceImpl(client: Get.find()), permanent: true);
 
     Get.put<OnBoardRepository>(OnBoardRepositoryImpl(onBoardLocalDataSource: Get.find()), permanent: true);
@@ -89,6 +95,8 @@ class MainBindings {
       OkxRepositoryImpl(okxRemoteDataSources: Get.find(), authLocalDataSource: Get.find()),
       permanent: true,
     );
+
+    Get.put<PaystackRepository>(PaystackRepositoryImpl(paystackRemoteDataSource: Get.find()), permanent: true);
 
     Get.put<AdvertRepository>(
       AdvertRepositoryImpl(advertRemoteDataSource: Get.find(), authLocalDataSource: Get.find()),

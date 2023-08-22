@@ -1,4 +1,6 @@
 import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/usdt/screens/sell_usdt_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/usdt/screens/sell_usdt_summary_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/core/presentation/widgets/app_web_view.dart';
@@ -114,6 +116,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(SearchContainer(), settings);
     case AppRoutes.buyUsdt:
       return _getPageRoute(BuyUsdtScreen(), settings);
+    case AppRoutes.sellUsdt:
+      return _getPageRoute(const SellUsdtScreen(), settings);
+    case AppRoutes.sellUsdtSummary:
+      return _getPageRoute(SellUsdtSummaryScreen(), settings);
     case AppRoutes.adsProces:
       return _getPageRoute(const AdProcessScreen(), settings);
     case AppRoutes.professionalCategory:

@@ -12,6 +12,7 @@ export 'app_select_field.dart';
 export 'app_snacks.dart';
 export 'app_text_input.dart';
 export 'app_web_view.dart';
+export 'auto_text_wrapper.dart';
 export 'bottom_info.dart';
 export 'country_picker.dart';
 export 'error_view.dart';

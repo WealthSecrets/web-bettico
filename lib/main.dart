@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
+import 'package:betticos/features/okx_swap/presentation/usdt/getx/sell_usdt_bindings.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ import 'features/betticos/presentation/timeline/getx/card_bindings.dart';
 import 'features/betticos/presentation/timeline/getx/timeline_bindings.dart';
 import 'features/okx_swap/presentation/funds/getx/funds_bindings.dart';
 import 'features/okx_swap/presentation/getx/okx_bindings.dart';
+// import 'features/okx_swap/presentation/usdt/getx/usdt_sale_bindings.dart';
 import 'features/okx_swap/presentation/usdt/getx/usdt_sale_bindings.dart';
 import 'features/okx_swap/presentation/withdrawal/getx/withdrawal_bindings.dart';
 import 'features/onboarding_splash/presentation/onbaording/getx/onboard_bindings.dart';
@@ -66,6 +68,7 @@ void main() async {
   RegisterBindings.dependencies();
   OkxBindigns.dependencies();
   UsdtSaleBinding.dependencies();
+  SellUsdtBindings.dependencies();
   WithdrawalBindings.dependencies();
   FundsBindings.dependencies();
 

@@ -244,73 +244,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                     ),
                     const AppSpacing(v: 70),
                     AppButton(
-                      onPressed: () async {
-                        if (controller.paymentType.value == 'bonus' &&
-                            user.bonus != null &&
-                            (user.bonus! >= controller.amount.value)) {
-                          bController.increaseDecreaseUserBonus(
-                            context,
-                            'decrease',
-                            controller.amount.value,
-                            failureCallback: () async {
-                              // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
-                              final TransactionResponse? response =
-                                  await lController.sendWsc(context, lController.convertedAmount.value);
-
-                              if (response != null && context.mounted) {
-                                controller.addNewBet(
-                                  context,
-                                  lController.walletAddress.value,
-                                  response.hash,
-                                );
-                              }
-                            },
-                            successCallback: () {
-                              AppSnacks.show(
-                                context,
-                                message: 'Bet amount deducted from bonus.',
-                                leadingIcon: Icon(
-                                  Ionicons.checkmark_circle,
-                                  size: 24,
-                                  color: context.colors.success,
-                                ),
-                                backgroundColor: context.colors.success,
-                              );
-                              controller.addNewBet(
-                                context,
-                                lController.walletAddress.value,
-                                'bonus',
-                              );
-                            },
-                          );
-                        } else if (controller.paymentType.value == 'wallet') {
-                          final TransactionResponse? response =
-                              await lController.sendWsc(context, lController.convertedAmount.value);
-                          if (response != null && context.mounted) {
-                            controller.createBetTransaction(
-                              context,
-                              convertedAmount: lController.convertedAmount.value,
-                              amount: controller.amount.value,
-                              description: 'Bet Creation',
-                              type: 'deposit',
-                              wallet: lController.walletAddress.value,
-                              txthash: response.hash,
-                              convertedToken: lController.selectedCurrency.value,
-                              time: response.timestamp,
-                              callback: () => controller.addNewBet(
-                                context,
-                                lController.walletAddress.value,
-                                response.hash,
-                              ),
-                            );
-                          }
-                        } else {
-                          await AppSnacks.show(
-                            context,
-                            message: 'Payment type not selected.',
-                          );
-                        }
-                      },
+                      onPressed: () => _handleCreateBet(user),
                       enabled: controller.isValid && !lController.isLoading.value,
                       borderRadius: AppBorderRadius.largeAll,
                       child: Text(
@@ -338,5 +272,65 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
         ),
       ),
     );
+  }
+
+  void _handleCreateBet(User user) async {
+    if (controller.paymentType.value == 'bonus' && user.bonus != null && (user.bonus! >= controller.amount.value)) {
+      bController.increaseDecreaseUserBonus(
+        context,
+        'decrease',
+        controller.amount.value,
+        failureCallback: () async {
+          // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
+          final TransactionResponse? response = await lController.sendWsc(context, lController.convertedAmount.value);
+
+          if (response != null && context.mounted) {
+            controller.addNewBet(context, lController.walletAddress.value, response.hash);
+          }
+        },
+        successCallback: () {
+          AppSnacks.show(
+            context,
+            message: 'Bet amount deducted from bonus.',
+            leadingIcon: Icon(
+              Ionicons.checkmark_circle,
+              size: 24,
+              color: context.colors.success,
+            ),
+            backgroundColor: context.colors.success,
+          );
+          controller.addNewBet(
+            context,
+            lController.walletAddress.value,
+            'bonus',
+          );
+        },
+      );
+    } else if (controller.paymentType.value == 'wallet') {
+      final TransactionResponse? response = await lController.sendWsc(context, lController.convertedAmount.value);
+      if (response != null && context.mounted) {
+        controller.createBetTransaction(
+          context,
+          convertedAmount: lController.convertedAmount.value,
+          amount: controller.amount.value,
+          description: 'Bet Creation',
+          type: 'deposit',
+          wallet: lController.walletAddress.value,
+          txthash: response.hash,
+          convertedToken: lController.selectedCurrency.value,
+          time: response.timestamp,
+          callback: () => controller.addNewBet(
+            context,
+            lController.walletAddress.value,
+            response.hash,
+          ),
+        );
+      }
+    } else {
+      await AppSnacks.show(
+        context,
+        message: 'Payment type not selected.',
+      );
+    }
   }
 }

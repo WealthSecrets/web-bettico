@@ -72,11 +72,11 @@ class UsdtSaleController extends GetxController {
     if (amount == null) {
       return 'Invalid amount';
     }
-    if (amount < 1) {
-      return r'Minimum of $1';
+    if (amount < 50) {
+      return 'Minimum of \u{20B5}50';
     }
-    if (amount > 1000) {
-      return r'Maximum of $10,000';
+    if (amount > 50000) {
+      return 'Maximum of \u{20B5}50,000';
     }
     return null;
   }
