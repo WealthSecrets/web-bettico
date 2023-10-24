@@ -1,4 +1,7 @@
 import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
+import 'package:betticos/features/okx_swap/presentation/more/screens/avatrade_screen.dart';
+import 'package:betticos/features/shares/screens/creator_screen.dart';
+import 'package:betticos/features/shares/screens/notifications_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/core/presentation/widgets/app_web_view.dart';
@@ -131,7 +134,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const AccountInsightsScreen(), settings);
     case AppRoutes.accountReached:
       return _getPageRoute(const AccountReachedScreen(), settings);
-
+    case AppRoutes.avatrade:
+      return _getPageRoute(const Avatrade(), settings);
+    case AppRoutes.creator:
+      return _getPageRoute(const CreatorScreen(), settings);
+    case AppRoutes.notifications:
+      return _getPageRoute(const NotificationsScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

@@ -5,7 +5,6 @@ import 'package:betticos/features/betticos/presentation/base/getx/base_screen_co
 import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
-import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/icon_card.dart';
 import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_api_key.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';

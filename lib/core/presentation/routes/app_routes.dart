@@ -71,4 +71,7 @@ class AppRoutes {
   static const String professionalDashboard = '/professional-dashboard';
   static const String accountInsights = '/account-insights';
   static const String accountReached = '/account-reached';
+  static const String avatrade = '/avatrade';
+  static const String creator = '/creator';
+  static const String notifications = '/notifications';
 }

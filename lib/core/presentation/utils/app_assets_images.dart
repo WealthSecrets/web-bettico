@@ -53,4 +53,11 @@ class AssetImages {
   static String insight = 'assets/images/insight.png';
   static String boost = 'assets/images/shuttle.png';
   static String tools = 'assets/images/tools.png';
+  static String copyTrade = 'assets/images/copy-trade.png';
+  static String download = 'assets/images/downloads.png';
+  static String fund = 'assets/images/fund.png';
+  static String register = 'assets/images/register.png';
+  static String services = 'assets/images/services.png';
+  static String signals = 'assets/images/signals.png';
+  static String skills = 'assets/images/skills.png';
 }
