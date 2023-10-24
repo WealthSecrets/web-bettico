@@ -2,7 +2,6 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:webviewx/webviewx.dart';
 
 import '../widgets/custom_tile.dart';
 
@@ -49,17 +48,20 @@ class _MoreScreenState extends State<MoreScreen> {
             const SizedBox(height: 10),
             CustomTile(
               icon: Ionicons.link_sharp,
-              onPressed: () async {
-                await navigationController.navigateTo(
-                  AppRoutes.appwebview,
-                  arguments: AppWebViewRouteArgument(
-                    title: 'Web Browser',
-                    url: 'https://www.avatrade.com/',
-                    navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
-                  ),
-                );
-              },
+              onPressed: () => navigationController.navigateTo(AppRoutes.avatrade),
               text: 'Avatrade',
+            ),
+            const SizedBox(height: 10),
+            CustomTile(
+              icon: Ionicons.link_sharp,
+              onPressed: () => navigationController.navigateTo(AppRoutes.creator),
+              text: 'Creator Screen',
+            ),
+            const SizedBox(height: 10),
+            CustomTile(
+              icon: Ionicons.link_sharp,
+              onPressed: () => navigationController.navigateTo(AppRoutes.notifications),
+              text: 'Notification Screen',
             ),
           ],
         ),

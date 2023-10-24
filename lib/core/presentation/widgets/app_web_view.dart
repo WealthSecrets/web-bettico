@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:webviewx/webviewx.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class AppWebViewRouteArgument {
   AppWebViewRouteArgument({

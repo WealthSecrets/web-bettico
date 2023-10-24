@@ -2,7 +2,7 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/ads_controller.dart';
 import 'package:betticos/features/advert/presentation/ads/widgets/step_controls.dart';
 import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';
-import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/icon_card.dart';
+// import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/icon_card.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
