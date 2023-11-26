@@ -74,4 +74,6 @@ class AppRoutes {
   static const String avatrade = '/avatrade';
   static const String creator = '/creator';
   static const String notifications = '/notifications';
+  static const String createShares = '/create-share';
+  static const String salesScreen = '/sales-screen';
 }

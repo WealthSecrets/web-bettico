@@ -16,12 +16,12 @@ import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_lea
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sfixture.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_slivescore.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
+import 'package:betticos/features/p2p_betting/presentation/livescore/getx/abi.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
 import '/core/core.dart';
 import '../../../../betticos/data/models/listpage/listpage.dart';
 import '../../../data/models/crypto/volume.dart';
@@ -76,12 +76,14 @@ class LiveScoreController extends GetxController {
   RxBool isConnectingWallet = false.obs;
   RxBool isMakingPayment = false.obs;
   RxList<String> closingBetID = <String>[].obs;
+  RxString randomMessage = ''.obs;
 
   static const int operatingChain = 56;
 
   final WalletConnectProvider wc = WalletConnectProvider.binance();
 
   Web3Provider? web3wc;
+  Contract? contract;
 
   RxString apiKey = ''.obs;
   RxString secretKey = ''.obs;
@@ -93,19 +95,50 @@ class LiveScoreController extends GetxController {
   RxBool isFetchingFixtures = false.obs;
 
   Future<void> connectProvider([Function(String wallet)? func]) async {
-    if (Ethereum.isSupported) {
-      final List<String> accs = await ethereum!.requestAccount();
-      if (accs.isNotEmpty) {
-        walletAddress.value = accs.first;
-        currentChain.value = await ethereum!.getChainId();
-        func?.call(accs.first);
-      }
+    if (ethereum != null) {
+      try {
+        final List<String> accs = await ethereum!.requestAccount();
+        if (accs.isNotEmpty) {
+          web3wc = Web3Provider.fromEthereum(ethereum!);
+          walletAddress.value = accs.first;
+          currentChain.value = await ethereum!.getChainId();
+          func?.call(accs.first);
+          contract = Contract('0x826220c22D4d631D5d20b42f2fd09363dc06E37d', Interface(jsonAbi), web3wc!.getSigner());
+          final dynamic value = await contract?.call('getContractBalance');
+          // final dynamic sale = await contract?.call('getSaleDetails', ['1']);
+          randomMessage.value = 'Successfull connected: ${accs.first}\nbalance:$value';
+          // if (contract != null) {
+          //   final TransactionResponse tx = await contract!.send(
+          //     'createSale',
+          //     ['50000000000000000000', '604800', '1500000000000000000', '500000000000000000', '2'],
+          //   );
+          //   final String hash = tx.hash; // 0xbar
 
-      update();
+          //   final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+
+          //   randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+          // }
+
+          if (contract != null) {
+            final TransactionResponse tx = await contract!.send(
+              'contribute',
+              ['1'],
+              TransactionOverride(value: BigInt.from(3000000000000000000)),
+            );
+            final String hash = tx.hash; // 0xbar
+
+            final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+
+            randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+          }
+        }
+      } catch (e) {
+        randomMessage.value = '$e';
+      }
     }
   }
 
-  Future<void> connectWC([Function(String wallet)? func]) async {
+  Future<void> connectWc([Function(String wallet)? func]) async {
     isConnectingWallet.value = true;
     try {
       await wc.connect();
@@ -114,10 +147,16 @@ class LiveScoreController extends GetxController {
         walletAddress.value = wc.accounts.first;
         currentChain.value = 56;
         web3wc = Web3Provider.fromWalletConnect(wc);
+        // contract = await loadContract(
+        //   'contract-marketplace',
+        //   '0x640f9f7803BCc35b2F0E914dB55CE81ea35A0c57',
+        //   Web3Provider.fromWalletConnect(wc),
+        // );
         wcConnected.value = true;
       }
 
       func?.call(wc.accounts.first);
+      randomMessage.value = 'Successfull connected: ${wc.accounts.first}';
       isConnectingWallet.value = false;
     } catch (error) {
       debugPrint('An error has occurred: $error');
@@ -140,7 +179,7 @@ class LiveScoreController extends GetxController {
       });
       isConnectingWallet.value = false;
     } else {
-      await connectWC();
+      await connectWc(func);
       isConnectingWallet.value = false;
     }
   }
@@ -171,11 +210,7 @@ class LiveScoreController extends GetxController {
         message: 'Please check you wallet app to confirm payment',
         backgroundColor: context.colors.success,
         duration: const Duration(seconds: 5),
-        leadingIcon: const Icon(
-          Ionicons.checkmark_circle_sharp,
-          size: 20,
-          color: Colors.white,
-        ),
+        leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, size: 20, color: Colors.white),
       );
 
       final TransactionResponse response = await token.transfer(

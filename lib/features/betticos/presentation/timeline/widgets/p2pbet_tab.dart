@@ -121,7 +121,7 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
                                         (_) => navigateToBetDetailsScreen(bet),
                                       );
                                     } else {
-                                      lController.connectWC().then((_) {
+                                      lController.initiateWalletConnect((_) {
                                         if (lController.walletAddress.isNotEmpty) {
                                           navigateToBetDetailsScreen(bet);
                                         }

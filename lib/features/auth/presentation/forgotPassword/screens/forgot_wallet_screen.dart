@@ -50,7 +50,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                             if (Ethereum.isSupported) {
                               lController.initiateWalletConnect();
                             } else {
-                              lController.connectWC();
+                              lController.initiateWalletConnect();
                             }
                           },
                           child: const Text(

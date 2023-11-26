@@ -350,7 +350,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                   ),
                                 );
                               } else {
-                                await lController.connectWC(
+                                lController.initiateWalletConnect(
                                   (_) => cashout(
                                     context,
                                     winnerWalletAddress,

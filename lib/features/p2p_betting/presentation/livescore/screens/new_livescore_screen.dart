@@ -69,11 +69,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                     },
                   );
                 } else {
-                  if (Ethereum.isSupported) {
-                    lController.initiateWalletConnect();
-                  } else {
-                    await lController.connectWC();
-                  }
+                  lController.initiateWalletConnect();
                 }
               },
               actions: <Widget>[
@@ -240,7 +236,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
             ),
           );
         } else {
-          await lController.connectWC(
+          lController.initiateWalletConnect(
             (_) async => Navigator.of(context).push<void>(
               MaterialPageRoute<void>(builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore)),
             ),

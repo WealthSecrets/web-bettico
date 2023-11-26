@@ -37,7 +37,7 @@ class SocialButtonsRow extends StatelessWidget {
                 (String wallet) => controller.loginWallet(context, wallet),
               );
             } else {
-              lController.connectWC(
+              lController.initiateWalletConnect(
                 (String wallet) => controller.loginWallet(context, wallet),
               );
             }

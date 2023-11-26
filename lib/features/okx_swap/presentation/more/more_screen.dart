@@ -63,6 +63,18 @@ class _MoreScreenState extends State<MoreScreen> {
               onPressed: () => navigationController.navigateTo(AppRoutes.notifications),
               text: 'Notification Screen',
             ),
+            const SizedBox(height: 10),
+            CustomTile(
+              icon: Ionicons.link_sharp,
+              onPressed: () => navigationController.navigateTo(AppRoutes.createShares),
+              text: 'Create Shares',
+            ),
+            const SizedBox(height: 10),
+            CustomTile(
+              icon: Ionicons.link_sharp,
+              onPressed: () => navigationController.navigateTo(AppRoutes.salesScreen),
+              text: 'Sales Screen',
+            ),
           ],
         ),
       ),
