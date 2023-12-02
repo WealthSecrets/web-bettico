@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
@@ -22,6 +23,7 @@ class OkxOptionsScreen extends StatefulWidget {
 class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
   final RegisterController registerController = Get.find<RegisterController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final WalletController wController = Get.find<WalletController>();
   final OkxController okxController = Get.find<OkxController>();
 
   @override
@@ -43,7 +45,7 @@ class _OkxOptionsScreenState extends State<OkxOptionsScreen> {
         () {
           final User user = Get.find<BaseScreenController>().user.value;
           return AppLoadingBox(
-            loading: lController.isConnectingWallet.value ||
+            loading: wController.isConnectingWallet.value ||
                 registerController.isCreatingAccountApiKey.value ||
                 registerController.isCreatingOkxAccount.value,
             child: Padding(

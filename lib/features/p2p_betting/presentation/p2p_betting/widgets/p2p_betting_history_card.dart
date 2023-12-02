@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
@@ -32,6 +33,7 @@ class P2PBettingHistoryCard extends StatefulWidget {
 
 class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final WalletController wController = Get.find<WalletController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final P2PBetController p2pBetController = Get.find<P2PBetController>();
 
@@ -337,25 +339,25 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                           selected: true,
                           text: 'Cashout',
                           onPressed: () async {
-                            if (!lController.isConnected) {
+                            if (!wController.isConnected) {
                               if (Ethereum.isSupported) {
-                                lController.initiateWalletConnect(
+                                wController.walletInit(
                                   (String wallet) => cashout(
                                     context,
                                     winnerWalletAddress,
                                     bet,
-                                    lController,
+                                    wController,
                                     p2pBetController,
                                     widget.isMyBets,
                                   ),
                                 );
                               } else {
-                                lController.initiateWalletConnect(
+                                wController.walletInit(
                                   (_) => cashout(
                                     context,
                                     winnerWalletAddress,
                                     bet,
-                                    lController,
+                                    wController,
                                     p2pBetController,
                                     widget.isMyBets,
                                   ),
@@ -366,7 +368,7 @@ class _P2PBettingHistoryCardState extends State<P2PBettingHistoryCard> {
                                 context,
                                 winnerWalletAddress,
                                 bet,
-                                lController,
+                                wController,
                                 p2pBetController,
                                 widget.isMyBets,
                               );
@@ -389,7 +391,7 @@ void cashout(
   BuildContext context,
   String? walletAddress,
   Bet bet,
-  LiveScoreController lController,
+  WalletController wController,
   P2PBetController p2pBetController,
   bool isMyBet,
 ) async {
@@ -409,16 +411,16 @@ void cashout(
       theAmount = bet.amount * 2;
     }
     if (context.mounted) {
-      lController.convertAmount(
+      wController.convertAmount(
         context,
         'wsc',
         theAmount,
         betId: bet.id,
         successCallback: (double amount) async {
-          final TransactionResponse? response = await lController.payout(
+          final TransactionResponse? response = await wController.payout(
             context,
             walletAddress,
-            lController.convertedAmount.value,
+            wController.convertedAmount.value,
             bet.id,
           );
           if (response != null) {
@@ -434,9 +436,9 @@ void cashout(
                   type: 'withdrawal',
                   betId: bet.id,
                   amount: bet.amount,
-                  wallet: lController.walletAddress.value,
+                  wallet: wController.walletAddress.value,
                   txthash: response.hash,
-                  convertedToken: lController.selectedCurrency.value,
+                  convertedToken: wController.selectedCurrency.value,
                   time: response.timestamp,
                   callback: () => AppSnacks.show(
                     context,

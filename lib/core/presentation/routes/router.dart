@@ -1,9 +1,9 @@
 import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/more/screens/avatrade_screen.dart';
-import 'package:betticos/features/shares/screens/creator_screen.dart';
-import 'package:betticos/features/shares/screens/creator_share_screen.dart';
-import 'package:betticos/features/shares/screens/notifications_screen.dart';
-import 'package:betticos/features/shares/screens/sales_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/creator_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/creator_share_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/notifications_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/sales_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/core/presentation/widgets/app_web_view.dart';

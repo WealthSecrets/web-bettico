@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/betticos/presentation/private_sales/getx/sales_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -23,6 +24,7 @@ class _PrivateSaleState extends State<PrivateSale> {
   final SalesController controller = Get.find<SalesController>();
   final P2PBetController p2pBetController = Get.find<P2PBetController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
+  final WalletController wController = Get.find<WalletController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
 
   @override
@@ -45,7 +47,7 @@ class _PrivateSaleState extends State<PrivateSale> {
           final String walletAddress = lController.walletAddress.value;
           final double? totalAmount = controller.stats.value?.totalAmount;
           return AppLoadingBox(
-            loading: bController.isGettingSetup.value || lController.isMakingPayment.value,
+            loading: bController.isGettingSetup.value || wController.isMakingPayment.value,
             child: Padding(
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, right: 16.0, left: 16.0),
               child: Column(
@@ -180,9 +182,9 @@ class _PrivateSaleState extends State<PrivateSale> {
 
   void _handleSubmit(String walletAddress, String depositAddress) async {
     if (walletAddress.isEmpty) {
-      lController.initiateWalletConnect();
+      wController.walletInit();
     } else {
-      final TransactionResponse? response = await lController.sendUsdt(
+      final TransactionResponse? response = await wController.sendUsdt(
         context,
         controller.amount.value,
         depositAddress,

@@ -1,8 +1,23 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class CreatorScreen extends StatelessWidget {
+class CreatorScreen extends StatefulWidget {
   const CreatorScreen({super.key});
+
+  @override
+  State<CreatorScreen> createState() => _CreatorScreenState();
+}
+
+class _CreatorScreenState extends State<CreatorScreen> {
+  WalletController controller = Get.find<WalletController>();
+  @override
+  void initState() {
+    super.initState();
+    controller.walletInit();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
@@ -13,6 +14,7 @@ class SocialButtonsRow extends StatelessWidget {
   final double? size;
 
   final RegisterController rController = Get.find<RegisterController>();
+  final WalletController wController = Get.find<WalletController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
   final LoginController controller = Get.find<LoginController>();
 
@@ -33,11 +35,11 @@ class SocialButtonsRow extends StatelessWidget {
         TextButton(
           onPressed: () {
             if (Ethereum.isSupported) {
-              lController.initiateWalletConnect(
+              wController.walletInit(
                 (String wallet) => controller.loginWallet(context, wallet),
               );
             } else {
-              lController.initiateWalletConnect(
+              wController.walletInit(
                 (String wallet) => controller.loginWallet(context, wallet),
               );
             }

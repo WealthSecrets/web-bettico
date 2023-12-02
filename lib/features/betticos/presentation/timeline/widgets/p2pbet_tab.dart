@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
@@ -21,7 +22,7 @@ class P2pBetTab extends StatefulWidget {
 class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixin {
   final P2PBetController _p2pBetController = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
-
+  final WalletController wController = Get.find<WalletController>();
   final PublishSubject<String> subject = PublishSubject<String>();
 
   late final TextEditingController _controller;
@@ -115,13 +116,11 @@ class _P2pBetTabState extends State<P2pBetTab> with AutomaticKeepAliveClientMixi
                               isMyBets: false,
                               onPressed: () {
                                 if (bet.status == BetStatus.awaiting || bet.opponent != null) {
-                                  if (!lController.isConnected) {
+                                  if (!wController.isConnected) {
                                     if (Ethereum.isSupported) {
-                                      lController.initiateWalletConnect(
-                                        (_) => navigateToBetDetailsScreen(bet),
-                                      );
+                                      wController.walletInit((_) => navigateToBetDetailsScreen(bet));
                                     } else {
-                                      lController.initiateWalletConnect((_) {
+                                      wController.walletInit((_) {
                                         if (lController.walletAddress.isNotEmpty) {
                                           navigateToBetDetailsScreen(bet);
                                         }

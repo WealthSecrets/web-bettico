@@ -1,26 +1,10 @@
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import '/core/core.dart';
 
-class CreateShareScreen extends StatefulWidget {
+class CreateShareScreen extends StatelessWidget {
   const CreateShareScreen({super.key});
-
-  @override
-  State<CreateShareScreen> createState() => _CreateShareScreenState();
-}
-
-class _CreateShareScreenState extends State<CreateShareScreen> {
-  final LiveScoreController controller = Get.find<LiveScoreController>();
-
-  String? message;
-
-  @override
-  void initState() {
-    super.initState();
-    controller.initiateWalletConnect((String wallet) {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +34,6 @@ class _CreateShareScreenState extends State<CreateShareScreen> {
                 validator: (String input) => null,
                 onChanged: (String value) {},
               ),
-              Text('Message should appear here: ${controller.randomMessage.value}'),
               const AppSpacing(v: 8),
               AppTextInput(
                 labelText: 'No. of Contributors'.toUpperCase(),
@@ -61,7 +44,7 @@ class _CreateShareScreenState extends State<CreateShareScreen> {
               ),
               const AppSpacing(v: 8),
               AppTextInput(
-                labelText: controller.contract != null ? 'has value' : 'Duration'.toUpperCase(),
+                labelText: 'Duration'.toUpperCase(),
                 backgroundColor: context.colors.primary.shade100,
                 lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                 validator: (String input) => null,

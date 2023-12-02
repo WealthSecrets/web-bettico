@@ -1,3 +1,4 @@
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/core/presentation/utils/app_endpoints.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
@@ -24,11 +25,12 @@ class P2PBettingDetailsScreen extends StatefulWidget {
 class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final WalletController wController = Get.find<WalletController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   void initState() {
-    lController.convertAmount(context, 'wsc', widget.bet.amount);
+    wController.convertAmount(context, 'wsc', widget.bet.amount);
     super.initState();
   }
 
@@ -261,7 +263,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                               failureCallback: () async {
                                 // TODO(blankson): Consider using .then() on futures (send)
                                 final TransactionResponse? response =
-                                    await lController.sendWsc(context, lController.convertedAmount.value);
+                                    await wController.sendWsc(context, wController.convertedAmount.value);
                                 if (response != null && context.mounted) {
                                   controller.createBetTransaction(
                                     context,
@@ -269,10 +271,10 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                                     amount: widget.bet.amount,
                                     description: 'Bet Acceptance',
                                     type: 'deposit',
-                                    convertedAmount: lController.convertedAmount.value,
+                                    convertedAmount: wController.convertedAmount.value,
                                     wallet: lController.walletAddress.value,
                                     txthash: response.hash,
-                                    convertedToken: lController.selectedCurrency.value,
+                                    convertedToken: wController.selectedCurrency.value,
                                     time: response.timestamp,
                                     callback: () => controller.addOpponentToBet(
                                       context,
@@ -294,7 +296,7 @@ class _P2PBettingDetailsScreenState extends State<P2PBettingDetailsScreen> {
                             );
                           } else if (controller.paymentType.value == 'wallet') {
                             final TransactionResponse? response =
-                                await lController.sendWsc(context, lController.convertedAmount.value);
+                                await wController.sendWsc(context, wController.convertedAmount.value);
                             if (response != null && context.mounted) {
                               controller.addOpponentToBet(
                                 context,

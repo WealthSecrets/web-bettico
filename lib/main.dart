@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:betticos/core/presentation/controllers/wallet_bindings.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -55,6 +56,7 @@ void main() async {
   Get.put(AppMenuController());
   SettingsBindings.dependencies();
   SplashBindings.dependencies();
+  WalletBindings.dependencies();
   LiveScoreBindings.dependencies();
   OnBoardBindings.dependencies();
   BaseBindings.dependencies();
