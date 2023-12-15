@@ -60,4 +60,5 @@ class AssetImages {
   static String services = 'assets/images/services.png';
   static String signals = 'assets/images/signals.png';
   static String skills = 'assets/images/skills.png';
+  static String metamaskLogo = 'assets/images/metamask-logo.png';
 }

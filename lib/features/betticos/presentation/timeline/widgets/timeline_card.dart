@@ -8,7 +8,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:webviewx_plus/webviewx_plus.dart';
+// import 'package:webviewx_plus/webviewx_plus.dart';
 
 import '/core/core.dart';
 import '/core/presentation/utils/app_endpoints.dart';
@@ -180,14 +180,14 @@ class TimelineCard extends StatelessWidget {
                     exploreController.getFilteredPosts(1);
                   } else if (tappedText.startsWith('@')) {
                   } else if (tappedText.startsWith('http')) {
-                    await navigationController.navigateTo(
-                      AppRoutes.appwebview,
-                      arguments: AppWebViewRouteArgument(
-                        title: 'Xviral Webview',
-                        url: tappedText,
-                        navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
-                      ),
-                    );
+                    // await navigationController.navigateTo(
+                    //   AppRoutes.appwebview,
+                    //   arguments: AppWebViewRouteArgument(
+                    //     title: 'Xviral Webview',
+                    //     url: tappedText,
+                    //     navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
+                    //   ),
+                    // );
                   }
                 },
                 basicStyle: largeFonts

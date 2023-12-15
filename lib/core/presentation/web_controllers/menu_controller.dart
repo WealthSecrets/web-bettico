@@ -53,6 +53,8 @@ class AppMenuController extends GetxController {
         return _customIcon(Ionicons.search_sharp, itemName);
       case AppRoutes.moreScreen:
         return _customIcon(Ionicons.apps_sharp, itemName);
+      case AppRoutes.salesScreen:
+        return _customIcon(Ionicons.bar_chart_sharp, itemName);
       default:
         return _customIcon(Icons.exit_to_app, itemName);
     }

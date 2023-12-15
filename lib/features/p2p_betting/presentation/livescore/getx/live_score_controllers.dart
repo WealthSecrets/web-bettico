@@ -1,4 +1,3 @@
-import 'package:betticos/env/env.dart';
 import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
@@ -17,20 +16,13 @@ import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sfi
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_slivescore.dart';
 import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
-
 import '/core/core.dart';
 import '../../../../betticos/data/models/listpage/listpage.dart';
-import '../../../data/models/crypto/volume.dart';
-import '../../../domain/requests/crypto/convert_amount_request.dart';
-import '../../../domain/usecases/crypto/convert_amount_to_currency.dart';
 
 class LiveScoreController extends GetxController {
   LiveScoreController({
-    required this.convertAmountToCurrency,
     required this.fetchPaginatedLiveScore,
     required this.fetchLiveScores,
     required this.fetchFixtures,
@@ -53,8 +45,6 @@ class LiveScoreController extends GetxController {
   final GetSLiveScore getSLiveScore;
   final GetLeague getLeague;
 
-  final ConvertAmountToCurrency convertAmountToCurrency;
-
   RxList<LiveScore> liveScores = <LiveScore>[].obs;
   RxList<LiveScore> sFixtures = <LiveScore>[].obs;
   RxList<SLeague> sLeagues = <SLeague>[].obs;
@@ -65,23 +55,24 @@ class LiveScoreController extends GetxController {
   RxList<Fixture> searchedFixtures = <Fixture>[].obs;
   RxInt pageK = 1.obs;
 
-  RxDouble convertedAmount = 0.0.obs;
   RxString walletAddress = ''.obs;
-  RxInt currentChain = (-1).obs;
-  RxBool wcConnected = false.obs;
-  RxBool isWalletConnected = false.obs;
+
+  // RxBool wcConnected = false.obs;
+  // RxBool isWalletConnected = false.obs;
   RxBool isCompleted = false.obs;
-  RxString selectedCurrency = 'wsc'.obs;
+
   RxBool showLoadingLogo = false.obs;
-  RxBool isConnectingWallet = false.obs;
-  RxBool isMakingPayment = false.obs;
+  // RxBool isConnectingWallet = false.obs;
+  // RxBool isMakingPayment = false.obs;
   RxList<String> closingBetID = <String>[].obs;
+  RxString randomMessage = ''.obs;
 
   static const int operatingChain = 56;
 
   final WalletConnectProvider wc = WalletConnectProvider.binance();
 
   Web3Provider? web3wc;
+  Contract? contract;
 
   RxString apiKey = ''.obs;
   RxString secretKey = ''.obs;
@@ -91,173 +82,6 @@ class LiveScoreController extends GetxController {
   RxBool isFetchingSFixture = false.obs;
   RxBool isFetchingLiveScores = false.obs;
   RxBool isFetchingFixtures = false.obs;
-
-  Future<void> connectProvider([Function(String wallet)? func]) async {
-    if (Ethereum.isSupported) {
-      final List<String> accs = await ethereum!.requestAccount();
-      if (accs.isNotEmpty) {
-        walletAddress.value = accs.first;
-        currentChain.value = await ethereum!.getChainId();
-        func?.call(accs.first);
-      }
-
-      update();
-    }
-  }
-
-  Future<void> connectWC([Function(String wallet)? func]) async {
-    isConnectingWallet.value = true;
-    try {
-      await wc.connect();
-
-      if (wc.connected) {
-        walletAddress.value = wc.accounts.first;
-        currentChain.value = 56;
-        web3wc = Web3Provider.fromWalletConnect(wc);
-        wcConnected.value = true;
-      }
-
-      func?.call(wc.accounts.first);
-      isConnectingWallet.value = false;
-    } catch (error) {
-      debugPrint('An error has occurred: $error');
-      isConnectingWallet.value = false;
-    }
-    update();
-  }
-
-  void initiateWalletConnect([Function(String wallet)? func]) async {
-    isConnectingWallet.value = true;
-    if (Ethereum.isSupported) {
-      await connectProvider(func);
-
-      ethereum!.onAccountsChanged((List<String> accs) {
-        disconnect();
-      });
-
-      ethereum!.onChainChanged((int chain) {
-        disconnect();
-      });
-      isConnectingWallet.value = false;
-    } else {
-      await connectWC();
-      isConnectingWallet.value = false;
-    }
-  }
-
-  void disconnect() {
-    wc.disconnect();
-    walletAddress.value = '';
-    currentChain.value = -1;
-    wcConnected.value = false;
-    web3wc = null;
-
-    update();
-  }
-
-  Future<TransactionResponse?> send(
-    BuildContext context, {
-    required double amt,
-    required String depositAddress,
-    required ContractERC20 token,
-  }) async {
-    showLoadingLogo.value = true;
-
-    final double amount = amt * 1000000000 * 1000000000;
-
-    try {
-      await AppSnacks.show(
-        context,
-        message: 'Please check you wallet app to confirm payment',
-        backgroundColor: context.colors.success,
-        duration: const Duration(seconds: 5),
-        leadingIcon: const Icon(
-          Ionicons.checkmark_circle_sharp,
-          size: 20,
-          color: Colors.white,
-        ),
-      );
-
-      final TransactionResponse response = await token.transfer(
-        depositAddress,
-        BigInt.from(amount.round()),
-      );
-
-      showLoadingLogo.value = false;
-      return response;
-    } catch (e) {
-      showLoadingLogo.value = false;
-      await AppSnacks.show(context, message: 'Couldn\'t make payment, please check your wallet balance');
-      return null;
-    }
-  }
-
-  Future<TransactionResponse?> sendWsc(BuildContext context, double amount) async {
-    try {
-      final ContractERC20 token = ContractERC20(Env.wscContractAddress, web3wc!.getSigner());
-
-      final TransactionResponse? response =
-          await send(context, amt: amount, token: token, depositAddress: Env.receiveAddress);
-      return response;
-    } catch (e) {
-      await AppSnacks.show(context, message: 'Something went wrong!');
-      return null;
-    }
-  }
-
-  Future<TransactionResponse?> sendUsdt(BuildContext context, double amount, String depositAddress) async {
-    isMakingPayment(true);
-    try {
-      final ContractERC20 token = ContractERC20(Env.usdtContractAddress, web3wc!.getSigner());
-
-      final TransactionResponse? response =
-          await send(context, amt: amount, token: token, depositAddress: depositAddress);
-      isMakingPayment(false);
-      return response;
-    } catch (e) {
-      isMakingPayment(false);
-      await AppSnacks.show(context, message: '$e');
-      return null;
-    }
-  }
-
-  Future<TransactionResponse?> payout(
-    BuildContext context,
-    String winningAddress,
-    double payoutAmount,
-    String betId,
-  ) async {
-    showLoadingLogo.value = true;
-    closingBetID.add(betId);
-
-    final double amount = convertedAmount * 1000000000 * 1000000000;
-
-    final Wallet wallet = Wallet.fromMnemonic(Env.walletPhrase);
-
-    final JsonRpcProvider jsonRpcProvider = JsonRpcProvider('https://bsc-dataseed.binance.org/');
-    final Wallet walletProvider = wallet.connect(jsonRpcProvider);
-
-    final ContractERC20 token = ContractERC20(Env.wscContractAddress, walletProvider);
-
-    try {
-      final TransactionResponse response = await token.transfer(
-        winningAddress,
-        BigInt.from(amount.round()),
-      );
-
-      closingBetID.remove(betId);
-      showLoadingLogo.value = false;
-      return response;
-    } catch (e) {
-      showLoadingLogo.value = false;
-      await AppSnacks.show(context, message: 'Sorry, cashout failed');
-      return null;
-    }
-  }
-
-  bool get isInOperatingChain => currentChain.value == operatingChain;
-
-  bool get isConnected => walletAddress.value.isNotEmpty;
 
   void setSelectedLeague(SLeague league) {
     selectedLeague.value = league;
@@ -389,48 +213,6 @@ class LiveScoreController extends GetxController {
       (SLeague value) {
         isFetchingLeagues(false);
         return value;
-      },
-    );
-  }
-
-  void setSelectedCurrency(String currency) {
-    selectedCurrency.value = currency.toLowerCase();
-  }
-
-  void convertAmount(
-    BuildContext context,
-    String currency,
-    double amount, {
-    void Function()? failureCallback,
-    void Function(double amount)? successCallback,
-    String? betId,
-  }) async {
-    isLoading(true);
-    if (betId != null) {
-      closingBetID.add(betId);
-    }
-
-    setSelectedCurrency(currency);
-
-    final Either<Failure, Volume> failureOrVolume =
-        await convertAmountToCurrency(ConvertAmountRequest(amount: amount, currency: currency));
-
-    failureOrVolume.fold<void>(
-      (Failure failure) {
-        isLoading(false);
-        if (betId != null) {
-          closingBetID.remove(betId);
-        }
-        AppSnacks.show(context, message: failure.message);
-        failureCallback?.call();
-      },
-      (Volume vol) {
-        isLoading(false);
-        if (betId != null) {
-          closingBetID.remove(betId);
-        }
-        convertedAmount.value = vol.convertedAmount;
-        successCallback?.call(vol.convertedAmount);
       },
     );
   }

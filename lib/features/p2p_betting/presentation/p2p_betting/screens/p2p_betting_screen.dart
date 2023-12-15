@@ -1,4 +1,5 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
@@ -34,6 +35,7 @@ class P2PBettingScreen extends StatefulWidget {
 class _P2PBettingScreenState extends State<P2PBettingScreen> {
   final P2PBetController controller = Get.find<P2PBetController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final WalletController wController = Get.find<WalletController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
@@ -179,7 +181,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                         final double? amount = double.tryParse(value);
                         if (amount != null) {
                           controller.onAmountInputChanged(amount);
-                          lController.convertAmount(context, lController.selectedCurrency.value, amount);
+                          wController.convertAmount(context, wController.selectedCurrency.value, amount);
                         }
                       },
                       inputFormatters: <TextInputFormatter>[
@@ -198,15 +200,15 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                               child: CircularProgressIndicator(strokeWidth: 1),
                             )
                           : Text(
-                              lController.convertedAmount.value == 0
+                              wController.convertedAmount.value == 0
                                   ? 'No USD to convert'
-                                  : 'USD coverted to  ${lController.selectedCurrency.toUpperCase()}: ${lController.convertedAmount}',
+                                  : 'USD coverted to  ${wController.selectedCurrency.toUpperCase()}: ${wController.convertedAmount}',
                               style: TextStyle(
-                                color: lController.convertedAmount.value > 0
+                                color: wController.convertedAmount.value > 0
                                     ? context.colors.success
                                     : context.colors.text,
-                                fontWeight: lController.convertedAmount.value > 0 ? FontWeight.bold : FontWeight.normal,
-                                fontStyle: lController.convertedAmount.value > 0 ? FontStyle.normal : FontStyle.italic,
+                                fontWeight: wController.convertedAmount.value > 0 ? FontWeight.bold : FontWeight.normal,
+                                fontStyle: wController.convertedAmount.value > 0 ? FontStyle.normal : FontStyle.italic,
                                 fontSize: 12,
                               ),
                             ),
@@ -255,7 +257,7 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                             failureCallback: () async {
                               // TODO(blankson123): Consider showing dialog to ask user if wants to pay with wallet
                               final TransactionResponse? response =
-                                  await lController.sendWsc(context, lController.convertedAmount.value);
+                                  await wController.sendWsc(context, wController.convertedAmount.value);
 
                               if (response != null && context.mounted) {
                                 controller.addNewBet(
@@ -285,17 +287,17 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
                           );
                         } else if (controller.paymentType.value == 'wallet') {
                           final TransactionResponse? response =
-                              await lController.sendWsc(context, lController.convertedAmount.value);
+                              await wController.sendWsc(context, wController.convertedAmount.value);
                           if (response != null && context.mounted) {
                             controller.createBetTransaction(
                               context,
-                              convertedAmount: lController.convertedAmount.value,
+                              convertedAmount: wController.convertedAmount.value,
                               amount: controller.amount.value,
                               description: 'Bet Creation',
                               type: 'deposit',
                               wallet: lController.walletAddress.value,
                               txthash: response.hash,
-                              convertedToken: lController.selectedCurrency.value,
+                              convertedToken: wController.selectedCurrency.value,
                               time: response.timestamp,
                               callback: () => controller.addNewBet(
                                 context,

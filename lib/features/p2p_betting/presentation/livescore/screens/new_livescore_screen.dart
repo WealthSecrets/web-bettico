@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fixture_card.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_card.dart';
@@ -25,6 +26,7 @@ class NewLiveScore extends StatefulWidget {
 
 class _NewLiveScoreState extends State<NewLiveScore> {
   final LiveScoreController lController = Get.find<LiveScoreController>();
+  final WalletController wController = Get.find<WalletController>();
   final BaseScreenController bController = Get.find<BaseScreenController>();
 
   Map<String, StreamController<LiveScore>> liveScoreStreamControllers = <String, StreamController<LiveScore>>{};
@@ -64,16 +66,12 @@ class _NewLiveScoreState extends State<NewLiveScore> {
                   WidgetUtils.showDeleteConnectionDialogue(
                     context,
                     onPressed: () async {
-                      lController.disconnect();
+                      wController.disconnect();
                       Get.back<void>();
                     },
                   );
                 } else {
-                  if (Ethereum.isSupported) {
-                    lController.initiateWalletConnect();
-                  } else {
-                    await lController.connectWC();
-                  }
+                  wController.walletInit();
                 }
               },
               actions: <Widget>[
@@ -230,9 +228,9 @@ class _NewLiveScoreState extends State<NewLiveScore> {
         leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
       );
     } else {
-      if (!lController.isConnected) {
+      if (!wController.isConnected) {
         if (Ethereum.isSupported) {
-          lController.initiateWalletConnect(
+          wController.walletInit(
             (_) async => Navigator.of(context).push<void>(
               MaterialPageRoute<void>(
                 builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore),
@@ -240,7 +238,7 @@ class _NewLiveScoreState extends State<NewLiveScore> {
             ),
           );
         } else {
-          await lController.connectWC(
+          wController.walletInit(
             (_) async => Navigator.of(context).push<void>(
               MaterialPageRoute<void>(builder: (BuildContext context) => P2PBettingScreen(liveScore: liveScore)),
             ),

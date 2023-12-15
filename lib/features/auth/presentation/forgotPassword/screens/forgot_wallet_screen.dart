@@ -1,7 +1,7 @@
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
 import '/core/core.dart';
@@ -10,6 +10,7 @@ import '/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
 class ForgotWalletScreen extends GetWidget<RegisterController> {
   ForgotWalletScreen({super.key});
   final ForgotController fController = Get.find<ForgotController>();
+  final WalletController wController = Get.find<WalletController>();
   final LiveScoreController lController = Get.find<LiveScoreController>();
 
   @override
@@ -46,13 +47,7 @@ class ForgotWalletScreen extends GetWidget<RegisterController> {
                         AppButton(
                           borderRadius: AppBorderRadius.largeAll,
                           backgroundColor: context.colors.primary,
-                          onPressed: () {
-                            if (Ethereum.isSupported) {
-                              lController.initiateWalletConnect();
-                            } else {
-                              lController.connectWC();
-                            }
-                          },
+                          onPressed: wController.walletInit,
                           child: const Text(
                             'Connect Wallet',
                             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),

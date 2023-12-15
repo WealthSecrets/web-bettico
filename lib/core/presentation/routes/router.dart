@@ -1,10 +1,12 @@
 import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/more/screens/avatrade_screen.dart';
-import 'package:betticos/features/shares/screens/creator_screen.dart';
-import 'package:betticos/features/shares/screens/notifications_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/creator_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/creator_share_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/notifications_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/sales_screen.dart';
 import 'package:flutter/material.dart';
 
-import '/core/presentation/widgets/app_web_view.dart';
+// import '/core/presentation/widgets/app_web_view.dart';
 import '/core/presentation/widgets/success_screen.dart';
 import '/features/advert/presentation/ads/screens/account_insights_screen.dart';
 import '/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
@@ -110,7 +112,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.send:
       return _getPageRoute(const SendScreen(), settings);
     case AppRoutes.appwebview:
-      return _getPageRoute(const AppWebView(), settings);
+    // return _getPageRoute(const AppWebView(), settings);
     case AppRoutes.explore:
       return _getPageRoute(ExploreContainer(), settings);
     case AppRoutes.search:
@@ -140,6 +142,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const CreatorScreen(), settings);
     case AppRoutes.notifications:
       return _getPageRoute(const NotificationsScreen(), settings);
+    case AppRoutes.createShares:
+      return _getPageRoute(const CreateShareScreen(), settings);
+    case AppRoutes.salesScreen:
+      return _getPageRoute(const SalesScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
