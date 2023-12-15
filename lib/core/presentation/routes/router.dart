@@ -6,7 +6,7 @@ import 'package:betticos/features/shares/presentation/screens/notifications_scre
 import 'package:betticos/features/shares/presentation/screens/sales_screen.dart';
 import 'package:flutter/material.dart';
 
-import '/core/presentation/widgets/app_web_view.dart';
+// import '/core/presentation/widgets/app_web_view.dart';
 import '/core/presentation/widgets/success_screen.dart';
 import '/features/advert/presentation/ads/screens/account_insights_screen.dart';
 import '/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
@@ -112,7 +112,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.send:
       return _getPageRoute(const SendScreen(), settings);
     case AppRoutes.appwebview:
-      return _getPageRoute(const AppWebView(), settings);
+    // return _getPageRoute(const AppWebView(), settings);
     case AppRoutes.explore:
       return _getPageRoute(ExploreContainer(), settings);
     case AppRoutes.search:

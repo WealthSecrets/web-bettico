@@ -10,6 +10,8 @@ import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
+const int weiMultiplier = 1000000000000000000;
+
 class WalletController extends GetxController {
   WalletController({required this.convertAmountToCurrency});
 
@@ -26,12 +28,32 @@ class WalletController extends GetxController {
   RxDouble convertedAmount = 0.0.obs;
   RxInt currentChain = (-1).obs;
   RxString randomMessage = ''.obs;
+  RxString valuesChecker = ''.obs;
   RxString walletAddress = ''.obs;
+  RxString walletBalance = ''.obs;
+  RxString creatorBalance = '4.00'.obs;
   RxBool isConnectingWallet = false.obs;
   RxBool wcConnected = false.obs;
   RxBool isMakingPayment = false.obs;
   RxBool showLoadingLogo = false.obs;
   RxBool isLoading = false.obs;
+
+  RxBool isCreatingSale = false.obs;
+
+  @override
+  void onInit() {
+    listenToEvents();
+    super.onInit();
+  }
+
+  void listenToEvents() {
+    if (contract != null) {
+      contract?.on('SaleCreated',
+          (saleId, creator, targetAmount, startTime, endTime, sharePrice, subscriptionPrice, saleType) {
+        randomMessage('Sales has been created successfully: $saleId, $creator, $targetAmount, $startTime ');
+      });
+    }
+  }
 
   Future<void> connectProvider([Function(String wallet)? func]) async {
     if (ethereum != null) {
@@ -41,8 +63,12 @@ class WalletController extends GetxController {
           web3wc = Web3Provider.fromEthereum(ethereum!);
           walletAddress.value = accs.first;
           currentChain.value = await ethereum!.getChainId();
+          final BigInt balance = await web3wc!.getBalance(accs.first);
+          final double etherBalance = balance.toInt() / weiMultiplier;
+          walletBalance(etherBalance.toStringAsFixed(2));
+          contract = Contract('0x1dd825509AEf0Dc4b1F78426B860afD9DC014a2b', Interface(jsonAbi), web3wc!.getSigner());
           func?.call(accs.first);
-          contract = Contract('0x826220c22D4d631D5d20b42f2fd09363dc06E37d', Interface(jsonAbi), web3wc!.getSigner());
+          listenToEvents();
         }
       } catch (e) {
         randomMessage.value = '$e';
@@ -59,10 +85,12 @@ class WalletController extends GetxController {
         walletAddress.value = wc.accounts.first;
         currentChain.value = 56;
         web3wc = Web3Provider.fromWalletConnect(wc);
-        contract = Contract('0x826220c22D4d631D5d20b42f2fd09363dc06E37d', Interface(jsonAbi), web3wc!.getSigner());
+        final BigInt balance = await web3wc!.getBalance(wc.accounts.first);
+        final double etherBalance = balance.toInt() / weiMultiplier;
+        walletBalance(etherBalance.toStringAsFixed(2));
+        contract = Contract('0x1dd825509AEf0Dc4b1F78426B860afD9DC014a2b', Interface(jsonAbi), web3wc!.getSigner());
         wcConnected.value = true;
       }
-
       func?.call(wc.accounts.first);
       randomMessage.value = 'Successfull connected: ${wc.accounts.first}';
       isConnectingWallet.value = false;
@@ -96,26 +124,60 @@ class WalletController extends GetxController {
     return value;
   }
 
-  Future<dynamic> getAddressBalance() async {}
+  Future<dynamic> getCreatorBalance() async {
+    try {
+      if (contract != null) {
+        final BigInt balance = await contract!.call<BigInt>('getCreatorBalance', []);
+        final double etherBalance = balance.toInt() / weiMultiplier;
+        creatorBalance.value = etherBalance.toStringAsFixed(2);
+        randomMessage.value = 'getCreatorBalance called: ${etherBalance.toString()}';
+      }
+    } catch (e) {
+      randomMessage.value = 'Error occurrred whiles getting creator balance: $e';
+    }
+  }
 
-  //   uint256 _targetAmount,
-  // uint256 _duration,
-  // uint256 _startTime,
-  // uint256 _sharePrice,
-  // uint256 _subscriptionPrice,
-  // SaleType _saleType
+// double targetAmount, int duration, int startTime, double sharePrice, double subcriptionPrice
+  void createSale(
+    String targetAmount,
+    String duration,
+    String startTime,
+    String sharePrice,
+    String subcriptionPrice,
+  ) async {
+    randomMessage.value = 'creating sales....';
+    isCreatingSale(true);
+    try {
+      if (contract != null) {
+        randomMessage.value = 'Inside the contract';
+        valuesChecker.value =
+            'Target Amount: $targetAmount, Duration: $duration, startTime: $startTime, sharePrice: $sharePrice, subscriptionPrice $subcriptionPrice';
+        final TransactionResponse tx = await contract!.send(
+          'createSale',
+          <String>[targetAmount, duration, startTime, sharePrice, subcriptionPrice, '2'],
+        );
 
-  void createSale() async {
-    if (contract != null) {
-      final TransactionResponse tx = await contract!.send(
-        'createSale',
-        <dynamic>['50000000000000000000', '604800', '4892829', '1500000000000000000', '500000000000000000', '2'],
-      );
-      final String hash = tx.hash; // 0xbar
+        final String hash = tx.hash; // 0xbar
 
-      final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+        final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
 
-      randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+        randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+        isCreatingSale(false);
+      }
+    } catch (e) {
+      randomMessage.value = 'Error occurrred whiles creating sale: $e';
+      isCreatingSale(false);
+    }
+  }
+
+  void getAllSales() async {
+    try {
+      if (contract != null) {
+        final response = await contract!.call('getAllSales', []);
+        randomMessage.value = 'getAllSales: $response';
+      }
+    } catch (e) {
+      randomMessage.value = 'Error occurrred whiles getting creator balance: $e';
     }
   }
 
@@ -256,5 +318,9 @@ class WalletController extends GetxController {
     currentChain.value = -1;
     wcConnected.value = false;
     web3wc = null;
+  }
+
+  void setRandomMessage(String value) {
+    randomMessage(value);
   }
 }

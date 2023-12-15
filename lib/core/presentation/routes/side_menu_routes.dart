@@ -15,6 +15,7 @@ List<SideMenuItem> sideMenuItemRoutes = <SideMenuItem>[
   const SideMenuItem('Members', AppRoutes.members),
   const SideMenuItem('Oddsters', AppRoutes.oddsters),
   const SideMenuItem('P2P Betting', AppRoutes.livescore),
+  const SideMenuItem('Creator Tool', AppRoutes.creator),
   const SideMenuItem('Refer A Friend', AppRoutes.referral),
   const SideMenuItem('Settings', AppRoutes.settings),
   const SideMenuItem('Trade', AppRoutes.okxOptions),

@@ -1,6 +1,132 @@
 const String jsonAbi = '''
 [
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "contribution",
+				"type": "uint256"
+			}
+		],
+		"name": "changeMaxContribution",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "duration",
+				"type": "uint256"
+			}
+		],
+		"name": "changeMaxDuration",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "value",
+				"type": "uint8"
+			}
+		],
+		"name": "changeOwnerFee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "value",
+				"type": "uint8"
+			}
+		],
+		"name": "changeWithdrawalFee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_saleId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint16",
+				"name": "_shareValue",
+				"type": "uint16"
+			}
+		],
+		"name": "contribute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_targetAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_duration",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_startTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_sharePrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_subscriptionPrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum XviralShares.SaleType",
+				"name": "_saleType",
+				"type": "uint8"
+			}
+		],
+		"name": "createSale",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_saleId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint16",
+				"name": "_shareValue",
+				"type": "uint16"
+			}
+		],
+		"name": "purchase",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -187,6 +313,19 @@ const String jsonAbi = '''
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -214,6 +353,24 @@ const String jsonAbi = '''
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_saleId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_numShares",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawShares",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
@@ -231,142 +388,106 @@ const String jsonAbi = '''
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "contribution",
-				"type": "uint256"
-			}
-		],
-		"name": "changeMaxContribution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "duration",
-				"type": "uint256"
-			}
-		],
-		"name": "changeMaxDuration",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "value",
-				"type": "uint8"
-			}
-		],
-		"name": "changeOwnerFee",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "value",
-				"type": "uint8"
-			}
-		],
-		"name": "changeWithdrawalFee",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_saleId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint16",
-				"name": "_shareValue",
-				"type": "uint16"
-			}
-		],
-		"name": "contribute",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_targetAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_duration",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_startTime",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_sharePrice",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_subscriptionPrice",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum XviralShares.SaleType",
-				"name": "_saleType",
-				"type": "uint8"
-			}
-		],
-		"name": "createSale",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_saleId",
-				"type": "uint256"
-			}
-		],
-		"name": "getContributionDetails",
+		"inputs": [],
+		"name": "getAllSales",
 		"outputs": [
 			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "targetAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalSharesRaised",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalSubscriptionRaised",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sharePrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "subscriptionPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum XviralShares.SaleType",
+						"name": "saleType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct XviralShares.Sale[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_saleId",
+				"type": "uint256"
+			},
+			{
 				"internalType": "address",
-				"name": "creator",
+				"name": "_user",
 				"type": "address"
-			},
+			}
+		],
+		"name": "getContributionsByUser",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "shares",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "subscriptions",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
+				"components": [
+					{
+						"internalType": "address",
+						"name": "contributor",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "shares",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "subscriptions",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct XviralShares.Contribution[]",
+				"name": "userContributions",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -500,18 +621,39 @@ const String jsonAbi = '''
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_saleId",
+				"name": "",
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint16",
-				"name": "_shareValue",
-				"type": "uint16"
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
-		"name": "purchase",
-		"outputs": [],
-		"stateMutability": "payable",
+		"name": "saleContributions",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "contributor",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "shares",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "subscriptions",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -597,37 +739,6 @@ const String jsonAbi = '''
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_saleId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_numShares",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawShares",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

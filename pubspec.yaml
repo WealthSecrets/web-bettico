@@ -30,19 +30,16 @@ dependencies:
   fl_chart: ^0.63.0
   flutter:
     sdk: flutter
-  flutter_inappwebview: ^5.7.2+3
+  flutter_datetime_picker_bdaya: ^3.0.2
   flutter_paystack_plus: ^0.0.1+1
-  flutter_screenutil: ^5.0.0+2
-  flutter_spinkit: ^5.1.0
+  flutter_screenutil: ^5.0.0+2 # doesn't work for the web
   flutter_svg: ^2.0.5
-  flutter_web3: ^2.1.9
+  flutter_web3: ^2.2.0-pre.7 #only for web
   footer: ^0.0.4
   freezed_annotation: ^2.2.0
   get: ^4.6.1
   google_sign_in: ^6.1.0
-  http: ^0.13.4
-  http_parser: ^4.0.2
-  image: ^4.0.17
+  http: ^1.1.0 #probably not using
   image_picker: ^0.8.6
   infinite_scroll_pagination: ^3.2.0
   intl: ^0.18.1
@@ -52,12 +49,11 @@ dependencies:
   like_button: ^2.0.4
   line_chart: ^1.1.11
   logging: ^1.0.2
-  lottie: ^2.3.2
   modal_bottom_sheet: ^3.0.0-pre
   pin_code_fields: ^7.3.0
   platform: ^3.1.0
   rxdart: ^0.27.5
-  settings_ui: ^2.0.2
+  settings_ui: ^2.0.2 # doesn't work for web
   share_plus: ^7.0.0
   shared_preferences: ^2.0.11
   slider_captcha: ^1.0.0
@@ -65,9 +61,10 @@ dependencies:
   timeago: ^3.1.0
   tutorial_coach_mark: ^1.2.2
   url_launcher: ^6.1.11
-  uuid: ^3.0.5
+  uuid: ^3.0.7
   validators: ^3.0.0
-  webviewx_plus: ^0.3.3
+  web3dart: ^2.7.0
+  # webviewx_plus: ^0.3.3 # only for web
 
 dev_dependencies:
   build_runner: ^2.3.3
@@ -78,6 +75,7 @@ dev_dependencies:
   freezed: ^2.3.2
   json_serializable: ^6.6.1
   source_gen: ^1.2.7
+  web3dart_builders: ^0.0.7
 
 flutter:
   uses-material-design: true
