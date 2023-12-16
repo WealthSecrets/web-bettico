@@ -1,4 +1,5 @@
 import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 const int weiMultiplier = 1000000000000000000;
@@ -15,13 +16,14 @@ class SharesController extends GetxController {
 
   final WalletController walletController = Get.find<WalletController>();
 
-  void createSale() async {
+  void createSale({VoidCallback? callback}) async {
     walletController.createSale(
       targetAmount.value,
       duration.value,
       startTime.value,
       sharePrice.value,
       subscriptionPrice.value,
+      callback: callback,
     );
   }
 
@@ -38,8 +40,9 @@ class SharesController extends GetxController {
   }
 
   void onStartTimeChanged(DateTime date) {
-    startTime('${date.millisecondsSinceEpoch}');
-    walletController.setRandomMessage('${date.millisecondsSinceEpoch}');
+    final int startDate = date.millisecondsSinceEpoch ~/ 1000;
+    startTime('$startDate');
+    walletController.setRandomMessage('$startDate');
   }
 
   void onSharePriceChanged(String value) {
@@ -90,4 +93,12 @@ class SharesController extends GetxController {
     }
     return errorMessage;
   }
+
+  bool get formIsValid =>
+      targetAmount.value.isNotEmpty &&
+      subscriptionPrice.value.isNotEmpty &&
+      subscriptionPrice.value.isNotEmpty &&
+      sharePrice.value.isNotEmpty &&
+      startTime.isNotEmpty &&
+      maxContributions.isNotEmpty;
 }

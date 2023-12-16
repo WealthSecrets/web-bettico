@@ -72,6 +72,7 @@ class _CreatorScreenState extends State<CreatorScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: AppButton(
+                  enabled: controller.isConnected,
                   padding: EdgeInsets.zero,
                   borderRadius: AppBorderRadius.largeAll,
                   backgroundColor: context.colors.primary,

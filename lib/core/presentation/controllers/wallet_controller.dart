@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 const int weiMultiplier = 1000000000000000000;
+const double fakeUSD = 2230.52;
 
 class WalletController extends GetxController {
   WalletController({required this.convertAmountToCurrency});
@@ -32,6 +33,7 @@ class WalletController extends GetxController {
   RxString walletAddress = ''.obs;
   RxString walletBalance = ''.obs;
   RxString creatorBalance = '4.00'.obs;
+  RxList<dynamic> sales = <dynamic>[].obs;
   RxBool isConnectingWallet = false.obs;
   RxBool wcConnected = false.obs;
   RxBool isMakingPayment = false.obs;
@@ -66,7 +68,7 @@ class WalletController extends GetxController {
           final BigInt balance = await web3wc!.getBalance(accs.first);
           final double etherBalance = balance.toInt() / weiMultiplier;
           walletBalance(etherBalance.toStringAsFixed(2));
-          contract = Contract('0x1dd825509AEf0Dc4b1F78426B860afD9DC014a2b', Interface(jsonAbi), web3wc!.getSigner());
+          contract = Contract('0xe9e8E6fce7e8d902BCA8672641Fe1B14e972aaEE', Interface(jsonAbi), web3wc!.getSigner());
           func?.call(accs.first);
           listenToEvents();
         }
@@ -88,7 +90,7 @@ class WalletController extends GetxController {
         final BigInt balance = await web3wc!.getBalance(wc.accounts.first);
         final double etherBalance = balance.toInt() / weiMultiplier;
         walletBalance(etherBalance.toStringAsFixed(2));
-        contract = Contract('0x1dd825509AEf0Dc4b1F78426B860afD9DC014a2b', Interface(jsonAbi), web3wc!.getSigner());
+        contract = Contract('0xe9e8E6fce7e8d902BCA8672641Fe1B14e972aaEE', Interface(jsonAbi), web3wc!.getSigner());
         wcConnected.value = true;
       }
       func?.call(wc.accounts.first);
@@ -143,8 +145,9 @@ class WalletController extends GetxController {
     String duration,
     String startTime,
     String sharePrice,
-    String subcriptionPrice,
-  ) async {
+    String subcriptionPrice, {
+    VoidCallback? callback,
+  }) async {
     randomMessage.value = 'creating sales....';
     isCreatingSale(true);
     try {
@@ -163,6 +166,7 @@ class WalletController extends GetxController {
 
         randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
         isCreatingSale(false);
+        callback?.call();
       }
     } catch (e) {
       randomMessage.value = 'Error occurrred whiles creating sale: $e';
@@ -171,12 +175,16 @@ class WalletController extends GetxController {
   }
 
   void getAllSales() async {
+    isLoading.value = true;
     try {
       if (contract != null) {
-        final response = await contract!.call('getAllSales', []);
+        final List<dynamic> response = await contract!.call<List<dynamic>>('getAllSales', []);
         randomMessage.value = 'getAllSales: $response';
+        sales.value = response;
       }
+      isLoading.value = false;
     } catch (e) {
+      isLoading.value = false;
       randomMessage.value = 'Error occurrred whiles getting creator balance: $e';
     }
   }
