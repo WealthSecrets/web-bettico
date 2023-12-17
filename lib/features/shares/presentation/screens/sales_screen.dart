@@ -4,6 +4,8 @@ import 'package:betticos/features/shares/presentation/widgets/sales_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'sale_details_screen.dart';
+
 class SalesScreen extends StatefulWidget {
   const SalesScreen({super.key});
 
@@ -60,7 +62,13 @@ class _SalesScreenState extends State<SalesScreen> {
                     : ListView.builder(
                         itemBuilder: (BuildContext context, int index) {
                           final dynamic value = walletController.sales[index];
-                          return SalesCard(value: value);
+                          return SalesCard(
+                            value: value,
+                            onPressed: () => Navigator.of(context).pushNamed(
+                              AppRoutes.saleDetails,
+                              arguments: SaleDetailsScreenRouteArgument(value: value),
+                            ),
+                          );
                         },
                         itemCount: walletController.sales.length,
                       ),

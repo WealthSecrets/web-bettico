@@ -19,102 +19,86 @@ class _CreatorScreenState extends State<CreatorScreen> {
     super.initState();
     controller.walletInit((String wallet) {
       controller.getCreatorBalance();
-      controller.getAllSales();
+      controller.getTotalSubscriptionRaisedByCreator();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _TopRow(controller: controller, baseController: baseController),
-              Divider(color: context.colors.faintGrey),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: _ClickCard(title: '${controller.creatorBalance.value} Eth', subtitle: 'Fees Earned'),
-                    ),
-                    const AppSpacing(h: 16),
-                    Expanded(
-                      child: _ClickCard(
-                        title: '${controller.creatorBalance.value} Eth',
-                        subtitle: 'Subcriptions Raised',
+      () {
+        final double balance = double.parse(controller.creatorBalance.value);
+        return Scaffold(
+          appBar: AppBar(
+            leading: const AppBackButton(color: Colors.black),
+            title: Text(
+              'Creator Information',
+              style: context.caption.copyWith(color: context.colors.textDark),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _TopRow(controller: controller, baseController: baseController),
+                Divider(color: context.colors.faintGrey),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: _ClickCard(title: '${controller.creatorBalance.value} Eth', subtitle: 'Fees Earned'),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Divider(color: context.colors.faintGrey),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  _ColumnCard(
-                    title: 'Deposit',
-                    imagePath: AssetImages.deposit,
-                  ),
-                  _ColumnCard(
-                    title: 'Withdraw',
-                    imagePath: AssetImages.withdrawal,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 50),
-              Text(
-                'Yo: ${controller.randomMessage.value}',
-                style: context.caption.copyWith(color: Colors.black),
-              ),
-              const SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: AppButton(
-                  enabled: controller.isConnected,
-                  padding: EdgeInsets.zero,
-                  borderRadius: AppBorderRadius.largeAll,
-                  backgroundColor: context.colors.primary,
-                  onPressed: () => Navigator.of(context).pushNamed(AppRoutes.createShares),
-                  child: const Text(
-                    'Create New Sale',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                      const AppSpacing(h: 16),
+                      Expanded(
+                        child: _ClickCard(
+                          title: '${controller.creatorSubscriptoinRaised.value} ETH',
+                          subtitle: 'Subcriptions Raised',
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 25),
+                Divider(color: context.colors.faintGrey),
+                const SizedBox(height: 100),
+                Container(
+                  height: 60,
+                  padding: AppPaddings.lH,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: AppButton(
+                          padding: AppPaddings.sA,
+                          borderRadius: AppBorderRadius.largeAll,
+                          onPressed: () => Navigator.of(context).pushNamed(AppRoutes.createShares),
+                          child: Text(
+                            'Create New Sale'.toUpperCase(),
+                            style: context.caption.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      const AppSpacing(h: 24),
+                      Expanded(
+                        child: AppButton(
+                          enabled: balance > 0,
+                          padding: AppPaddings.sA,
+                          borderRadius: AppBorderRadius.largeAll,
+                          onPressed: () => WidgetUtils.showWithdrawBalanceModal(context),
+                          backgroundColor: context.colors.error,
+                          child: Text(
+                            'withdraw'.toUpperCase(),
+                            style: context.caption.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ColumnCard extends StatelessWidget {
-  const _ColumnCard({required this.title, required this.imagePath});
-  final String title;
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        IconCard(
-          imagePath: imagePath,
-          backgroundColor: context.colors.text,
-          color: context.colors.textDark,
-          onTap: () {},
-        ),
-        const SizedBox(height: 5),
-        Text(
-          title,
-          style: context.caption.copyWith(
-            color: context.colors.textDark,
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

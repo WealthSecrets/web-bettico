@@ -36,7 +36,7 @@ class _CreateShareScreenState extends State<CreateShareScreen> {
       body: Obx(() {
         return AppLoadingBox(
           loading: sharesController.walletController.isCreatingSale.value,
-          child: Padding(
+          child: SingleChildScrollView(
             padding: AppPaddings.lH,
             child: AppAnimatedColumn(
               direction: Axis.horizontal,
@@ -150,14 +150,6 @@ class _CreateShareScreenState extends State<CreateShareScreen> {
                     ),
                   ),
                 const AppSpacing(v: 8),
-                AppTextInput(
-                  labelText: 'No. of Contributors'.toUpperCase(),
-                  backgroundColor: context.colors.primary.shade100,
-                  lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
-                  validator: (String input) => null,
-                  onChanged: sharesController.onMaxContributionsChanged,
-                ),
-                const AppSpacing(v: 8),
                 TextButton(
                   onPressed: () {
                     DatePickerBdaya.showDateTimePicker(
@@ -178,7 +170,7 @@ class _CreateShareScreenState extends State<CreateShareScreen> {
                   backgroundColor: context.colors.primary.shade100,
                   lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                   validator: (String input) => null,
-                  onChanged: (String value) {},
+                  onChanged: sharesController.onDurationChanged,
                 ),
                 const AppSpacing(v: 49),
                 AppButton(

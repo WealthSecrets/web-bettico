@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:betticos/core/presentation/controllers/wallet_bindings.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
+import 'package:betticos/features/shares/presentation/getx/contribute_bindings.dart';
 import 'package:betticos/features/shares/presentation/getx/shares_bindings.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -66,6 +67,7 @@ void main() async {
   AdsBinding.dependencies();
   SalesBindings.dependencies();
   SharesBinding.dependencies();
+  ContributionBindings.dependencies();
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
   OkxBindigns.dependencies();

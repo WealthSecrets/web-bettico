@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 const int weiMultiplier = 1000000000000000000;
-const double fakeUSD = 2230.52;
+const double fakeUSD = 2228.63;
 
 class WalletController extends GetxController {
   WalletController({required this.convertAmountToCurrency});
@@ -32,15 +32,28 @@ class WalletController extends GetxController {
   RxString valuesChecker = ''.obs;
   RxString walletAddress = ''.obs;
   RxString walletBalance = ''.obs;
-  RxString creatorBalance = '4.00'.obs;
+  RxString creatorBalance = '0.00'.obs;
   RxList<dynamic> sales = <dynamic>[].obs;
+  RxList<dynamic> saleContributions = <dynamic>[].obs;
+  RxList<dynamic> userSaleContribution = <dynamic>[].obs;
+  RxList<dynamic> sale = <dynamic>[].obs;
   RxBool isConnectingWallet = false.obs;
   RxBool wcConnected = false.obs;
   RxBool isMakingPayment = false.obs;
   RxBool showLoadingLogo = false.obs;
   RxBool isLoading = false.obs;
+  RxString ownerFeePercentage = ''.obs;
+  RxString withdrawalFee = ''.obs;
+  RxString maxContribution = ''.obs;
+  RxString maxDuration = ''.obs;
 
   RxBool isCreatingSale = false.obs;
+  RxBool isContributing = false.obs;
+  RxBool isPurchasing = false.obs;
+  RxBool isWithdrawing = false.obs;
+  RxBool isBalanceWithdrawal = false.obs;
+
+  RxString creatorSubscriptoinRaised = '0.00'.obs;
 
   @override
   void onInit() {
@@ -68,7 +81,7 @@ class WalletController extends GetxController {
           final BigInt balance = await web3wc!.getBalance(accs.first);
           final double etherBalance = balance.toInt() / weiMultiplier;
           walletBalance(etherBalance.toStringAsFixed(2));
-          contract = Contract('0xe9e8E6fce7e8d902BCA8672641Fe1B14e972aaEE', Interface(jsonAbi), web3wc!.getSigner());
+          contract = Contract('0xa45AC78585B2b791F4005f551E153d0C80df5e1e', Interface(jsonAbi), web3wc!.getSigner());
           func?.call(accs.first);
           listenToEvents();
         }
@@ -90,7 +103,7 @@ class WalletController extends GetxController {
         final BigInt balance = await web3wc!.getBalance(wc.accounts.first);
         final double etherBalance = balance.toInt() / weiMultiplier;
         walletBalance(etherBalance.toStringAsFixed(2));
-        contract = Contract('0xe9e8E6fce7e8d902BCA8672641Fe1B14e972aaEE', Interface(jsonAbi), web3wc!.getSigner());
+        contract = Contract('0xa45AC78585B2b791F4005f551E153d0C80df5e1e', Interface(jsonAbi), web3wc!.getSigner());
         wcConnected.value = true;
       }
       func?.call(wc.accounts.first);
@@ -126,12 +139,32 @@ class WalletController extends GetxController {
     return value;
   }
 
+  Future<dynamic> getOwnerFeePercentage() async {
+    final dynamic value = await contract?.call('ownerFeePercentage');
+    ownerFeePercentage('$value');
+  }
+
+  Future<dynamic> getWithdrawalFee() async {
+    final dynamic value = await contract?.call('withdrawalFee');
+    withdrawalFee('$value');
+  }
+
+  Future<dynamic> getMaxContribution() async {
+    final dynamic value = await contract?.call('maxContribution');
+    withdrawalFee('$value');
+  }
+
+  Future<dynamic> getMaxDuration() async {
+    final dynamic value = await contract?.call('maxDuration');
+    maxDuration('$value');
+  }
+
   Future<dynamic> getCreatorBalance() async {
     try {
       if (contract != null) {
-        final BigInt balance = await contract!.call<BigInt>('getCreatorBalance', []);
+        final BigInt balance = await contract!.call<BigInt>('getCreatorBalance', <String>[]);
         final double etherBalance = balance.toInt() / weiMultiplier;
-        creatorBalance.value = etherBalance.toStringAsFixed(2);
+        creatorBalance.value = etherBalance.toStringAsFixed(6);
         randomMessage.value = 'getCreatorBalance called: ${etherBalance.toString()}';
       }
     } catch (e) {
@@ -139,7 +172,55 @@ class WalletController extends GetxController {
     }
   }
 
-// double targetAmount, int duration, int startTime, double sharePrice, double subcriptionPrice
+  Future<dynamic> getTotalSubscriptionRaisedByCreator() async {
+    try {
+      if (contract != null) {
+        final BigInt balance =
+            await contract!.call<BigInt>('getTotalSubscriptionRaisedByCreator', <String>[walletAddress.value]);
+        final double etherBalance = balance.toInt() / weiMultiplier;
+        creatorSubscriptoinRaised.value = etherBalance.toStringAsFixed(6);
+      }
+    } catch (e) {
+      debugPrint('Error $e');
+    }
+  }
+
+  Future<void> getContributionsBySale(String saleId) async {
+    try {
+      if (contract != null) {
+        final List<dynamic> response = await contract!.call<List<dynamic>>('getContributionsBySale', <String>[saleId]);
+        saleContributions.value = response;
+      }
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  Future<void> getContributionByUserAndSale(String saleId) async {
+    try {
+      if (contract != null) {
+        debugPrint('the sale id: $saleId');
+        final List<dynamic> response =
+            await contract!.call<List<dynamic>>('getContributionByUserAndSale', <String>[saleId]);
+        userSaleContribution.value = response;
+      }
+    } catch (e) {
+      debugPrint('getContributionByUserAndSale Error: $e');
+    }
+  }
+
+  Future<void> getSale(String saleId) async {
+    try {
+      if (contract != null) {
+        debugPrint('the sale id: $saleId');
+        final List<dynamic> response = await contract!.call<List<dynamic>>('getSale', <String>[saleId]);
+        sale.value = response;
+      }
+    } catch (e) {
+      debugPrint('getSale Error: $e');
+    }
+  }
+
   void createSale(
     String targetAmount,
     String duration,
@@ -157,7 +238,7 @@ class WalletController extends GetxController {
             'Target Amount: $targetAmount, Duration: $duration, startTime: $startTime, sharePrice: $sharePrice, subscriptionPrice $subcriptionPrice';
         final TransactionResponse tx = await contract!.send(
           'createSale',
-          <String>[targetAmount, duration, startTime, sharePrice, subcriptionPrice, '2'],
+          <String>[targetAmount, duration, startTime, sharePrice, subcriptionPrice],
         );
 
         final String hash = tx.hash; // 0xbar
@@ -174,11 +255,120 @@ class WalletController extends GetxController {
     }
   }
 
+  void contribute(
+    String saleId,
+    String shareValue,
+    String contributionAmount, {
+    VoidCallback? callback,
+  }) async {
+    randomMessage.value = 'contributing....';
+    isContributing(true);
+    debugPrint('Sale ID: $saleId and share value: $shareValue and contributionAmount: $contributionAmount');
+    try {
+      if (contract != null) {
+        final TransactionResponse tx = await contract!.send(
+          'contribute',
+          <String>[saleId, shareValue],
+          TransactionOverride(value: BigInt.from(int.parse(contributionAmount))),
+        );
+
+        final String hash = tx.hash; // 0xbar
+
+        final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+
+        randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+        isContributing(false);
+        callback?.call();
+      }
+    } catch (e) {
+      randomMessage.value = 'Error occurrred whiles creating sale: $e';
+      isContributing(false);
+    }
+  }
+
+  void purchase(
+    String saleId,
+    String shareValue,
+    String contributionAmount, {
+    VoidCallback? callback,
+  }) async {
+    randomMessage.value = 'contributing....';
+    isPurchasing(true);
+    debugPrint('Sale ID: $saleId and share value: $shareValue and contributionAmount: $contributionAmount');
+    try {
+      if (contract != null) {
+        final TransactionResponse tx = await contract!.send(
+          'purchase',
+          <String>[saleId, shareValue],
+          TransactionOverride(value: BigInt.from(int.parse(contributionAmount))),
+        );
+
+        final String hash = tx.hash; // 0xbar
+
+        final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+
+        randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+        isPurchasing(false);
+        callback?.call();
+      }
+    } catch (e) {
+      randomMessage.value = 'Error occurrred whiles creating sale: $e';
+      isPurchasing(false);
+    }
+  }
+
+  void withdraw(
+    String saleId,
+    String shareValue, {
+    VoidCallback? callback,
+  }) async {
+    isWithdrawing(true);
+    try {
+      if (contract != null) {
+        final TransactionResponse tx = await contract!.send('withdrawShares', <String>[saleId, shareValue]);
+
+        final String hash = tx.hash; // 0xbar
+
+        final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+
+        randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+        isWithdrawing(false);
+        callback?.call();
+      }
+    } catch (e) {
+      randomMessage.value = 'Error occurrred whiles creating sale: $e';
+      isWithdrawing(false);
+    }
+  }
+
+  void withdrawBalance(
+    String amount, {
+    VoidCallback? callback,
+  }) async {
+    isBalanceWithdrawal(true);
+    try {
+      if (contract != null) {
+        final TransactionResponse tx = await contract!.send('withdrawBalance', <String>[amount]);
+
+        final String hash = tx.hash; // 0xbar
+
+        final TransactionReceipt receipt = await tx.wait(); // Wait until transaction complete
+
+        randomMessage.value = 'hash: $hash\nfromAddress:${receipt.from}';
+        isBalanceWithdrawal(false);
+        callback?.call();
+      }
+    } catch (e) {
+      debugPrint('withdrawBalance Error $e');
+      isBalanceWithdrawal(false);
+    }
+  }
+
   void getAllSales() async {
     isLoading.value = true;
     try {
       if (contract != null) {
-        final List<dynamic> response = await contract!.call<List<dynamic>>('getAllSales', []);
+        final List<dynamic> response = await contract!.call<List<dynamic>>('getAllSales', <String>[]);
         randomMessage.value = 'getAllSales: $response';
         sales.value = response;
       }
