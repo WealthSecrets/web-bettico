@@ -1,8 +1,10 @@
 import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
 import 'package:betticos/features/okx_swap/presentation/more/screens/avatrade_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/contribute_screen.dart';
 import 'package:betticos/features/shares/presentation/screens/creator_screen.dart';
 import 'package:betticos/features/shares/presentation/screens/creator_share_screen.dart';
 import 'package:betticos/features/shares/presentation/screens/notifications_screen.dart';
+import 'package:betticos/features/shares/presentation/screens/sale_details_screen.dart';
 import 'package:betticos/features/shares/presentation/screens/sales_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -141,11 +143,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.creator:
       return _getPageRoute(const CreatorScreen(), settings);
     case AppRoutes.notifications:
-      return _getPageRoute(const NotificationsScreen(), settings);
+      final NotificationsScreenRouteArgument argument = settings.arguments! as NotificationsScreenRouteArgument;
+      return _getPageRoute(NotificationsScreen(contributions: argument.contributions), settings);
     case AppRoutes.createShares:
       return _getPageRoute(const CreateShareScreen(), settings);
     case AppRoutes.salesScreen:
       return _getPageRoute(const SalesScreen(), settings);
+    case AppRoutes.saleDetails:
+      final SaleDetailsScreenRouteArgument argument = settings.arguments! as SaleDetailsScreenRouteArgument;
+      return _getPageRoute(SaleDetailsScreen(value: argument.value), settings);
+    case AppRoutes.contribute:
+      final ContributeScreenRouteArgument argument = settings.arguments! as ContributeScreenRouteArgument;
+      return _getPageRoute(ContributeScreen(sale: argument.sale), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

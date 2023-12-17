@@ -1,15 +1,24 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:flutter/material.dart';
 
+class NotificationsScreenRouteArgument {
+  const NotificationsScreenRouteArgument({required this.contributions});
+
+  final dynamic contributions;
+}
+
 class NotificationsScreen extends StatelessWidget {
-  const NotificationsScreen({super.key});
+  const NotificationsScreen({super.key, required this.contributions});
+
+  final dynamic contributions;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Notification',
+          'Contributions',
           style: context.caption.copyWith(color: context.colors.textDark),
         ),
         actions: <Widget>[
@@ -26,18 +35,21 @@ class NotificationsScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemBuilder: (BuildContext context, int index) => const _NotificationItem(),
-        itemCount: 100,
+        itemBuilder: (BuildContext context, int index) => _NotificationItem(contribution: contributions[index]),
+        itemCount: contributions.length,
       ),
     );
   }
 }
 
 class _NotificationItem extends StatelessWidget {
-  const _NotificationItem();
+  const _NotificationItem({required this.contribution});
+
+  final dynamic contribution;
 
   @override
   Widget build(BuildContext context) {
+    final double amount = int.parse('${contribution[3]}') / weiMultiplier;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -45,7 +57,7 @@ class _NotificationItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'New Trade',
+              '${contribution[2]}',
               style: context.caption.copyWith(
                 color: context.colors.textDark,
                 fontWeight: FontWeight.bold,
@@ -59,7 +71,7 @@ class _NotificationItem extends StatelessWidget {
         ),
         const AppSpacing(v: 5),
         Text(
-          '@minakay sold one of your shares for 0.000123 Eth',
+          '@minakay contributed ${amount.toStringAsFixed(6)} ETH.',
           style: context.overline.copyWith(color: context.colors.textDark),
         ),
         const AppSpacing(v: 5),

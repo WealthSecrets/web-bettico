@@ -55,7 +55,7 @@ class _MoreScreenState extends State<MoreScreen> {
             CustomTile(
               icon: Ionicons.link_sharp,
               onPressed: () => navigationController.navigateTo(AppRoutes.creator),
-              text: 'Creator Tool',
+              text: 'Sales',
             ),
             // const SizedBox(height: 10),
             // CustomTile(

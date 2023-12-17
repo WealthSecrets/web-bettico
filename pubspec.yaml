@@ -18,6 +18,7 @@ dependencies:
   country_code_picker: ^3.0.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0
+  date_count_down: ^3.0.0
   detectable_text_field: ^2.0.3
   dio: ^5.1.2
   easy_stepper: ^0.5.2+1
@@ -50,6 +51,7 @@ dependencies:
   line_chart: ^1.1.11
   logging: ^1.0.2
   modal_bottom_sheet: ^3.0.0-pre
+  moment_dart: ^1.1.0
   pin_code_fields: ^7.3.0
   platform: ^3.1.0
   rxdart: ^0.27.5

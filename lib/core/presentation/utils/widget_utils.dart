@@ -2,6 +2,8 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/presentation/modal_auth/widgets/unauth_login_container.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
+import 'package:betticos/features/shares/presentation/widgets/withdraw_balance_modal.dart';
+import 'package:betticos/features/shares/presentation/widgets/withdraw_shares_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -166,6 +168,36 @@ class WidgetUtils {
             ),
           ),
         );
+      },
+    );
+  }
+
+  static void showWithdrawSharesModal(
+    BuildContext context, {
+    required String saleId,
+    required int shares,
+    required double sharePrice,
+    required double sharePriceUSD,
+  }) {
+    showMaterialModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.card),
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 300,
+          child:
+              WithdrawSharesModal(saleId: saleId, shares: shares, sharePrice: sharePrice, sharePriceUSD: sharePriceUSD),
+        );
+      },
+    );
+  }
+
+  static void showWithdrawBalanceModal(BuildContext context) {
+    showMaterialModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.card),
+      context: context,
+      builder: (BuildContext context) {
+        return const SizedBox(height: 300, child: WithdrawBalanceModal());
       },
     );
   }
