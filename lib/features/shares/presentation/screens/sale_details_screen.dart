@@ -216,7 +216,10 @@ class _SaleDetailsScreenState extends State<SaleDetailsScreen> {
                   _InfoDisplayer(title: 'Share Price', ethAmount: sharePrice, usdAmount: sharePriceUSD),
                   const AppSpacing(v: 8),
                   _InfoDisplayer(
-                      title: 'Subcription Price', ethAmount: subscriptionPrice, usdAmount: subscriptionPriceUSD),
+                    title: 'Subcription Price',
+                    ethAmount: subscriptionPrice,
+                    usdAmount: subscriptionPriceUSD,
+                  ),
                   const AppSpacing(v: 8),
                   _InfoDisplayer(
                     title: 'Total Contributions',
@@ -243,8 +246,10 @@ class _SaleDetailsScreenState extends State<SaleDetailsScreen> {
                             padding: AppPaddings.sA,
                             borderRadius: AppBorderRadius.largeAll,
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed(AppRoutes.contribute,
-                                  arguments: ContributeScreenRouteArgument(sale: wController.sale));
+                              Navigator.of(context).pushReplacementNamed(
+                                AppRoutes.contribute,
+                                arguments: ContributeScreenRouteArgument(sale: wController.sale),
+                              );
                             },
                             child: Text(
                               status == SalesStatus.ended ? 'purchase'.toUpperCase() : 'contribute'.toUpperCase(),

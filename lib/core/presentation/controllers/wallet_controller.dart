@@ -55,21 +55,6 @@ class WalletController extends GetxController {
 
   RxString creatorSubscriptoinRaised = '0.00'.obs;
 
-  @override
-  void onInit() {
-    listenToEvents();
-    super.onInit();
-  }
-
-  void listenToEvents() {
-    if (contract != null) {
-      contract?.on('SaleCreated',
-          (saleId, creator, targetAmount, startTime, endTime, sharePrice, subscriptionPrice, saleType) {
-        randomMessage('Sales has been created successfully: $saleId, $creator, $targetAmount, $startTime ');
-      });
-    }
-  }
-
   Future<void> connectProvider([Function(String wallet)? func]) async {
     if (ethereum != null) {
       try {
@@ -81,9 +66,8 @@ class WalletController extends GetxController {
           final BigInt balance = await web3wc!.getBalance(accs.first);
           final double etherBalance = balance.toInt() / weiMultiplier;
           walletBalance(etherBalance.toStringAsFixed(2));
-          contract = Contract('0xa45AC78585B2b791F4005f551E153d0C80df5e1e', Interface(jsonAbi), web3wc!.getSigner());
+          contract = Contract('0x9776eB459be738a5D5D27fc1eD189e4DCA2EeC4c', Interface(jsonAbi), web3wc!.getSigner());
           func?.call(accs.first);
-          listenToEvents();
         }
       } catch (e) {
         randomMessage.value = '$e';
@@ -103,7 +87,7 @@ class WalletController extends GetxController {
         final BigInt balance = await web3wc!.getBalance(wc.accounts.first);
         final double etherBalance = balance.toInt() / weiMultiplier;
         walletBalance(etherBalance.toStringAsFixed(2));
-        contract = Contract('0xa45AC78585B2b791F4005f551E153d0C80df5e1e', Interface(jsonAbi), web3wc!.getSigner());
+        contract = Contract('0x9776eB459be738a5D5D27fc1eD189e4DCA2EeC4c', Interface(jsonAbi), web3wc!.getSigner());
         wcConnected.value = true;
       }
       func?.call(wc.accounts.first);

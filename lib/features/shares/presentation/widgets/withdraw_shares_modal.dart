@@ -7,8 +7,13 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class WithdrawSharesModal extends StatefulWidget {
-  const WithdrawSharesModal(
-      {super.key, required this.saleId, required this.shares, required this.sharePrice, required this.sharePriceUSD});
+  const WithdrawSharesModal({
+    super.key,
+    required this.saleId,
+    required this.shares,
+    required this.sharePrice,
+    required this.sharePriceUSD,
+  });
 
   final String saleId;
   final int shares;
