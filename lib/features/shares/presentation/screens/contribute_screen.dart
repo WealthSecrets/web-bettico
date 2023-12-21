@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import '../widgets/sale_status_chip.dart';
+
 import '/core/core.dart';
+import '../widgets/sale_status_chip.dart';
 
 class ContributeScreenRouteArgument {
   const ContributeScreenRouteArgument({required this.sale});
