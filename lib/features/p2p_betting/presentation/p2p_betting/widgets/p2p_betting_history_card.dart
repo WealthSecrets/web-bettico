@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
 import '/core/core.dart';
+import '../extensions.dart';
 
 class P2PBettingHistoryCard extends StatefulWidget {
   const P2PBettingHistoryCard({
@@ -461,46 +461,5 @@ void cashout(
       context,
       message: 'Cashout not allowed!',
     );
-  }
-}
-
-extension BetStatusX on BetStatus {
-  Color color(BuildContext context) {
-    switch (this) {
-      case BetStatus.awaiting:
-        return context.colors.yellow;
-      case BetStatus.ongoing:
-        return context.colors.success;
-      case BetStatus.completed:
-        return context.colors.success;
-      case BetStatus.cancelled:
-        return context.colors.error;
-    }
-  }
-
-  String stringAmount(double amount) {
-    switch (this) {
-      case BetStatus.awaiting:
-        return '\$$amount?';
-      case BetStatus.ongoing:
-        return '\$$amount';
-      case BetStatus.cancelled:
-        return '\$$amount';
-      case BetStatus.completed:
-        return '\$$amount';
-    }
-  }
-}
-
-extension BettorChoiceX on BettorChoice {
-  Color color(BuildContext context) {
-    switch (this) {
-      case BettorChoice.win:
-        return context.colors.success;
-      case BettorChoice.draw:
-        return context.colors.yellow;
-      case BettorChoice.loss:
-        return context.colors.error;
-    }
   }
 }

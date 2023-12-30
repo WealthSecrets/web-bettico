@@ -1,7 +1,8 @@
-import 'package:betticos/features/settings/domain/repositories/settings_repository.dart';
-import 'package:betticos/features/settings/domain/requests/update_language_request.dart';
+import 'package:betticos/core/core.dart';
 import 'package:dartz/dartz.dart';
-import '/core/core.dart';
+
+import '../entities/update_language.dart';
+import '../repositories/settings_repository.dart';
 
 class UpdateLanguagePrefs implements UseCase<void, UpdateLanguageRequest> {
   UpdateLanguagePrefs({required this.settingsRepository});

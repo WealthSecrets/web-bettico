@@ -29,11 +29,11 @@ import '/core/core.dart';
 import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import '/features/p2p_betting/data/models/bet/bet.dart';
 import '/features/p2p_betting/data/models/bettor/bettor.dart';
-// import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
-import '/features/p2p_betting/domain/requests/bet/bet_request.dart';
-import '/features/p2p_betting/domain/requests/bet/bettor_request.dart';
 import '/features/p2p_betting/domain/usecases/bet/add_bet.dart';
 import '/features/p2p_betting/domain/usecases/bet/fetch_bets.dart';
+// import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
+import '../../../domain/requests/bet/bet_request.dart';
+import '../../../domain/requests/bet/bettor_request.dart';
 
 class P2PBetController extends GetxController {
   P2PBetController({

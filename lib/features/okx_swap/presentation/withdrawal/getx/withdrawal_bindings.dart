@@ -1,7 +1,6 @@
-import 'package:betticos/features/okx_swap/domain/usecases/fetch_withdrawal_history.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/withdraw.dart';
-import 'package:betticos/features/okx_swap/presentation/withdrawal/getx/withdrawal_controller.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
+import 'withdrawal_controller.dart';
 
 class WithdrawalBindings {
   static void dependencies() {

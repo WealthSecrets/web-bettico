@@ -1,12 +1,7 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_request.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_response.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/fetch_transfer_history.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/subaccount_fund_transfer.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';

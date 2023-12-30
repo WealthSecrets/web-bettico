@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '/core/core.dart';
+import '../extensions.dart';
 
 class P2PBettingSwiper extends StatefulWidget {
   const P2PBettingSwiper({super.key});

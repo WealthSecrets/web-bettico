@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:betticos/core/presentation/controllers/wallet_bindings.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
-import 'package:betticos/features/shares/presentation/getx/contribute_bindings.dart';
-import 'package:betticos/features/shares/presentation/getx/shares_bindings.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,15 +27,6 @@ import 'features/betticos/presentation/referral/getx/referral_bindings.dart';
 import 'features/betticos/presentation/report/getx/report_bindings.dart';
 import 'features/betticos/presentation/timeline/getx/card_bindings.dart';
 import 'features/betticos/presentation/timeline/getx/timeline_bindings.dart';
-import 'features/okx_swap/presentation/funds/getx/funds_bindings.dart';
-import 'features/okx_swap/presentation/getx/okx_bindings.dart';
-import 'features/okx_swap/presentation/usdt/getx/usdt_sale_bindings.dart';
-import 'features/okx_swap/presentation/withdrawal/getx/withdrawal_bindings.dart';
-import 'features/onboarding_splash/presentation/onbaording/getx/onboard_bindings.dart';
-import 'features/onboarding_splash/presentation/splash/getx/splash_bindings.dart';
-import 'features/p2p_betting/presentation/livescore/getx/live_score_bindings.dart';
-import 'features/p2p_betting/presentation/p2p_betting/getx/p2pbet_binding.dart';
-import 'features/settings/presentation/settings/getx/settings_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
