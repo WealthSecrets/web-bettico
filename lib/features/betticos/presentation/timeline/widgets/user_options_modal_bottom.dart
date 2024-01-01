@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/presentation/ads/getx/ads_controller.dart';
-import 'package:betticos/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';

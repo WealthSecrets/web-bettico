@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:betticos/main_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 
 import 'core/core.dart';
-import 'features/advert/presentation/ads/getx/ads_bindings.dart';
 import 'features/auth/presentation/forgotPassword/getx/forgot_bindings.dart';
 import 'features/auth/presentation/login/getx/login_bindings.dart';
 import 'features/auth/presentation/register/getx/register_bindings.dart';

@@ -1,6 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
-import 'package:betticos/features/betticos/presentation/timeline/widgets/timeline_card.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 

@@ -1,6 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/domain/requests/create_business_request.dart';
-import 'package:betticos/features/advert/presentation/ads/utils/business_category_type.dart';
+import 'package:betticos/features/advert/presentation/utils/business_category_type.dart';
 import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/responsiveness/constants/web_controller.dart';
 import 'package:dartz/dartz.dart';
@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:validators/validators.dart' as validator;
 
-import '../../../data/models/business_model.dart';
-import '../../../domain/usecases/create_business.dart';
+import '../../data/models/business_model.dart';
+import '../../domain/usecases/create_business.dart';
 
 enum BusinessType { creator, business }
 

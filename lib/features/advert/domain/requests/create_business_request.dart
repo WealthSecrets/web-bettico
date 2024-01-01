@@ -1,9 +1,6 @@
 // ignore_for_file: invalid_annotation_target
+import 'package:betticos/features/presentation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../presentation/ads/getx/professional_controller.dart';
-import '../../presentation/ads/utils/business_category_type.dart';
-
 part 'create_business_request.freezed.dart';
 part 'create_business_request.g.dart';
 

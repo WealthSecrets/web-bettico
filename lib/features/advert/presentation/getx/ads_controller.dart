@@ -1,21 +1,12 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/data/models/advert_model.dart';
-import 'package:betticos/features/advert/domain/requests/create_advert_request.dart';
-import 'package:betticos/features/advert/domain/usecases/create_advert.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
-import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
-import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../../../domain/usecases/get_all_adverts.dart';
-import '../utils/special_category_type.dart';
 
 class AdsController extends GetxController {
   AdsController({required this.createAdvert, required this.getAllAdverts});

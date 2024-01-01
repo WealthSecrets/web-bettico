@@ -1,10 +1,7 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/presentation/ads/utils/business_category_type.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../getx/professional_controller.dart';
-import '../widgets/category_widget.dart';
 
 class ProfessionalAccountCategoryScreen extends GetWidget<ProfessionalController> {
   const ProfessionalAccountCategoryScreen({super.key});

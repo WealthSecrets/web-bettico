@@ -1,14 +1,6 @@
-import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import '/core/presentation/widgets/success_screen.dart';
-import '/features/advert/presentation/ads/screens/account_insights_screen.dart';
-import '/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
-import '/features/advert/presentation/ads/screens/ad_process_screen.dart';
-import '/features/advert/presentation/ads/screens/business_type_screen.dart';
-import '/features/advert/presentation/ads/screens/professional_account_category_screen.dart';
-import '/features/advert/presentation/ads/screens/professional_dashboard.dart';
-import '/features/advert/presentation/ads/screens/review_account_screen.dart';
 import 'app_routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {

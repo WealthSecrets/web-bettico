@@ -1,8 +1,7 @@
+import 'package:betticos/features/advert/presentation/getx/getx.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../getx/ads_controller.dart';
 import 'action_button.dart';
 
 class StepControls extends StatelessWidget {

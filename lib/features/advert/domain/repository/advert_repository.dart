@@ -1,8 +1,8 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/advert/data/models/advert_model.dart';
 import 'package:betticos/features/advert/data/models/business_model.dart';
-import 'package:betticos/features/advert/presentation/ads/getx/professional_controller.dart';
-import 'package:betticos/features/advert/presentation/ads/utils/business_category_type.dart';
+import 'package:betticos/features/advert/presentation/getx/professional_controller.dart';
+import 'package:betticos/features/advert/presentation/utils/business_category_type.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AdvertRepository {

@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/presentation/ads/screens/professional_account_category_screen.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_password_screen.dart';
 import 'package:betticos/features/auth/presentation/forgotPassword/screens/forgot_wallet_screen.dart';
 import 'package:betticos/features/auth/presentation/login/screens/login_screen.dart';

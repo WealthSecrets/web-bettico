@@ -1,5 +1,5 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/presentation/ads/getx/ads_controller.dart';
+import 'package:betticos/features/advert/presentation/getx/ads_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

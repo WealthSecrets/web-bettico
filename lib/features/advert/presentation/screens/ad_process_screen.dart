@@ -6,7 +6,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../getx/ads_controller.dart';
+import '../getx/getx.dart';
 import '../widgets/step_controls.dart';
 import 'ad_preview_step.dart';
 import 'ads_summary_screen.dart';

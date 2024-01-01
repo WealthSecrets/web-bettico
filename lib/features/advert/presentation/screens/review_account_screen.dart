@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
 import '../getx/professional_controller.dart';
-// import 'package:ionicons/ionicons.dart';
 
 class ReviewAccountScreen extends GetWidget<ProfessionalController> {
   const ReviewAccountScreen({super.key});
