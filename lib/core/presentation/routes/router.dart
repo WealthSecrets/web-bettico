@@ -1,14 +1,6 @@
 import 'package:betticos/features/advert/presentation/ads/screens/account_reached_screen.dart';
-import 'package:betticos/features/okx_swap/presentation/more/screens/avatrade_screen.dart';
-import 'package:betticos/features/shares/presentation/screens/contribute_screen.dart';
-import 'package:betticos/features/shares/presentation/screens/creator_screen.dart';
-import 'package:betticos/features/shares/presentation/screens/creator_share_screen.dart';
-import 'package:betticos/features/shares/presentation/screens/notifications_screen.dart';
-import 'package:betticos/features/shares/presentation/screens/sale_details_screen.dart';
-import 'package:betticos/features/shares/presentation/screens/sales_screen.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
-
-// import '/core/presentation/widgets/app_web_view.dart';
 import '/core/presentation/widgets/success_screen.dart';
 import '/features/advert/presentation/ads/screens/account_insights_screen.dart';
 import '/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
@@ -17,39 +9,6 @@ import '/features/advert/presentation/ads/screens/business_type_screen.dart';
 import '/features/advert/presentation/ads/screens/professional_account_category_screen.dart';
 import '/features/advert/presentation/ads/screens/professional_dashboard.dart';
 import '/features/advert/presentation/ads/screens/review_account_screen.dart';
-import '/features/betticos/presentation/explore/widgets/explore_container.dart';
-import '/features/betticos/presentation/explore/widgets/search_container.dart';
-import '/features/betticos/presentation/members/screens/members_screen.dart';
-import '/features/betticos/presentation/oddsbox/screens/oddsbox_screen.dart';
-import '/features/betticos/presentation/oddsters/screens/oddsters_screen.dart';
-import '/features/betticos/presentation/private_sales/private_sale_congratulation_screen.dart';
-import '/features/betticos/presentation/private_sales/private_sales_screen.dart';
-import '/features/betticos/presentation/profile/arguments/profile_argument.dart';
-import '/features/betticos/presentation/profile/screens/profile_screen.dart';
-import '/features/betticos/presentation/referral/screens/referral_screen.dart';
-import '/features/betticos/presentation/timeline/screens/timeline_screen.dart';
-import '/features/okx_swap/presentation/address/address_details_screen.dart';
-import '/features/okx_swap/presentation/address/addresses_screen.dart';
-import '/features/okx_swap/presentation/address/asset_currencies_screen.dart';
-import '/features/okx_swap/presentation/convert/screens/conversion_success_screen.dart';
-import '/features/okx_swap/presentation/convert/screens/convert_crypto_screen.dart';
-import '/features/okx_swap/presentation/crypto/buy_sell_crypto_screen.dart';
-import '/features/okx_swap/presentation/crypto/crypto_front_screen.dart';
-import '/features/okx_swap/presentation/crypto/send_screen.dart';
-import '/features/okx_swap/presentation/funds/screens/transfer_funds.dart';
-import '/features/okx_swap/presentation/funds/screens/transfer_history_screen.dart';
-import '../../../features/okx_swap/presentation/history/screens/conversion_history_screen.dart';
-import '../../../features/okx_swap/presentation/history/screens/deposit_history_screen.dart';
-import '../../../features/okx_swap/presentation/history/screens/withdrawal_history_screen.dart';
-import '/features/okx_swap/presentation/more/more_screen.dart';
-import '/features/okx_swap/presentation/usdt/screens/buy_usdt_screen.dart';
-import '/features/okx_swap/presentation/withdrawal/screens/withdrawal_congratulations_screen.dart';
-import '/features/okx_swap/presentation/withdrawal/screens/withdrawal_screen.dart';
-import '/features/onboarding_splash/presentation/onbaording/screens/onboarding_screen.dart';
-import '/features/p2p_betting/presentation/livescore/screens/new_livescore_screen.dart';
-import '/features/p2p_betting/presentation/p2p_betting/screens/p2p_transaction_history_screen.dart';
-import '/features/responsiveness/not_found_screen.dart';
-import '/features/settings/presentation/settings/screens/settings_screen.dart';
 import 'app_routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -168,19 +127,11 @@ class _FadeRoute extends PageRouteBuilder<Widget> {
   _FadeRoute({required this.child, required this.settings})
       : super(
           settings: settings,
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
+          pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) =>
               child,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              FadeTransition(
+          transitionsBuilder:
+              (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) =>
+                  FadeTransition(
             opacity: animation,
             child: child,
           ),

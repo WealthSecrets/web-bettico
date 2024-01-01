@@ -1,4 +1,3 @@
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
 import 'package:flutter/material.dart';

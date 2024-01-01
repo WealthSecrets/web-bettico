@@ -1,35 +1,15 @@
-import 'package:betticos/features/betticos/domain/requests/post/like_dislike_post_params.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/dislike_post.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/like_post.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/auth/domain/requests/update_photo_request.dart/update_photo_request.dart';
+import 'package:betticos/features/auth/domain/usecases/update_user_profile_photo.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart' as validator;
-
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/requests/update_photo_request.dart/update_photo_request.dart';
-import '/features/auth/domain/usecases/update_user_profile_photo.dart';
-import '/features/betticos/data/models/follow/follow_model.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/data/models/subscription/subscription_model.dart';
-import '/features/betticos/domain/requests/post/my_posts_or_oddboxes_request.dart';
-import '/features/betticos/domain/requests/subscrbe/subscribe_request.dart';
-import '/features/betticos/domain/requests/update_request/update_request.dart';
-import '/features/betticos/domain/usecases/follow/check_following.dart';
-import '/features/betticos/domain/usecases/follow/follow_user.dart';
-import '/features/betticos/domain/usecases/follow/get_my_followers.dart';
-import '/features/betticos/domain/usecases/follow/get_my_followings.dart';
-import '/features/betticos/domain/usecases/follow/unfollow_user.dart';
-import '/features/betticos/domain/usecases/post/fetch_my_oddboxes.dart';
-import '/features/betticos/domain/usecases/post/fetch_my_posts.dart';
-import '/features/betticos/domain/usecases/resolve_user.dart';
-import '/features/betticos/domain/usecases/subscription/check_subscription.dart';
-import '/features/betticos/domain/usecases/subscription/subscribe_to_user.dart';
-import '/features/betticos/domain/usecases/update_user.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '../../../domain/requests/follow/user_request.dart';
 
 class ProfileController extends GetxController {
   ProfileController({

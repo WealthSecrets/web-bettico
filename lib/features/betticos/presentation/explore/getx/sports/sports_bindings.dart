@@ -1,7 +1,6 @@
-import 'package:betticos/features/betticos/presentation/explore/getx/sports/sports_controlller.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_fixtures.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_livescores.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
+import 'sports_controlller.dart';
 
 class SportsBindings {
   static void dependencies() {

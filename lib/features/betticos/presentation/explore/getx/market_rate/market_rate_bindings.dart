@@ -1,5 +1,4 @@
-import 'package:betticos/features/betticos/domain/usecases/market/fetch_listings.dart';
-import 'package:betticos/features/betticos/domain/usecases/market/get_listing.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
 
 import 'market_rate_controller.dart';

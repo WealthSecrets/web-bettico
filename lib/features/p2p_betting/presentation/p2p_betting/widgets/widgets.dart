@@ -6,4 +6,3 @@ export 'p2p_betting_filter_bar.dart';
 export 'p2p_betting_history_card.dart';
 export 'p2p_betting_swiper.dart';
 export 'time_card.dart';
-export 'transaction_history_card.dart';

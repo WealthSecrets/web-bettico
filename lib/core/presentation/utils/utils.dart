@@ -2,6 +2,7 @@ export 'app_assets_images.dart';
 export 'app_assets_json.dart';
 export 'app_assets_svgs.dart';
 export 'app_border_radius.dart';
+export 'app_endpoints.dart';
 export 'app_modal.dart';
 export 'app_paddings.dart';
 export 'app_spacing.dart';

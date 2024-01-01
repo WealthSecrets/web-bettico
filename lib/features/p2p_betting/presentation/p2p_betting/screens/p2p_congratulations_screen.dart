@@ -1,6 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

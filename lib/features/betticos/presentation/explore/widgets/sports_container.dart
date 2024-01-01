@@ -1,9 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/sports_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../../profile/widgets/circle_indicator.dart';
-import '../screens/fixtures_screen.dart';
+import '../screens/screens.dart';
 
 class SportsContainer extends StatelessWidget {
   const SportsContainer({super.key});

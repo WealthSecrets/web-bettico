@@ -1,25 +1,8 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/data/models/user/user_stats.dart';
-import 'package:betticos/features/p2p_betting/data/endpoints/transaction_endpoints.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
-
-import '/core/utils/http_client.dart';
-import '/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
-import '/features/p2p_betting/data/endpoints/p2p_endpoints.dart';
-import '/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import '../../../betticos/data/models/listpage/listpage.dart';
-import '../../domain/requests/bet/bet_request.dart';
-import '../../domain/requests/bet/bet_update_request.dart';
-import '../../domain/requests/bet/update_bet_status_score_request.dart';
-import '../models/bet/bet.dart';
-import '../models/crypto/network.dart';
-import '../models/crypto/volume.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 
 class P2pRemoteDataSourceImpl implements P2pRemoteDataSource {
   const P2pRemoteDataSourceImpl({required AppHTTPClient client}) : _client = client;

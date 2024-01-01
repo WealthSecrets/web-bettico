@@ -1,7 +1,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
 import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-import '../widgets/widgets.dart';
 
 class AddressesScreen extends StatefulWidget {
   const AddressesScreen({super.key});

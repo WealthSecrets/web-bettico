@@ -1,3 +1,4 @@
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,7 +7,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '/core/core.dart';
-import '/features/betticos/presentation/referral/getx/referral_controller.dart';
 
 class ReferralScreen extends StatefulWidget {
   const ReferralScreen({super.key});

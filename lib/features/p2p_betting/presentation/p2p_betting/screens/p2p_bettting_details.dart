@@ -1,18 +1,11 @@
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/core/presentation/utils/app_endpoints.dart';
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '../widgets/p2p_betting_card.dart';
 
 class P2PBettingDetailsScreen extends StatefulWidget {
   const P2PBettingDetailsScreen({super.key, required this.bet});

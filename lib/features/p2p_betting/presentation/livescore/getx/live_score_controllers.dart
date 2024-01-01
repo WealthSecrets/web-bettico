@@ -1,25 +1,9 @@
-import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/s_league_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/s_team_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/nullable_livescore_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/s_fixture_request.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_fixtures.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_leagues.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_livescores.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_fixture.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_paginated_livescore.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_league.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_sfixture.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_slivescore.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/get_team.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
-import '/core/core.dart';
-import '../../../../betticos/data/models/listpage/listpage.dart';
 
 class LiveScoreController extends GetxController {
   LiveScoreController({
@@ -56,14 +40,9 @@ class LiveScoreController extends GetxController {
   RxInt pageK = 1.obs;
 
   RxString walletAddress = ''.obs;
-
-  // RxBool wcConnected = false.obs;
-  // RxBool isWalletConnected = false.obs;
   RxBool isCompleted = false.obs;
 
   RxBool showLoadingLogo = false.obs;
-  // RxBool isConnectingWallet = false.obs;
-  // RxBool isMakingPayment = false.obs;
   RxList<String> closingBetID = <String>[].obs;
   RxString randomMessage = ''.obs;
 

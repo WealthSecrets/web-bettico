@@ -1,6 +1,7 @@
-import 'package:betticos/features/settings/domain/repositories/settings_repository.dart';
 import 'package:dartz/dartz.dart';
+
 import '/core/core.dart';
+import '../repositories/settings_repository.dart';
 
 class GetLanguagePrefs implements UseCase<String?, NoParams> {
   GetLanguagePrefs({required this.settingsRepository});

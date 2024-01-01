@@ -1,18 +1,9 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/auth/data/models/user/user_stats.dart';
-import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/sleague/sleague.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/bettor_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/errors/failure.dart';
-import '../../../betticos/data/models/listpage/listpage.dart';
-import '../../data/models/crypto/network.dart';
-import '../../data/models/crypto/volume.dart';
 
 abstract class P2pRepository {
   Future<Either<Failure, ListPage<LiveScore>>> fetchPaginatedLiveScores(

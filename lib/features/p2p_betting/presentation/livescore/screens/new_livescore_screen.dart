@@ -1,21 +1,12 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/fixture_card.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/livescore_card.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/new_livescore_app_bar.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/vertical_league_card.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../../../../betticos/presentation/base/getx/base_screen_controller.dart';
-import '../../p2p_betting/screens/p2p_betting_screen.dart';
-import '../getx/live_score_controllers.dart';
 
 class NewLiveScore extends StatefulWidget {
   const NewLiveScore({super.key});

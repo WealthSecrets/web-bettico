@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/data/models/listing/listing_model.dart';
-import 'package:betticos/features/betticos/presentation/explore/getx/market_rate/market_rate_controller.dart';
-import 'package:betticos/features/betticos/presentation/explore/widgets/market_card.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

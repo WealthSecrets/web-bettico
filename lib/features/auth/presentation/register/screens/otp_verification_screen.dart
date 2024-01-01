@@ -1,15 +1,13 @@
-// import 'dart:async';
+import 'dart:async';
 
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
+import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/auth/presentation/register/getx/register_controller.dart';
-import '../widgets/app_pincode_textfield.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({super.key});
@@ -21,39 +19,39 @@ class OTPVerificationScreen extends StatefulWidget {
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final RegisterController controller = Get.find<RegisterController>();
   final LoginController lController = Get.find<LoginController>();
-  final bool _showResendButton = false;
+  bool _showResendButton = false;
 
-  // int _counter = 59;
-  // late Timer _timer;
+  int _counter = 59;
+  late Timer _timer;
 
   // get arguments
   final OTPVerificationScreenArgument? args = Get.arguments as OTPVerificationScreenArgument?;
   final String? params = Get.parameters['type'];
 
-  // @override
-  // void initState() {
-  // _startTimer();
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    _startTimer();
+    super.initState();
+  }
 
-  // void _startTimer() {
-  //   _counter = 59;
-  //   _timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       if (_counter > 0) {
-  //         setState(() {
-  //           _counter--;
-  //         });
-  //       } else {
-  //         setState(() {
-  //           _showResendButton = true;
-  //         });
-  //         _timer.cancel();
-  //       }
-  //     },
-  //   );
-  // }
+  void _startTimer() {
+    _counter = 59;
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        if (_counter > 0) {
+          setState(() {
+            _counter--;
+          });
+        } else {
+          setState(() {
+            _showResendButton = true;
+          });
+          _timer.cancel();
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +138,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         ),
                       ),
                       const AppSpacing(v: 8),
-                      // _buildTimer(),
+                      _buildTimer(),
                       const AppSpacing(v: 16),
                       Visibility(
                         visible: _showResendButton,
@@ -151,12 +149,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               backgroundColor: context.colors.primary,
                             ),
                             onPressed: () {
-                              // setState(() {
-                              //   _timer.cancel();
-                              //   _counter = 59;
-                              //   _showResendButton = false;
-                              // });
-                              // _startTimer();
+                              setState(() {
+                                _timer.cancel();
+                                _counter = 59;
+                                _showResendButton = false;
+                              });
+                              _startTimer();
                               if (params != null && params!.toLowerCase() == 'email') {
                                 lController.resendOTPEmail(
                                   context,
@@ -223,27 +221,27 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     );
   }
 
-  // Widget _buildTimer() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: <Widget>[
-  //       Text(
-  //         'resend_code'.tr,
-  //         style: TextStyle(
-  //           color: context.colors.grey,
-  //           fontSize: 12,
-  //           fontWeight: FontWeight.normal,
-  //         ),
-  //       ),
-  //       Text(
-  //         '00:$_counter',
-  //         style: TextStyle(
-  //           color: context.colors.primary,
-  //           fontWeight: FontWeight.w600,
-  //           fontSize: 12,
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
+  Widget _buildTimer() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'resend_code'.tr,
+          style: TextStyle(
+            color: context.colors.grey,
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        Text(
+          '00:$_counter',
+          style: TextStyle(
+            color: context.colors.primary,
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+          ),
+        )
+      ],
+    );
+  }
 }

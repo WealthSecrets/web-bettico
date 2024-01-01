@@ -1,16 +1,8 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/images_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/latest_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/top_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/users_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../../profile/widgets/circle_indicator.dart';
-import '../screens/hashtags_screen.dart';
 
 class SearchContainer extends StatelessWidget {
   SearchContainer({super.key});

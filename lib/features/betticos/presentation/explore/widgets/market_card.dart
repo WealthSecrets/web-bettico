@@ -1,11 +1,12 @@
 import 'dart:math';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/data/models/listing/listing_model.dart';
-import 'package:betticos/features/betticos/presentation/explore/widgets/market_bottom_sheet.dart';
+import 'package:betticos/features/data.dart';
 import 'package:flutter/material.dart';
 import 'package:line_chart/charts/line-chart.widget.dart';
 import 'package:line_chart/model/line-chart.model.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import 'market_bottom_sheet.dart';
 
 class MarketCard extends StatefulWidget {
   const MarketCard({super.key, required this.listing});

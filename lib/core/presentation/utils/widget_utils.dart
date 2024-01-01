@@ -1,9 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/presentation/modal_auth/widgets/unauth_login_container.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
-import 'package:betticos/features/shares/presentation/widgets/withdraw_balance_modal.dart';
-import 'package:betticos/features/shares/presentation/widgets/withdraw_shares_modal.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';

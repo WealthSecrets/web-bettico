@@ -1,13 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
-import 'package:betticos/features/betticos/presentation/profile/screens/my_posts_screen.dart';
-import 'package:betticos/features/betticos/presentation/profile/widgets/circle_indicator.dart';
-import 'package:betticos/features/betticos/presentation/profile/widgets/profile_flexible_appbar.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/core/core.dart';
-import '/core/presentation/presentation.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/presentation/profile/getx/profile_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.user, this.showBackButton});

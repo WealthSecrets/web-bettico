@@ -1,16 +1,10 @@
 import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/routes/side_menu_routes.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/profile/arguments/profile_argument.dart';
-import 'package:betticos/features/responsiveness/side_menu_item.dart';
-import 'package:betticos/features/responsiveness/user_info_container.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../../core/presentation/routes/side_menu_routes.dart';
-import '../../core/presentation/utils/app_endpoints.dart';
-import 'constants/web_controller.dart';
 
 class LeftSideBar extends StatefulWidget {
   const LeftSideBar({super.key, required this.userToken, required this.user});

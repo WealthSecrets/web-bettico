@@ -1,4 +1,6 @@
 export 'app/app.dart';
+export 'arguments/arguments.dart';
+export 'controllers/controllers.dart';
 export 'helpers/helpers.dart';
 export 'routes/routes.dart';
 export 'services/services.dart';

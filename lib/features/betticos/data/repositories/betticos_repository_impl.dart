@@ -1,32 +1,10 @@
-import 'package:betticos/core/models/paginated_response_data.dart';
-import 'package:betticos/features/betticos/data/models/option/option_model.dart';
-import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
-import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
-import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
-import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
-import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
-import 'package:betticos/features/betticos/domain/response/search_response.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/data_sources/auth_local_data_source.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/data/data_sources/betticos_remote_data_source.dart';
-import '/features/betticos/data/models/feeling/feeling_model.dart';
-import '/features/betticos/data/models/follow/follow_model.dart';
-import '/features/betticos/data/models/listpage/listpage.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/data/models/reply/reply_model.dart';
-import '/features/betticos/data/models/subscription/subscription_model.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
-import '/features/betticos/domain/requests/feeling/feeling_request.dart';
-import '/features/betticos/domain/requests/post/like_dislike_post_request.dart';
-import '/features/betticos/domain/requests/post/post_request.dart';
-import '/features/betticos/domain/requests/reply/reply_request.dart';
-import '/features/betticos/domain/requests/subscrbe/subscribe_request.dart';
-import '../../domain/requests/follow/user_request.dart';
-import '../models/listing/listing_model.dart';
 
 class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   BetticosRepositoryImpl({

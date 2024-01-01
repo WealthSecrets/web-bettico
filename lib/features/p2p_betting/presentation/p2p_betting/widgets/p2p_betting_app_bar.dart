@@ -1,6 +1,5 @@
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
-
-import '/core/core.dart';
 
 class P2PBettingAppBar extends StatelessWidget {
   const P2PBettingAppBar({super.key, this.title, this.subtitle});

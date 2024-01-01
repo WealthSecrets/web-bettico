@@ -1,14 +1,10 @@
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/time/time.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/features/p2p_betting/presentation/p2p_betting/widgets/match_avatar.dart';
-import '../../livescore/widgets/chip.dart';
 
 class P2PBettingCard extends StatefulWidget {
   const P2PBettingCard({

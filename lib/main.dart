@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:betticos/core/presentation/controllers/wallet_bindings.dart';
 import 'package:betticos/features/advert/presentation/ads/getx/professional_bindings.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:betticos/main_bindings.dart';
@@ -15,18 +14,6 @@ import 'features/auth/presentation/forgotPassword/getx/forgot_bindings.dart';
 import 'features/auth/presentation/login/getx/login_bindings.dart';
 import 'features/auth/presentation/register/getx/register_bindings.dart';
 import 'features/auth/presentation/resetPassword/getx/reset_bindings.dart';
-import 'features/betticos/presentation/base/getx/base_screen_bindings.dart';
-import 'features/betticos/presentation/explore/getx/explore_bindings.dart';
-import 'features/betticos/presentation/explore/getx/market_rate/market_rate_bindings.dart';
-import 'features/betticos/presentation/explore/getx/sports/sports_bindings.dart';
-import 'features/betticos/presentation/members/getx/members_bindings.dart';
-import 'features/betticos/presentation/oddsters/getx/oddsters_bindings.dart';
-import 'features/betticos/presentation/private_sales/getx/sales_bindings.dart';
-import 'features/betticos/presentation/profile/getx/profile_bindings.dart';
-import 'features/betticos/presentation/referral/getx/referral_bindings.dart';
-import 'features/betticos/presentation/report/getx/report_bindings.dart';
-import 'features/betticos/presentation/timeline/getx/card_bindings.dart';
-import 'features/betticos/presentation/timeline/getx/timeline_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/timeline/arguments/add_post_comment_argument.dart';
-import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,9 +9,6 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-
-import '/core/core.dart';
-import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
 
 class TimelinePostScreen extends StatefulWidget {
   const TimelinePostScreen({super.key});

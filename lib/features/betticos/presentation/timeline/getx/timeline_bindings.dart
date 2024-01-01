@@ -1,16 +1,7 @@
-import 'package:betticos/features/betticos/domain/usecases/post/delete_post.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/dislike_post.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/like_post.dart';
-import 'package:betticos/features/betticos/domain/usecases/subscription/fetch_subscribed_oddboxes.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
-import '/features/betticos/domain/usecases/feeling/add_feeling.dart';
-import '/features/betticos/domain/usecases/post/add_post.dart';
-import '/features/betticos/domain/usecases/post/fetch_following_posts.dart';
-import '/features/betticos/domain/usecases/post/fetch_paginated_posts.dart';
-import '/features/betticos/domain/usecases/post/fetch_post_comments.dart';
-import '/features/betticos/domain/usecases/post/update_post.dart';
-import '/features/betticos/domain/usecases/reply/add_reply.dart';
-import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
+
+import 'timeline_controller.dart';
 
 class TimelineBindings {
   static void dependencies() {

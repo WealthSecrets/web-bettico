@@ -1,13 +1,8 @@
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-import '/core/core.dart';
-import '../widgets/betting_modal.dart';
-import '../widgets/p2p_betting_app_bar.dart';
-import '../widgets/p2p_betting_filter_bar.dart';
-import '../widgets/p2p_betting_history_card.dart';
 
 class P2PBettingHistoryScreen extends StatefulWidget {
   const P2PBettingHistoryScreen({super.key});

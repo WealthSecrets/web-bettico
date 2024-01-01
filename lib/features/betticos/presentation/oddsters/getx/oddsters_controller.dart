@@ -1,13 +1,10 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/domain/requests/user/search_user_request.dart';
-import '/features/betticos/domain/usecases/oddsters/get_all_oddsters.dart';
-import '/features/betticos/domain/usecases/oddsters/search_oddsters.dart';
 
 class OddstersController extends GetxController {
   OddstersController({

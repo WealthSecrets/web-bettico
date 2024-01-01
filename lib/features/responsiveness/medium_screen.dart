@@ -1,11 +1,7 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
-import 'package:betticos/features/betticos/presentation/right_side_bar/screens/right_login_container.dart';
-import 'package:betticos/features/betticos/presentation/right_side_bar/screens/trends_for_you_screens.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
-
-import 'left_side_bar.dart';
 
 class MediumScreen extends StatelessWidget {
   const MediumScreen({super.key, required this.initialRoute, required this.userToken, required this.user});

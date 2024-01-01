@@ -1,9 +1,8 @@
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
-import '/features/betticos/data/models/listpage/listpage.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
 
 class FetchPaginatedPosts implements UseCase<ListPage<Post>, PageParmas> {
   FetchPaginatedPosts({required this.betticosRepository});

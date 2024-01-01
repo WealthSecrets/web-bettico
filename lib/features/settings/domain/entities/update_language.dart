@@ -1,6 +1,4 @@
 class UpdateLanguageRequest {
-  UpdateLanguageRequest({
-    required this.value,
-  });
+  UpdateLanguageRequest({required this.value});
   final String value;
 }

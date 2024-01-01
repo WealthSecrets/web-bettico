@@ -1,17 +1,6 @@
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_status_bets.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_score_status.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/add_transaction.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/get_user_transactions.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/update_transaction.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:get/get.dart';
-
-import '/features/p2p_betting/domain/usecases/bet/fetch_bets.dart';
-import '/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import '../../../domain/usecases/bet/add_bet.dart';
 
 class P2PBetBindings {
   static void dependencies() {

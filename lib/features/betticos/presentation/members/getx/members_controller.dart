@@ -1,3 +1,4 @@
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:get/get.dart';
 
 import '/core/core.dart';
 import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/domain/usecases/subscription/get_my_members.dart';
 
 class MembersController extends GetxController {
   MembersController({required this.getMyMembers});

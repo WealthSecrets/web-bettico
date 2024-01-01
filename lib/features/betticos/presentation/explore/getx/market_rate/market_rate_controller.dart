@@ -1,8 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/data/models/listing/listing_model.dart';
-import 'package:betticos/features/betticos/domain/requests/listing/get_listing_request.dart';
-import 'package:betticos/features/betticos/domain/usecases/market/fetch_listings.dart';
-import 'package:betticos/features/betticos/domain/usecases/market/get_listing.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 

@@ -1,14 +1,9 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/shares/presentation/screens/notifications_screen.dart';
-import 'package:betticos/features/shares/presentation/widgets/count_down_timer.dart';
-import 'package:betticos/features/shares/presentation/widgets/sale_status_chip.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-
-import 'contribute_screen.dart';
 
 class SaleDetailsScreenRouteArgument {
   const SaleDetailsScreenRouteArgument({required this.value});

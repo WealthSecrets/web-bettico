@@ -1,14 +1,11 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
-import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../../../../../../core/presentation/utils/app_endpoints.dart';
 
 class UpdatesTab extends StatelessWidget {
   UpdatesTab({super.key});

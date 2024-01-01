@@ -1,10 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '/core/core.dart';
 
 class PaymentsScreen extends StatelessWidget {
+  const PaymentsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -1,26 +1,23 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/data/models/responses/auth_response/auth_response.dart';
+import 'package:betticos/features/auth/data/models/responses/twilio/twilio_response.dart';
+import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/features/auth/domain/requests/login_request/login_request.dart';
 import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
+import 'package:betticos/features/auth/domain/requests/resend_email/resend_email_request.dart';
+import 'package:betticos/features/auth/domain/requests/sms/send_sms_request.dart';
+import 'package:betticos/features/auth/domain/usecases/login_user.dart';
 import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
+import 'package:betticos/features/auth/domain/usecases/resend_email.dart';
+import 'package:betticos/features/auth/domain/usecases/send_sms.dart';
+import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
 import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/models/responses/twilio/twilio_response.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/requests/login_request/login_request.dart';
-import '/features/auth/domain/requests/resend_email/resend_email_request.dart';
-import '/features/auth/domain/requests/sms/send_sms_request.dart';
-import '/features/auth/domain/usecases/login_user.dart';
-import '/features/auth/domain/usecases/resend_email.dart';
-import '/features/auth/domain/usecases/send_sms.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '../../register/arguments/otp_verification_screen_argument.dart';
 
 class LoginController extends GetxController {
   LoginController({
@@ -71,11 +68,7 @@ class LoginController extends GetxController {
     isLoading(true);
 
     final Either<Failure, AuthResponse> failureOrUser = await loginUser(
-      LoginRequest(
-        email: email.value,
-        phone: phone.value,
-        password: password.value,
-      ),
+      LoginRequest(email: email.value, phone: phone.value, password: password.value),
     );
 
     failureOrUser.fold(
@@ -97,9 +90,7 @@ class LoginController extends GetxController {
     isLoading(true);
 
     final Either<Failure, AuthResponse> failureOrUser = await loginUserWallet(
-      LoginWalletRequest(
-        wallet: address,
-      ),
+      LoginWalletRequest(wallet: address),
     );
 
     failureOrUser.fold(

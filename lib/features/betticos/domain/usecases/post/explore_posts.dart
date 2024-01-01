@@ -1,4 +1,3 @@
-import 'package:betticos/core/models/paginated_response_data.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';

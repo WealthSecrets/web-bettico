@@ -1,12 +1,7 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/utils/app_endpoints.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/profile/arguments/profile_argument.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../betticos/presentation/timeline/screens/timeline_post_screen.dart';
-import 'constants/web_controller.dart';
 
 class UserInfoContainer extends StatelessWidget {
   UserInfoContainer({super.key});
