@@ -1,6 +1,6 @@
-import 'package:betticos/features/auth/domain/repositories/auth_repository.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-import '/core/core.dart';
 
 class LoadToken implements UseCase<String, NoParams> {
   LoadToken({required this.authRepository});

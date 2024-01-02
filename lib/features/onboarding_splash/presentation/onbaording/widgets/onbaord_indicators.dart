@@ -1,5 +1,5 @@
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
-import '/core/core.dart';
 
 class OnboardIndicators extends StatelessWidget {
   const OnboardIndicators({super.key, required this.itemCount, required this.activeItem, this.radius})

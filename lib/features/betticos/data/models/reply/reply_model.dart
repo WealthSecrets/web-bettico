@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:betticos/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'reply_model.freezed.dart';
 part 'reply_model.g.dart';
 

@@ -1,8 +1,6 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '../../repositories/repositories.dart';
-import '../../response/response.dart';
 
 class SearchPosts implements UseCase<SearchResponse, SearchPageParams> {
   SearchPosts({required this.betticosRepository});

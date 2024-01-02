@@ -1,8 +1,6 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
-import '/features/betticos/domain/requests/referral/referral_request.dart';
 
 class ReferUser implements UseCase<void, ReferralRequest> {
   ReferUser({required this.betticosRepository});
@@ -10,8 +8,6 @@ class ReferUser implements UseCase<void, ReferralRequest> {
 
   @override
   Future<Either<Failure, void>> call(ReferralRequest params) {
-    return betticosRepository.referUser(
-      email: params.email,
-    );
+    return betticosRepository.referUser(email: params.email);
   }
 }

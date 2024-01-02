@@ -7,12 +7,8 @@ class ReportBindings {
   static void dependencies() {
     Get.put<ReportController>(
       ReportController(
-        addReport: AddReport(
-          betticosRepository: Get.find(),
-        ),
-        getReportOptions: GetReportOptions(
-          betticosRepository: Get.find(),
-        ),
+        addReport: AddReport(betticosRepository: Get.find()),
+        getReportOptions: GetReportOptions(betticosRepository: Get.find()),
       ),
       permanent: true,
     );

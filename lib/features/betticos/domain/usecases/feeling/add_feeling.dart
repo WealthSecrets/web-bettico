@@ -1,9 +1,7 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/feeling/feeling_model.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
-import '/features/betticos/domain/requests/feeling/feeling_request.dart';
 
 class AddFeeling implements UseCase<Feeling, FeelingRequest> {
   AddFeeling({required this.betticosRepository});
@@ -11,9 +9,6 @@ class AddFeeling implements UseCase<Feeling, FeelingRequest> {
 
   @override
   Future<Either<Failure, Feeling>> call(FeelingRequest params) {
-    return betticosRepository.addFeeling(
-      postId: params.postId,
-      type: params.type,
-    );
+    return betticosRepository.addFeeling(postId: params.postId, type: params.type);
   }
 }

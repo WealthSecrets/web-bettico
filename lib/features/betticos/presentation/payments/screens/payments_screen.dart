@@ -14,17 +14,12 @@ class PaymentsScreen extends StatelessWidget {
           elevation: 0.5,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
+            icon: const Icon(Icons.menu, color: Colors.black),
             onPressed: () {},
           ),
           title: Text(
             'payments'.tr,
-            style: context.body1.copyWith(
-              color: Colors.black,
-            ),
+            style: context.body1.copyWith(color: Colors.black),
           ),
         ),
         body: Center(

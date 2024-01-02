@@ -1,10 +1,9 @@
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});

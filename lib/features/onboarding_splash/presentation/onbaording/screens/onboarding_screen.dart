@@ -1,10 +1,7 @@
-import 'package:betticos/features/onboarding_splash/presentation/onbaording/getx/onboard_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/onboarding_splash/presentation/onbaording/widgets/onbaord_indicators.dart';
-import '/features/onboarding_splash/presentation/onbaording/widgets/onboard_card.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

@@ -1,8 +1,7 @@
-import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
 
 class GetSetup implements UseCase<Setup, NoParams> {
   GetSetup({required this.betticosRepository});

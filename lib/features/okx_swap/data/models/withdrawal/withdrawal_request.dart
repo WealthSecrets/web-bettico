@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'withdrawal_request.freezed.dart';
 part 'withdrawal_request.g.dart';
 

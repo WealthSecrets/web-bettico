@@ -1,10 +1,8 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/onboarding_splash/domain/usecases/get_onboard.dart';
-import '/features/onboarding_splash/domain/usecases/save_onboard.dart';
 
 class OnboardController extends GetxController {
   OnboardController({

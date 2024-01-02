@@ -13,7 +13,6 @@ class MarketRateController extends GetxController {
   final FetchListings fetchListings;
   final GetListing getListing;
 
-  // observable variables
   RxBool isFetchingListings = false.obs;
   RxList<Listing> listings = <Listing>[].obs;
 

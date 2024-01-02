@@ -1,23 +1,5 @@
-import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/okx_conversion.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency_pair.dart';
-import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_request.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_response.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
-import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_request.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_response.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/conversion_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/currency_pair_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/quote_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_response.dart';
-import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 
 abstract class OkxRemoteDataSources {
   Future<OkxAccount> createSubAccount({required CreateSubAccountRequest request});

@@ -2,7 +2,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'report_model.freezed.dart';
 part 'report_model.g.dart';
 

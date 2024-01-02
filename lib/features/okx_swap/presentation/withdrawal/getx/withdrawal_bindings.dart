@@ -6,12 +6,8 @@ class WithdrawalBindings {
   static void dependencies() {
     Get.lazyPut(
       () => WithdrawalController(
-        fetchWithdrawalHistory: FetchWithdrawalHistory(
-          okxRepository: Get.find(),
-        ),
-        withdraw: Withdraw(
-          okxRepository: Get.find(),
-        ),
+        fetchWithdrawalHistory: FetchWithdrawalHistory(okxRepository: Get.find()),
+        withdraw: Withdraw(okxRepository: Get.find()),
       ),
     );
   }

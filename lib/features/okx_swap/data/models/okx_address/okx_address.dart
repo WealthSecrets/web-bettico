@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'okx_address.freezed.dart';
 part 'okx_address.g.dart';
 

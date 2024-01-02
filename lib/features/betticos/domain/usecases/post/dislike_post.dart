@@ -1,9 +1,7 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
-import '/features/betticos/domain/requests/post/like_dislike_post_params.dart';
 
 class DislikePost implements UseCase<Post, LikeDislikePostParams> {
   DislikePost({required this.betticosRepository});
@@ -11,9 +9,6 @@ class DislikePost implements UseCase<Post, LikeDislikePostParams> {
 
   @override
   Future<Either<Failure, Post>> call(LikeDislikePostParams params) {
-    return betticosRepository.dislikePost(
-      postId: params.postId,
-      user: params.user,
-    );
+    return betticosRepository.dislikePost(postId: params.postId, user: params.user);
   }
 }

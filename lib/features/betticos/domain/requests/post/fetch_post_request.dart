@@ -1,6 +1,4 @@
 class FetchPostRequest {
-  FetchPostRequest({
-    this.oddbox,
-  });
+  FetchPostRequest({this.oddbox});
   final bool? oddbox;
 }

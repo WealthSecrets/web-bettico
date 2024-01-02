@@ -1,9 +1,7 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/reply/reply_model.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
-import '/features/betticos/domain/requests/reply/reply_request.dart';
 
 class AddReply implements UseCase<Reply, ReplyRequest> {
   AddReply({required this.betticosRepository});
@@ -11,9 +9,6 @@ class AddReply implements UseCase<Reply, ReplyRequest> {
 
   @override
   Future<Either<Failure, Reply>> call(ReplyRequest params) {
-    return betticosRepository.addReply(
-      commentId: params.commentId,
-      text: params.text,
-    );
+    return betticosRepository.addReply(commentId: params.commentId, text: params.text);
   }
 }

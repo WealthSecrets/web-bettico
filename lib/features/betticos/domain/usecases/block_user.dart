@@ -8,8 +8,6 @@ class BlockUser implements UseCase<User, UserRequest> {
 
   @override
   Future<Either<Failure, User>> call(UserRequest params) {
-    return betticosRepository.blockUser(
-      userId: params.userId,
-    );
+    return betticosRepository.blockUser(userId: params.userId);
   }
 }

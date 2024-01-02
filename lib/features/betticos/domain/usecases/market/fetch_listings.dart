@@ -1,8 +1,7 @@
-import 'package:betticos/features/betticos/data/models/listing/listing_model.dart';
-import 'package:betticos/features/betticos/domain/repositories/betticos_repository.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
 
 class FetchListings implements UseCase<List<Listing>, NoParams> {
   FetchListings({required this.repository});

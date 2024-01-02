@@ -1,13 +1,10 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 
-import '/core/core.dart';
-import '/features/onboarding_splash/data/data_sources/onboard_local_data_source.dart';
-import '/features/onboarding_splash/domain/repositories/onboard_repository.dart';
-
 class OnBoardRepositoryImpl extends Repository implements OnBoardRepository {
-  OnBoardRepositoryImpl({
-    required this.onBoardLocalDataSource,
-  });
+  OnBoardRepositoryImpl({required this.onBoardLocalDataSource});
 
   final OnBoardLocalDataSource onBoardLocalDataSource;
 

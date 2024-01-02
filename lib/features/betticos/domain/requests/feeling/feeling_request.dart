@@ -1,7 +1,5 @@
 // ignore_for_file: invalid_annotation_target
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'feeling_request.freezed.dart';
 part 'feeling_request.g.dart';
 

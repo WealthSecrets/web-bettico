@@ -2,7 +2,6 @@
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'search_response.freezed.dart';
 part 'search_response.g.dart';
 
