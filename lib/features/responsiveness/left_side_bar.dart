@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/routes/side_menu_routes.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

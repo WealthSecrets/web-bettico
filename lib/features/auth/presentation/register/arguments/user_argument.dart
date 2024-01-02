@@ -1,4 +1,4 @@
-import '/features/auth/data/models/user/user.dart';
+import 'package:betticos/core/models/models.dart';
 
 class UserArgument {
   const UserArgument({this.user});

@@ -1,4 +1,3 @@
-import 'package:betticos/features/auth/domain/usecases/update_user_profile_photo.dart';
 import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
 import 'profile_controller.dart';

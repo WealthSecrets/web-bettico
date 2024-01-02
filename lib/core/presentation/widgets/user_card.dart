@@ -1,6 +1,5 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/profile/screens/profile_screen.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {

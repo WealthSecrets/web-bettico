@@ -1,17 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/responses/auth_response/auth_response.dart';
-import 'package:betticos/features/auth/data/models/responses/twilio/twilio_response.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/auth/domain/requests/login_request/login_request.dart';
-import 'package:betticos/features/auth/domain/requests/login_wallet_request/login_wallet_request.dart';
-import 'package:betticos/features/auth/domain/requests/resend_email/resend_email_request.dart';
-import 'package:betticos/features/auth/domain/requests/sms/send_sms_request.dart';
-import 'package:betticos/features/auth/domain/usecases/login_user.dart';
-import 'package:betticos/features/auth/domain/usecases/login_user_wallet.dart';
-import 'package:betticos/features/auth/domain/usecases/resend_email.dart';
-import 'package:betticos/features/auth/domain/usecases/send_sms.dart';
-import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
-import 'package:betticos/features/auth/presentation/register/arguments/user_argument.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +15,7 @@ class LoginController extends GetxController {
     required this.resendEmail,
     required this.sendSms,
   });
+
   final LoginUser loginUser;
   final LoginUserWallet loginUserWallet;
   final ResendEmail resendEmail;
@@ -80,7 +70,6 @@ class LoginController extends GetxController {
         isLoading(false);
         controller.user(response.user);
         controller.userToken(response.token);
-        // reRouteOddster(context, user);
         Navigator.of(context).pop();
       },
     );

@@ -1,5 +1,5 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/presentation/modal_auth/widgets/unauth_login_container.dart';
+import 'package:betticos/features/auth/presentation/login/widgets/unauth_login_container.dart';
 import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';

@@ -1,16 +1,7 @@
-import 'package:betticos/features/auth/data/models/responses/auth_response/auth_response.dart';
-import 'package:betticos/features/auth/domain/requests/update_user_role/update_user_role_request.dart';
-import 'package:betticos/features/auth/domain/requests/verify_user/verify_user_request.dart';
-import 'package:betticos/features/auth/domain/usecases/update_user_role.dart';
-import 'package:betticos/features/auth/domain/usecases/verify_user.dart';
-import 'package:betticos/features/auth/presentation/register/arguments/otp_verification_screen_argument.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
-import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/create_subaccount_apikey.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,25 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:validators/validators.dart' as validator;
-
-import '/core/core.dart';
-import '/features/auth/data/models/responses/twilio/twilio_response.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/requests/identification/identification_request.dart';
-import '/features/auth/domain/requests/register_request/register_request.dart';
-import '/features/auth/domain/requests/sms/send_sms_request.dart';
-import '/features/auth/domain/requests/update_photo_request.dart/update_photo_request.dart';
-import '/features/auth/domain/requests/verify_email/verify_email_request.dart';
-import '/features/auth/domain/requests/verify_sms/verify_sms_request.dart';
-import '/features/auth/domain/usecases/register_user.dart';
-import '/features/auth/domain/usecases/send_sms.dart';
-import '/features/auth/domain/usecases/update_profile.dart';
-import '/features/auth/domain/usecases/update_user_profile_photo.dart';
-import '/features/auth/domain/usecases/upload_identification.dart';
-import '/features/auth/domain/usecases/verify_email.dart';
-import '/features/auth/domain/usecases/verify_sms.dart';
-import '/features/auth/presentation/login/getx/login_controller.dart';
-import '/features/betticos/domain/requests/update_request/update_request.dart';
 
 class RegisterController extends GetxController {
   RegisterController({

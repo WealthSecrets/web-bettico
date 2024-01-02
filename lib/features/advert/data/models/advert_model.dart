@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'advert_model.freezed.dart';

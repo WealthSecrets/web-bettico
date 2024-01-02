@@ -1,6 +1,4 @@
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/auth/domain/requests/reset_request/reset_request.dart';
-import 'package:betticos/features/auth/domain/usecases/reset_password.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,9 +6,8 @@ import 'package:get/get.dart';
 import '/core/core.dart';
 
 class ResetController extends GetxController {
-  ResetController({
-    required this.resetPassword,
-  });
+  ResetController({required this.resetPassword});
+
   final ResetPassword resetPassword;
 
   RxBool isObscured = true.obs;

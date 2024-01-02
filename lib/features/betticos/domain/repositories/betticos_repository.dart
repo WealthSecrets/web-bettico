@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';

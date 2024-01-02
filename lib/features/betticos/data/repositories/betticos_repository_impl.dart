@@ -1,6 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/data_sources/auth_local_data_source.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';

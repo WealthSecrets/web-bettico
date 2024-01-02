@@ -1,8 +1,6 @@
 // ignore_for_file: invalid_annotation_target
-
-import 'package:betticos/features/advert/presentation/getx/professional_controller.dart';
-import 'package:betticos/features/advert/presentation/utils/business_category_type.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:faker/faker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

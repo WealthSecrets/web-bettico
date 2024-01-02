@@ -1,4 +1,3 @@
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';

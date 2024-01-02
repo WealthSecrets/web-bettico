@@ -1,9 +1,7 @@
-import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
 
 // TODO(blankson): create controller specific for oddbox
 class MembersScreen extends StatefulWidget {

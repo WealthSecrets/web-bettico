@@ -1,4 +1,5 @@
 export 'advert/data/data.dart';
+export 'auth/data/data.dart';
 export 'betticos/data/data.dart';
 export 'okx_swap/data/data.dart';
 export 'onboarding_splash/data/data.dart';

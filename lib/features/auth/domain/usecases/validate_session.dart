@@ -1,8 +1,6 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/repositories/auth_repository.dart';
 
 class ValidateSession implements UseCase<User, NoParams> {
   ValidateSession({required this.authRepository});

@@ -1,7 +1,5 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
-import 'package:betticos/features/okx_swap/data/models/okx_address/okx_address.dart';
+import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

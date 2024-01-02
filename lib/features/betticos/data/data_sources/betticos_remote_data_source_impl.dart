@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/domain.dart';
 
@@ -22,14 +21,8 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<Post> updatePost({
-    required String postId,
-    required PostRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.patch(
-      BetticosEndpoints.thePost(postId),
-      body: request.toJson(),
-    );
+  Future<Post> updatePost({required String postId, required PostRequest request}) async {
+    final Map<String, dynamic> json = await _client.patch(BetticosEndpoints.thePost(postId), body: request.toJson());
     return Post.fromJson(json['data'] as Map<String, dynamic>);
   }
 
@@ -39,58 +32,31 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<Post> likePost({
-    required String postId,
-    required LikeDislikePostRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.likePost(postId),
-      body: request.toJson(),
-    );
+  Future<Post> likePost({required String postId, required LikeDislikePostRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.likePost(postId), body: request.toJson());
     return Post.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
-  Future<Post> dislikePost({
-    required String postId,
-    required LikeDislikePostRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.dislikePost(postId),
-      body: request.toJson(),
-    );
+  Future<Post> dislikePost({required String postId, required LikeDislikePostRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.dislikePost(postId), body: request.toJson());
     return Post.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
-  Future<Feeling> addFeeling({
-    required FeelingRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.feelings,
-      body: request.toJson(),
-    );
+  Future<Feeling> addFeeling({required FeelingRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.feelings, body: request.toJson());
     return Feeling.fromJson(json);
   }
 
   @override
-  Future<void> addReport({
-    required ReportRequest request,
-  }) async {
-    await _client.post(
-      BetticosEndpoints.reports,
-      body: request.toJson(),
-    );
+  Future<void> addReport({required ReportRequest request}) async {
+    await _client.post(BetticosEndpoints.reports, body: request.toJson());
   }
 
   @override
-  Future<Reply> addReply({
-    required ReplyRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.replies,
-      body: request.toJson(),
-    );
+  Future<Reply> addReply({required ReplyRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.replies, body: request.toJson());
     return Reply.fromJson(json['data'] as Map<String, dynamic>);
   }
 

@@ -1,15 +1,9 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/errors/failure.dart';
-import '/core/presentation/routes/app_routes.dart';
-import '/core/usecase/usecase.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/usecases/is_authenticated.dart';
-import '/features/auth/domain/usecases/validate_session.dart';
-import '/features/onboarding_splash/domain/usecases/get_onboard.dart';
 
 class SplashController extends GetxController {
   SplashController({

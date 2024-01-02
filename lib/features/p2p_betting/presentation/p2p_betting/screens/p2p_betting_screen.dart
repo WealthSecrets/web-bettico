@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +8,7 @@ import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-enum ConnectionState {
-  disconnected,
-  connecting,
-  connected,
-  connectionFailed,
-  connectionCancelled,
-}
+enum ConnectionState { disconnected, connecting, connected, connectionFailed, connectionCancelled }
 
 class P2PBettingScreen extends StatefulWidget {
   const P2PBettingScreen({super.key, required this.liveScore});

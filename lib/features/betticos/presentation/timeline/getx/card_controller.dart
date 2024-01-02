@@ -1,5 +1,4 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:betticos/features/domain.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
@@ -8,10 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CardController extends GetxController {
-  CardController({
-    required this.blockUser,
-    required this.deletePost,
-  });
+  CardController({required this.blockUser, required this.deletePost});
 
   final BlockUser blockUser;
   final DeletePost deletePost;

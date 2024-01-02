@@ -1,12 +1,10 @@
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '../../../data/models/user/user.dart';
 
 class RegistrationAccountTypeScreen extends GetWidget<RegisterController> {
   RegistrationAccountTypeScreen({super.key});
