@@ -1,5 +1,5 @@
 format:
-	fvm flutter format --set-exit-if-changed -l 120 lib
+	fvm dart format --set-exit-if-changed -l 120 lib
 
 packages:
 	fvm flutter pub get
