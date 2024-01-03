@@ -1,8 +1,7 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
-
-import '/core/core.dart';
-import '/features/okx_swap/presentation/okx_options/widgets/option_card.dart';
-import '/features/responsiveness/constants/web_controller.dart';
 
 class ProfessionalDashboard extends StatelessWidget {
   const ProfessionalDashboard({super.key});

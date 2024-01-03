@@ -1,8 +1,11 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
 
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/core/presentation/presentation.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,11 +14,6 @@ import 'package:footer/footer_view.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/core/presentation/presentation.dart';
-import '/features/auth/presentation/login/getx/login_controller.dart';
-import '../../../../responsiveness/constants/web_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({super.key});

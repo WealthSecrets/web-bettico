@@ -1,8 +1,8 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegistrationUploadPhotoScreen extends GetWidget<RegisterController> {
   const RegistrationUploadPhotoScreen({super.key});

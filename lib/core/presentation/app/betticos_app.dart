@@ -1,7 +1,8 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '/core/core.dart';
 
 class BetticosApp extends StatelessWidget {
   const BetticosApp({super.key});

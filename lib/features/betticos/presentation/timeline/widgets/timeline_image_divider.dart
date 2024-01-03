@@ -1,4 +1,4 @@
-import 'package:betticos/core/presentation/utils/app_endpoints.dart';
+import 'package:betticos/common/common.dart';
 import 'package:flutter/material.dart';
 
 class TimelineImageDivider extends StatelessWidget {

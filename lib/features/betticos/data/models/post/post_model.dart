@@ -1,5 +1,5 @@
 // ignore_for_file: invalid_annotation_target
-import 'package:betticos/core/core.dart';
+import 'package:betticos/common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'post_model.freezed.dart';
 part 'post_model.g.dart';

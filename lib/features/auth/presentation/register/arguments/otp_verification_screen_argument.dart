@@ -1,4 +1,4 @@
-import 'package:betticos/core/models/models.dart';
+import 'package:betticos/common/common.dart';
 
 class OTPVerificationScreenArgument {
   const OTPVerificationScreenArgument({this.user});

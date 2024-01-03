@@ -1,3 +1,4 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,8 +30,7 @@ class CategoryWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               width: minWidth,
               decoration: BoxDecoration(
-                border:
-                    isSelected ? null : Border.all(color: Colors.grey.shade200),
+                border: isSelected ? null : Border.all(color: Colors.grey.shade200),
                 borderRadius: AppBorderRadius.smallAll,
                 color: isSelected ? context.colors.primary : Colors.white,
               ),

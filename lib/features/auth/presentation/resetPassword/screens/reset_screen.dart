@@ -1,12 +1,10 @@
-import 'package:betticos/features/auth/presentation/forgotPassword/getx/forgot_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/core/presentation/presentation.dart';
-import '/features/auth/presentation/resetPassword/getx/reset_controller.dart';
 
 class ResetScreen extends GetWidget<ResetController> {
   ResetScreen({super.key});

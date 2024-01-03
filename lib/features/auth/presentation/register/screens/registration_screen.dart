@@ -1,4 +1,5 @@
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';

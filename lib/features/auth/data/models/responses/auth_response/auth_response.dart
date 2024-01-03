@@ -1,4 +1,4 @@
-import 'package:betticos/core/core.dart';
+import 'package:betticos/common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 

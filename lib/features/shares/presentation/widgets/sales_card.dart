@@ -1,6 +1,7 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/shares/presentation/widgets/count_down_timer.dart';
-import 'package:betticos/features/shares/presentation/widgets/sale_status_chip.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:moment_dart/moment_dart.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';

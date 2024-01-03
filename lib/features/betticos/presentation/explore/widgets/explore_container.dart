@@ -1,4 +1,4 @@
-import 'package:betticos/core/core.dart';
+import 'package:betticos/common/common.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
