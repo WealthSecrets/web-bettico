@@ -1,10 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/data/models/advert_model.dart';
-import 'package:betticos/features/advert/data/models/business_model.dart';
-import 'package:betticos/features/advert/domain/requests/create_advert_request.dart';
-import 'package:betticos/features/advert/domain/requests/create_business_request.dart';
-
-import '../endpoints/advert_endpoints.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 
 abstract class AdvertRemoteDataSource {
   Future<Advert> createAdvert({required CreateAdvertRequest request});

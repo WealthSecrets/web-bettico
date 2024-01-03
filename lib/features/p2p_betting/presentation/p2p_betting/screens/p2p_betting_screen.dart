@@ -1,11 +1,8 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/controllers/controllers.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_card.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,15 +10,7 @@ import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../livescore/getx/live_score_controllers.dart';
-
-enum ConnectionState {
-  disconnected,
-  connecting,
-  connected,
-  connectionFailed,
-  connectionCancelled,
-}
+enum ConnectionState { disconnected, connecting, connected, connectionFailed, connectionCancelled }
 
 class P2PBettingScreen extends StatefulWidget {
   const P2PBettingScreen({super.key, required this.liveScore});
@@ -43,7 +32,6 @@ class _P2PBettingScreenState extends State<P2PBettingScreen> {
     super.initState();
     controller.setLiveScore(widget.liveScore);
     controller.setLiveScoreId(widget.liveScore.id);
-
     super.initState();
   }
 

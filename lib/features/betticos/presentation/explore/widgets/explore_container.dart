@@ -1,9 +1,5 @@
-import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/explore_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/screens/market_rate_screen.dart';
-import 'package:betticos/features/betticos/presentation/explore/widgets/search_field_container.dart';
-import 'package:betticos/features/betticos/presentation/explore/widgets/sports_container.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,8 +1,6 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/sportmonks/nullable_livescore_request.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_fixtures.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/sportmonks/fetch_livescores.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 

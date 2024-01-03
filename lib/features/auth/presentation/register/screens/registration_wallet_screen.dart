@@ -1,6 +1,6 @@
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:slider_captcha/slider_captcha.dart';

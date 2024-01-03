@@ -1,8 +1,7 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/env/env.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/okx_swap/presentation/usdt/getx/usdt_sale_controller.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_plus/flutter_paystack_plus.dart';
 import 'package:flutter_web3/flutter_web3.dart';

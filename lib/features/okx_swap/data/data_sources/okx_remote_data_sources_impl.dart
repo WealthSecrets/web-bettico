@@ -1,27 +1,6 @@
-import 'package:betticos/features/okx_swap/data/endpoints/okx_endpoints.dart';
-import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/okx_conversion.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency_pair.dart';
-import 'package:betticos/features/okx_swap/data/models/deposit/deposit.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_request.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_response.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
-import 'package:betticos/features/okx_swap/data/models/okx_account/okx_account.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_request.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_response.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/conversion_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/currency_pair_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/quote_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_request.dart';
-import 'package:betticos/features/okx_swap/domain/requests/deposit/create_deposit_address_response.dart';
-import 'package:betticos/features/okx_swap/domain/requests/sub_account/create_subaccount_request.dart';
-
-import '/core/utils/http_client.dart';
-import 'okx_remote_data_sources.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 
 class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
   const OkxRemoteDataSourcesImpl({required AppHTTPClient client}) : _client = client;
@@ -29,19 +8,13 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
 
   @override
   Future<OkxAccount> createSubAccount({required CreateSubAccountRequest request}) async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.subAccount,
-      body: request.toJson(),
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.subAccount, body: request.toJson());
     return OkxAccount.fromJson(json);
   }
 
   @override
   Future<OkxAccount> createSubAccountApiKey() async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.subAccountApiKey,
-      body: <String, dynamic>{},
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.subAccountApiKey, body: <String, dynamic>{});
     return OkxAccount.fromJson(json);
   }
 
@@ -55,46 +28,31 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
 
   @override
   Future<OkxQuote> estimateConversionQuote({required QuoteRequest request}) async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.estimateQuote,
-      body: request.toJson(),
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.estimateQuote, body: request.toJson());
     return OkxQuote.fromJson(json);
   }
 
   @override
   Future<ConversionResponse> convertTrade({required ConversionRequest request}) async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.convertTrade,
-      body: request.toJson(),
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.convertTrade, body: request.toJson());
     return ConversionResponse.fromJson(json);
   }
 
   @override
   Future<WithdrawalResponse> withdraw({required WithdrawalRequest request}) async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.withdrawal,
-      body: request.toJson(),
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.withdrawal, body: request.toJson());
     return WithdrawalResponse.fromJson(json);
   }
 
   @override
   Future<SubAccountFundsResponse> transferFundToSubAccount({required SubAccountFundsRequest request}) async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.transferFunds,
-      body: request.toJson(),
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.transferFunds, body: request.toJson());
     return SubAccountFundsResponse.fromJson(json);
   }
 
   @override
   Future<CreateDepositAddressResponse> createDepositAddress({required CreateDepositAddressRequest request}) async {
-    final Map<String, dynamic> json = await _client.post(
-      OkxEndpoints.depositAddress,
-      body: request.toJson(),
-    );
+    final Map<String, dynamic> json = await _client.post(OkxEndpoints.depositAddress, body: request.toJson());
     return CreateDepositAddressResponse.fromJson(json);
   }
 
@@ -108,18 +66,14 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
   Future<List<Currency>> fetchAssetCurrencies() async {
     final Map<String, dynamic> json = await _client.get(OkxEndpoints.assetCurrencies);
     final List<dynamic> items = json['items'] as List<dynamic>;
-    return List<Currency>.from(
-      items.map<Currency>((dynamic json) => Currency.fromJson(json as Map<String, dynamic>)),
-    );
+    return List<Currency>.from(items.map<Currency>((dynamic json) => Currency.fromJson(json as Map<String, dynamic>)));
   }
 
   @override
   Future<List<Deposit>> fetchDepositHistory() async {
     final Map<String, dynamic> json = await _client.get(OkxEndpoints.depositHistory);
     final List<dynamic> items = json['items'] as List<dynamic>;
-    return List<Deposit>.from(
-      items.map<Deposit>((dynamic json) => Deposit.fromJson(json as Map<String, dynamic>)),
-    );
+    return List<Deposit>.from(items.map<Deposit>((dynamic json) => Deposit.fromJson(json as Map<String, dynamic>)));
   }
 
   @override
@@ -153,9 +107,7 @@ class OkxRemoteDataSourcesImpl implements OkxRemoteDataSources {
   Future<List<Currency>> fetchConvertCurrencies() async {
     final Map<String, dynamic> json = await _client.get(OkxEndpoints.currencies);
     final List<dynamic> items = json['items'] as List<dynamic>;
-    return List<Currency>.from(
-      items.map<Currency>((dynamic json) => Currency.fromJson(json as Map<String, dynamic>)),
-    );
+    return List<Currency>.from(items.map<Currency>((dynamic json) => Currency.fromJson(json as Map<String, dynamic>)));
   }
 
   @override

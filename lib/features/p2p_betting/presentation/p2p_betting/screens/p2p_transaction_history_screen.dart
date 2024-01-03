@@ -1,10 +1,10 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
 
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/utils/enums.dart';
-import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';

@@ -1,15 +1,9 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/core/presentation/utils/app_endpoints.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/betticos/presentation/oddsters/getx/oddsters_controller.dart';
-import '/features/betticos/presentation/profile/getx/profile_controller.dart';
-import '/features/betticos/presentation/profile/screens/profile_screen.dart';
-import '../../profile/widgets/circle_indicator.dart';
 
 class OddstersScreen extends StatefulWidget {
   const OddstersScreen({super.key});
@@ -25,9 +19,7 @@ class _OddstersScreenState extends State<OddstersScreen> {
 
   @override
   void initState() {
-    WidgetUtils.onWidgetDidBuild(() {
-      controller.loadAllOddsters(context);
-    });
+    WidgetUtils.onWidgetDidBuild(() => controller.loadAllOddsters(context));
     super.initState();
   }
 

@@ -1,7 +1,7 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 

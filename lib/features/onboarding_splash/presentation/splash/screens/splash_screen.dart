@@ -1,12 +1,9 @@
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
-import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/core/core.dart';
-import '/features/onboarding_splash/presentation/splash/getx/splash_controller.dart';
-
-// ignore: must_be_immutable
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override

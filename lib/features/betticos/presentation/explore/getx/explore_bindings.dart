@@ -1,8 +1,6 @@
-import 'package:betticos/features/betticos/domain/usecases/post/explore_posts.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/fetch_hashtags.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/search_posts.dart';
-import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
+import 'explore_controller.dart';
 
 class ExploreBindings {
   static void dependencies() {

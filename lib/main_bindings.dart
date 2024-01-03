@@ -1,34 +1,9 @@
-// import 'dart:async';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/data/datasources/advert_remote_data_source.dart';
-import 'package:betticos/features/advert/data/repository/advert_repository_impl.dart';
-import 'package:betticos/features/advert/domain/repository/advert_repository.dart';
-import 'package:betticos/features/betticos/data/data_sources/betticos_remote_data_source.dart';
-import 'package:betticos/features/betticos/data/data_sources/betticos_remote_data_source_impl.dart';
-import 'package:betticos/features/betticos/data/repositories/betticos_repository_impl.dart';
-import 'package:betticos/features/betticos/domain/repositories/betticos_repository.dart';
-import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources.dart';
-import 'package:betticos/features/okx_swap/data/data_sources/okx_remote_data_sources_impl.dart';
-import 'package:betticos/features/okx_swap/data/repositories/okx_repository_impl.dart';
-import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
-import 'package:betticos/features/onboarding_splash/data/data_sources/onboard_local_data_source.dart';
-import 'package:betticos/features/onboarding_splash/data/repositories/onboard_repository_impl.dart';
-import 'package:betticos/features/onboarding_splash/domain/repositories/onboard_repository.dart';
-import 'package:betticos/features/p2p_betting/data/data_sources/p2p_remote_data_source.dart';
-import 'package:betticos/features/p2p_betting/data/data_sources/p2p_remote_data_source_impl.dart';
-import 'package:betticos/features/p2p_betting/domain/repositories/p2p_repository.dart';
-import 'package:betticos/features/settings/data/data_sources/settings_local_data_source.dart';
-import 'package:betticos/features/settings/data/repositories/settings_repository_impl.dart';
-import 'package:betticos/features/settings/domain/repositories/settings_repository.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-
-import 'features/auth/data/data_sources/auth_local_data_source.dart';
-import 'features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'features/auth/data/data_sources/auth_remote_data_source_impl.dart';
-import 'features/auth/data/repositories/auth_repository_impl.dart';
-import 'features/auth/domain/repositories/auth_repository.dart';
-import 'features/p2p_betting/data/repositories/p2p_repository_impl.dart';
 
 class MainBindings {
   static void dependencies() {
@@ -38,9 +13,7 @@ class MainBindings {
           baseUrl: environment.url,
           connectTimeout: const Duration(milliseconds: 40000),
           receiveTimeout: const Duration(milliseconds: 40000),
-          headers: <String, dynamic>{
-            'Content-Type': 'application/json',
-          },
+          headers: <String, dynamic>{'Content-Type': 'application/json'},
         ),
       ),
       permanent: true,

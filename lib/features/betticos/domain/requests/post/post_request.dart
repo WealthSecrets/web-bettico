@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'post_request.freezed.dart';
 part 'post_request.g.dart';
 

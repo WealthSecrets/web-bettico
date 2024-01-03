@@ -1,19 +1,14 @@
 import 'dart:async';
 
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/controllers/controllers.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
 
 class P2PBettingHistoryCard extends StatefulWidget {
   const P2PBettingHistoryCard({
@@ -461,46 +456,5 @@ void cashout(
       context,
       message: 'Cashout not allowed!',
     );
-  }
-}
-
-extension BetStatusX on BetStatus {
-  Color color(BuildContext context) {
-    switch (this) {
-      case BetStatus.awaiting:
-        return context.colors.yellow;
-      case BetStatus.ongoing:
-        return context.colors.success;
-      case BetStatus.completed:
-        return context.colors.success;
-      case BetStatus.cancelled:
-        return context.colors.error;
-    }
-  }
-
-  String stringAmount(double amount) {
-    switch (this) {
-      case BetStatus.awaiting:
-        return '\$$amount?';
-      case BetStatus.ongoing:
-        return '\$$amount';
-      case BetStatus.cancelled:
-        return '\$$amount';
-      case BetStatus.completed:
-        return '\$$amount';
-    }
-  }
-}
-
-extension BettorChoiceX on BettorChoice {
-  Color color(BuildContext context) {
-    switch (this) {
-      case BettorChoice.win:
-        return context.colors.success;
-      case BettorChoice.draw:
-        return context.colors.yellow;
-      case BettorChoice.loss:
-        return context.colors.error;
-    }
   }
 }

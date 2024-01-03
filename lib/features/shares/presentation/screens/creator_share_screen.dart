@@ -1,5 +1,5 @@
-// import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/shares/presentation/getx/shares_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_bdaya/flutter_datetime_picker_bdaya.dart';
 import 'package:get/get.dart';

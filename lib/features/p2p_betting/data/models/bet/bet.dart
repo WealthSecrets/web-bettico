@@ -1,9 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 import 'dart:math';
-
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/p2p_betting/data/models/bettor/bettor.dart';
-import 'package:betticos/features/p2p_betting/data/models/team/team.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/data.dart';
 import 'package:faker/faker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';

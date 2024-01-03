@@ -1,7 +1,7 @@
-import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
-import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-import '/core/core.dart';
 
 class FetchTransferHistory implements UseCase<List<TransferHistory>, NoParams> {
   FetchTransferHistory({required this.okxRepository});

@@ -1,4 +1,5 @@
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/controllers/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

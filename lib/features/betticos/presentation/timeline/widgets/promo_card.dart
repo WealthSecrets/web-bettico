@@ -1,15 +1,12 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
-
-import '/core/core.dart';
-import '/core/presentation/utils/app_endpoints.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/betticos/presentation/profile/screens/profile_screen.dart';
 
 class Card extends StatelessWidget {
   Card({

@@ -1,11 +1,10 @@
-import 'package:betticos/core/presentation/widgets/search_field.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../getx/explore_controller.dart';
 
 class SearchFieldContainer extends StatefulWidget {
   const SearchFieldContainer({super.key});

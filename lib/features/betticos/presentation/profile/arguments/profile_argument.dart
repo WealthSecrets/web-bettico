@@ -1,4 +1,4 @@
-import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/common/common.dart';
 
 class ProfileScreenArgument {
   const ProfileScreenArgument({required this.user, this.showBackButton = false});

@@ -1,21 +1,14 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/okx_swap/data/models/balance/balance_response.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_history.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_request.dart';
-import 'package:betticos/features/okx_swap/data/models/withdrawal/withdrawal_response.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/fetch_withdrawal_history.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/withdraw.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 class WithdrawalController extends GetxController {
-  WithdrawalController({
-    required this.withdraw,
-    required this.fetchWithdrawalHistory,
-  });
+  WithdrawalController({required this.withdraw, required this.fetchWithdrawalHistory});
 
   final Withdraw withdraw;
   final FetchWithdrawalHistory fetchWithdrawalHistory;

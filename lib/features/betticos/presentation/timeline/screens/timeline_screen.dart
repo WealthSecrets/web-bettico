@@ -1,18 +1,10 @@
-import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/promo_tab.dart';
-import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/timeline_tab.dart';
-import 'package:betticos/features/betticos/presentation/timeline/screens/tabs/updates_tab.dart';
-import 'package:betticos/features/betticos/presentation/timeline/widgets/p2pbet_tab.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import 'package:betticos/features/settings/presentation/settings/getx/settings_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import '/core/core.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
-import '../../profile/widgets/circle_indicator.dart';
 
 class TimelineScreen extends StatefulWidget {
   const TimelineScreen({super.key});

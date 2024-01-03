@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'referral_request.freezed.dart';
 part 'referral_request.g.dart';
 

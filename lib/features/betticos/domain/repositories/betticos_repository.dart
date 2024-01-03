@@ -1,20 +1,9 @@
-import 'package:betticos/core/models/paginated_response_data.dart';
-import 'package:betticos/features/betticos/data/models/option/option_model.dart';
-import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
-import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
-import 'package:betticos/features/betticos/domain/response/search_response.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
-
-import '/core/errors/failure.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/data/models/feeling/feeling_model.dart';
-import '/features/betticos/data/models/follow/follow_model.dart';
-import '/features/betticos/data/models/listpage/listpage.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/data/models/reply/reply_model.dart';
-import '/features/betticos/data/models/subscription/subscription_model.dart';
-import '../../data/models/listing/listing_model.dart';
 
 abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> fetchPosts();

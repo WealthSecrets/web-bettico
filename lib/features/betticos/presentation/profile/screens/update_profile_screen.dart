@@ -1,6 +1,5 @@
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/profile/getx/profile_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,10 +32,7 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
         ),
         title: Text(
           'update_profile'.tr,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
+          style: const TextStyle(color: Colors.black, fontSize: 16),
         ),
       ),
       body: Obx(
@@ -110,18 +106,11 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                         AppTextInput(
                           labelText: 'email'.tr.toUpperCase(),
                           disabled: true,
-                          prefixIcon: Icon(
-                            Ionicons.mail_outline,
-                            color: context.colors.hintLight,
-                            size: 18,
-                          ),
+                          prefixIcon: Icon(Ionicons.mail_outline, color: context.colors.hintLight, size: 18),
                           initialValue: user.email,
                           backgroundColor: context.colors.primary.shade100,
-                          lableStyle: TextStyle(
-                            color: context.colors.primary,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 10,
-                          ),
+                          lableStyle:
+                              TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                           validator: controller.validateEmail,
                           onChanged: controller.onEmailInputChanged,
                         ),
@@ -135,11 +124,8 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                           ),
                           onDateTimeChanged: controller.onDateOfBirthInputChanged,
                           backgroundColor: context.colors.primary.shade100,
-                          lableStyle: TextStyle(
-                            color: context.colors.primary,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 10,
-                          ),
+                          lableStyle:
+                              TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                           initialDate: user.dateOfBirth,
                         ),
                         const AppSpacing(v: 8),

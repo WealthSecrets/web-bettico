@@ -1,14 +1,13 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user_stats.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/get_user_stats.dart';
+import 'package:betticos/features/domain.dart';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SalesController extends GetxController {
-  SalesController({
-    required this.getUserStats,
-  });
+  SalesController({required this.getUserStats});
 
   final GetUserStats getUserStats;
 

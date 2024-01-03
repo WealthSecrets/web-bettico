@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_ructors
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
-import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
 class PostDetailsScreen extends StatefulWidget {
   PostDetailsScreen({super.key, required this.post, this.thePrevPost});
@@ -38,17 +37,12 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             leading: IconButton(
               icon: const Icon(Ionicons.close),
               color: context.colors.primary,
-              onPressed: () {
-                Navigator.of(context).pop<Post>(widget.thePrevPost);
-              },
+              onPressed: () => Navigator.of(context).pop<Post>(widget.thePrevPost),
             ),
             centerTitle: false,
             title: Text(
               widget.post.isOddbox ? 'odds'.tr : 'post'.tr,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
+              style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
           ),
           body: ListView.builder(
@@ -59,10 +53,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 return TimelineCard(
                   post: widget.post,
                   largeFonts: true,
-                  onCommentTap: () => controller.navigateToAddPost(
-                    context,
-                    pstId: widget.post.id,
-                  ),
+                  onCommentTap: () => controller.navigateToAddPost(context, pstId: widget.post.id),
                   onLikeTap: () => controller.likeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
                   onDislikeTap: () =>
                       controller.dislikeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
@@ -77,10 +68,8 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   onTap: () async {
                     final Post? thePrevPost = await Navigator.of(context).push<Post>(
                       MaterialPageRoute<Post>(
-                        builder: (BuildContext context) => PostDetailsScreen(
-                          post: controller.postComments[index - 1],
-                          thePrevPost: widget.post,
-                        ),
+                        builder: (BuildContext context) =>
+                            PostDetailsScreen(post: controller.postComments[index - 1], thePrevPost: widget.post),
                       ),
                     );
                     if (thePrevPost != null) {

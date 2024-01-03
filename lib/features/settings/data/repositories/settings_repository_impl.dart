@@ -1,8 +1,8 @@
-import 'package:betticos/features/settings/data/data_sources/settings_local_data_source.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 
 import '/core/core.dart';
-import '../../domain/repositories/settings_repository.dart';
 
 class SettingsRepositoryImpl extends Repository implements SettingsRepository {
   SettingsRepositoryImpl({

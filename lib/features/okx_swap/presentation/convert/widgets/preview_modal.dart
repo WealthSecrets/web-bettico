@@ -1,10 +1,9 @@
 import 'dart:async';
 
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/okx_swap/data/models/convert/okx_quote.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/presentation/convert/widgets/listtile_column.dart';
-import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';

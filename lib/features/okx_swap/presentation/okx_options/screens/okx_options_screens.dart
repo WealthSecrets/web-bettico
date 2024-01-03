@@ -1,15 +1,8 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/controllers/controllers.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/okx_swap/presentation/address/asset_currencies_screen.dart';
-import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
-import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_account.dart';
-import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/no_trading_api_key.dart';
-import 'package:betticos/features/okx_swap/presentation/okx_options/widgets/option_card.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,9 +1,7 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
-import '/features/betticos/domain/requests/follow/user_request.dart';
 
 class BlockUser implements UseCase<User, UserRequest> {
   BlockUser({required this.betticosRepository});
@@ -11,8 +9,6 @@ class BlockUser implements UseCase<User, UserRequest> {
 
   @override
   Future<Either<Failure, User>> call(UserRequest params) {
-    return betticosRepository.blockUser(
-      userId: params.userId,
-    );
+    return betticosRepository.blockUser(userId: params.userId);
   }
 }

@@ -1,9 +1,8 @@
-import 'package:betticos/core/models/paginated_response_data.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
 
 class ExplorePosts implements UseCase<PaginatedResponseData<Post>, PageParmas> {
   ExplorePosts({required this.betticosRepository});

@@ -1,10 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '/core/core.dart';
 
 class PaymentsScreen extends StatelessWidget {
+  const PaymentsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,17 +14,12 @@ class PaymentsScreen extends StatelessWidget {
           elevation: 0.5,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
+            icon: const Icon(Icons.menu, color: Colors.black),
             onPressed: () {},
           ),
           title: Text(
             'payments'.tr,
-            style: context.body1.copyWith(
-              color: Colors.black,
-            ),
+            style: context.body1.copyWith(color: Colors.black),
           ),
         ),
         body: Center(

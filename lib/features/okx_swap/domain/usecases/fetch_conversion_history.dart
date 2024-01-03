@@ -1,7 +1,7 @@
-import 'package:betticos/features/okx_swap/data/models/convert/okx_conversion.dart';
-import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-import '/core/core.dart';
 
 class FetchConversionHistory implements UseCase<List<OkxConversion>, NoParams> {
   FetchConversionHistory({required this.okxRepository});

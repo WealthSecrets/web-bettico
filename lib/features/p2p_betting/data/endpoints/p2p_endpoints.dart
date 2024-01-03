@@ -14,11 +14,7 @@ class P2pEndpoints {
 
   static String liveScores({int? leagueId}) => 'sportmonks/livescores${leagueId != null ? '?leagues=$leagueId' : ''}';
 
-  static String spaginateFixtures({
-    required int page,
-    required int size,
-    required int leagueId,
-  }) =>
+  static String spaginateFixtures({required int page, required int size, required int leagueId}) =>
       'sportmonks/fixtures?page=$page&size=$size&leagues=$leagueId&include=localTeam,visitorTeam';
 
   static String sFixtures({int? leagueId}) => 'sportmonks/fixtures${leagueId != null ? '?leagues=$leagueId' : ''}';

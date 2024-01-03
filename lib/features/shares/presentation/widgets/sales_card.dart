@@ -1,8 +1,7 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/shares/presentation/widgets/count_down_timer.dart';
-import 'package:betticos/features/shares/presentation/widgets/sale_status_chip.dart';
-// import 'package:date_count_down/date_count_down.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:moment_dart/moment_dart.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -96,13 +95,6 @@ class _SalesCardState extends State<SalesCard> {
                       saleTimerText,
                       style: context.caption.copyWith(color: context.colors.textDark, fontWeight: FontWeight.bold),
                     ),
-                    // CountDownText(
-                    //   due: startTime,
-                    //   finishedText: '',
-                    //   showLabel: true,
-                    //   longDateName: true,
-                    //   style: context.overline.copyWith(color: context.colors.primary),
-                    // ),
                     if (status == SalesStatus.notstarted)
                       CountdownTimer(
                         startTime: startTime,

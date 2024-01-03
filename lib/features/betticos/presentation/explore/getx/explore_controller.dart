@@ -1,19 +1,12 @@
-import 'package:betticos/core/models/paginated_response_data.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
-import 'package:betticos/features/betticos/domain/response/search_response.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/explore_posts.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/fetch_hashtags.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/search_posts.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
-import '/core/core.dart';
-import '../../../data/models/listpage/listpage.dart';
 
 enum Options { posts, sports, rates }
 

@@ -1,34 +1,14 @@
-import 'package:betticos/features/betticos/domain/requests/post/delete_post_params.dart';
-import 'package:betticos/features/betticos/domain/usecases/post/delete_post.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/listpage/listpage.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/data/models/reply/reply_model.dart';
-import '/features/betticos/domain/requests/post/add_post_request.dart';
-import '/features/betticos/domain/requests/post/fetch_post_comments_request.dart';
-import '/features/betticos/domain/requests/post/like_dislike_post_params.dart';
-import '/features/betticos/domain/requests/reply/reply_request.dart';
-import '/features/betticos/domain/usecases/feeling/add_feeling.dart';
-import '/features/betticos/domain/usecases/post/add_post.dart';
-import '/features/betticos/domain/usecases/post/dislike_post.dart';
-import '/features/betticos/domain/usecases/post/fetch_following_posts.dart';
-import '/features/betticos/domain/usecases/post/fetch_paginated_posts.dart';
-import '/features/betticos/domain/usecases/post/fetch_post_comments.dart';
-import '/features/betticos/domain/usecases/post/like_post.dart';
-import '/features/betticos/domain/usecases/post/update_post.dart';
-import '/features/betticos/domain/usecases/reply/add_reply.dart';
-import '/features/betticos/domain/usecases/subscription/fetch_subscribed_oddboxes.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/betticos/presentation/timeline/arguments/add_post_comment_argument.dart';
-import '/features/betticos/presentation/timeline/arguments/post_details_argument.dart';
-import '../../profile/getx/profile_controller.dart';
 
 class TimelineController extends GetxController {
   TimelineController({
@@ -40,7 +20,6 @@ class TimelineController extends GetxController {
     required this.updatePost,
     required this.addReply,
     required this.addFeeling,
-    // required this.notificationService,
     required this.likePost,
     required this.dislikePost,
     required this.deletePost,
@@ -78,7 +57,6 @@ class TimelineController extends GetxController {
   RxInt pageK = 1.obs;
   Rx<PagingController<int, Post>> pagingController = PagingController<int, Post>(firstPageKey: 1).obs;
 
-  // loading state
   RxBool isLoading = false.obs;
   RxBool isLikingPost = false.obs;
   RxBool isDislikingPost = false.obs;

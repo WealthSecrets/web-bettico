@@ -1,12 +1,10 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/presentation/convert/widgets/listtile_column.dart';
-import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../data/models/convert/conversion_response.dart';
 
 class ConversionSuccessScreen extends StatelessWidget {
   ConversionSuccessScreen({super.key});

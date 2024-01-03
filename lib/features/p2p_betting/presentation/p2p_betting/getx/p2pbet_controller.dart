@@ -1,39 +1,12 @@
-import 'package:betticos/features/betticos/domain/requests/follow/user_request.dart';
-import 'package:betticos/features/p2p_betting/data/models/fixture/fixture.dart';
-import 'package:betticos/features/p2p_betting/data/models/sportmonks/livescore/livescore.dart';
-import 'package:betticos/features/p2p_betting/data/models/transaction/transaction.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/search_bet_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/status_bets_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/team_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_payout_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/update_bet_status_score_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_request.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/transaction/transaction_update_request.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_mybets.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/fetch_status_bets.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/search_bet.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_payout_status.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_bet_score_status.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/add_transaction.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/get_user_transactions.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/transaction/update_transaction.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_congratulations_screen.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/p2p_betting/data/models/bet/bet.dart';
-import '/features/p2p_betting/data/models/bettor/bettor.dart';
-// import '/features/p2p_betting/data/models/soccer_match/soccer_match.dart';
-import '/features/p2p_betting/domain/requests/bet/bet_request.dart';
-import '/features/p2p_betting/domain/requests/bet/bettor_request.dart';
-import '/features/p2p_betting/domain/usecases/bet/add_bet.dart';
-import '/features/p2p_betting/domain/usecases/bet/fetch_bets.dart';
 
 class P2PBetController extends GetxController {
   P2PBetController({

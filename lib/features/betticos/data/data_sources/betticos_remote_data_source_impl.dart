@@ -1,29 +1,7 @@
-import 'package:betticos/core/models/paginated_response_data.dart';
-import 'package:betticos/features/betticos/data/models/option/option_model.dart';
-import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
-import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
-import 'package:betticos/features/betticos/domain/requests/referral/referral_request.dart';
-import 'package:betticos/features/betticos/domain/requests/report/report_request.dart';
-import 'package:betticos/features/betticos/domain/requests/user/user_device_request.dart';
-import 'package:betticos/features/betticos/domain/response/search_response.dart';
-
-import '/core/utils/http_client.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/data/data_sources/betticos_endpoints.dart';
-import '/features/betticos/data/models/feeling/feeling_model.dart';
-import '/features/betticos/data/models/follow/follow_model.dart';
-import '/features/betticos/data/models/listpage/listpage.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/data/models/reply/reply_model.dart';
-import '/features/betticos/data/models/subscription/subscription_model.dart';
-import '/features/betticos/domain/requests/feeling/feeling_request.dart';
-import '/features/betticos/domain/requests/post/like_dislike_post_request.dart';
-import '/features/betticos/domain/requests/post/post_request.dart';
-import '/features/betticos/domain/requests/reply/reply_request.dart';
-import '/features/betticos/domain/requests/subscrbe/subscribe_request.dart';
-import '../../domain/requests/follow/user_request.dart';
-import '../models/listing/listing_model.dart';
-import 'betticos_remote_data_source.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 
 class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   const BetticosRemoteDataSourceImpl({required AppHTTPClient client}) : _client = client;
@@ -44,14 +22,8 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<Post> updatePost({
-    required String postId,
-    required PostRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.patch(
-      BetticosEndpoints.thePost(postId),
-      body: request.toJson(),
-    );
+  Future<Post> updatePost({required String postId, required PostRequest request}) async {
+    final Map<String, dynamic> json = await _client.patch(BetticosEndpoints.thePost(postId), body: request.toJson());
     return Post.fromJson(json['data'] as Map<String, dynamic>);
   }
 
@@ -61,58 +33,31 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
-  Future<Post> likePost({
-    required String postId,
-    required LikeDislikePostRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.likePost(postId),
-      body: request.toJson(),
-    );
+  Future<Post> likePost({required String postId, required LikeDislikePostRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.likePost(postId), body: request.toJson());
     return Post.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
-  Future<Post> dislikePost({
-    required String postId,
-    required LikeDislikePostRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.dislikePost(postId),
-      body: request.toJson(),
-    );
+  Future<Post> dislikePost({required String postId, required LikeDislikePostRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.dislikePost(postId), body: request.toJson());
     return Post.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override
-  Future<Feeling> addFeeling({
-    required FeelingRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.feelings,
-      body: request.toJson(),
-    );
+  Future<Feeling> addFeeling({required FeelingRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.feelings, body: request.toJson());
     return Feeling.fromJson(json);
   }
 
   @override
-  Future<void> addReport({
-    required ReportRequest request,
-  }) async {
-    await _client.post(
-      BetticosEndpoints.reports,
-      body: request.toJson(),
-    );
+  Future<void> addReport({required ReportRequest request}) async {
+    await _client.post(BetticosEndpoints.reports, body: request.toJson());
   }
 
   @override
-  Future<Reply> addReply({
-    required ReplyRequest request,
-  }) async {
-    final Map<String, dynamic> json = await _client.post(
-      BetticosEndpoints.replies,
-      body: request.toJson(),
-    );
+  Future<Reply> addReply({required ReplyRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.replies, body: request.toJson());
     return Reply.fromJson(json['data'] as Map<String, dynamic>);
   }
 

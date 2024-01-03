@@ -1,9 +1,7 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/okx_swap/data/models/currency/currency.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/transfer_history.dart';
-import 'package:betticos/features/okx_swap/presentation/funds/getx/funds_controller.dart';
-import 'package:betticos/features/okx_swap/presentation/getx/okx_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/time_card.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

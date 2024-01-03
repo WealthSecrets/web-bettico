@@ -1,9 +1,7 @@
-import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
-import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
-import 'package:betticos/features/okx_swap/domain/requests/conversion/conversion_request.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
 
 class ConvertTrade implements UseCase<ConversionResponse, ConversionRequest> {
   ConvertTrade({required this.okxRepository});

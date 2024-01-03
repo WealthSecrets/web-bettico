@@ -1,11 +1,10 @@
-import 'package:betticos/features/betticos/data/models/option/option_model.dart';
-import 'package:betticos/features/betticos/presentation/report/arguments/report_argument.dart';
-import 'package:betticos/features/betticos/presentation/report/getx/report_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});

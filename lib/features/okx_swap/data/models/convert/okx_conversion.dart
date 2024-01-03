@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_annotation_target
-import 'package:betticos/features/okx_swap/data/models/convert/conversion_response.dart';
+import 'package:betticos/features/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'okx_conversion.freezed.dart';
 part 'okx_conversion.g.dart';
 

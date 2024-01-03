@@ -1,8 +1,6 @@
-// flutter package
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/chip.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/left_team_logo_text.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/widgets/right_team_logo_text.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 
 class ScoreRow extends StatelessWidget {

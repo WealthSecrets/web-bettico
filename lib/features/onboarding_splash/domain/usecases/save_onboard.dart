@@ -1,8 +1,6 @@
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/errors/failure.dart';
-import '/core/usecase/usecase.dart';
-import '/features/onboarding_splash/domain/repositories/onboard_repository.dart';
 
 class SaveOnBaord implements UseCase<void, NoParams> {
   SaveOnBaord({required this.onBoardRepository});

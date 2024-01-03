@@ -1,12 +1,9 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/presentation/ads/getx/ads_controller.dart';
-import 'package:betticos/features/advert/presentation/ads/screens/ad_analytics_screen.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/data/models/post/post_model.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/report/getx/report_controller.dart';
-import 'package:betticos/features/betticos/presentation/timeline/getx/card_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';

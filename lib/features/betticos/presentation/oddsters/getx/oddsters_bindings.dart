@@ -1,19 +1,14 @@
-import 'package:betticos/features/betticos/domain/usecases/oddsters/search_oddsters.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
 
-import '/features/betticos/domain/usecases/oddsters/get_all_oddsters.dart';
-import '/features/betticos/presentation/oddsters/getx/oddsters_controller.dart';
+import 'oddsters_controller.dart';
 
 class OddstersBindings {
   static void dependencies() {
     Get.put<OddstersController>(
       OddstersController(
-        getAllOddsters: GetAllOddsters(
-          betticosRepository: Get.find(),
-        ),
-        searchAllOddsters: SearchAllOddsters(
-          betticosRepository: Get.find(),
-        ),
+        getAllOddsters: GetAllOddsters(betticosRepository: Get.find()),
+        searchAllOddsters: SearchAllOddsters(betticosRepository: Get.find()),
       ),
       permanent: true,
     );

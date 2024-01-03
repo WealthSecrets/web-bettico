@@ -1,12 +1,12 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '/features/auth/presentation/register/getx/register_controller.dart';
 
 class RegistrationPersonalInformationScreen extends GetWidget<RegisterController> {
   const RegistrationPersonalInformationScreen({super.key});

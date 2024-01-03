@@ -1,16 +1,10 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import 'package:betticos/features/betticos/presentation/timeline/widgets/profile_optoins_modal_bottom.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-import '../getx/profile_controller.dart';
-import '../screens/update_profile_screen.dart';
-import 'column_text_button.dart';
-import 'profile_image_stack.dart';
 
 class ProfileFlexibleAppBar extends StatefulWidget {
   const ProfileFlexibleAppBar({super.key, required this.user, this.showBackButton});

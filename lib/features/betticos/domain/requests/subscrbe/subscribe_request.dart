@@ -1,7 +1,5 @@
 // ignore_for_file: invalid_annotation_target
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'subscribe_request.freezed.dart';
 part 'subscribe_request.g.dart';
 

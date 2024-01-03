@@ -1,12 +1,10 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/presentation/timeline/getx/timeline_controller.dart';
+import 'package:betticos/features/betticos/data/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
-import '../../../../data/models/post/post_model.dart';
-import '../../widgets/timeline_card.dart';
-import '../post_detail_screen.dart';
 
 class TimelineTab extends StatelessWidget {
   TimelineTab({super.key});
@@ -31,9 +29,7 @@ class TimelineTab extends StatelessWidget {
                       post: post,
                       onTap: () {
                         Navigator.of(context).push<void>(
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => PostDetailsScreen(post: post),
-                          ),
+                          MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                         );
                       },
                       onCommentTap: () => controller.navigateToAddPost(
@@ -53,7 +49,6 @@ class TimelineTab extends StatelessWidget {
                 noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
                 newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
                 firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
-                // padding: AppPaddings.homeA,
               ),
             ),
             SliverToBoxAdapter(

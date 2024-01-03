@@ -1,11 +1,8 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/controllers/controllers.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/p2p_betting/data/models/bet/bet.dart';
-import 'package:betticos/features/p2p_betting/presentation/livescore/getx/live_score_controllers.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/getx/p2pbet_controller.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/screens/p2p_bettting_details.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/betting_modal.dart';
-import 'package:betticos/features/p2p_betting/presentation/p2p_betting/widgets/p2p_betting_history_card.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/ethereum.dart';
 import 'package:get/get.dart';

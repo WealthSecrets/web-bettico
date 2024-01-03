@@ -1,8 +1,6 @@
-import 'package:betticos/features/betticos/domain/requests/post/delete_post_params.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
 
 class DeletePost implements UseCase<void, DeletePostParams> {
   DeletePost({required this.betticosRepository});
@@ -10,8 +8,6 @@ class DeletePost implements UseCase<void, DeletePostParams> {
 
   @override
   Future<Either<Failure, void>> call(DeletePostParams params) {
-    return betticosRepository.deletePost(
-      postId: params.postId,
-    );
+    return betticosRepository.deletePost(postId: params.postId);
   }
 }

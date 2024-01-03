@@ -1,8 +1,7 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/domain/repositories/betticos_repository.dart';
 
 class GetMyMembers implements UseCase<List<User>, NoParams> {
   GetMyMembers({required this.betticosRepository});

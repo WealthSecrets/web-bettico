@@ -1,9 +1,7 @@
 // ignore_for_file: invalid_annotation_target
-import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../okx_address/okx_address.dart';
-import '../okx_api/okx_api.dart';
 
 part 'okx_account.freezed.dart';
 part 'okx_account.g.dart';

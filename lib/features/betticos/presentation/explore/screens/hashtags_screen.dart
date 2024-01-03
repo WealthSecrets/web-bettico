@@ -1,6 +1,7 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/betticos/data/models/post/hashtag_model.dart';
-import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

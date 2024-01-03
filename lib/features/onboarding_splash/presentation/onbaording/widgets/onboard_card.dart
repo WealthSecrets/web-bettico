@@ -1,7 +1,7 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '/core/core.dart';
 
 class OnboardCard extends StatelessWidget {
   const OnboardCard({

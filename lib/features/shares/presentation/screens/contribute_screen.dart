@@ -1,14 +1,12 @@
-import 'package:betticos/core/presentation/controllers/wallet_controller.dart';
-import 'package:betticos/features/shares/presentation/getx/contribute_controller.dart';
-import 'package:betticos/features/shares/presentation/getx/shares_controller.dart';
-import 'package:betticos/features/shares/presentation/screens/sale_details_screen.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/controllers/controllers.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '../widgets/sale_status_chip.dart';
 
 class ContributeScreenRouteArgument {
   const ContributeScreenRouteArgument({required this.sale});

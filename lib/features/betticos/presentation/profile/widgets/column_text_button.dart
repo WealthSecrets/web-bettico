@@ -1,5 +1,5 @@
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
 import 'package:flutter/material.dart';
 import '../screens/user_list_screen.dart';
 

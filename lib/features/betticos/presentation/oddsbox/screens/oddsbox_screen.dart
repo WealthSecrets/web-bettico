@@ -1,11 +1,8 @@
-import 'package:betticos/features/betticos/presentation/timeline/screens/post_detail_screen.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/presentation/timeline/getx/timeline_controller.dart';
-import '/features/betticos/presentation/timeline/widgets/timeline_card.dart';
 
 class OddsboxScreen extends StatefulWidget {
   const OddsboxScreen({super.key});

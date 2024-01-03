@@ -1,24 +1,16 @@
-import 'package:betticos/features/betticos/presentation/explore/getx/explore_controller.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/presentation.dart';
+import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
-import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
-// import 'package:webviewx_plus/webviewx_plus.dart';
-
-import '/core/core.dart';
-import '/core/presentation/utils/app_endpoints.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/data/models/post/post_model.dart';
-import '/features/betticos/presentation/base/getx/base_screen_controller.dart';
-import '/features/betticos/presentation/profile/getx/profile_controller.dart';
-import '/features/betticos/presentation/timeline/widgets/timeline_image_divider.dart';
-import '../../profile/arguments/profile_argument.dart';
-import 'user_options_modal_bottom.dart';
 
 class TimelineCard extends StatelessWidget {
   TimelineCard({

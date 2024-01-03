@@ -1,4 +1,4 @@
-import 'package:betticos/core/presentation/utils/app_endpoints.dart';
+import 'package:betticos/common/common.dart';
 import 'package:flutter/material.dart';
 
 class TimelineImageDivider extends StatelessWidget {
@@ -28,7 +28,7 @@ class TimelineImageDivider extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) => FullImage(imageAddress: images[0], token: token),
+                    builder: (BuildContext context) => _FullImage(imageAddress: images[0], token: token),
                   ),
                 );
               },
@@ -59,7 +59,7 @@ class TimelineImageDivider extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute<void>(builder: (BuildContext context) => FullImage(imageAddress: images[0], token: token)),
+          MaterialPageRoute<void>(builder: (BuildContext context) => _FullImage(imageAddress: images[0], token: token)),
         );
       },
       child: ClipRRect(
@@ -81,7 +81,7 @@ class TimelineImageDivider extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => FullImage(imageAddress: image1, token: token),
+                  builder: (BuildContext context) => _FullImage(imageAddress: image1, token: token),
                 ),
               );
             },
@@ -107,7 +107,7 @@ class TimelineImageDivider extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => FullImage(imageAddress: image2, token: token),
+                  builder: (BuildContext context) => _FullImage(imageAddress: image2, token: token),
                 ),
               );
             },
@@ -140,7 +140,7 @@ class TimelineImageDivider extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => FullImage(imageAddress: image1, token: token),
+                  builder: (BuildContext context) => _FullImage(imageAddress: image1, token: token),
                 ),
               );
             },
@@ -164,7 +164,7 @@ class TimelineImageDivider extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => FullImage(imageAddress: image2, token: token),
+                  builder: (BuildContext context) => _FullImage(imageAddress: image2, token: token),
                 ),
               );
             },
@@ -188,8 +188,8 @@ class TimelineImageDivider extends StatelessWidget {
   }
 }
 
-class FullImage extends StatelessWidget {
-  const FullImage({super.key, required this.imageAddress, required this.token});
+class _FullImage extends StatelessWidget {
+  const _FullImage({required this.imageAddress, required this.token});
 
   final String imageAddress;
   final String token;

@@ -1,6 +1,5 @@
+import 'package:betticos/common/common.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/utils.dart';
 import 'themes.dart';
 
 class AppTheme {

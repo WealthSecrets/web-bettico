@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:betticos/core/core.dart';
+import 'package:betticos/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web3/flutter_web3.dart';

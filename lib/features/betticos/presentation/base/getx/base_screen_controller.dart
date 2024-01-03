@@ -1,23 +1,12 @@
-import 'package:betticos/features/auth/domain/usecases/logout_user.dart';
-import 'package:betticos/features/betticos/data/models/setup/setup_model.dart';
-import 'package:betticos/features/betticos/domain/usecases/load_token.dart';
-import 'package:betticos/features/betticos/domain/usecases/setup/get_setup.dart';
-import 'package:betticos/features/betticos/domain/usecases/update_user_device.dart';
-import 'package:betticos/features/p2p_betting/domain/requests/bet/user_bonus_request.dart';
-import 'package:betticos/features/p2p_betting/domain/usecases/bet/update_user_bonus.dart';
-import 'package:betticos/features/responsiveness/constants/web_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/domain/usecases/load_user.dart';
-import '../../../domain/requests/follow/user_request.dart';
-import '../../../domain/requests/user/user_device_request.dart';
-import '../../../domain/usecases/follow/get_my_followers.dart';
-import '../../../domain/usecases/follow/get_my_followings.dart';
 
 class BaseScreenController extends GetxController {
   BaseScreenController({

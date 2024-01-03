@@ -1,19 +1,14 @@
-import 'package:betticos/features/betticos/domain/usecases/referral/get_refer_code.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:validators/validators.dart' as validator;
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/betticos/domain/requests/referral/referral_request.dart';
-import '/features/betticos/domain/usecases/referral/refer_user.dart';
 
 class ReferralController extends GetxController {
-  ReferralController({
-    required this.referUser,
-    required this.getReferralCode,
-  });
+  ReferralController({required this.referUser, required this.getReferralCode});
 
   final ReferUser referUser;
   final GetReferralCode getReferralCode;

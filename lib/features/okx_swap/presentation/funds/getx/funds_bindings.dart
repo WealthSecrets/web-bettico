@@ -1,7 +1,6 @@
-import 'package:betticos/features/okx_swap/domain/usecases/fetch_transfer_history.dart';
-import 'package:betticos/features/okx_swap/domain/usecases/subaccount_fund_transfer.dart';
-import 'package:betticos/features/okx_swap/presentation/funds/getx/funds_controller.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:get/get.dart';
+import 'funds_controller.dart';
 
 class FundsBindings {
   static void dependencies() {

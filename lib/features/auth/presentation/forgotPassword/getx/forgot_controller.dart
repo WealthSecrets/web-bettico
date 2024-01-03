@@ -1,11 +1,10 @@
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart' as validator;
-import '/core/core.dart';
-import '/features/auth/data/models/user/user.dart';
-import '/features/auth/domain/requests/forgot_request/forgot_request.dart';
-import '/features/auth/domain/usecases/forgot_password.dart';
 
 class ForgotController extends GetxController {
   ForgotController({
@@ -20,11 +19,7 @@ class ForgotController extends GetxController {
     // ignore: unawaited_futures
     isLoading(true);
 
-    final Either<Failure, User> failureOrUser = await forgotPassword(
-      ForgotRequest(
-        email: email.value,
-      ),
-    );
+    final Either<Failure, User> failureOrUser = await forgotPassword(ForgotRequest(email: email.value));
 
     // ignore: unawaited_futures
     failureOrUser.fold(

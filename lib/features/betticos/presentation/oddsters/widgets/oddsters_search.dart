@@ -1,12 +1,8 @@
-import 'package:betticos/core/presentation/utils/app_endpoints.dart';
-import 'package:betticos/features/auth/data/models/user/user.dart';
-import 'package:betticos/features/betticos/presentation/oddsters/getx/oddsters_controller.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:ionicons/ionicons.dart';
-
-import '/core/core.dart';
-import '../../profile/screens/profile_screen.dart';
 
 class OddsterSearch extends SearchDelegate<String> {
   final Debouncer _debouncer = Debouncer(milliseconds: 500);

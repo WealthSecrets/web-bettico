@@ -1,9 +1,7 @@
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_request.dart';
-import 'package:betticos/features/okx_swap/data/models/funds/subaccount_funds_response.dart';
-import 'package:betticos/features/okx_swap/domain/repositories/okx_repository.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
-
-import '/core/core.dart';
 
 class SubAccountFundTransfer implements UseCase<SubAccountFundsResponse, SubAccountFundsRequest> {
   SubAccountFundTransfer({required this.okxRepository});

@@ -1,8 +1,6 @@
 // ignore_for_file: invalid_annotation_target
-
-import 'package:betticos/features/auth/data/models/user/user.dart';
+import 'package:betticos/common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'reply_model.freezed.dart';
 part 'reply_model.g.dart';
 

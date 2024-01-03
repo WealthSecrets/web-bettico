@@ -1,15 +1,8 @@
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/advert/data/datasources/advert_remote_data_source.dart';
-import 'package:betticos/features/advert/data/models/business_model.dart';
-import 'package:betticos/features/advert/domain/requests/create_advert_request.dart';
-import 'package:betticos/features/advert/domain/requests/create_business_request.dart';
-import 'package:betticos/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:betticos/features/data.dart';
+import 'package:betticos/features/domain.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:dartz/dartz.dart';
-
-import '../../domain/repository/advert_repository.dart';
-import '../../presentation/ads/getx/professional_controller.dart';
-import '../../presentation/ads/utils/business_category_type.dart';
-import '../models/advert_model.dart';
 
 class AdvertRepositoryImpl extends Repository implements AdvertRepository {
   AdvertRepositoryImpl({required this.advertRemoteDataSource, required this.authLocalDataSource});

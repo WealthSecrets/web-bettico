@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:betticos/features/auth/data/models/user/user.dart';
-
-import '/core/utils/utils.dart';
-import '/features/auth/data/models/responses/auth_response/auth_response.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
+import 'package:betticos/features/data.dart';
 
 abstract class AuthLocalDataSource {
   AuthResponse? get authResponse;
