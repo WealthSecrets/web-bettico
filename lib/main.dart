@@ -9,11 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
-
+import 'package:timeago/timeago.dart' as timeago;
 import 'controllers/controllers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  timeago.setLocaleMessages('en', MyCustomMessages());
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(

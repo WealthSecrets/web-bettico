@@ -7,11 +7,10 @@ import 'package:betticos/features/presentation.dart';
 import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
-// import 'package:timeago/timeago.dart' as timeago;
+import 'package:timeago/timeago.dart' as timeago;
 
 class TimelineCard extends StatelessWidget {
   TimelineCard({
@@ -61,8 +60,8 @@ class TimelineCard extends StatelessWidget {
                 arguments: ProfileScreenArgument(user: post.user, showBackButton: true),
               ),
               child: Container(
-                height: 45.h,
-                width: 45.h,
+                height: 45,
+                width: 45,
                 decoration: BoxDecoration(
                   borderRadius: AppBorderRadius.largeAll,
                   image: const DecorationImage(
@@ -253,7 +252,7 @@ class _PostUserDetails extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Text(
-              '3h',
+              timeago.format(post.createdAt),
               style: context.sub2.copyWith(color: context.colors.darkenText, fontWeight: FontWeight.w600),
             ),
           ],
