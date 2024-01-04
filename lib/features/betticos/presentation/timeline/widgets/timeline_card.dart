@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class TimelineCard extends StatelessWidget {
@@ -137,14 +136,6 @@ class TimelineCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (hideOptions == false)
-                  GestureDetector(
-                    onTap: () => showMaterialModalBottomSheet<String>(
-                      context: context,
-                      builder: (_) => UserOptionsModalBottom(post: post, ctx: context),
-                    ),
-                    child: Icon(Ionicons.ellipsis_vertical, size: 16, color: context.colors.text),
-                  ),
               ],
             ),
             const SizedBox(height: 10),

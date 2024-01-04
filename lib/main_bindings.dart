@@ -33,12 +33,6 @@ class MainBindings {
 
     Get.put<BetticosRemoteDataSource>(BetticosRemoteDataSourceImpl(client: Get.find()), permanent: true);
 
-    Get.put<P2pRemoteDataSource>(P2pRemoteDataSourceImpl(client: Get.find()), permanent: true);
-
-    Get.put<OkxRemoteDataSources>(OkxRemoteDataSourcesImpl(client: Get.find()), permanent: true);
-
-    Get.put<AdvertRemoteDataSource>(AdvertRemoteDataSourceImpl(client: Get.find()), permanent: true);
-
     Get.put<OnBoardRepository>(OnBoardRepositoryImpl(onBoardLocalDataSource: Get.find()), permanent: true);
 
     Get.put<SettingsRepository>(SettingsRepositoryImpl(settingsLocalDataSource: Get.find()), permanent: true);
@@ -50,21 +44,6 @@ class MainBindings {
 
     Get.put<BetticosRepository>(
       BetticosRepositoryImpl(authLocalDataSource: Get.find(), betticoslineRemoteDataSource: Get.find()),
-      permanent: true,
-    );
-
-    Get.put<P2pRepository>(
-      P2pRepositoryImpl(p2pRemoteDataSource: Get.find(), authLocalDataSource: Get.find()),
-      permanent: true,
-    );
-
-    Get.put<OkxRepository>(
-      OkxRepositoryImpl(okxRemoteDataSources: Get.find(), authLocalDataSource: Get.find()),
-      permanent: true,
-    );
-
-    Get.put<AdvertRepository>(
-      AdvertRepositoryImpl(advertRemoteDataSource: Get.find(), authLocalDataSource: Get.find()),
       permanent: true,
     );
   }

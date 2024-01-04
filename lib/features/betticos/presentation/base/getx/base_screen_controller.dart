@@ -14,7 +14,6 @@ class BaseScreenController extends GetxController {
     required this.loadToken,
     required this.logoutUser,
     required this.getMyFollowers,
-    required this.updateUserBonus,
     required this.updateUserDevice,
     required this.getMyFollowings,
     required this.getSetup,
@@ -22,7 +21,6 @@ class BaseScreenController extends GetxController {
   final LoadUser loadUser;
   final LoadToken loadToken;
   final LogoutUser logoutUser;
-  final UpdateUserBonus updateUserBonus;
   final GetMyFollowers getMyFollowers;
   final UpdateUserDevice updateUserDevice;
   final GetMyFollowings getMyFollowings;
@@ -57,32 +55,6 @@ class BaseScreenController extends GetxController {
         loadMyFollowings();
       },
     );
-  }
-
-  void increaseDecreaseUserBonus(
-    BuildContext context,
-    String type,
-    double amount, {
-    void Function()? failureCallback,
-    void Function()? successCallback,
-  }) async {
-    isUpdatingUserBonus.value = true;
-    final Either<Failure, User> failureOrUser = await updateUserBonus(
-      UserBonusRequest(
-        type: type,
-        amount: amount,
-      ),
-    );
-
-    failureOrUser.fold((Failure failure) {
-      isUpdatingUserBonus(false);
-      // failureCallback?.call() Do not call failure call back since user can choose from option
-      AppSnacks.show(context, message: failure.message);
-    }, (User u) {
-      isUpdatingUserBonus(false);
-      user.value = u;
-      successCallback?.call();
-    });
   }
 
   void changeLanguage(Locale locale) {

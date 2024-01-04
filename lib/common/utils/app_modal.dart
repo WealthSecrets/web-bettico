@@ -1,9 +1,7 @@
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 Future<T?> showAppModal<T>({
@@ -414,85 +412,6 @@ class AppTextDailogModal extends StatelessWidget {
             ],
           )
         ],
-      ),
-    );
-  }
-}
-
-class AppTransactionDailog extends StatelessWidget {
-  const AppTransactionDailog({super.key, required this.transaction, this.onPressed});
-
-  final Transaction transaction;
-  final Function()? onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      borderRadius: AppBorderRadius.largeAll,
-      child: Container(
-        margin: AppPaddings.lA,
-        decoration: BoxDecoration(
-          color: context.colors.background,
-          borderRadius: AppBorderRadius.largeAll,
-        ),
-        padding: AppPaddings.lA,
-        child: AppAnimatedColumn(
-          delay: const Duration(milliseconds: 100),
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    transaction.description,
-                    style: TextStyle(color: context.colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(Ionicons.close_sharp, size: 20, color: context.colors.error),
-                ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Divider(color: context.colors.faintGrey),
-            const SizedBox(height: 4),
-            FieldDisplay(
-              leadingTitle: 'Status',
-              trailingTitle: 'Date',
-              leadingSubtitle: StringUtils.capitalizeFirst(transaction.status.stringValue),
-              trailingSubtitle: DateFormat('d MMM, yy at hh:mm aaa').format(transaction.createdAt),
-              leadingColor: transaction.status.color(context),
-            ),
-            const SizedBox(height: 4),
-            Divider(color: context.colors.faintGrey),
-            const SizedBox(height: 4),
-            FieldDisplay(
-              leadingTitle: 'Amount',
-              trailingTitle: 'Converted Amount',
-              leadingSubtitle: '${transaction.amount.toString()} ${transaction.token.toUpperCase()}',
-              trailingSubtitle: '${transaction.convertedAmount.toString()} ${transaction.convertedToken.toUpperCase()}',
-            ),
-            const SizedBox(height: 4),
-            Divider(color: context.colors.faintGrey),
-            const SizedBox(height: 4),
-            FieldDisplay(
-              leadingTitle: 'Wallet Address',
-              leadingSubtitle: transaction.walletAddress,
-            ),
-            const SizedBox(height: 4),
-            Divider(color: context.colors.faintGrey),
-            const SizedBox(height: 4),
-            FieldDisplay(leadingTitle: 'Txn Hash', leadingSubtitle: transaction.transactionHash),
-            const SizedBox(height: 30),
-            AppButton(
-              onPressed: () => onPressed?.call(),
-              child: const Text(
-                'View on Bscscan',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

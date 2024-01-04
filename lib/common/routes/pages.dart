@@ -13,15 +13,10 @@ class Pages {
     GetPage<AppRoutes>(name: AppRoutes.otpVerify, page: () => const OTPVerificationScreen()),
     GetPage<AppRoutes>(name: AppRoutes.documentScreen, page: RegistrationDocumentScreen.new),
     GetPage<AppRoutes>(name: AppRoutes.timelinePost, page: () => const TimelinePostScreen()),
-    GetPage<AppRoutes>(name: AppRoutes.walletConnect, page: ForgotWalletScreen.new),
-    GetPage<AppRoutes>(name: AppRoutes.livescore, page: () => const NewLiveScore()),
     GetPage<AppRoutes>(name: AppRoutes.addressConnect, page: RegistrationWalletScreen.new),
     GetPage<AppRoutes>(name: AppRoutes.personalInformation, page: () => const RegistrationPersonalInformationScreen()),
     GetPage<AppRoutes>(name: AppRoutes.splash, page: () => const SplashScreen()),
     GetPage<AppRoutes>(name: AppRoutes.home, page: () => const HomeBaseScreen()),
     GetPage<AppRoutes>(name: AppRoutes.report, page: () => const ReportScreen()),
-    GetPage<AppRoutes>(name: AppRoutes.p2pBettingHistory, page: () => const P2PBettingHistoryScreen()),
-    GetPage<AppRoutes>(name: AppRoutes.p2pSuccess, page: () => const P2PBettingCongratScreen()),
-    GetPage<AppRoutes>(name: AppRoutes.professionalCategory, page: () => const ProfessionalAccountCategoryScreen()),
   ];
 }

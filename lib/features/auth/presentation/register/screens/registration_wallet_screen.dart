@@ -9,7 +9,6 @@ import '/core/core.dart';
 class RegistrationWalletScreen extends GetWidget<RegisterController> {
   RegistrationWalletScreen({super.key});
 
-  final LiveScoreController lController = Get.find<LiveScoreController>();
   final SliderController sController = SliderController();
   @override
   Widget build(BuildContext context) {

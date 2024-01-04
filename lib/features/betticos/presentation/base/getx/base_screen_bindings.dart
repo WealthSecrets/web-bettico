@@ -12,7 +12,6 @@ class BaseBindings {
         logoutUser: LogoutUser(authRepository: Get.find()),
         getMyFollowers: GetMyFollowers(betticosRepository: Get.find()),
         getMyFollowings: GetMyFollowings(betticosRepository: Get.find()),
-        updateUserBonus: UpdateUserBonus(p2prepository: Get.find()),
         updateUserDevice: UpdateUserDevice(betticosRepository: Get.find()),
         getSetup: GetSetup(betticosRepository: Get.find()),
       ),

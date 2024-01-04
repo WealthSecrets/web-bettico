@@ -21,8 +21,6 @@ class RegisterController extends GetxController {
     required this.updateProfile,
     required this.sendSms,
     required this.uploadIdentifcation,
-    required this.createSubAccount,
-    required this.createSubAccountApiKey,
     required this.updateUserProfilePhoto,
     required this.updateUserRole,
   });
@@ -34,8 +32,6 @@ class RegisterController extends GetxController {
   final SendSms sendSms;
   final UploadIdentifcation uploadIdentifcation;
   final UpdateUserProfilePhoto updateUserProfilePhoto;
-  final CreateSubAccount createSubAccount;
-  final CreateSubAccountApiKey createSubAccountApiKey;
   final UpdateUserRole updateUserRole;
   final VerifyUser verifyUser;
 
@@ -86,7 +82,6 @@ class RegisterController extends GetxController {
   // controllers
   final LoginController lController = Get.find<LoginController>();
   final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
-  final LiveScoreController wController = Get.find<LiveScoreController>();
 
   // social authentication
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -277,7 +272,6 @@ class RegisterController extends GetxController {
       RegisterRequest(
         confirmPassword: confirmPassword.value,
         password: password.value,
-        wallet: wController.walletAddress.value.isNotEmpty ? wController.walletAddress.value : null,
         email: !isWalletConnect ? email.value : null,
         referralCode: referralCode.value.isNotEmpty ? referralCode.value : null,
         type: isWalletConnect ? 'wallet' : type.value.trim(),
@@ -291,9 +285,6 @@ class RegisterController extends GetxController {
       },
       (AuthResponse response) {
         isRegisteringUser(false);
-        // if (_.email != null) {
-        //   createOkxAccount(context, _.email!.split('@').first);
-        // }
         baseScreenController.user(response.user);
         baseScreenController.userToken(response.token);
         if (isWalletConnect) {
@@ -304,53 +295,6 @@ class RegisterController extends GetxController {
             arguments: const OTPVerificationScreenArgument(),
           );
         }
-      },
-    );
-  }
-
-  void createOkxAccount(BuildContext context, String username, [Function()? callback]) async {
-    isCreatingOkxAccount(true);
-
-    final Either<Failure, OkxAccount> failureOrUser =
-        await createSubAccount(CreateSubAccountRequest(subAccount: username));
-
-    failureOrUser.fold(
-      (Failure failure) {
-        isCreatingOkxAccount(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (OkxAccount okx) {
-        isCreatingOkxAccount(false);
-        baseScreenController.user.value = okx.user;
-        createOkxAccountApiKey(context, callback);
-      },
-    );
-  }
-
-  void createOkxAccountApiKey(BuildContext context, [Function()? callback]) async {
-    isCreatingAccountApiKey(true);
-
-    final Either<Failure, OkxAccount> failureOrOkx = await createSubAccountApiKey(NoParams());
-
-    failureOrOkx.fold(
-      (Failure failure) {
-        isCreatingAccountApiKey(false);
-        AppSnacks.show(context, message: failure.message);
-      },
-      (OkxAccount okx) {
-        isCreatingAccountApiKey(false);
-        baseScreenController.user.value = okx.user;
-        callback?.call();
-        AppSnacks.show(
-          context,
-          message: 'Successfully created a trading account.',
-          backgroundColor: context.colors.success,
-          leadingIcon: const Icon(
-            Ionicons.information_sharp,
-            size: 24,
-            color: Colors.white,
-          ),
-        );
       },
     );
   }

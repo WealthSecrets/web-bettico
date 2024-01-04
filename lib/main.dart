@@ -32,36 +32,18 @@ void main() async {
   Get.put(AppMenuController());
   SettingsBindings.dependencies();
   SplashBindings.dependencies();
-  WalletBindings.dependencies();
-  LiveScoreBindings.dependencies();
   OnBoardBindings.dependencies();
   BaseBindings.dependencies();
   ProfileBindings.dependencies();
   TimelineBindings.dependencies();
-  AdsBinding.dependencies();
-  SalesBindings.dependencies();
-  SharesBinding.dependencies();
-  ContributionBindings.dependencies();
   LoginBindings.dependencies();
   RegisterBindings.dependencies();
-  OkxBindigns.dependencies();
-  UsdtSaleBinding.dependencies();
-  WithdrawalBindings.dependencies();
-  FundsBindings.dependencies();
-
   ForgotBindings.dependencies();
   ResetBindings.dependencies();
-  P2PBetBindings.dependencies();
-
   ExploreBindings.dependencies();
-  SportsBindings.dependencies();
-  MarketRateBindings.dependencies();
-
   MembersBindings.dependencies();
   OddstersBindings.dependencies();
   ReferralBindings.dependencies();
-
-  ProfessionalBindings.dependencies();
   CardBindings.dependencies();
   ReportBindings.dependencies();
 

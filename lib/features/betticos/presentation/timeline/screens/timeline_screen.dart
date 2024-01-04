@@ -17,9 +17,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   List<TargetFocus> targets = <TargetFocus>[];
   final TimelineController controller = Get.find<TimelineController>();
   final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
-  final LiveScoreController lController = Get.find<LiveScoreController>();
   final SettingsController sController = Get.find<SettingsController>();
-  final P2PBetController _p2pBetController = Get.find<P2PBetController>();
 
   GlobalKey timelineTab = GlobalKey();
   GlobalKey createPost = GlobalKey();
@@ -32,9 +30,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
   @override
   void initState() {
     Future<void>.delayed(Duration.zero, showTutorial);
-    WidgetUtils.onWidgetDidBuild(() {
-      _p2pBetController.setButtonSelected(context, 'awaiting');
-    });
     super.initState();
   }
 
@@ -106,7 +101,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 ];
               },
               body: TabBarView(
-                children: <Widget>[TimelineTab(), UpdatesTab(), const P2pBetTab(), const PromoTab()],
+                children: <Widget>[TimelineTab(), UpdatesTab(), const PromoTab(), const PromoTab()],
               ),
             ),
           ),

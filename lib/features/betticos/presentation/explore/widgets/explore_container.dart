@@ -53,9 +53,9 @@ class ExploreContainer extends StatelessWidget {
       case Options.posts:
         return ExploreScreen();
       case Options.sports:
-        return const SportsContainer();
+        return ExploreScreen();
       case Options.rates:
-        return const MarketRateScreen();
+        return ExploreScreen();
     }
   }
 

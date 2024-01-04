@@ -18,7 +18,6 @@ import 'package:ionicons/ionicons.dart';
 class LoginScreen extends GetWidget<LoginController> {
   LoginScreen({super.key});
   final RegisterController rController = Get.find<RegisterController>();
-  final LiveScoreController lController = Get.find<LiveScoreController>();
 
   final List<Map<String, dynamic>> footerLinks = <Map<String, dynamic>>[
     <String, dynamic>{
