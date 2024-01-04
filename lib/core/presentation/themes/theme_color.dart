@@ -37,6 +37,9 @@ abstract class ThemeColor {
   Color get overlay30;
   Color get overlay50;
   Color get overlay70;
+  Color get darkenText;
+  Color get icon;
+
   SystemUiOverlayStyle get statusBar;
   Brightness get brightness;
   Color get shadowColor;

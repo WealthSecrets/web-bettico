@@ -6,7 +6,7 @@ class AppTheme {
   const AppTheme(this.colors);
   final ThemeColor colors;
   ThemeData get data => ThemeData(
-        fontFamily: AppFonts.base,
+        fontFamily: AppFonts.regola,
         primaryColorLight: colors.primary,
         primarySwatch: colors.primary,
         visualDensity: VisualDensity.adaptivePlatformDensity,

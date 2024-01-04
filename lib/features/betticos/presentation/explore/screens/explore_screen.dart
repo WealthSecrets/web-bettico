@@ -18,9 +18,9 @@ class ExploreScreen extends GetWidget<ExploreController> {
       onRefresh: () => Future<void>.sync(
         () => controller.pagingController.refresh(),
       ),
-      child: PagedListView<int, Post>.separated(
+      child: PagedListView<int, Post>(
         pagingController: controller.pagingController,
-        padding: const EdgeInsets.only(top: 8),
+        // padding: const EdgeInsets.only(top: 8),
         builderDelegate: PagedChildBuilderDelegate<Post>(
           itemBuilder: (BuildContext context, Post post, int index) {
             return Obx(
@@ -62,7 +62,7 @@ class ExploreScreen extends GetWidget<ExploreController> {
           newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
           firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
         ),
-        separatorBuilder: (BuildContext context, int index) => const SizedBox.shrink(),
+        // separatorBuilder: (BuildContext context, int index) => Divider(color: context.colors.dividerColor),
       ),
     );
   }

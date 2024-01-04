@@ -28,7 +28,6 @@ class ExploreContainer extends StatelessWidget {
                 children: _selectableButtons,
               ),
               if (isLargeScreen || isMediumScreen) const SizedBox(height: 8),
-              if (controller.selectedOption.value == Options.rates) const SizedBox(height: 16),
               if (isSmallScreen && isPostsSelected) ...<Widget>[
                 const SizedBox(height: 8),
                 Padding(padding: AppPaddings.lH, child: const SearchFieldContainer()),
@@ -52,9 +51,9 @@ class ExploreContainer extends StatelessWidget {
     switch (option) {
       case Options.posts:
         return ExploreScreen();
-      case Options.sports:
+      case Options.anonymous:
         return ExploreScreen();
-      case Options.rates:
+      case Options.games:
         return ExploreScreen();
     }
   }
@@ -66,18 +65,14 @@ class ExploreContainer extends StatelessWidget {
           selected: controller.selectedOption.value == Options.posts,
         ),
         SelectableButton(
-          text: 'Sports',
-          onPressed: () {
-            controller.selectedOption.value = Options.sports;
-          },
-          selected: controller.selectedOption.value == Options.sports,
+          text: 'Anonymous',
+          onPressed: () => controller.selectedOption.value = Options.anonymous,
+          selected: controller.selectedOption.value == Options.anonymous,
         ),
         SelectableButton(
-          text: 'Market Rates',
-          onPressed: () {
-            controller.selectedOption.value = Options.rates;
-          },
-          selected: controller.selectedOption.value == Options.rates,
+          text: 'Games',
+          onPressed: () => controller.selectedOption.value = Options.games,
+          selected: controller.selectedOption.value == Options.games,
         ),
       ];
 }

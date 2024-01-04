@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-enum Options { posts, sports, rates }
+enum Options { posts, anonymous, games }
 
 class ExploreController extends GetxController with GetSingleTickerProviderStateMixin {
   ExploreController({

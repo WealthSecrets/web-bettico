@@ -83,6 +83,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/icons/
     - assets/images/
     - assets/svgs/
     - assets/json/
@@ -108,3 +109,15 @@ flutter:
           weight: 200
         - asset: assets/fonts/Raleway/Raleway-ExtraLight.ttf
           weight: 100
+
+    - family: Regola
+      fonts:
+        - asset: assets/fonts/Regola/RegolaProBoldOblique.otf
+        - asset: assets/fonts/Regola/RegolaProBold.otf
+        - asset: assets/fonts/Regola/RegolaProBook.otf
+        - asset: assets/fonts/Regola/RegolaProBookOblique.otf
+        - asset: assets/fonts/Regola/RegolaProMedium.otf
+        - asset: assets/fonts/Regola/RegolaProMediumOblique.otf
+        - asset: assets/fonts/Regola/RegolaProRegular.otf
+        - asset: assets/fonts/Regola/RegolaProRegularOblique.otf
+    

@@ -50,6 +50,7 @@ class TimelineTab extends StatelessWidget {
                 newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
                 firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
               ),
+              // separatorBuilder: (_, __) => Divider(color: context.colors.dividerColor),
             ),
             SliverToBoxAdapter(
               child: Builder(

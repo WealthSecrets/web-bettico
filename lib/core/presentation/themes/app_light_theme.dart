@@ -20,7 +20,7 @@ class AppLightTheme implements ThemeColor {
   Color error = const Color(0xFFD20000);
 
   @override
-  Color black = const Color(0xFF0A0A0A);
+  Color black = const Color(0xFF141619);
 
   @override
   Color background = Colors.white;
@@ -31,16 +31,22 @@ class AppLightTheme implements ThemeColor {
   Color hintLight = const Color(0xFFf2059f);
 
   @override
-  Color text = const Color(0xFFADADAD);
+  Color text = const Color(0xFF555F6D);
+
+  @override
+  Color darkenText = const Color(0xFF7E8B99);
 
   @override
   Color textDark = const Color(0xFF3d3d3d);
 
   @override
+  Color icon = const Color(0xFF7E8B99);
+
+  @override
   Color cardColor = const Color(0xFFF0F0F0);
 
   @override
-  Color dividerColor = const Color(0xFFD3D3D3);
+  Color dividerColor = const Color(0xFFDDDFE2);
 
   @override
   Color grey = const Color(0xFF475B64);
