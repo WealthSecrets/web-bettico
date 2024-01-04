@@ -1,7 +1,6 @@
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/presentation/login/getx/login_controller.dart';
-import 'package:betticos/features/auth/presentation/register/getx/register_controller.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

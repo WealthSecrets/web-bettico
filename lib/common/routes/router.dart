@@ -28,7 +28,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ExploreContainer(), settings);
     case AppRoutes.search:
       return _getPageRoute(SearchContainer(), settings);
-
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
@@ -46,10 +45,7 @@ class _FadeRoute extends PageRouteBuilder<Widget> {
               child,
           transitionsBuilder:
               (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) =>
-                  FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
+                  FadeTransition(opacity: animation, child: child),
         );
   final Widget child;
   @override
