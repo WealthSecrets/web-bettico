@@ -2,7 +2,6 @@
 import 'dart:js' as js;
 
 import 'package:betticos/common/common.dart';
-import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/core/presentation/presentation.dart';
 import 'package:betticos/features/presentation.dart';
@@ -150,16 +149,6 @@ class LoginScreen extends GetWidget<LoginController> {
                             ),
                             Column(
                               children: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Get.toNamed<void>(AppRoutes.livescore);
-                                    menuController.changeActiveItemTo(AppRoutes.livescore);
-                                  },
-                                  child: const Text(
-                                    'Live Games',
-                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 12),
-                                  ),
-                                ),
                                 TextButton(
                                   onPressed: () {
                                     js.context.callMethod(

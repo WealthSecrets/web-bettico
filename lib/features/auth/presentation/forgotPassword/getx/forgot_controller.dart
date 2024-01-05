@@ -29,7 +29,7 @@ class ForgotController extends GetxController {
       },
       (User user) {
         isLoading(false);
-        Get.toNamed<void>(AppRoutes.walletConnect);
+        // Get.toNamed<void>(AppRoutes.walletConnect);
       },
     );
   }

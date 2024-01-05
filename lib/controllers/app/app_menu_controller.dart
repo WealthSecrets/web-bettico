@@ -32,28 +32,15 @@ class AppMenuController extends GetxController {
         return _customIcon(Ionicons.home_sharp, itemName);
       case AppRoutes.profile:
         return _customIcon(Ionicons.person_circle_sharp, itemName);
-      case AppRoutes.livescore:
-        return _customIcon(Ionicons.football_sharp, itemName);
-      case AppRoutes.oddboxes:
-        return _customIcon(Ionicons.gift_sharp, itemName);
-      case AppRoutes.members:
-        return _customIcon(Ionicons.people_circle_sharp, itemName);
-      case AppRoutes.oddsters:
-        return _customIcon(Ionicons.trending_up_sharp, itemName);
-      case AppRoutes.p2pBetting:
-        return _customIcon(Ionicons.baseball_sharp, itemName);
       case AppRoutes.referral:
         return _customIcon(Ionicons.share_social_sharp, itemName);
       case AppRoutes.settings:
         return _customIcon(Ionicons.settings_sharp, itemName);
-      case AppRoutes.okxOptions:
-        return _customIcon(Ionicons.swap_horizontal_sharp, itemName);
+
       case AppRoutes.explore:
         return _customIcon(Ionicons.search_sharp, itemName);
       case AppRoutes.moreScreen:
         return _customIcon(Ionicons.apps_sharp, itemName);
-      case AppRoutes.salesScreen:
-        return _customIcon(Ionicons.bar_chart_sharp, itemName);
       default:
         return _customIcon(Icons.exit_to_app, itemName);
     }

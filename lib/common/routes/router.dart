@@ -9,12 +9,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.profile:
       final ProfileScreenArgument argument = settings.arguments! as ProfileScreenArgument;
       return _getPageRoute(ProfileScreen(user: argument.user, showBackButton: argument.showBackButton), settings);
-    case AppRoutes.members:
-      return _getPageRoute(const MembersScreen(), settings);
-    case AppRoutes.oddsters:
-      return _getPageRoute(const OddstersScreen(), settings);
-    case AppRoutes.oddboxes:
-      return _getPageRoute(const OddsboxScreen(), settings);
     case AppRoutes.settings:
       return _getPageRoute(const SettingsScreen(), settings);
     case AppRoutes.timeline:

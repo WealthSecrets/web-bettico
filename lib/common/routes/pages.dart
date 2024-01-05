@@ -13,7 +13,6 @@ class Pages {
     GetPage<AppRoutes>(name: AppRoutes.otpVerify, page: () => const OTPVerificationScreen()),
     GetPage<AppRoutes>(name: AppRoutes.documentScreen, page: RegistrationDocumentScreen.new),
     GetPage<AppRoutes>(name: AppRoutes.timelinePost, page: () => const TimelinePostScreen()),
-    GetPage<AppRoutes>(name: AppRoutes.addressConnect, page: RegistrationWalletScreen.new),
     GetPage<AppRoutes>(name: AppRoutes.personalInformation, page: () => const RegistrationPersonalInformationScreen()),
     GetPage<AppRoutes>(name: AppRoutes.splash, page: () => const SplashScreen()),
     GetPage<AppRoutes>(name: AppRoutes.home, page: () => const HomeBaseScreen()),

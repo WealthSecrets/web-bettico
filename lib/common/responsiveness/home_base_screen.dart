@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
@@ -24,29 +25,29 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
 
   List<Map<String, dynamic>> bottomNavIcons = <Map<String, dynamic>>[
     <String, dynamic>{
-      'outline': AssetImages.homeOutline,
-      'solid': AssetImages.homeSolid,
+      'outline': AppAssetIcons.home,
+      'solid': AppAssetIcons.homeSolid,
       'text': 'Home',
     },
     <String, dynamic>{
-      'outline': AssetImages.searchOutline,
-      'solid': AssetImages.searchSolid,
+      'outline': AppAssetIcons.search,
+      'solid': AppAssetIcons.searchSolid,
       'text': 'Search',
     },
     <String, dynamic>{
-      'outline': AssetImages.convertOutline,
-      'solid': AssetImages.convertSolid,
-      'text': 'Trade',
+      'outline': AppAssetIcons.play,
+      'solid': AppAssetIcons.playSolid,
+      'text': 'Reels',
     },
     <String, dynamic>{
-      'outline': AssetImages.notificationOutline,
-      'solid': AssetImages.notificationSolid,
-      'text': 'Notification',
+      'outline': AppAssetIcons.rocket,
+      'solid': AppAssetIcons.rocketSolid,
+      'text': 'Games',
     },
     <String, dynamic>{
-      'outline': AssetImages.moreOutline,
-      'solid': AssetImages.moreSolid,
-      'text': 'More',
+      'outline': AppAssetIcons.chat,
+      'solid': AppAssetIcons.chatSolid,
+      'text': 'Messages',
     }
   ];
 
@@ -160,10 +161,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         navigationController.navigateTo(AppRoutes.explore);
         return;
       case 2:
-        navigationController.navigateTo(AppRoutes.okxOptions);
+        navigationController.navigateTo(AppRoutes.games);
         return;
       case 3:
-        navigationController.navigateTo(AppRoutes.members);
+        navigationController.navigateTo(AppRoutes.reels);
         return;
       case 4:
         navigationController.navigateTo(AppRoutes.moreScreen);
