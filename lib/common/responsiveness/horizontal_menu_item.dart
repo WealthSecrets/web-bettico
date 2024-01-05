@@ -39,9 +39,9 @@ class HorizontalMenuItem extends StatelessWidget {
                 Flexible(
                   child: CustomText(
                     text: name,
-                    color: context.colors.textDark,
+                    color: name.toLowerCase() == 'logout' ? context.colors.error : null,
                     size: !menuController.isActive(route) ? 15 : 16,
-                    weight: !menuController.isActive(route) ? FontWeight.w600 : FontWeight.bold,
+                    weight: !menuController.isActive(route) ? FontWeight.normal : FontWeight.bold,
                   ),
                 )
               ],

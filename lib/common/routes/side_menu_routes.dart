@@ -6,25 +6,12 @@ class SideMenuItem {
   final String route;
 }
 
-List<SideMenuItem> sideMenuItemRoutes = <SideMenuItem>[
-  const SideMenuItem('Timeline', AppRoutes.timeline),
-  const SideMenuItem('Explore', AppRoutes.explore),
-  const SideMenuItem('Profile', AppRoutes.profile),
-  const SideMenuItem('Refer A Friend', AppRoutes.referral),
-  const SideMenuItem('Settings', AppRoutes.settings),
-  const SideMenuItem('More', AppRoutes.moreScreen),
-  const SideMenuItem('Logout', AppRoutes.logout),
-];
-
-List<SideMenuItem> smallScreenMenuItems = <SideMenuItem>[
-  const SideMenuItem('Timeline', AppRoutes.timeline),
-  const SideMenuItem('Profile', AppRoutes.profile),
-  const SideMenuItem('Refer A Friend', AppRoutes.referral),
-  const SideMenuItem('Settings', AppRoutes.settings),
-  const SideMenuItem('Logout', AppRoutes.logout),
-];
-
-List<SideMenuItem> notLoggedInMenuItems = <SideMenuItem>[
-  const SideMenuItem('Explore', AppRoutes.explore),
-  const SideMenuItem('Settings', AppRoutes.settings)
-];
+const SideMenuItem timeline = SideMenuItem('Timeline', AppRoutes.timeline);
+const SideMenuItem explore = SideMenuItem('Explore', AppRoutes.explore);
+const SideMenuItem profile = SideMenuItem('Profile', AppRoutes.profile);
+const SideMenuItem referral = SideMenuItem('Referral', AppRoutes.referral);
+const SideMenuItem settings = SideMenuItem('Settings', AppRoutes.settings);
+const SideMenuItem logout = SideMenuItem('Logout', AppRoutes.logout);
+const SideMenuItem games = SideMenuItem('Games', AppRoutes.games);
+const SideMenuItem reels = SideMenuItem('Reels', AppRoutes.reels);
+const SideMenuItem messages = SideMenuItem('Messages', AppRoutes.messages);

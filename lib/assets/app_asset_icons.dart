@@ -26,4 +26,7 @@ class AppAssetIcons {
   static String bellSolid = 'assets/icons/bell-solid.png';
   static String rocket = 'assets/icons/rocket.png';
   static String rocketSolid = 'assets/icons/rocket-solid.png';
+  static String users = 'assets/icons/users.png';
+  static String logout = 'assets/icons/log-out-2.png';
+  static String settings = 'assets/icons/gear.png';
 }

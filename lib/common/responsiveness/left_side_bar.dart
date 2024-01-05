@@ -151,11 +151,18 @@ class _LeftSideBarState extends State<LeftSideBar> {
 
   bool get isLargeScreen => ResponsiveWidget.isLargeScreen(context);
 
-  List<SideMenuItem> getSideMenuItems(String userToken) => userToken.isEmpty
-      ? notLoggedInMenuItems
-      : isSmallScreen
-          ? smallScreenMenuItems
-          : sideMenuItemRoutes;
+  List<SideMenuItem> getSideMenuItems(String userToken) {
+    List<SideMenuItem> menuItems = <SideMenuItem>[explore, settings];
+    if (userToken.isNotEmpty) {
+      if (isSmallScreen) {
+        menuItems = <SideMenuItem>[profile, referral, settings, logout];
+      } else {
+        menuItems = <SideMenuItem>[timeline, explore, profile, messages, games, reels, referral, settings, logout];
+      }
+    }
+
+    return menuItems;
+  }
 
   EdgeInsetsGeometry get padding => isLargeScreen
       ? const EdgeInsets.symmetric(vertical: 24, horizontal: 16)
