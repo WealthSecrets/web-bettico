@@ -29,4 +29,18 @@ class AppAssetIcons {
   static String users = 'assets/icons/users.png';
   static String logout = 'assets/icons/log-out-2.png';
   static String settings = 'assets/icons/gear.png';
+  static String bookmarkGrad = 'assets/icons/bookmark-gradient.png';
+  static String closeFrame = 'assets/icons/close-frame.png';
+  static String editPencil = 'assets/icons/edit-pencil.png';
+  static String emoji = 'assets/icons/emoji.png';
+  static String flagGrad = 'assets/icons/flag-gradient.png';
+  static String flag = 'assets/icons/flag.png';
+  static String globeGrad = 'assets/icons/globe-gradient.png';
+  static String globe = 'assets/icons/globe.png';
+  static String location = 'assets/icons/location.png';
+  static String moreHorz = 'assets/icons/more-horz.png';
+  static String pinGrad = 'assets/icons/pin-gradient.png';
+  static String sendGrad = 'assets/icons/send-gradient.png';
+  static String shareGrad = 'assets/icons/share-gradient.png';
+  static String userGradient = 'assets/icons/user-gradient.png';
 }

@@ -20,7 +20,6 @@ class _LeftSideBarState extends State<LeftSideBar> {
   Widget build(BuildContext context) {
     final List<SideMenuItem> sideMenuItems = getSideMenuItems(widget.userToken);
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       children: <Widget>[
         if (isLargeScreen && widget.userToken.isNotEmpty) ...<Widget>[
           UserInfoContainer(),
@@ -37,78 +36,76 @@ class _LeftSideBarState extends State<LeftSideBar> {
           const SizedBox(height: 16),
         ],
         if (isSmallScreen && widget.userToken.isNotEmpty) ...<Widget>[
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SizedBox(height: 40),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(35),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              '${AppEndpoints.userImages}/${widget.user.photo}',
-                              headers: <String, String>{'Authorization': 'Bearer ${widget.userToken}'},
-                            ),
-                            fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(height: 40),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      height: 52.44,
+                      width: 52.44,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(35),
+                        image: const DecorationImage(
+                          image: NetworkImage(
+                            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
+                            // headers: <String, String>{'Authorization': 'Bearer ${widget.userToken}'},
                           ),
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    ),
+                    const SizedBox(height: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
-                            _UserColumnButton(
-                              context: context,
-                              title: 'Following',
-                              subtitle: '${widget.user.following}',
-                              onPressed: () {},
+                            Text(
+                              '${widget.user.firstName} ${widget.user.lastName}',
+                              style:
+                                  const TextStyle(fontSize: 18, color: Color(0xFF272E35), fontWeight: FontWeight.bold),
                             ),
-                            _UserColumnButton(
-                              context: context,
-                              title: 'Followers',
-                              subtitle: '${widget.user.followers}',
-                              onPressed: () {},
-                            ),
+                            if (widget.user.isVerified) ...<Widget>[
+                              const SizedBox(width: 10),
+                              Image.asset(AssetImages.verified, height: 14, width: 14)
+                            ],
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            '${widget.user.firstName} ${widget.user.lastName}',
-                            style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
-                          ),
-                          if (widget.user.isVerified) Image.asset(AssetImages.verified, height: 14, width: 14),
-                        ],
-                      ),
-                      Text(
-                        '@${widget.user.username}',
-                        style: TextStyle(fontSize: 12, color: context.colors.text, fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-            ],
+                        const SizedBox(height: 5),
+                        Text(
+                          '@${widget.user.username}',
+                          style: context.sub2.copyWith(fontWeight: FontWeight.w400, color: const Color(0xFF272E35)),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          '${widget.user.following} Following',
+                          style: context.sub2.copyWith(fontWeight: FontWeight.w600, color: const Color(0xFF272E35)),
+                        ),
+                        const SizedBox(width: 22),
+                        Text(
+                          '${widget.user.followers} Followers',
+                          style: context.sub2.copyWith(fontWeight: FontWeight.w600, color: const Color(0xFF272E35)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+              ],
+            ),
           ),
-          Divider(color: context.colors.lightGrey.withOpacity(.1)),
+          Divider(color: context.colors.dividerColor),
         ],
         Column(
           mainAxisSize: MainAxisSize.min,
