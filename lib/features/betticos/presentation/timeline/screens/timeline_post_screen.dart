@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:betticos/assets/app_asset_icons.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
@@ -80,18 +81,6 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
             return Future<bool>.value(true);
           },
           child: Scaffold(
-            appBar: AppBar(
-              elevation: 0.5,
-              backgroundColor: Colors.white,
-              leading: IconButton(
-                icon: const Icon(Ionicons.close, size: 24),
-                color: context.colors.black,
-                onPressed: () {
-                  timelineController.resetValuesAfterPost();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
             bottomSheet: DecoratedBox(
               decoration: BoxDecoration(border: Border(top: BorderSide(color: context.colors.lightGrey))),
               child: Row(
@@ -161,6 +150,20 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
             ),
             body: Column(
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          timelineController.resetValuesAfterPost();
+                          Navigator.of(context).pop();
+                        },
+                        child: Image.asset(AppAssetIcons.closeFrame, height: 32, width: 32),
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: AppPaddings.lH.add(AppPaddings.lB),
                   child: TextField(

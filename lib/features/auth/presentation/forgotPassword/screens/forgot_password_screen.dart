@@ -64,7 +64,6 @@ class ForgotPasswordScreen extends GetWidget<ForgotController> {
                       AppTextInput(
                         labelText: 'email_address'.tr.toUpperCase(),
                         initialValue: '',
-                        backgroundColor: context.colors.primary.shade100,
                         prefixIcon: Icon(
                           Ionicons.mail_outline,
                           color: context.colors.hintLight,

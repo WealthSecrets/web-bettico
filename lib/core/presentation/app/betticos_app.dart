@@ -12,6 +12,7 @@ class BetticosApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? widget) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.splash,
         getPages: Pages.pages,
         translations: AppStrings(),

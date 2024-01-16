@@ -128,18 +128,14 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                 widget.labelText!,
                 textAlign: TextAlign.left,
                 style: widget.lableStyle ??
-                    TextStyle(
-                      color: context.colors.text,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 10,
-                    ),
+                    TextStyle(color: context.colors.text, fontWeight: FontWeight.w700, fontSize: 10),
               ),
             ),
           Container(
-            constraints: BoxConstraints(minHeight: max(40.h.toDouble(), 40)),
+            constraints: BoxConstraints(minHeight: max(49.h.toDouble(), 49)),
             decoration: BoxDecoration(
-              borderRadius: widget.borderRadius ?? AppBorderRadius.largeAll,
-              color: widget.backgroundColor ?? context.colors.primary.shade50,
+              borderRadius: widget.borderRadius ?? AppBorderRadius.button,
+              color: widget.backgroundColor ?? context.colors.textInputBackground,
             ),
             child: AnimatedOpacity(
               curve: Curves.fastLinearToSlowEaseIn,
@@ -193,15 +189,14 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                           inputFormatters: widget.inputFormatters,
                           onFieldSubmitted: widget.onFieldSubmitted,
                           decoration: InputDecoration(
-                            contentPadding: widget.padding ?? const EdgeInsets.all(5),
+                            contentPadding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                             fillColor: context.colors.background,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: widget.prefixIcon,
                             suffixIcon: widget.suffixIcon,
                             hintStyle: TextStyle(
                               fontWeight: FontWeight.w400,
-                              color: widget.hintColor ?? context.colors.hint,
-                              height: 1.4,
+                              color: widget.hintColor ?? context.colors.textInputIconColor,
                               fontSize: 14,
                             ),
                             hintText: widget.hintText,
@@ -231,8 +226,8 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                             key: ValueKey<bool>(obscuringText),
                             onPressed: () => obscureTextValueListenable.value = !obscuringText,
                             icon: obscuringText
-                                ? Icon(Ionicons.eye_sharp, color: context.colors.hintLight, size: 18)
-                                : Icon(Ionicons.eye_off_sharp, color: context.colors.hintLight, size: 18),
+                                ? Icon(Ionicons.eye_sharp, color: context.colors.textInputIconColor, size: 18)
+                                : Icon(Ionicons.eye_off_sharp, color: context.colors.textInputIconColor, size: 18),
                           ),
                         );
                       },

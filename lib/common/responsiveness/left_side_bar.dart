@@ -199,37 +199,3 @@ class _LeftSideBarState extends State<LeftSideBar> {
     );
   }
 }
-
-class _UserColumnButton extends StatelessWidget {
-  const _UserColumnButton({
-    required this.context,
-    required this.title,
-    required this.subtitle,
-    required this.onPressed,
-  });
-
-  final BuildContext context;
-  final String title;
-  final String subtitle;
-  final Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: context.colors.text),
-          ),
-          Text(
-            subtitle,
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: context.colors.textDark),
-          )
-        ],
-      ),
-    );
-  }
-}

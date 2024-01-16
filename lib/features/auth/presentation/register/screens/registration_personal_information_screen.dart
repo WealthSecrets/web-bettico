@@ -62,7 +62,6 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                           Ionicons.person_outline,
                           color: context.colors.hintLight,
                         ),
-                        backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,
@@ -78,7 +77,6 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                           Ionicons.person_outline,
                           color: context.colors.hintLight,
                         ),
-                        backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,
@@ -94,7 +92,6 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                           Ionicons.person_outline,
                           color: context.colors.hintLight,
                         ),
-                        backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,
@@ -109,7 +106,6 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                         validator: (DateTime? dateOfBirth) =>
                             controller.validateMinimumAge(dateOfBirth: dateOfBirth ?? DateTime.now(), minimumAge: 18),
                         onDateTimeChanged: controller.onDateOfBirthInputChanged,
-                        backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,
@@ -124,7 +120,6 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                           color: context.colors.hintLight,
                         ),
                         textInputType: TextInputType.phone,
-                        backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,

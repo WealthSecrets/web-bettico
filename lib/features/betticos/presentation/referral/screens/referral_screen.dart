@@ -105,7 +105,6 @@ class _ReferralScreenState extends State<ReferralScreen> {
                   const AppSpacing(v: 30),
                   AppTextInput(
                     hintText: 'email'.tr.toUpperCase(),
-                    backgroundColor: context.colors.primary.shade100,
                     lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                     errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
                     validator: referralController.validateEmail,

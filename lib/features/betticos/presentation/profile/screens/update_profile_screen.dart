@@ -58,7 +58,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             size: 18,
                           ),
                           initialValue: user.firstName,
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
                             fontWeight: FontWeight.w700,
@@ -76,7 +75,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             size: 18,
                           ),
                           initialValue: user.lastName,
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
                             fontWeight: FontWeight.w700,
@@ -93,7 +91,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             size: 18,
                           ),
                           initialValue: user.username,
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
                             fontWeight: FontWeight.w700,
@@ -108,7 +105,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                           disabled: true,
                           prefixIcon: Icon(Ionicons.mail_outline, color: context.colors.hintLight, size: 18),
                           initialValue: user.email,
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle:
                               TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                           validator: controller.validateEmail,
@@ -123,7 +119,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                             minimumAge: 18,
                           ),
                           onDateTimeChanged: controller.onDateOfBirthInputChanged,
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle:
                               TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                           initialDate: user.dateOfBirth,
@@ -133,7 +128,6 @@ class UpdateProfileScreen extends GetWidget<ProfileController> {
                           labelText: 'phone_number'.tr.toUpperCase(),
                           initialValue: user.phone,
                           textInputType: TextInputType.phone,
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle: TextStyle(
                             color: context.colors.primary,
                             fontWeight: FontWeight.w700,

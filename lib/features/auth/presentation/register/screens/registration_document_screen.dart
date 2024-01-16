@@ -50,7 +50,6 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             value: controller.identificationType.value,
                             labelText: 'iden_type'.tr.toUpperCase(),
                             validator: (String value) => null,
-                            backgroundColor: context.colors.primary.shade100,
                             lableStyle:
                                 TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                             titleBuilder: (_, String documentType) => documentType,
@@ -60,7 +59,6 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                           const AppSpacing(v: 8),
                           AppTextInput(
                             labelText: 'iden_number'.tr.toUpperCase(),
-                            backgroundColor: context.colors.primary.shade100,
                             lableStyle:
                                 TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                             validator: controller.validateIdentificationNumber,
@@ -68,7 +66,6 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                           ),
                           AppDatePicker(
                             labelText: 'exp_date'.tr.toUpperCase(),
-                            backgroundColor: context.colors.primary.shade100,
                             lableStyle:
                                 TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                             validator: controller.validateExpiryDate,

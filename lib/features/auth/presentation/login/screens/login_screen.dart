@@ -236,7 +236,6 @@ class LoginScreen extends GetWidget<LoginController> {
                                 AppTextInput(
                                   labelText: 'email_address'.tr.toUpperCase(),
                                   initialValue: '',
-                                  backgroundColor: context.colors.primary.shade100,
                                   prefixIcon: Icon(Ionicons.mail_outline, color: context.colors.hintLight, size: 18),
                                   lableStyle: TextStyle(
                                     color: context.colors.primary,
@@ -253,7 +252,6 @@ class LoginScreen extends GetWidget<LoginController> {
                                   prefixIcon: Icon(Ionicons.call_outline, color: context.colors.hintLight, size: 18),
                                   initialValue: '',
                                   textInputType: TextInputType.phone,
-                                  backgroundColor: context.colors.primary.shade100,
                                   lableStyle: TextStyle(
                                     color: context.colors.primary,
                                     fontWeight: FontWeight.w700,
@@ -297,7 +295,6 @@ class LoginScreen extends GetWidget<LoginController> {
                             obscureText: true,
                             labelText: 'password'.tr.toUpperCase(),
                             showObscureTextToggle: true,
-                            backgroundColor: context.colors.primary.shade100,
                             prefixIcon: Icon(Ionicons.lock_closed_outline, color: context.colors.hintLight, size: 18),
                             lableStyle:
                                 TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),

@@ -43,7 +43,7 @@ class _AppButtonState extends State<AppButton> {
       child: ClipRRect(
         borderRadius: widget.borderRadius ?? AppBorderRadius.button,
         child: SizedBox(
-          height: 48,
+          height: 56,
           child: Stack(
             fit: StackFit.expand,
             alignment: Alignment.bottomCenter,

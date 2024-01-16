@@ -36,101 +36,57 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
-                Stack(
-                  children: <Widget>[
-                    if (controller.isPhone.value)
-                      AppTextInput(
-                        labelText: 'email_address'.tr.toUpperCase(),
-                        initialValue: '',
-                        backgroundColor: context.colors.primary.shade100,
-                        prefixIcon: Icon(
-                          Ionicons.mail_outline,
-                          color: context.colors.hintLight,
-                          size: 18,
-                        ),
-                        lableStyle: TextStyle(
-                          color: context.colors.primary,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 10,
-                        ),
-                        errorStyle: TextStyle(
-                          color: context.colors.error,
+                if (controller.isPhone.value)
+                  AppTextInput(
+                    hintText: 'email_address'.tr,
+                    errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
+                    validator: controller.validateEmail,
+                    onChanged: controller.onEmailInputChanged,
+                  )
+                else
+                  AppPhoneInput(
+                    prefixIcon: const Icon(Ionicons.call_outline, size: 18),
+                    hintText: 'phone_number'.tr,
+                    textInputType: TextInputType.phone,
+                    validator: controller.validatePhone,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.deny(' '),
+                    ],
+                    onChanged: (PhoneNumber number) =>
+                        controller.onPhoneInputChanged(number.phoneNumber, number.isoCode),
+                  ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: AnimatedSwitcher(
+                    reverseDuration: Duration.zero,
+                    transitionBuilder: (Widget? child, Animation<double> animation) {
+                      final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
+                      return ScaleTransition(scale: offset, child: child);
+                    },
+                    switchInCurve: Curves.elasticOut,
+                    duration: const Duration(milliseconds: 700),
+                    child: RichText(
+                      text: TextSpan(
+                        text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            controller.togglePhoneVisibility(!controller.isPhone.value);
+                          },
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w800,
                           fontSize: 12,
-                        ),
-                        validator: controller.validateEmail,
-                        onChanged: controller.onEmailInputChanged,
-                      )
-                    else
-                      AppPhoneInput(
-                        labelText: 'phone_number'.tr.toUpperCase(),
-                        prefixIcon: Icon(
-                          Ionicons.call_outline,
-                          color: context.colors.hintLight,
-                          size: 18,
-                        ),
-                        initialValue: '',
-                        textInputType: TextInputType.phone,
-                        backgroundColor: context.colors.primary.shade100,
-                        lableStyle: TextStyle(
-                          color: context.colors.primary,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 10,
-                        ),
-                        validator: controller.validatePhone,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          FilteringTextInputFormatter.deny(' '),
-                        ],
-                        onChanged: (PhoneNumber number) =>
-                            controller.onPhoneInputChanged(number.phoneNumber, number.isoCode),
-                      ),
-                    const SizedBox(height: 8),
-                    Positioned(
-                      right: 10,
-                      child: AnimatedSwitcher(
-                        reverseDuration: Duration.zero,
-                        transitionBuilder: (Widget? child, Animation<double> animation) {
-                          final Animation<double> offset = Tween<double>(begin: 0, end: 1.0).animate(animation);
-                          return ScaleTransition(scale: offset, child: child);
-                        },
-                        switchInCurve: Curves.elasticOut,
-                        duration: const Duration(milliseconds: 700),
-                        child: RichText(
-                          text: TextSpan(
-                            text: controller.isPhone.value ? 'login_mobile'.tr : 'login_email'.tr,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                controller.togglePhoneVisibility(!controller.isPhone.value);
-                              },
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 12,
-                            ),
-                          ),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
+                const SizedBox(height: 16),
                 AppTextInput(
                   obscureText: true,
-                  labelText: 'password'.tr.toUpperCase(),
+                  hintText: 'password'.tr,
                   showObscureTextToggle: true,
-                  backgroundColor: context.colors.primary.shade100,
-                  prefixIcon: Icon(
-                    Ionicons.lock_closed_outline,
-                    color: context.colors.hintLight,
-                    size: 18,
-                  ),
-                  lableStyle: TextStyle(
-                    color: context.colors.primary,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 10,
-                  ),
-                  errorStyle: TextStyle(
-                    color: context.colors.error,
-                    fontSize: 12,
-                  ),
+                  errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
                   validator: controller.validatePassword,
                   onChanged: controller.onPasswordInputChanged,
                 ),
@@ -156,18 +112,13 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                 AppButton(
                   enabled: controller.formIsValid,
                   padding: EdgeInsets.zero,
-                  borderRadius: AppBorderRadius.largeAll,
                   backgroundColor: context.colors.primary,
                   onPressed: () {
                     controller.login(context);
                   },
                   child: Text(
-                    'sign_in'.tr.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    'sign_in'.tr,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                 ),
                 const SizedBox(height: 8),

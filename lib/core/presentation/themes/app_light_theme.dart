@@ -37,6 +37,15 @@ class AppLightTheme implements ThemeColor {
   Color darkenText = const Color(0xFF7E8B99);
 
   @override
+  Color textInputBackground = const Color(0xFFFBFCFD);
+
+  @override
+  Color textInputText = const Color(0xFF272E35);
+
+  @override
+  Color textInputIconColor = const Color(0xFF9EA8B3);
+
+  @override
   Color textDark = const Color(0xFF3d3d3d);
 
   @override

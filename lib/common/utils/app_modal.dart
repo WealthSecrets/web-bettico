@@ -383,7 +383,6 @@ class AppTextDailogModal extends StatelessWidget {
             child: AppTextInput(
               controller: controller,
               labelText: title,
-              backgroundColor: context.colors.primary.shade100,
               lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
               onChanged: onChanged,
               validator: (_) => null,

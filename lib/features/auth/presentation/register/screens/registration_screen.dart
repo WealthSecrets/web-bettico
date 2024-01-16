@@ -59,7 +59,6 @@ class RegistrationScreen extends StatelessWidget {
                         AppTextInput(
                           labelText: 'email'.tr.toUpperCase(),
                           prefixIcon: Icon(Ionicons.mail_outline, color: context.colors.hintLight),
-                          backgroundColor: context.colors.primary.shade100,
                           lableStyle:
                               TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                           validator: registerController.validateEmail,
@@ -70,7 +69,6 @@ class RegistrationScreen extends StatelessWidget {
                         obscureText: true,
                         labelText: 'password'.tr.toUpperCase(),
                         showObscureTextToggle: true,
-                        backgroundColor: context.colors.primary.shade100,
                         prefixIcon: Icon(Ionicons.lock_closed_outline, color: context.colors.hintLight),
                         lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                         errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
@@ -82,7 +80,6 @@ class RegistrationScreen extends StatelessWidget {
                         obscureText: true,
                         labelText: 'confirm_pass'.tr.toUpperCase(),
                         showObscureTextToggle: true,
-                        backgroundColor: context.colors.primary.shade100,
                         prefixIcon: Icon(Ionicons.lock_closed_outline, color: context.colors.hintLight),
                         lableStyle: TextStyle(color: context.colors.primary, fontWeight: FontWeight.w700, fontSize: 10),
                         errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
@@ -93,7 +90,6 @@ class RegistrationScreen extends StatelessWidget {
                       AppTextInput(
                         labelText: 'ref_code_opt'.tr.toUpperCase(),
                         prefixIcon: Icon(Ionicons.code, color: context.colors.hintLight),
-                        backgroundColor: context.colors.primary.shade100,
                         lableStyle: TextStyle(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,

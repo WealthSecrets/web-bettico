@@ -1,9 +1,9 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class TimelineScreen extends StatefulWidget {
@@ -64,7 +64,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
                     onPressed: () => controller.navigateToAddPost(context),
                     backgroundColor: context.colors.primary.shade400,
                     key: createPost,
-                    child: const Icon(Ionicons.create_outline, color: Colors.white),
+                    child: Center(
+                      child: Image.asset(AppAssetIcons.editPencil, height: 24, width: 24, color: Colors.white),
+                    ),
                   )
                 : null
             : null,

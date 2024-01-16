@@ -95,57 +95,34 @@ class AppTheme {
         canvasColor: colors.background,
         inputDecorationTheme: InputDecorationTheme(
           focusColor: colors.text,
-          labelStyle: body1.copyWith(
-            height: 1.8,
-            fontWeight: FontWeight.w800,
-          ),
+          labelStyle: body1.copyWith(height: 1.8, fontWeight: FontWeight.w800),
           focusedBorder: OutlineInputBorder(
-            borderRadius: AppBorderRadius.largeAll,
-            borderSide: BorderSide(
-              color: colors.primary.shade100,
-              width: 2,
-            ),
+            borderRadius: AppBorderRadius.button,
+            borderSide: BorderSide(color: colors.textInputBackground),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: AppBorderRadius.largeAll,
-            borderSide: BorderSide(
-              color: colors.primary.shade100,
-            ),
+            borderRadius: AppBorderRadius.button,
+            borderSide: BorderSide(color: colors.textInputBackground),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: AppBorderRadius.largeAll,
-            borderSide: BorderSide(
-              color: colors.hintLight,
-            ),
+            borderRadius: AppBorderRadius.button,
+            borderSide: BorderSide(color: colors.textInputBackground),
           ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: colors.primary.shade100,
-              width: 0.0,
-            ),
-          ),
+          errorBorder: OutlineInputBorder(borderSide: BorderSide(color: colors.textInputBackground, width: 0.0)),
           border: OutlineInputBorder(
-            borderRadius: AppBorderRadius.largeAll,
-            borderSide: BorderSide(
-              color: colors.primary.shade100,
-            ),
+            borderRadius: AppBorderRadius.button,
+            borderSide: BorderSide(color: colors.textInputBackground),
           ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.transparent,
-            ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: colors.textInputBackground),
           ),
           fillColor: Colors.transparent,
-          errorStyle: TextStyle(
-            color: colors.error,
-            fontSize: 12,
-          ),
+          errorStyle: TextStyle(color: colors.error, fontSize: 12),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           alignLabelWithHint: true,
-          hintStyle: body1.copyWith(
-            color: colors.hint,
-            height: 1.2,
-          ),
+          hintStyle: sub2.copyWith(color: colors.textInputIconColor),
+          prefixIconColor: colors.textInputIconColor,
+          suffixIconColor: colors.textInputIconColor,
         ),
       );
 
