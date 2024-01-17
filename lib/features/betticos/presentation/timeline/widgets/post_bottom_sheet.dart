@@ -70,13 +70,32 @@ class PostBottomSheet extends StatelessWidget {
                   key: slipBtn,
                 ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => WidgetUtils.showOptionsBottomSheet(
+                  context,
+                  title: 'More Options',
+                  options: <OptionArgument>[
+                    OptionArgument(
+                      icon: AppAssetIcons.bookmarkGrad,
+                      title: 'Add to bookmark',
+                      onPressed: () {},
+                    ),
+                    OptionArgument(
+                      icon: AppAssetIcons.sendGrad,
+                      title: 'Send directly',
+                      onPressed: () {},
+                    ),
+                    OptionArgument(
+                      icon: AppAssetIcons.shareGrad,
+                      title: 'Share on other app',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
                 child: Image.asset(
                   AppAssetIcons.moreHorz,
                   height: 24,
                   width: 24,
                   color: const Color(0xFF707281),
-                  key: sendBtn,
                 ),
               ),
             ],

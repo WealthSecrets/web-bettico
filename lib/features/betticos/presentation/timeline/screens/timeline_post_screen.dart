@@ -121,8 +121,20 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                 const Spacer(),
                 Padding(
                   padding: AppPaddings.lH,
-                  child:
-                      Align(alignment: Alignment.centerLeft, child: AppTag(text: 'Everyone', icon: AppAssetIcons.flag)),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () => WidgetUtils.showOptionsBottomSheet(
+                        context,
+                        options: <OptionArgument>[
+                          OptionArgument(icon: AppAssetIcons.userGradient, title: 'Everyone', onPressed: () {}),
+                          OptionArgument(icon: AppAssetIcons.flagGrad, title: 'Sensitive', onPressed: () {}),
+                        ],
+                        title: 'Choose Viewers',
+                      ),
+                      child: AppTag(text: 'Everyone', icon: AppAssetIcons.flag),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 56),
               ],

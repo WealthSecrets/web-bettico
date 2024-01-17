@@ -1,6 +1,6 @@
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
-import 'package:betticos/features/auth/presentation/login/widgets/unauth_login_container.dart';
+import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -134,6 +134,23 @@ class WidgetUtils {
           const Spacer(),
         ],
       ),
+    );
+  }
+
+  static void showOptionsBottomSheet(
+    BuildContext context, {
+    required String title,
+    required List<OptionArgument> options,
+  }) {
+    showMaterialModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: SizedBox(height: options.length * 77 + 55, child: OptionsBottomSheet(options: options, title: title)),
+        );
+      },
     );
   }
 }

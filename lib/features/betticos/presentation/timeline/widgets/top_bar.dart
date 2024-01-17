@@ -27,7 +27,14 @@ class TopBar extends StatelessWidget {
             ),
             const Spacer(),
             ProfileButton(
-              onPressed: () {},
+              onPressed: () => WidgetUtils.showOptionsBottomSheet(
+                context,
+                options: <OptionArgument>[
+                  OptionArgument(icon: AppAssetIcons.globeGrad, title: 'Public', onPressed: () {}),
+                  OptionArgument(icon: AppAssetIcons.pinGrad, title: 'Subscribers', onPressed: () {}),
+                ],
+                title: 'Choose Audience',
+              ),
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
               child: Row(
                 children: <Widget>[
