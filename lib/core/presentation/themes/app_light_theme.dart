@@ -63,6 +63,12 @@ class AppLightTheme implements ThemeColor {
   Color yellow = const Color(0xFFFCC019);
   @override
   Color blue = const Color(0xFF132DB0);
+  @override
+  Color pinColor = const Color(0xFFFBFCFD);
+  //
+  // E9ECEF
+  @override
+  Color inputBackgroundColor = const Color(0xFFFBFCFD);
 
   @override
   Color lightRed = const Color(0xFFFFDBDB);

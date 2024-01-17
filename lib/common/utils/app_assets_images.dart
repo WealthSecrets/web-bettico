@@ -61,4 +61,8 @@ class AssetImages {
   static String signals = 'assets/images/signals.png';
   static String skills = 'assets/images/skills.png';
   static String metamaskLogo = 'assets/images/metamask-logo.png';
+  static String wallets = 'assets/images/wallets.png';
+  static String googlen = 'assets/images/googlen.png';
+  static String facebookn = 'assets/images/facebookn.png';
+  static String profileFrame = 'assets/images/profile-frame.png';
 }

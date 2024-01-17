@@ -49,8 +49,8 @@ class SelectableButton extends StatelessWidget {
                 ),
               ),
             ),
-            if (tagValue != null) const SizedBox(width: 16),
-            if (tagValue != null)
+            if (tagValue != null) ...<Widget>[
+              const SizedBox(width: 16),
               DecoratedBox(
                 decoration: BoxDecoration(
                   color: selected ?? false ? Colors.white : context.colors.primary,
@@ -64,6 +64,7 @@ class SelectableButton extends StatelessWidget {
                   ),
                 ),
               ),
+            ],
           ],
         ),
       ),

@@ -37,4 +37,12 @@ class AppRoutes {
   static const String messages = '/messages';
   static const String postDetails = '/post-details';
   static const String professionalDashboard = '/professional-dashboard';
+  static const String newRegistration = '/new-registration';
+  static const String newWelcome = '/new-welcome';
+  static const String newPasswordScreen = '/new-password';
+  static const String newUsername = '/new-username';
+  static const String newProfilePhoto = '/new-profile-photo';
+  static const String interests = '/registration-interests';
+  static const String bio = '/registration-bio';
+  static const String followAccounts = '/registration-follow';
 }

@@ -1,6 +1,15 @@
+export 'new_otp_verification_screen.dart';
+export 'new_password_screen.dart';
+export 'new_photo_upload_screen.dart';
+export 'new_registration_screen.dart';
+export 'new_username_screen.dart';
+export 'new_welcome_screen.dart';
 export 'otp_verification_screen.dart';
 export 'registration_account_type_screen.dart';
+export 'registration_bio_screen.dart';
 export 'registration_document_screen.dart';
+export 'registration_follow_accounts.dart';
+export 'registration_interest_screen.dart';
 export 'registration_personal_information_screen.dart';
 export 'registration_screen.dart';
 export 'registration_upload_photo_screen.dart';

@@ -194,6 +194,7 @@ class _AppTextInputState extends State<AppTextInput> with TickerProviderStateMix
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             prefixIcon: widget.prefixIcon,
                             suffixIcon: widget.suffixIcon,
+                            suffixIconConstraints: const BoxConstraints(maxHeight: 24, maxWidth: 24),
                             hintStyle: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: widget.hintColor ?? context.colors.textInputIconColor,

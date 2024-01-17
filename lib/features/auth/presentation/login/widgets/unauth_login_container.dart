@@ -123,9 +123,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                 ),
                 const SizedBox(height: 8),
                 TextButton(
-                  onPressed: () {
-                    Get.offNamed<void>(AppRoutes.signup);
-                  },
+                  onPressed: () => Get.offNamed<void>(AppRoutes.newWelcome),
                   child: Center(
                     child: RichText(
                       textAlign: TextAlign.center,
@@ -143,7 +141,7 @@ class UnAuthLoginController extends GetWidget<LoginController> {
                             text: 'register_now'.tr,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Get.offNamed<void>(AppRoutes.signup);
+                                Get.offNamed<void>(AppRoutes.newWelcome);
                               },
                             style: TextStyle(
                               color: context.colors.primary,

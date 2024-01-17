@@ -15,12 +15,14 @@ class AppDatePicker extends StatefulWidget {
     this.backgroundColor,
     this.showIcon = true,
     this.labelText,
+    this.hintText,
     this.lableStyle,
     this.disabled = false,
   });
   final void Function(DateTime)? onDateTimeChanged;
   final DateTime? initialDate;
   final String? labelText;
+  final String? hintText;
   final TextStyle? lableStyle;
   final bool showIcon;
   final Color? backgroundColor;
@@ -54,15 +56,16 @@ class _AppDatePickerState extends State<AppDatePicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(6),
-          child: Text(
-            widget.labelText!,
-            textAlign: TextAlign.left,
-            style:
-                widget.lableStyle ?? TextStyle(color: context.colors.text, fontWeight: FontWeight.w700, fontSize: 10),
+        if (widget.labelText != null)
+          Padding(
+            padding: const EdgeInsets.all(6),
+            child: Text(
+              widget.labelText!,
+              textAlign: TextAlign.left,
+              style:
+                  widget.lableStyle ?? TextStyle(color: context.colors.text, fontWeight: FontWeight.w700, fontSize: 10),
+            ),
           ),
-        ),
         InkWell(
           onTap: () async {
             if (ResponsiveWidget.isSmallScreen(context)) {
@@ -161,13 +164,11 @@ class _AppDatePickerState extends State<AppDatePicker> {
                 child: AppTextInput(
                   disabled: widget.disabled,
                   hideLabel: true,
-                  validator: (_) {
-                    return widget.validator!(date);
-                  },
+                  validator: (_) => widget.validator!(date),
                   initialValue: date == null ? null : AppDateUtils.format(date),
                   controller: controller,
-                  backgroundColor: widget.backgroundColor ?? context.colors.primary.shade50,
-                  hintText: '',
+                  backgroundColor: widget.backgroundColor,
+                  hintText: widget.hintText,
                   onChanged: (_) {},
                   prefixIcon: widget.showIcon
                       ? GestureDetector(

@@ -33,7 +33,7 @@ class SmallUnAthenticatedBottomNavbar extends StatelessWidget {
             ),
             const SizedBox(width: 24),
             InkWell(
-              onTap: () => WidgetUtils.showUnAuthorizedLoginContainer(context),
+              onTap: () => WidgetUtils.showUnAuthorizedLoginModalBottomSheet(context),
               borderRadius: BorderRadius.circular(40),
               child: Container(
                 height: 40,

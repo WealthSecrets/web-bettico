@@ -41,7 +41,7 @@ class _AppButtonState extends State<AppButton> {
     return DefaultTextStyle(
       style: context.button,
       child: ClipRRect(
-        borderRadius: widget.borderRadius ?? AppBorderRadius.button,
+        borderRadius: widget.borderRadius ?? const BorderRadius.all(Radius.circular(12)),
         child: SizedBox(
           height: 56,
           child: Stack(
@@ -73,9 +73,7 @@ class _AppButtonState extends State<AppButton> {
                   color: widget.backgroundColor ?? context.colors.primary,
                   child: AnimatedDefaultTextStyle(
                     duration: const Duration(milliseconds: 300),
-                    style: context.button.copyWith(
-                      color: widget.foregroundColor ?? Colors.white,
-                    ),
+                    style: context.button.copyWith(color: widget.foregroundColor ?? Colors.white),
                     child: widget.child,
                   ),
                 ),

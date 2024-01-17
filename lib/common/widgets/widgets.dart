@@ -10,6 +10,7 @@ export 'app_loading_box.dart';
 export 'app_phone_input.dart';
 export 'app_pincode_text_field.dart';
 export 'app_select_field.dart';
+export 'app_selectable_button.dart';
 export 'app_snacks.dart';
 export 'app_text_input.dart';
 export 'app_web_view.dart';

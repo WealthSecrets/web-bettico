@@ -43,4 +43,8 @@ class AppAssetIcons {
   static String sendGrad = 'assets/icons/send-gradient.png';
   static String shareGrad = 'assets/icons/share-gradient.png';
   static String userGradient = 'assets/icons/user-gradient.png';
+  static String arrowLeft = 'assets/icons/arrow-left.png';
+  static String checkCircle = 'assets/icons/check-circle-2.png';
+  static String crossCircle = 'assets/icons/cross-circle.png';
+  static String addition = 'assets/icons/addition.png';
 }

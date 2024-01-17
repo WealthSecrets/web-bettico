@@ -1,6 +1,6 @@
+import 'package:betticos/assets/assets.dart';
+import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import '/core/presentation/presentation.dart';
 
 class AppBackButton extends StatelessWidget {
   const AppBackButton({super.key, this.color, this.rootNavigator = false, this.onPressed});
@@ -19,7 +19,7 @@ class AppBackButton extends StatelessWidget {
           Navigator.of(context, rootNavigator: rootNavigator).maybePop();
         }
       },
-      icon: Icon(Ionicons.chevron_back, color: color ?? context.colors.textDark, size: 20),
+      icon: Image.asset(AppAssetIcons.arrowLeft, color: color ?? context.colors.textDark, height: 24, width: 24),
     );
   }
 }

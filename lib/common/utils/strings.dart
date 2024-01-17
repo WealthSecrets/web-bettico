@@ -28,7 +28,7 @@ class AppStrings extends Translations {
           'last_name': 'Last Name',
           'username': 'Username',
           'user': 'user',
-          'dob': 'Date of Birth',
+          'dob': 'Date of birth',
           'phone_number': 'Phone number',
           'phone': 'Phone',
           'email': 'Email',

@@ -2,6 +2,7 @@ import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/presentation/login/widgets/unauth_login_container.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class WidgetUtils {
   static void onWidgetDidBuild(Function callback) {
@@ -61,6 +62,23 @@ class WidgetUtils {
               child: UnAuthLoginController(),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  static void showUnAuthorizedLoginModalBottomSheet(
+    BuildContext context, {
+    String? title,
+    Icon? icon,
+  }) {
+    showMaterialModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: SizedBox(height: 450, child: UnAuthLoginController()),
         );
       },
     );
