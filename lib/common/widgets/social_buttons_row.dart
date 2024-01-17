@@ -17,14 +17,19 @@ class SocialButtonsRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
       children: <Widget>[
-        TextButton(
-          onPressed: () {},
-          child: Image.asset(AssetImages.facebook, height: size ?? 40, width: size ?? 40),
+        GestureDetector(
+          onTap: () {},
+          child: Image.asset(AssetImages.wallets, height: 55, width: 55),
         ),
         const SizedBox(width: 15),
-        TextButton(
-          onPressed: () => rController.registerWithGoogleAuth(context),
-          child: Image.asset(AssetImages.google, height: size ?? 40, width: size ?? 40),
+        GestureDetector(
+          onTap: () {},
+          child: Image.asset(AssetImages.facebookn, height: size ?? 40, width: size ?? 40),
+        ),
+        const SizedBox(width: 15),
+        GestureDetector(
+          onTap: () => rController.registerWithGoogleAuth(context),
+          child: Image.asset(AssetImages.googlen, height: size ?? 40, width: size ?? 40),
         ),
       ],
     );

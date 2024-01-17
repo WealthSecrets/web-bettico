@@ -2,6 +2,7 @@ import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/auth/presentation/login/widgets/unauth_login_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class WidgetUtils {
@@ -81,6 +82,58 @@ class WidgetUtils {
           child: SizedBox(height: 450, child: UnAuthLoginController()),
         );
       },
+    );
+  }
+
+  static void showRemoveSlipCodeOptionDialog(
+    BuildContext context, {
+    String? title,
+    Icon? icon,
+    required VoidCallback onPressed,
+  }) {
+    showAppModal<void>(
+      context: context,
+      alignment: Alignment.center,
+      builder: (BuildContext context) => AppOptionDialogueModal(
+        modalContext: context,
+        title: 'remove_slip_code'.tr,
+        backgroundColor: context.colors.error,
+        message: 'sure_remove_code'.tr,
+        affirmButtonText: 'remove'.tr.toUpperCase(),
+        onPressed: onPressed,
+      ),
+    );
+  }
+
+  static void showSlipCodeDialog(
+    BuildContext context, {
+    String? title,
+    Icon? icon,
+    required VoidCallback onAffrimButtonPressed,
+    required TextEditingController controller,
+  }) {
+    showAppModal<void>(
+      context: context,
+      alignment: Alignment.center,
+      builder: (BuildContext context) => Column(
+        children: <Widget>[
+          const Spacer(),
+          SizedBox(
+            width: ResponsiveWidget.isSmallScreen(context) ? null : 400,
+            height: ResponsiveWidget.isSmallScreen(context) ? null : 300,
+            child: AppTextDailogModal(
+              controller: controller,
+              modalContext: context,
+              onChanged: (String value) {},
+              onAffrimButtonPressed: onAffrimButtonPressed,
+              affirmButtonText: 'ADD CODE',
+              title: 'Odds Slip code',
+              onCancelledPressed: () => Get.back<void>(),
+            ),
+          ),
+          const Spacer(),
+        ],
+      ),
     );
   }
 }

@@ -1,11 +1,11 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
-import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
+// import 'package:ionicons/ionicons.dart';
 
 class ProfileImageStack extends StatefulWidget {
   const ProfileImageStack({super.key, required this.user});
@@ -26,27 +26,25 @@ class _ProfileImageStackState extends State<ProfileImageStack> {
       children: <Widget>[
         if (controller.profileImage.value.isEmpty)
           Container(
-            height: 80,
-            width: 80,
+            height: 60,
+            width: 60,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(45),
-              image: DecorationImage(
+              image: const DecorationImage(
                 image: NetworkImage(
-                  '${AppEndpoints.userImages}/${widget.user.photo}',
-                  headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
+                  'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800',
+                  // headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
                 ),
                 fit: BoxFit.cover,
               ),
-              border: Border.all(width: 3, color: context.colors.primary),
-              boxShadow: const <BoxShadow>[BoxShadow(blurRadius: 3, color: Colors.black12, offset: Offset(0, 3))],
             ),
           )
         else
           Container(
-            height: 80,
-            width: 80,
+            height: 60,
+            width: 60,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50.0),
+              borderRadius: BorderRadius.circular(30.0),
               image: DecorationImage(image: MemoryImage(controller.profileImage.value), fit: BoxFit.cover),
             ),
           ),
@@ -54,24 +52,7 @@ class _ProfileImageStackState extends State<ProfileImageStack> {
           Positioned(
             bottom: 0,
             right: 0,
-            child: Container(
-              height: 25,
-              width: 25,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: context.colors.primary,
-                boxShadow: const <BoxShadow>[BoxShadow(blurRadius: 5, color: Colors.black12, offset: Offset(0, 3))],
-              ),
-              child: Center(
-                child: GestureDetector(
-                  child: const Icon(Ionicons.camera_sharp, color: Colors.white, size: 14),
-                  onTap: () => showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) => _BottomSheet(onPickImage: onPickImage),
-                  ),
-                ),
-              ),
-            ),
+            child: Image.asset(AppAssetIcons.tick, height: 25, width: 25, color: const Color(0xFFF59638)),
           ),
       ],
     );
@@ -96,29 +77,29 @@ class _ProfileImageStackState extends State<ProfileImageStack> {
   }
 }
 
-class _BottomSheet extends StatelessWidget {
-  const _BottomSheet({required this.onPickImage});
-  final VoidCallback onPickImage;
+// class _BottomSheet extends StatelessWidget {
+//   const _BottomSheet({required this.onPickImage});
+//   final VoidCallback onPickImage;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        children: <Widget>[
-          Text('choose_profile_photo'.tr, style: const TextStyle(fontSize: 20.0)),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(icon: const Icon(Ionicons.camera), onPressed: onPickImage),
-              IconButton(icon: const Icon(Ionicons.image), onPressed: onPickImage),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 100.0,
+//       width: MediaQuery.of(context).size.width,
+//       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+//       child: Column(
+//         children: <Widget>[
+//           Text('choose_profile_photo'.tr, style: const TextStyle(fontSize: 20.0)),
+//           const SizedBox(height: 20),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               IconButton(icon: const Icon(Ionicons.camera), onPressed: onPickImage),
+//               IconButton(icon: const Icon(Ionicons.image), onPressed: onPickImage),
+//             ],
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }

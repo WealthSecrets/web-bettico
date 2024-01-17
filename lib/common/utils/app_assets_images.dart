@@ -65,4 +65,5 @@ class AssetImages {
   static String googlen = 'assets/images/googlen.png';
   static String facebookn = 'assets/images/facebookn.png';
   static String profileFrame = 'assets/images/profile-frame.png';
+  static String topbar = 'assets/images/top-bar.png';
 }

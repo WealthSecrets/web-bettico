@@ -47,4 +47,9 @@ class AppAssetIcons {
   static String checkCircle = 'assets/icons/check-circle-2.png';
   static String crossCircle = 'assets/icons/cross-circle.png';
   static String addition = 'assets/icons/addition.png';
+  static String star = 'assets/icons/star.png';
+  static String link = 'assets/icons/link.png';
+  static String inboxOut = 'assets/icons/inbox-out.png';
+  static String bookOpen = 'assets/icons/book-open.png';
+  static String tick = 'assets/icons/tick-icon.png';
 }
