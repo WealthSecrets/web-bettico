@@ -1,9 +1,9 @@
+import 'package:betticos/assets/assets.dart';
+import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ionicons/ionicons.dart';
-import '../utils/utils.dart';
 
 enum UploadButtonType { files, photos }
 
@@ -33,51 +33,13 @@ class _UploadButtonState extends State<UploadButton> {
   Uint8List? selected;
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = widget.style ??
-        TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: context.colors.primary.shade100),
-            borderRadius: AppBorderRadius.smallAll,
-          ),
-          padding: selected != null ? EdgeInsets.zero : AppPaddings.lH.add(AppPaddings.homeV),
-          backgroundColor: context.colors.primary.shade100,
-        );
-
     return Column(
       children: <Widget>[
-        AspectRatio(
-          aspectRatio: 0.9,
-          child: TextButton(
-            style: style,
-            onPressed: _onPickFile,
-            child: selected == null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        widget.type == UploadButtonType.files ? Ionicons.document_outline : Ionicons.camera_outline,
-                        color: context.colors.hintLight,
-                        size: 40,
-                      ),
-                      const AppSpacing(v: 8),
-                      Text(
-                        widget.buttonText ?? 'Take Document Image',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: widget.textColor ?? context.colors.text,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  )
-                : Container(
-                    decoration: BoxDecoration(
-                      borderRadius: AppBorderRadius.smallAll,
-                      image: DecorationImage(fit: BoxFit.cover, image: MemoryImage(selected!)),
-                    ),
-                  ),
-          ),
+        TextButton(
+          onPressed: _onPickFile,
+          child: selected == null
+              ? _StackImage(image: AssetImage(AssetImages.profileFrame))
+              : _StackImage(image: MemoryImage(selected!)),
         ),
         const AppSpacing(v: 10),
         if (selected != null)
@@ -107,10 +69,37 @@ class _UploadButtonState extends State<UploadButton> {
     if (picked != null) {
       final Uint8List? bytes = picked.files.first.bytes;
 
-      setState(() {
-        selected = bytes;
-      });
+      setState(() => selected = bytes);
       widget.onFileSelected(bytes);
     }
+  }
+}
+
+class _StackImage extends StatelessWidget {
+  const _StackImage({required this.image});
+
+  final ImageProvider<Object> image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: 207,
+            width: 207,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(200),
+              image: DecorationImage(image: image, fit: BoxFit.cover),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset(AppAssetIcons.addition, height: 66, width: 66),
+          )
+        ],
+      ),
+    );
   }
 }

@@ -21,6 +21,7 @@ class BetticosEndpoints {
   static const String referCode = 'users/refer/code';
   static const String subscribedOddboxes = 'subscriptions/oddboxes';
   static String resetPassword = 'users/resetPassword';
+  static String updatePassword = 'users/updateMyPassword';
   static String checkSubscription(String userId) => 'subscriptions/check/$userId';
   static String checkFollowing(String userId) => 'follow/check/$userId';
   static String resolveUser(String userId) => 'users/$userId';

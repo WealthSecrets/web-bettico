@@ -82,7 +82,7 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                             () => AppButton(
                               enabled: controller.documentFormIsValid,
                               borderRadius: AppBorderRadius.largeAll,
-                              onPressed: () => controller.uploadUserIdentification(context),
+                              onPressed: () => controller.uploadUserIdentification(context, AppRoutes.home),
                               child: Text(
                                 'next'.tr.toUpperCase(),
                                 style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),

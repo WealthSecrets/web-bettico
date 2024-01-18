@@ -149,7 +149,8 @@ class RegistrationPersonalInformationScreen extends GetWidget<RegisterController
                       AppButton(
                         enabled: controller.personalFormIsValid,
                         borderRadius: AppBorderRadius.largeAll,
-                        onPressed: () => controller.updatePersonalInformation(context),
+                        onPressed: () =>
+                            controller.updatePersonalInformation(context, routeName: AppRoutes.otpVerifyEmail),
                         child: Text(
                           'next'.tr.toUpperCase(),
                           style: const TextStyle(

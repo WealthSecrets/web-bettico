@@ -23,6 +23,7 @@ class RegisterController extends GetxController {
     required this.uploadIdentifcation,
     required this.updateUserProfilePhoto,
     required this.updateUserRole,
+    required this.updatePassword,
   });
 
   final RegisterUser registerUser;
@@ -34,6 +35,7 @@ class RegisterController extends GetxController {
   final UpdateUserProfilePhoto updateUserProfilePhoto;
   final UpdateUserRole updateUserRole;
   final VerifyUser verifyUser;
+  final UpdatePassword updatePassword;
 
   // instance of register controller
   static RegisterController instance = Get.find();
@@ -53,7 +55,10 @@ class RegisterController extends GetxController {
   RxString role = ''.obs;
   RxString type = 'email'.obs;
   RxString password = ''.obs;
+  RxString bio = ''.obs;
+  RxList<String> interests = <String>[].obs;
   RxString confirmPassword = ''.obs;
+  RxString passwordCurrent = 'Passw0rd'.obs;
   RxString otpCode = ''.obs;
   RxString identificationType = 'Passport'.obs;
   RxString identificationNumber = ''.obs;
@@ -75,6 +80,7 @@ class RegisterController extends GetxController {
   RxBool isCheckingUserExistence = false.obs;
   RxBool isCreatingOkxAccount = false.obs;
   RxBool isCreatingAccountApiKey = false.obs;
+  RxBool isUpdatingPassword = false.obs;
 
   // enums reactive variables
   Rx<AccountType> accountType = AccountType.personal.obs;
@@ -117,7 +123,7 @@ class RegisterController extends GetxController {
     });
   }
 
-  void verifyUserPhoneNumber(BuildContext context, {User? u}) async {
+  void verifyUserPhoneNumber(BuildContext context, {required String routeName, User? u}) async {
     isVerifyingOTP(true);
 
     final Either<Failure, User> fialureOrSuccess =
@@ -131,7 +137,8 @@ class RegisterController extends GetxController {
       isVerifyingOTP(false);
       resetOtpCodeField();
       if (u != null) {
-        lController.reRouteOddster(context, value);
+        // lController.reRouteOddster(context, value);
+        Get.toNamed(routeName, arguments: RegistrationScreenArgument(user: value));
       } else {
         Get.offNamed<void>(AppRoutes.home);
       }
@@ -140,7 +147,7 @@ class RegisterController extends GetxController {
 
   bool get isLoading => isCreatingAccountApiKey.value || isCreatingOkxAccount.value;
 
-  void verifyUserEmailAddress(BuildContext context, {User? u}) async {
+  void verifyUserEmailAddress(BuildContext context, {required String routeName, User? u}) async {
     isVerifyingOTP(true);
 
     final Either<Failure, User> fialureOrSuccess = await verifyEmail(
@@ -156,12 +163,13 @@ class RegisterController extends GetxController {
       AppSnacks.show(context, message: failure.message);
     }, (User value) {
       isVerifyingOTP(false);
-      otpCode('');
+      baseScreenController.user(value);
       resetOtpCodeField();
       if (u != null) {
-        lController.reRouteOddster(context, value);
+        // lController.reRouteOddster(context, value);
+        Get.toNamed(routeName, arguments: RegistrationScreenArgument(user: value));
       } else {
-        Get.offNamed<void>(AppRoutes.accountType);
+        Get.toNamed<void>(AppRoutes.newPasswordScreen);
       }
     });
   }
@@ -170,7 +178,7 @@ class RegisterController extends GetxController {
     otpCode('');
   }
 
-  void uploadUserIdentification(BuildContext context) async {
+  void uploadUserIdentification(BuildContext context, String routeName) async {
     isAddingDocument(true);
 
     final Either<Failure, User> fialureOrSuccess = await uploadIdentifcation(
@@ -188,11 +196,13 @@ class RegisterController extends GetxController {
     }, (User u) {
       isAddingDocument(false);
       baseScreenController.updateTheUser(u);
-      lController.reRouteOddster(context, u);
+      // lController.reRouteOddster(context, u);
+      Get.toNamed(routeName, arguments: RegistrationScreenArgument(user: u));
     });
   }
 
-  void registerWithGoogleAuth(BuildContext context, {bool isRequestFromLogin = false}) async {
+  void registerWithGoogleAuth(BuildContext context,
+      {required String routeName, bool isRequestFromLogin = false}) async {
     type('google');
 
     try {
@@ -220,7 +230,8 @@ class RegisterController extends GetxController {
             );
           }, (User user) {
             lController.controller.user(user);
-            lController.reRouteOddster(context, user);
+            // lController.reRouteOddster(context, user);
+            Get.toNamed(routeName, arguments: RegistrationScreenArgument(user: user));
           });
         }
       }
@@ -270,8 +281,9 @@ class RegisterController extends GetxController {
 
     final Either<Failure, AuthResponse> failureOrUser = await registerUser(
       RegisterRequest(
-        confirmPassword: confirmPassword.value,
-        password: password.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        dob: dateOfBirth.value,
         email: !isWalletConnect ? email.value : null,
         referralCode: referralCode.value.isNotEmpty ? referralCode.value : null,
         type: isWalletConnect ? 'wallet' : type.value.trim(),
@@ -321,16 +333,46 @@ class RegisterController extends GetxController {
     );
   }
 
-  void updatePersonalInformation(BuildContext context) async {
+  void updateUserPassword(BuildContext context, String routeName) async {
+    // ignore: unawaited_futures
+    isUpdatingPassword(true);
+
+    final Either<Failure, User> failureOrUser = await updatePassword(
+      UpdatePasswordRequest(
+        confirmPassword: confirmPassword.value,
+        password: password.value,
+        passwordCurrent: passwordCurrent.value,
+      ),
+    );
+
+    // ignore: unawaited_futures
+    failureOrUser.fold(
+      (Failure failure) {
+        isUpdatingPassword(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (User us) {
+        isUpdatingPassword(false);
+        baseScreenController.user(us);
+        // lController.reRouteOddster(context, us);
+        Get.toNamed(routeName, arguments: RegistrationScreenArgument(user: us));
+      },
+    );
+  }
+
+  void updatePersonalInformation(BuildContext context,
+      {required String routeName, bool? hideUsername = false, bool? hidePhone = false}) async {
     isAddingPersonalInformation(true);
 
     final Either<Failure, User> failureOrUser = await updateProfile(
       UpdateRequest(
         firstName: firstName.value,
         lastName: lastName.value,
-        username: username.value,
-        phone: phone.value,
+        username: hideUsername == false ? username.value : null,
+        phone: hidePhone == false ? phone.value : null,
         country: countryCode.value,
+        bio: bio.value,
+        interests: interests,
       ),
     );
 
@@ -341,13 +383,29 @@ class RegisterController extends GetxController {
       },
       (User us) {
         isAddingPersonalInformation(false);
-        lController.reRouteOddster(context, us);
+        // lController.reRouteOddster(context, us);
+        baseScreenController.user(us);
+        if (routeName != AppRoutes.home) {
+          Get.toNamed(routeName, arguments: RegistrationScreenArgument(user: us));
+        } else {
+          Get.until((_) => Get.currentRoute == AppRoutes.home);
+          AppSnacks.show(
+            context,
+            message: 'Yay!, welcome to Xviral',
+            backgroundColor: context.colors.success,
+            leadingIcon: const Icon(Ionicons.checkmark_circle_sharp, color: Colors.white),
+          );
+        }
       },
     );
   }
 
   void onEmailInputChanged(String value) {
     email(value.trim());
+  }
+
+  void onBioInputChanged(String value) {
+    bio(value.trim());
   }
 
   void onReferralInputChanged(String value) {
@@ -432,6 +490,14 @@ class RegisterController extends GetxController {
     String? errorMessage;
     if (lastName!.isEmpty) {
       errorMessage = 'Please enter your last name.';
+    }
+    return errorMessage;
+  }
+
+  String? validateBio(String? bio) {
+    String? errorMessage;
+    if (bio!.isEmpty) {
+      errorMessage = 'Bio should not be empty.';
     }
     return errorMessage;
   }
@@ -548,8 +614,9 @@ class RegisterController extends GetxController {
 
   bool get registrationFormIsValid =>
       validateEmail(email.value) == null &&
-      validatePassword(password.value) == null &&
-      validateConfrimPassword(confirmPassword.value) == null;
+      validateFirstName(firstName.value) == null &&
+      validateLastName(lastName.value) == null &&
+      validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) == null;
 
   bool get walletConnectRegistrationFormIsValid =>
       validatePassword(password.value) == null && validateConfrimPassword(confirmPassword.value) == null;
@@ -567,4 +634,13 @@ class RegisterController extends GetxController {
       validateUsername(username.value) == null &&
       validatePhone(phone.value) == null &&
       validateMinimumAge(dateOfBirth: dateOfBirth.value, minimumAge: 18) == null;
+
+  bool get passwordIsValid =>
+      validatePassword(password.value) == null && validateConfrimPassword(confirmPassword.value) == null;
+
+  bool get hasBio => validateBio(bio.value) == null;
+
+  bool get hasInterest => interests.isNotEmpty;
+
+  bool get usernameIsValid => validateUsername(username.value) == null;
 }

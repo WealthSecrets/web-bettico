@@ -10,6 +10,8 @@ import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
+enum Skip { email, phone, info, interest, username, photo, bio, follows, none }
+
 class LoginController extends GetxController {
   LoginController({
     required this.loginUser,
@@ -102,25 +104,19 @@ class LoginController extends GetxController {
     Get.updateLocale(locale);
   }
 
-  void reRouteOddster(BuildContext context, User user, {bool? isSkipEmail, bool? isSkipPhone, String? token}) {
-    if (isSkipEmail ?? false) {
-      if (!user.hasRole) {
-        Get.toNamed<void>(AppRoutes.accountType);
-      } else if (!user.isPersonalInfoProvided) {
-        Get.toNamed<void>(AppRoutes.personalInformation);
-      } else {
-        subRerouting(user, context, token: token);
-      }
-    } else {
-      subRerouting(user, context, token: token);
-    }
-  }
-
-  void subRerouting(User user, BuildContext context, {String? token}) {
-    if (user.role == 'oddster' && !user.hasIdentification) {
-      Get.toNamed<void>(AppRoutes.documentScreen, arguments: UserArgument(user: user));
-    } else if (user.role == 'oddster' && !user.hasProfileImage) {
-      Get.toNamed<void>(AppRoutes.profilePhoto);
+  void reRouteOddster(BuildContext context, User user, {Skip? skip, String? token}) {
+    if (!user.isPersonalInfoProvided && skip != Skip.info) {
+      Get.toNamed<void>(AppRoutes.newRegistration);
+    } else if (!user.hasUsername && skip != Skip.username) {
+      Get.toNamed<void>(AppRoutes.newUsername, arguments: RegistrationScreenArgument(user: user));
+    } else if (!user.hasInterests && skip != Skip.interest) {
+      Get.toNamed<void>(AppRoutes.interests, arguments: RegistrationScreenArgument(user: user));
+    } else if (!user.hasProfileImage && skip != Skip.photo) {
+      Get.toNamed<void>(AppRoutes.newProfilePhoto, arguments: RegistrationScreenArgument(user: user));
+    } else if (!user.hasBio && skip != Skip.bio) {
+      Get.toNamed<void>(AppRoutes.bio, arguments: RegistrationScreenArgument(user: user));
+    } else if (!user.hasFollowing && skip != Skip.follows) {
+      Get.toNamed<void>(AppRoutes.followAccounts, arguments: RegistrationScreenArgument(user: user));
     } else {
       Get.until((_) => Get.currentRoute == AppRoutes.home);
       controller.user(user);
@@ -139,9 +135,7 @@ class LoginController extends GetxController {
   void resendOTPEmail(BuildContext context, String email) async {
     isResendingEmail(true);
 
-    final Either<Failure, User> fialureOrSuccess = await resendEmail(
-      ResendEmailRequest(email: email),
-    );
+    final Either<Failure, User> fialureOrSuccess = await resendEmail(ResendEmailRequest(email: email));
 
     fialureOrSuccess.fold((Failure failure) {
       isResendingEmail(false);

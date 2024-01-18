@@ -7,6 +7,7 @@ export 'register_user.dart';
 export 'resend_email.dart';
 export 'reset_password.dart';
 export 'send_sms.dart';
+export 'update_password.dart';
 export 'update_profile.dart';
 export 'update_user_profile_photo.dart';
 export 'update_user_role.dart';

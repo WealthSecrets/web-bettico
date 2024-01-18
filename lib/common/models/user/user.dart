@@ -19,6 +19,7 @@ class User with _$User {
     String? photo,
     String? phone,
     String? role,
+    String? bio,
     String? status,
     String? passwordResetToken,
     Identification? identification,
@@ -37,6 +38,7 @@ class User with _$User {
     int? referrals,
     String? device,
     String? apiKey,
+    List<String>? interests,
     bool? isBusiness,
     @JsonKey(name: 'bonus') double? bonus,
   }) = _User;
@@ -83,8 +85,7 @@ class User with _$User {
       ? profileAt != null && emailVerifiedAt != null
       : (emailVerifiedAt != null && profileAt != null && identification != null && photo != null);
 
-  bool get isPersonalInfoProvided =>
-      firstName != null && lastName != null && phone != null && username != null && dateOfBirth != null;
+  bool get isPersonalInfoProvided => firstName != null && lastName != null && email != null && dateOfBirth != null;
 
   bool get hasRole => role != null;
 
@@ -95,6 +96,14 @@ class User with _$User {
   bool get hasIdentification => identification != null;
 
   bool get hasProfileImage => photo != null;
+
+  bool get hasUsername => username != null;
+
+  bool get hasInterests => interests != null && interests!.isNotEmpty;
+
+  bool get hasBio => bio != null;
+
+  bool get hasFollowing => following != null && following! <= 0;
 }
 
 enum AccountType { personal, oddster }

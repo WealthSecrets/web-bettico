@@ -52,6 +52,7 @@ class _OtpVerificationScreenState extends State<NewOtpVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String email = args != null && args!.user != null ? args!.user!.email ?? '' : controller.email.value;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -60,7 +61,7 @@ class _OtpVerificationScreenState extends State<NewOtpVerificationScreen> {
       ),
       backgroundColor: context.colors.background,
       body: AppLoadingBox(
-        loading: controller.isVerifyingOTP.value,
+        loading: controller.isVerifyingOTP.value || lController.isResendingEmail.value,
         child: Padding(
           padding: AppPaddings.lH,
           child: Column(
@@ -77,7 +78,7 @@ class _OtpVerificationScreenState extends State<NewOtpVerificationScreen> {
                   const AppSpacing(v: 5),
                   SizedBox(
                     child: Text(
-                      'Enter it below to verify T.yemi@gmail.com',
+                      'Enter it below to verify $email',
                       style: context.body2.copyWith(fontWeight: FontWeight.w400, color: context.colors.darkenText),
                     ),
                   ),
@@ -132,18 +133,11 @@ class _OtpVerificationScreenState extends State<NewOtpVerificationScreen> {
               const Spacer(),
               AppButton(
                 onPressed: () {
-                  // if (params != null && params!.toLowerCase() == 'email') {
-                  //   controller.verifyUserEmailAddress(
-                  //     context,
-                  //     u: args?.user,
-                  //   );
-                  // } else {
-                  //   controller.verifyUserPhoneNumber(
-                  //     context,
-                  //     u: args?.user,
-                  //   );
-                  // }
-                  Get.toNamed<void>(AppRoutes.newPasswordScreen);
+                  if (params != null && params!.toLowerCase() == 'email') {
+                    controller.verifyUserEmailAddress(context, routeName: AppRoutes.newPasswordScreen, u: args?.user);
+                  } else {
+                    controller.verifyUserPhoneNumber(context, routeName: AppRoutes.newPasswordScreen, u: args?.user);
+                  }
                 },
                 child: const Text(
                   'Verify Otp',

@@ -11,6 +11,8 @@ class UpdateRequest with _$UpdateRequest {
     String? username,
     String? walletAddress,
     String? country,
+    String? bio,
+    List<String>? interests,
   }) = _UpdateRequest;
   factory UpdateRequest.fromJson(Map<String, dynamic> json) => _$UpdateRequestFromJson(json);
 }

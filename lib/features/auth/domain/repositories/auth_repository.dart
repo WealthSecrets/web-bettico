@@ -12,6 +12,7 @@ abstract class AuthRepository {
   Future<Either<Failure, User>> forgotPassword(ForgotRequest request);
   Future<Either<Failure, User>> validateSession();
   Future<Either<Failure, User>> resetPassword(ResetRequest request);
+  Future<Either<Failure, User>> updateMyPassword(UpdatePasswordRequest request);
   Future<Either<Failure, User>> updateProfile(UpdateRequest request);
   Future<Either<Failure, User>> updateUserRole(String role);
   Future<Either<Failure, AuthResponse>> register(RegisterRequest request);

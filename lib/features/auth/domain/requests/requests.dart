@@ -6,6 +6,7 @@ export 'register_request/register_request.dart';
 export 'resend_email/resend_email_request.dart';
 export 'reset_request/reset_request.dart';
 export 'sms/send_sms_request.dart';
+export 'update_password_request/update_password_request.dart';
 export 'update_photo_request.dart/update_photo_request.dart';
 export 'update_user_role/update_user_role_request.dart';
 export 'verify_email/verify_email_request.dart';

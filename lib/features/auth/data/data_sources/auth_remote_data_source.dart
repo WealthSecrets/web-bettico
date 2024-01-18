@@ -9,6 +9,7 @@ abstract class AuthRemoteDataSource {
   Future<User> forgotPassword(ForgotRequest request);
   Future<User> updateProfile(UpdateRequest request);
   Future<AuthResponse> resetPassword(ResetRequest request);
+  Future<AuthResponse> updateMyPassword(UpdatePasswordRequest request);
   Future<AuthResponse> register(RegisterRequest request);
   Future<User> updateUserRole(UpdateUserRoleRequest request);
   Future<TwilioResponse> sendSms(SendSmsRequest request);

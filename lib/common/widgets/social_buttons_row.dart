@@ -28,7 +28,7 @@ class SocialButtonsRow extends StatelessWidget {
         ),
         const SizedBox(width: 15),
         GestureDetector(
-          onTap: () => rController.registerWithGoogleAuth(context),
+          onTap: () => rController.registerWithGoogleAuth(context, routeName: AppRoutes.newUsername),
           child: Image.asset(AssetImages.googlen, height: size ?? 40, width: size ?? 40),
         ),
       ],

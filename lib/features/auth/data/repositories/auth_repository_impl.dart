@@ -166,6 +166,16 @@ class AuthRepositoryImpl extends Repository implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, User>> updateMyPassword(UpdatePasswordRequest request) async {
+    final Either<Failure, AuthResponse> response = await makeRequest(authRemoteDataSource.updateMyPassword(request));
+    return response.fold(left, (AuthResponse response) async {
+      await authLocalDataSource.persistAuthResponse(response);
+      await authLocalDataSource.persistUserData(response.user);
+      return right(response.user);
+    });
+  }
+
+  @override
   Future<Either<Failure, User>> updateProfile(UpdateRequest request) async {
     final Either<Failure, User> response = await makeRequest(authRemoteDataSource.updateProfile(request));
     return response.fold(left, (User user) async {

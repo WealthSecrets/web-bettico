@@ -11,8 +11,9 @@ class RegisterRequest with _$RegisterRequest {
     String? wallet,
     String? referralCode,
     String? type,
-    required String password,
-    required String confirmPassword,
+    String? firstName,
+    String? lastName,
+    DateTime? dob,
   }) = _RegisterRequest;
   factory RegisterRequest.fromJson(Map<String, dynamic> json) => _$RegisterRequestFromJson(json);
 }

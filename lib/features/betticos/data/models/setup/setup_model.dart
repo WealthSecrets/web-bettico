@@ -19,6 +19,7 @@ class Setup with _$Setup {
     @JsonKey(name: 'eCost') required double engagementCost,
     @JsonKey(name: 'eExpected') required int expectedEngagement,
     @JsonKey(name: 'ePeriod') required int engagementPeriod,
+    @JsonKey(name: 'interests') required List<String> interests,
   }) = _Setup;
 
   const Setup._();
@@ -39,5 +40,6 @@ class Setup with _$Setup {
         engagementCost: 10,
         expectedEngagement: 500,
         engagementPeriod: 3,
+        interests: <String>[],
       );
 }

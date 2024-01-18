@@ -113,11 +113,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             controller.verifyUserEmailAddress(
                               context,
                               u: args?.user,
+                              routeName: AppRoutes.newPasswordScreen,
                             );
                           } else {
                             controller.verifyUserPhoneNumber(
                               context,
                               u: args?.user,
+                              routeName: AppRoutes.newPasswordScreen,
                             );
                           }
                         },
@@ -192,8 +194,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               lController.reRouteOddster(
                                 context,
                                 args!.user!,
-                                isSkipEmail: params != null && params!.toLowerCase() == 'email',
-                                isSkipPhone: params != null && params!.toLowerCase() != 'phone',
+                                skip: params != null && params!.toLowerCase() == 'email' ? Skip.email : Skip.phone,
                               );
                             } else {
                               if (params != null && params!.toLowerCase() == 'email') {

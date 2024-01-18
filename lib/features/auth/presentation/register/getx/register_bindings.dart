@@ -15,6 +15,7 @@ class RegisterBindings {
         updateUserProfilePhoto: UpdateUserProfilePhoto(authRepository: Get.find()),
         updateUserRole: UpdateUserRole(authRepository: Get.find()),
         verifyUser: VerifyUser(authRepository: Get.find()),
+        updatePassword: UpdatePassword(authRepository: Get.find()),
       ),
       permanent: true,
     );

@@ -11,18 +11,21 @@ class AppSelectableButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: AppPaddings.sV.add(AppPaddings.lH),
-      decoration: BoxDecoration(
-        color: selected ? context.colors.primary : const Color(0xFFF5F7F9),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        text,
-        style: context.sub2.copyWith(
-          color: selected ? Colors.white : context.colors.textInputText,
-          letterSpacing: 0.2,
-          fontWeight: FontWeight.w400,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: AppPaddings.sV.add(AppPaddings.lH),
+        decoration: BoxDecoration(
+          color: selected ? context.colors.primary : const Color(0xFFF5F7F9),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          text,
+          style: context.sub2.copyWith(
+            color: selected ? Colors.white : context.colors.textInputText,
+            letterSpacing: 0.2,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );
