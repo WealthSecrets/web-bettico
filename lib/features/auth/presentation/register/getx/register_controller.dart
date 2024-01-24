@@ -201,8 +201,11 @@ class RegisterController extends GetxController {
     });
   }
 
-  void registerWithGoogleAuth(BuildContext context,
-      {required String routeName, bool isRequestFromLogin = false}) async {
+  void registerWithGoogleAuth(
+    BuildContext context, {
+    required String routeName,
+    bool isRequestFromLogin = false,
+  }) async {
     type('google');
 
     try {
@@ -360,8 +363,12 @@ class RegisterController extends GetxController {
     );
   }
 
-  void updatePersonalInformation(BuildContext context,
-      {required String routeName, bool? hideUsername = false, bool? hidePhone = false}) async {
+  void updatePersonalInformation(
+    BuildContext context, {
+    required String routeName,
+    bool? hideUsername = false,
+    bool? hidePhone = false,
+  }) async {
     isAddingPersonalInformation(true);
 
     final Either<Failure, User> failureOrUser = await updateProfile(

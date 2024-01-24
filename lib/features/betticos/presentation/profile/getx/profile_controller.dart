@@ -152,8 +152,9 @@ class ProfileController extends GetxController {
     checkIfFollowedByUser();
   }
 
-  void followTheUser({User? u}) async {
+  void followTheUser({User? u, VoidCallback? callback, VoidCallback? onFailure}) async {
     isFollowingUser(true);
+    callback?.call();
 
     final Either<Failure, Follow> fialureOrSuccess = await followUser(
       UserRequest(userId: u?.id ?? user.value.id),
@@ -161,16 +162,12 @@ class ProfileController extends GetxController {
 
     fialureOrSuccess.fold((Failure failure) {
       isFollowingUser(false);
+      onFailure?.call();
       if (context != null) {
         AppSnacks.show(context!, message: failure.message);
       }
     }, (Follow _) {
       isFollowingUser(false);
-      if (u != null) {
-        final List<User> followings = List<User>.from(Get.find<BaseScreenController>().myFollowings);
-        followings.add(u);
-        Get.find<BaseScreenController>().myFollowings(followings);
-      }
       isFollowedByUser(true);
     });
   }
@@ -251,28 +248,21 @@ class ProfileController extends GetxController {
     return false;
   }
 
-  void unfollowTheUser({User? u}) async {
+  void unfollowTheUser({User? u, VoidCallback? callback, VoidCallback? onFailure}) async {
     isUnfollowingUser(true);
+    callback?.call();
 
     final Either<Failure, void> fialureOrSuccess = await unfollowUser(UserRequest(userId: u?.id ?? user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
       isUnfollowingUser(false);
+      onFailure?.call();
       if (context != null) {
         AppSnacks.show(context!, message: failure.message);
       }
     }, (void _) {
       isUnfollowingUser(false);
-      if (u != null) {
-        final List<User> followings = List<User>.from(Get.find<BaseScreenController>().myFollowings);
-        followings.removeWhere((User e) => e.id == u.id);
-        Get.find<BaseScreenController>().myFollowings(followings);
-      }
       isFollowedByUser(false);
-      // if (user != null && user.role == 'oddster') {
-      //   myOddsterFollowings.removeWhere((User u) => u.id == user.id);
-      // }
-      // loadMyFollowers(context, userId);
     });
   }
 

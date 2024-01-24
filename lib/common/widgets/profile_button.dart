@@ -10,6 +10,8 @@ class ProfileButton extends StatelessWidget {
     this.padding,
     this.backgroundColor,
     this.borderColor,
+    this.height,
+    this.width,
   });
 
   final VoidCallback onPressed;
@@ -17,6 +19,8 @@ class ProfileButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
   final Color? borderColor;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +28,14 @@ class ProfileButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        height: height,
+        width: width,
         decoration: BoxDecoration(
           color: backgroundColor ?? Colors.white,
           border: Border.all(color: borderColor ?? context.colors.primary),
           borderRadius: AppBorderRadius.card,
         ),
-        child: child,
+        child: Center(child: child),
       ),
     );
   }

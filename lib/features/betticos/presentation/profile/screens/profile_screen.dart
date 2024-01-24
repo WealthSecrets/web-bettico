@@ -84,7 +84,7 @@ class _SliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       toolbarHeight: 0,
-      expandedHeight: 400,
+      expandedHeight: 570,
       pinned: true,
       backgroundColor: Colors.white,
       flexibleSpace: NewProfileFlexibleAppBar(user: user, showBackButton: showBackButton),

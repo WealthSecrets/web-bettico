@@ -78,8 +78,11 @@ class RegistrationInterestsScreen extends StatelessWidget {
                   const Spacer(),
                   AppButton(
                     enabled: controller.hasInterest,
-                    onPressed: () => controller.updatePersonalInformation(context,
-                        hideUsername: true, routeName: AppRoutes.newProfilePhoto),
+                    onPressed: () => controller.updatePersonalInformation(
+                      context,
+                      hideUsername: true,
+                      routeName: AppRoutes.newProfilePhoto,
+                    ),
                     child: const Text(
                       'Continue',
                       style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),

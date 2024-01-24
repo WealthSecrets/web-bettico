@@ -5,10 +5,7 @@ import 'package:betticos/features/domain.dart';
 import 'package:dartz/dartz.dart';
 
 class AuthRepositoryImpl extends Repository implements AuthRepository {
-  AuthRepositoryImpl({
-    required this.authRemoteDataSource,
-    required this.authLocalDataSource,
-  });
+  AuthRepositoryImpl({required this.authRemoteDataSource, required this.authLocalDataSource});
 
   final AuthRemoteDataSource authRemoteDataSource;
   final AuthLocalDataSource authLocalDataSource;
