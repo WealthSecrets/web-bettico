@@ -2,3 +2,4 @@ export 'column_text_button.dart';
 export 'new_profile_flexible_appbar.dart';
 export 'profile_flexible_appbar.dart';
 export 'profile_image_stack.dart';
+export 'verification_bottom_sheet.dart';

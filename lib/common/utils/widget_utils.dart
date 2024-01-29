@@ -1,4 +1,5 @@
 import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/controllers.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +150,22 @@ class WidgetUtils {
         return ClipRRect(
           borderRadius: AppBorderRadius.mediumTop,
           child: SizedBox(height: options.length * 77 + 55, child: OptionsBottomSheet(options: options, title: title)),
+        );
+      },
+    );
+  }
+
+  static void showVerificationBottomSheet(BuildContext context, {required bool isLoggedInUser}) {
+    showMaterialModalBottomSheet<void>(
+      context: navigationController.navigatorKey.currentContext ?? context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: SizedBox(
+            height: 350,
+            child: VerificationBottomSheet(isLoggedInUser: isLoggedInUser),
+          ),
         );
       },
     );

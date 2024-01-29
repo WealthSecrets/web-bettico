@@ -52,4 +52,9 @@ class AppAssetIcons {
   static String inboxOut = 'assets/icons/inbox-out.png';
   static String bookOpen = 'assets/icons/book-open.png';
   static String tick = 'assets/icons/tick-icon.png';
+  static String verified = 'assets/icons/verified.png';
+  static String verifiedCreatorLevel1 = 'assets/icons/verified-creator-level-1.png';
+  static String verifiedCreatorLevel2 = 'assets/icons/verified-creator-level-2.png';
+  static String verifiedCreatorLevel3 = 'assets/icons/verified-creator-level-3.png';
+  static String calendarDates = 'assets/icons/calendar-dates.png';
 }

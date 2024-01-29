@@ -89,6 +89,8 @@ class User with _$User {
 
   bool get hasRole => role != null;
 
+  bool get isCreator => role == 'creator' || role == 'oddster';
+
   bool get hasOkx => okx != null;
 
   bool get hasApiKey => apiKey != null;

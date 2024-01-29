@@ -31,8 +31,8 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    final String? name = widget.user.firstName ?? widget.user.lastName ?? widget.user.username;
     return Obx(() {
+      final User loggedInUser = bController.user.value;
       return FlexibleSpaceBar(
         background: Padding(
           padding: AppPaddings.lB,
@@ -134,84 +134,103 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
               ),
               const SizedBox(height: 8),
               Divider(color: context.colors.dividerColor),
-              const SizedBox(height: 8),
-              Padding(
-                padding: AppPaddings.lH,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Subscriptions',
-                      style: context.body1
-                          .copyWith(fontWeight: FontWeight.w600, color: context.colors.darkenText, letterSpacing: 0.1),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        IconCard(imagePath: AppAssetIcons.bookOpen),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Subscribe to $name',
-                                style: context.body1.copyWith(
-                                  color: context.colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 0.1,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                "As a subscriber, you'll gain exclusive access to $name's creator contents.",
-                                style: context.body2.copyWith(
-                                  color: const Color(0xFF3A424A),
-                                  fontWeight: FontWeight.w300,
-                                  letterSpacing: 0.1,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    ProfileButton(
-                      onPressed: () => controller.subscribeToTheUser(context, widget.user.id),
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                      height: 40,
-                      width: double.infinity,
-                      backgroundColor: controller.isSubscribedToUser.value ? context.colors.primary : Colors.white,
-                      child: controller.isSubscribingToUser.value || controller.isCheckingSubscription.value
-                          ? SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: controller.isSubscribedToUser.value ? Colors.white : context.colors.error,
-                              ),
-                            )
-                          : Text(
-                              controller.isSubscribedToUser.value
-                                  ? 'subscribed'.tr.toUpperCase()
-                                  : 'subscribe'.tr.toUpperCase(),
-                              style: context.body1.copyWith(
-                                letterSpacing: 0.2,
-                                fontWeight: FontWeight.w500,
-                                color: controller.isSubscribedToUser.value ? Colors.white : context.colors.primary,
-                              ),
-                            ),
-                    )
-                  ],
-                ),
-              ),
+              if (widget.user.id != loggedInUser.id && widget.user.isCreator)
+                _SubscribeSection(user: widget.user, controller: controller, bController: bController),
             ],
           ),
         ),
       );
     });
+  }
+}
+
+class _SubscribeSection extends StatelessWidget {
+  const _SubscribeSection({required this.user, required this.controller, required this.bController});
+
+  final User user;
+  final ProfileController controller;
+  final BaseScreenController bController;
+
+  @override
+  Widget build(BuildContext context) {
+    final String? name = user.firstName ?? user.lastName ?? user.username;
+    return Column(
+      children: <Widget>[
+        const SizedBox(height: 8),
+        Padding(
+          padding: AppPaddings.lH,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Subscriptions',
+                style: context.body1
+                    .copyWith(fontWeight: FontWeight.w600, color: context.colors.darkenText, letterSpacing: 0.1),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  IconCard(imagePath: AppAssetIcons.bookOpen),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Subscribe to $name',
+                          style: context.body1.copyWith(
+                            color: context.colors.black,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.1,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "As a subscriber, you'll gain exclusive access to $name's creator contents.",
+                          style: context.body2.copyWith(
+                            color: const Color(0xFF3A424A),
+                            fontWeight: FontWeight.w300,
+                            letterSpacing: 0.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              ProfileButton(
+                onPressed: () => controller.subscribeToTheUser(context, user.id),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                height: 40,
+                width: double.infinity,
+                backgroundColor: controller.isSubscribedToUser.value ? context.colors.primary : Colors.white,
+                child: controller.isSubscribingToUser.value || controller.isCheckingSubscription.value
+                    ? SizedBox(
+                        height: 15,
+                        width: 15,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: controller.isSubscribedToUser.value ? Colors.white : context.colors.error,
+                        ),
+                      )
+                    : Text(
+                        controller.isSubscribedToUser.value
+                            ? 'subscribed'.tr.toUpperCase()
+                            : 'subscribe'.tr.toUpperCase(),
+                        style: context.body1.copyWith(
+                          letterSpacing: 0.2,
+                          fontWeight: FontWeight.w500,
+                          color: controller.isSubscribedToUser.value ? Colors.white : context.colors.primary,
+                        ),
+                      ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -294,7 +313,10 @@ class _ButtonsRow extends StatelessWidget {
                 ),
                 const AppSpacing(h: 10),
                 ProfileButton(
-                  onPressed: () {},
+                  onPressed: () => WidgetUtils.showVerificationBottomSheet(
+                    context,
+                    isLoggedInUser: bController.user.value.id == user.id,
+                  ),
                   child: Image.asset(AppAssetIcons.star, height: 25, width: 25, color: context.colors.primary),
                 ),
               ],
@@ -321,122 +343,6 @@ class _ButtonsRow extends StatelessWidget {
     }
   }
 }
-
-// class _ButtonsRow extends StatelessWidget {
-//   _ButtonsRow({required this.user});
-
-//   final User user;
-
-//   final ProfileController controller = Get.find<ProfileController>();
-//   final BaseScreenController bController = Get.find<BaseScreenController>();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Obx(
-//       () => Padding(
-//         padding: AppPaddings.lH,
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceAround,
-//           children: <Widget>[
-//             if (user.id == bController.user.value.id)
-//               OutlinedButton(
-//                 onPressed: () => _handleEditProfile(context),
-//                 style: OutlinedButton.styleFrom(
-//                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-//                   side: BorderSide(width: 2.0, color: context.colors.cardColor),
-//                 ),
-//                 child: Text(
-//                   'edit_profile'.tr,
-//                   style: TextStyle(color: context.colors.textDark, fontWeight: FontWeight.bold, fontSize: 12),
-//                 ),
-//               ),
-//             if (user.id != bController.user.value.id)
-//               OutlinedButton(
-//                 onPressed: () {
-//                   if (controller.isFollowedByUser.value) {
-//                     controller.unfollowTheUser();
-//                   } else {
-//                     controller.followTheUser();
-//                   }
-//                 },
-//                 style: OutlinedButton.styleFrom(
-//                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-//                   backgroundColor: controller.isFollowedByUser.value ? context.colors.primary : Colors.white,
-//                   side: BorderSide(
-//                     width: 2.0,
-//                     color: controller.isFollowedByUser.value ? context.colors.primary : context.colors.cardColor,
-//                   ),
-//                 ),
-//                 child: controller.isFollowingUser.value || controller.isUnfollowingUser.value
-//                     ? SizedBox(
-//                         height: 10,
-//                         width: 10,
-//                         child: CircularProgressIndicator(
-//                           strokeWidth: 2,
-//                           color: controller.isUnfollowingUser.value ? Colors.white : context.colors.primary,
-//                         ),
-//                       )
-//                     : Text(
-//                         controller.isFollowedByUser.value ? 'following'.tr : 'follow'.tr,
-//                         style: TextStyle(
-//                           color: controller.isFollowedByUser.value ? Colors.white : context.colors.textDark,
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 12,
-//                         ),
-//                       ),
-//               ),
-//             if (user.id != bController.user.value.id && (user.role == 'oddster'))
-//               OutlinedButton(
-//                 onPressed: () => controller.subscribeToTheUser(context, user.id),
-//                 style: OutlinedButton.styleFrom(
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(25.0),
-//                   ),
-//                   backgroundColor: controller.isSubscribedToUser.value ? context.colors.error : Colors.white,
-//                   side: BorderSide(
-//                     width: 2.0,
-//                     color: controller.isSubscribedToUser.value ? context.colors.error : context.colors.cardColor,
-//                   ),
-//                 ),
-//                 child: controller.isSubscribingToUser.value
-//                     ? SizedBox(
-//                         height: 10,
-//                         width: 10,
-//                         child: CircularProgressIndicator(
-//                           strokeWidth: 2,
-//                           color: controller.isSubscribedToUser.value ? Colors.white : context.colors.error,
-//                         ),
-//                       )
-//                     : Text(
-//                         controller.isSubscribedToUser.value ? 'subscribed'.tr : 'subscribe'.tr,
-//                         style: TextStyle(
-//                           color: controller.isSubscribedToUser.value ? Colors.white : context.colors.textDark,
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 12,
-//                         ),
-//                       ),
-//               ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   void _handleEditProfile(BuildContext context) async {
-//     final dynamic value = await Navigator.push<dynamic>(
-//       context,
-//       MaterialPageRoute<dynamic>(builder: (BuildContext context) => UpdateProfileScreen(user: user)),
-//     );
-
-//     if (value == true && context.mounted) {
-//       await AppSnacks.show(
-//         context,
-//         message: 'Profile updated successfully',
-//         backgroundColor: context.colors.success,
-//         leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
-//       );
-//     }
-//   }
-// }
 
 class _RowTextButton extends StatelessWidget {
   const _RowTextButton({this.count, required this.title});
@@ -472,35 +378,3 @@ class _RowTextButton extends StatelessWidget {
     );
   }
 }
-
-// class _ProfileNameSection extends StatelessWidget {
-//   const _ProfileNameSection({required this.user});
-
-//   final User user;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: <Widget>[
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text(
-//               '${user.firstName} ${user.lastName}',
-//               style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
-//             ),
-//             const AppSpacing(h: 5),
-//             if (user.role == 'admin') Image.asset(AssetImages.verified, height: 14, width: 14),
-//           ],
-//         ),
-//         Text(
-//           '@${user.username}',
-//           style: TextStyle(color: context.colors.text, fontSize: 12),
-//           textAlign: TextAlign.center,
-//         ),
-//       ],
-//     );
-//   }
-// }

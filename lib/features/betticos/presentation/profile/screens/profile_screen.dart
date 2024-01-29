@@ -15,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController controller = Get.find<ProfileController>();
+  final BaseScreenController bController = Get.find<BaseScreenController>();
   @override
   void initState() {
     WidgetUtils.onWidgetDidBuild(() {
@@ -28,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 2,
+        length: 4,
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overscroll) {
             overscroll.disallowIndicator();
@@ -54,7 +55,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: context.colors.primary,
                         radius: 3,
                       ),
-                      tabs: <Tab>[Tab(text: 'posts'.tr), Tab(text: 'odd_boxes'.tr)],
+                      tabs: <Tab>[
+                        Tab(text: 'posts'.tr),
+                        const Tab(text: 'Box'),
+                        const Tab(text: 'Replies'),
+                        const Tab(text: 'Likes')
+                      ],
                     ),
                   ),
                   pinned: true,
@@ -65,6 +71,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: <Widget>[
                 MyPostsScreen(userId: widget.user.id),
                 MyPostsScreen(userId: widget.user.id, isOddboxes: true),
+                Container(),
+                Container(),
               ],
             ),
           ),
@@ -79,16 +87,22 @@ class _SliverAppBar extends StatelessWidget {
   final User user;
   final bool? showBackButton;
 
-  final ProfileController controller = Get.find<ProfileController>();
+  final BaseScreenController bController = Get.find<BaseScreenController>();
+
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      toolbarHeight: 0,
-      expandedHeight: 570,
-      pinned: true,
-      backgroundColor: Colors.white,
-      flexibleSpace: NewProfileFlexibleAppBar(user: user, showBackButton: showBackButton),
-      forceElevated: true,
+    return Obx(
+      () {
+        final User loggedInUser = Get.find<BaseScreenController>().user.value;
+        return SliverAppBar(
+          toolbarHeight: 0,
+          expandedHeight: user.id != loggedInUser.id && !user.isCreator ? 392 : 542,
+          pinned: true,
+          backgroundColor: Colors.white,
+          flexibleSpace: NewProfileFlexibleAppBar(user: user, showBackButton: showBackButton),
+          forceElevated: true,
+        );
+      },
     );
   }
 }
