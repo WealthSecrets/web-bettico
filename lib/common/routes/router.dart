@@ -14,7 +14,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.timeline:
       return _getPageRoute(const TimelineScreen(), settings);
     case AppRoutes.referral:
-      return _getPageRoute(const ReferralScreen(), settings);
+      return _getPageRoute(const NewReferralScreen(), settings);
     case AppRoutes.success:
       return _getPageRoute(const SucessScreen(), settings);
     case AppRoutes.appwebview:

@@ -66,4 +66,7 @@ class AssetImages {
   static String facebookn = 'assets/images/facebookn.png';
   static String profileFrame = 'assets/images/profile-frame.png';
   static String topbar = 'assets/images/top-bar.png';
+  static const String bar = 'assets/images/bar.png';
+  static const String eclipse = 'assets/images/eclipse.png';
+  static const String envelope = 'assets/images/envelope.png';
 }

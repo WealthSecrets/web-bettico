@@ -132,7 +132,7 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                         ],
                         title: 'Choose Viewers',
                       ),
-                      child: AppTag(text: 'Everyone', icon: AppAssetIcons.flag),
+                      child: const AppTag(text: 'Everyone', icon: AppAssetIcons.flag),
                     ),
                   ),
                 ),

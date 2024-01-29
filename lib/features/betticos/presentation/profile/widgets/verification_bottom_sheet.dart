@@ -22,12 +22,12 @@ class VerificationBottomSheet extends StatelessWidget {
               style: context.h5.copyWith(fontWeight: FontWeight.w600, letterSpacing: 0.1, color: Colors.black),
             ),
             const SizedBox(height: 16),
-            _IconRow(
+            const _IconRow(
               icon: AppAssetIcons.verified,
               text: 'This account is a verified creator account on level 1.',
             ),
             const SizedBox(height: 16),
-            _IconRow(
+            const _IconRow(
               icon: AppAssetIcons.calendarDates,
               text: 'Verified since August 2023.',
             ),
