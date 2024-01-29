@@ -171,7 +171,7 @@ class _SubscribeSection extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  IconCard(imagePath: AppAssetIcons.bookOpen),
+                  const IconCard(imagePath: AppAssetIcons.bookOpen),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(

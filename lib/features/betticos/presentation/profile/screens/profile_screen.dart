@@ -1,3 +1,4 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
@@ -29,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 4,
+        length: 6,
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overscroll) {
             overscroll.disallowIndicator();
@@ -56,10 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         radius: 3,
                       ),
                       tabs: <Tab>[
-                        Tab(text: 'posts'.tr),
-                        const Tab(text: 'Box'),
-                        const Tab(text: 'Replies'),
-                        const Tab(text: 'Likes')
+                        Tab(icon: Image.asset(AppAssetIcons.postsSolid, height: 24, width: 24)),
+                        Tab(icon: Image.asset(AppAssetIcons.box, height: 24, width: 24)),
+                        Tab(icon: Image.asset(AppAssetIcons.refreshCcwSolid, height: 24, width: 24)),
+                        Tab(icon: Image.asset(AppAssetIcons.comments, height: 24, width: 24)),
+                        Tab(icon: Image.asset(AppAssetIcons.heart, height: 24, width: 24)),
+                        Tab(icon: Image.asset(AppAssetIcons.bookmarks, height: 24, width: 24)),
                       ],
                     ),
                   ),
@@ -71,6 +74,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: <Widget>[
                 MyPostsScreen(userId: widget.user.id),
                 MyPostsScreen(userId: widget.user.id, isOddboxes: true),
+                Container(),
+                Container(),
                 Container(),
                 Container(),
               ],
@@ -96,7 +101,7 @@ class _SliverAppBar extends StatelessWidget {
         final User loggedInUser = Get.find<BaseScreenController>().user.value;
         return SliverAppBar(
           toolbarHeight: 0,
-          expandedHeight: user.id != loggedInUser.id && !user.isCreator ? 392 : 542,
+          expandedHeight: user.id == loggedInUser.id || (user.id != loggedInUser.id && !user.isCreator) ? 392 : 542,
           pinned: true,
           backgroundColor: Colors.white,
           flexibleSpace: NewProfileFlexibleAppBar(user: user, showBackButton: showBackButton),
