@@ -70,4 +70,6 @@ class AppAssetIcons {
   static const String postsSolid = 'assets/icons/posts-solid.png';
   static const String refreshCcwSolid = 'assets/icons/refresh-ccw-solid.png';
   static const String refreshCcw = 'assets/icons/refresh-ccw.png';
+  static const String ticks = 'assets/icons/ticks.png';
+  static const String arrowRightRec = 'assets/icons/arrow-right-rec.png';
 }

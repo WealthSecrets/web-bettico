@@ -1,3 +1,4 @@
+export 'edit_profile_screen.dart';
 export 'my_posts_screen.dart';
 export 'profile_screen.dart';
 export 'update_profile_screen.dart';

@@ -9,6 +9,7 @@ export 'app_spacing.dart';
 export 'blurred_box.dart';
 export 'date_utils.dart';
 export 'debouncer.dart';
+export 'input_validators.dart';
 export 'string_utils.dart';
 export 'strings.dart';
 export 'widget_utils.dart';

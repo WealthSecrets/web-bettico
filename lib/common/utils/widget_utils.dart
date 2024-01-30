@@ -86,6 +86,19 @@ class WidgetUtils {
     );
   }
 
+  static void showFirstNameLastNameModalBottomSheet(BuildContext context, {required User user}) {
+    showMaterialModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: SizedBox(height: 300, child: FirstNameLastNameModal(user: user)),
+        );
+      },
+    );
+  }
+
   static void showRemoveSlipCodeOptionDialog(
     BuildContext context, {
     String? title,

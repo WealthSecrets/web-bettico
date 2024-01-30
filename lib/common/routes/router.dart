@@ -17,7 +17,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const NewReferralScreen(), settings);
     case AppRoutes.success:
       return _getPageRoute(const SucessScreen(), settings);
-    case AppRoutes.appwebview:
+    case AppRoutes.editProfile:
+      final UserArgument argument = settings.arguments! as UserArgument;
+      return _getPageRoute(EditProfileScreen(user: argument.user), settings);
     case AppRoutes.explore:
       return _getPageRoute(ExploreContainer(), settings);
     case AppRoutes.search:

@@ -650,4 +650,7 @@ class ProfileController extends GetxController {
   }
 
   bool get formIsValid => validateEmail(email.value) == null;
+
+  bool get isNameProvided =>
+      InputValidators.validateName(firstName.value) == null && InputValidators.validateName(lastName.value) == null;
 }

@@ -45,4 +45,5 @@ class AppRoutes {
   static const String interests = '/registration-interests';
   static const String bio = '/registration-bio';
   static const String followAccounts = '/registration-follow';
+  static const String editProfile = '/edit-profile';
 }

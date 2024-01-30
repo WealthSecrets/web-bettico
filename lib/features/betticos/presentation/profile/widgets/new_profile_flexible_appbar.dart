@@ -1,5 +1,6 @@
 import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -328,10 +329,8 @@ class _ButtonsRow extends StatelessWidget {
   }
 
   void _handleEditProfile(BuildContext context) async {
-    final dynamic value = await Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(builder: (BuildContext context) => UpdateProfileScreen(user: user)),
-    );
+    final dynamic value =
+        await navigationController.navigateTo(AppRoutes.editProfile, arguments: UserArgument(user: user));
 
     if (value == true && context.mounted) {
       await AppSnacks.show(

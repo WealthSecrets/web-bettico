@@ -39,6 +39,8 @@ class User with _$User {
     String? device,
     String? apiKey,
     List<String>? interests,
+    int? level,
+    String? website,
     bool? isBusiness,
     @JsonKey(name: 'bonus') double? bonus,
   }) = _User;

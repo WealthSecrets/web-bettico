@@ -93,8 +93,8 @@ class RegistrationDocumentScreen extends GetWidget<RegisterController> {
                           Center(
                             child: TextButton(
                               onPressed: () {
-                                if (args != null && args!.user != null) {
-                                  if (!args!.user!.hasProfileImage) {
+                                if (args != null) {
+                                  if (!args!.user.hasProfileImage) {
                                     Get.toNamed<void>(AppRoutes.profilePhoto);
                                   } else {
                                     Get.offAllNamed<void>(AppRoutes.home);
