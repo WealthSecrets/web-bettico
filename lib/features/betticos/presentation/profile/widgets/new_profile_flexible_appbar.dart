@@ -93,7 +93,7 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
                     Image.asset(AppAssetIcons.link, height: 15, width: 15),
                     const SizedBox(width: 8),
                     Text(
-                      'Place user website here too',
+                      widget.user.website ?? '',
                       style: TextStyle(
                         fontSize: 14,
                         letterSpacing: 0.1,

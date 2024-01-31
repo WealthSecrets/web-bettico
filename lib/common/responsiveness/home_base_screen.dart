@@ -138,7 +138,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
             mediumScreen: MediumScreen(initialRoute: initialRoute, user: user, userToken: userToken),
             customScreen: CustomScreen(initialRoute: initialRoute, user: user, userToken: userToken),
             smallScreen: Column(
-              children: <Widget>[topNavigationBar(context, scaffoldKey), Expanded(child: appNavigator(initialRoute))],
+              children: <Widget>[
+                TopNavigationBar(scaffoldKey: scaffoldKey),
+                Expanded(child: appNavigator(initialRoute))
+              ],
             ),
           ),
         ),
