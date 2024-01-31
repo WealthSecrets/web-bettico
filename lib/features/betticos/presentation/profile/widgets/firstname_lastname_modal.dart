@@ -22,6 +22,7 @@ class _FirstNameLastNameModalState extends State<FirstNameLastNameModal> {
   @override
   void initState() {
     super.initState();
+    controller.setProfileUser(widget.user);
     controller.firstName.value = widget.user.firstName ?? '';
     controller.lastName.value = widget.user.lastName ?? '';
   }
@@ -78,7 +79,12 @@ class _FirstNameLastNameModalState extends State<FirstNameLastNameModal> {
                       controller.setUpdatingUserProfile(false);
                       bController.updateTheUser(user);
                       controller.setProfileUser(user);
-                      AppSnacks.show(context, message: 'User profile updated successfully.');
+                      AppSnacks.show(
+                        context,
+                        message: 'User profile updated successfully.',
+                        backgroundColor: context.colors.success,
+                        leadingIcon: Image.asset(AppAssetIcons.checkCircle, height: 24, width: 24, color: Colors.white),
+                      );
                     });
                   },
                   child: Text(

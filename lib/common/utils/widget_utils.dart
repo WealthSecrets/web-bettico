@@ -99,6 +99,32 @@ class WidgetUtils {
     );
   }
 
+  static void showBioModalBottomSheet(BuildContext context, {required User user}) {
+    showMaterialModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: SizedBox(height: 235, child: BioModal(user: user)),
+        );
+      },
+    );
+  }
+
+  static void showWebsiteModalBottomSheet(BuildContext context, {required User user}) {
+    showMaterialModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: SizedBox(height: 214, child: WebsiteModal(user: user)),
+        );
+      },
+    );
+  }
+
   static void showRemoveSlipCodeOptionDialog(
     BuildContext context, {
     String? title,

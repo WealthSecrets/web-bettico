@@ -47,6 +47,8 @@ class ProfileController extends GetxController {
   RxBool isObscured = true.obs;
   RxString firstName = ''.obs;
   RxString lastName = ''.obs;
+  RxString bio = ''.obs;
+  RxString website = ''.obs;
   RxString username = ''.obs;
   Rx<DateTime> dateOfBirth = DateTime.now().obs;
   RxString email = ''.obs;
@@ -383,6 +385,8 @@ class ProfileController extends GetxController {
         username: username.value.isEmpty ? null : username.value,
         phone: phone.value.isEmpty ? null : phone.value,
         country: country.value.isEmpty ? null : country.value,
+        bio: bio.value.isEmpty ? null : bio.value,
+        website: website.value.isEmpty ? null : website.value,
       ),
     );
     return failureOrUser;
@@ -401,6 +405,8 @@ class ProfileController extends GetxController {
     firstName(user.firstName);
     lastName(user.lastName);
     username(user.username);
+    bio(user.bio);
+    website(user.website);
     dateOfBirth(user.dateOfBirth);
     phone(user.phone);
   }
@@ -417,6 +423,14 @@ class ProfileController extends GetxController {
 
   void onFirstNameInputChanged(String value) {
     firstName(value);
+  }
+
+  void onBioInputChanged(String value) {
+    bio(value);
+  }
+
+  void onWebsiteInputChange(String value) {
+    website(value);
   }
 
   void onLastNameInputChanged(String value) {
@@ -653,4 +667,6 @@ class ProfileController extends GetxController {
 
   bool get isNameProvided =>
       InputValidators.validateName(firstName.value) == null && InputValidators.validateName(lastName.value) == null;
+
+  bool get bioIsValid => InputValidators.validateBio(bio.value) == null;
 }
