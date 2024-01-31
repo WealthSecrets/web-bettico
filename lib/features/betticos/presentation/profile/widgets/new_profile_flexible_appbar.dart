@@ -28,12 +28,14 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
     super.initState();
     followers = widget.user.followers;
     followings = widget.user.following;
+    controller.setProfileUser(widget.user);
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       final User loggedInUser = bController.user.value;
+      final User user = controller.user.value;
       return FlexibleSpaceBar(
         background: Padding(
           padding: AppPaddings.lB,
@@ -51,19 +53,19 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
                 padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                 child: Row(
                   children: <Widget>[
-                    ProfileImageStack(user: widget.user),
+                    ProfileImageStack(user: user),
                     const SizedBox(width: 12),
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '${widget.user.firstName} ${widget.user.lastName}',
+                          '${user.firstName} ${user.lastName}',
                           style: TextStyle(color: context.colors.black, fontWeight: FontWeight.w600, fontSize: 24),
                         ),
-                        if (widget.user.createdAt != null)
+                        if (user.createdAt != null)
                           Text(
-                            'Joined since ${AppDateUtils.format(widget.user.createdAt!)}',
+                            'Joined since ${AppDateUtils.format(user.createdAt!)}',
                             style:
                                 TextStyle(color: context.colors.darkenText, fontWeight: FontWeight.w300, fontSize: 12),
                           ),
@@ -72,38 +74,72 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
                   ],
                 ),
               ),
+
               const AppSpacing(v: 10),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  'Put user bio here',
-                  style: TextStyle(
-                    fontSize: 14,
-                    letterSpacing: 0.2,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF3A424A),
+              if (user.bio != null && user.bio != '')
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    user.bio ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      letterSpacing: 0.2,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF3A424A),
+                    ),
                   ),
-                ),
-              ),
-              const AppSpacing(v: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(AppAssetIcons.link, height: 15, width: 15),
-                    const SizedBox(width: 8),
-                    Text(
-                      widget.user.website ?? '',
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 0.1,
-                        fontWeight: FontWeight.w300,
-                        color: context.colors.primary,
+                )
+              else
+                Padding(
+                  padding: AppPaddings.lH,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () => WidgetUtils.showBioModalBottomSheet(context, user: user),
+                      child: Text(
+                        '+ Bio',
+                        style: context.caption
+                            .copyWith(letterSpacing: 0.2, fontWeight: FontWeight.w600, color: context.colors.primary),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+
+              if (user.website != null && user.website!.isNotEmpty) ...<Widget>[
+                const AppSpacing(v: 10),
+                Padding(
+                  padding: AppPaddings.lH,
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(AppAssetIcons.link, height: 15, width: 15),
+                      const SizedBox(width: 8),
+                      Text(
+                        user.website!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          letterSpacing: 0.1,
+                          fontWeight: FontWeight.w300,
+                          color: context.colors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ] else
+                Padding(
+                  padding: AppPaddings.lH,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () => WidgetUtils.showWebsiteModalBottomSheet(context, user: user),
+                      child: Text(
+                        '+ Website',
+                        style: context.caption
+                            .copyWith(letterSpacing: 0.2, fontWeight: FontWeight.w600, color: context.colors.primary),
+                      ),
+                    ),
+                  ),
+                ),
               const SizedBox(height: 5),
               Padding(
                 padding: AppPaddings.lH,
@@ -118,7 +154,7 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
               //
               const SizedBox(height: 16),
               _ButtonsRow(
-                user: widget.user,
+                user: user,
                 onFollowPressed: () {
                   if (controller.isFollowedByUser.value) {
                     controller.unfollowTheUser(
@@ -135,8 +171,8 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
               ),
               const SizedBox(height: 8),
               Divider(color: context.colors.dividerColor),
-              if (widget.user.id != loggedInUser.id && widget.user.isCreator)
-                _SubscribeSection(user: widget.user, controller: controller, bController: bController),
+              if (user.id != loggedInUser.id && user.isCreator)
+                _SubscribeSection(user: user, controller: controller, bController: bController),
             ],
           ),
         ),

@@ -52,7 +52,7 @@ class _ProfileImageStackState extends State<ProfileImageStack> {
           Positioned(
             bottom: 0,
             right: 0,
-            child: Image.asset(AppAssetIcons.tick, height: 25, width: 25, color: const Color(0xFFF59638)),
+            child: Image.asset(AppAssetIcons.tick, height: 25, width: 25),
           ),
       ],
     );

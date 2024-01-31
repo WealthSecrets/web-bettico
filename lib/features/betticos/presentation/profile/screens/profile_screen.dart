@@ -101,7 +101,7 @@ class _SliverAppBar extends StatelessWidget {
         final User loggedInUser = Get.find<BaseScreenController>().user.value;
         return SliverAppBar(
           toolbarHeight: 0,
-          expandedHeight: user.id == loggedInUser.id || (user.id != loggedInUser.id && !user.isCreator) ? 392 : 542,
+          expandedHeight: user.id == loggedInUser.id || (user.id != loggedInUser.id && !user.isCreator) ? 400 : 542,
           pinned: true,
           backgroundColor: Colors.white,
           flexibleSpace: NewProfileFlexibleAppBar(user: user, showBackButton: showBackButton),
