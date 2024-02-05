@@ -19,9 +19,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final BaseScreenController bController = Get.find<BaseScreenController>();
   @override
   void initState() {
+    controller.setProfileUser(widget.user, performActions: true);
     WidgetUtils.onWidgetDidBuild(() {
       controller.context = context;
-      controller.setProfileUser(widget.user, performActions: true);
     });
     super.initState();
   }
@@ -72,11 +72,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             body: TabBarView(
               children: <Widget>[
-                MyPostsScreen(userId: widget.user.id),
-                MyPostsScreen(userId: widget.user.id, isOddboxes: true),
+                MyPostsScreen(userId: widget.user.id, type: PostType.posts),
+                MyPostsScreen(userId: widget.user.id, type: PostType.oddboxes, oddbox: true),
                 Container(),
                 Container(),
-                Container(),
+                MyPostsScreen(userId: widget.user.id, type: PostType.likedPosts),
                 Container(),
               ],
             ),

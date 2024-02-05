@@ -52,7 +52,10 @@ class LevelCard extends StatelessWidget {
                         Text(
                           'How to upgrade to this level?',
                           style: context.overline.copyWith(
-                              letterSpacing: 0.2, fontWeight: FontWeight.w400, color: const Color(0xFF374B58)),
+                            letterSpacing: 0.2,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFF374B58),
+                          ),
                           textAlign: TextAlign.justify,
                         ),
                         Image.asset(AppAssetIcons.question, height: 11, width: 11, color: const Color(0xFF374B58))

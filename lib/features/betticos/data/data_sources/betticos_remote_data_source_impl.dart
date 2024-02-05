@@ -263,6 +263,17 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
+  Future<List<Post>> getMyLikedPosts() async {
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.likedPosts);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Post>.from(
+      items.map<Post>(
+        (dynamic json) => Post.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+  }
+
+  @override
   Future<void> unfollowUser(String userId) async {
     await _client.delete(BetticosEndpoints.unfollowUser(userId), body: <String, dynamic>{});
   }

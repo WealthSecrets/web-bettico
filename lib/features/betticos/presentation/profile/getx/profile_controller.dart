@@ -23,6 +23,7 @@ class ProfileController extends GetxController {
     required this.getMyFollowings,
     required this.fetchMyPosts,
     required this.fetchMyOddboxes,
+    required this.fetchMyLikedPosts,
     required this.likePost,
     required this.dislikePost,
   });
@@ -36,6 +37,7 @@ class ProfileController extends GetxController {
   final GetMyFollowers getMyFollowers;
   final GetMyFollowings getMyFollowings;
   final FetchMyOddboxes fetchMyOddboxes;
+  final FetchMyLikedPosts fetchMyLikedPosts;
   final FetchMyPosts fetchMyPosts;
   final CheckSubscription checkSubscription;
   final CheckFollowing checkFollowing;
@@ -67,6 +69,7 @@ class ProfileController extends GetxController {
   RxList<User> myOddsterFollowings = <User>[].obs;
   RxList<Post> myPosts = <Post>[].obs;
   RxList<Post> myOddboxes = <Post>[].obs;
+  RxList<Post> myLikedPosts = <Post>[].obs;
   RxBool isSubscribedToUser = false.obs;
 
   // loading state variables
@@ -81,6 +84,7 @@ class ProfileController extends GetxController {
   RxBool isLoadingFollowings = false.obs;
   RxBool isLoadingMyPosts = false.obs;
   RxBool isLoadingMyOddboxes = false.obs;
+  RxBool isLoadingMyLikedPosts = false.obs;
   RxBool isResolvingUser = false.obs;
   RxBool isLikingPost = false.obs;
   RxBool isDislikingPost = false.obs;
@@ -150,6 +154,7 @@ class ProfileController extends GetxController {
     loadMyFollowings();
     loadMyPosts();
     loadMyOddboxes();
+    loadMyLikedPosts();
     checkIfSubscribedToUser();
     checkIfFollowedByUser();
   }
@@ -335,6 +340,24 @@ class ProfileController extends GetxController {
     }, (List<Post> oddboxes) {
       isLoadingMyOddboxes(false);
       myOddboxes(oddboxes);
+    });
+  }
+
+  void loadMyLikedPosts() async {
+    isLoadingMyLikedPosts(true);
+    print("Loading my liked posts");
+
+    final Either<Failure, List<Post>> fialureOrSuccess = await fetchMyLikedPosts(NoParams());
+
+    fialureOrSuccess.fold((Failure failure) {
+      isLoadingMyOddboxes(false);
+      if (context != null) {
+        AppSnacks.show(context!, message: failure.message);
+      }
+    }, (List<Post> posts) {
+      print('Done fetching my liked posts');
+      isLoadingMyLikedPosts(false);
+      myLikedPosts(posts);
     });
   }
 
@@ -548,6 +571,14 @@ class ProfileController extends GetxController {
       return 'Expiring date is too close';
     }
     return null;
+  }
+
+  void removeFromLikedPost(String postId) {
+    print('Something just happened');
+    final List<Post> copyLikedPosts = List<Post>.from(myLikedPosts);
+    final Post? post = copyLikedPosts.firstWhereOrNull((Post post) => post.id == postId);
+    copyLikedPosts.remove(post);
+    myLikedPosts.value = copyLikedPosts;
   }
 
   void likeThePost(BuildContext context, String postId, String userId, {bool isOddbox = false}) async {

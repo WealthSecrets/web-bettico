@@ -342,24 +342,24 @@ class TimelineController extends GetxController {
       }
     }
 
-    if (post != null) {
-      final Either<Failure, Post> failureOrPost = await likePost(
-        LikeDislikePostParams(
-          postId: postId,
-          user: bController.user.value.id,
-        ),
-      );
+    final Either<Failure, Post> failureOrPost = await likePost(
+      LikeDislikePostParams(
+        postId: postId,
+        user: bController.user.value.id,
+      ),
+    );
 
-      failureOrPost.fold(
-        (Failure failure) {
-          isLikingPost(false);
-          AppSnacks.show(
-            context,
-            message: failure.message,
-          );
-        },
-        (Post pst) {
-          isLikingPost(false);
+    failureOrPost.fold(
+      (Failure failure) {
+        isLikingPost(false);
+        AppSnacks.show(
+          context,
+          message: failure.message,
+        );
+      },
+      (Post pst) {
+        isLikingPost(false);
+        if (post != null) {
           if (isComment) {
             final int postIndex = postComments.indexOf(post);
             postComments[postIndex] = pst;
@@ -375,15 +375,9 @@ class TimelineController extends GetxController {
               pagingController.refresh();
             }
           }
-        },
-      );
-    } else {
-      isLikingPost(false);
-      await AppSnacks.show(
-        context,
-        message: 'Error liking post',
-      );
-    }
+        }
+      },
+    );
   }
 
   void updatePostListView(

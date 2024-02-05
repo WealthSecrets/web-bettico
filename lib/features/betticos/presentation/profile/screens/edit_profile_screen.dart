@@ -117,7 +117,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               child: Text(
                                 'Upgrade Verification level',
                                 style: context.body2.copyWith(
-                                    color: context.colors.text, fontWeight: FontWeight.w400, letterSpacing: .2),
+                                  color: context.colors.text,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: .2,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),

@@ -114,6 +114,8 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, List<Post>>> getMyOddboxes(String userId);
 
+  Future<Either<Failure, List<Post>>> getMyLikedPosts();
+
   Future<Either<Failure, List<User>>> getAllOddsters();
 
   Future<Either<Failure, List<User>>> searchAllOddsters(String query);
