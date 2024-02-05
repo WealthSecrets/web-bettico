@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:betticos/common/common.dart';
+import 'package:betticos/features/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'post_model.freezed.dart';
 part 'post_model.g.dart';
@@ -17,6 +18,7 @@ class Post with _$Post {
     required List<String> shares,
     required List<String> likeUsers,
     required List<String> dislikeUsers,
+    @JsonKey(name: 'repostUsers') required List<Repost> reposts,
     required User user,
     required DateTime createdAt,
     required DateTime updatedAt,
@@ -36,6 +38,7 @@ class Post with _$Post {
         likeUsers: <String>[],
         dislikeUsers: <String>[],
         shares: <String>[],
+        reposts: <Repost>[],
       );
 
   factory Post.mock() => Post(
@@ -57,5 +60,6 @@ class Post with _$Post {
         ],
         dislikeUsers: <String>[],
         shares: <String>[],
+        reposts: <Repost>[],
       );
 }

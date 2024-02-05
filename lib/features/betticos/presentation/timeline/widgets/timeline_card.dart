@@ -166,7 +166,7 @@ class TimelineCard extends StatelessWidget {
                           isDislikeButton: true,
                         ),
                         _AnimatedButton(
-                          count: 20,
+                          count: post.reposts.length,
                           isLiked: false,
                           iconOutline: AppAssetIcons.refresh,
                           iconSolid: AppAssetIcons.refresh,

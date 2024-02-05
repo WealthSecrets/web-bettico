@@ -345,8 +345,6 @@ class ProfileController extends GetxController {
 
   void loadMyLikedPosts() async {
     isLoadingMyLikedPosts(true);
-    print("Loading my liked posts");
-
     final Either<Failure, List<Post>> fialureOrSuccess = await fetchMyLikedPosts(NoParams());
 
     fialureOrSuccess.fold((Failure failure) {
@@ -355,7 +353,6 @@ class ProfileController extends GetxController {
         AppSnacks.show(context!, message: failure.message);
       }
     }, (List<Post> posts) {
-      print('Done fetching my liked posts');
       isLoadingMyLikedPosts(false);
       myLikedPosts(posts);
     });
@@ -574,7 +571,6 @@ class ProfileController extends GetxController {
   }
 
   void removeFromLikedPost(String postId) {
-    print('Something just happened');
     final List<Post> copyLikedPosts = List<Post>.from(myLikedPosts);
     final Post? post = copyLikedPosts.firstWhereOrNull((Post post) => post.id == postId);
     copyLikedPosts.remove(post);
