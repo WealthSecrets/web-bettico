@@ -88,8 +88,8 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
                       color: Color(0xFF3A424A),
                     ),
                   ),
-                )
-              else
+                ),
+              if (user.id == loggedInUser.id && (user.bio == null || user.bio == ''))
                 Padding(
                   padding: AppPaddings.lH,
                   child: Align(
@@ -125,7 +125,8 @@ class _ProfileFlexibleAppBarState extends State<NewProfileFlexibleAppBar> {
                     ],
                   ),
                 )
-              ] else
+              ],
+              if (user.id == loggedInUser.id && (user.website == null || user.website == ''))
                 Padding(
                   padding: AppPaddings.lH,
                   child: Align(
@@ -191,82 +192,84 @@ class _SubscribeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String? name = user.firstName ?? user.lastName ?? user.username;
-    return Column(
-      children: <Widget>[
-        const SizedBox(height: 8),
-        Padding(
-          padding: AppPaddings.lH,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Subscriptions',
-                style: context.body1
-                    .copyWith(fontWeight: FontWeight.w600, color: context.colors.darkenText, letterSpacing: 0.1),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const IconCard(imagePath: AppAssetIcons.bookOpen),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Subscribe to $name',
-                          style: context.body1.copyWith(
-                            color: context.colors.black,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.1,
+    return Obx(
+      () => Column(
+        children: <Widget>[
+          const SizedBox(height: 8),
+          Padding(
+            padding: AppPaddings.lH,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Subscriptions',
+                  style: context.body1
+                      .copyWith(fontWeight: FontWeight.w600, color: context.colors.darkenText, letterSpacing: 0.1),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const IconCard(imagePath: AppAssetIcons.bookOpen),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Subscribe to $name',
+                            style: context.body1.copyWith(
+                              color: context.colors.black,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.1,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          "As a subscriber, you'll gain exclusive access to $name's creator contents.",
-                          style: context.body2.copyWith(
-                            color: const Color(0xFF3A424A),
-                            fontWeight: FontWeight.w300,
-                            letterSpacing: 0.1,
+                          const SizedBox(height: 5),
+                          Text(
+                            "As a subscriber, you'll gain exclusive access to $name's creator contents.",
+                            style: context.body2.copyWith(
+                              color: const Color(0xFF3A424A),
+                              fontWeight: FontWeight.w300,
+                              letterSpacing: 0.1,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              ProfileButton(
-                onPressed: () => controller.subscribeToTheUser(context, user.id),
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                height: 40,
-                width: double.infinity,
-                backgroundColor: controller.isSubscribedToUser.value ? context.colors.primary : Colors.white,
-                child: controller.isSubscribingToUser.value || controller.isCheckingSubscription.value
-                    ? SizedBox(
-                        height: 15,
-                        width: 15,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: controller.isSubscribedToUser.value ? Colors.white : context.colors.error,
-                        ),
-                      )
-                    : Text(
-                        controller.isSubscribedToUser.value
-                            ? 'subscribed'.tr.toUpperCase()
-                            : 'subscribe'.tr.toUpperCase(),
-                        style: context.body1.copyWith(
-                          letterSpacing: 0.2,
-                          fontWeight: FontWeight.w500,
-                          color: controller.isSubscribedToUser.value ? Colors.white : context.colors.primary,
-                        ),
+                        ],
                       ),
-              )
-            ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ProfileButton(
+                  onPressed: () => controller.subscribeToTheUser(context, user.id),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                  height: 40,
+                  width: double.infinity,
+                  backgroundColor: controller.isSubscribedToUser.value ? context.colors.primary : Colors.white,
+                  child: controller.isSubscribingToUser.value || controller.isCheckingSubscription.value
+                      ? SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: controller.isSubscribedToUser.value ? Colors.white : context.colors.error,
+                          ),
+                        )
+                      : Text(
+                          controller.isSubscribedToUser.value
+                              ? 'subscribed'.tr.toUpperCase()
+                              : 'subscribe'.tr.toUpperCase(),
+                          style: context.body1.copyWith(
+                            letterSpacing: 0.2,
+                            fontWeight: FontWeight.w500,
+                            color: controller.isSubscribedToUser.value ? Colors.white : context.colors.primary,
+                          ),
+                        ),
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -321,42 +324,46 @@ class _ButtonsRow extends StatelessWidget {
                     ],
                   ),
                 ),
-              if (user.id != loggedInUser.id) ...<Widget>[
-                ProfileButton(
-                  onPressed: () {},
-                  child: Image.asset(AppAssetIcons.inboxOut, height: 25, width: 25, color: context.colors.primary),
-                ),
-                const AppSpacing(h: 10),
-                ProfileButton(
-                  onPressed: () {},
-                  child: Image.asset(AppAssetIcons.bell, height: 25, width: 25, color: context.colors.primary),
-                ),
-                const AppSpacing(h: 10),
-                ProfileButton(
-                  padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 56),
-                  backgroundColor: controller.isFollowedByUser.value ? context.colors.primary : Colors.white,
-                  onPressed: onFollowPressed,
-                  child: controller.isFollowingUser.value || controller.isUnfollowingUser.value
-                      ? loader
-                      : Text(
-                          controller.isFollowedByUser.value ? 'following'.tr : 'follow'.tr,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.2,
-                            color: controller.isFollowedByUser.value ? Colors.white : context.colors.primary,
-                          ),
+              if (user.id != loggedInUser.id)
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      ProfileButton(
+                        onPressed: () {},
+                        child:
+                            Image.asset(AppAssetIcons.inboxOut, height: 25, width: 25, color: context.colors.primary),
+                      ),
+                      ProfileButton(
+                        onPressed: () {},
+                        child: Image.asset(AppAssetIcons.bell, height: 25, width: 25, color: context.colors.primary),
+                      ),
+                      ProfileButton(
+                        padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 56),
+                        backgroundColor: controller.isFollowedByUser.value ? context.colors.primary : Colors.white,
+                        onPressed: onFollowPressed,
+                        child: controller.isFollowingUser.value || controller.isUnfollowingUser.value
+                            ? loader
+                            : Text(
+                                controller.isFollowedByUser.value ? 'following'.tr : 'follow'.tr,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.2,
+                                  color: controller.isFollowedByUser.value ? Colors.white : context.colors.primary,
+                                ),
+                              ),
+                      ),
+                      ProfileButton(
+                        onPressed: () => WidgetUtils.showVerificationBottomSheet(
+                          context,
+                          isLoggedInUser: bController.user.value.id == user.id,
                         ),
-                ),
-                const AppSpacing(h: 10),
-                ProfileButton(
-                  onPressed: () => WidgetUtils.showVerificationBottomSheet(
-                    context,
-                    isLoggedInUser: bController.user.value.id == user.id,
+                        child: Image.asset(AppAssetIcons.star, height: 25, width: 25, color: context.colors.primary),
+                      ),
+                    ],
                   ),
-                  child: Image.asset(AppAssetIcons.star, height: 25, width: 25, color: context.colors.primary),
                 ),
-              ],
             ],
           ),
         );

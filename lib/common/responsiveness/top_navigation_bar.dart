@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TopNavigationBar extends StatelessWidget {
-  const TopNavigationBar({super.key, required this.scaffoldKey});
+  const TopNavigationBar({super.key, required this.scaffoldKey, this.title});
 
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,14 @@ class TopNavigationBar extends StatelessWidget {
               },
               icon: Icon(icon, color: context.colors.textDark),
             ),
-            Image.asset(AssetImages.logo, height: 25, width: 25),
+            if (title != null)
+              Text(
+                title!,
+                style: context.body1
+                    .copyWith(fontWeight: FontWeight.w500, letterSpacing: 0.2, color: const Color(0xFF272E35)),
+              )
+            else
+              Image.asset(AssetImages.logo, height: 25, width: 25),
             IconButton(onPressed: () {}, icon: const SizedBox()),
           ],
         ),

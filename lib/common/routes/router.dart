@@ -22,6 +22,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(EditProfileScreen(user: argument.user), settings);
     case AppRoutes.explore:
       return _getPageRoute(ExploreContainer(), settings);
+    case AppRoutes.verificationLevels:
+      return _getPageRoute(const VerificationLevelsScreen(), settings);
     case AppRoutes.search:
       return _getPageRoute(SearchContainer(), settings);
     default:

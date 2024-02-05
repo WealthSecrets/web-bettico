@@ -1,5 +1,6 @@
 import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -95,31 +96,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       subtitle: user.dateOfBirth != null ? AppDateUtils.format(user.dateOfBirth!) : 'N/A',
                     ),
                     const SizedBox(height: 56),
-                    Container(
-                      padding: AppPaddings.lA,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(color: const Color(0xFF8A8A8A).withOpacity(0.12), blurRadius: 4)
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(AppAssetIcons.ticks, width: 53.66, height: 14.64),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Text(
-                              'Upgrade Verification level',
-                              style: context.body2
-                                  .copyWith(color: context.colors.text, fontWeight: FontWeight.w400, letterSpacing: .2),
+                    GestureDetector(
+                      onTap: () => navigationController.navigateTo(AppRoutes.verificationLevels),
+                      child: Container(
+                        padding: AppPaddings.lA,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(color: const Color(0xFF8A8A8A).withOpacity(0.12), blurRadius: 4)
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(AppAssetIcons.ticks, width: 53.66, height: 14.64),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Text(
+                                'Upgrade Verification level',
+                                style: context.body2.copyWith(
+                                    color: context.colors.text, fontWeight: FontWeight.w400, letterSpacing: .2),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          Image.asset(AppAssetIcons.arrowRightRec, height: 24, width: 24),
-                        ],
+                            const SizedBox(width: 8),
+                            Image.asset(AppAssetIcons.arrowRightRec, height: 24, width: 24),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 56),

@@ -139,7 +139,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
             customScreen: CustomScreen(initialRoute: initialRoute, user: user, userToken: userToken),
             smallScreen: Column(
               children: <Widget>[
-                TopNavigationBar(scaffoldKey: scaffoldKey),
+                TopNavigationBar(
+                  scaffoldKey: scaffoldKey,
+                  title: getAppBarTitle(navigationController.currentRoute.value),
+                ),
                 Expanded(child: appNavigator(initialRoute))
               ],
             ),
@@ -175,5 +178,13 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       default:
         navigationController.navigateTo(AppRoutes.timeline);
     }
+  }
+
+  String? getAppBarTitle(String route) {
+    if (route == AppRoutes.verificationLevels) {
+      return 'Verification Status';
+    }
+
+    return null;
   }
 }
