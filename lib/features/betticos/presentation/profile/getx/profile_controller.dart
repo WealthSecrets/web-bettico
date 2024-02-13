@@ -26,6 +26,7 @@ class ProfileController extends GetxController {
     required this.fetchMyLikedPosts,
     required this.likePost,
     required this.dislikePost,
+    required this.fetchUserReposts,
   });
 
   final UpdateUser updateUser;
@@ -43,6 +44,7 @@ class ProfileController extends GetxController {
   final CheckFollowing checkFollowing;
   final LikePost likePost;
   final DislikePost dislikePost;
+  final FetchUserReposts fetchUserReposts;
 
   // reactive variables
   RxBool isSignUpAsOddster = false.obs;
@@ -70,6 +72,7 @@ class ProfileController extends GetxController {
   RxList<Post> myPosts = <Post>[].obs;
   RxList<Post> myOddboxes = <Post>[].obs;
   RxList<Post> myLikedPosts = <Post>[].obs;
+  RxList<RepostResponse> myReposts = <RepostResponse>[].obs;
   RxBool isSubscribedToUser = false.obs;
 
   // loading state variables
@@ -85,6 +88,7 @@ class ProfileController extends GetxController {
   RxBool isLoadingMyPosts = false.obs;
   RxBool isLoadingMyOddboxes = false.obs;
   RxBool isLoadingMyLikedPosts = false.obs;
+  RxBool isLoadingMyReposts = false.obs;
   RxBool isResolvingUser = false.obs;
   RxBool isLikingPost = false.obs;
   RxBool isDislikingPost = false.obs;
@@ -137,7 +141,7 @@ class ProfileController extends GetxController {
     }
 
     if (performActions ?? false) {
-      performAllActions();
+      performAllActions(u?.id);
     }
   }
 
@@ -149,12 +153,13 @@ class ProfileController extends GetxController {
     return user.value.id != Get.find<BaseScreenController>().user.value.id;
   }
 
-  void performAllActions() {
+  void performAllActions(String? userId) {
     loadMyFollowers();
     loadMyFollowings();
     loadMyPosts();
     loadMyOddboxes();
     loadMyLikedPosts();
+    loadMyReposts(userId: userId);
     checkIfSubscribedToUser();
     checkIfFollowedByUser();
   }
@@ -348,13 +353,29 @@ class ProfileController extends GetxController {
     final Either<Failure, List<Post>> fialureOrSuccess = await fetchMyLikedPosts(NoParams());
 
     fialureOrSuccess.fold((Failure failure) {
-      isLoadingMyOddboxes(false);
+      isLoadingMyLikedPosts(false);
       if (context != null) {
         AppSnacks.show(context!, message: failure.message);
       }
     }, (List<Post> posts) {
       isLoadingMyLikedPosts(false);
       myLikedPosts(posts);
+    });
+  }
+
+  void loadMyReposts({String? userId}) async {
+    isLoadingMyReposts(true);
+    final Either<Failure, List<RepostResponse>> fialureOrSuccess =
+        await fetchUserReposts(UserRequest(userId: userId ?? user.value.id));
+
+    fialureOrSuccess.fold((Failure failure) {
+      isLoadingMyReposts(false);
+      if (context != null) {
+        AppSnacks.show(context!, message: failure.message);
+      }
+    }, (List<RepostResponse> reposts) {
+      isLoadingMyReposts(false);
+      myReposts(reposts);
     });
   }
 

@@ -102,9 +102,7 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, User>> updateUserDevice({required String device});
 
-  Future<Either<Failure, void>> referUser({
-    required String email,
-  });
+  Future<Either<Failure, void>> referUser({required String email});
 
   Future<Either<Failure, List<User>>> getMyFollowers(String userId);
 
@@ -115,6 +113,8 @@ abstract class BetticosRepository {
   Future<Either<Failure, List<Post>>> getMyOddboxes(String userId);
 
   Future<Either<Failure, List<Post>>> getMyLikedPosts();
+
+  Future<Either<Failure, List<RepostResponse>>> getUserReposts(String userId);
 
   Future<Either<Failure, List<User>>> getAllOddsters();
 

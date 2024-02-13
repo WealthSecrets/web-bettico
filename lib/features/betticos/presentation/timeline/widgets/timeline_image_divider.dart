@@ -1,4 +1,4 @@
-import 'package:betticos/common/common.dart';
+// import 'package:betticos/common/common.dart';
 import 'package:flutter/material.dart';
 
 class TimelineImageDivider extends StatelessWidget {
@@ -37,10 +37,7 @@ class TimelineImageDivider extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
-                    image: NetworkImage(
-                      '${AppEndpoints.postImages}/${images[0]}',
-                      headers: <String, String>{'Authorization': 'Bearer $token'},
-                    ),
+                    image: NetworkImage(images[0]),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -64,10 +61,7 @@ class TimelineImageDivider extends StatelessWidget {
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          '${AppEndpoints.postImages}/${images[0]}',
-          headers: <String, String>{'Authorization': 'Bearer $token'},
-        ),
+        child: Image.network(images[0]),
       ),
     );
   }
@@ -90,10 +84,7 @@ class TimelineImageDivider extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppEndpoints.postImages}/$image1',
-                    headers: <String, String>{'Authorization': 'Bearer $token'},
-                  ),
+                  image: NetworkImage(image1),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -115,13 +106,7 @@ class TimelineImageDivider extends StatelessWidget {
               height: height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppEndpoints.postImages}/$image2',
-                    headers: <String, String>{'Authorization': 'Bearer $token'},
-                  ),
-                  fit: BoxFit.cover,
-                ),
+                image: DecorationImage(image: NetworkImage(image2), fit: BoxFit.cover),
               ),
             ),
           ),
@@ -149,10 +134,7 @@ class TimelineImageDivider extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppEndpoints.postImages}/$image1',
-                    headers: <String, String>{'Authorization': 'Bearer $token'},
-                  ),
+                  image: NetworkImage(image1),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -173,10 +155,7 @@ class TimelineImageDivider extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppEndpoints.postImages}/$image2',
-                    headers: <String, String>{'Authorization': 'Bearer $token'},
-                  ),
+                  image: NetworkImage(image2),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -205,10 +184,7 @@ class _FullImage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppEndpoints.postImages}/$imageAddress',
-                    headers: <String, String>{'Authorization': 'Bearer $token'},
-                  ),
+                  image: NetworkImage(imageAddress),
                   fit: BoxFit.scaleDown,
                 ),
               ),

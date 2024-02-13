@@ -10,6 +10,7 @@ export 'fetch_my_posts.dart';
 export 'fetch_paginated_posts.dart';
 export 'fetch_post_comments.dart';
 export 'fetch_posts.dart';
+export 'fetch_user_reposts.dart';
 export 'like_post.dart';
 export 'search_posts.dart';
 export 'update_post.dart';

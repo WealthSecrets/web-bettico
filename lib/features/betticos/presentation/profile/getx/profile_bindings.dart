@@ -21,6 +21,7 @@ class ProfileBindings {
         likePost: LikePost(betticosRepository: Get.find()),
         dislikePost: DislikePost(betticosRepository: Get.find()),
         fetchMyLikedPosts: FetchMyLikedPosts(betticosRepository: Get.find()),
+        fetchUserReposts: FetchUserReposts(betticosRepository: Get.find()),
       ),
       permanent: true,
     );

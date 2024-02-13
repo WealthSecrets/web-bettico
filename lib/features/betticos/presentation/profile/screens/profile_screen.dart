@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: <Widget>[
                 MyPostsScreen(userId: widget.user.id, type: PostType.posts),
                 MyPostsScreen(userId: widget.user.id, type: PostType.oddboxes, oddbox: true),
-                Container(),
+                RepostsScreen(),
                 Container(),
                 MyPostsScreen(userId: widget.user.id, type: PostType.likedPosts),
                 Container(),
