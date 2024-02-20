@@ -9,6 +9,7 @@ export 'post/post.dart';
 export 'referral/referral.dart';
 export 'reply/add_reply.dart';
 export 'report/report.dart';
+export 'repost/repost.dart';
 export 'resolve_user.dart';
 export 'setup/get_setup.dart';
 export 'subscription/subscription.dart';

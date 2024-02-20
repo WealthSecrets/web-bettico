@@ -114,7 +114,7 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, List<Post>>> getMyLikedPosts();
 
-  Future<Either<Failure, List<RepostResponse>>> getUserReposts(String userId);
+  Future<Either<Failure, List<Repost>>> getUserReposts(String userId);
 
   Future<Either<Failure, List<User>>> getAllOddsters();
 
