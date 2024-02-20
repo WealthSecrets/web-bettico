@@ -358,6 +358,16 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
+  Future<ListPage<Repost>> fetchPaginatedReposts(int page, int limit) async {
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.paginatedReposts(page, limit));
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    final List<Repost> reposts = List<Repost>.from(
+      items.map<Repost>((dynamic json) => Repost.fromJson(json as Map<String, dynamic>)),
+    );
+    return ListPage<Repost>(grandTotalCount: json['results'] as int, itemList: reposts);
+  }
+
+  @override
   Future<List<Listing>> fetchListings() async {
     final Map<String, dynamic> json = await _client.get(BetticosEndpoints.listings);
     final List<dynamic> items = json['data'] as List<dynamic>;

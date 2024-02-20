@@ -11,6 +11,8 @@ abstract class BetticosRemoteDataSource {
 
   Future<ListPage<Post>> fetchPaginatedPosts(int page, int limit);
 
+  Future<ListPage<Repost>> fetchPaginatedReposts(int page, int limit);
+
   Future<List<Post>> fetchPostComments(String postId);
 
   Future<Post> addPost({required PostRequest request, required Function(int count, int total) onSendProgress});

@@ -12,10 +12,9 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, List<Post>>> fetchFollowingPosts();
 
-  Future<Either<Failure, ListPage<Post>>> fetchPaginatedPosts(
-    int page,
-    int limit,
-  );
+  Future<Either<Failure, ListPage<Post>>> fetchPaginatedPosts(int page, int limit);
+
+  Future<Either<Failure, ListPage<Repost>>> fetchPaginatedReposts(int page, int limit);
 
   Future<Either<Failure, List<Post>>> fetchPostComments(String postId);
 

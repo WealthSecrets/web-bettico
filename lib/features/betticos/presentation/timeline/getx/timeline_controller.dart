@@ -22,6 +22,8 @@ class TimelineController extends GetxController {
     required this.addFeeling,
     required this.likePost,
     required this.dislikePost,
+    required this.likeRepost,
+    required this.dislikeRepost,
     required this.deletePost,
   });
 
@@ -35,14 +37,19 @@ class TimelineController extends GetxController {
   final AddFeeling addFeeling;
   final LikePost likePost;
   final DislikePost dislikePost;
+  final LikeRepost likeRepost;
+  final DislikeRepost dislikeRepost;
   final DeletePost deletePost;
 
   static TimelineController instance = Get.find();
   RxList<Post> posts = <Post>[].obs;
+  RxList<Repost> reposts = <Repost>[].obs;
   Rx<Post> detailPost = Post.empty().obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
   RxList<Post> oddboxes = <Post>[].obs;
   RxList<Post> postComments = <Post>[].obs;
+  RxList<Repost> repostComments = <Repost>[].obs;
+  RxList<CombinedItem<dynamic>> combinedItems = <CombinedItem<dynamic>>[].obs;
   RxString postId = ''.obs;
   RxString slipCode = ''.obs;
   Rx<Post> post = Post.empty().obs;
@@ -75,28 +82,28 @@ class TimelineController extends GetxController {
     super.onInit();
   }
 
-  void getAllFollowingPosts() async {
-    isPostLoading(true);
+  // void getAllFollowingPosts() async {
+  //   isPostLoading(true);
 
-    final Either<Failure, List<Post>> failureOrPosts = await fetchFollowingPosts(NoParams());
+  //   final Either<Failure, List<Post>> failureOrPosts = await fetchFollowingPosts(NoParams());
 
-    failureOrPosts.fold(
-      (Failure failure) {
-        isPostLoading(false);
-        Get.snackbar(
-          '',
-          failure.message,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.TOP,
-        );
-      },
-      (List<Post> pts) {
-        isPostLoading(false);
-        posts(pts);
-      },
-    );
-  }
+  //   failureOrPosts.fold(
+  //     (Failure failure) {
+  //       isPostLoading(false);
+  //       Get.snackbar(
+  //         '',
+  //         failure.message,
+  //         backgroundColor: Colors.red,
+  //         colorText: Colors.white,
+  //         snackPosition: SnackPosition.TOP,
+  //       );
+  //     },
+  //     (List<Post> pts) {
+  //       isPostLoading(false);
+  //       posts(pts);
+  //     },
+  //   );
+  // }
 
   void getAllSubscribedOddboxes(BuildContext context) async {
     isOddboxLoading(true);
@@ -120,6 +127,43 @@ class TimelineController extends GetxController {
   }
 
   void getPaginatedPosts(int pageKey) async {
+    pageK(pageKey);
+    isLoading(true);
+    final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
+      PageParmas(page: pageK.value, size: 100, leagueId: 1),
+    );
+
+    failureOrPosts.fold(
+      (Failure failure) {
+        isLoading(false);
+        pagingController.value.error = failure;
+      },
+      (ListPage<Post> newPage) {
+        isLoading(false);
+        final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
+
+        final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
+        final List<Post> newItems = newPage.itemList;
+
+        if (isLastPage) {
+          pagingController.value.appendLastPage(newItems);
+          if (!isCompleted.value) {
+            posts.addAll(newItems);
+          }
+          isCompleted(true);
+        } else {
+          final int nextPageKey = pageKey + 1;
+          pagingController.value.appendPage(newItems, nextPageKey);
+          if (!isCompleted.value) {
+            posts.addAll(newItems);
+          }
+        }
+        postsL(newPage);
+      },
+    );
+  }
+
+  void getCombinedItems(int pageKey) async {
     pageK(pageKey);
     isLoading(true);
     final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
@@ -380,6 +424,40 @@ class TimelineController extends GetxController {
     );
   }
 
+  void likeTheRepost(BuildContext context, String repostId, {bool isComment = false}) async {
+    isLikingPost(true);
+
+    Repost? repost;
+    if (isComment) {
+      repost = repostComments.firstWhereOrNull((Repost rp) => rp.id == repostId);
+    }
+
+    final Either<Failure, Repost> failureOrPost = await likeRepost(
+      LikeDislikePostParams(postId: repostId, user: bController.user.value.id),
+    );
+
+    failureOrPost.fold(
+      (Failure failure) {
+        isLikingPost(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (Repost rpst) {
+        isLikingPost(false);
+        if (repost != null) {
+          if (isComment) {
+            final int repostIndex = repostComments.indexOf(post);
+            repostComments[repostIndex] = rpst;
+          } else {
+            final int repostIndex = reposts.indexOf(repost);
+            reposts[repostIndex] = rpst;
+            pagingController.value.itemList!.replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+            pagingController.refresh();
+          }
+        }
+      },
+    );
+  }
+
   void updatePostListView(
     String postId,
     Post post, {
@@ -489,7 +567,7 @@ class TimelineController extends GetxController {
       final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
       if (post != null) {
         resetValues();
-        getAllFollowingPosts();
+        getPaginatedPosts(pageK.value);
         if (context.mounted) {
           getAllSubscribedOddboxes(context);
           await AppSnacks.show(

@@ -248,6 +248,10 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(betticoslineRemoteDataSource.fetchPaginatedPosts(page, limit));
 
   @override
+  Future<Either<Failure, ListPage<Repost>>> fetchPaginatedReposts(int page, int limit) =>
+      makeRequest(betticoslineRemoteDataSource.fetchPaginatedReposts(page, limit));
+
+  @override
   Future<Either<Failure, List<Listing>>> fetchListings() => makeRequest(betticoslineRemoteDataSource.fetchListings());
 
   @override
