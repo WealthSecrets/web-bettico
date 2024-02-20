@@ -63,28 +63,21 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       );
 
   @override
-  Future<Either<Failure, Post>> likePost({
-    required String postId,
-    required String user,
-  }) =>
-      makeRequest(
-        betticoslineRemoteDataSource.likePost(
-          postId: postId,
-          request: LikeDislikePostRequest(user: user),
-        ),
+  Future<Either<Failure, Post>> likePost({required String postId, required String user}) =>
+      makeRequest(betticoslineRemoteDataSource.likePost(postId: postId, request: LikeDislikePostRequest(user: user)));
+
+  @override
+  Future<Either<Failure, Post>> dislikePost({required String postId, required String user}) => makeRequest(
+        betticoslineRemoteDataSource.dislikePost(postId: postId, request: LikeDislikePostRequest(user: user)),
       );
 
   @override
-  Future<Either<Failure, Post>> dislikePost({
-    required String postId,
-    required String user,
-  }) =>
-      makeRequest(
-        betticoslineRemoteDataSource.dislikePost(
-          postId: postId,
-          request: LikeDislikePostRequest(user: user),
-        ),
-      );
+  Future<Either<Failure, Repost>> likeRepost({required String repostId, required String user}) =>
+      makeRequest(betticoslineRemoteDataSource.likeRepost(repostId: repostId, request: UserRequest(userId: user)));
+
+  @override
+  Future<Either<Failure, Repost>> dislikeRepost({required String repostId, required String user}) =>
+      makeRequest(betticoslineRemoteDataSource.dislikeRepost(repostId: repostId, request: UserRequest(userId: user)));
 
   @override
   Future<Either<Failure, List<Post>>> fetchPosts() => makeRequest(

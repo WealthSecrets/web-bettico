@@ -45,6 +45,20 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
+  Future<Repost> likeRepost({required String repostId, required UserRequest request}) async {
+    final Map<String, dynamic> json =
+        await _client.post(BetticosEndpoints.likeRepost(repostId), body: request.toJson());
+    return Repost.fromJson(json['data'] as Map<String, dynamic>);
+  }
+
+  @override
+  Future<Repost> dislikeRepost({required String repostId, required UserRequest request}) async {
+    final Map<String, dynamic> json =
+        await _client.post(BetticosEndpoints.dislikeRepost(repostId), body: request.toJson());
+    return Repost.fromJson(json['data'] as Map<String, dynamic>);
+  }
+
+  @override
   Future<Feeling> addFeeling({required FeelingRequest request}) async {
     final Map<String, dynamic> json = await _client.post(BetticosEndpoints.feelings, body: request.toJson());
     return Feeling.fromJson(json);

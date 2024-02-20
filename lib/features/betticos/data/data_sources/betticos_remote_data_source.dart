@@ -13,51 +13,31 @@ abstract class BetticosRemoteDataSource {
 
   Future<List<Post>> fetchPostComments(String postId);
 
-  Future<Post> addPost({
-    required PostRequest request,
-    required Function(int count, int total) onSendProgress,
-  });
+  Future<Post> addPost({required PostRequest request, required Function(int count, int total) onSendProgress});
 
   Future<Setup> getSetup();
 
-  Future<Post> updatePost({
-    required String postId,
-    required PostRequest request,
-  });
+  Future<Post> updatePost({required String postId, required PostRequest request});
 
-  Future<Post> likePost({
-    required String postId,
-    required LikeDislikePostRequest request,
-  });
+  Future<Post> likePost({required String postId, required LikeDislikePostRequest request});
 
-  Future<Post> dislikePost({
-    required String postId,
-    required LikeDislikePostRequest request,
-  });
+  Future<Post> dislikePost({required String postId, required LikeDislikePostRequest request});
 
-  Future<Reply> addReply({
-    required ReplyRequest request,
-  });
+  Future<Repost> likeRepost({required String repostId, required UserRequest request});
 
-  Future<Feeling> addFeeling({
-    required FeelingRequest request,
-  });
+  Future<Repost> dislikeRepost({required String repostId, required UserRequest request});
 
-  Future<void> addReport({
-    required ReportRequest request,
-  });
+  Future<Reply> addReply({required ReplyRequest request});
 
-  Future<Follow> followUser({
-    required UserRequest request,
-  });
+  Future<Feeling> addFeeling({required FeelingRequest request});
 
-  Future<User> blockUser({
-    required String userId,
-  });
+  Future<void> addReport({required ReportRequest request});
 
-  Future<Subscription> subscribeToUser({
-    required SubscribeRequest request,
-  });
+  Future<Follow> followUser({required UserRequest request});
+
+  Future<User> blockUser({required String userId});
+
+  Future<Subscription> subscribeToUser({required SubscribeRequest request});
 
   Future<Subscription> checkSubscription(String userId);
 
