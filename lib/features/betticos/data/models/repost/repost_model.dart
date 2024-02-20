@@ -1,12 +1,14 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:betticos/common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'post_model.freezed.dart';
-part 'post_model.g.dart';
+
+import '../post/post_model.dart';
+part 'repost_model.freezed.dart';
+part 'repost_model.g.dart';
 
 @freezed
-class Post with _$Post {
-  const factory Post({
+class Repost with _$Repost {
+  const factory Repost({
     @JsonKey(name: '_id') required String id,
     String? text,
     List<String>? images,
@@ -18,15 +20,17 @@ class Post with _$Post {
     required List<String> likeUsers,
     required List<String> dislikeUsers,
     required User user,
+    required Post post,
+    required String commentsOnRepost,
     required DateTime createdAt,
     required DateTime updatedAt,
-  }) = _Post;
+  }) = _Repost;
 
-  const Post._();
+  const Repost._();
 
-  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+  factory Repost.fromJson(Map<String, dynamic> json) => _$RepostFromJson(json);
 
-  factory Post.empty() => Post(
+  factory Repost.empty() => Repost(
         id: '',
         user: User.empty(),
         createdAt: DateTime.now(),
@@ -36,16 +40,18 @@ class Post with _$Post {
         likeUsers: <String>[],
         dislikeUsers: <String>[],
         shares: <String>[],
+        commentsOnRepost: '',
+        post: Post.empty(),
       );
 
-  factory Post.mock() => Post(
+  factory Repost.mock() => Repost(
         id: '625e06f392dad8843a4d30c6',
         user: User.mock(),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         comments: 3,
         isOddbox: false,
-        text: 'Hello world, this is a test post',
+        text: 'Hello world, this is a test Repost',
         images: <String>[],
         likeUsers: <String>[
           '625e06f392dad8843a4d3e0f',
@@ -57,5 +63,7 @@ class Post with _$Post {
         ],
         dislikeUsers: <String>[],
         shares: <String>[],
+        commentsOnRepost: 'this is a repost',
+        post: Post.mock(),
       );
 }

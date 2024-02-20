@@ -1,3 +1,4 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
@@ -181,6 +182,60 @@ class RepostCard extends StatelessWidget {
                             ],
                             token: bController.userToken.value,
                           ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            _AnimatedButton(
+                              count: repost.post.likeUsers.length,
+                              isLiked: repost.post.likeUsers.contains(user.id),
+                              iconOutline: AppAssetIcons.thumbsUp,
+                              iconSolid: AppAssetIcons.thumbsUpSolid,
+                              onTap: onLikeTap,
+                            ),
+                            _AnimatedButton(
+                              count: repost.post.dislikeUsers.length,
+                              isLiked: repost.post.dislikeUsers.contains(user.id),
+                              iconOutline: AppAssetIcons.thumbsDown,
+                              iconSolid: AppAssetIcons.thumbsDownSolid,
+                              onTap: onDislikeTap,
+                              isDislikeButton: true,
+                            ),
+                            _AnimatedButton(
+                              count: 0,
+                              isLiked: false,
+                              iconOutline: AppAssetIcons.refresh,
+                              iconSolid: AppAssetIcons.refresh,
+                              onTap: onDislikeTap,
+                              isDislikeButton: true,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: onCommentTap,
+                                  child: Image.asset(
+                                    AppAssetIcons.chat,
+                                    color: context.colors.icon,
+                                    height: 15,
+                                    width: 15,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                if (repost.post.comments != null)
+                                  Text(
+                                    repost.post.comments.toString(),
+                                    style: TextStyle(color: context.colors.text, fontSize: 12),
+                                  ),
+                              ],
+                            ),
+                            _AnimatedButton(
+                              count: repost.post.shares.length,
+                              isLiked: repost.post.shares.contains(user.id),
+                              iconOutline: AppAssetIcons.share,
+                              iconSolid: AppAssetIcons.share,
+                              onTap: onShareTap,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

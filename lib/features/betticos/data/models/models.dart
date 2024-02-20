@@ -5,5 +5,6 @@ export 'option/option_model.dart';
 export 'post/post.dart';
 export 'reply/reply_model.dart';
 export 'report/report_model.dart';
+export 'repost/repost.dart';
 export 'setup/setup_model.dart';
 export 'subscription/subscription_model.dart';
