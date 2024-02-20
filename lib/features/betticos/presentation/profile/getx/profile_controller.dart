@@ -72,7 +72,7 @@ class ProfileController extends GetxController {
   RxList<Post> myPosts = <Post>[].obs;
   RxList<Post> myOddboxes = <Post>[].obs;
   RxList<Post> myLikedPosts = <Post>[].obs;
-  RxList<RepostResponse> myReposts = <RepostResponse>[].obs;
+  RxList<Repost> myReposts = <Repost>[].obs;
   RxBool isSubscribedToUser = false.obs;
 
   // loading state variables
@@ -365,7 +365,7 @@ class ProfileController extends GetxController {
 
   void loadMyReposts({String? userId}) async {
     isLoadingMyReposts(true);
-    final Either<Failure, List<RepostResponse>> fialureOrSuccess =
+    final Either<Failure, List<Repost>> fialureOrSuccess =
         await fetchUserReposts(UserRequest(userId: userId ?? user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
@@ -373,7 +373,7 @@ class ProfileController extends GetxController {
       if (context != null) {
         AppSnacks.show(context!, message: failure.message);
       }
-    }, (List<RepostResponse> reposts) {
+    }, (List<Repost> reposts) {
       isLoadingMyReposts(false);
       myReposts(reposts);
     });

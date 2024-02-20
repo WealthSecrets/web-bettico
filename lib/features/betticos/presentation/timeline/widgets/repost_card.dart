@@ -3,7 +3,6 @@ import 'package:betticos/common/common.dart';
 import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
-import 'package:betticos/features/domain.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
@@ -29,7 +28,7 @@ class RepostCard extends StatelessWidget {
   });
 
   final bool largeFonts;
-  final RepostResponse repost;
+  final Repost repost;
   final bool hideOptions;
   final bool hideButtons;
   final bool sponsored;
@@ -88,14 +87,14 @@ class RepostCard extends StatelessWidget {
                     child: _PostUserDetails(post: repost.post, pController: pController),
                   ),
                   const AppSpacing(v: 6),
-                  if (repost.comment.isNotEmpty)
+                  if (repost.commentsOnRepost.isNotEmpty)
                     DetectableText(
                       trimLines: 7,
                       colorClickableText: Colors.pink,
                       trimMode: TrimMode.Line,
                       trimCollapsedText: 'more',
                       trimExpandedText: '...less',
-                      text: repost.comment,
+                      text: repost.commentsOnRepost,
                       detectionRegExp: RegExp(
                         '(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent',
                         multiLine: true,

@@ -1,6 +1,5 @@
 import 'package:betticos/common/common.dart';
 import 'package:betticos/features/data.dart';
-import 'package:betticos/features/domain.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,7 @@ class RepostsScreen extends GetWidget<ProfileController> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        final List<RepostResponse> reposts = controller.myReposts;
+        final List<Repost> reposts = controller.myReposts;
         return AppLoadingBox(
           loading: controller.isLoadingMyReposts.value,
           child: reposts.isEmpty
@@ -22,7 +21,7 @@ class RepostsScreen extends GetWidget<ProfileController> {
               : ListView.builder(
                   itemCount: reposts.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final RepostResponse repost = reposts[index];
+                    final Repost repost = reposts[index];
                     final Post post = repost.post;
                     return RepostCard(
                       repost: repost,

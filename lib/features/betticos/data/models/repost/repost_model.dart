@@ -15,7 +15,6 @@ class Repost with _$Repost {
     int? comments,
     String? slipCode,
     bool? boosted,
-    required bool isOddbox,
     required List<String> shares,
     required List<String> likeUsers,
     required List<String> dislikeUsers,
@@ -36,7 +35,6 @@ class Repost with _$Repost {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         comments: 0,
-        isOddbox: false,
         likeUsers: <String>[],
         dislikeUsers: <String>[],
         shares: <String>[],
@@ -50,7 +48,6 @@ class Repost with _$Repost {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         comments: 3,
-        isOddbox: false,
         text: 'Hello world, this is a test Repost',
         images: <String>[],
         likeUsers: <String>[
