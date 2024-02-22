@@ -1,3 +1,4 @@
+export 'animated_button.dart';
 export 'animated_column.dart';
 export 'animated_listview.dart';
 export 'app_back_button.dart';

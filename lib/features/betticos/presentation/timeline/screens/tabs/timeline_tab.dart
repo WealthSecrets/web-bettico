@@ -18,59 +18,79 @@ class TimelineTab extends StatelessWidget {
         () => controller.pagingController.value.refresh(),
       ),
       child: Obx(
-        () => CustomScrollView(
-          slivers: <Widget>[
-            PagedSliverList<int, Post>(
-              pagingController: controller.pagingController.value,
-              builderDelegate: PagedChildBuilderDelegate<Post>(
-                itemBuilder: (BuildContext context, Post post, int index) {
-                  return Obx(
-                    () => TimelineCard(
-                      post: post,
-                      onTap: () {
-                        Navigator.of(context).push<void>(
-                          MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
-                        );
-                      },
-                      onCommentTap: () => controller.navigateToAddPost(
-                        context,
-                        pstId: post.id,
-                      ),
-                      sponsored: post.boosted == true,
-                      onLikeTap: () => controller.likeThePost(context, post.id),
-                      onDislikeTap: () => controller.dislikeThePost(context, post.id),
-                    ),
-                  );
-                },
-                firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
-                  error: controller.pagingController.value.error as Failure,
-                  onTryAgain: () => controller.pagingController.value.refresh(),
+        () {
+          return CustomScrollView(
+            slivers: <Widget>[
+              PagedSliverList<int, CombinedItem<dynamic>>(
+                pagingController: controller.pagingController.value,
+                builderDelegate: PagedChildBuilderDelegate<CombinedItem<dynamic>>(
+                  itemBuilder: (BuildContext context, CombinedItem<dynamic> item, int index) {
+                    if (item.isPost) {
+                      final Post post = item.item as Post;
+                      return Obx(
+                        () => TimelineCard(
+                          post: post,
+                          onTap: () {
+                            Navigator.of(context).push<void>(
+                              MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
+                            );
+                          },
+                          onCommentTap: () => controller.navigateToAddPost(
+                            context,
+                            pstId: post.id,
+                          ),
+                          sponsored: post.boosted == true,
+                          onLikeTap: () => controller.likeThePost(context, post.id),
+                          onDislikeTap: () => controller.dislikeThePost(context, post.id),
+                        ),
+                      );
+                    } else {
+                      final Repost repost = item.item as Repost;
+                      return Obx(
+                        () => RepostCard(
+                          repost: repost,
+                          onTap: () {
+                            Navigator.of(context).push<void>(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => PostDetailsScreen(post: repost.post),
+                              ),
+                            );
+                          },
+                          sponsored: repost.boosted == true,
+                        ),
+                      );
+                    }
+                  },
+                  firstPageErrorIndicatorBuilder: (BuildContext context) => ErrorIndicator(
+                    error: controller.pagingController.value.error as Failure,
+                    onTryAgain: () => controller.pagingController.value.refresh(),
+                  ),
+                  noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
+                  newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
+                  firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
                 ),
-                noItemsFoundIndicatorBuilder: (BuildContext context) => const EmptyListIndicator(),
-                newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
-                firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
+                // separatorBuilder: (_, __) => Divider(color: context.colors.dividerColor),
               ),
-              // separatorBuilder: (_, __) => Divider(color: context.colors.dividerColor),
-            ),
-            SliverToBoxAdapter(
-              child: Builder(
-                builder: (BuildContext context) {
-                  final int? itemCount = controller.pagingController.value.itemList?.length;
-                  final int pageIndex = (itemCount! - 1) ~/ 100;
-                  if ((pageIndex + 1) % 20 == 0) {
-                    return Container(
-                      color: Colors.grey,
-                      height: 50,
-                      child: const Center(child: Text('Widget after every 20 posts')),
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
+              SliverToBoxAdapter(
+                child: Builder(
+                  builder: (BuildContext context) {
+                    final int? itemCount = controller.pagingController.value.itemList?.length;
+                    final int pageIndex = (itemCount! - 1) ~/ 100;
+                    if ((pageIndex + 1) % 20 == 0) {
+                      return Container(
+                        color: Colors.grey,
+                        height: 50,
+                        child: const Center(child: Text('Widget after every 20 posts')),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
@@ -9,7 +8,6 @@ import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:like_button/like_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class RepostCard extends StatelessWidget {
@@ -84,7 +82,7 @@ class RepostCard extends StatelessWidget {
                       AppRoutes.profile,
                       arguments: ProfileScreenArgument(user: repost.post.user, showBackButton: true),
                     ),
-                    child: _PostUserDetails(post: repost.post, pController: pController),
+                    child: _PostUserDetails(post: repost, pController: pController),
                   ),
                   const AppSpacing(v: 6),
                   if (repost.commentsOnRepost.isNotEmpty)
@@ -126,119 +124,9 @@ class RepostCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                   const SizedBox(height: 8),
-                  Container(
-                    padding: AppPaddings.mA,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xFFCED5DC)),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                image: DecorationImage(image: AssetImage(AssetImages.profileImage), fit: BoxFit.cover),
-                              ),
-                            ),
-                            if (repost.post.user.firstName != null || repost.post.user.lastName != null) ...<Widget>[
-                              const SizedBox(width: 5),
-                              Text(
-                                '${repost.post.user.firstName ?? ''} ${repost.post.user.lastName ?? ''}',
-                                style: context.caption.copyWith(
-                                  color: context.colors.black,
-                                  letterSpacing: 0.1,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                            const SizedBox(width: 5),
-                            Text(
-                              '@${repost.post.user.username} . ${timeago.format(repost.post.createdAt)}',
-                              style:
-                                  context.caption.copyWith(fontWeight: FontWeight.normal, color: context.colors.text),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        if (repost.post.text != null) ...<Widget>[
-                          Text(
-                            repost.post.text!,
-                            style: context.caption.copyWith(color: context.colors.black, fontWeight: FontWeight.normal),
-                          ),
-                          const SizedBox(height: 10)
-                        ],
-                        if (repost.post.images != null && repost.post.images!.isNotEmpty)
-                          TimelineImageDivider(
-                            images: const <String>[
-                              'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg',
-                              'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg'
-                            ],
-                            token: bController.userToken.value,
-                          ),
-                      ],
-                    ),
-                  ),
+                  _ActualPost(post: repost.post, bController: bController),
                   const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      _AnimatedButton(
-                        count: repost.post.likeUsers.length,
-                        isLiked: repost.post.likeUsers.contains(user.id),
-                        iconOutline: AppAssetIcons.thumbsUp,
-                        iconSolid: AppAssetIcons.thumbsUpSolid,
-                        onTap: onLikeTap,
-                      ),
-                      _AnimatedButton(
-                        count: repost.post.dislikeUsers.length,
-                        isLiked: repost.post.dislikeUsers.contains(user.id),
-                        iconOutline: AppAssetIcons.thumbsDown,
-                        iconSolid: AppAssetIcons.thumbsDownSolid,
-                        onTap: onDislikeTap,
-                        isDislikeButton: true,
-                      ),
-                      _AnimatedButton(
-                        count: 0,
-                        isLiked: false,
-                        iconOutline: AppAssetIcons.refresh,
-                        iconSolid: AppAssetIcons.refresh,
-                        onTap: onDislikeTap,
-                        isDislikeButton: true,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: onCommentTap,
-                            child: Image.asset(
-                              AppAssetIcons.chat,
-                              color: context.colors.icon,
-                              height: 15,
-                              width: 15,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          if (repost.post.comments != null)
-                            Text(
-                              repost.post.comments.toString(),
-                              style: TextStyle(color: context.colors.text, fontSize: 12),
-                            ),
-                        ],
-                      ),
-                      _AnimatedButton(
-                        count: repost.post.shares.length,
-                        isLiked: repost.post.shares.contains(user.id),
-                        iconOutline: AppAssetIcons.share,
-                        iconSolid: AppAssetIcons.share,
-                        onTap: onShareTap,
-                      ),
-                    ],
-                  ),
+                  here
                 ],
               ),
             )
@@ -249,10 +137,78 @@ class RepostCard extends StatelessWidget {
   }
 }
 
+class _ActualPost extends StatelessWidget {
+  const _ActualPost({required this.post, required this.bController});
+
+  final Post post;
+  final BaseScreenController bController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: AppPaddings.mA,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFFCED5DC)),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(image: AssetImage(AssetImages.profileImage), fit: BoxFit.cover),
+                ),
+              ),
+              if (post.user.firstName != null || post.user.lastName != null) ...<Widget>[
+                const SizedBox(width: 5),
+                Text(
+                  '${post.user.firstName ?? ''} ${post.user.lastName ?? ''}',
+                  style: context.caption.copyWith(
+                    color: context.colors.black,
+                    letterSpacing: 0.1,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+              const SizedBox(width: 5),
+              Text(
+                '@${post.user.username} . ${timeago.format(post.createdAt)}',
+                style: context.caption.copyWith(fontWeight: FontWeight.normal, color: context.colors.text),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          if (post.text != null) ...<Widget>[
+            Text(
+              post.text!,
+              style: context.caption.copyWith(color: context.colors.black, fontWeight: FontWeight.normal),
+            ),
+            const SizedBox(height: 10)
+          ],
+          if (post.images != null && post.images!.isNotEmpty)
+            TimelineImageDivider(
+              images: const <String>[
+                'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg',
+                'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg'
+              ],
+              token: bController.userToken.value,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 class _PostUserDetails extends StatelessWidget {
   const _PostUserDetails({required this.post, required this.pController});
 
-  final Post post;
+  final Repost post;
   final ProfileController pController;
 
   @override
@@ -298,59 +254,6 @@ class _PostUserDetails extends StatelessWidget {
             ],
           ),
       ],
-    );
-  }
-}
-
-class _AnimatedButton extends StatelessWidget {
-  const _AnimatedButton({
-    required this.count,
-    required this.isLiked,
-    required this.iconOutline,
-    required this.iconSolid,
-    this.onTap,
-    this.isDislikeButton = false,
-  });
-
-  final int count;
-  final bool isLiked;
-  final String iconOutline;
-  final String iconSolid;
-  final Function()? onTap;
-  final bool isDislikeButton;
-
-  @override
-  Widget build(BuildContext context) {
-    return LikeButton(
-      size: 15,
-      circleColor: CircleColor(
-        start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
-        end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E),
-      ),
-      bubblesColor: isDislikeButton
-          ? const BubblesColor(dotPrimaryColor: Color(0xFFFF2626), dotSecondaryColor: Color(0xFFBD1616))
-          : const BubblesColor(
-              dotPrimaryColor: Color(0xFFFCA70B),
-              dotSecondaryColor: Color(0xFFFC9906),
-            ),
-      likeBuilder: (bool isLiked) => Image.asset(
-        isLiked ? iconSolid : iconOutline,
-        color: isLiked ? (isDislikeButton ? context.colors.error : context.colors.primary) : context.colors.icon,
-        height: 15,
-        width: 15,
-      ),
-      likeCount: count,
-      isLiked: isLiked,
-      countBuilder: (int? c, bool value, String text) {
-        return Text(
-          '$c',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: context.colors.text),
-        );
-      },
-      onTap: (bool isLiked) async {
-        onTap?.call();
-        return !isLiked;
-      },
     );
   }
 }

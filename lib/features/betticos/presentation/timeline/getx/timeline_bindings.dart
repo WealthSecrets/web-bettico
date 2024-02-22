@@ -21,6 +21,7 @@ class TimelineBindings {
         deletePost: DeletePost(betticosRepository: Get.find()),
         likeRepost: LikeRepost(betticosRepository: Get.find()),
         dislikeRepost: DislikeRepost(betticosRepository: Get.find()),
+        fetchPaginatedReposts: FetchPaginatedReposts(betticosRepository: Get.find()),
       ),
       permanent: true,
     );

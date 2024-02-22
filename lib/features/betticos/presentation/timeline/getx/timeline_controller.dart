@@ -14,6 +14,7 @@ class TimelineController extends GetxController {
   TimelineController({
     required this.fetchFollowingPosts,
     required this.fetchPaginatedPosts,
+    required this.fetchPaginatedReposts,
     required this.fetchSubscribedOddboxes,
     required this.fetchPostComments,
     required this.addPost,
@@ -30,6 +31,7 @@ class TimelineController extends GetxController {
   final FetchFollowingPosts fetchFollowingPosts;
   final FetchSubscribedOddboxes fetchSubscribedOddboxes;
   final FetchPaginatedPosts fetchPaginatedPosts;
+  final FetchPaginatedReposts fetchPaginatedReposts;
   final FetchPostComments fetchPostComments;
   final AddPost addPost;
   final UpdatePost updatePost;
@@ -46,6 +48,8 @@ class TimelineController extends GetxController {
   RxList<Repost> reposts = <Repost>[].obs;
   Rx<Post> detailPost = Post.empty().obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
+  Rx<ListPage<Repost>> repostsL = ListPage<Repost>.empty().obs;
+  Rx<ListPage<CombinedItem<dynamic>>> combinedL = ListPage<CombinedItem<dynamic>>.empty().obs;
   RxList<Post> oddboxes = <Post>[].obs;
   RxList<Post> postComments = <Post>[].obs;
   RxList<Repost> repostComments = <Repost>[].obs;
@@ -62,7 +66,8 @@ class TimelineController extends GetxController {
   RxBool isOddbox = false.obs;
   RxInt tabIndex = 0.obs;
   RxInt pageK = 1.obs;
-  Rx<PagingController<int, Post>> pagingController = PagingController<int, Post>(firstPageKey: 1).obs;
+  Rx<PagingController<int, CombinedItem<dynamic>>> pagingController =
+      PagingController<int, CombinedItem<dynamic>>(firstPageKey: 1).obs;
 
   RxBool isLoading = false.obs;
   RxBool isLikingPost = false.obs;
@@ -78,7 +83,7 @@ class TimelineController extends GetxController {
 
   @override
   void onInit() {
-    pagingController.value.addPageRequestListener(getPaginatedPosts);
+    pagingController.value.addPageRequestListener(getCombinedItems);
     super.onInit();
   }
 
@@ -126,47 +131,52 @@ class TimelineController extends GetxController {
     tabIndex(index);
   }
 
-  void getPaginatedPosts(int pageKey) async {
-    pageK(pageKey);
-    isLoading(true);
-    final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
-      PageParmas(page: pageK.value, size: 100, leagueId: 1),
-    );
+  // void getPaginatedPosts(int pageKey) async {
+  //   pageK(pageKey);
+  //   isLoading(true);
+  //   final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
+  //     PageParmas(page: pageK.value, size: 100, leagueId: 1),
+  //   );
 
-    failureOrPosts.fold(
-      (Failure failure) {
-        isLoading(false);
-        pagingController.value.error = failure;
-      },
-      (ListPage<Post> newPage) {
-        isLoading(false);
-        final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
+  //   failureOrPosts.fold(
+  //     (Failure failure) {
+  //       isLoading(false);
+  //       pagingController.value.error = failure;
+  //     },
+  //     (ListPage<Post> newPage) {
+  //       isLoading(false);
+  //       final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
 
-        final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-        final List<Post> newItems = newPage.itemList;
+  //       final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
+  //       final List<Post> newItems = newPage.itemList;
 
-        if (isLastPage) {
-          pagingController.value.appendLastPage(newItems);
-          if (!isCompleted.value) {
-            posts.addAll(newItems);
-          }
-          isCompleted(true);
-        } else {
-          final int nextPageKey = pageKey + 1;
-          pagingController.value.appendPage(newItems, nextPageKey);
-          if (!isCompleted.value) {
-            posts.addAll(newItems);
-          }
-        }
-        postsL(newPage);
-      },
-    );
-  }
+  //       if (isLastPage) {
+  //         pagingController.value.appendLastPage(newItems);
+  //         if (!isCompleted.value) {
+  //           posts.addAll(newItems);
+  //         }
+  //         isCompleted(true);
+  //       } else {
+  //         final int nextPageKey = pageKey + 1;
+  //         pagingController.value.appendPage(newItems, nextPageKey);
+  //         if (!isCompleted.value) {
+  //           posts.addAll(newItems);
+  //         }
+  //       }
+  //       postsL(newPage);
+  //     },
+  //   );
+  // }
 
   void getCombinedItems(int pageKey) async {
     pageK(pageKey);
     isLoading(true);
+
     final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
+      PageParmas(page: pageK.value, size: 100, leagueId: 1),
+    );
+
+    final Either<Failure, ListPage<Repost>> failureOrReposts = await fetchPaginatedReposts(
       PageParmas(page: pageK.value, size: 100, leagueId: 1),
     );
 
@@ -176,28 +186,58 @@ class TimelineController extends GetxController {
         pagingController.value.error = failure;
       },
       (ListPage<Post> newPage) {
-        isLoading(false);
-        final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
-
-        final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-        final List<Post> newItems = newPage.itemList;
-
-        if (isLastPage) {
-          pagingController.value.appendLastPage(newItems);
-          if (!isCompleted.value) {
-            posts.addAll(newItems);
-          }
-          isCompleted(true);
-        } else {
-          final int nextPageKey = pageKey + 1;
-          pagingController.value.appendPage(newItems, nextPageKey);
-          if (!isCompleted.value) {
-            posts.addAll(newItems);
-          }
-        }
         postsL(newPage);
+        for (final Post post in newPage.itemList) {
+          combinedItems.add(CombinedItem<Post>(item: post, isPost: true));
+        }
       },
     );
+
+    failureOrReposts.fold(
+      (Failure failure) {
+        isLoading(false);
+        pagingController.value.error = failure;
+      },
+      (ListPage<Repost> newPage) {
+        repostsL(newPage);
+        for (final Repost repost in newPage.itemList) {
+          combinedItems.add(CombinedItem<Repost>(item: repost, isPost: false));
+        }
+      },
+    );
+
+    combinedItems.sort((CombinedItem<dynamic> a, CombinedItem<dynamic> b) {
+      if (a.isPost && b.isPost) {
+        return -a.item.createdAt.compareTo(b.item.createdAt);
+      } else if (!a.isPost && !b.isPost) {
+        return -a.item.createdAt.compareTo(b.item.createdAt);
+      } else {
+        return a.isPost ? 1 : -1;
+      }
+    });
+
+    final ListPage<CombinedItem<dynamic>> listPageCombined =
+        ListPage<CombinedItem<dynamic>>(grandTotalCount: combinedItems.length, itemList: combinedItems);
+
+    final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
+
+    final bool isLastPage = listPageCombined.isLastPage(previouslyFetchedItemsCount);
+    final List<CombinedItem<dynamic>> newItems = listPageCombined.itemList;
+
+    if (isLastPage) {
+      pagingController.value.appendLastPage(newItems);
+      if (!isCompleted.value) {
+        combinedItems.addAll(newItems);
+      }
+      isCompleted(true);
+    } else {
+      final int nextPageKey = pageKey + 1;
+      pagingController.value.appendPage(newItems, nextPageKey);
+      if (!isCompleted.value) {
+        combinedItems.addAll(newItems);
+      }
+    }
+    combinedL(listPageCombined);
   }
 
   void getPostByPostId(String postId) {
@@ -335,7 +375,7 @@ class TimelineController extends GetxController {
         isAddingPost(false);
         resetValuesAfterPost();
         Get.back<dynamic>(result: pt);
-        pagingController.value.itemList!.insert(0, pt);
+        pagingController.value.itemList!.insert(0, CombinedItem<Post>(item: pt, isPost: true));
         pagingController.refresh();
       },
     );
@@ -414,8 +454,11 @@ class TimelineController extends GetxController {
             } else {
               final int postIndex = posts.indexOf(post);
               posts[postIndex] = pst;
-              pagingController.value.itemList!
-                  .replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+              pagingController.value.itemList!.replaceRange(
+                0,
+                pagingController.value.itemList!.length,
+                <CombinedItem<Post>>[...posts.map((Post p) => CombinedItem<Post>(item: p, isPost: true))],
+              );
               pagingController.refresh();
             }
           }
@@ -450,7 +493,11 @@ class TimelineController extends GetxController {
           } else {
             final int repostIndex = reposts.indexOf(repost);
             reposts[repostIndex] = rpst;
-            pagingController.value.itemList!.replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+            pagingController.value.itemList!.replaceRange(
+              0,
+              pagingController.value.itemList!.length,
+              <CombinedItem<Repost>>[...reposts.map((Repost p) => CombinedItem<Repost>(item: p, isPost: false))],
+            );
             pagingController.refresh();
           }
         }
@@ -486,7 +533,11 @@ class TimelineController extends GetxController {
       } else {
         final int postIndex = posts.indexOf(oldPost);
         posts[postIndex] = post;
-        pagingController.value.itemList!.replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+        pagingController.value.itemList!.replaceRange(
+          0,
+          pagingController.value.itemList!.length,
+          <CombinedItem<Post>>[...posts.map((Post p) => CombinedItem<Post>(item: p, isPost: true))],
+        );
         pagingController.refresh();
       }
     }
@@ -540,8 +591,11 @@ class TimelineController extends GetxController {
               final int postIndex = posts.indexOf(post);
               posts[postIndex] = pst;
 
-              pagingController.value.itemList!
-                  .replaceRange(0, pagingController.value.itemList!.length, <Post>[...posts]);
+              pagingController.value.itemList!.replaceRange(
+                0,
+                pagingController.value.itemList!.length,
+                <CombinedItem<Post>>[...posts.map((Post p) => CombinedItem<Post>(item: p, isPost: true))],
+              );
               pagingController.refresh();
             }
           }
@@ -567,7 +621,7 @@ class TimelineController extends GetxController {
       final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
       if (post != null) {
         resetValues();
-        getPaginatedPosts(pageK.value);
+        getCombinedItems(pageK.value);
         if (context.mounted) {
           getAllSubscribedOddboxes(context);
           await AppSnacks.show(
@@ -587,7 +641,7 @@ class TimelineController extends GetxController {
       final dynamic post =
           await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: pstId));
       if (post != null) {
-        getPaginatedPosts(pageK.value);
+        getCombinedItems(pageK.value);
         pagingController.value.refresh();
         if (context.mounted) {
           getAllSubscribedOddboxes(context);
@@ -606,7 +660,7 @@ class TimelineController extends GetxController {
   }
 
   void removePostFromMyPosts(String id) {
-    pagingController.value.itemList!.removeWhere((Post p) => p.id == id);
+    pagingController.value.itemList!.removeWhere((CombinedItem<dynamic> p) => p.item.id == id);
     final List<Post> theComments = List<Post>.from(postComments);
     theComments.removeWhere((Post p) => p.id == id);
     postComments(theComments);
