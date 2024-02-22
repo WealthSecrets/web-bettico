@@ -53,10 +53,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 return TimelineCard(
                   post: widget.post,
                   largeFonts: true,
-                  onCommentTap: () => controller.navigateToAddPost(context, pstId: widget.post.id),
-                  onLikeTap: () => controller.likeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
-                  onDislikeTap: () =>
-                      controller.dislikeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
+                  onComment: () => controller.navigateToAddPost(context, pstId: widget.post.id),
+                  onLike: () => controller.likeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
+                  onDislike: () => controller.dislikeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
                   sponsored: widget.post.boosted == true,
                 );
               }
@@ -76,16 +75,16 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       await controller.getAllPostComments(thePrevPost.id);
                     }
                   },
-                  onCommentTap: () => controller.navigateToAddPost(
+                  onComment: () => controller.navigateToAddPost(
                     context,
                     pstId: controller.postComments[index - 1].id,
                   ),
-                  onLikeTap: () => controller.likeThePost(
+                  onLike: () => controller.likeThePost(
                     context,
                     controller.postComments[index - 1].id,
                     isComment: true,
                   ),
-                  onDislikeTap: () => controller.dislikeThePost(
+                  onDislike: () => controller.dislikeThePost(
                     context,
                     controller.postComments[index - 1].id,
                     isComment: true,

@@ -30,12 +30,12 @@ class RepostsScreen extends GetWidget<ProfileController> {
                           MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                         );
                       },
-                      onCommentTap: () => tController.navigateToAddPost(context, pstId: post.id),
-                      onLikeTap: () {
+                      onComment: () => tController.navigateToAddPost(context, pstId: post.id),
+                      onLike: () {
                         tController.likeThePost(context, post.id, isOddbox: post.isOddbox);
                         controller.removeFromLikedPost(post.id);
                       },
-                      onDislikeTap: () {
+                      onDislike: () {
                         tController.dislikeThePost(context, post.id, isOddbox: post.isOddbox);
                         controller.removeFromLikedPost(post.id);
                       },

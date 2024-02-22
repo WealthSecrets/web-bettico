@@ -36,16 +36,16 @@ class ExploreScreen extends GetWidget<ExploreController> {
                       WidgetUtils.showUnAuthorizedLoginContainer(context);
                     }
                   },
-                  onCommentTap: () => tController.navigateToAddPost(
+                  onComment: () => tController.navigateToAddPost(
                     context,
                     pstId: post.id,
                   ),
-                  onLikeTap: () {
+                  onLike: () {
                     if (bController.isLoggedIn) {
                       tController.likeThePost(context, post.id);
                     }
                   },
-                  onDislikeTap: () {
+                  onDislike: () {
                     if (bController.isLoggedIn) {
                       tController.dislikeThePost(context, post.id);
                     }

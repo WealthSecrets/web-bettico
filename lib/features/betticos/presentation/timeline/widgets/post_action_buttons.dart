@@ -9,19 +9,19 @@ class PostActionButtons extends StatelessWidget {
   PostActionButtons({
     super.key,
     required this.item,
-    required this.onLike,
-    required this.onDislike,
-    required this.onRepost,
-    required this.onComment,
-    required this.onShare,
+    this.onLike,
+    this.onDislike,
+    this.onRepost,
+    this.onComment,
+    this.onShare,
   });
 
   final dynamic item;
-  final VoidCallback onLike;
-  final VoidCallback onDislike;
-  final VoidCallback onRepost;
-  final VoidCallback onComment;
-  final VoidCallback onShare;
+  final void Function()? onLike;
+  final void Function()? onDislike;
+  final void Function()? onRepost;
+  final void Function()? onComment;
+  final void Function()? onShare;
 
   final User user = Get.find<BaseScreenController>().user.value;
 

@@ -15,10 +15,11 @@ class RepostCard extends StatelessWidget {
     super.key,
     required this.repost,
     this.onTap,
-    this.onCommentTap,
-    this.onLikeTap,
-    this.onDislikeTap,
-    this.onShareTap,
+    this.onComment,
+    this.onLike,
+    this.onDislike,
+    this.onShare,
+    this.onRepost,
     this.largeFonts = false,
     this.hideOptions = false,
     this.hideButtons = false,
@@ -31,10 +32,11 @@ class RepostCard extends StatelessWidget {
   final bool hideButtons;
   final bool sponsored;
   final void Function()? onTap;
-  final void Function()? onCommentTap;
-  final void Function()? onLikeTap;
-  final void Function()? onDislikeTap;
-  final void Function()? onShareTap;
+  final void Function()? onComment;
+  final void Function()? onLike;
+  final void Function()? onDislike;
+  final void Function()? onShare;
+  final void Function()? onRepost;
 
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final ProfileController pController = Get.find<ProfileController>();
@@ -124,82 +126,21 @@ class RepostCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                   const SizedBox(height: 8),
-                  _ActualPost(post: repost.post, bController: bController),
+                  ActualPost(post: repost.post, bController: bController),
                   const SizedBox(height: 12),
-                  here
+                  PostActionButtons(
+                    item: repost,
+                    onLike: onLike,
+                    onDislike: onDislike,
+                    onRepost: onRepost,
+                    onComment: onComment,
+                    onShare: onShare,
+                  )
                 ],
               ),
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _ActualPost extends StatelessWidget {
-  const _ActualPost({required this.post, required this.bController});
-
-  final Post post;
-  final BaseScreenController bController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: AppPaddings.mA,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: const Color(0xFFCED5DC)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(image: AssetImage(AssetImages.profileImage), fit: BoxFit.cover),
-                ),
-              ),
-              if (post.user.firstName != null || post.user.lastName != null) ...<Widget>[
-                const SizedBox(width: 5),
-                Text(
-                  '${post.user.firstName ?? ''} ${post.user.lastName ?? ''}',
-                  style: context.caption.copyWith(
-                    color: context.colors.black,
-                    letterSpacing: 0.1,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-              const SizedBox(width: 5),
-              Text(
-                '@${post.user.username} . ${timeago.format(post.createdAt)}',
-                style: context.caption.copyWith(fontWeight: FontWeight.normal, color: context.colors.text),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          if (post.text != null) ...<Widget>[
-            Text(
-              post.text!,
-              style: context.caption.copyWith(color: context.colors.black, fontWeight: FontWeight.normal),
-            ),
-            const SizedBox(height: 10)
-          ],
-          if (post.images != null && post.images!.isNotEmpty)
-            TimelineImageDivider(
-              images: const <String>[
-                'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg',
-                'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg'
-              ],
-              token: bController.userToken.value,
-            ),
-        ],
       ),
     );
   }

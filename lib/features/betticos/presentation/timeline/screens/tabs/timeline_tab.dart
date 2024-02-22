@@ -27,37 +27,33 @@ class TimelineTab extends StatelessWidget {
                   itemBuilder: (BuildContext context, CombinedItem<dynamic> item, int index) {
                     if (item.isPost) {
                       final Post post = item.item as Post;
-                      return Obx(
-                        () => TimelineCard(
-                          post: post,
-                          onTap: () {
-                            Navigator.of(context).push<void>(
-                              MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
-                            );
-                          },
-                          onCommentTap: () => controller.navigateToAddPost(
-                            context,
-                            pstId: post.id,
-                          ),
-                          sponsored: post.boosted == true,
-                          onLikeTap: () => controller.likeThePost(context, post.id),
-                          onDislikeTap: () => controller.dislikeThePost(context, post.id),
+                      return TimelineCard(
+                        post: post,
+                        onTap: () {
+                          Navigator.of(context).push<void>(
+                            MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
+                          );
+                        },
+                        onComment: () => controller.navigateToAddPost(
+                          context,
+                          pstId: post.id,
                         ),
+                        sponsored: post.boosted == true,
+                        onLike: () => controller.likeThePost(context, post.id),
+                        onDislike: () => controller.dislikeThePost(context, post.id),
                       );
                     } else {
                       final Repost repost = item.item as Repost;
-                      return Obx(
-                        () => RepostCard(
-                          repost: repost,
-                          onTap: () {
-                            Navigator.of(context).push<void>(
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) => PostDetailsScreen(post: repost.post),
-                              ),
-                            );
-                          },
-                          sponsored: repost.boosted == true,
-                        ),
+                      return RepostCard(
+                        repost: repost,
+                        onTap: () {
+                          Navigator.of(context).push<void>(
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => PostDetailsScreen(post: repost.post),
+                            ),
+                          );
+                        },
+                        sponsored: repost.boosted == true,
                       );
                     }
                   },

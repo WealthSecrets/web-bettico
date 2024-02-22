@@ -31,9 +31,6 @@ class LatestScreen extends StatelessWidget {
                           MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                         );
                       },
-                      onCommentTap: () {},
-                      onLikeTap: () {},
-                      onDislikeTap: () {},
                     );
                   },
                 ),

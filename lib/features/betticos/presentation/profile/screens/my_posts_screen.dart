@@ -37,8 +37,8 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                           MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                         );
                       },
-                      onCommentTap: () => tController.navigateToAddPost(context, pstId: post.id),
-                      onLikeTap: () {
+                      onComment: () => tController.navigateToAddPost(context, pstId: post.id),
+                      onLike: () {
                         if (type == PostType.posts || type == PostType.oddboxes) {
                           controller.likeThePost(context, post.id, userId, isOddbox: oddbox);
                         } else {
@@ -46,7 +46,7 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                           controller.removeFromLikedPost(post.id);
                         }
                       },
-                      onDislikeTap: () {
+                      onDislike: () {
                         if (type == PostType.posts || type == PostType.oddboxes) {
                           controller.dislikeThePost(context, post.id, userId, isOddbox: oddbox);
                         } else {

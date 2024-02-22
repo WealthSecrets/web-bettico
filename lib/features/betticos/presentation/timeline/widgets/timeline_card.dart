@@ -1,4 +1,3 @@
-import 'package:betticos/assets/app_asset_icons.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
@@ -9,7 +8,6 @@ import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:like_button/like_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class TimelineCard extends StatelessWidget {
@@ -17,10 +15,11 @@ class TimelineCard extends StatelessWidget {
     super.key,
     required this.post,
     this.onTap,
-    this.onCommentTap,
-    this.onLikeTap,
-    this.onDislikeTap,
-    this.onShareTap,
+    this.onComment,
+    this.onLike,
+    this.onDislike,
+    this.onShare,
+    this.onRepost,
     this.largeFonts = false,
     this.hideOptions = false,
     this.hideButtons = false,
@@ -33,10 +32,11 @@ class TimelineCard extends StatelessWidget {
   final bool hideButtons;
   final bool sponsored;
   final void Function()? onTap;
-  final void Function()? onCommentTap;
-  final void Function()? onLikeTap;
-  final void Function()? onDislikeTap;
-  final void Function()? onShareTap;
+  final void Function()? onComment;
+  final void Function()? onLike;
+  final void Function()? onDislike;
+  final void Function()? onShare;
+  final void Function()? onRepost;
 
   final BaseScreenController bController = Get.find<BaseScreenController>();
   final ProfileController pController = Get.find<ProfileController>();
@@ -147,54 +147,13 @@ class TimelineCard extends StatelessWidget {
                   if (post.images != null && post.images!.isNotEmpty)
                     TimelineImageDivider(images: post.images!, token: bController.userToken.value),
                   if (hideButtons == false)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        _AnimatedButton(
-                          count: post.likeUsers.length,
-                          isLiked: post.likeUsers.contains(user.id),
-                          iconOutline: AppAssetIcons.thumbsUp,
-                          iconSolid: AppAssetIcons.thumbsUpSolid,
-                          onTap: onLikeTap,
-                        ),
-                        _AnimatedButton(
-                          count: post.dislikeUsers.length,
-                          isLiked: post.dislikeUsers.contains(user.id),
-                          iconOutline: AppAssetIcons.thumbsDown,
-                          iconSolid: AppAssetIcons.thumbsDownSolid,
-                          onTap: onDislikeTap,
-                          isDislikeButton: true,
-                        ),
-                        _AnimatedButton(
-                          count: 0,
-                          isLiked: false,
-                          iconOutline: AppAssetIcons.refresh,
-                          iconSolid: AppAssetIcons.refresh,
-                          onTap: onDislikeTap,
-                          isDislikeButton: true,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: onCommentTap,
-                              child: Image.asset(AppAssetIcons.chat, color: context.colors.icon, height: 15, width: 15),
-                            ),
-                            const SizedBox(width: 5),
-                            if (post.comments != null)
-                              Text(
-                                post.comments.toString(),
-                                style: TextStyle(color: context.colors.text, fontSize: 12),
-                              ),
-                          ],
-                        ),
-                        _AnimatedButton(
-                          count: post.shares.length,
-                          isLiked: post.shares.contains(user.id),
-                          iconOutline: AppAssetIcons.share,
-                          iconSolid: AppAssetIcons.share,
-                          onTap: onShareTap,
-                        ),
-                      ],
+                    PostActionButtons(
+                      item: post,
+                      onLike: onLike,
+                      onComment: onComment,
+                      onDislike: onDislike,
+                      onShare: onShare,
+                      onRepost: onRepost,
                     ),
                   if (sponsored == true) ...<Widget>[
                     Row(
@@ -269,59 +228,6 @@ class _PostUserDetails extends StatelessWidget {
             ],
           ),
       ],
-    );
-  }
-}
-
-class _AnimatedButton extends StatelessWidget {
-  const _AnimatedButton({
-    required this.count,
-    required this.isLiked,
-    required this.iconOutline,
-    required this.iconSolid,
-    this.onTap,
-    this.isDislikeButton = false,
-  });
-
-  final int count;
-  final bool isLiked;
-  final String iconOutline;
-  final String iconSolid;
-  final Function()? onTap;
-  final bool isDislikeButton;
-
-  @override
-  Widget build(BuildContext context) {
-    return LikeButton(
-      size: 15,
-      circleColor: CircleColor(
-        start: isDislikeButton ? const Color(0xFFFF2626) : const Color(0xFFFDB811),
-        end: isDislikeButton ? const Color(0xFFBD1616) : const Color(0xFFFCAF0E),
-      ),
-      bubblesColor: isDislikeButton
-          ? const BubblesColor(dotPrimaryColor: Color(0xFFFF2626), dotSecondaryColor: Color(0xFFBD1616))
-          : const BubblesColor(
-              dotPrimaryColor: Color(0xFFFCA70B),
-              dotSecondaryColor: Color(0xFFFC9906),
-            ),
-      likeBuilder: (bool isLiked) => Image.asset(
-        isLiked ? iconSolid : iconOutline,
-        color: isLiked ? (isDislikeButton ? context.colors.error : context.colors.primary) : context.colors.icon,
-        height: 15,
-        width: 15,
-      ),
-      likeCount: count,
-      isLiked: isLiked,
-      countBuilder: (int? c, bool value, String text) {
-        return Text(
-          '$c',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: context.colors.text),
-        );
-      },
-      onTap: (bool isLiked) async {
-        onTap?.call();
-        return !isLiked;
-      },
     );
   }
 }
