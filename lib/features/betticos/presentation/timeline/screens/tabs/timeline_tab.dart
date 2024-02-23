@@ -41,6 +41,8 @@ class TimelineTab extends StatelessWidget {
                         sponsored: post.boosted == true,
                         onLike: () => controller.likeThePost(context, post.id),
                         onDislike: () => controller.dislikeThePost(context, post.id),
+                        onShare: () {},
+                        onRepost: () {},
                       );
                     } else {
                       final Repost repost = item.item as Repost;
@@ -53,6 +55,11 @@ class TimelineTab extends StatelessWidget {
                             ),
                           );
                         },
+                        onLike: () => controller.likeTheRepost(context, repost.id),
+                        onDislike: () => controller.dislikeTheRepost(context, repost.id),
+                        onComment: () {},
+                        onShare: () {},
+                        onRepost: () {},
                         sponsored: repost.boosted == true,
                       );
                     }

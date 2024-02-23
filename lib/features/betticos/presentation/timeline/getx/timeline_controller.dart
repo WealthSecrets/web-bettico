@@ -610,6 +610,47 @@ class TimelineController extends GetxController {
     }
   }
 
+  void dislikeTheRepost(BuildContext context, String repostId, {bool isComment = false}) async {
+    isLikingPost(true);
+
+    Repost? repost;
+    if (isComment) {
+      repost = repostComments.firstWhereOrNull((Repost p) => p.id == repostId);
+    } else {
+      repost = reposts.firstWhereOrNull((Repost p) => p.id == repostId);
+    }
+
+    final Either<Failure, Repost> failureOrPost =
+        await dislikeRepost(LikeDislikePostParams(postId: repostId, user: bController.user.value.id));
+
+    failureOrPost.fold(
+      (Failure failure) {
+        isLikingPost(false);
+        AppSnacks.show(
+          context,
+          message: failure.message,
+        );
+      },
+      (Repost rpst) {
+        isLikingPost(false);
+        if (isComment) {
+          final int repostIndex = repostComments.indexOf(repost);
+          repostComments[repostIndex] = rpst;
+        } else {
+          final int repostIndex = reposts.indexOf(repost);
+          reposts[repostIndex] = rpst;
+
+          pagingController.value.itemList!.replaceRange(
+            0,
+            pagingController.value.itemList!.length,
+            <CombinedItem<Repost>>[...reposts.map((Repost rp) => CombinedItem<Repost>(item: rp, isPost: true))],
+          );
+          pagingController.refresh();
+        }
+      },
+    );
+  }
+
   void setTheDetailPost(Post post) {
     detailPost(post);
   }

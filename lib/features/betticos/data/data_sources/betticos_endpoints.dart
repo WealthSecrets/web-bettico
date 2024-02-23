@@ -36,7 +36,7 @@ class BetticosEndpoints {
   static String likePost(String postId) => 'posts/$postId/likePost';
   static String dislikePost(String postId) => 'posts/$postId/dislikePost';
   static String likeRepost(String repostId) => 'reposts/$repostId/like';
-  static String dislikeRepost(String repostId) => 'posts/$repostId/dislike';
+  static String dislikeRepost(String repostId) => 'reposts/$repostId/dislike';
   static String commentReplies(String commentId) => '';
   static String unfollowUser(String userId) => 'follow/$userId';
   static String blockUser(String userId) => 'users/$userId/block';
