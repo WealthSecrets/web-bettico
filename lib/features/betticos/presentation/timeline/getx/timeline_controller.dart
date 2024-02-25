@@ -87,29 +87,6 @@ class TimelineController extends GetxController {
     super.onInit();
   }
 
-  // void getAllFollowingPosts() async {
-  //   isPostLoading(true);
-
-  //   final Either<Failure, List<Post>> failureOrPosts = await fetchFollowingPosts(NoParams());
-
-  //   failureOrPosts.fold(
-  //     (Failure failure) {
-  //       isPostLoading(false);
-  //       Get.snackbar(
-  //         '',
-  //         failure.message,
-  //         backgroundColor: Colors.red,
-  //         colorText: Colors.white,
-  //         snackPosition: SnackPosition.TOP,
-  //       );
-  //     },
-  //     (List<Post> pts) {
-  //       isPostLoading(false);
-  //       posts(pts);
-  //     },
-  //   );
-  // }
-
   void getAllSubscribedOddboxes(BuildContext context) async {
     isOddboxLoading(true);
 
@@ -130,43 +107,6 @@ class TimelineController extends GetxController {
   void changeTabIndex(int index) {
     tabIndex(index);
   }
-
-  // void getPaginatedPosts(int pageKey) async {
-  //   pageK(pageKey);
-  //   isLoading(true);
-  //   final Either<Failure, ListPage<Post>> failureOrPosts = await fetchPaginatedPosts(
-  //     PageParmas(page: pageK.value, size: 100, leagueId: 1),
-  //   );
-
-  //   failureOrPosts.fold(
-  //     (Failure failure) {
-  //       isLoading(false);
-  //       pagingController.value.error = failure;
-  //     },
-  //     (ListPage<Post> newPage) {
-  //       isLoading(false);
-  //       final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
-
-  //       final bool isLastPage = newPage.isLastPage(previouslyFetchedItemsCount);
-  //       final List<Post> newItems = newPage.itemList;
-
-  //       if (isLastPage) {
-  //         pagingController.value.appendLastPage(newItems);
-  //         if (!isCompleted.value) {
-  //           posts.addAll(newItems);
-  //         }
-  //         isCompleted(true);
-  //       } else {
-  //         final int nextPageKey = pageKey + 1;
-  //         pagingController.value.appendPage(newItems, nextPageKey);
-  //         if (!isCompleted.value) {
-  //           posts.addAll(newItems);
-  //         }
-  //       }
-  //       postsL(newPage);
-  //     },
-  //   );
-  // }
 
   void getCombinedItems(int pageKey) async {
     pageK(pageKey);
@@ -419,27 +359,21 @@ class TimelineController extends GetxController {
     if (isComment) {
       post = postComments.firstWhereOrNull((Post p) => p.id == postId);
     } else {
-      if (isOddbox) {
-        post = oddboxes.firstWhereOrNull((Post p) => p.id == postId);
-      } else {
-        post = posts.firstWhereOrNull((Post p) => p.id == postId);
+      final CombinedItem<dynamic>? cbItem =
+          combinedItems.firstWhereOrNull((CombinedItem<dynamic> ci) => ci.item.id == postId);
+      if (cbItem != null && cbItem.isPost == true) {
+        post = cbItem as Post;
       }
     }
 
     final Either<Failure, Post> failureOrPost = await likePost(
-      LikeDislikePostParams(
-        postId: postId,
-        user: bController.user.value.id,
-      ),
+      LikeDislikePostParams(postId: postId, user: bController.user.value.id),
     );
 
     failureOrPost.fold(
       (Failure failure) {
         isLikingPost(false);
-        AppSnacks.show(
-          context,
-          message: failure.message,
-        );
+        AppSnacks.show(context, message: failure.message);
       },
       (Post pst) {
         isLikingPost(false);
