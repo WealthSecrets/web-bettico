@@ -3,6 +3,7 @@ import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class MessageBaseScreen extends StatelessWidget {
   const MessageBaseScreen({super.key});
@@ -66,11 +67,45 @@ class MessageBaseScreen extends StatelessWidget {
                       ),
                     ];
                   },
-                  body: const TabBarView(
+                  body: Column(
                     children: <Widget>[
-                      AllMessagesScreen(),
-                      InboxScreen(),
-                      CreatorBoxScreen(),
+                      Container(
+                        height: 37,
+                        width: double.infinity,
+                        padding: AppPaddings.lH,
+                        color: const Color(0xFFCED5DC).withOpacity(0.3),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                '2 requests',
+                                style: context.body2.copyWith(
+                                  color: context.colors.textInputText,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.2,
+                                ),
+                              ),
+                            ),
+                            const Dot(),
+                            const SizedBox(width: 2),
+                            Icon(
+                              Ionicons.chevron_forward_sharp,
+                              size: 20,
+                              color: const Color(0xFF22272F).withOpacity(.333),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      const Expanded(
+                        child: TabBarView(
+                          children: <Widget>[
+                            AllMessagesScreen(),
+                            InboxScreen(),
+                            CreatorBoxScreen(),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

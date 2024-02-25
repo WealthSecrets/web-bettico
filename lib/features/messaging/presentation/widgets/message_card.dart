@@ -3,6 +3,8 @@ import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
+import 'dot.dart';
+
 enum MessageType { chat, box }
 
 class MessageCard extends StatelessWidget {
@@ -67,12 +69,7 @@ class MessageCard extends StatelessWidget {
                     ),
                     if (unread == true) ...<Widget>[
                       const SizedBox(width: 5),
-                      Container(
-                        height: 5,
-                        width: 5,
-                        decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(5), color: context.colors.primary),
-                      ),
+                      const Dot(),
                     ],
                   ],
                 ),
