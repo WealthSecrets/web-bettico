@@ -45,9 +45,9 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       'text': 'Games',
     },
     <String, dynamic>{
-      'outline': AppAssetIcons.chat,
-      'solid': AppAssetIcons.chatSolid,
-      'text': 'Messages',
+      'outline': AppAssetIcons.bell,
+      'solid': AppAssetIcons.bellSolid,
+      'text': 'Notification',
     }
   ];
 
@@ -167,13 +167,13 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         navigationController.navigateTo(AppRoutes.explore);
         return;
       case 2:
-        navigationController.navigateTo(AppRoutes.games);
-        return;
-      case 3:
         navigationController.navigateTo(AppRoutes.reels);
         return;
+      case 3:
+        navigationController.navigateTo(AppRoutes.games);
+        return;
       case 4:
-        navigationController.navigateTo(AppRoutes.moreScreen);
+        navigationController.navigateTo(AppRoutes.notifications);
         return;
       default:
         navigationController.navigateTo(AppRoutes.timeline);

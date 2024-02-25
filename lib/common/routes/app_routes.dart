@@ -47,4 +47,5 @@ class AppRoutes {
   static const String followAccounts = '/registration-follow';
   static const String editProfile = '/edit-profile';
   static const String verificationLevels = '/verification-levels';
+  static const String notifications = '/notifications';
 }

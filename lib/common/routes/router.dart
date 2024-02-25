@@ -26,6 +26,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const VerificationLevelsScreen(), settings);
     case AppRoutes.search:
       return _getPageRoute(SearchContainer(), settings);
+    case AppRoutes.games:
+      return _getPageRoute(const SettingsScreen(), settings);
+    case AppRoutes.notifications:
+      return _getPageRoute(const NotificationsScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }

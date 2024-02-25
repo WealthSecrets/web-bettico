@@ -46,6 +46,8 @@ class AppMenuController extends GetxController {
         return _customIcon(AppAssetIcons.play, itemName);
       case AppRoutes.messages:
         return _customIcon(AppAssetIcons.chat, itemName);
+      case AppRoutes.notifications:
+        return _customIcon(AppAssetIcons.bell, itemName);
       default:
         return _customIcon(AppAssetIcons.logout, itemName);
     }
