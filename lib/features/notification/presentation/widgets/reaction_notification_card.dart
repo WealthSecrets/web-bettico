@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 
 enum ReactionType { follows, like, reposted, share }
 
-class ReactionNotificationScreen extends StatelessWidget {
-  ReactionNotificationScreen({super.key, required this.reactionType});
+class ReactionNotificationCard extends StatelessWidget {
+  ReactionNotificationCard({super.key, required this.reactionType});
 
   final ReactionType reactionType;
 
@@ -64,6 +64,7 @@ class ReactionNotificationScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 4),
               Row(
                 children: <Widget>[
                   Image.asset(

@@ -39,10 +39,10 @@ class NotificationScreen extends StatelessWidget {
                 ),
               ];
             },
-            body: TabBarView(
+            body: const TabBarView(
               children: <Widget>[
                 AllNotificationScreens(),
-                const SizedBox(child: Center(child: Text('Mentions'))),
+                SizedBox(child: Center(child: Text('Mentions'))),
               ],
             ),
           ),

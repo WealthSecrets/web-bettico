@@ -13,11 +13,11 @@ class AllNotificationScreens extends StatelessWidget {
     return ListView(
       padding: AppPaddings.lH,
       children: <Widget>[
-        ReactionNotificationScreen(
+        ReactionNotificationCard(
           reactionType: ReactionType.like,
         ),
         TimelineCard(post: Post.mock(), avatarSize: 35),
-        ReactionNotificationScreen(
+        ReactionNotificationCard(
           reactionType: ReactionType.follows,
         ),
       ],

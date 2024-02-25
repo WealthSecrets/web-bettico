@@ -74,4 +74,6 @@ class AppAssetIcons {
   static const String arrowRightRec = 'assets/icons/arrow-right-rec.png';
   static const String question = 'assets/icons/question.png';
   static const String userPlus = 'assets/icons/user-plus.png';
+  static const String gift = 'assets/icons/gift.png';
+  static const String chatPlus = 'assets/icons/chat-plus.png';
 }

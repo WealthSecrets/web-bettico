@@ -40,9 +40,9 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       'text': 'Reels',
     },
     <String, dynamic>{
-      'outline': AppAssetIcons.rocket,
-      'solid': AppAssetIcons.rocketSolid,
-      'text': 'Games',
+      'outline': AppAssetIcons.comments,
+      'solid': AppAssetIcons.commentsSolid,
+      'text': 'Message',
     },
     <String, dynamic>{
       'outline': AppAssetIcons.bell,
@@ -170,7 +170,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         navigationController.navigateTo(AppRoutes.reels);
         return;
       case 3:
-        navigationController.navigateTo(AppRoutes.games);
+        navigationController.navigateTo(AppRoutes.messages);
         return;
       case 4:
         navigationController.navigateTo(AppRoutes.notifications);

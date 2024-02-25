@@ -13,6 +13,9 @@ class SearchField extends StatelessWidget {
     this.initialValue,
     this.hintText,
     this.suffixIcon,
+    this.fillColor,
+    this.enabledBorder,
+    this.focusedBorder,
   });
 
   final Function(String text)? onChanged;
@@ -22,6 +25,9 @@ class SearchField extends StatelessWidget {
   final String? initialValue;
   final String? hintText;
   final Widget? suffixIcon;
+  final Color? fillColor;
+  final InputBorder? focusedBorder;
+  final InputBorder? enabledBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -55,31 +61,27 @@ class SearchField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconConstraints: showSortBy ?? false ? const BoxConstraints(maxHeight: 20, maxWidth: 36) : null,
         contentPadding: const EdgeInsets.symmetric(horizontal: 8).add(const EdgeInsets.symmetric(vertical: 4)),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(
-            width: .4,
-            color: context.colors.primary.shade100,
-          ),
-        ),
+        enabledBorder: enabledBorder ??
+            OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(width: .4, color: context.colors.primary.shade100),
+            ),
         disabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(width: .4),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(
-            color: context.colors.primary,
-            width: .4,
-          ),
-        ),
+        focusedBorder: focusedBorder ??
+            OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: context.colors.primary, width: .4),
+            ),
         hintStyle: TextStyle(
           color: context.colors.text,
           fontWeight: FontWeight.normal,
           fontSize: 12,
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: fillColor ?? Colors.white,
       ),
       onChanged: onChanged,
     );
