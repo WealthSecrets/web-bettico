@@ -49,8 +49,7 @@ class RepostCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: AppPaddings.lA,
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: context.colors.dividerColor))),
+        padding: AppPaddings.lH.add(AppPaddings.mV),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

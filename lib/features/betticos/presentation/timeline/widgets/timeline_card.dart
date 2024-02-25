@@ -24,6 +24,7 @@ class TimelineCard extends StatelessWidget {
     this.hideOptions = false,
     this.hideButtons = false,
     this.sponsored = false,
+    this.avatarSize,
   });
 
   final bool largeFonts;
@@ -31,6 +32,7 @@ class TimelineCard extends StatelessWidget {
   final bool hideOptions;
   final bool hideButtons;
   final bool sponsored;
+  final double? avatarSize;
   final void Function()? onTap;
   final void Function()? onComment;
   final void Function()? onLike;
@@ -49,8 +51,7 @@ class TimelineCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: AppPaddings.lA,
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: context.colors.dividerColor))),
+        padding: AppPaddings.lH.add(AppPaddings.mV),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -60,8 +61,8 @@ class TimelineCard extends StatelessWidget {
                 arguments: ProfileScreenArgument(user: post.user, showBackButton: true),
               ),
               child: Container(
-                height: 45,
-                width: 45,
+                height: avatarSize ?? 45,
+                width: avatarSize ?? 45,
                 decoration: BoxDecoration(
                   borderRadius: AppBorderRadius.largeAll,
                   image: const DecorationImage(

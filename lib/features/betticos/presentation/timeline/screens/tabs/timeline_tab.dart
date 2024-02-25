@@ -21,7 +21,7 @@ class TimelineTab extends StatelessWidget {
         () {
           return CustomScrollView(
             slivers: <Widget>[
-              PagedSliverList<int, CombinedItem<dynamic>>(
+              PagedSliverList<int, CombinedItem<dynamic>>.separated(
                 pagingController: controller.pagingController.value,
                 builderDelegate: PagedChildBuilderDelegate<CombinedItem<dynamic>>(
                   itemBuilder: (BuildContext context, CombinedItem<dynamic> item, int index) {
@@ -72,7 +72,7 @@ class TimelineTab extends StatelessWidget {
                   newPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
                   firstPageProgressIndicatorBuilder: (BuildContext context) => const Center(child: LoadingLogo()),
                 ),
-                // separatorBuilder: (_, __) => Divider(color: context.colors.dividerColor),
+                separatorBuilder: (_, __) => Divider(color: context.colors.dividerColor, thickness: 0.5),
               ),
               SliverToBoxAdapter(
                 child: Builder(
