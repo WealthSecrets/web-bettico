@@ -209,4 +209,17 @@ class WidgetUtils {
       },
     );
   }
+
+  static void showChatListsBottomSheet(BuildContext context) {
+    showMaterialModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.mediumTop),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: AppBorderRadius.mediumTop,
+          child: const SizedBox(height: 800, child: ChatListScreen()),
+        );
+      },
+    );
+  }
 }

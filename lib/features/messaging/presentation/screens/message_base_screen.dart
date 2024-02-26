@@ -12,7 +12,7 @@ class MessageBaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => WidgetUtils.showChatListsBottomSheet(context),
         backgroundColor: context.colors.primary,
         child: Center(
           child: Image.asset(AppAssetIcons.chatPlus, height: 29, width: 29, color: Colors.white),
