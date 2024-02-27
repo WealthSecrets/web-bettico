@@ -10,5 +10,4 @@ export 'profile_optoins_modal_bottom.dart';
 export 'promo_card.dart';
 export 'repost_card.dart';
 export 'timeline_card.dart';
-export 'timeline_image_divider.dart';
 export 'top_bar.dart';

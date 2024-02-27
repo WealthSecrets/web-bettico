@@ -60,7 +60,7 @@ class ActualPost extends StatelessWidget {
             const SizedBox(height: 10)
           ],
           if (post.images != null && post.images!.isNotEmpty)
-            TimelineImageDivider(
+            ImageDivider(
               images: const <String>[
                 'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg',
                 'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg'

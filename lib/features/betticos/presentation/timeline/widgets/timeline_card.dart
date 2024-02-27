@@ -146,7 +146,7 @@ class TimelineCard extends StatelessWidget {
                     ),
                   if (post.text != null) const SizedBox(height: 10),
                   if (post.images != null && post.images!.isNotEmpty)
-                    TimelineImageDivider(images: post.images!, token: bController.userToken.value),
+                    ImageDivider(images: post.images!, token: bController.userToken.value),
                   if (hideButtons == false)
                     PostActionButtons(
                       item: post,

@@ -64,12 +64,18 @@ class ChatListScreen extends StatelessWidget {
                             Text(
                               'Richmond Blankson',
                               style: context.body2.copyWith(
-                                  fontWeight: FontWeight.w400, color: context.colors.textInputText, letterSpacing: 0.2),
+                                fontWeight: FontWeight.w400,
+                                color: context.colors.textInputText,
+                                letterSpacing: 0.2,
+                              ),
                             ),
                             Text(
                               '@blanksonR',
                               style: context.overline.copyWith(
-                                  color: context.colors.icon, letterSpacing: 0.2, fontWeight: FontWeight.w300),
+                                color: context.colors.icon,
+                                letterSpacing: 0.2,
+                                fontWeight: FontWeight.w300,
+                              ),
                             )
                           ],
                         ),

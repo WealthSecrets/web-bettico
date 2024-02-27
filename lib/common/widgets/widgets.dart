@@ -24,6 +24,7 @@ export 'error_view.dart';
 export 'exception_indicators/exception_indicators.dart';
 export 'full_image.dart';
 export 'icon_card.dart';
+export 'image_divider.dart';
 export 'loading_logo.dart';
 export 'notice.dart';
 export 'page_view_indicators.dart';

@@ -48,4 +48,5 @@ class AppRoutes {
   static const String editProfile = '/edit-profile';
   static const String verificationLevels = '/verification-levels';
   static const String notifications = '/notifications';
+  static const String chatDetails = '/chat-details';
 }

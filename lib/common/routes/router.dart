@@ -32,6 +32,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const NotificationScreen(), settings);
     case AppRoutes.messages:
       return _getPageRoute(const MessageBaseScreen(), settings);
+    case AppRoutes.chatDetails:
+      return _getPageRoute(const ChatDetailScreen(), settings);
     default:
       return _getPageRoute(const NotFoundScreen(), settings);
   }
