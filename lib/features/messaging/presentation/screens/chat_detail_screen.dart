@@ -1,4 +1,6 @@
-import 'package:betticos/common/utils/utils.dart';
+import 'package:betticos/assets/assets.dart';
+import 'package:betticos/common/common.dart';
+import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,11 @@ List<Map<String, dynamic>> dummyChats = <Map<String, dynamic>>[
       AssetImages.profileImage,
     ],
   },
+  <String, dynamic>{
+    'chatType': ChatType.receiver,
+    'text': 'Naa, I\'m not interested in those items. Do you have anything else?',
+    'username': 'maxjacobson',
+  },
 ];
 
 class ChatDetailScreen extends StatelessWidget {
@@ -49,9 +56,11 @@ class ChatDetailScreen extends StatelessWidget {
       borderSide: const BorderSide(color: Color(0xFFF5F7F9)),
     );
     return Scaffold(
+      appBar: const _AppBar(),
       body: Stack(
         children: <Widget>[
           ListView.builder(
+            padding: AppPaddings.bodyB.add(AppPaddings.homeB),
             itemCount: dummyChats.length,
             itemBuilder: (BuildContext context, int index) {
               final Map<String, dynamic> chat = dummyChats[index];
@@ -70,6 +79,48 @@ class ChatDetailScreen extends StatelessWidget {
   }
 }
 
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _AppBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56,
+      padding: AppPaddings.lH,
+      width: MediaQuery.of(context).size.width,
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          GestureDetector(
+            onTap: () => navigationController.goBack(),
+            child: Image.asset(AppAssetIcons.arrowLeft, height: 24, width: 24, color: const Color(0xFF22272F)),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Avatar(imageUrl: AssetImages.profileImage, size: 24),
+                const SizedBox(width: 8),
+                Text(
+                  'Maximillian',
+                  style: context.body1
+                      .copyWith(fontWeight: FontWeight.w500, letterSpacing: 0.2, color: const Color(0xFF272E35)),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          Image.asset(AppAssetIcons.info, height: 24, width: 24),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(56);
+}
+
 class _BottomTextField extends StatelessWidget {
   const _BottomTextField({required this.border});
 
@@ -80,8 +131,8 @@ class _BottomTextField extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Container(
-        margin: AppPaddings.lA,
-        height: 41,
+        padding: AppPaddings.lA,
+        height: 73,
         width: double.infinity,
         color: Colors.white,
         child: Row(

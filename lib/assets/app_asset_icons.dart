@@ -77,4 +77,5 @@ class AppAssetIcons {
   static const String gift = 'assets/icons/gift.png';
   static const String chatPlus = 'assets/icons/chat-plus.png';
   static const String usersGrad = 'assets/icons/users-grad.png';
+  static const String info = 'assets/icons/info.png';
 }
