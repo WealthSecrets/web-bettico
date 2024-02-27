@@ -69,4 +69,5 @@ class AssetImages {
   static const String bar = 'assets/images/bar.png';
   static const String eclipse = 'assets/images/eclipse.png';
   static const String envelope = 'assets/images/envelope.png';
+  static const String round = 'assets/images/round.png';
 }

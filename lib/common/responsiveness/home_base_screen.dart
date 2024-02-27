@@ -17,8 +17,6 @@ class HomeBaseScreen extends StatefulWidget {
 }
 
 class _HomeBaseScreenState extends State<HomeBaseScreen> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
   final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
 
   int _bottomNavIndex = 0;
@@ -75,11 +73,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       context,
       message: '${notification?.title.toString()} ${notification?.body.toString}',
       backgroundColor: context.colors.success,
-      leadingIcon: const Icon(
-        Ionicons.information_sharp,
-        size: 24,
-        color: Colors.white,
-      ),
+      leadingIcon: const Icon(Ionicons.information_sharp, size: 24, color: Colors.white),
     );
   }
 
@@ -87,12 +81,9 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
   Widget build(BuildContext context) {
     return Obx(() {
       final String userToken = baseScreenController.userToken.value;
-      final User user = baseScreenController.user.value;
       final String initialRoute = userToken.isNotEmpty ? AppRoutes.timeline : AppRoutes.explore;
       return Scaffold(
-        key: scaffoldKey,
         extendBodyBehindAppBar: true,
-        drawer: isSmallScreen ? Drawer(child: LeftSideBar(user: user, userToken: userToken)) : null,
         bottomNavigationBar: isSmallScreen && userToken.isNotEmpty
             ? AnimatedBottomNavigationBar.builder(
                 activeIndex: _bottomNavIndex,
@@ -134,18 +125,10 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
         body: AppLoadingBox(
           loading: baseScreenController.isLoggingOut.value,
           child: ResponsiveWidget(
-            largeScreen: LargeScreen(initialRoute: initialRoute, user: user, userToken: userToken),
-            mediumScreen: MediumScreen(initialRoute: initialRoute, user: user, userToken: userToken),
-            customScreen: CustomScreen(initialRoute: initialRoute, user: user, userToken: userToken),
-            smallScreen: Column(
-              children: <Widget>[
-                TopNavigationBar(
-                  scaffoldKey: scaffoldKey,
-                  title: getAppBarTitle(navigationController.currentRoute.value),
-                ),
-                Expanded(child: appNavigator(initialRoute))
-              ],
-            ),
+            largeScreen: LargeScreen(initialRoute: initialRoute),
+            mediumScreen: MediumScreen(initialRoute: initialRoute),
+            customScreen: CustomScreen(initialRoute: initialRoute),
+            smallScreen: appNavigator(initialRoute),
           ),
         ),
       );
@@ -184,7 +167,6 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
     if (route == AppRoutes.verificationLevels) {
       return 'Verification Status';
     }
-
     return null;
   }
 }

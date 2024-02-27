@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class ExploreContainer extends StatelessWidget {
   ExploreContainer({super.key});
 
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ExploreController controller = Get.find<ExploreController>();
 
   @override
@@ -16,6 +17,9 @@ class ExploreContainer extends StatelessWidget {
     final bool isMediumScreen = ResponsiveWidget.isMediumScreen(context);
 
     return Scaffold(
+      key: scaffoldKey,
+      drawer: isSmallScreen ? const Drawer(child: LeftSideBar()) : null,
+      appBar: isSmallScreen ? TopNavigationBar(scaffoldKey: scaffoldKey) : null,
       body: Obx(
         () {
           final bool isPostsSelected = controller.selectedOption.value == Options.posts;

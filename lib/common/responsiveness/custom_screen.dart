@@ -3,11 +3,9 @@ import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
 
 class CustomScreen extends StatelessWidget {
-  const CustomScreen({super.key, required this.initialRoute, required this.userToken, required this.user});
+  const CustomScreen({super.key, required this.initialRoute});
 
   final String initialRoute;
-  final String userToken;
-  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ class CustomScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Expanded(child: SizedBox()),
-        Expanded(child: LeftSideBar(user: user, userToken: userToken)),
+        const Expanded(child: LeftSideBar()),
         Expanded(
           flex: 6,
           child: Container(

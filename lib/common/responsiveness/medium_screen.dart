@@ -4,10 +4,8 @@ import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 
 class MediumScreen extends StatelessWidget {
-  const MediumScreen({super.key, required this.initialRoute, required this.userToken, required this.user});
+  const MediumScreen({super.key, required this.initialRoute});
   final String initialRoute;
-  final String userToken;
-  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ class MediumScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Expanded(child: SizedBox()),
-        Expanded(child: LeftSideBar(user: user, userToken: userToken)),
+        const Expanded(child: LeftSideBar()),
         Expanded(
           flex: 6,
           child: Container(

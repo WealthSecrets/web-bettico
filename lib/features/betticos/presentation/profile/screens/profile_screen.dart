@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: DefaultTabController(
         length: 6,
         child: NotificationListener<OverscrollIndicatorNotification>(

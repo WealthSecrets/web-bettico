@@ -13,8 +13,8 @@ class TimelineScreen extends StatefulWidget {
 
 class _TimelineScreenState extends State<TimelineScreen> {
   final TimelineController controller = Get.find<TimelineController>();
-  final BaseScreenController baseScreenController = Get.find<BaseScreenController>();
   final SettingsController sController = Get.find<SettingsController>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   GlobalKey timelineTab = GlobalKey();
   GlobalKey createPost = GlobalKey();
@@ -28,56 +28,61 @@ class _TimelineScreenState extends State<TimelineScreen> {
   Widget build(BuildContext context) {
     final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     return SafeArea(
-      child: Scaffold(
-        floatingActionButton: isSmallScreen
-            ? controller.tabIndex.value == 0
-                ? FloatingActionButton(
-                    onPressed: () => controller.navigateToAddPost(context),
-                    backgroundColor: context.colors.primary.shade400,
-                    key: createPost,
-                    child: Center(
-                      child: Image.asset(AppAssetIcons.editPencil, height: 24, width: 24, color: Colors.white),
-                    ),
-                  )
-                : null
-            : null,
-        body: DefaultTabController(
-          length: isSmallScreen ? 3 : 2,
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (OverscrollIndicatorNotification overscroll) {
-              overscroll.disallowIndicator();
-              return true;
-            },
-            child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverPersistentHeader(
-                    delegate: SliverAppBarDelegate(
-                      TabBar(
-                        indicatorColor: context.colors.primary,
-                        labelColor: Colors.black,
-                        labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                        unselectedLabelStyle: const TextStyle(fontSize: 14),
-                        padding: AppPaddings.lH.add(AppPaddings.lB),
-                        unselectedLabelColor: Colors.grey,
-                        indicator: CircleTabIndicator(color: context.colors.primary, radius: 3),
-                        tabs: <Widget>[
-                          Tab(text: 'timeline'.tr, key: timelineTab),
-                          if (isSmallScreen) Tab(text: 'Viralz', key: viralz),
-                          Tab(text: 'Anonymous', key: anonymous),
-                        ],
+      child: Obx(
+        () => Scaffold(
+          key: scaffoldKey,
+          appBar: TopNavigationBar(scaffoldKey: scaffoldKey),
+          drawer: isSmallScreen ? const Drawer(child: LeftSideBar()) : null,
+          floatingActionButton: isSmallScreen
+              ? controller.tabIndex.value == 0
+                  ? FloatingActionButton(
+                      onPressed: () => controller.navigateToAddPost(context),
+                      backgroundColor: context.colors.primary.shade400,
+                      key: createPost,
+                      child: Center(
+                        child: Image.asset(AppAssetIcons.editPencil, height: 24, width: 24, color: Colors.white),
                       ),
-                    ),
-                    pinned: true,
-                  ),
-                ];
+                    )
+                  : null
+              : null,
+          body: DefaultTabController(
+            length: isSmallScreen ? 3 : 2,
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (OverscrollIndicatorNotification overscroll) {
+                overscroll.disallowIndicator();
+                return true;
               },
-              body: TabBarView(
-                children: <Widget>[
-                  TimelineTab(),
-                  if (isSmallScreen) const TrendsForYouScreen(isOnScreen: true),
-                  Container(),
-                ],
+              child: NestedScrollView(
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverPersistentHeader(
+                      delegate: SliverAppBarDelegate(
+                        TabBar(
+                          indicatorColor: context.colors.primary,
+                          labelColor: Colors.black,
+                          labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          unselectedLabelStyle: const TextStyle(fontSize: 14),
+                          padding: AppPaddings.lH.add(AppPaddings.lB),
+                          unselectedLabelColor: Colors.grey,
+                          indicator: CircleTabIndicator(color: context.colors.primary, radius: 3),
+                          tabs: <Widget>[
+                            Tab(text: 'timeline'.tr, key: timelineTab),
+                            if (isSmallScreen) Tab(text: 'Viralz', key: viralz),
+                            Tab(text: 'Anonymous', key: anonymous),
+                          ],
+                        ),
+                      ),
+                      pinned: true,
+                    ),
+                  ];
+                },
+                body: TabBarView(
+                  children: <Widget>[
+                    TimelineTab(),
+                    if (isSmallScreen) const TrendsForYouScreen(isOnScreen: true),
+                    Container(),
+                  ],
+                ),
               ),
             ),
           ),
