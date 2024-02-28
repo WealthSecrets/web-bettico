@@ -6,11 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class MessageBaseScreen extends StatelessWidget {
-  const MessageBaseScreen({super.key});
+  MessageBaseScreen({super.key});
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
+    final InputBorder searchFieldBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(11.0),
+      borderSide: const BorderSide(color: Color(0xFFF5F8FF)),
+    );
     return Scaffold(
+      key: scaffoldKey,
+      appBar: TopNavigationBar(scaffoldKey: scaffoldKey),
+      drawer: isSmallScreen ? const Drawer(child: LeftSideBar()) : null,
       floatingActionButton: FloatingActionButton(
         onPressed: () => WidgetUtils.showChatListsBottomSheet(context),
         backgroundColor: context.colors.primary,
@@ -22,15 +32,14 @@ class MessageBaseScreen extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: AppPaddings.lH,
-            child: SearchField(
-              fillColor: const Color(0xFFF5F8FF),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(11.0),
-                borderSide: const BorderSide(color: Color(0xFFF5F8FF)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(11.0),
-                borderSide: const BorderSide(color: Color(0xFFF5F8FF)),
+            child: SizedBox(
+              height: 32,
+              child: SearchField(
+                hintText: 'Search for people and groups',
+                fillColor: const Color(0xFFF5F8FF),
+                enabledBorder: searchFieldBorder,
+                focusedBorder: searchFieldBorder,
+                disabledBorder: searchFieldBorder,
               ),
             ),
           ),
@@ -83,6 +92,7 @@ class MessageBaseScreen extends StatelessWidget {
                                   color: context.colors.textInputText,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 0.2,
+                                  fontSize: 14,
                                 ),
                               ),
                             ),

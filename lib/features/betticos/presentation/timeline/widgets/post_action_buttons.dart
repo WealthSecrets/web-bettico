@@ -59,7 +59,7 @@ class PostActionButtons extends StatelessWidget {
               onTap: onComment,
               child: Image.asset(
                 AppAssetIcons.chat,
-                color: context.colors.icon,
+                color: context.colors.darkenText,
                 height: 15,
                 width: 15,
               ),

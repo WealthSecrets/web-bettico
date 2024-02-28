@@ -49,9 +49,6 @@ class AppLightTheme implements ThemeColor {
   Color textDark = const Color(0xFF3d3d3d);
 
   @override
-  Color icon = const Color(0xFF7E8B99);
-
-  @override
   Color cardColor = const Color(0xFFF0F0F0);
 
   @override

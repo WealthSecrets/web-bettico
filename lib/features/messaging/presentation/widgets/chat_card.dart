@@ -42,16 +42,20 @@ class ChatCard extends StatelessWidget {
                 color: chatType == ChatType.receiver ? const Color(0xFFFAF7FF) : const Color(0xFFF2EBFF),
                 borderRadius: BorderRadius.circular(9),
               ),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
                     text,
-                    style: context.body2.copyWith(fontWeight: FontWeight.w400, letterSpacing: 0.2),
+                    style: context.body2.copyWith(fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.2),
                   ),
-                  Text(
-                    text,
-                    style: context.body2
-                        .copyWith(fontWeight: FontWeight.w400, letterSpacing: 0.2, color: const Color(0xFF7E8B99)),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      '16:44',
+                      style: context.overline
+                          .copyWith(fontWeight: FontWeight.w300, letterSpacing: 0.2, color: const Color(0xFF7E8B99)),
+                    ),
                   )
                 ],
               ),

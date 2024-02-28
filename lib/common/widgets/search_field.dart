@@ -1,7 +1,7 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({
@@ -16,6 +16,9 @@ class SearchField extends StatelessWidget {
     this.fillColor,
     this.enabledBorder,
     this.focusedBorder,
+    this.disabledBorder,
+    this.contentPadding,
+    this.style,
   });
 
   final Function(String text)? onChanged;
@@ -28,6 +31,9 @@ class SearchField extends StatelessWidget {
   final Color? fillColor;
   final InputBorder? focusedBorder;
   final InputBorder? enabledBorder;
+  final InputBorder? disabledBorder;
+  final EdgeInsetsGeometry? contentPadding;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +41,9 @@ class SearchField extends StatelessWidget {
       validator: (String? validator) => null,
       controller: controller,
       initialValue: initialValue,
-      style: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
-        color: context.colors.textDark,
-      ),
+      style: style ?? TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: context.colors.textDark),
       decoration: InputDecoration(
-        hintText: hintText ?? 'Search crypto',
+        hintText: hintText ?? 'Search...',
         prefixIconConstraints: const BoxConstraints(maxHeight: 30),
         prefixIcon: isLoading ?? false
             ? Container(
@@ -52,24 +54,22 @@ class SearchField extends StatelessWidget {
               )
             : Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  Ionicons.search_sharp,
-                  color: context.colors.text,
-                  size: 20,
-                ),
+                child: Image.asset(AppAssetIcons.search, color: context.colors.darkenText, height: 15.50, width: 15.50),
               ),
         suffixIcon: suffixIcon,
         suffixIconConstraints: showSortBy ?? false ? const BoxConstraints(maxHeight: 20, maxWidth: 36) : null,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8).add(const EdgeInsets.symmetric(vertical: 4)),
+        contentPadding:
+            contentPadding ?? const EdgeInsets.symmetric(horizontal: 8).add(const EdgeInsets.symmetric(vertical: 4)),
         enabledBorder: enabledBorder ??
             OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(width: .4, color: context.colors.primary.shade100),
             ),
-        disabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(width: .4),
-        ),
+        disabledBorder: disabledBorder ??
+            const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(width: .4),
+            ),
         focusedBorder: focusedBorder ??
             OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),

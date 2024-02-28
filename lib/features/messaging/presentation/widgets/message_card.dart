@@ -47,6 +47,7 @@ class MessageCard extends StatelessWidget {
                             Text(
                               'Blankson',
                               style: context.body1.copyWith(
+                                fontSize: 16,
                                 color: context.colors.black,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 0.1,
@@ -56,6 +57,7 @@ class MessageCard extends StatelessWidget {
                             Text(
                               '@blanksonR',
                               style: context.body1.copyWith(
+                                fontSize: 16,
                                 color: context.colors.textInputIconColor,
                                 letterSpacing: 0.1,
                                 fontWeight: FontWeight.w300,
@@ -68,6 +70,7 @@ class MessageCard extends StatelessWidget {
                       Text(
                         '3h',
                         style: context.body1.copyWith(
+                          fontSize: 16,
                           color: context.colors.textInputIconColor,
                           letterSpacing: 0.1,
                           fontWeight: FontWeight.w300,
@@ -84,8 +87,12 @@ class MessageCard extends StatelessWidget {
                 if (messageType == MessageType.chat)
                   Text(
                     'You: See you next weekend Jimmy!',
-                    style: context.body1
-                        .copyWith(color: context.colors.text, fontWeight: FontWeight.w300, letterSpacing: 0.1),
+                    style: context.body1.copyWith(
+                      fontSize: 16,
+                      color: context.colors.text,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 0.1,
+                    ),
                   ),
                 if (messageType == MessageType.box)
                   RichText(

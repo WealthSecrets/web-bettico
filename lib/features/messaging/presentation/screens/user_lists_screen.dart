@@ -72,7 +72,7 @@ class ChatListScreen extends StatelessWidget {
                             Text(
                               '@blanksonR',
                               style: context.overline.copyWith(
-                                color: context.colors.icon,
+                                color: context.colors.darkenText,
                                 letterSpacing: 0.2,
                                 fontWeight: FontWeight.w300,
                               ),

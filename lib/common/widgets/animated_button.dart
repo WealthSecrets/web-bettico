@@ -36,7 +36,7 @@ class AnimatedButton extends StatelessWidget {
             ),
       likeBuilder: (bool isLiked) => Image.asset(
         isLiked ? iconSolid : iconOutline,
-        color: isLiked ? (isDislikeButton ? context.colors.error : context.colors.primary) : context.colors.icon,
+        color: isLiked ? (isDislikeButton ? context.colors.error : context.colors.primary) : context.colors.darkenText,
         height: 15,
         width: 15,
       ),

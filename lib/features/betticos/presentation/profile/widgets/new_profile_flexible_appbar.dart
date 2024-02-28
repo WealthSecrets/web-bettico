@@ -413,7 +413,7 @@ class _RowTextButton extends StatelessWidget {
             fontWeight: FontWeight.w400,
             fontSize: 14,
             letterSpacing: 0.2,
-            color: context.colors.icon,
+            color: context.colors.darkenText,
           ),
         ),
       ],
