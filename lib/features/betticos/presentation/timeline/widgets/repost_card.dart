@@ -83,7 +83,7 @@ class RepostCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () => navigationController.navigateTo(
                     AppRoutes.profile,
-                    arguments: ProfileScreenArgument(user: repost.post.user, showBackButton: true),
+                    arguments: ProfileScreenArgument(user: repost.user, showBackButton: true),
                   ),
                   child: Container(
                     height: 45,

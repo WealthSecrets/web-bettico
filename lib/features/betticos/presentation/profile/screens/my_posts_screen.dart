@@ -15,6 +15,7 @@ class MyPostsScreen extends GetWidget<ProfileController> {
   final bool oddbox;
 
   final TimelineController tController = Get.find<TimelineController>();
+  final User user = Get.find<BaseScreenController>().user.value;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,16 @@ class MyPostsScreen extends GetWidget<ProfileController> {
       () {
         final List<Post> posts = getPosts();
         final String message = getMessage();
+        final bool isLoggedInUser = user.id == userId;
         return AppLoadingBox(
           loading: controller.isLoadingMyOddboxes.value ||
               controller.isLoadingMyPosts.value ||
               controller.isLoadingMyLikedPosts.value,
-          child: posts.isEmpty
-              ? AppEmptyScreen(message: message)
+          child: posts.isEmpty || hideContent(isLoggedInUser)
+              ? AppEmptyScreen(
+                  title: hideContent(isLoggedInUser) ? 'Bookmarks Hidden' : null,
+                  message: hideContent(isLoggedInUser) ? "User's bookmarks are private." : message,
+                )
               : ListView.builder(
                   itemCount: posts.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -114,6 +119,18 @@ class MyPostsScreen extends GetWidget<ProfileController> {
         return 'No bookmarks were found.';
       case PostType.comments:
         return 'No comments were found.';
+    }
+  }
+
+  bool hideContent(bool isLoggedInUser) {
+    switch (type) {
+      case PostType.posts:
+      case PostType.oddboxes:
+      case PostType.likedPosts:
+      case PostType.comments:
+        return false;
+      case PostType.bookmarks:
+        return !isLoggedInUser;
     }
   }
 }
