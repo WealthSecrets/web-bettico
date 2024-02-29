@@ -96,7 +96,7 @@ class MyPostsScreen extends GetWidget<ProfileController> {
       case PostType.likedPosts:
         return controller.myLikedPosts;
       case PostType.bookmarks:
-        return controller.myLikedPosts;
+        return controller.myBookmarks;
     }
   }
 

@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 RepostsScreen(),
                 Container(),
                 MyPostsScreen(userId: widget.user.id, type: PostType.likedPosts),
-                Container(),
+                MyPostsScreen(userId: widget.user.id, type: PostType.bookmarks),
               ],
             ),
           ),

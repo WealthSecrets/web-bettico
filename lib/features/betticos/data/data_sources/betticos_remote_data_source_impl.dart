@@ -291,6 +291,13 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
   }
 
   @override
+  Future<List<Post>> getMyBookmarks() async {
+    final Map<String, dynamic> json = await _client.get(BetticosEndpoints.bookmarks);
+    final List<dynamic> items = json['items'] as List<dynamic>;
+    return List<Post>.from(items.map<Post>((dynamic json) => Post.fromJson(json as Map<String, dynamic>)));
+  }
+
+  @override
   Future<List<Repost>> getMyReposts(String userId) async {
     final Map<String, dynamic> json = await _client.get(BetticosEndpoints.userReposts(userId));
     final List<dynamic> items = json['items'] as List<dynamic>;

@@ -24,6 +24,7 @@ class ProfileController extends GetxController {
     required this.fetchMyPosts,
     required this.fetchMyOddboxes,
     required this.fetchMyLikedPosts,
+    required this.getMyBookmarks,
     required this.likePost,
     required this.dislikePost,
     required this.fetchUserReposts,
@@ -39,6 +40,7 @@ class ProfileController extends GetxController {
   final GetMyFollowings getMyFollowings;
   final FetchMyOddboxes fetchMyOddboxes;
   final FetchMyLikedPosts fetchMyLikedPosts;
+  final GetMyBookmarks getMyBookmarks;
   final FetchMyPosts fetchMyPosts;
   final CheckSubscription checkSubscription;
   final CheckFollowing checkFollowing;
@@ -72,6 +74,7 @@ class ProfileController extends GetxController {
   RxList<Post> myPosts = <Post>[].obs;
   RxList<Post> myOddboxes = <Post>[].obs;
   RxList<Post> myLikedPosts = <Post>[].obs;
+  RxList<Post> myBookmarks = <Post>[].obs;
   RxList<Repost> myReposts = <Repost>[].obs;
   RxBool isSubscribedToUser = false.obs;
 
@@ -160,6 +163,7 @@ class ProfileController extends GetxController {
     loadMyOddboxes();
     loadMyLikedPosts();
     loadMyReposts(userId: userId);
+    loadMyBookmarks();
     checkIfSubscribedToUser();
     checkIfFollowedByUser();
   }
@@ -360,6 +364,21 @@ class ProfileController extends GetxController {
     }, (List<Post> posts) {
       isLoadingMyLikedPosts(false);
       myLikedPosts(posts);
+    });
+  }
+
+  void loadMyBookmarks() async {
+    isLoading(true);
+    final Either<Failure, List<Post>> fialureOrSuccess = await getMyBookmarks(NoParams());
+
+    fialureOrSuccess.fold((Failure failure) {
+      isLoading(false);
+      if (context != null) {
+        AppSnacks.show(context!, message: failure.message);
+      }
+    }, (List<Post> posts) {
+      isLoading(false);
+      myBookmarks(posts);
     });
   }
 

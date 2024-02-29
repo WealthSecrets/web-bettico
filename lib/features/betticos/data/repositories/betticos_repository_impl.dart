@@ -221,6 +221,9 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   Future<Either<Failure, List<Post>>> getMyLikedPosts() => makeRequest(betticoslineRemoteDataSource.getMyLikedPosts());
 
   @override
+  Future<Either<Failure, List<Post>>> getMyBookmarks() => makeRequest(betticoslineRemoteDataSource.getMyBookmarks());
+
+  @override
   Future<Either<Failure, List<Repost>>> getUserReposts(String userId) =>
       makeRequest(betticoslineRemoteDataSource.getMyReposts(userId));
 
