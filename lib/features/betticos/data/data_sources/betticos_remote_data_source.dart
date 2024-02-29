@@ -75,9 +75,9 @@ abstract class BetticosRemoteDataSource {
 
   Future<List<Post>> getMyOddboxes(String userId);
 
-  Future<List<Post>> getMyLikedPosts();
+  Future<List<Post>> getMyLikedPosts(String userId);
 
-  Future<List<Post>> getMyBookmarks();
+  Future<List<Post>> getMyBookmarks(String userId);
 
   Future<List<Repost>> getMyReposts(String userId);
 

@@ -376,7 +376,8 @@ class ProfileController extends GetxController {
 
   void loadMyLikedPosts() async {
     isLoadingMyLikedPosts(true);
-    final Either<Failure, List<Post>> fialureOrSuccess = await fetchMyLikedPosts(NoParams());
+    final Either<Failure, List<Post>> fialureOrSuccess =
+        await fetchMyLikedPosts(MyPostsOrOddboxesRequest(userId: user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
       isLoadingMyLikedPosts(false);
@@ -391,7 +392,7 @@ class ProfileController extends GetxController {
 
   void loadMyBookmarks() async {
     isLoading(true);
-    final Either<Failure, List<Post>> fialureOrSuccess = await getMyBookmarks(NoParams());
+    final Either<Failure, List<Post>> fialureOrSuccess = await getMyBookmarks(UserRequest(userId: user.value.id));
 
     fialureOrSuccess.fold((Failure failure) {
       isLoading(false);
