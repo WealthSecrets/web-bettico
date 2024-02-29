@@ -6,7 +6,7 @@ import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-enum PostType { posts, oddboxes, likedPosts, bookmarks }
+enum PostType { posts, oddboxes, likedPosts, bookmarks, comments }
 
 class MyPostsScreen extends GetWidget<ProfileController> {
   MyPostsScreen({super.key, required this.userId, required this.type, this.oddbox = false});
@@ -97,6 +97,8 @@ class MyPostsScreen extends GetWidget<ProfileController> {
         return controller.myLikedPosts;
       case PostType.bookmarks:
         return controller.myBookmarks;
+      case PostType.comments:
+        return controller.myComments;
     }
   }
 
@@ -110,6 +112,8 @@ class MyPostsScreen extends GetWidget<ProfileController> {
         return 'No liked posts were found.';
       case PostType.bookmarks:
         return 'No bookmarks were found.';
+      case PostType.comments:
+        return 'No comments were found.';
     }
   }
 }

@@ -23,6 +23,7 @@ class ProfileBindings {
         fetchMyLikedPosts: FetchMyLikedPosts(betticosRepository: Get.find()),
         fetchUserReposts: FetchUserReposts(betticosRepository: Get.find()),
         getMyBookmarks: GetMyBookmarks(betticosRepository: Get.find()),
+        fetchMyComments: FetchMyComments(betticosRepository: Get.find()),
       ),
       permanent: true,
     );

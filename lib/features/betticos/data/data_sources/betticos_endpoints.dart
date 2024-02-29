@@ -34,6 +34,7 @@ class BetticosEndpoints {
   static String userReposts(String userId) => 'reposts/$userId/user-reposts';
   static const String likedPosts = 'posts/likedPosts';
   static const String bookmarks = 'posts/bookmarks';
+  static String myComments(String userId) => 'posts/$userId/mycomments';
   static String thePost(String postId) => 'posts/$postId';
   static String likePost(String postId) => 'posts/$postId/likePost';
   static String dislikePost(String postId) => 'posts/$postId/dislikePost';
