@@ -80,6 +80,10 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
       makeRequest(betticoslineRemoteDataSource.dislikeRepost(repostId: repostId, request: UserRequest(userId: user)));
 
   @override
+  Future<Either<Failure, Post>> bookmarkPost({required String postId, required String user}) =>
+      makeRequest(betticoslineRemoteDataSource.bookmarkPost(postId: postId, request: UserRequest(userId: user)));
+
+  @override
   Future<Either<Failure, List<Post>>> fetchPosts() => makeRequest(
         betticoslineRemoteDataSource.fetchPosts(),
       );

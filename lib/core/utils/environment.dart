@@ -43,6 +43,8 @@ extension EnvironmentX on Environment {
     }[this]!;
   }
 
+// 172.20.10.4
+// 192.168.0.117
   String get url {
     return <Environment, String>{
       Environment.development: 'http://192.168.0.117:8000/api/v1/',

@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_ructors
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
@@ -56,6 +57,28 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   onComment: () => controller.navigateToAddPost(context, p: widget.post, isAreply: true),
                   onLike: () => controller.likeThePost(context, widget.post.id),
                   onDislike: () => controller.dislikeThePost(context, widget.post.id),
+                  onRepost: () => WidgetUtils.showOptionsBottomSheet(
+                    context,
+                    title: 'Choose Action',
+                    iconColor: context.colors.primary,
+                    iconSize: 18,
+                    options: <OptionArgument>[
+                      OptionArgument(
+                        icon: AppAssetIcons.refresh,
+                        title: 'Repost',
+                        onPressed: () => controller.addNewRepost(context, postId: widget.post.id),
+                      ),
+                      OptionArgument(
+                        icon: AppAssetIcons.editPencil,
+                        title: 'Quote',
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          controller.navigateToAddPost(context, p: widget.post, isAreply: false);
+                        },
+                      ),
+                    ],
+                  ),
+                  onBookmark: () => controller.bookmarkThePost(context, widget.post.id),
                   sponsored: widget.post.boosted == true,
                 );
               }
@@ -79,6 +102,29 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       controller.navigateToAddPost(context, p: controller.postComments[index - 1], isAreply: true),
                   onLike: () => controller.likeThePost(context, controller.postComments[index - 1].id),
                   onDislike: () => controller.dislikeThePost(context, controller.postComments[index - 1].id),
+                  onRepost: () => WidgetUtils.showOptionsBottomSheet(
+                    context,
+                    title: 'Choose Action',
+                    iconColor: context.colors.primary,
+                    iconSize: 18,
+                    options: <OptionArgument>[
+                      OptionArgument(
+                        icon: AppAssetIcons.refresh,
+                        title: 'Repost',
+                        onPressed: () =>
+                            controller.addNewRepost(context, postId: controller.postComments[index - 1].id),
+                      ),
+                      OptionArgument(
+                        icon: AppAssetIcons.editPencil,
+                        title: 'Quote',
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          controller.navigateToAddPost(context, p: controller.postComments[index - 1], isAreply: false);
+                        },
+                      ),
+                    ],
+                  ),
+                  onBookmark: () => controller.bookmarkThePost(context, controller.postComments[index - 1].id),
                   sponsored: controller.postComments[index - 1].boosted == true,
                 ),
               );

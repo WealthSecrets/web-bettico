@@ -4,11 +4,17 @@ import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+  NotificationScreen({super.key});
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
     return Scaffold(
+      key: scaffoldKey,
+      drawer: isSmallScreen ? const Drawer(child: LeftSideBar()) : null,
+      appBar: isSmallScreen ? TopNavigationBar(scaffoldKey: scaffoldKey) : null,
       body: DefaultTabController(
         length: 2,
         child: NotificationListener<OverscrollIndicatorNotification>(

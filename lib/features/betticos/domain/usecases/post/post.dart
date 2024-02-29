@@ -1,4 +1,5 @@
 export 'add_post.dart';
+export 'bookmark_post.dart';
 export 'delete_post.dart';
 export 'dislike_post.dart';
 export 'explore_posts.dart';

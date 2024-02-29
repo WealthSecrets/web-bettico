@@ -18,7 +18,7 @@ class TimelineCard extends StatelessWidget {
     this.onComment,
     this.onLike,
     this.onDislike,
-    this.onShare,
+    this.onBookmark,
     this.onRepost,
     this.largeFonts = false,
     this.hideOptions = false,
@@ -37,7 +37,7 @@ class TimelineCard extends StatelessWidget {
   final void Function()? onComment;
   final void Function()? onLike;
   final void Function()? onDislike;
-  final void Function()? onShare;
+  final void Function()? onBookmark;
   final void Function()? onRepost;
 
   final BaseScreenController bController = Get.find<BaseScreenController>();
@@ -153,7 +153,7 @@ class TimelineCard extends StatelessWidget {
                       onLike: onLike,
                       onComment: onComment,
                       onDislike: onDislike,
-                      onShare: onShare,
+                      onBookmark: onBookmark,
                       onRepost: onRepost,
                     ),
                   if (sponsored == true) ...<Widget>[

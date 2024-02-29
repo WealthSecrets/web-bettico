@@ -31,6 +31,8 @@ abstract class BetticosRemoteDataSource {
 
   Future<Repost> dislikeRepost({required String repostId, required UserRequest request});
 
+  Future<Post> bookmarkPost({required String postId, required UserRequest request});
+
   Future<Reply> addReply({required ReplyRequest request});
 
   Future<Feeling> addFeeling({required FeelingRequest request});

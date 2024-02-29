@@ -1,4 +1,6 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,29 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                           controller.removeFromLikedPost(post.id);
                         }
                       },
+                      onRepost: () => WidgetUtils.showOptionsBottomSheet(
+                        context,
+                        title: 'Choose Action',
+                        iconColor: context.colors.primary,
+                        iconSize: 18,
+                        options: <OptionArgument>[
+                          OptionArgument(
+                            icon: AppAssetIcons.refresh,
+                            title: 'Repost',
+                            onPressed: () => tController.addNewRepost(context, postId: post.id),
+                          ),
+                          OptionArgument(
+                            icon: AppAssetIcons.editPencil,
+                            title: 'Quote',
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              tController.navigateToAddPost(context, p: post, isAreply: false);
+                            },
+                          ),
+                        ],
+                      ),
                       sponsored: post.boosted == true,
+                      onBookmark: () => tController.bookmarkThePost(context, post.id),
                     );
                   },
                 ),

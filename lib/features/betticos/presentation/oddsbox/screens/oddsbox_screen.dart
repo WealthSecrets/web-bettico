@@ -1,4 +1,6 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
+import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +47,28 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                         onComment: () => controller.navigateToAddPost(context, p: post, isAreply: true),
                         onLike: () => controller.likeThePost(context, post.id),
                         onDislike: () => controller.dislikeThePost(context, post.id),
+                        onRepost: () => WidgetUtils.showOptionsBottomSheet(
+                          context,
+                          title: 'Choose Action',
+                          iconColor: context.colors.primary,
+                          iconSize: 18,
+                          options: <OptionArgument>[
+                            OptionArgument(
+                              icon: AppAssetIcons.refresh,
+                              title: 'Repost',
+                              onPressed: () => controller.addNewRepost(context, postId: post.id),
+                            ),
+                            OptionArgument(
+                              icon: AppAssetIcons.editPencil,
+                              title: 'Quote',
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                controller.navigateToAddPost(context, p: post, isAreply: false);
+                              },
+                            ),
+                          ],
+                        ),
+                        onBookmark: () => controller.bookmarkThePost(context, post.id),
                       );
                     },
                   ),

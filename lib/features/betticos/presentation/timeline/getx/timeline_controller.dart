@@ -23,6 +23,7 @@ class TimelineController extends GetxController {
     required this.addFeeling,
     required this.likePost,
     required this.dislikePost,
+    required this.bookmarkPost,
     required this.likeRepost,
     required this.dislikeRepost,
     required this.deletePost,
@@ -43,6 +44,7 @@ class TimelineController extends GetxController {
   final AddFeeling addFeeling;
   final LikePost likePost;
   final DislikePost dislikePost;
+  final BookmarkPost bookmarkPost;
   final LikeRepost likeRepost;
   final DislikeRepost dislikeRepost;
   final DeletePost deletePost;
@@ -315,6 +317,7 @@ class TimelineController extends GetxController {
         combinedItems
             .sort((CombinedItem<dynamic> a, CombinedItem<dynamic> b) => b.item.createdAt.compareTo(a.item.createdAt));
         pagingController.refresh();
+        updateCombinedItems(pt.post.id, pt.post, true);
         AppSnacks.show(
           context,
           message: 'Repost successful',
@@ -330,20 +333,12 @@ class TimelineController extends GetxController {
   void addNewReply(BuildContext context, String commentId) async {
     isLoading(true);
 
-    final Either<Failure, Reply> failureOrPost = await addReply(
-      ReplyRequest(
-        text: text.value,
-        commentId: commentId,
-      ),
-    );
+    final Either<Failure, Reply> failureOrPost = await addReply(ReplyRequest(text: text.value, commentId: commentId));
 
     failureOrPost.fold(
       (Failure failure) {
         isLoading(false);
-        AppSnacks.show(
-          context,
-          message: failure.message,
-        );
+        AppSnacks.show(context, message: failure.message);
       },
       (_) {
         isLoading(false);
@@ -389,6 +384,25 @@ class TimelineController extends GetxController {
     );
   }
 
+  void bookmarkThePost(BuildContext context, String postId) async {
+    isLikingPost(true);
+
+    final Either<Failure, Post> failureOrPost = await bookmarkPost(
+      LikeDislikePostParams(postId: postId, user: bController.user.value.id),
+    );
+
+    failureOrPost.fold(
+      (Failure failure) {
+        isLikingPost(false);
+        AppSnacks.show(context, message: failure.message);
+      },
+      (Post pst) {
+        isLikingPost(false);
+        updateCombinedItems(pst.id, pst, true);
+      },
+    );
+  }
+
   void updateCombinedItems(String id, dynamic updatedItem, bool isPost) {
     final int index = combinedItems.indexWhere((CombinedItem<dynamic> item) => item.item.id == id);
     if (index != -1) {
@@ -411,10 +425,7 @@ class TimelineController extends GetxController {
     failureOrPost.fold(
       (Failure failure) {
         isLikingPost(false);
-        AppSnacks.show(
-          context,
-          message: failure.message,
-        );
+        AppSnacks.show(context, message: failure.message);
       },
       (Post pst) {
         isLikingPost(false);
@@ -436,10 +447,7 @@ class TimelineController extends GetxController {
     failureOrPost.fold(
       (Failure failure) {
         isLikingPost(false);
-        AppSnacks.show(
-          context,
-          message: failure.message,
-        );
+        AppSnacks.show(context, message: failure.message);
       },
       (Repost rpst) {
         isLikingPost(false);
@@ -518,12 +526,7 @@ class TimelineController extends GetxController {
   }
 
   void navigateToPostDetails(Post post) async {
-    final dynamic value = await Get.toNamed<dynamic>(
-      AppRoutes.postDetails,
-      arguments: PostDetailsArgument(
-        post: post,
-      ),
-    );
+    final dynamic value = await Get.toNamed<dynamic>(AppRoutes.postDetails, arguments: PostDetailsArgument(post: post));
     if (value != null) {
       resetValues();
     }

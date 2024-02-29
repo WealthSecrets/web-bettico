@@ -42,6 +42,7 @@ class BetticosEndpoints {
   static String unfollowUser(String userId) => 'follow/$userId';
   static String blockUser(String userId) => 'users/$userId/block';
   static String optionsByType(String type) => 'options/$type/type';
+  static String bookmarkPost(String postId) => 'posts/$postId/bookmark';
   static const String setup = 'setup';
   static String explore(int page, int limit) => 'posts/explore?page=$page&limit=$limit';
   static const String listings = 'networks/listings';

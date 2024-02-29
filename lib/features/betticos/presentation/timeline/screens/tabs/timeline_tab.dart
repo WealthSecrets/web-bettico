@@ -39,7 +39,7 @@ class TimelineTab extends StatelessWidget {
                         sponsored: post.boosted == true,
                         onLike: () => controller.likeThePost(context, post.id),
                         onDislike: () => controller.dislikeThePost(context, post.id),
-                        onShare: () {},
+                        onBookmark: () => controller.bookmarkThePost(context, post.id),
                         onRepost: () => WidgetUtils.showOptionsBottomSheet(
                           context,
                           title: 'Choose Action',

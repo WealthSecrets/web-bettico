@@ -48,6 +48,8 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, Repost>> dislikeRepost({required String repostId, required String user});
 
+  Future<Either<Failure, Post>> bookmarkPost({required String postId, required String user});
+
   Future<Either<Failure, Reply>> addReply({required String text, required String commentId});
 
   Future<Either<Failure, Feeling>> addFeeling({required String type, required String postId});

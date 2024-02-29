@@ -29,7 +29,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.games:
       return _getPageRoute(const SettingsScreen(), settings);
     case AppRoutes.notifications:
-      return _getPageRoute(const NotificationScreen(), settings);
+      return _getPageRoute(NotificationScreen(), settings);
     case AppRoutes.messages:
       return _getPageRoute(MessageBaseScreen(), settings);
     case AppRoutes.chatDetails:

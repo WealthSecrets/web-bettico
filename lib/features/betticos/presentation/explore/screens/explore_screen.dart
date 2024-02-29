@@ -1,3 +1,4 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
@@ -45,6 +46,36 @@ class ExploreScreen extends GetWidget<ExploreController> {
                   onDislike: () {
                     if (bController.isLoggedIn) {
                       tController.dislikeThePost(context, post.id);
+                    }
+                  },
+                  onBookmark: () {
+                    if (bController.isLoggedIn) {
+                      tController.bookmarkThePost(context, post.id);
+                    }
+                  },
+                  onRepost: () {
+                    if (bController.isLoggedIn) {
+                      WidgetUtils.showOptionsBottomSheet(
+                        context,
+                        title: 'Choose Action',
+                        iconColor: context.colors.primary,
+                        iconSize: 18,
+                        options: <OptionArgument>[
+                          OptionArgument(
+                            icon: AppAssetIcons.refresh,
+                            title: 'Repost',
+                            onPressed: () => tController.addNewRepost(context, postId: post.id),
+                          ),
+                          OptionArgument(
+                            icon: AppAssetIcons.editPencil,
+                            title: 'Quote',
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              tController.navigateToAddPost(context, p: post, isAreply: false);
+                            },
+                          ),
+                        ],
+                      );
                     }
                   },
                 );
