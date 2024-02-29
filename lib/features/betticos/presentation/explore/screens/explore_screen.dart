@@ -38,7 +38,7 @@ class ExploreScreen extends GetWidget<ExploreController> {
                   },
                   onComment: () => tController.navigateToAddPost(
                     context,
-                    pstId: post.id,
+                    id: post.id,
                   ),
                   onLike: () {
                     if (bController.isLoggedIn) {

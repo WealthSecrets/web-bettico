@@ -1,5 +1,6 @@
 class BetticosEndpoints {
   static const String posts = 'posts';
+  static const String reposts = 'reposts';
   static const String followingPosts = 'follow/followingPosts';
   static const String oddbox = 'posts/oddbox';
   static const String comments = 'comments';

@@ -44,10 +44,10 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                         },
                         onComment: () => controller.navigateToAddPost(
                           context,
-                          pstId: post.id,
+                          id: post.id,
                         ),
-                        onLike: () => controller.likeThePost(context, post.id, isOddbox: true),
-                        onDislike: () => controller.dislikeThePost(context, post.id, isOddbox: true),
+                        onLike: () => controller.likeThePost(context, post.id),
+                        onDislike: () => controller.dislikeThePost(context, post.id),
                       );
                     },
                   ),

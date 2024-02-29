@@ -180,6 +180,8 @@ class WidgetUtils {
   static void showOptionsBottomSheet(
     BuildContext context, {
     required String title,
+    Color? iconColor,
+    double? iconSize,
     required List<OptionArgument> options,
   }) {
     showMaterialModalBottomSheet<void>(
@@ -188,7 +190,10 @@ class WidgetUtils {
       builder: (BuildContext context) {
         return ClipRRect(
           borderRadius: AppBorderRadius.mediumTop,
-          child: SizedBox(height: options.length * 77 + 55, child: OptionsBottomSheet(options: options, title: title)),
+          child: SizedBox(
+            height: options.length * 77 + 55,
+            child: OptionsBottomSheet(options: options, title: title, color: iconColor, size: iconSize),
+          ),
         );
       },
     );
@@ -217,7 +222,7 @@ class WidgetUtils {
       builder: (BuildContext context) {
         return ClipRRect(
           borderRadius: AppBorderRadius.mediumTop,
-          child: const SizedBox(height: 800, child: ChatListScreen()),
+          child: const SizedBox(height: 724, child: ChatListScreen()),
         );
       },
     );

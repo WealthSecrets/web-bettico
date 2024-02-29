@@ -53,9 +53,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 return TimelineCard(
                   post: widget.post,
                   largeFonts: true,
-                  onComment: () => controller.navigateToAddPost(context, pstId: widget.post.id),
-                  onLike: () => controller.likeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
-                  onDislike: () => controller.dislikeThePost(context, widget.post.id, isOddbox: widget.post.isOddbox),
+                  onComment: () => controller.navigateToAddPost(context, id: widget.post.id),
+                  onLike: () => controller.likeThePost(context, widget.post.id),
+                  onDislike: () => controller.dislikeThePost(context, widget.post.id),
                   sponsored: widget.post.boosted == true,
                 );
               }
@@ -75,20 +75,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       await controller.getAllPostComments(thePrevPost.id);
                     }
                   },
-                  onComment: () => controller.navigateToAddPost(
-                    context,
-                    pstId: controller.postComments[index - 1].id,
-                  ),
-                  onLike: () => controller.likeThePost(
-                    context,
-                    controller.postComments[index - 1].id,
-                    isComment: true,
-                  ),
-                  onDislike: () => controller.dislikeThePost(
-                    context,
-                    controller.postComments[index - 1].id,
-                    isComment: true,
-                  ),
+                  onComment: () => controller.navigateToAddPost(context, id: controller.postComments[index - 1].id),
+                  onLike: () => controller.likeThePost(context, controller.postComments[index - 1].id),
+                  onDislike: () => controller.dislikeThePost(context, controller.postComments[index - 1].id),
                   sponsored: controller.postComments[index - 1].boosted == true,
                 ),
               );

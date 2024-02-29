@@ -1,3 +1,4 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/constants/constants.dart';
 import 'package:betticos/core/core.dart';
@@ -50,94 +51,124 @@ class RepostCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: AppPaddings.lH.add(AppPaddings.mV),
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            GestureDetector(
-              onTap: () => navigationController.navigateTo(
-                AppRoutes.profile,
-                arguments: ProfileScreenArgument(user: repost.post.user, showBackButton: true),
-              ),
-              child: Container(
-                height: 45,
-                width: 45,
-                decoration: BoxDecoration(
-                  borderRadius: AppBorderRadius.largeAll,
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-                      // headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
+            if (repost.commentsOnRepost.isEmpty) ...<Widget>[
+              Obx(() {
+                final User loggedInUser = bController.user.value;
+                final User repostUser = repost.user;
+                return Padding(
+                  padding: const EdgeInsets.only(left: 48.0),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(AppAssetIcons.refresh, color: context.colors.darkenText, height: 12, width: 12),
+                      const SizedBox(width: 5),
+                      Text(
+                        loggedInUser.id == repostUser.id
+                            ? 'You Reposted'
+                            : '${repostUser.firstName ?? repostUser.lastName ?? repostUser.username} Reposted',
+                        style: context.caption.copyWith(color: context.colors.darkenText, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+              const SizedBox(height: 5),
+            ],
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => navigationController.navigateTo(
+                    AppRoutes.profile,
+                    arguments: ProfileScreenArgument(user: repost.post.user, showBackButton: true),
+                  ),
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      borderRadius: AppBorderRadius.largeAll,
+                      image: const DecorationImage(
+                        image: NetworkImage(
+                          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
+                          // headers: <String, String>{'Authorization': 'Bearer ${bController.userToken.value}'},
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            ),
-            const AppSpacing(h: 6),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () => navigationController.navigateTo(
-                      AppRoutes.profile,
-                      arguments: ProfileScreenArgument(user: repost.post.user, showBackButton: true),
-                    ),
-                    child: _PostUserDetails(post: repost, pController: pController),
-                  ),
-                  const AppSpacing(v: 6),
-                  if (repost.commentsOnRepost.isNotEmpty)
-                    DetectableText(
-                      trimLines: 7,
-                      colorClickableText: Colors.pink,
-                      trimMode: TrimMode.Line,
-                      trimCollapsedText: 'more',
-                      trimExpandedText: '...less',
-                      text: repost.commentsOnRepost,
-                      detectionRegExp: RegExp(
-                        '(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent',
-                        multiLine: true,
+                const AppSpacing(h: 6),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => navigationController.navigateTo(
+                          AppRoutes.profile,
+                          arguments: ProfileScreenArgument(user: repost.post.user, showBackButton: true),
+                        ),
+                        child: _PostUserDetails(post: repost, pController: pController),
                       ),
-                      callback: (bool readMore) {
-                        debugPrint('Read more >>>>>>> $readMore');
-                      },
-                      onTap: (String tappedText) async {
-                        if (tappedText.startsWith('#')) {
-                          final String name = tappedText.replaceAll('#', '');
-                          exploreController.textEditingController.value.text = name;
-                          exploreController.setSelectedHashtag(name);
-                          exploreController.navigateToSearchPage();
-                          exploreController.getFilteredPosts(1);
-                        } else if (tappedText.startsWith('@')) {
-                        } else if (tappedText.startsWith('http')) {
-                          // await navigationController.navigateTo(
-                          //   AppRoutes.appwebview,
-                          //   arguments: AppWebViewRouteArgument(
-                          //     title: 'Xviral Webview',
-                          //     url: tappedText,
-                          //     navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
-                          //   ),
-                          // );
-                        }
-                      },
-                      basicStyle: context.sub2.copyWith(color: context.colors.text, fontWeight: FontWeight.w300),
-                      detectedStyle: context.sub2.copyWith(color: context.colors.primary, fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.left,
-                    ),
-                  const SizedBox(height: 8),
-                  ActualPost(post: repost.post, bController: bController),
-                  const SizedBox(height: 12),
-                  PostActionButtons(
-                    item: repost,
-                    onLike: onLike,
-                    onDislike: onDislike,
-                    onRepost: onRepost,
-                    onComment: onComment,
-                    onShare: onShare,
-                  )
-                ],
-              ),
-            )
+                      const AppSpacing(v: 6),
+                      if (repost.commentsOnRepost.isNotEmpty) ...<Widget>[
+                        DetectableText(
+                          trimLines: 7,
+                          colorClickableText: Colors.pink,
+                          trimMode: TrimMode.Line,
+                          trimCollapsedText: 'more',
+                          trimExpandedText: '...less',
+                          text: repost.commentsOnRepost,
+                          detectionRegExp: RegExp(
+                            '(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent',
+                            multiLine: true,
+                          ),
+                          callback: (bool readMore) {
+                            debugPrint('Read more >>>>>>> $readMore');
+                          },
+                          onTap: (String tappedText) async {
+                            if (tappedText.startsWith('#')) {
+                              final String name = tappedText.replaceAll('#', '');
+                              exploreController.textEditingController.value.text = name;
+                              exploreController.setSelectedHashtag(name);
+                              exploreController.navigateToSearchPage();
+                              exploreController.getFilteredPosts(1);
+                            } else if (tappedText.startsWith('@')) {
+                            } else if (tappedText.startsWith('http')) {
+                              // await navigationController.navigateTo(
+                              //   AppRoutes.appwebview,
+                              //   arguments: AppWebViewRouteArgument(
+                              //     title: 'Xviral Webview',
+                              //     url: tappedText,
+                              //     navigationDelegate: (NavigationRequest navigation) async => NavigationDecision.navigate,
+                              //   ),
+                              // );
+                            }
+                          },
+                          basicStyle: context.sub2.copyWith(color: context.colors.text, fontWeight: FontWeight.w300),
+                          detectedStyle:
+                              context.sub2.copyWith(color: context.colors.primary, fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.left,
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                      ActualPost(post: repost.post, bController: bController),
+                      const SizedBox(height: 12),
+                      PostActionButtons(
+                        item: repost,
+                        onLike: onLike,
+                        onDislike: onDislike,
+                        onRepost: onRepost,
+                        onComment: onComment,
+                        onShare: onShare,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),

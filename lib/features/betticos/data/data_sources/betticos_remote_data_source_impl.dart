@@ -399,4 +399,10 @@ class BetticosRemoteDataSourceImpl implements BetticosRemoteDataSource {
     final Map<String, dynamic> json = await _client.get(BetticosEndpoints.searchPosts(keyword, page, limit));
     return SearchResponse.fromJson(json['data'] as Map<String, dynamic>);
   }
+
+  @override
+  Future<Repost> addRepost({required RepostRequest request}) async {
+    final Map<String, dynamic> json = await _client.post(BetticosEndpoints.reposts, body: request.toJson());
+    return Repost.fromJson(json);
+  }
 }

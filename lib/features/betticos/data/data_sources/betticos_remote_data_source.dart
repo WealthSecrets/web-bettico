@@ -17,6 +17,8 @@ abstract class BetticosRemoteDataSource {
 
   Future<Post> addPost({required PostRequest request, required Function(int count, int total) onSendProgress});
 
+  Future<Repost> addRepost({required RepostRequest request});
+
   Future<Setup> getSetup();
 
   Future<Post> updatePost({required String postId, required PostRequest request});

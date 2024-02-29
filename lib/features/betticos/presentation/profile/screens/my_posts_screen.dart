@@ -37,12 +37,12 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                           MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                         );
                       },
-                      onComment: () => tController.navigateToAddPost(context, pstId: post.id),
+                      onComment: () => tController.navigateToAddPost(context, id: post.id),
                       onLike: () {
                         if (type == PostType.posts || type == PostType.oddboxes) {
                           controller.likeThePost(context, post.id, userId, isOddbox: oddbox);
                         } else {
-                          tController.likeThePost(context, post.id, isOddbox: oddbox);
+                          tController.likeThePost(context, post.id);
                           controller.removeFromLikedPost(post.id);
                         }
                       },
@@ -50,7 +50,7 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                         if (type == PostType.posts || type == PostType.oddboxes) {
                           controller.dislikeThePost(context, post.id, userId, isOddbox: oddbox);
                         } else {
-                          tController.dislikeThePost(context, post.id, isOddbox: oddbox);
+                          tController.dislikeThePost(context, post.id);
                           controller.removeFromLikedPost(post.id);
                         }
                       },

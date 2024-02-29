@@ -26,11 +26,7 @@ class TimelineController extends GetxController {
     required this.likeRepost,
     required this.dislikeRepost,
     required this.deletePost,
-    required this.addRepost,
-    BaseScreenController? bController,
-    ProfileController? pController,
-  })  : bController = bController ?? Get.find<BaseScreenController>(),
-        pController = pController ?? Get.find<ProfileController>();
+  });
 
   final FetchFollowingPosts fetchFollowingPosts;
   final FetchSubscribedOddboxes fetchSubscribedOddboxes;
@@ -46,43 +42,44 @@ class TimelineController extends GetxController {
   final LikeRepost likeRepost;
   final DislikeRepost dislikeRepost;
   final DeletePost deletePost;
-  final AddRepost addRepost;
 
   static TimelineController instance = Get.find();
-  final RxList<Post> posts = <Post>[].obs;
-  final RxList<Repost> reposts = <Repost>[].obs;
-  final Rx<Post> detailPost = Post.empty().obs;
+  RxList<Post> posts = <Post>[].obs;
+  RxList<Repost> reposts = <Repost>[].obs;
+  Rx<Post> detailPost = Post.empty().obs;
   Rx<ListPage<Post>> postsL = ListPage<Post>.empty().obs;
   Rx<ListPage<Repost>> repostsL = ListPage<Repost>.empty().obs;
-  final RxList<Post> oddboxes = <Post>[].obs;
-  final RxList<Post> postComments = <Post>[].obs;
-  final RxList<Repost> repostComments = <Repost>[].obs;
-  final RxList<CombinedItem<dynamic>> combinedItems = <CombinedItem<dynamic>>[].obs;
   Rx<ListPage<CombinedItem<dynamic>>> combinedL = ListPage<CombinedItem<dynamic>>.empty().obs;
-  final RxString postId = ''.obs;
-  final RxString slipCode = ''.obs;
-  final Rx<Post> post = Post.empty().obs;
-  final RxString text = ''.obs;
-  final RxInt maxTextLength = 280.obs;
-  final RxList<Uint8List> files = <Uint8List>[].obs;
-  final RxDouble uploadPercentage = 0.0.obs;
-  final RxBool isCommentLoading = false.obs;
-  final RxBool isReply = false.obs;
-  final RxBool isOddbox = false.obs;
-  final RxInt tabIndex = 0.obs;
-  final RxInt pageK = 1.obs;
-  final Rx<PagingController<int, CombinedItem<dynamic>>> pagingController =
+  RxList<Post> oddboxes = <Post>[].obs;
+  RxList<Post> postComments = <Post>[].obs;
+  RxList<Repost> repostComments = <Repost>[].obs;
+  RxList<CombinedItem<dynamic>> combinedItems = <CombinedItem<dynamic>>[].obs;
+  RxString postId = ''.obs;
+  RxString slipCode = ''.obs;
+  Rx<Post> post = Post.empty().obs;
+  RxString text = ''.obs;
+  RxInt maxTextLength = 280.obs;
+  RxList<Uint8List> files = <Uint8List>[].obs;
+  RxDouble uploadPercentage = 0.0.obs;
+  RxBool isCommentLoading = false.obs;
+  RxBool isReply = false.obs;
+  RxBool isOddbox = false.obs;
+  RxInt tabIndex = 0.obs;
+  RxInt pageK = 1.obs;
+  Rx<PagingController<int, CombinedItem<dynamic>>> pagingController =
       PagingController<int, CombinedItem<dynamic>>(firstPageKey: 1).obs;
-  final RxBool isLoading = false.obs;
-  final RxBool isLikingPost = false.obs;
-  final RxBool isAddingPost = false.obs;
-  final RxBool isCompleted = false.obs;
-  final RxBool isDislikingPost = false.obs;
-  final RxBool isPostLoading = false.obs;
-  final RxBool isOddboxLoading = false.obs;
-  final RxBool isAddingComment = false.obs;
-  final BaseScreenController bController;
-  final ProfileController pController;
+
+  RxBool isLoading = false.obs;
+  RxBool isLikingPost = false.obs;
+  RxBool isDislikingPost = false.obs;
+  RxBool isPostLoading = false.obs;
+  RxBool isOddboxLoading = false.obs;
+  RxBool isAddingPost = false.obs;
+  RxBool isAddingComment = false.obs;
+  RxBool isCompleted = false.obs;
+
+  final BaseScreenController bController = Get.find<BaseScreenController>();
+  final ProfileController pController = Get.find<ProfileController>();
 
   @override
   void onInit() {
@@ -95,7 +92,7 @@ class TimelineController extends GetxController {
 
     final Either<Failure, List<Post>> failureOrOddboxes = await fetchSubscribedOddboxes(NoParams());
 
-    failureOrOddboxes.fold(
+    failureOrOddboxes.fold<void>(
       (Failure failure) {
         isOddboxLoading(false);
         AppSnacks.show(context, message: failure.message);
@@ -105,6 +102,10 @@ class TimelineController extends GetxController {
         oddboxes(value);
       },
     );
+  }
+
+  void changeTabIndex(int index) {
+    tabIndex(index);
   }
 
   void getCombinedItems(int pageKey) async {
@@ -119,8 +120,6 @@ class TimelineController extends GetxController {
       PageParmas(page: pageK.value, size: 100, leagueId: 1),
     );
 
-    final List<CombinedItem<dynamic>> combinedItemsBuffer = <CombinedItem<dynamic>>[];
-
     failureOrPosts.fold(
       (Failure failure) {
         isLoading(false);
@@ -128,7 +127,9 @@ class TimelineController extends GetxController {
       },
       (ListPage<Post> newPage) {
         postsL(newPage);
-        combinedItemsBuffer.addAll(newPage.itemList.map((Post post) => CombinedItem<Post>(item: post, isPost: true)));
+        for (final Post post in newPage.itemList) {
+          combinedItems.add(CombinedItem<Post>(item: post, isPost: true));
+        }
       },
     );
 
@@ -139,20 +140,27 @@ class TimelineController extends GetxController {
       },
       (ListPage<Repost> newPage) {
         repostsL(newPage);
-        combinedItemsBuffer
-            .addAll(newPage.itemList.map((Repost repost) => CombinedItem<Repost>(item: repost, isPost: false)));
+        for (final Repost repost in newPage.itemList) {
+          combinedItems.add(CombinedItem<Repost>(item: repost, isPost: false));
+        }
       },
     );
 
-    combinedItemsBuffer
-        .sort((CombinedItem<dynamic> a, CombinedItem<dynamic> b) => -a.item.createdAt.compareTo(b.item.createdAt));
+    combinedItems.sort((CombinedItem<dynamic> a, CombinedItem<dynamic> b) {
+      if (a.isPost && b.isPost) {
+        return -a.item.createdAt.compareTo(b.item.createdAt);
+      } else if (!a.isPost && !b.isPost) {
+        return -a.item.createdAt.compareTo(b.item.createdAt);
+      } else {
+        return a.isPost ? 1 : -1;
+      }
+    });
 
-    final ListPage<CombinedItem<dynamic>> listPageCombined = ListPage<CombinedItem<dynamic>>(
-      grandTotalCount: combinedItemsBuffer.length,
-      itemList: combinedItemsBuffer,
-    );
+    final ListPage<CombinedItem<dynamic>> listPageCombined =
+        ListPage<CombinedItem<dynamic>>(grandTotalCount: combinedItems.length, itemList: combinedItems);
 
     final int previouslyFetchedItemsCount = pagingController.value.itemList?.length ?? 0;
+
     final bool isLastPage = listPageCombined.isLastPage(previouslyFetchedItemsCount);
     final List<CombinedItem<dynamic>> newItems = listPageCombined.itemList;
 
@@ -173,7 +181,7 @@ class TimelineController extends GetxController {
   }
 
   void getPostByPostId(String postId) {
-    final Post? pst = posts.firstWhereOrNull((Post post) => post.id == postId);
+    final Post? pst = posts.firstWhereOrNull((Post pst) => pst.id == postId);
     if (pst != null) {
       post(pst);
     }
@@ -189,7 +197,9 @@ class TimelineController extends GetxController {
     isCommentLoading(true);
 
     final Either<Failure, List<Post>> failureOrPosts = await fetchPostComments(
-      FetchPostCommentsRequest(postId: postId),
+      FetchPostCommentsRequest(
+        postId: postId,
+      ),
     );
 
     failureOrPosts.fold(
@@ -212,9 +222,9 @@ class TimelineController extends GetxController {
 
   List<Post> getTopUsers() {
     final List<Post> orderedOddbox = <Post>[];
-    for (final Post oddbox in oddboxes) {
-      if (!checkIfUserAlreadyExists(orderedOddbox, oddbox.user.id)) {
-        orderedOddbox.add(oddbox);
+    for (int i = 0; i < oddboxes.length; i++) {
+      if (!checkIfUserAlreadyExists(orderedOddbox, oddboxes[i].user.id)) {
+        orderedOddbox.add(oddboxes[i]);
       }
     }
     orderedOddbox.sort(
@@ -224,28 +234,48 @@ class TimelineController extends GetxController {
   }
 
   bool checkIfUserAlreadyExists(List<Post> psts, String userId) {
-    return psts.any((Post element) => element.user.id == userId);
+    final Post? value = psts.firstWhereOrNull((Post element) => element.user.id == userId);
+    if (value != null) {
+      return true;
+    }
+    return false;
   }
 
   int getUsersTotalWins(String userId) {
     final List<Post> userPosts = oddboxes.where((Post post) => post.user.id == userId).toList();
-    return userPosts.where((Post post) => post.likeUsers.length > post.dislikeUsers.length).length;
+    int wins = 0;
+    for (int i = 0; i < userPosts.length; i++) {
+      if (userPosts[i].likeUsers.length > userPosts[i].dislikeUsers.length) {
+        wins = wins + 1;
+      }
+    }
+
+    return wins;
   }
 
   int getUserTotalLosses(String userId) {
     final List<Post> userPosts = oddboxes.where((Post post) => post.user.id == userId).toList();
-    return userPosts.where((Post post) => post.dislikeUsers.length > post.likeUsers.length).length;
+    int losses = 0;
+    for (int i = 0; i < userPosts.length; i++) {
+      if (userPosts[i].dislikeUsers.length > userPosts[i].likeUsers.length) {
+        losses = losses + 1;
+      }
+    }
+    return losses;
   }
 
   double getUserPercentage(String userId) {
-    final int total = oddboxes.where((Post post) => post.user.id == userId).length;
+    final int total = oddboxes.where((Post post) => post.user.id == userId).toList().length;
     final int wins = getUsersTotalWins(userId);
     return (wins / total) * 100;
   }
 
   void addNewPost(BuildContext context, {bool? isReply, String? postId}) async {
     if (timelineIsInvalid) {
-      await AppSnacks.show(context, message: 'Can not post an empty timeline.');
+      await AppSnacks.show(
+        context,
+        message: 'Can not post an empty timeline.',
+      );
       return;
     }
 
@@ -254,7 +284,9 @@ class TimelineController extends GetxController {
     final Either<Failure, Post> failureOrPost = await addPost(
       AddPostRequest(
         files: files,
-        onSendProgress: (int count, int total) => uploadPercentage(count / total),
+        onSendProgress: (int count, int total) {
+          uploadPercentage(count / total);
+        },
         text: text.value,
         slipCode: slipCode.value,
         isOddbox: slipCode.isNotEmpty,
@@ -282,45 +314,9 @@ class TimelineController extends GetxController {
       (Post pt) {
         isAddingPost(false);
         resetValuesAfterPost();
-        final CombinedItem<Post> newCombinedItem = CombinedItem<Post>(item: pt, isPost: true);
-        combinedItems.insert(0, newCombinedItem);
-        pagingController.value.itemList = combinedItems.map((CombinedItem<dynamic> item) => item).toList();
-        combinedItems
-            .sort((CombinedItem<dynamic> a, CombinedItem<dynamic> b) => b.item.createdAt.compareTo(a.item.createdAt));
-        pagingController.refresh();
         Get.back<dynamic>(result: pt);
-      },
-    );
-  }
-
-  void addNewRepost(BuildContext context, {required String postId}) async {
-    isAddingPost(true);
-    Navigator.of(context).pop();
-    final Either<Failure, Repost> failureOrRepost = await addRepost(
-      RepostRequest(postId: postId, commentsOnRepost: text.value),
-    );
-
-    failureOrRepost.fold(
-      (Failure failure) {
-        isAddingPost(false);
-        text('');
-        AppSnacks.show(context, message: failure.message);
-      },
-      (Repost pt) {
-        isAddingPost(false);
-        text('');
-        final CombinedItem<Repost> newCombinedItem = CombinedItem<Repost>(item: pt, isPost: false);
-        combinedItems.insert(0, newCombinedItem);
-        pagingController.value.itemList = combinedItems.map((CombinedItem<dynamic> item) => item).toList();
-        combinedItems
-            .sort((CombinedItem<dynamic> a, CombinedItem<dynamic> b) => b.item.createdAt.compareTo(a.item.createdAt));
+        pagingController.value.itemList!.insert(0, CombinedItem<Post>(item: pt, isPost: true));
         pagingController.refresh();
-        AppSnacks.show(
-          context,
-          message: 'Repost successful',
-          backgroundColor: context.colors.success,
-          leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
-        );
       },
     );
   }
@@ -345,14 +341,30 @@ class TimelineController extends GetxController {
           message: failure.message,
         );
       },
-      (_) {
+      (Reply _) {
         isLoading(false);
       },
     );
   }
 
-  void likeThePost(BuildContext context, String postId) async {
+  void likeThePost(
+    BuildContext context,
+    String postId, {
+    bool isOddbox = false,
+    bool isComment = false,
+  }) async {
     isLikingPost(true);
+
+    Post? post;
+    if (isComment) {
+      post = postComments.firstWhereOrNull((Post p) => p.id == postId);
+    } else {
+      final CombinedItem<dynamic>? cbItem =
+          combinedItems.firstWhereOrNull((CombinedItem<dynamic> ci) => ci.item.id == postId);
+      if (cbItem != null && cbItem.isPost == true) {
+        post = cbItem as Post;
+      }
+    }
 
     final Either<Failure, Post> failureOrPost = await likePost(
       LikeDislikePostParams(postId: postId, user: bController.user.value.id),
@@ -365,13 +377,37 @@ class TimelineController extends GetxController {
       },
       (Post pst) {
         isLikingPost(false);
-        updateCombinedItems(pst.id, pst, true);
+        if (post != null) {
+          if (isComment) {
+            final int postIndex = postComments.indexOf(post);
+            postComments[postIndex] = pst;
+          } else {
+            if (isOddbox) {
+              final int postIndex = oddboxes.indexOf(post);
+              oddboxes[postIndex] = pst;
+            } else {
+              final int postIndex = posts.indexOf(post);
+              posts[postIndex] = pst;
+              pagingController.value.itemList!.replaceRange(
+                0,
+                pagingController.value.itemList!.length,
+                <CombinedItem<Post>>[...posts.map((Post p) => CombinedItem<Post>(item: p, isPost: true))],
+              );
+              pagingController.refresh();
+            }
+          }
+        }
       },
     );
   }
 
   void likeTheRepost(BuildContext context, String repostId, {bool isComment = false}) async {
     isLikingPost(true);
+
+    Repost? repost;
+    if (isComment) {
+      repost = repostComments.firstWhereOrNull((Repost rp) => rp.id == repostId);
+    }
 
     final Either<Failure, Repost> failureOrPost = await likeRepost(
       LikeDislikePostParams(postId: repostId, user: bController.user.value.id),
@@ -384,54 +420,142 @@ class TimelineController extends GetxController {
       },
       (Repost rpst) {
         isLikingPost(false);
-        updateCombinedItems(rpst.id, rpst, false);
+        if (repost != null) {
+          if (isComment) {
+            final int repostIndex = repostComments.indexOf(post);
+            repostComments[repostIndex] = rpst;
+          } else {
+            final int repostIndex = reposts.indexOf(repost);
+            reposts[repostIndex] = rpst;
+            pagingController.value.itemList!.replaceRange(
+              0,
+              pagingController.value.itemList!.length,
+              <CombinedItem<Repost>>[...reposts.map((Repost p) => CombinedItem<Repost>(item: p, isPost: false))],
+            );
+            pagingController.refresh();
+          }
+        }
       },
     );
   }
 
-  void updateCombinedItems(String id, dynamic updatedItem, bool isPost) {
-    final int index = combinedItems.indexWhere((CombinedItem<dynamic> item) => item.item.id == id);
-    if (index != -1) {
-      combinedItems[index] = CombinedItem<dynamic>(item: updatedItem, isPost: isPost);
-      pagingController.value.itemList = combinedItems.map((CombinedItem<dynamic> item) => item).toList();
-      pagingController.refresh();
+  void updatePostListView(
+    String postId,
+    Post post, {
+    bool isOddbox = false,
+    bool isComment = false,
+  }) {
+    Post? oldPost;
+
+    if (isComment) {
+      oldPost = postComments.firstWhereOrNull((Post p) => p.id == postId);
+    } else {
+      if (isOddbox) {
+        oldPost = oddboxes.firstWhereOrNull((Post p) => p.id == postId);
+      } else {
+        oldPost = posts.firstWhereOrNull((Post p) => p.id == postId);
+      }
+    }
+
+    if (isComment) {
+      final int postIndex = postComments.indexOf(oldPost);
+      postComments[postIndex] = post;
+    } else {
+      if (isOddbox) {
+        final int postIndex = oddboxes.indexOf(oldPost);
+        oddboxes[postIndex] = post;
+      } else {
+        final int postIndex = posts.indexOf(oldPost);
+        posts[postIndex] = post;
+        pagingController.value.itemList!.replaceRange(
+          0,
+          pagingController.value.itemList!.length,
+          <CombinedItem<Post>>[...posts.map((Post p) => CombinedItem<Post>(item: p, isPost: true))],
+        );
+        pagingController.refresh();
+      }
     }
   }
 
-  void dislikeThePost(BuildContext context, String postId) async {
+  void dislikeThePost(
+    BuildContext context,
+    String postId, {
+    bool isOddbox = false,
+    bool isComment = false,
+  }) async {
     isLikingPost(true);
 
-    final Either<Failure, Post> failureOrPost = await dislikePost(
-      LikeDislikePostParams(
-        postId: postId,
-        user: bController.user.value.id,
-      ),
-    );
+    Post? post;
+    if (isComment) {
+      post = postComments.firstWhereOrNull((Post p) => p.id == postId);
+    } else {
+      if (isOddbox) {
+        post = oddboxes.firstWhereOrNull((Post p) => p.id == postId);
+      } else {
+        post = posts.firstWhereOrNull((Post p) => p.id == postId);
+      }
+    }
 
-    failureOrPost.fold(
-      (Failure failure) {
-        isLikingPost(false);
-        AppSnacks.show(
-          context,
-          message: failure.message,
-        );
-      },
-      (Post pst) {
-        isLikingPost(false);
-        updateCombinedItems(pst.id, pst, true);
-      },
-    );
+    if (post != null) {
+      final Either<Failure, Post> failureOrPost = await dislikePost(
+        LikeDislikePostParams(
+          postId: postId,
+          user: bController.user.value.id,
+        ),
+      );
+
+      failureOrPost.fold(
+        (Failure failure) {
+          isLikingPost(false);
+          AppSnacks.show(
+            context,
+            message: failure.message,
+          );
+        },
+        (Post pst) {
+          isLikingPost(false);
+          if (isComment) {
+            final int postIndex = postComments.indexOf(post);
+            postComments[postIndex] = pst;
+          } else {
+            if (isOddbox) {
+              final int postIndex = oddboxes.indexOf(post);
+              oddboxes[postIndex] = pst;
+            } else {
+              final int postIndex = posts.indexOf(post);
+              posts[postIndex] = pst;
+
+              pagingController.value.itemList!.replaceRange(
+                0,
+                pagingController.value.itemList!.length,
+                <CombinedItem<Post>>[...posts.map((Post p) => CombinedItem<Post>(item: p, isPost: true))],
+              );
+              pagingController.refresh();
+            }
+          }
+        },
+      );
+    } else {
+      isLikingPost(false);
+      await AppSnacks.show(
+        context,
+        message: 'Error disliking post',
+      );
+    }
   }
 
   void dislikeTheRepost(BuildContext context, String repostId, {bool isComment = false}) async {
     isLikingPost(true);
 
-    final Either<Failure, Repost> failureOrPost = await dislikeRepost(
-      LikeDislikePostParams(
-        postId: repostId,
-        user: bController.user.value.id,
-      ),
-    );
+    Repost? repost;
+    if (isComment) {
+      repost = repostComments.firstWhereOrNull((Repost p) => p.id == repostId);
+    } else {
+      repost = reposts.firstWhereOrNull((Repost p) => p.id == repostId);
+    }
+
+    final Either<Failure, Repost> failureOrPost =
+        await dislikeRepost(LikeDislikePostParams(postId: repostId, user: bController.user.value.id));
 
     failureOrPost.fold(
       (Failure failure) {
@@ -443,7 +567,20 @@ class TimelineController extends GetxController {
       },
       (Repost rpst) {
         isLikingPost(false);
-        updateCombinedItems(rpst.id, rpst, false);
+        if (isComment) {
+          final int repostIndex = repostComments.indexOf(repost);
+          repostComments[repostIndex] = rpst;
+        } else {
+          final int repostIndex = reposts.indexOf(repost);
+          reposts[repostIndex] = rpst;
+
+          pagingController.value.itemList!.replaceRange(
+            0,
+            pagingController.value.itemList!.length,
+            <CombinedItem<Repost>>[...reposts.map((Repost rp) => CombinedItem<Repost>(item: rp, isPost: true))],
+          );
+          pagingController.refresh();
+        }
       },
     );
   }
@@ -452,8 +589,8 @@ class TimelineController extends GetxController {
     detailPost(post);
   }
 
-  void navigateToAddPost(BuildContext context, {String? id}) async {
-    if (id == null) {
+  void navigateToAddPost(BuildContext context, {String? pstId}) async {
+    if (pstId == null) {
       postId('');
       isReply(false);
       final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
@@ -464,7 +601,7 @@ class TimelineController extends GetxController {
           getAllSubscribedOddboxes(context);
           await AppSnacks.show(
             context,
-            message: 'Post added successfully',
+            message: 'Post added succcessfully',
             backgroundColor: context.colors.success,
             leadingIcon: const Icon(
               Ionicons.checkmark_circle_outline,
@@ -475,9 +612,9 @@ class TimelineController extends GetxController {
       }
     } else {
       isReply(true);
-      postId(id);
+      postId(pstId);
       final dynamic post =
-          await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: id));
+          await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: pstId));
       if (post != null) {
         getCombinedItems(pageK.value);
         pagingController.value.refresh();
@@ -485,7 +622,7 @@ class TimelineController extends GetxController {
           getAllSubscribedOddboxes(context);
           await AppSnacks.show(
             context,
-            message: 'Comment added successfully',
+            message: 'Comment added succcessfully',
             backgroundColor: context.colors.success,
             leadingIcon: const Icon(
               Ionicons.checkmark_circle_outline,

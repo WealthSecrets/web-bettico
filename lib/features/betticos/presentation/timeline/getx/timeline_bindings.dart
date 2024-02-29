@@ -22,6 +22,7 @@ class TimelineBindings {
         likeRepost: LikeRepost(betticosRepository: Get.find()),
         dislikeRepost: DislikeRepost(betticosRepository: Get.find()),
         fetchPaginatedReposts: FetchPaginatedReposts(betticosRepository: Get.find()),
+        addRepost: AddRepost(betticosRepository: Get.find()),
       ),
       permanent: true,
     );

@@ -1,3 +1,4 @@
+import 'package:betticos/assets/assets.dart';
 import 'package:betticos/common/common.dart';
 import 'package:betticos/core/core.dart';
 import 'package:betticos/features/betticos/data/data.dart';
@@ -36,13 +37,26 @@ class TimelineTab extends StatelessWidget {
                         },
                         onComment: () => controller.navigateToAddPost(
                           context,
-                          pstId: post.id,
+                          id: post.id,
                         ),
                         sponsored: post.boosted == true,
                         onLike: () => controller.likeThePost(context, post.id),
                         onDislike: () => controller.dislikeThePost(context, post.id),
                         onShare: () {},
-                        onRepost: () {},
+                        onRepost: () => WidgetUtils.showOptionsBottomSheet(
+                          context,
+                          title: 'Choose Action',
+                          iconColor: context.colors.primary,
+                          iconSize: 18,
+                          options: <OptionArgument>[
+                            OptionArgument(
+                              icon: AppAssetIcons.refresh,
+                              title: 'Repost',
+                              onPressed: () => controller.addNewRepost(context, postId: post.id),
+                            ),
+                            OptionArgument(icon: AppAssetIcons.editPencil, title: 'Quote', onPressed: () {}),
+                          ],
+                        ),
                       );
                     } else {
                       final Repost repost = item.item as Repost;
@@ -59,7 +73,20 @@ class TimelineTab extends StatelessWidget {
                         onDislike: () => controller.dislikeTheRepost(context, repost.id),
                         onComment: () {},
                         onShare: () {},
-                        onRepost: () {},
+                        onRepost: () => WidgetUtils.showOptionsBottomSheet(
+                          context,
+                          title: 'Choose Action',
+                          iconSize: 18,
+                          iconColor: context.colors.primary,
+                          options: <OptionArgument>[
+                            OptionArgument(
+                              icon: AppAssetIcons.refresh,
+                              title: 'Repost',
+                              onPressed: () => controller.addNewRepost(context, postId: repost.post.id),
+                            ),
+                            OptionArgument(icon: AppAssetIcons.editPencil, title: 'Quote', onPressed: () {}),
+                          ],
+                        ),
                         sponsored: repost.boosted == true,
                       );
                     }

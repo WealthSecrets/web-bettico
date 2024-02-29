@@ -264,4 +264,11 @@ class BetticosRepositoryImpl extends Repository implements BetticosRepository {
   @override
   Future<Either<Failure, SearchResponse>> searchPosts(String keyword, int page, int limit) =>
       makeRequest(betticoslineRemoteDataSource.searchPosts(keyword, page, limit));
+
+  @override
+  Future<Either<Failure, Repost>> addRepost({required String postId, String? commentsOnRepost}) => makeRequest(
+        betticoslineRemoteDataSource.addRepost(
+          request: RepostRequest(commentsOnRepost: commentsOnRepost, postId: postId),
+        ),
+      );
 }

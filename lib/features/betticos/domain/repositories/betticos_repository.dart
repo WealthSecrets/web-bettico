@@ -52,6 +52,8 @@ abstract class BetticosRepository {
 
   Future<Either<Failure, Feeling>> addFeeling({required String type, required String postId});
 
+  Future<Either<Failure, Repost>> addRepost({required String postId, String? commentsOnRepost});
+
   Future<Either<Failure, void>> addReport({
     required String type,
     required String optionId,

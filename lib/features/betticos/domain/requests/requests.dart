@@ -5,6 +5,7 @@ export 'post/post.dart';
 export 'referral/referral_request.dart';
 export 'reply/reply_request.dart';
 export 'report/report.dart';
+export 'repost/repost.dart';
 export 'subscrbe/subscribe_request.dart';
 export 'update_request/update_request.dart';
 export 'user/user.dart';
