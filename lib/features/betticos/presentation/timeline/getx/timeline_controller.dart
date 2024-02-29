@@ -452,8 +452,8 @@ class TimelineController extends GetxController {
     detailPost(post);
   }
 
-  void navigateToAddPost(BuildContext context, {String? id}) async {
-    if (id == null) {
+  void navigateToAddPost(BuildContext context, {Post? p, bool? isAreply}) async {
+    if (p == null) {
       postId('');
       isReply(false);
       final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
@@ -474,10 +474,12 @@ class TimelineController extends GetxController {
         }
       }
     } else {
-      isReply(true);
-      postId(id);
-      final dynamic post =
-          await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: id));
+      isReply(isAreply ?? false);
+      postId(p.id);
+      final dynamic post = await Get.toNamed<dynamic>(
+        AppRoutes.timelinePost,
+        arguments: AddPostCommentArgument(post: p, isReply: isAreply ?? false),
+      );
       if (post != null) {
         getCombinedItems(pageK.value);
         pagingController.value.refresh();
@@ -485,12 +487,9 @@ class TimelineController extends GetxController {
           getAllSubscribedOddboxes(context);
           await AppSnacks.show(
             context,
-            message: 'Comment added successfully',
+            message: isAreply == true ? 'Comment added successfully' : 'Repost successful.',
             backgroundColor: context.colors.success,
-            leadingIcon: const Icon(
-              Ionicons.checkmark_circle_outline,
-              color: Colors.white,
-            ),
+            leadingIcon: const Icon(Ionicons.checkmark_circle_outline, color: Colors.white),
           );
         }
       }

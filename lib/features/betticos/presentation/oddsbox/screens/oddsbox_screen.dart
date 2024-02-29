@@ -42,10 +42,7 @@ class _OddsboxScreenState extends State<OddsboxScreen> {
                             MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                           );
                         },
-                        onComment: () => controller.navigateToAddPost(
-                          context,
-                          id: post.id,
-                        ),
+                        onComment: () => controller.navigateToAddPost(context, p: post, isAreply: true),
                         onLike: () => controller.likeThePost(context, post.id),
                         onDislike: () => controller.dislikeThePost(context, post.id),
                       );

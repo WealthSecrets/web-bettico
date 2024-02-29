@@ -154,7 +154,7 @@ class RepostCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                       ],
-                      ActualPost(post: repost.post, bController: bController),
+                      ActualPost(post: repost.post),
                       const SizedBox(height: 12),
                       PostActionButtons(
                         item: repost,

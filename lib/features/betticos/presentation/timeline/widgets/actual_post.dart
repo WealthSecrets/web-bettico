@@ -3,13 +3,14 @@ import 'package:betticos/core/core.dart';
 import 'package:betticos/features/data.dart';
 import 'package:betticos/features/presentation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ActualPost extends StatelessWidget {
-  const ActualPost({super.key, required this.post, required this.bController});
+  ActualPost({super.key, required this.post});
 
   final Post post;
-  final BaseScreenController bController;
+  final BaseScreenController bController = Get.find<BaseScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +61,14 @@ class ActualPost extends StatelessWidget {
             const SizedBox(height: 10)
           ],
           if (post.images != null && post.images!.isNotEmpty)
-            ImageDivider(
-              images: const <String>[
-                'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg',
-                'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg'
-              ],
-              token: bController.userToken.value,
+            Obx(
+              () => ImageDivider(
+                images: const <String>[
+                  'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg',
+                  'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg'
+                ],
+                token: bController.userToken.value,
+              ),
             ),
         ],
       ),

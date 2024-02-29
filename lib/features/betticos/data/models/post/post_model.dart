@@ -17,6 +17,8 @@ class Post with _$Post {
     required List<String> shares,
     required List<String> likeUsers,
     required List<String> dislikeUsers,
+    required List<String> bookmarks,
+    required List<String> reposts,
     required User user,
     required DateTime createdAt,
     required DateTime updatedAt,
@@ -35,6 +37,8 @@ class Post with _$Post {
         isOddbox: false,
         likeUsers: <String>[],
         dislikeUsers: <String>[],
+        bookmarks: <String>[],
+        reposts: <String>[],
         shares: <String>[],
       );
 
@@ -56,6 +60,8 @@ class Post with _$Post {
           '625e098289d092033a4d3e0f',
         ],
         dislikeUsers: <String>[],
+        reposts: <String>[],
+        bookmarks: <String>[],
         shares: <String>[],
       );
 }

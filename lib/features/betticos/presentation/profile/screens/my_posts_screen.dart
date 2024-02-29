@@ -37,7 +37,7 @@ class MyPostsScreen extends GetWidget<ProfileController> {
                           MaterialPageRoute<void>(builder: (BuildContext context) => PostDetailsScreen(post: post)),
                         );
                       },
-                      onComment: () => tController.navigateToAddPost(context, id: post.id),
+                      onComment: () => tController.navigateToAddPost(context, p: post, isAreply: true),
                       onLike: () {
                         if (type == PostType.posts || type == PostType.oddboxes) {
                           controller.likeThePost(context, post.id, userId, isOddbox: oddbox);

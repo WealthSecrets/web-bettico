@@ -72,15 +72,19 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                       focusedBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                       focusedErrorBorder: InputBorder.none,
-                      hintText: args != null ? 'add_reply'.tr : 'What\'s happening?',
+                      hintText: args != null && args.isReply
+                          ? 'add_reply'.tr
+                          : args != null && !args.isReply
+                              ? 'Add a comment'
+                              : 'What\'s happening?',
                       hintStyle: const TextStyle(fontSize: 16),
                       counterText: '',
                     ),
                     style: TextStyle(fontSize: 16, color: context.colors.black),
                   ),
                 ),
-                const AppSpacing(v: 30),
-                if (timelineController.slipCode.isNotEmpty)
+                if (timelineController.slipCode.isNotEmpty) ...<Widget>[
+                  const AppSpacing(v: 30),
                   Row(
                     children: <Widget>[
                       Container(
@@ -116,8 +120,9 @@ class _TimelinePostScreenState extends State<TimelinePostScreen> {
                       ),
                     ],
                   ),
-                const AppSpacing(v: 30),
-                PostImagesListview(),
+                ],
+                if (timelineController.files.isNotEmpty) ...<Widget>[const AppSpacing(v: 30), PostImagesListview()],
+                if (args != null && !args.isReply) Padding(padding: AppPaddings.lH, child: ActualPost(post: args.post)),
                 const Spacer(),
                 Padding(
                   padding: AppPaddings.lH,

@@ -589,8 +589,8 @@ class TimelineController extends GetxController {
     detailPost(post);
   }
 
-  void navigateToAddPost(BuildContext context, {String? pstId}) async {
-    if (pstId == null) {
+  void navigateToAddPost(BuildContext context, {Post? p, bool? isAreply}) async {
+    if (p == null) {
       postId('');
       isReply(false);
       final dynamic post = await Get.toNamed<dynamic>(AppRoutes.timelinePost);
@@ -612,9 +612,11 @@ class TimelineController extends GetxController {
       }
     } else {
       isReply(true);
-      postId(pstId);
-      final dynamic post =
-          await Get.toNamed<dynamic>(AppRoutes.timelinePost, arguments: AddPostCommentArgument(postId: pstId));
+      postId(p.id);
+      final dynamic post = await Get.toNamed<dynamic>(
+        AppRoutes.timelinePost,
+        arguments: AddPostCommentArgument(post: p, isReply: isAreply ?? false),
+      );
       if (post != null) {
         getCombinedItems(pageK.value);
         pagingController.value.refresh();

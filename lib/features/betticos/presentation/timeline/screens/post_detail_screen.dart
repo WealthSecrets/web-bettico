@@ -53,7 +53,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 return TimelineCard(
                   post: widget.post,
                   largeFonts: true,
-                  onComment: () => controller.navigateToAddPost(context, id: widget.post.id),
+                  onComment: () => controller.navigateToAddPost(context, p: widget.post, isAreply: true),
                   onLike: () => controller.likeThePost(context, widget.post.id),
                   onDislike: () => controller.dislikeThePost(context, widget.post.id),
                   sponsored: widget.post.boosted == true,
@@ -75,7 +75,8 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       await controller.getAllPostComments(thePrevPost.id);
                     }
                   },
-                  onComment: () => controller.navigateToAddPost(context, id: controller.postComments[index - 1].id),
+                  onComment: () =>
+                      controller.navigateToAddPost(context, p: controller.postComments[index - 1], isAreply: true),
                   onLike: () => controller.likeThePost(context, controller.postComments[index - 1].id),
                   onDislike: () => controller.dislikeThePost(context, controller.postComments[index - 1].id),
                   sponsored: controller.postComments[index - 1].boosted == true,

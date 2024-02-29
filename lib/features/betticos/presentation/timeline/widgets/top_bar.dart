@@ -56,8 +56,10 @@ class TopBar extends StatelessWidget {
             ProfileButton(
               onPressed: () {
                 if (!timelineController.timelineIsInvalid) {
-                  if (args != null) {
-                    timelineController.addNewPost(context, isReply: true, postId: args!.postId);
+                  if (args != null && args?.isReply == true) {
+                    timelineController.addNewPost(context, isReply: true, postId: args!.post.id);
+                  } else if (args != null && (args?.isReply == false || args?.isReply == null)) {
+                    timelineController.addNewRepost(context, postId: args!.post.id);
                   } else {
                     timelineController.addNewPost(context);
                   }
